@@ -1,0 +1,10 @@
+安装：
+ SPRING TOOL SUITE
+
+插件
+   AnyEdit 
+     Update Site: http://andrei.gmxhome.de/eclipse/
+     -> Eclipse 3.5 - 4.2 plugins -> AnyEditTools
+   AmaterasUML
+   AmeterasERD
+   ERMaster
