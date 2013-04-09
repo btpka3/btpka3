@@ -6,17 +6,17 @@ Web程序将数据直接作为HTML显示（未进行HTML特殊字符转义、scr
 找到可以注入Script脚本的地方。
 
 大致分类：
-1. Stored XSS Attacks：风险代码被先持久存储于服务器上，在读取出来显示到浏览器。比如在博客上发表文章、发表评论。
-2. Reflected XSS Attacks：
-3. DOM Based XSS：
+* Stored XSS Attacks：风险代码被先持久存储于服务器上（比如：数据库中），在读取出来显示到浏览器。比如在博客上发表文章、发表评论。
+* Reflected XSS Attacks：
+* DOM Based XSS：
 
 
 注入点
 1. 客户端：来自用户输入，却未作安全检查。
 
-<code>
+<source>
     <img src="https://www.owasp.org/skins/monobook/ologo.png" onload="alert('XSS');" >
-</code>
+</source>
 2.
 2. 服务器端：来自配置文件，却未作安全检查（比如消息模板，头部文件）
 
@@ -29,8 +29,8 @@ DOM Based XSS
 
 
 
-
-https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)
-https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
+参考：
+* [https://www.owasp.org/index.php/Cross-site_Scripting_(XSS) Cross site Scripting ]
+* [https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet XSS Filter Evasion Cheat Sheet]
 
 Cross-Site Request Forgery (CSRF)
