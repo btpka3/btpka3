@@ -26,7 +26,15 @@ DOM Based XSS
 
 
 防范方式
-
+<ref>{{cite web
+| accessdate =1 January 2012
+| publisher = Stackexchange
+| location = http://dba.stackexchange.com/questions/607/what-is-a-key-value-store-database
+| title = Key Value stores and the NoSQL movement
+| author = Sandy
+| date = 14 January 2011
+| url = http://dba.stackexchange.com/a/619
+| quote = Key&ndash;value stores allow the application developer to store schema-less data. This data usually consists of a string that represents the key, and the actual data that is considered to be the value in the "key&ndash;value" relationship. The data itself is usually some kind of primitive of the programming language (a string, an integer, or an array) or an object that is being marshaled by the programming language's bindings to the key&ndash;value store. This structure replaces the need for a fixed data model and allows proper formatting.}}</ref>
 
 
 参考：
