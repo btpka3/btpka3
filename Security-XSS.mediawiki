@@ -51,9 +51,9 @@ Web程序将数据直接作为HTML显示（未进行HTML特殊字符转义、scr
 
 
 ===DOM Based XSS===
-这种方式与 Reflected XSS Attacks 比较相似，但区别在于：在Reflected XSS Attacks 中，有缺陷的系统返回的HTML中本身就已经包含了恶意代码；而在 DOM Based XSS 中，有缺陷的系统返回的HTML中本身并不包含恶意代码，而是通过JavaScript动态修改浏览器中的DOM树，但是JavaScript并没有对输入的内容做安全监察。
+这种方式与 Reflected XSS Attacks 比较相似，但区别在于：在Reflected XSS Attacks 中，恶意代码时有缺陷的系统在返回给浏览器端之间就加入到生成的HTML中了（比如通过JSP、PHP等）；而在 DOM Based XSS 中，恶意代码是在浏览器端通过有缺陷的JavaScript代码在动态修改DOM树时加入的。
 
-也即，在 Reflected XSS Attacks 的攻击流程示例的第二步中的代码替换为以下方式（HTML语法，而非JSP等服务器端脚本语法）：
+也即，在 Reflected XSS Attacks 的攻击流程示例的第二步中的代码替换为以下方式：
 <source>
  welcome <script>
 document.write(document.location.href.substring(document.location.href.indexOf("user=")+5));
