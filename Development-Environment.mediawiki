@@ -1,3 +1,15 @@
 办公
 * [http://www.wps.cn/ 金山WPS]
 * [http://www.360.cn/ 360 杀毒]
+
+开发
+* [http://www.springsource.org/sts Spring Tool Suite] - SpringSource社区定制的Eclipse
+* Eclipse 插件
+** [http://www.eclipse.org/subversive/installation-instructions.php Subversive] - SVN 插件
+** [http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasUML AmaterasUML] - UML绘图工具
+** [http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasERD AmaterasERD] - 数据库图形化设计工具
+** [http://eclipse-cs.sourceforge.net eclipse-cs] CheckStyle 插件
+* 浏览器
+** [https://www.google.com/intl/en/chrome/browser/ chrome]
+** Chrome 插件
+*** [https://chrome.google.com/webstore/detail/proxy-switchy/caehdcpeofiiigpdhbabniblemipncjj/related Proxy Switchy!]
