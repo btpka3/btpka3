@@ -12,7 +12,8 @@
 * 浏览器
 ** [https://www.google.com/intl/en/chrome/browser/ chrome]
 ** Chrome 插件
-*** [https://chrome.google.com/webstore/detail/proxy-switchy/caehdcpeofiiigpdhbabniblemipncjj/related Proxy Switchy!]
+*** [https://chrome.google.com/webstore/detail/proxy-switchy/caehdcpeofiiigpdhbabniblemipncjj/related Proxy Switchy!] - 浏览器代理配置工具
+*** [https://chrome.google.com/webstore/detail/remove-google-redirects/ccenmflbeofaceccfhhggbagkblihpoh Remove Google Redirects] - 删除Google搜索结果连接上的重定向，而直接访问网址，因为跳转的URL有时会被被GFW拦截。
 
 其他
 * [http://www.freegate8.info/ FreeGate]
