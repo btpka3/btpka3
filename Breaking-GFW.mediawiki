@@ -23,4 +23,9 @@
 ### 点击<code>Save</code>按钮进行保存
 # 单击浏览器右上角 Proxy Switchy! 的图标，将模式切换为<code>Auto Switch Mode</code>即可。
 
-
+附：被屏蔽URL总结
+<source>
+*.sourceforge.net
+*.blogspot.com
+*.wordpress.com
+</source>
