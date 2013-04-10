@@ -25,7 +25,7 @@
 
 附：被屏蔽URL总结
 <source>
-*.sourceforge.net
-*.blogspot.com
-*.wordpress.com
+ *.sourceforge.net
+ *.blogspot.com
+ *.wordpress.com
 </source>
