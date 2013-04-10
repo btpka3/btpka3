@@ -13,3 +13,6 @@
 ** [https://www.google.com/intl/en/chrome/browser/ chrome]
 ** Chrome 插件
 *** [https://chrome.google.com/webstore/detail/proxy-switchy/caehdcpeofiiigpdhbabniblemipncjj/related Proxy Switchy!]
+
+其他
+* [http://www.freegate8.info/ FreeGate]
