@@ -1,0 +1,26 @@
+在程序开发过程中，在搜索E文资料的时候，发现有好多好的文章总是被GFW给屏蔽掉了。
+这里就以Chrome浏览器或360极速浏览器为例（基于Chrome）总结一下如何通过 Proxy Switchy! 插件和 FreeGate 进行突破。
+
+步骤：
+
+# 下载并运行 [http://www.freegate8.info/ FreeGate]
+## 在<code>通道</code>标签页: 先点击<code>恢复默认设置</code>，如果以前从未更改过设置的话，可以跳过此步骤。
+## 在<code>通道</code>标签页: 将模式设定为<code>经典模式（浏览器不需要设置代理），因为我们接下来通过 Switchy! Options 为浏览器设置</code>。
+# 在Chrome浏览器中，安装 [https://chrome.google.com/webstore/detail/proxy-switchy/caehdcpeofiiigpdhbabniblemipncjj/related Proxy Switchy! 插件]
+## 单击浏览器右上角 Proxy Switchy! 的图标，选择<code>Options</code>
+## 在<code>Proxy Profiles</code>标签页中新建一个Profile：
+### 名称自定义，假设为<code>GFW</code>
+### 选择<code>Manual Configuration</code>
+### 选择<code>Use the same proxy server for all protocols</code>
+### 设置<code>HTTP Proxy</code>为<code>127.0.0.1</code>
+### 设置<code>Port</code>为<code>8580</code>（与FreeGate<code>服务器</code>标签页中<code>当前端口</code>保持一致）
+### 点击<code>Save</code>按钮进行保存
+## 在<code>Switch Rules</code>标签页中新建需要的规则：
+### <code>Role Name</code>可以自定义，这里保持默认
+### <code>URL Pattern</code>中输入被屏蔽的URL，比如<code>*.wordpress.com</code>
+### <code>Pattern Type</code>根据你输入的URL的格式进行选定，但大多均为<code>Wildcard</code>
+### <code>Proxy Profile</code>中应当选择为前面建立的Profile的名字，这里是<code>GFW</code>
+### 点击<code>Save</code>按钮进行保存
+# 单击浏览器右上角 Proxy Switchy! 的图标，将模式切换为<code>Auto Switch Mode</code>即可。
+
+
