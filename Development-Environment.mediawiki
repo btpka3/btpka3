@@ -9,6 +9,7 @@
 ** [http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasUML AmaterasUML] - UML绘图工具
 ** [http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasERD AmaterasERD] - 数据库图形化设计工具
 ** [http://eclipse-cs.sourceforge.net eclipse-cs] CheckStyle 插件
+** [http://sourceforge.net/apps/trac/shelled/ ShellEd] - Shell脚本编辑器
 * 浏览器
 ** [http://firefox.com.cn/ Firefox]，常用插件列表：
 *** [https://addons.mozilla.org/zh-CN/firefox/addon/firebug/ Firebug]
