@@ -118,6 +118,14 @@ HTML特殊字符转义
 
 
 </ul>
+==DOM Based XSS 检查列表==
+<ul>
+<li>RULE #1 - 在可以执行JavaScript的环境中，要对不信任的数据先 HTML 转义，再 JavaScript 转义</li>
+<li>RULE #2 - 在可以执行JavaScript的环境中，为HTML元素的属性设置值前要先进行 JavaScript 转义</li>
+<li>RULE #3 - 在可以执行JavaScript的环境中，设置事件处理函数等地方需要特别注意</li>
+<li>RULE #4 - 在插入CSS属性时需要先进行 JavaScript 转义</li>
+<li>RULE #5 - 在插入URL前要先进行URL转义</li>
+</ul>
 
 ==工具==
 * [http://www.cirt.net/nikto2 Nikto2] - 开源的Web服务器扫描工具
