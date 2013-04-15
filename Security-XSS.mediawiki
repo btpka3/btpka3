@@ -79,7 +79,45 @@ DOM Based XSS
 
 ==检查列表==
 这里仅仅给出了部分摘要，更详尽列表请参看[https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet 这里]：
+<ul>
+<li>RULE #0 - 不信任的数据只能插入到允许的位置
+<p> 示例代码：
+<source>
+  <script>...NEVER PUT UNTRUSTED DATA HERE...</script>   直接放到script中
+  &lt;!--...NEVER PUT UNTRUSTED DATA HERE...-->             在HTML注释中
+  <div ...NEVER PUT UNTRUSTED DATA HERE...=test />       在属性名中
+  <NEVER PUT UNTRUSTED DATA HERE... href="/test" />      在标签名中
+  <style>...NEVER PUT UNTRUSTED DATA HERE...</style>     直接在CSS中
+</source>
+</p>
+</li>
 
+<li>RULE #1 - 插入HTML内容时要先转义
+HTML特殊字符转义
+<source>
+ &amp; --&gt; &amp;amp;
+ &lt; --&gt; &amp;lt;
+ &gt; --&gt; &amp;gt;
+ &quot; --&gt; &amp;quot;
+ &#x27; --&gt; &amp;#x27;
+ / --&gt; &amp;#x2F; 这里包含了斜杠，因为它在结束一个标签时有用
+</source>
+</li>
+
+<li>RULE #2 - 插入标签的属性值前要先转义
+
+</li>
+
+<li>RULE #3 - 将不信任的数据插入到JavaScript前要先转义</li>
+<li>RULE #3.1 - 在HTML中对JSON的值进行HTML转义，以及使用 JSON.parse 读取数据</li>
+<li>RULE #4 - 对CSS转义，以及对HTML元素的sytle设置值前要进行充分的检查</li>
+<li>RULE #5 - 在插入URL数据前要先URL转义</li>
+<li>RULE #6 - 在输出用户输入的HTML内容时，要使用HTML策略引擎进行验证或移除其中的风险代码</li>
+<li>RULE #7 - 要预防 DOM-based XSS</li>
+<li>RULE #7 - 使用 [https://www.owasp.org/index.php/HTTPOnly HTTPOnly cookie]</li>
+
+
+</ul>
 
 ==工具==
 * [http://www.cirt.net/nikto2 Nikto2] - 开源的Web服务器扫描工具
