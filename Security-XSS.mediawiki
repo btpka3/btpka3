@@ -2,9 +2,6 @@
 ==原理==
 Web程序将数据直接作为HTML显示（未进行HTML特殊字符转义、script脚本过滤），在浏览器端显示的这些内容的时候，激活其中包含的JavaScript恶意脚本，这些脚本可以用来获取用户敏感信息，追踪用户浏览历史、将用户诱导至其他网站等。
 
-关键点
-找到可以注入Script脚本的地方。
-
 ==分类==
 ===Stored XSS Attacks===
 风险代码被先持久存储于服务器上（比如：数据库中），然后再读取出来显示到浏览器。比如在博客上发表文章、发表评论。
@@ -77,8 +74,19 @@ DOM Based XSS
 
 
 
-防范方式 
+==防范XSS==
+在Web应用中，XSS缺陷很难确认和移除，一些漏洞扫描工具也只能对浅层的扫描。最好的方式就是针对安全展开代码Review，并对所有来自HTTP请求的数据进行检查，如果请求中的数据有可能最终作为HTML显示，就需要做相应的处理。
 
+==检查列表==
+这里仅仅给出了部分摘要，更详尽列表请参看[https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet 这里]：
+
+
+==工具==
+* [http://www.cirt.net/nikto2 Nikto2] - 开源的Web服务器扫描工具
+* [http://www.tenable.com/products/nessus nessus] - 漏洞扫描工具
+* [http://wpl.codeplex.com/ Microsoft Web Protection Library] - .Net 平台下的安全工具
+* [http://msdn.microsoft.com/en-us/library/ms972969.aspx#securitybarriers_topic6 ValidateRequest] - .Net 平台内建功能，可以提供部分安全保护措施
+* [https://www.owasp.org/index.php/ESAPI OWASP ESAPI] - OWASP Enterprise Security API
 
 参考：
 * [https://www.owasp.org/index.php/Cross-site_Scripting_(XSS) Cross site Scripting ]
