@@ -1,4 +1,3 @@
-
 ==无效的预防措施==
 ===使用Secret Cookie===
 因为在发送HTTP请求时都会携带上请求域下所有的Cookie（比如jsessionid）。
@@ -19,14 +18,14 @@
 加强该模式的方法可以有：
 # token的名称也能够随机
 # 一个session一个token变为一个request一个token
-
 <source>
   <form action="/transfer.do" method="post">  <!-- 表单隐藏项 -->
     <input type="hidden" name="CSRFToken" value="OWY4NmQwOOA">
   </form>
   <a href="/xxxx.do?CSRFToken=OWY4NmQwOOA"> XXX </a>  <!-- 链接URL参数 -->
 </source>
-
+注意：该模式会影响使用性，比如，无法使用浏览器的后退按钮，因为前一个页面中包含的token可能已经失效了。
+应当鼓励像保护用户认证过的SessionId那样保护CSRF token，比如使用SSLv3/TLS。
 ======
 
 
