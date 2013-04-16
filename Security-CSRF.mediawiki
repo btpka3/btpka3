@@ -1,0 +1,36 @@
+
+==无效的预防措施==
+===使用Secret Cookie===
+因为在发送HTTP请求时都会携带上请求域下所有的Cookie（比如jsessionid）。
+===只允许POST请求===
+因为攻击者可以填写隐藏的表单，并诱导受害者点击以出发submit请求。
+===多步骤事务===
+将一个事务分成多个步骤（HTTP请求），并不能完全胜任预防工作。只要攻击者能够预测、或模拟完整事务的每一个步骤，就仍能够进行攻击。
+===重写URL===
+这可能会被认为是一个有效方案，因为攻击者无法猜测到受害者的sessionID，但是会暴露用户凭证。
+
+
+==推荐方式：使用Synchronizer Token模式==
+该模式主要原理是：针对敏感操作（比如更新、转账等业务操作），显示最初的编辑画面前，要先在服务器端生成一个随机的challenge Token，并使之与当前用户的session关联。challenge token 被插入到表单的隐藏项，或URL中。在用户提交请求时，服务器端对该token进行存在性检查和正确性检查。通常检查逻辑是：
+
+# 检查请求中的token是否存在
+# 如果存在，该值是否与session中的值一致
+# 如果前两步的结果均是否，则拒绝该请求，并重设token。
+加强该模式的方法可以有：
+# token的名称也能够随机
+# 一个session一个token变为一个request一个token
+
+<source>
+  <form action="/transfer.do" method="post">  <!-- 表单隐藏项 -->
+    <input type="hidden" name="CSRFToken" value="OWY4NmQwOOA">
+  </form>
+  <a href="/xxxx.do?CSRFToken=OWY4NmQwOOA"> XXX </a>  <!-- 链接URL参数 -->
+</source>
+
+======
+
+
+
+==参考==
+* [https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF) CSRF上的资源]
+* [https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF) wikipedia上的说明]
