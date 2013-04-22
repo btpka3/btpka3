@@ -62,6 +62,9 @@ Secret Cookie是指只能在HTTPS协议下的保护下才能使用的Cookie。�
 </ul>
 
 
+==其他==
+* 针对Flash：合理配置rossdomain.xml
+
 
 ==参考==
 * [https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF) OWASP上的资源]
