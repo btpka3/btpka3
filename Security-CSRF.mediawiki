@@ -1,7 +1,7 @@
 ==攻击原理==
 Web程序进行重要更新操作的URL保护不当，只要用户已经认证，就可以简单地发送请求进行该操作。攻击流程示例：
 <ol>
-<li>某个允许“一个月内免登录”的A博客系统允许赠送积分，在用户已经登录的前提下，使用以下URL的GET请求进行积分赠送：
+<li>某个允许“一个月内免登录”的A博客系统赠送积分，在用户已经登录的前提下，使用以下URL的GET请求进行积分赠送：
 <source>
 http://blog.a.com/curUser/score?transto=zhang3&amp;amount=100
 </source>
@@ -33,8 +33,8 @@ Secret Cookie是指只能在HTTPS协议下的保护下才能使用的Cookie。�
 ===重写URL===
 这可能会被认为是一个有效方案，因为攻击者无法猜测到受害者的sessionID，但是会暴露用户凭证。
 
-
-==推荐方式：使用Synchronizer Token模式==
+==预防措施==
+===使用Synchronizer Token模式（常用方式）===
 该模式主要原理是：针对敏感操作（比如更新、转账等业务操作），显示最初的编辑画面前，要先在服务器端生成一个随机的challenge Token，并使之与当前用户的session关联。challenge token 被插入到表单的隐藏项，或URL中。在用户提交请求时，服务器端对该token进行存在性检查和正确性检查。通常检查逻辑是：
 
 # 检查请求中的token是否存在
@@ -50,11 +50,19 @@ Secret Cookie是指只能在HTTPS协议下的保护下才能使用的Cookie。�
   <a href="/xxxx.do?CSRFToken=OWY4NmQwOOA"> XXX </a>  <!-- 链接URL参数 -->
 </source>
 注意：该模式会影响使用性，比如，无法使用浏览器的后退按钮，因为前一个页面中包含的token可能已经失效了。
-应当鼓励像保护用户认证过的SessionId那样保护CSRF token，比如使用SSLv3/TLS。
-======
+应当鼓励像保护用户认证过的SessionId那样保护CSRF token，比如使用SSLv3/TLS。使用一个Session一个token的模式，就无法让用户同时进行多个更新操作，因为第二个更新操作的画面会清除第一个画面产生的token。
+ 
+该模式的一个变种就是 “Double Submit Cookies”， 是指，token同时保存cookie中和form的隐藏项中，提交时再对比两者是否一致。
+
+===Challenge-Response===
+<ul>
+<li>使用CAPTCHA。CAPTCHA通常是指刻意模糊、扭曲的文字图片，用以区分机器人还是用户。</li>
+<li>重新认证。是指通过RemeberMe可以进行保护级别较低的业务（大多是非敏感数据的查看），但是涉及到重要操作时，必须让用户重新输入密码。（PS：这个在Spring Security框架中就有所体现）</li>
+<li>One-time Token。 举例：在淘宝购物时，会向绑定的手机发送一次性的验证码。</li>
+</ul>
 
 
 
 ==参考==
-* [https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF) CSRF上的资源]
+* [https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF) OWASP上的资源]
 * [https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF) wikipedia上的说明]
