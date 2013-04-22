@@ -1,6 +1,31 @@
+==攻击原理==
+Web程序进行重要更新操作的URL保护不当，只要用户已经认证，就可以简单地发送请求进行该操作。攻击流程示例：
+<ol>
+<li>某个允许“一个月内免登录”的A博客系统允许赠送积分，在用户已经登录的前提下，使用以下URL的GET请求进行积分赠送：
+<source>
+http://blog.a.com/curUser/score?transto=zhang3&amp;amount=100
+</source>
+</li>
+<li>
+恶意用户B发现了这个漏洞，并对某个知名的博文发表以下评论（注意：该博文可能是在A博客系统上，也可能位于其他任何Web系统上）：
+<source>
+  <img style="height:0px; width:0px;" src="http://blog.a.com/curUser/score?transto=b&amp;amount=100" />
+  楼主的帖子实在是写得太好了。文笔流畅,修辞得体,深得魏晋诸朝遗风,....
+</source>
+</li>
+<li>
+结果：如果受害者C访问了该帖子，并且C是A博客系统的使用者，且已经登录，则会触发该积分赠送操作。当然，如果不跨站攻击的成功率更高一些。
+</li>
+
+</ol>
+
 ==无效的预防措施==
 ===使用Secret Cookie===
-因为在发送HTTP请求时都会携带上请求域下所有的Cookie（比如jsessionid）。
+Secret Cookie是指只能在HTTPS协议下的保护下才能使用的Cookie。不能使用的原因是：在发送HTTP请求时都会携带上请求域下所有的Cookie（比如jsessionid）。
+下面的HTTP响应片段是设置了一个既是Secure又是HTTPOnly的Cookie。
+<source>
+  Set-Cookie: SSID=Ap4P….GTEq; Domain=.foo.com; Path=/; Expires=Wed, 13-Jan-2021 22:23:01 GMT; Secure;  HttpOnly
+</source>
 ===只允许POST请求===
 因为攻击者可以填写隐藏的表单，并诱导受害者点击以出发submit请求。
 ===多步骤事务===
