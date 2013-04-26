@@ -1,2 +1,1 @@
-
-[[Security-Clickjacking Security Clickjacking]]
+[[Security-Clickjacking| Security Clickjacking]]
