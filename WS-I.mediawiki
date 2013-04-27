@@ -15,3 +15,28 @@ http://stackoverflow.com/questions/10658202/httprequestmessage-and-digest-authen
 TODO：是否使用双向HTTPS，但是增加了复杂度。可能还需要内部小的CA系统。
 TODO：使用CAS？
 </source>
+
+<source>
+<<Using Data Contracts>>
+ http://msdn.microsoft.com/en-us/library/ms733127.aspx
+1. 确定Data Contracts，及编写XSD文件，可以在Eclipse中图形化编辑。
+
+2. 根据XSD生成C#端、Java端的Model
+2.1 C#端
+      Windows开始菜单 -> Microsoft Visual Studio 2010 -> Visual Studio Tools -> Visual Studio x64 兼容工具命令提示(2010)， 之后以下命令：
+      CMD \> svcutil xxx.xsd /dataContractOnly
+      (TODO : 是否可以使用 CMD\> xsd /classes xxx.xsd )
+      即可生成所需Model类
+2.2 Java端
+      运行命令 ： xjc xxx.xsd 
+      该命令是JDK 1.6中自带就有的，或者使用 jaxb2-maven-plugin
+      http://mojo.codehaus.org/jaxb2-maven-plugin/xjc-mojo.html
+
+3. 序列化和反序列化
+3.1 C#端
+      使用 System.Runtime.Serialization.Json.DataContractJsonSerializer
+3.2 Java端
+      使用 Spring MVC +  Marshaller/Unmarshaller
+      
+      System.Net.HttpWebRequest
+</source>
