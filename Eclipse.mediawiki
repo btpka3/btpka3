@@ -14,7 +14,8 @@
 * [http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasERD AmeterasERD]
 :: 需要先安装 AmaterasUML
 * [http://ermaster.sourceforge.net/ ERMaster]
-
+* [http://propedit.sourceforge.jp/index_en.html Properties Editor]
+:: 更新站点： http://propedit.sourceforge.jp/eclipse/updates/
 
 ==其他插件==
 * Drools and JBPM
@@ -31,7 +32,6 @@
 *# 下载[http://files.cnblogs.com/icelyb24/YaHei.Consolas.1.12.rar Consolas和微软雅黑混合字体]
 *# 解压之后，把YaHei.Consolas.1.12.ttfw文件复制到C:\Windows\Fonts目录下，完成字体的安装
 *# 打开Elcipse，点击菜单栏上的“Windows”——点击“Preferences”——点击“Genneral”——点击“Appearance”——点击“Colors and Font”——在右侧框展开“Basic”文件夹--双击“Text Font”——在弹出窗选择“YaHei.Consolas”——点击按钮“确定”——点击按钮“OK”，完成。
-
 
 
 
