@@ -67,6 +67,7 @@ Secret Cookie是指只能在HTTPS协议下的保护下才能使用的Cookie。�
 
 
 ==参考==
+* [https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project OWASP CSRFGuard]
 * [https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF) OWASP上的资源]
 * [https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF) wikipedia上的说明]
 * [http://struts.apache.org/release/1.2.x/api/org/apache/struts/util/TokenProcessor.html Struts中的相关处理类]
