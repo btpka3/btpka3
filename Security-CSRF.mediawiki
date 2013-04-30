@@ -51,7 +51,7 @@ Secret Cookie是指只能在HTTPS协议下的保护下才能使用的Cookie。�
 </source>
 注意：该模式会影响使用性，比如，无法使用浏览器的后退按钮，因为前一个页面中包含的token可能已经失效了。
 应当鼓励像保护用户认证过的SessionId那样保护CSRF token，比如使用SSLv3/TLS。使用一个Session一个token的模式，就无法让用户同时进行多个更新操作，因为第二个更新操作的画面会清除第一个画面产生的token。
- 
+
 该模式的一个变种就是 “Double Submit Cookies”， 是指，token同时保存cookie中和form的隐藏项中，提交时再对比两者是否一致。
 
 ===Challenge-Response===
@@ -63,7 +63,7 @@ Secret Cookie是指只能在HTTPS协议下的保护下才能使用的Cookie。�
 
 
 ==其他==
-* 针对Flash：合理配置rossdomain.xml
+* 针对Flash：合理配置crossdomain.xml
 
 
 ==参考==
