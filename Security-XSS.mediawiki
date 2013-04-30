@@ -114,11 +114,12 @@ HTML特殊字符转义
 <li>RULE #5 - 在插入URL数据前要先URL转义</li>
 <li>RULE #6 - 在输出用户输入的HTML内容时，要使用HTML策略引擎进行验证或移除其中的风险代码</li>
 <li>RULE #7 - 要预防 DOM-based XSS</li>
-<li>RULE #7 - 使用 [https://www.owasp.org/index.php/HTTPOnly HTTPOnly cookie]</li>
+<li>RULE #8 - 使用 [https://www.owasp.org/index.php/HTTPOnly HTTPOnly cookie]</li>
 
 
 </ul>
 ==DOM Based XSS 检查列表==
+[https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet 参考]
 <ul>
 <li>RULE #1 - 在可以执行JavaScript的环境中，要对不信任的数据先 HTML 转义，再 JavaScript 转义</li>
 <li>RULE #2 - 在可以执行JavaScript的环境中，为HTML元素的属性设置值前要先进行 JavaScript 转义</li>
@@ -128,6 +129,7 @@ HTML特殊字符转义
 </ul>
 
 ==工具==
+* [https://www.owasp.org/index.php/Category:OWASP_AntiSamy_Project OWASP AntiSamy]
 * [http://www.cirt.net/nikto2 Nikto2] - 开源的Web服务器扫描工具
 * [http://www.tenable.com/products/nessus nessus] - 漏洞扫描工具
 * [http://wpl.codeplex.com/ Microsoft Web Protection Library] - .Net 平台下的安全工具
