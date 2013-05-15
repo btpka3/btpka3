@@ -81,6 +81,15 @@ web.xml
 </source>
 
 == JavaEE 6 ==
+maven
+<source>
+<dependency>
+  <groupId>javax.servlet</groupId>
+  <artifactId>javax.servlet-api</artifactId>
+  <version>3.0.1</version>
+  <scope>provided</scope>
+</dependency>
+</source>
 web.xml
 <source>
 <?xml version="1.0" encoding="UTF-8"?>
