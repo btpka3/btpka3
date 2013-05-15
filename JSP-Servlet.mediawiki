@@ -1,3 +1,36 @@
+[http://en.wikipedia.org/wiki/Java_EE_version_history Java EE version history]
+<table>
+<tr>
+  <th></th>
+  <th>JavaEE 1.4</th>
+  <th>JavaEE 5</th>
+  <th>JavaEE 6</th>
+</tr>
+<tr>
+  <th>Date</th>
+  <td>2003/11/11</td>
+  <td>2006/05/11</td>
+  <td>2009/12/10</td>
+</tr>
+<tr>
+  <th>Servlet</th>
+  <td>2.4</td>
+  <td>2.5</td>
+  <td>3.0</td>
+</tr>
+<tr>
+  <th>JSP</th>
+  <td>2.0</td>
+  <td>2.1</td>
+  <td>2.2</td>
+</tr>
+<tr>
+  <th>JSTL</th>
+  <td>1.1</td>
+  <td>1.2</td>
+  <td>1.2</td>
+</tr>
+</table>
 
 == Servlet 2.4 ==
 
