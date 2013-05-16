@@ -113,5 +113,41 @@ web.xml
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
-
 </source>
+
+1.1 for maven
+<source>
+<dependency>
+  <groupId>javax.servlet</groupId>
+  <artifactId>jstl</artifactId>
+  <version>1.1.2</version>
+</dependency>
+</source>
+
+1.2 for maven
+来自于 Servlet 2.5 / JSP 2.1
+适用于 Servlet 2.4 / JSP 2.0、 Servlet 2.5 / JSP 2.1 
+<source>
+<dependency>
+  <groupId>javax.servlet</groupId>
+  <artifactId>jstl</artifactId>
+  <version>1.2</version>
+</dependency>
+</source>
+
+1.2.1 for maven
+来自于 Servlet 3.0 / JSP 2.2 
+适用于 Servlet 2.5 / JSP 2.1、Servlet 2.4 / JSP 2.0 、 Servlet 3.0 / JSP 2.2 
+<source>
+<dependency>
+  <groupId>javax.servlet.jsp.jstl</groupId>
+  <artifactId>javax.servlet.jsp.jstl-api</artifactId>
+  <version>1.2.1</version>
+</dependency>
+<dependency>
+  <groupId>org.glassfish.web</groupId>
+  <artifactId>javax.servlet.jsp.jstl</artifactId>
+  <version>1.2.1</version>
+</dependency>
+</source>
+
