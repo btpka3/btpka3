@@ -36,7 +36,7 @@ mount: block device /dev/sr0 is write-protected, mounting read-only
 -> 设置`共享文件名称`（比如: `F`） -> 选中`固定分配` -> 确定
 6.  在Guest系统中运行以下命令加载
     ```sh
-[root@h01 ~]# mount -t vboxsf F /mnt/f    # 其中`F`是前一步设置的`共享文件名称`，`/mnt/f` 是挂在目录，若不存在请自行创建
+[root@h01 ~]# mount -t vboxsf F /mnt/f    # 其中`F`是前一步设置的`共享文件名称`，`/mnt/f` 是挂载目录，若不存在请自行创建
 mount: block device /dev/sr0 is write-protected, mounting read-only
 [root@h01 ~]# cd /mnt/f
 ...
