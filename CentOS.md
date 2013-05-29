@@ -1,5 +1,5 @@
 ## IP Config
-1. 检查DNS服务器
+1.  检查DNS服务器
 ```sh
 [root@h01 ~]# cat /etc/resolv.conf
 # No nameservers found; try putting DNS servers into your
@@ -13,20 +13,19 @@ nameserver 8.8.8.8
 nameserver 8.8.4.4
 ```
 
-2. 检查是否启用网络和主机名 
+2.  检查是否启用网络和主机名 
 ```sh
 [root@h01 ~]# cat /etc/sysconfig/network
 NETWORKING=yes
 HOSTNAME=h01
 ```
 
-3. 设置IP地址
+3.  设置IP地址
     * 静态IP
 
-        注意：网卡的名称可能会变，一般是 eth0，但是这里是 em1
         ```sh
-[root@h01 ~]# cat /etc/sysconfig/network-scripts/ifcfg-em1
-DEVICE="em1"                                # 设备名称
+[root@h01 ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE="eth0"                               # 设备名称
 NM_CONTROLLED="no"                          # ? 若为yes，会报错
 ONBOOT=yes                                  # 是否启动时就启用
 TYPE=Ethernet                               # 网卡类型
@@ -44,8 +43,33 @@ HWADDR=BC:30:5B:E9:7F:D8                    # 硬件IP地址
 USERCTL=no                                  # 非root用户不能修改配置
         ```
     * 动态IP
-4. 修改对主机名的本地DNS解析
+
+        ```sh
+[root@localhost ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE="eth0"
+BOOTPROTO="dhcp"
+HWADDR="08:00:27:6E:BB:7E"
+NM_CONTROLLED="no"
+ONBOOT="yes"
+TYPE="Ethernet"
+UUID="6521ca0a-bb80-4c78-8683-1e9bf23d0d52"
+DNS1=8.8.8.8
+        ```
+
+4.  修改对主机名的本地DNS解析
     ```sh
 [root@h01 ~]# vi /etc/hosts             # 追加以下一行
 000.000.000.000 h01                     # 内网IP地址 主机名
     ```
+5.  检查网络的启动级别和启动状态
+```sh
+[root@h01 ~]# chkconfig --list network
+network         0:off   1:off   2:on    3:on    4:on    5:on    6:off
+[root@h01~]# service network status
+Configured devices:
+lo eth0
+Currently active devices:
+lo eth0
+
+```
+6. 使用代理（若无请跳过） [参考](http://www.cyberciti.biz/faq/linux-unix-set-proxy-environment-variable/ "How To Use Proxy Server To Access Internet at Shell Prompt With http_proxy Variable")
