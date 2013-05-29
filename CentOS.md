@@ -72,4 +72,11 @@ Currently active devices:
 lo eth0
 
 ```
-6. 使用代理（若无请跳过） [参考](http://www.cyberciti.biz/faq/linux-unix-set-proxy-environment-variable/ "How To Use Proxy Server To Access Internet at Shell Prompt With http_proxy Variable")
+6. 使用代理（若无请跳过） 
+
+[参考](http://www.cyberciti.biz/faq/linux-unix-set-proxy-environment-variable/ "How To Use Proxy Server To Access Internet at Shell Prompt With http_proxy Variable")
+```sh
+[root@h01 ~]# vi /etc/profile.d/custom.sh
+# ...
+ export http_proxy=http://10.1.18.123:808/
+```
