@@ -81,6 +81,18 @@ lo eth0
  export http_proxy=http://10.1.18.123:808/
     ```
 
+## 安装较高版本GLibC
+CentOS 6.3 默认自带的GLibC 是2.12版的，但是有的程序是使用2.14版本的。这里是更新GLibC的命令：
+```sh
+cd ~
+wget http://ftp.gnu.org/gnu/glibc/glibc-2.17.tar.xz
+tar xvJf glibc-2.17.tar.xz
+./glibc-2.17/configure –disable-sanity-checks
+cd glibc-2.17
+make
+make install
+```
+
 ## 常用命令
 ### 查看Linux 版本
 ```sh
@@ -97,4 +109,3 @@ Linux version 2.6.32-279.el6.x86_64 (mockbuild@c6b9.bsys.dev.centos.org) (gcc ve
 Linux localhost.localdomain 2.6.32-279.el6.x86_64 #1 SMP Fri Jun 22 12:19:21 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux
 
 ```
-
