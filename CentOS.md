@@ -80,3 +80,21 @@ lo eth0
 # ...
  export http_proxy=http://10.1.18.123:808/
     ```
+
+## 常用命令
+### 查看Linux 版本
+```sh
+[root@localhost ~]# cat /etc/issue            # 安装时的默认发行版本信息，不会再发生改变
+CentOS release 6.3 (Final)
+Kernel \r on an \m
+
+[root@localhost ~]# cat /etc/redhat-release   # 安装时的默认发行版本信息，不会再发生改变
+CentOS release 6.3 (Final)
+
+[root@localhost ~]# cat /proc/version
+Linux version 2.6.32-279.el6.x86_64 (mockbuild@c6b9.bsys.dev.centos.org) (gcc version 4.4.6 20120305 (Red Hat 4.4.6-4) (GCC) ) #1 SMP Fri Jun 22 12:19:21 UTC 2012
+[root@localhost ~]# uname -a
+Linux localhost.localdomain 2.6.32-279.el6.x86_64 #1 SMP Fri Jun 22 12:19:21 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux
+
+```
+
