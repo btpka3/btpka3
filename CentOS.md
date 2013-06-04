@@ -85,10 +85,11 @@ lo eth0
 CentOS 6.3 默认自带的GLibC 是2.12版的，但是有的程序是使用2.14版本的。这里是更新GLibC的命令：
 ```sh
 cd ~
+mkdir glibc-tmp
+cd glibc-tmp
 wget http://ftp.gnu.org/gnu/glibc/glibc-2.17.tar.xz
 tar xvJf glibc-2.17.tar.xz
 ./glibc-2.17/configure -disable-sanity-checks
-cd glibc-2.17
 make
 make install
 ```
