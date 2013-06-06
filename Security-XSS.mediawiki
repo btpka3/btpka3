@@ -2,8 +2,9 @@
 ==原理==
 Web程序将数据直接作为HTML显示（未进行HTML特殊字符转义、script脚本过滤），在浏览器端显示的这些内容的时候，激活其中包含的JavaScript恶意脚本，这些脚本可以用来获取用户敏感信息，追踪用户浏览历史、将用户诱导至其他网站等。
 
-==分类==
+更多攻击方式请参考：[https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet XSS Filter Evasion Cheat Sheet]
 
+==分类==
 
 <table>
   <tr>
@@ -95,17 +96,16 @@ document.write(document.location.href.substring(document.location.href.indexOf("
 与前两种的区别是：前两种最终会将风险代码写在生成HTML中，而这一种是服务器端返回的HTML本身并不包含风险代码，但是其中的JavaScript脚本在动态修改DOM时，未对输出值做充分的安全检查。
 
 
-注入点
+注入点 
+
 1. 客户端：来自用户输入，却未作安全检查。
 
 <source>
 <img src="https://www.owasp.org/skins/monobook/ologo.png" onload="alert('XSS');" >
 </source>
-2.
-2. 服务器端：来自配置文件，却未作安全检查（比如消息模板，头部文件）
 
-DOM Based XSS
-  你的程序本身存在一些依赖于来自于客户端的数据并展示，但是对来源数据为做安全检查。
+2. 服务器端：来自配置文件，却未作安全检查（比如消息模板，头部文件）
+ 
 
 
 
@@ -113,7 +113,7 @@ DOM Based XSS
 在Web应用中，XSS缺陷很难确认和移除，一些漏洞扫描工具也只能对浅层的扫描。最好的方式就是针对安全展开代码Review，并对所有来自HTTP请求的数据进行检查，如果请求中的数据有可能最终作为HTML显示，就需要做相应的处理。
 
 ==检查列表==
-这里仅仅给出了部分摘要，更详尽列表请参看[https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet 这里]：
+这里仅仅给出了部分摘要，更详尽列表请参看[https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet XSS Prevention Cheat Sheet]：
 <ul>
 <li>RULE #0 - 不信任的数据只能插入到允许的位置
 <p> 示例代码：
