@@ -3,6 +3,41 @@
 Web程序将数据直接作为HTML显示（未进行HTML特殊字符转义、script脚本过滤），在浏览器端显示的这些内容的时候，激活其中包含的JavaScript恶意脚本，这些脚本可以用来获取用户敏感信息，追踪用户浏览历史、将用户诱导至其他网站等。
 
 ==分类==
+
+
+<table>
+  <tr>
+    <th></th>
+    <th colspan="3">风险代码存在于？</th>
+  </tr>
+  <tr>
+    <th></th>
+    <th>数据库中</th>
+    <th>HTTP响应中</th>
+    <th>浏览器构建的DOM中</th>
+  </tr>
+  <tr>
+    <td>Stored XSS Attacks</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>Reflected XSS Attacks</td>
+    <td></td>
+    <td>Yes</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>DOM Based XSS</td>
+    <td></td>
+    <td></td>
+    <td>Yes</td>
+  </tr>
+</table>
+
+
+
 ===Stored XSS Attacks===
 风险代码被先持久存储于服务器上（比如：数据库中），然后再读取出来显示到浏览器。比如在博客上发表文章、发表评论。
 
