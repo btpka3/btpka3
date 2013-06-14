@@ -42,6 +42,8 @@ openssl x509 -in sos.pem.p12 -out sos.pem.cer
 
 ## 对子域名使用wildcard证书示例
 
+示例环境：Windows + JDK 1.6 + Tomcat 6
+
 1.  修改 C:\Windows\System32\drivers\etc\hosts，追加以下设置：
     ```
 127.0.0.1       cas.localhost.me
