@@ -52,7 +52,9 @@ openssl x509 -in sos.pem.p12 -out sos.pem.cer
 
 2.  生成自签名的数字证书
 ```
-keytool -genkeypair -alias mykey2 -keyalg RSA -keysize 1024 -sigalg SHA1withRSA -dname "CN=*.localhost.me, OU=R & D department, O=\\"ABC Tech Co., Ltd\\", L=Weihai, S=Shandong, C=CN" -validity 365 -keypass 123456 -keystore tomcat.keystore -storepass 123456
+keytool -genkeypair -alias mykey2 -keyalg RSA -keysize 1024 -sigalg SHA1withRSA ^
+-dname "CN=*.localhost.me, OU=R & D department, O=\\"ABC Tech Co., Ltd\\", L=Weihai, S=Shandong, C=CN" ^
+-validity 365 -keypass 123456 -keystore tomcat.keystore -storepass 123456
 ```
     注意：其中CN是域名。-keypass 和 -storepass tomcat貌似是要求一致的。
 3.  导出证书
