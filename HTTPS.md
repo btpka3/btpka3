@@ -26,7 +26,7 @@ REM 6. 使用 KeyTools 将 PKSC#12 文件导入为 JKS 的 KeyStore
 keytool -importkeystore -srcstoretype PKCS12 -srckeystore whhit.p12 -srcstorepass 123456 -srcalias tomcat -srckeypass 123456 -deststoretype JKS -destkeystore whhit.jks -deststorepass 123456 -destalias tomcat -destkeypass 123456
 REM ===================================== KeyTools 2 OpenSSL
 REM 1. 生成一个含自签名 CA 证书的 JKS 类型的 KeyStore
-keytool -genkeypair -alias tomcat -keyalg RSA -keysize 1024 -sigalg SHA1withRSA -dname "CN=test.me, OU=R & D department, O=\"BJ SOS Software Tech Co., Ltd\", L=Beijing, S=Beijing, C=CN" -validity 3650 -keypass 123456 -keystore sos.jks -storepass 123456
+keytool -genkeypair -alias tomcat -keyalg RSA -keysize 1024 -sigalg SHA1withRSA -dname "CN=test.me, OU=R & D department, O=\\"BJ SOS Software Tech Co., Ltd\\", L=Beijing, S=Beijing, C=CN" -validity 3650 -keypass 123456 -keystore sos.jks -storepass 123456
 REM 2. 从 KeyStore 中导出证书
 REM keytool -exportcert -rfc -file sos.pem.cer -alias tomcat -keystore sos.jks -storepass 123456
 REM 3. 将 KeyStore 变更为 PKCS#12 格式
@@ -52,7 +52,7 @@ openssl x509 -in sos.pem.p12 -out sos.pem.cer
 
 2.  生成自签名的数字证书
 ```
-keytool -genkeypair -alias mykey2 -keyalg RSA -keysize 1024 -sigalg SHA1withRSA -dname "CN=*.localhost.me, OU=R & D department, O=\"ABC Tech Co., Ltd\", L=Weihai, S=Shandong, C=CN" -validity 365 -keypass 123456 -keystore tomcat.keystore -storepass 123456
+keytool -genkeypair -alias mykey2 -keyalg RSA -keysize 1024 -sigalg SHA1withRSA -dname "CN=*.localhost.me, OU=R & D department, O=\\"ABC Tech Co., Ltd\\", L=Weihai, S=Shandong, C=CN" -validity 365 -keypass 123456 -keystore tomcat.keystore -storepass 123456
 ```
     注意：其中CN是域名。-keypass 和 -storepass tomcat貌似是要求一致的。
 3.  导出证书
