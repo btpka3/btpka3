@@ -1,0 +1,4 @@
+* 自定义Widget [http://btpka3.github.io/js/dojo/my/dijit/PersonWidgetDemo.html 示例] [https://github.com/btpka3/btpka3.github.com/blob/master/js/dojo/my/dijit/PersonWidgetDemo.html 源码]
+* TODO
+    pageLink
+    mock user input （Keyboard, Mouse)
