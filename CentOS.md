@@ -123,7 +123,7 @@ alias vi=vim
 
 # 修改配置文件
 [root@h01 ~]# vi ~/.vimrc
-“ comment here
+" comment here
 set number
 colors desert
 syntax on
