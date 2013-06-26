@@ -110,3 +110,25 @@ Linux version 2.6.32-279.el6.x86_64 (mockbuild@c6b9.bsys.dev.centos.org) (gcc ve
 Linux localhost.localdomain 2.6.32-279.el6.x86_64 #1 SMP Fri Jun 22 12:19:21 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux
 
 ```
+
+
+## vim
+```sh
+# 安装
+[root@h01 ~]# yum install vim-X11 vim-common vim-enhanced vim-minimal
+
+# 修改环境变量
+[root@h01 ~]# vi /etc/profile.d/custom.sh
+alias vi=vim
+
+# 修改配置文件
+[root@h01 ~]# vi ~/.vimrc
+“ comment here
+set number
+colors desert
+syntax on
+set ruler
+set showcmd
+set cursorline
+set fileencodings=utf-8,gbk
+```
