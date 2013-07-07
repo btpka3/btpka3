@@ -15,10 +15,12 @@ gpupdate "/target:{computer| user}" "/force" "/wait:value" "/logoff" "/boot"
 
 
 ### 禁止使用域成员机使用USB存储
-1. 从[这里](http://support.microsoft.com/default.aspx?scid=kb;en-us;555324) 复制一份禁用USB存储的adm文件，假设文件名是：Custom-USB.adm。（可选）将文件保存在域控服务器的 C:\WINDOWS\inf 目录下。PS：[这里](https://github.com/btpka3/btpka3.github.com/blob/master/os/windows/DomainControllor/DisableUsbStore.ZH.adm)提供了一份中文的adm文件。
+1.  从[这里](http://support.microsoft.com/default.aspx?scid=kb;en-us;555324) 复制一份禁用USB存储的adm文件，假设文件名是：Custom-USB.adm。（可选）将文件保存在域控服务器的 C:\WINDOWS\inf 目录下。PS：[这里](https://github.com/btpka3/btpka3.github.com/blob/master/os/windows/DomainControllor/DisableUsbStore.ZH.adm)提供了一份中文的adm文件，且以下步骤使用的是此中文版的adm文件。
 
-
-
+2.  在域控服务器上：开始-程序-管理工具-Active Directory 用户和计算机-域名（比如：xxx.com）上右键-属性-组策略-新建-自定义名称（比如：禁用USB存储）-编辑-计算机配置-管理模板：
+    1.  管理模板上右键-添加/删除模板-添加-选中第一步保存的adm文件-关闭。  
+    2.  管理模板上右键-察看-筛选-取消选中“只显示能完全管理的组策略”-确定。  
+    3.  在新出现的 “自定义策略设置”-“首先设备”下每个设备均更改为“已启用”
 ### 禁止使用注册表编辑器
 1.  运行 gpedit.msc  
 2.  “本地计算机”组策略/用户配置/系统：阻止访问注册表编辑工具：设置为“已启用”  
