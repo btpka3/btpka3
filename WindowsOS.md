@@ -13,10 +13,10 @@ gpupdate "/target:{computer| user}" "/force" "/wait:value" "/logoff" "/boot"
 ### 禁止使用域成员机使用USB存储
 [这里]()
 
-注意：组策略有三个：  
-1.  本地组策略：运行 `gpedit.msc`  
-2.  Active Directory 用户和计算机，右击域名，属性，组策略  
-3.  Active Directory 用户和计算机，右击domain controllers，属性，组策略。  
+编辑组策略有三个地方可以编辑，但是作用范围不一样，下面的操作均选择第二种方式。  
+1.  运行 `gpedit.msc`（本地组策略）  
+2.  开始-程序-管理工具-Active Directory 用户和计算机-域名上右键-属性-组策略  
+3.  开始-程序-管理工具-Active Directory 用户和计算机-域名-domain controllers上右键-属性-组策略。  
 
 添加自定义组策略模板文件
 1.  在域控服务器上运行 `gpedit.msc`  
