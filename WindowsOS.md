@@ -28,3 +28,4 @@ gpupdate "/target:{computer| user}" "/force" "/wait:value" "/logoff" "/boot"
 https://github.com/btpka3/btpka3.github.com/blob/master/os/windows/DomainControllor/DisableUsbStore.EN.adm  
 http://www.windowsdevcenter.com/pub/a/windows/2005/11/15/disabling-usb-storage-with-group-policy.html  
 http://support.microsoft.com/default.aspx?scid=kb;en-us;555324  
+http://bbs.icpcw.com/thread-1509659-1-1.html
