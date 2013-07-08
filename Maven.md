@@ -11,4 +11,5 @@
 mvn -Dmaven.test.skip=true -am --projects subModule1/leafModule1 clean install
 ```
 参考：[Guide multiple modules](http://maven.apache.org/guides/mini/guide-multiple-modules.html)
-注意：使用以上参数时，当前路径应当是根模块的pom.xml所在的目录
+注意：使用以上参数时，当前路径应当是根模块的pom.xml所在的目录  
+注意：如果子模块B有一些自动生成代码的Maven插件依赖于子模块A，恐怕就不能一起编译了。而必须先install子模块A，才能在子模块B中自动生成代码、之后才可能重新一起编译、打包
