@@ -5,8 +5,9 @@
   此时由于DispatcherServlet会处理所有的请求（含静态资源）。
   为了能够高效访问使用静态资源，才有此设计：将DefaultServletHttpRequestHandler作为最后一个HandlerMapping，
   来代理Servlet容器的默认Servelt进行处理（注意order）。
-  如果此时想直接通过 *.jsp 的URL后缀访问，则该jsp文件就能放在 WEB-INF 目录下了。
-  个人感角此功能应不会很常用。静态文件通常直接有Nginx等静态服务器代为提供了，或者直接有Servlet容器提供了，DispatcherServlet通常都只是映射某个特定的URL的。（比如 "*.do"）
+  如果此时想直接通过 *.jsp 的URL后缀访问，则该jsp文件就不能放在 WEB-INF 目录下了。
+  个人感角此功能应不会很常用。静态文件通常直接有Nginx等静态服务器代为提供了，
+  或者直接有Servlet容器提供了，DispatcherServlet通常都只是映射某个特定的URL的。（比如 "*.do"）
 
 <mvc:resources location="/resources" mapping="/, classpath:/META-INF/web" cache-period="999" order="999"/>
   该功能主要是可以从其他路径下获取资源，比如classpath下。
