@@ -157,3 +157,21 @@ web.xml
    <tr class="${loopStatus.index % 2 == 0 ? 'even_row' : 'odd_row'}">...</tr>
 </c:forEach>
 ```
+
+```jsp
+<c:forEach items="${xxxList}" var="xxx" >
+  <tr>
+      <td>XXX</td>
+      <td>XXX</td>
+      <td>XXX</td>
+  </tr>
+</c:forEach>
+<c:forEach var="i" begin="${fn:length(xxxList)}" end="9"  > <%-- Output padding lines --%>
+<table >
+  <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+  </tr>
+</c:forEach>
+```
