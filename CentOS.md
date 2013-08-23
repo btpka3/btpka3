@@ -1,3 +1,8 @@
+## Tools
+### putty
+1. 防止vi时使用小键盘造成乱码：Terminal->Features: 选中 Disable application keypad mode
+
+
 ## IP Config
 1.  检查DNS服务器
 ```sh
