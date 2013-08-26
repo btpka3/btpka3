@@ -88,3 +88,9 @@ https://cas.localhost.me:8443/
 https://app.localhost.me:8443/
 https://stateless.localhost.me:8443/
     ```
+
+
+## keytool 合并两个keystore
+```
+keytool -importkeystore -srckeystore src.keystore -srcstorepass 123456 -destkeystore dest.keystore -deststorepass 123456
+```
