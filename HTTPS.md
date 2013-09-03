@@ -53,14 +53,22 @@ openssl x509 -in sos.pem.p12 -out sos.pem.cer
     注意：经测试发现WildCard证书无法对 `*.localhost` 起作用。而 `*.localhost.me` 也无法对 `a.b.localhost.me` 起作用，参见[这里](http://security.stackexchange.com/a/26050)。
 
 2.  生成自签名的数字证书
+    1. 针对子域名
 ```
 keytool -genkeypair -alias mykey2 -keyalg RSA -keysize 1024 -sigalg SHA1withRSA ^
 -dname "CN=*.localhost.me, OU=R & D department, O=\\"ABC Tech Co., Ltd\\", L=Weihai, S=Shandong, C=CN" ^
--ext SAN=IP:10.1.18.123 ^
 -validity 365 -keypass 123456 -keystore tomcat.keystore -storepass 123456
 ```
     注意：其中CN是域名。-keypass 和 -storepass tomcat貌似是要求一致的。  
-         `-ext` 选项是 [JDK 7](http://docs.oracle.com/javase/7/docs/technotes/tools/solaris/keytool.html) 中新增选项
+    2. 针对IP地址
+```
+keytool -genkeypair -alias mykey2 -keyalg RSA -keysize 1024 -sigalg SHA1withRSA ^
+-dname "CN=10.1.18.123, OU=R & D department, O=\\"ABC Tech Co., Ltd\\", L=Weihai, S=Shandong, C=CN" ^
+-ext SAN=IP:10.1.18.123 ^
+-validity 365 -keypass 123456 -keystore tomcat.keystore -storepass 123456
+```
+    注意：`-ext` 选项是 [JDK 7](http://docs.oracle.com/javase/7/docs/technotes/tools/solaris/keytool.html) 中新增选项  
+    其中CN也应该为IP地址。
 3.  导出证书
 ```
 keytool -exportcert -rfc -file localhost.me.cer -alias mykey2 -keystore tomcat.keystore -storepass 123456
