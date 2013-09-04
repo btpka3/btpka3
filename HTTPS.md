@@ -40,6 +40,17 @@ REM 6. 单独输出证书
 openssl x509 -in sos.pem.p12 -out sos.pem.cer
 ```
 
+## Apahce 配置 HTTPS
+1. 修改apache的配置文件 conf/httpd.conf，启用以下两句
+```conf
+LoadModule ssl_module modules/mod_ssl.so
+Include conf/extra/httpd-ssl.conf
+```
+2. 修改apache的配置文件 conf/extra/httpd-ssl.conf, 修改一下两个指令所指向的路径
+   * SSLCertificateFile ：应当指向上述使用openssl生成自签名证书时生成的 *.pem.cer
+   * SSLCertificateKeyFile ：应当指向上述使用openssl生成自签名证书时生成的 *.pem.clear.key
+3. 重启Apache，并将证书安装到IE“受信任的根证书”区域即可。
+
 ## 对子域名使用wildcard证书示例
 
 示例环境：Windows + JDK 1.6 + Tomcat 6
