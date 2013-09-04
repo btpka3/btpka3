@@ -16,7 +16,6 @@
 1. 使用 CAS 的[RESTful API](https://wiki.jasig.org/display/CASUM/RESTful+API) 获取PGT
 2. 使用 wininet.dll # InternetSetCookie 设置Cookie。此步骤即模拟登陆CAS服务器。
 3. 新打开 WebBroswer 控件到SSO web应用，如果碰到需登录才能使用的URL，则会自动跳转后完成单点登录。由于中间牵涉跳转，所以只针对GET请求有效。否则，应当使用CAS的RESTFul API先获取ST后，直接单个登录到具体的SSO Web 应用。
-
    FIXME：
    1.  上述只能对进程内的WebBroswer 有效，如何对进程外的也有效（打开独立IE窗口）？使用 ieframe.dll # IESetProtectedModeCookie() ？
    2.  如何避免客户端程序非得设置Cookie才有效？使用[Second-Level CAS Server](https://wiki.jasig.org/display/CASUM/Second-Level+CAS+Server)？
