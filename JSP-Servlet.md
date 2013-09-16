@@ -1,6 +1,6 @@
+## Java EE 版本
+[参考](http://en.wikipedia.org/wiki/Java_EE_version_history)
 
-
-[http://en.wikipedia.org/wiki/Java_EE_version_history Java EE version history]
 <table>
 <tr>
   <th></th>
@@ -35,20 +35,18 @@
 </table>
 
 
-== JavaEE 1.4 ==
+### JavaEE 1.4
 maven 
-<source>
+```xml
 <dependency>
   <groupId>javax.servlet</groupId>
   <artifactId>servlet-api</artifactId>
   <version>2.4</version>
   <scope>provided</scope>
 </dependency>
-            
-</source>
-
+```
 web.xml
-<source>
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app
     xmlns="http://java.sun.com/xml/ns/j2ee"
@@ -57,21 +55,20 @@ web.xml
     version="2.4">
 
 </web-app>
-</source>
+```
 
-== JavaEE 5 ==
+###JavaEE 5
 maven
-<source>
+```xml
 <dependency>
   <groupId>javax.servlet</groupId>
   <artifactId>servlet-api</artifactId>
   <version>2.5</version>
   <scope>provided</scope>
-</dependency>
-            
-</source>
+</dependency>       
+```
 web.xml
-<source>
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app 
     xmlns="http://java.sun.com/xml/ns/javaee"
@@ -80,20 +77,21 @@ web.xml
     version="2.5">
 
 </web-app>
-</source>
+```
 
-== JavaEE 6 ==
+### JavaEE 6
 maven
-<source>
+```
 <dependency>
   <groupId>javax.servlet</groupId>
   <artifactId>javax.servlet-api</artifactId>
   <version>3.0.1</version>
   <scope>provided</scope>
 </dependency>
-</source>
+```
+
 web.xml
-<source>
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app
     xmlns="http://java.sun.com/xml/ns/javaee"
@@ -103,28 +101,28 @@ web.xml
     version="3.0">
  
 </web-app>
-</source>
+```
 
-== JSTL ==
-[http://docs.oracle.com/javaee/5/jstl/1.1/docs/tlddocs/index.html JSTL 1.1 Tag Reference]
-
-[http://stackoverflow.com/tags/jstl/info JSTL@stackOverFlow]
+## JSTL
+参考：
+[JSTL 1.1 Tag Reference](http://docs.oracle.com/javaee/5/jstl/1.1/docs/tlddocs/index.html)
+[JSTL@stackOverFlow](http://stackoverflow.com/tags/jstl/info)
 
 *.jsp
-<source>
+```xml
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
-</source>
+```
 
 1.1 for maven
-<source>
+```xml
 <dependency>
   <groupId>javax.servlet</groupId>
   <artifactId>jstl</artifactId>
   <version>1.1.2</version>
 </dependency>
-</source>
+```
 
 1.2 for maven
 来自于 Servlet 2.5 / JSP 2.1
@@ -140,7 +138,7 @@ web.xml
 1.2.1 for maven
 来自于 Servlet 3.0 / JSP 2.2 
 适用于 Servlet 2.5 / JSP 2.1、Servlet 2.4 / JSP 2.0 、 Servlet 3.0 / JSP 2.2 
-<source>
+```xml
 <dependency>
   <groupId>javax.servlet.jsp.jstl</groupId>
   <artifactId>javax.servlet.jsp.jstl-api</artifactId>
@@ -151,7 +149,7 @@ web.xml
   <artifactId>javax.servlet.jsp.jstl</artifactId>
   <version>1.2.1</version>
 </dependency>
-</source>
+```
 
 
 ```jsp
@@ -177,5 +175,4 @@ web.xml
   </tr>
 </c:forEach>
 ```
-
 
