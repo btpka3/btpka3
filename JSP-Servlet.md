@@ -176,3 +176,8 @@ web.xml
 </c:forEach>
 ```
 
+## 问题
+* ??? : response.sendError(int,String)之后，无法使用 :
+    * request.setAttribute("javax.servlet.error.message", yourErrorMessage)
+    * request.setAttribute("javax.servlet.error.exception", yourException )
+* ??? : response.sendError(int,String)之后，再调用 request.setAttribute("javax.servlet.error.exception", yourException )将会变成500错误
