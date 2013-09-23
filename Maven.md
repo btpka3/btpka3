@@ -14,6 +14,57 @@ mvn -Dmaven.test.skip=true -am --projects subModule1/leafModule1 clean install
 注意：使用以上参数时，当前路径应当是根模块的pom.xml所在的目录  
 注意：如果子模块B有一些自动生成代码的Maven插件依赖于子模块A，恐怕就不能一起编译了。而必须先install子模块A，才能在子模块B中自动生成代码、之后才可能重新一起编译、打包
 
+## 经验
+   * 在pom.xml中使用属性的存在性来激活profile。示例
+   ```xml
+<profile>
+  <id>release</id>
+  <activation>
+    <property>
+      <name>p_release</name>
+    </property>
+  </activation>
+  <!-- ... -->
+</profile>
+   ```
+   之后就可以使用 `mvn -Dp_release ...` 来激活该profile了。
+
 ## 常用命令
 查看那些profile生效
 `mvn help:active-profiles -N`
+
+
+## 简化开发机配置
+### settings.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 
+          http://maven.apache.org/xsd/settings-1.0.0.xsd" 
+          xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <localRepository>D:\maven\repository</localRepository>
+  <servers>
+    <server>
+      <username>admin</username>
+      <password>123456</password>
+      <id>SOS-releases</id>
+    </server>
+    <server>
+      <username>admin</username>
+      <password>123456</password>
+      <id>SOS-snapshots</id>
+    </server>
+  </servers>
+  <mirrors>
+    <mirror>
+      <mirrorOf>*</mirrorOf>
+      <name>remote-repos</name>
+      <url>http://10.1.18.74:8097/artifactory/remote-repos</url>
+      <id>remote-repos</id>
+    </mirror>
+  </mirrors>
+</settings>
+```
+需要：
+* 局域网Maven仓库启启用分组，并且将所有仓库都纳入统一个组 `remote-repos` 中。
+* `<server/>` 配置是用以结合 pom.xml 中的 `<distributionManagement/>` 发布快照用的。
