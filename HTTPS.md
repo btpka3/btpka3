@@ -115,3 +115,14 @@ https://stateless.localhost.me:8443/
 ```
 keytool -importkeystore -srckeystore src.keystore -srcstorepass 123456 -destkeystore dest.keystore -deststorepass 123456
 ```
+
+## 使用PUTTYgen 生成SSH密钥
+参考[这里](http://stackoverflow.com/questions/2224066/how-to-convert-ssh-keypairs-generated-using-puttygenwindows-into-key-pairs-use)，使用以下步骤：
+
+1. Open PuttyGen
+2. Click Load
+3. Load your private key
+4. Go to Conversions->Export OpenSSH and export your private key
+5. Copy your private key to ~/.ssh/id_dsa (or id_rsa).
+6. Create the RFC 4716 version of the public key using ssh-keygen
+   `ssh-keygen -i -f ~/.ssh/id_dsa_com.pub > ~/.ssh/id_dsa.pub`
