@@ -29,3 +29,5 @@
  *.blogspot.com
  *.wordpress.com
 </source>
+
+# http://jingyan.baidu.com/article/6766299717faec54d41b8477.html
