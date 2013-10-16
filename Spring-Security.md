@@ -1,4 +1,10 @@
-## 允许所有的URL接收ST
+##  概念
+*   Authentication
+*   Principal
+
+
+## CAS
+### 允许所有的URL接收ST
 [参考](http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity-single.html#cas-pt)   
 
 1.  serviceProperties
