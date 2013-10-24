@@ -25,3 +25,25 @@
     FIXME：
     1.  上述只能对进程内的WebBroswer 有效，如何对进程外的也有效（打开独立IE窗口）？使用 ieframe.dll # IESetProtectedModeCookie() ？
     2.  如何避免客户端程序非得设置Cookie才有效？使用[Second-Level CAS Server](https://wiki.jasig.org/display/CASUM/Second-Level+CAS+Server)？
+
+## NOTICE
+1. 如果在同一个Controller中，当前用户只有权限a，则用户访问`/a`是不会抛出"没有权限"的异常的，而访问`/b`会抛异常。虽然`a()`方法内部有调用`b()`方法。该现象可能与AOP有关系。
+```java
+@Controller
+public class MyController {
+    @RequestMapping("/a")
+    @PreAuthorize("hasRole('a')")
+    public String a() {
+        b();
+        // ...
+        return "a";
+    }
+
+    @RequestMapping("/b")
+    @PreAuthorize("hasRole('b')")
+    public String b() {
+        // ...
+        return "b";
+    }
+}
+```
