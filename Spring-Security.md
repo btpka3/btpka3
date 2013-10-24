@@ -47,3 +47,5 @@ public class MyController {
     }
 }
 ```
+
+2. 无需使用自定义枚举类来实现GrantedAuthority，枚举会有版本问题。直接使用SimpleGrantedAuthority就好。
