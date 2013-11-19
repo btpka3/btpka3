@@ -25,7 +25,9 @@ set ruler
 set showcmd
 set cursorline
 set fileencodings=utf-8,gbk
+set list
+set expandtab
+set tabstop=4
 ```
-
 
 
