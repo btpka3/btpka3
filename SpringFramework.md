@@ -26,3 +26,23 @@
   这样，就相当于对任意URL都提供了一个后备的（注意order）的无任何业务逻辑的Controller，
   仍然可以使用InternalResourceViewResolver返回WEB-INF目录下的JSP文件渲染的内容。
 ```
+
+## forward prefix
+```java
+@Controller
+@RequestMapping("/aaa/bbb")
+public class DispenseAction {
+
+    private static final String searchParamKey = "xxx";
+
+    @RequestMapping(value = "/listInit", method = RequestMethod.GET)
+    public String listInit(HttpSession session){
+        session.removeAttribute(searchParamKey);
+        return "forward:/aaa/bbb/list.do";
+    }
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list(...) {
+        ///...
+   }
+}
+```
