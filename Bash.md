@@ -5,6 +5,8 @@
 ```
 
 ## sed 替换properties中的属性值
+参考：[1]{http://en.wikipedia.org/wiki/Regular_expression}、[2](http://www.mikeplate.com/2012/05/09/extract-regular-expression-group-match-using-grep-or-sed/)、[3](http://www.gnu.org/software/sed/manual/html_node/Regular-Expressions.html)、[4](http://www.gnu.org/software/sed/manual/html_node/Escapes.html#Escapes)
+
 ```sh
 escSedRegKey(){
   # POSIX basic regular expression metacharacter : . [ ] ^ $ ( ) \ * { }
@@ -26,4 +28,3 @@ ekk=$(escSedRegKey "$kk")
 ekv=$(escSedRegVal "$kv")
 echo "$target" | sed -r "s/^([[:space:]]*$ekk[[:space:]]*=).*$/\1$ekv/g"
 ```
-
