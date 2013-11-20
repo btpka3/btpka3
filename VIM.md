@@ -19,7 +19,7 @@ alias vi=vim
 ```sh
 [root@h01 ~]# vi ~/.vimrc
 set number
-“ comment here
+" comment here
 colors desert
 syntax on
 set ruler
