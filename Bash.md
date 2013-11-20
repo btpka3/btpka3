@@ -1,6 +1,8 @@
 ## 检查目录是否为空
-http://www.cyberciti.biz/faq/linux-unix-shell-check-if-directory-empty/
-`[ "$(/bin/ls -A yourDir)" ] && echo "Not Empty" || echo Empty`
+参考：[1](http://www.cyberciti.biz/faq/linux-unix-shell-check-if-directory-empty/)
+```sh
+[ "$(/bin/ls -A yourDir)" ] && echo "Not Empty" || echo Empty`
+```
 
 ## sed 替换properties中的属性值
 ```sh
