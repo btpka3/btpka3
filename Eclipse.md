@@ -1,5 +1,5 @@
-==安装==
-[http://www.springsource.org/sts SPRING TOOL SUITE]
+## 安装
+[SPRING TOOL SUITE](http://www.springsource.org/sts )
 
 ==常用插件==
 * [http://www.eclipse.org/subversive/installation-instructions.php SVN]
@@ -32,6 +32,5 @@
 *# 下载[http://files.cnblogs.com/icelyb24/YaHei.Consolas.1.12.rar Consolas和微软雅黑混合字体]
 *# 解压之后，把YaHei.Consolas.1.12.ttfw文件复制到C:\Windows\Fonts目录下，完成字体的安装
 *# 打开Elcipse，点击菜单栏上的“Windows”——点击“Preferences”——点击“Genneral”——点击“Appearance”——点击“Colors and Font”——在右侧框展开“Basic”文件夹--双击“Text Font”——在弹出窗选择“YaHei.Consolas”——点击按钮“确定”——点击按钮“OK”，完成。
-
 
 
