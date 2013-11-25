@@ -1,21 +1,24 @@
 ## 安装
 [SPRING TOOL SUITE](http://www.springsource.org/sts )
 
-==常用插件==
-* [http://www.eclipse.org/subversive/installation-instructions.php SVN]
-:: 请参照 `Option 2 - Use a Subversive Update Site`
-* [http://eclipse-cs.sourceforge.net/ CheckStyle]
-* [http://findbugs.sourceforge.net/manual/eclipse.html Findbugs]
-:: 更新站点： http://findbugs.cs.umd.edu/eclipse
-* [http://pmd.sourceforge.net/ PMD]
-* [http://andrei.gmxhome.de/anyedit/ AnyEdit]
+##常用插件
+* [AnyEdit](http://andrei.gmxhome.de/anyedit/)
 :: 更新站点：http://andrei.gmxhome.de/eclipse<br/>需选择 -> Eclipse 3.5 - 4.2 plugins -> AnyEditTools<br/> 配置：STS : Preferences -> General/Editors/AnyEdit Tools 
-* [http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasUML AmaterasUML]
-* [http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasERD AmeterasERD]
-:: 需要先安装 AmaterasUML
-* [http://ermaster.sourceforge.net/ ERMaster]
-* [http://propedit.sourceforge.jp/index_en.html Properties Editor]
+* [Properties Editor](http://propedit.sourceforge.jp/index_en.html)
 :: 更新站点： http://propedit.sourceforge.jp/eclipse/updates/
+* [SVN](http://www.eclipse.org/subversive/installation-instructions.php)
+  请参照 `Option 2 - Use a Subversive Update Site`
+* [CheckStyle](http://eclipse-cs.sourceforge.net/)
+  建议使用Sonar插件替代。
+* [Findbugs](http://findbugs.sourceforge.net/manual/eclipse.html)
+  建议使用Sonar插件替代。  
+  更新站点： http://findbugs.cs.umd.edu/eclipse
+* [PMD](http://pmd.sourceforge.net/)  
+  建议使用Sonar插件替代。  
+* [AmaterasUML](http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasUML)
+* [AmeterasERD](http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasERD)
+  需要先安装 AmaterasUML
+* [ERMaster](http://ermaster.sourceforge.net/)
 
 ==其他插件==
 * Drools and JBPM
@@ -32,5 +35,4 @@
 *# 下载[http://files.cnblogs.com/icelyb24/YaHei.Consolas.1.12.rar Consolas和微软雅黑混合字体]
 *# 解压之后，把YaHei.Consolas.1.12.ttfw文件复制到C:\Windows\Fonts目录下，完成字体的安装
 *# 打开Elcipse，点击菜单栏上的“Windows”——点击“Preferences”——点击“Genneral”——点击“Appearance”——点击“Colors and Font”——在右侧框展开“Basic”文件夹--双击“Text Font”——在弹出窗选择“YaHei.Consolas”——点击按钮“确定”——点击按钮“OK”，完成。
-
 
