@@ -29,4 +29,5 @@ http {
 ### 被代理的服务器健康检测
 [proxy_next_upstream](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html)  
 [fastcgi_next_upstream](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_next_upstream)  
+[healthcheck_nginx_upstreams](https://github.com/cep21/healthcheck_nginx_upstreams)  
 3rd [nginx_upstream_check_module](https://github.com/yaoweibin/nginx_upstream_check_module)
