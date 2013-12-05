@@ -5,8 +5,6 @@
 
 ### Codes.java
 ```java
-package me.test;
-
 /** 数据库代码常量 */
 public interface Codes {
 
