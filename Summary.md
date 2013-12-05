@@ -23,5 +23,26 @@ public interface Codes {
 ```
 
 ### Config.java
+ 
+
+### PagedRecords.java
 ```java
+public class PagedRecords<E> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    /** 总记录数 */
+    private Integer totalCount = 0;
+
+    /** 起始索引 */
+    private Integer startIndex;
+
+    /** 每页最多显示的记录数 */
+    private Integer pageSize;
+
+    /** 分页后的数据集 */
+    private List<E> data = Collections.emptyList();
+    // getter, setter ...
+}
+
 ```
