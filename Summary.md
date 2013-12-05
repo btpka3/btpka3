@@ -42,5 +42,25 @@ public class PagedRecords<E> implements Serializable {
 
 ```
 
+
+### JsonMessage.java
+```java
+package com.tc.his.web.vo;
+
+import java.io.Serializable;
+
+public class JsonMessage implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    // 0 - 成功， 其他值 - 失败
+    private Integer status = STATUS_SUCCESS;
+    // 成功、失败消息
+    private String msg;
+    // 结果集
+    private Object result;
+    // ...
+}
+
+```
 ### log
 * 日志的配置文件中的路径应为绝对路径
