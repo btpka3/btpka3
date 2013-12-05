@@ -41,3 +41,6 @@ public class PagedRecords<E> implements Serializable {
 }
 
 ```
+
+### log
+* 日志的配置文件中的路径应为绝对路径
