@@ -125,3 +125,8 @@ funcResult=$(myFunc zhang3)
   unzip file.zip entry/path/to/file
   unzip -p file.zip entry/path/to/file > newFile
 ```
+
+### File Search
+```sh
+  find / -name xxx 2>/dev/null
+```
