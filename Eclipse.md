@@ -25,6 +25,13 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * [AmeterasERD](http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasERD)  
 需要先安装 AmaterasUML
 
+
+## 常用快捷键
+* Ctrl+Shift+D : Clean Up (需要自定义：STS-Windows-Preferences-General-Keys：Clean Up)
+* Ctrl+Shift+F : Format (建议使用Ctrl+Shift+D替代)
+* Alt+Shift+J  : 追加Javadoc（自动使用Java/Code Style/Code Templates）
+* Alt+/        : 自动提示
+
 ==其他插件==
 * Drools and JBPM
 :: 可用于研究 jBPM 5<br/>更新站点：http://download.jboss.org/drools/release/5.5.0.Final/org.drools.updatesite/ <br/>参考：http://www.jboss.org/drools/downloads
