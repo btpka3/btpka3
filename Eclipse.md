@@ -2,23 +2,28 @@
 [SPRING TOOL SUITE](http://www.springsource.org/sts )
 
 ##常用插件
-* [AnyEdit](http://andrei.gmxhome.de/anyedit/)
-:: 更新站点：http://andrei.gmxhome.de/eclipse<br/>需选择 -> Eclipse 3.5 - 4.2 plugins -> AnyEditTools<br/> 配置：STS : Preferences -> General/Editors/AnyEdit Tools 
+* [AnyEdit](http://andrei.gmxhome.de/anyedit/)  
+update site：http://andrei.gmxhome.de/eclipse -> Eclipse 3.5 - 4.2 plugins -> AnyEditTools  
+配置：STS : Preferences -> General/Editors/AnyEdit Tools 
 * [Properties Editor](http://propedit.sourceforge.jp/index_en.html)
-:: 更新站点： http://propedit.sourceforge.jp/eclipse/updates/
-* [SVN](http://www.eclipse.org/subversive/installation-instructions.php)
-  请参照 `Option 2 - Use a Subversive Update Site`
-* [CheckStyle](http://eclipse-cs.sourceforge.net/)
-  建议使用Sonar插件替代。
-* [Findbugs](http://findbugs.sourceforge.net/manual/eclipse.html)
-  建议使用Sonar插件替代。  
-  更新站点： http://findbugs.cs.umd.edu/eclipse
+update site： http://propedit.sourceforge.jp/eclipse/updates/
+* [SVN](http://www.eclipse.org/subversive/installation-instructions.php)  
+请参照 `Option 2 - Use a Subversive Update Site`
+* [Sonar](http://docs.codehaus.org/display/SONAR/Installing+SonarQube+in+Eclipse)  
+最新版Update site: http://dist.sonar-ide.codehaus.org/eclipse/  
+历史版本更新站点目录: http://dist.sonar-ide.codehaus.org/eclipse-archives/  
+注意：需要根据使用的SonarQuebe服务器的版本而选定Eclipse插件的版本
+* [CheckStyle](http://eclipse-cs.sourceforge.net/)  
+建议使用Sonar插件替代。
+* [Findbugs](http://findbugs.sourceforge.net/manual/eclipse.html)  
+建议使用Sonar插件替代。  
+update site： http://findbugs.cs.umd.edu/eclipse
 * [PMD](http://pmd.sourceforge.net/)  
-  建议使用Sonar插件替代。  
-* [AmaterasUML](http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasUML)
-* [AmeterasERD](http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasERD)
-  需要先安装 AmaterasUML
+建议使用Sonar插件替代。  
 * [ERMaster](http://ermaster.sourceforge.net/)
+* [AmaterasUML](http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasUML)
+* [AmeterasERD](http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasERD)  
+需要先安装 AmaterasUML
 
 ==其他插件==
 * Drools and JBPM
