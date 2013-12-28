@@ -11,9 +11,17 @@ cat /boot/config-$(uname -r)
 # show module info
 modinfo module_name
 
+
+
 # list loaded modules
 lsmod
 less /proc/modules
+
+# show loaded module's parameter
+modprobe -c | grep module_name
+
+# show dependencies 
+modprobe --show-depends module_name
 
 # install module
 insmod module_name
