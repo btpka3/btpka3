@@ -7,11 +7,11 @@ cat /boot/config-$(uname -r)
 ## Loadable kernel module
 [See this](http://www.tldp.org/HOWTO/html_single/Module-HOWTO/)
 ```sh
+# where is the location of kernel modules?
+ls -l /lib/modules/$(uname -r)
 
 # show module info
 modinfo module_name
-
-
 
 # list loaded modules
 lsmod
