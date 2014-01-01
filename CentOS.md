@@ -2,6 +2,27 @@
 ### putty
 1. 防止vi时使用小键盘造成乱码：Terminal->Features: 选中 Disable application keypad mode
 
+## Locale && Language
+```sh
+locale # show current settings
+# LC_COLLATE : 定义该环境的排序和比较规则
+# LC_CTYPE : 用于字符分类和字符串处理(单字节？多字节？字符编码？)
+# LC_MONETARY : 货币格式 
+# LC_NUMERIC : 非货币的数字显示格式
+# LC_TIME : 时间和日期格式
+# LC_MESSAGES : 提示信息的语言
+# LANG : LC_* 的默认设置
+# LC_ALL : 设置该值，相当于设置LC_*的值为指定值
+
+export LANG=en_US.UTF-8  # 临时修改环境
+vi /etc/sysconfig/i18n   # 永久修改环境
+# 英文版系统：
+#LANG="en_US.UTF-8"
+#SYSFONT="latarcyrheb-sun16"
+# 中文版系统：
+#LANG="zh_CN.UTF-8"
+#SYSFONT="latarcyrheb-sun16"
+```
 
 ## IP Config
 1.  检查DNS服务器
