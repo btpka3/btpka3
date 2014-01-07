@@ -40,12 +40,13 @@ update site： http://findbugs.cs.umd.edu/eclipse
 ###Win7下eclipse3.7中文字体过小
 原因：由于Eclipse 3.7 用的字体是 Consolas，显示中文的时候默认太小了。
 * 解决方法一：使用[Ubuntu Mono](http://font.ubuntu.com/)字体，建议字号设置为小四。
-* 解决方法二：把字体设置为Courier New 
+* 解决方法二：把字体设置为Courier New  
+    打开Elcipse，点击菜单栏上的“Windows”——点击“Preferences”——点击“Genneral”——点击“Appearance”——点击“Colors and Font”——在右侧框展开“Basic”文件夹--双击“Text Font”——在弹出窗选择“Courier New”——点击按钮“确定”——点击按钮“OK”，完成。  
 
-打开Elcipse，点击菜单栏上的“Windows”——点击“Preferences”——点击“Genneral”——点击“Appearance”——点击“Colors and Font”——在右侧框展开“Basic”文件夹--双击“Text Font”——在弹出窗选择“Courier New”（注：这里可能找不到“Courier New”，点击字体选择框左下角的“显示更多字体”链接来打开设置字体的控制面板，找到“Courier New”，右键选择“显示”即可激活该字体）——点击按钮“确定”——点击按钮“OK”，完成。
+    提醒：这里可能找不到“Courier New”，点击字体选择框左下角的“显示更多字体”链接来打开设置字体的控制面板，找到“Courier New”，右键选择“显示”即可激活该字体）
 
 * 解决方法三：使用混合字体代替Consolas字体
     1. 下载[Consolas和微软雅黑混合字体](http://files.cnblogs.com/icelyb24/YaHei.Consolas.1.12.rar)
     2. 解压之后，把YaHei.Consolas.1.12.ttfw文件复制到C:\Windows\Fonts目录下，完成字体的安装
-    3. 打开Elcipse，点击菜单栏上的“Windows”——点击“Preferences”——点击“Genneral”——点击“Appearance”——点击“Colors and Font”——在右侧框展开“Basic”文件夹--双击“Text Font”——在弹出窗选择“YaHei.Consolas”——点击按钮“确定”——点击按钮“OK”，完成。
+    3. 打开Elcipse，点击菜单栏上的“Windows”——点击“Preferences”——点击“Genneral”——点击“Appearance”——点击“Colors and Font”——在右侧框展开“Basic”文件夹--双击“Text Font”——在弹出窗选择“YaHei.Consolas”——点击按钮“确定”——点击按钮“OK”，完成。  
     一个不足：键盘上Esc键下面的那个字符和单引号只有宽度上的区别，而没有字形上的区别。
