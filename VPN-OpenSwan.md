@@ -42,6 +42,23 @@ vi /etc/ipsec.d/custom.secrets
 ### xl2tipd
 ```
 
-/etc/xl2tpd/xl2tpd.conf
+  /etc/xl2tpd/l2tp-secrets /var/run/l2tp-control
+
+vi /etc/xl2tpd/xl2tpd.conf
+TODO
+
+vi /etc/ppp/options.l2tpd.client
+
+
+mkdir -p /var/run/xl2tpd
+touch /var/run/xl2tpd/l2tp-control
+
+service ipsec start
+service xl2tpd start
+? for vpn in /proc/sys/net/ipv4/conf/*; do echo 0 > $vpn/accept_redirects; echo 0 > $vpn/send_redirects; done
+
+ipsec verify
+ipsec auto --up test-l2tp-vpn
+
 
 ```
