@@ -50,6 +50,8 @@ TODO
 vi /etc/ppp/options.l2tpd.client
 
 
+vi /etc/ppp/chap-secrets
+
 mkdir -p /var/run/xl2tpd
 touch /var/run/xl2tpd/l2tp-control
 
