@@ -39,7 +39,7 @@ vi /etc/ipsec.d/custom.secrets
 ```
 
 
-### xl2tipd
+### xl2tpd
 ```
 
   /etc/xl2tpd/l2tp-secrets /var/run/l2tp-control
