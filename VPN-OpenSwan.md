@@ -69,17 +69,37 @@ ipsec auto --up test-l2tp-vpn
 
 ## 搭建网络到网络VPN
 ### 测试场景
+确认pc12和pc22能相互ping到。
+
+网络列表：
 * 子网1：A类：10.0.0.0-10.255.255.255
 * 子网0：C类：192.168.0.0-192.168.255.255（模拟公网）
 * 子网2：B类：172.16.0.0-172.31.255.255 
-示意图：
+
+示意图：（确保下列网络没有与本地真实网络ip段相冲突的）
 ```
     |------net1------|--------------net0-------------|-----------net2-------|
     |    10.0.0.*    |           192.168.1.*         |      172.16.0.*      |
    pc12-------------pc11----------------------------pc21-------------------pc22
-10.0.0.2-----10.0.0.1&192.168.1.201--------192.168.1.202&172.16.0.1--------172.16.0.2
+10.0.0.2-----10.0.0.1&192.168.1.201-----192.168.1.202&172.16.0.1--------172.16.0.2
 ```
 ### 安装测试用虚拟机
 * 下载VirtualBox、CentOS 6.*，安装一个虚拟主机之后，再复制三份，分别命名为pc12,pc11,pc21,pc22
-* 复制好主机之后，需要按照设计
-
+* 分别为上述4个主机添加两个网卡：virtualBox中虚拟主机上右键 -- settings -- network（注意记住相应网卡的MAC）:
+    * 启用adapter1，类型：bridged Adapter. 方便通过外部网络下载所需资源；
+    * 启用adapter2，类型：internal network；
+    * pc11、pc21需要启用adapter3，类型：internal network。
+* 启动各个虚拟主机后，删除`/etc/sysconfig/network-scripts/ifcfg-eth*`
+* 在虚拟主机中执行 `ip a`，并记下列出的MAC信息，并与第二步记下的MAC做匹配，并新建相应的 `/etc/sysconfig/network-scripts/ifcfg-eth*`   
+    以pc11的第二个网卡为例，ifcfg-eth1配置示例如下：
+    ```
+DEVICE=eth1
+NM_CONTROLLED=no
+ONBOOT=yes
+TYPE=Ethernet
+BOOTPROTO=none
+IPADDR=10.0.0.2
+PREFIX=24
+IPV4_FAILURE_FATAL=yes
+IPV6INIT=no
+    ```
