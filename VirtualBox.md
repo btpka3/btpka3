@@ -41,3 +41,6 @@ mount: block device /dev/sr0 is write-protected, mounting read-only
 [root@h01 ~]# cd /mnt/f
 ...
     ```
+
+##  搭建局域网
+
