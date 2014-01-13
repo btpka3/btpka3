@@ -14,8 +14,10 @@
     * token-granter-ref ： 一个TokenGranter，默认是：CompositeTokenGranter
     * user-approval-page
 * 子元素
-    * authorization-code
+    * authorization-code:生成AuthorizationCodeTokenGranter
         * disabled
+        * authorization-code-services-ref：默认为InMemoryAuthorizationCodeServices
+        * client-token-cache-ref
 
 ### resource-server
 ### client-details-service
