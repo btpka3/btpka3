@@ -1,3 +1,12 @@
+## 理解OAuth2
+### 授权类型
+* authorization code
+* implicit
+* resource owner password credentials
+* client credentials
+* 自定义扩展类型
+
+
 ## oauth tags
 ### authorization-server
 生成一个org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint。
