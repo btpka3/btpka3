@@ -1,3 +1,24 @@
+## psql
+
+```
+postgres-# \? # 显示psql命令行帮助
+postgres-# \q # 退出
+postgres-# \c dbName # 切换DB
+postgres-# \h CRATE DATABASE # 显示创建数据库的语法
+
+postgres-# \l # 列出所有数据库
+postgres-# SELECT DTNAME FORM PG_DATABASE; # 列出所有数据库
+
+postgres-# \d+; # 列出所有表
+postgres-# SELECT * FROM PG_TABLES; # 列出所有表
+
+postgres-# \d+ tableName; # 显示表的详细信息
+postgres-# SELECT * FROM INFORMATION_SCHEMA.TABLES; # 显示表的详细信息
+
+postgres-# SELECT * FROM PG_USER; # 列出所有用户
+
+```
+
 ## LOB
 ### JDBC
 [binary-data](http://jdbc.postgresql.org/documentation/80/binary-data.html)
