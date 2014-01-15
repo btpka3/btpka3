@@ -24,7 +24,7 @@ postgres-# \d+ tableName; # 显示表的详细信息
 postgres-# SELECT * FROM INFORMATION_SCHEMA.TABLES; # 显示表的详细信息
 
 postgres-# SELECT * FROM PG_USER; # 列出所有用户
-
+postgres-# SELECT * FROM PG_SHADOW;
 ```
 
 ## LOB
