@@ -5,8 +5,8 @@
 CREATE TABLE imageslo (imgname text, imgoid oid);
 ```
 
-store blob
-```java
+* 插入
+    ```java
 // All LargeObject API calls must be within a transaction block
 conn.setAutoCommit(false);
 
@@ -44,10 +44,10 @@ fis.close();
 
 // Finally, commit the transaction.
 conn.commit();
-```
+    ```
 
-retrive BLOB
-```java
+* 读取
+    ```java
 // All LargeObject API calls must be within a transaction block
 conn.setAutoCommit(false);
 
@@ -75,8 +75,10 @@ ps.close();
 
 // Finally, commit the transaction.
 conn.commit();
-```
+    ```
 
+### pg_largeobject、pg_largeobject_metadata 中的记录没有删除？
+当使用oid字段存储blob时（比如使用JPA+@Lob自动创建相关的表时），发现仅仅删除用户表中的记录，pg_largeobject、pg_largeobject_metadata中的large object还是没有删除。官方文档给出的一个方法是使用[lo](http://www.postgresql.org/docs/9.1/static/lo.html)模块。
 ### Object Permissions
 [9.0 release note](http://www.postgresql.org/docs/9.0/static/release-9-0.html#AEN101496)
 [grant syntax](http://www.postgresql.org/docs/9.0/static/sql-grant.html)
@@ -85,4 +87,4 @@ GRANT { { SELECT | UPDATE } [,...] | ALL [ PRIVILEGES ] }
     ON LARGE OBJECT loid [, ...]
     TO { [ GROUP ] role_name | PUBLIC } [, ...] [ WITH GRANT OPTION ]
 ```
-如果不需要对largeObject进行权限控制，则可以将[lo_compat_privileges](http://www.postgresql.org/docs/9.0/interactive/runtime-config-compatible.html#GUC-LO-COMPAT-PRIVILEGES)设置为`on`（默认是off）
+如果不需要对largeObject进行权限控制，则可以将[lo_compat_privileges](http://www.postgresql.org/docs/9.0/interactive/runtime-config-compatible.html#GUC-LO-COMPAT-PRIVILEGES)设置为`on`（默认是`off`）
