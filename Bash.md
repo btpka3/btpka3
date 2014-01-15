@@ -61,6 +61,9 @@ str="a\nb\nc\nd\ne"
 echo -e $str | sed -n '1p'    # 打印第1行
 echo -e $str | sed -n '2,3p'  # 打印第2~3行
 echo -e $str | sed -n '$p'    # 打印第最后一行
+
+tail -f xxxFile
+tailf xxxFile | grep --line-buffered --color=auto xxxKeyWord 
 ```
 
 ## date
@@ -129,4 +132,5 @@ funcResult=$(myFunc zhang3)
 ### File Search
 ```sh
   find / -name xxx 2>/dev/null
+  find / -name "*xxx*" | xargs ls -l
 ```
