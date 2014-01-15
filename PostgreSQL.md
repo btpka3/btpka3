@@ -1,6 +1,6 @@
 ## psql
 
-```
+```txt
 postgres-# \? # 显示psql命令行帮助
 postgres-# \q # 退出
 postgres-# \c dbName # 切换DB
