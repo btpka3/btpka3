@@ -1,6 +1,6 @@
-
 ## LOB
-[jdbc access](http://jdbc.postgresql.org/documentation/80/binary-data.html)
+### JDBC
+[binary-data](http://jdbc.postgresql.org/documentation/80/binary-data.html)
 ```sql
 CREATE TABLE imageslo (imgname text, imgoid oid);
 ```
@@ -75,4 +75,13 @@ ps.close();
 
 // Finally, commit the transaction.
 conn.commit();
+```
+
+### Object Permissions
+[9.0 release note](http://www.postgresql.org/docs/9.0/static/release-9-0.html#AEN101496)
+[grant syntax](http://www.postgresql.org/docs/9.0/static/sql-grant.html)
+```sql
+GRANT { { SELECT | UPDATE } [,...] | ALL [ PRIVILEGES ] }
+    ON LARGE OBJECT loid [, ...]
+    TO { [ GROUP ] role_name | PUBLIC } [, ...] [ WITH GRANT OPTION ]
 ```
