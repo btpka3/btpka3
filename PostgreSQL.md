@@ -1,13 +1,21 @@
 ## psql
 
 ```txt
-postgres-# \? # 显示psql命令行帮助
-postgres-# \q # 退出
-postgres-# \c dbName # 切换DB
-postgres-# \h CRATE DATABASE # 显示创建数据库的语法
+# 显示psql命令行帮助
+postgres-# \?
 
-postgres-# \l # 列出所有数据库
-postgres-# SELECT DTNAME FORM PG_DATABASE; # 列出所有数据库
+# 退出
+postgres-# \q
+
+# 切换DB
+postgres-# \c dbName
+# 显示创建数据库的语法
+postgres-# \h CRATE DATABASE
+# 列出所有数据库及其拥有者和权限
+# CONNECT - c、CREATE - C、TEMPORARY - T
+postgres-# \l
+# 列出所有数据库
+postgres-# SELECT DTNAME FORM PG_DATABASE;
 
 postgres-# \d+; # 列出所有表
 postgres-# SELECT * FROM PG_TABLES; # 列出所有表
