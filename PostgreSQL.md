@@ -78,7 +78,9 @@ conn.commit();
     ```
 
 ### pg_largeobject、pg_largeobject_metadata 中的记录没有删除？
-当使用oid字段存储blob时（比如使用JPA+@Lob自动创建相关的表时），发现仅仅删除用户表中的记录，pg_largeobject、pg_largeobject_metadata中的large object还是没有删除。官方文档给出的一个方法是使用[lo](http://www.postgresql.org/docs/9.1/static/lo.html)模块。
+当使用oid字段存储blob时（比如使用JPA+@Lob自动创建相关的表时），发现仅仅删除用户表中的记录，pg_largeobject、pg_largeobject_metadata中的large object还是没有删除。官方文档给出的一个方法是使用[lo](http://www.postgresql.org/docs/9.1/static/lo.html)模块并使用trigger。
+FIXME：trigger影响效率，且有时会失效？应该使用定时任务处理？
+
 ### Object Permissions
 [9.0 release note](http://www.postgresql.org/docs/9.0/static/release-9-0.html#AEN101496)
 [grant syntax](http://www.postgresql.org/docs/9.0/static/sql-grant.html)
