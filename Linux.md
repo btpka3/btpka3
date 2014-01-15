@@ -29,3 +29,10 @@ insmod module_name
 # unstall module
 rmmod module_name
 ```
+
+## commands
+### tail
+```
+tail -f xxxFile
+tailf xxxFile | grep --line-buffered --color=auto xxxKeyWord 
+```
