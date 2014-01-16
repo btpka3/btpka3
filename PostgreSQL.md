@@ -133,4 +133,11 @@ where t.lomowner = p.oid
 --pg_largeobject_metadata的oid就是largeObject的oid
 ```
 
+整理largeObject
+```sql
+Vacuumlo –n –v dbName 
+Vacuum analyze verbose pg_largeobject;
+Vacuum analyze verbose pg_largeobject_metadata;
+
+```
 
