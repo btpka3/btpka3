@@ -111,11 +111,26 @@ conn.commit();
 FIXME：trigger影响效率，且有时会失效？应该使用定时任务处理？
 
 ### Object Permissions
-[9.0 release note](http://www.postgresql.org/docs/9.0/static/release-9-0.html#AEN101496)
+[9.0 release note](http://www.postgresql.org/docs/9.0/static/release-9-0.html#AEN101496)  
 [grant syntax](http://www.postgresql.org/docs/9.0/static/sql-grant.html)
 ```sql
 GRANT { { SELECT | UPDATE } [,...] | ALL [ PRIVILEGES ] }
     ON LARGE OBJECT loid [, ...]
     TO { [ GROUP ] role_name | PUBLIC } [, ...] [ WITH GRANT OPTION ]
 ```
-如果不需要对largeObject进行权限控制，则可以将[lo_compat_privileges](http://www.postgresql.org/docs/9.0/interactive/runtime-config-compatible.html#GUC-LO-COMPAT-PRIVILEGES)设置为`on`（默认是`off`）
+
+如果不需要对largeObject进行权限控制，则可以将[lo_compat_privileges](http://www.postgresql.org/docs/9.0/interactive/runtime-config-compatible.html#GUC-LO-COMPAT-PRIVILEGES)设置为`on`（默认是`off`）。该配置项位于postgre配置文件中，可以通过`show config_file`查看配置文件路径。
+
+
+
+查询哪些用户有多少个largeObject
+```sql
+select t.lomowner as userOid, p.rolname, t.count 
+from (select lomowner as lomowner, count(*) as count from pg_largeobject_metadata group by lomowner ) t,
+     pg_authid p
+where t.lomowner = p.oid
+--pg_authid的oid字段就是用户的oid
+--pg_largeobject_metadata的oid就是largeObject的oid
+```
+
+
