@@ -11,8 +11,7 @@ postgres-# \q
 postgres-# \c dbName
 # 显示创建数据库的语法
 postgres-# \h CRATE DATABASE
-# 列出所有数据库及其拥有者和权限
-# CONNECT - c、CREATE - C、TEMPORARY - T
+# 列出所有数据库及其拥有者和权限（具体哪个字母代表什么权限，请参考grant的语法说明文档）
 postgres-# \l
 # 列出所有数据库
 postgres-# SELECT DTNAME FORM PG_DATABASE;
