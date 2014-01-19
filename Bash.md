@@ -13,7 +13,10 @@ rc=$?
    exit 1
 }
 
-(( 0 && 1 )) && success || failure
+(( 0 && 1 )) && success || {
+  failure
+  exit 1
+}
 ```
 
 ## loop
