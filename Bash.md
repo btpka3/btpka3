@@ -1,3 +1,17 @@
+## loop
+```sh
+for (( COUNTER=0; COUNTER<=10; COUNTER+=2 )); do
+    echo $COUNTER
+done
+
+for i in {0..10..2} 
+do
+  echo $i
+done 
+
+for i in `seq 0 2 10`; do echo $i; done
+```
+
 ## 检查目录是否为空
 参考：[1](http://www.cyberciti.biz/faq/linux-unix-shell-check-if-directory-empty/)
 ```sh
