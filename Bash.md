@@ -13,9 +13,10 @@ rc=$?
    exit 1
 }
 
+. /etc/rc.d/init.d/functions
 (( 0 && 1 )) && success || {
   failure
-  exit 1
+  exit $?
 }
 ```
 
