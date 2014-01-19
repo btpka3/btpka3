@@ -1,3 +1,9 @@
+## number calc
+```sh
+let a=1+2  # a=3
+expr 1 + 2 # 3, 注意，需要使用空格分隔
+```
+
 ## loop
 ```sh
 for (( COUNTER=0; COUNTER<=10; COUNTER+=2 )); do
