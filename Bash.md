@@ -165,15 +165,15 @@ funcResult=$(myFunc zhang3)
 
 
 ```sh
-[root@s01 ~]# vi /data/srs/util/backDb-website
+[root@s01 ~]# vi /data/srs/util/backDb
 #!/bin/bash
 
 ################################################## config #########
-DB_HOST=192.168.1.249
+DB_HOST=192.168.0.000
 DB_NAME=website
 DB_USER=website
 # do not end with '/'
-BAK_DIR=/data/srs/backup/${DB_NAME}
+BAK_DIR=/data/back/${DB_NAME}
 
 ################################################## backup #########
 
