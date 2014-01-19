@@ -133,4 +133,8 @@ funcResult=$(myFunc zhang3)
 ```sh
   find / -name xxx 2>/dev/null
   find / -name "*xxx*" | xargs ls -l
+  # 统计文件数量
+  ls | wc -l
+  # 统计当前目录下目录的数量（不含隐藏目录和当前目录本身）
+  find $PWD -maxdepth 1 -type d  ! \( -path '*/\.*' -o -path $PWD \)
 ```
