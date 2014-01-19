@@ -3,6 +3,15 @@
 let a=1+2  # a=3
 expr 1 + 2 # 3, 注意，需要使用空格分隔
 ```
+## exit code
+```sh
+. /etc/rc.d/init.d/functions
+(( 0 && 1 )) # simulate an error exit code
+[[ $? -ne 0 ]] && { 
+   failure
+   exit 1
+}
+```
 
 ## loop
 ```sh
