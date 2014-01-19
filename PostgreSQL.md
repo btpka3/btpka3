@@ -140,3 +140,17 @@ Vacuum analyze verbose pg_largeobject_metadata;
 
 ```
 
+```sql
+DROP DATABASE IF EXISTS xxx
+DROP TABLESPACE IF EXISTS xxx;;
+DROP USER IF EXISTS xxx;
+
+CREATE USER xxx PASSWORD 'password';
+ALTER USER xxx WITH SUPERUSER;
+
+mkdir /data/database/xxx
+chown -R postgres:postgres /data/database/xxx
+CREATE TABLESPACE xxx OWNER xxx LOCATION '/data/database/xxx';
+CREATE DATABASE xxx WITH OWNER = xxx TABLESPACE = xxx ENCODING = 'UTF-8'; 
+
+```
