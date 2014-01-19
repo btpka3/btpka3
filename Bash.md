@@ -162,3 +162,46 @@ funcResult=$(myFunc zhang3)
   # 统计当前目录下目录的数量（不含隐藏目录和当前目录本身）
   find $PWD -maxdepth 1 -type d  ! \( -path '*/\.*' -o -path $PWD \)
 ```
+
+
+```sh
+[root@s01 ~]# vi /data/srs/util/backDb-website
+#!/bin/bash
+
+################################################## config #########
+DB_HOST=192.168.1.249
+DB_NAME=website
+DB_USER=website
+# do not end with '/'
+BAK_DIR=/data/srs/backup/${DB_NAME}
+
+################################################## backup #########
+
+CUR_PATH=${PWD}
+cd ${BAK_DIR}
+
+# delete first if exist
+bakFile=`date +%Y-%m-%d`
+if [ -d ${bakFile} ]; then
+  rm -fr ${bakFile}
+fi
+
+# back up today's db data
+pg_dump -h ${DB_HOST} -U ${DB_USER} -F d -b -E UTF8 -f ${bakFile} ${DB_NAME}
+#mkdir `date +%Y-%m-%d`
+
+################################################## delete old files #########
+fw=`date -d '1 weeks ago' +%Y-%m-%d`
+for f in *; do
+
+   # delete a week ago backup data file
+   if [  "${f}" \< "${fw}"  -o  "${f}" = "${fw}"  ]; then
+     rm -fr "${f}"
+   fi
+
+done
+
+cd ${CUR_PATH}
+~
+
+```
