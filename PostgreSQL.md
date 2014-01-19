@@ -1,3 +1,22 @@
+## install
+```
+[root@s01 ~]# vi /var/lib/pgsql/9.1/data/pg_hba.conf
+# 修改以下一行（可以方便pg_dump时不用输入密码——仅限本地执行）
+local   all             all                                     peer  map=srsPgMap
+# 追加以下一行（允许指定的IP段连接数据库）
+host    all             all             192.168.0.1/24           md5
+
+# 修改系统用户与数据库用户的映射关系（方便pg_dump时不用输入密码）
+[root@s01 ~]# vi /var/lib/pgsql/9.1/data/pg_ident.conf
+# MAPNAME       SYSTEM-USERNAME         PG-USERNAME
+srsPgMap        postgres                postgres
+srsPgMap        postgres                autotrading
+srsPgMap        postgres                mocktrading
+
+```
+
+
+
 ## psql
 
 ```txt
