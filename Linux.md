@@ -1,3 +1,10 @@
+## 常用命令
+```
+df -h # 查看磁盘空间使用状况
+df -i # 查看inode数量状况（创建的文件数）
+```
+
+
 ## What OPTIONS is the running kernel using?
 [See this](http://www.walkernews.net/2008/11/21/how-to-check-what-kernel-build-options-enabled-in-the-linux-kernel/):
 ```sh
