@@ -10,3 +10,4 @@
 * Jenkins (LDAP + Auth)
 * Maven Nexus (LDAP + Auth)
 * Scriptable browser plugin
+* Linux login + LDAP
