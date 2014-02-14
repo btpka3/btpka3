@@ -7,6 +7,6 @@
 * Comted sample
 * Spring Integration
 * Spring LDAP
-* Jenkins + LDAP
-* Maven Nexus +LDAP
+* Jenkins (LDAP + Auth)
+* Maven Nexus (LDAP + Auth)
 * Scriptable browser plugin
