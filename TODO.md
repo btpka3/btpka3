@@ -6,7 +6,7 @@
 * Front-end : Date-Range-Widget?
 * Comted sample
 * Spring Integration
-* Spring LDAP
+* Spring [LDAP](http://docs.spring.io/spring-ldap/docs/current/reference/)
 * Jenkins (LDAP + Auth)
 * Maven Nexus (LDAP + Auth)
 * Scriptable browser plugin
