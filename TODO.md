@@ -11,3 +11,4 @@
 * Maven Nexus (LDAP + Auth)
 * Scriptable browser plugin
 * Linux login + LDAP
+* [Git](http://git-scm.com/book/zh)
