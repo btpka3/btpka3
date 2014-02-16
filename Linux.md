@@ -1,3 +1,34 @@
+## 分区
+```
+设备             大小（MB）   挂载点     类型            格式化
+LVM 卷组
+  Vg_h01        476436    
+    Lv_root      51200      /          ext4            yes
+    Lv_home     419236      /home      ext4            yes
+    Lv_swap        6000                swap            yes
+硬盘驱动器
+  Sda
+    Sda1            500     /boot      ext4            yes
+    Sda2         476439     vg_h01     物理卷组LVM      yes
+```
+## 修改环境变量
+```
+root@h01 ~]# vi /etc/profile.d/custom.sh
+export XXX=xxx
+```
+# 确认、修改 kernel 参数 
+```
+# 确保能每个进程能打开足够多的文件
+[root@h01 ~]# sysctl -A | grep fs\.file-max
+fs.file-max = 383983				
+[root@h01 ~]# cat /proc/sys/fs/file-max
+383983
+# 如果值太小，需要修改，则修改以下文件
+[root@h01 ~]# vi /etc/sysctl.conf
+fs.file-max = 383983
+```
+
+
 ## 常用命令 
 ```
 df -h # 查看磁盘空间使用状况
