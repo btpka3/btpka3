@@ -116,7 +116,8 @@ DNS1=8.8.8.8
 4.  修改对主机名的本地DNS解析
     ```sh
 [root@h01 ~]# vi /etc/hosts             # 追加以下一行
-000.000.000.000 h01                     # 内网IP地址 主机名
+# 格式：内网IP地址 主机名，可防止RMI连接 127.0.0.1出错
+000.000.000.000 h01                     
     ```
 5.  检查网络的启动级别和启动状态
 ```sh
@@ -127,9 +128,12 @@ Configured devices:
 lo eth0
 Currently active devices:
 lo eth0
-
 ```
+
 6.  使用代理（若无请跳过） 
+
+
+
 
     [参考](http://www.cyberciti.biz/faq/linux-unix-set-proxy-environment-variable/ "How To Use Proxy Server To Access Internet at Shell Prompt With http_proxy Variable")
     ```sh
@@ -137,6 +141,34 @@ lo eth0
 # ...
  export http_proxy=http://10.1.18.123:808/
     ```
+
+7. 检查网络的启动级别和启动状态
+```sh
+network         0:关闭  1:关闭  2:启用  3:启用  4:启用  5:启用  6:关闭
+[root@h01 ~]# service network status
+配置设备：
+lo em1
+当前的活跃设备：
+lo em1
+```
+
+8. 验证
+```sh
+[root@h01 ~]# ping -c 4 baidu.com
+PING baidu.com (123.125.114.144) 56(84) bytes of data.
+64 bytes from 123.125.114.144: icmp_seq=1 ttl=51 time=219 ms
+64 bytes from 123.125.114.144: icmp_seq=4 ttl=51 time=223 ms
+--- baidu.com ping statistics ---
+4 packets transmitted, 2 received, 50% packet loss, time 4000ms
+rtt min/avg/max/mdev = 219.364/221.428/223.493/2.117 ms
+```
+9. 起停命令
+```sh
+[root@h01 ~]# service network
+用法：/etc/init.d/network {start|stop|status|restart|reload|force-reload}
+```
+
+
 
 ## 安装较高版本GLibC
 CentOS 6.3 默认自带的GLibC 是2.12版的，但是有的程序是使用2.14版本的。这里是更新GLibC的命令：
