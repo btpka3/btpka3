@@ -14,12 +14,12 @@ LVM 卷组
     Sda2         476439     vg_h01     物理卷组LVM      yes
 ```
 ## 修改环境变量
-```
+```bash
 root@h01 ~]# vi /etc/profile.d/custom.sh
 export XXX=xxx
 ```
 # 确认、修改 kernel 参数 
-```
+```bash
 # 确保能每个进程能打开足够多的文件
 [root@h01 ~]# sysctl -A | grep fs\.file-max
 fs.file-max = 383983				
