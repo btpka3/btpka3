@@ -54,7 +54,7 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * 不要打开过多的工程/关闭不相关的工程
 * 不要打开过多的文件/Editor
 * 适当的时候，可以关闭auto-build
-
+* 关闭不需要的 label declaration（SVN/GIT）
 
 ##常见问题
 ###Win7下eclipse3.7中文字体过小
