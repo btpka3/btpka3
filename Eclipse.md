@@ -58,11 +58,13 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * 禁用不需要的validation：Windows -> Preferences -> Validation
 * 使用Sun的JDK运行Eclipse/STS
 * 将JDK整个放入ramdisk中
-    * [linux](http://www.jamescoyle.net/how-to/943-create-a-ram-disk-in-linux)
+    * [linux](https://wiki.archlinux.org/index.php/Ramdisk)
 
     ```
-mkdir -p /media/ramdisk
-mount -t ramfs -o size=256M ramfs /media/ramdisk/
+sudo mkdir -p /media/ramdisk
+sudo mount -t ramfs -o size=256M ramfs /media/ramdisk/
+sudo vi /etc/fstab
+none  /mnt/ramdisk    ramfs   defaults,gid=1000,uid=1000      0   0 
     ```
     * [Windows](http://www.softperfect.com/products/ramdisk/)
 * 不要打开过多的工程/关闭不相关的工程
