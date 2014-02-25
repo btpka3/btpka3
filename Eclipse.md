@@ -40,12 +40,17 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * 修改Eclipse.ini/STS.ini中的JVM参数，并[指定JVM](http://wiki.eclipse.org/Eclipse.ini#-vm_value:_Linux_Example)：
 
     ```cfg
+-vm /usr/lib/jvm/java-7-openjdk-amd64/bin/java
 -Xms1024m
 -Xmx2000m
+-XX:PermSize=128m
 -XX:MaxPermSize=512m
 -Xss2m
--vm /usr/lib/jvm/java-7-openjdk-amd64/bin/java
+-Xmn128m
 -Xverify:none
+-server
+-XX:+UseParallelGC
+-XX:ParallelGCThreads=10
     ```
 * 禁用Dashboard ：Window->Preferences->SpringSource->Dashboard：取消勾选 Show Dashboard On Startup
 * 禁用Spell Check：Window->Preferences->General->Editors->Text Editors->Spelling ：取消选择Enable spell checking
