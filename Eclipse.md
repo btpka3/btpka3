@@ -37,12 +37,14 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * Alt+/        : 自动提示
 
 ## 加速
-* 修改STS.ini中的JVM参数
+* 修改STS.ini中的JVM参数，并[指定JVM](http://wiki.eclipse.org/Eclipse.ini#-vm_value:_Linux_Example)：
 
     ```cfg
 -Xms1024m
 -Xmx2000m
 -XX:MaxPermSize=512m
+-Xss2m
+-vm /usr/lib/jvm/java-7-openjdk-amd64/bin/java
     ```
 * 禁用Dashboard ：Window->Preferences->SpringSource->Dashboard：取消勾选 Show Dashboard On Startup
 
