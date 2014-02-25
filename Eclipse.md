@@ -57,10 +57,19 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * 禁用Spell Check：Window->Preferences->General->Editors->Text Editors->Spelling ：取消选择Enable spell checking
 * 禁用不需要的validation：Windows -> Preferences -> Validation
 * 使用Sun的JDK运行Eclipse/STS
+* 将JDK整个放入ramdisk中
+    * [linux](http://askubuntu.com/questions/152868/how-do-i-make-a-ram-disk)
+
+    ```
+mkdir -p /media/nameme
+mount -t tmpfs -o size=2048M tmpfs /media/nameme/
+    ```
+    * [Windows](http://www.softperfect.com/products/ramdisk/)
 * 不要打开过多的工程/关闭不相关的工程
 * 不要打开过多的文件/Editor
 * 适当的时候，可以关闭auto-build
 * 关闭不需要的 label declaration（SVN/GIT）
+
 
 ##常见问题
 ###Win7下eclipse3.7中文字体过小
