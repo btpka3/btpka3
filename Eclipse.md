@@ -37,7 +37,7 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * Alt+/        : 自动提示
 
 ## 加速
-* 修改STS.ini中的JVM参数，并[指定JVM](http://wiki.eclipse.org/Eclipse.ini#-vm_value:_Linux_Example)：
+* 修改Eclipse.ini/STS.ini中的JVM参数，并[指定JVM](http://wiki.eclipse.org/Eclipse.ini#-vm_value:_Linux_Example)：
 
     ```cfg
 -Xms1024m
@@ -45,9 +45,11 @@ update site： http://findbugs.cs.umd.edu/eclipse
 -XX:MaxPermSize=512m
 -Xss2m
 -vm /usr/lib/jvm/java-7-openjdk-amd64/bin/java
+-Xverify:none
     ```
 * 禁用Dashboard ：Window->Preferences->SpringSource->Dashboard：取消勾选 Show Dashboard On Startup
-
+* 禁用不需要的validation：Windows -> Preferences -> Validation
+* 使用Sun的JDK运行Eclipse/STS
 
 
 ##常见问题
