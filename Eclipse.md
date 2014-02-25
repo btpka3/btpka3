@@ -56,6 +56,7 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * 禁用Dashboard ：Window->Preferences->SpringSource->Dashboard：取消勾选 Show Dashboard On Startup
 * 禁用Spell Check：Window->Preferences->General->Editors->Text Editors->Spelling ：取消选择Enable spell checking
 * 禁用不需要的validation：Windows -> Preferences -> Validation
+* 关闭自动更新：Windows -> Preferences -> Install/Update -> Automatic Updates
 * 使用Sun的JDK运行Eclipse/STS
 * 将JDK整个放入ramdisk中
     * [linux](https://wiki.archlinux.org/index.php/Ramdisk)
