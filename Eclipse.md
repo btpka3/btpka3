@@ -36,6 +36,18 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * Alt+Shift+J  : 追加Javadoc（自动使用Java/Code Style/Code Templates）
 * Alt+/        : 自动提示
 
+## 加速
+* 修改STS.ini中的JVM参数
+
+    ```cfg
+-Xms1024m
+-Xmx2000m
+-XX:MaxPermSize=512m
+    ```
+* 禁用Dashboard ：Window->Preferences->SpringSource->Dashboard：取消勾选 Show Dashboard On Startup
+
+
+
 ##常见问题
 ###Win7下eclipse3.7中文字体过小
 原因：由于Eclipse 3.7 用的字体是 Consolas，显示中文的时候默认太小了。
