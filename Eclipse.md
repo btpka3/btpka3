@@ -50,7 +50,8 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * 禁用Dashboard ：Window->Preferences->SpringSource->Dashboard：取消勾选 Show Dashboard On Startup
 * 禁用不需要的validation：Windows -> Preferences -> Validation
 * 使用Sun的JDK运行Eclipse/STS
-
+* 不要打开过多的工程/关闭不相关的工程
+* 适当的时候，可以关闭auto-build
 
 ##常见问题
 ###Win7下eclipse3.7中文字体过小
