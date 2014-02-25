@@ -60,9 +60,10 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * 将JDK整个放入ramdisk中
     * [linux](https://wiki.archlinux.org/index.php/Ramdisk)
 
-    ```
+    ```bash
 sudo mkdir -p /media/ramdisk
-sudo mount -t ramfs -o size=256M ramfs /media/ramdisk/
+#sudo mount -t ramfs -o size=256M ramfs /media/ramdisk/
+sudo mount -t ramfs none /media/ramdisk/
 sudo vi /etc/fstab
 none  /mnt/ramdisk    ramfs   defaults,gid=1000,uid=1000      0   0 
     ```
