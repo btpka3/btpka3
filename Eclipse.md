@@ -52,6 +52,7 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * 禁用不需要的validation：Windows -> Preferences -> Validation
 * 使用Sun的JDK运行Eclipse/STS
 * 不要打开过多的工程/关闭不相关的工程
+* 不要打开过多的文件/Editor
 * 适当的时候，可以关闭auto-build
 
 
