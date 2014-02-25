@@ -40,7 +40,8 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * 修改Eclipse.ini/STS.ini中的JVM参数，并[指定JVM](http://wiki.eclipse.org/Eclipse.ini#-vm_value:_Linux_Example)：
 
     ```cfg
--vm /usr/lib/jvm/java-7-openjdk-amd64/bin/java
+-vm /usr/lib/jvm/java-7-openjdk-amd64/bin/java  # 第一行
+# ...
 -Xms1024m
 -Xmx2000m
 -XX:PermSize=128m
