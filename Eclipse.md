@@ -58,7 +58,7 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * 禁用不需要的validation：Windows -> Preferences -> Validation
 * 关闭自动更新：Windows -> Preferences -> Install/Update -> Automatic Updates
 * 使用Sun的JDK运行Eclipse/STS
-* 将JDK整个放入ramdisk中
+* 将JDK整个放入ramdisk中（？？？貌似不易实施？重启后内容丢失。）
     * [linux](https://wiki.archlinux.org/index.php/Ramdisk)
 
     ```bash
