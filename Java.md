@@ -1,5 +1,5 @@
 # JDK
-## jstat
+## [jstat](http://docs.oracle.com/javase/6/docs/technotes/tools/share/jstat.html)
 ### 使用方法
 
 ```sh
@@ -22,7 +22,7 @@ zll@zll-pc:bin$ jstat -options
 -gcold
 -gcoldcapacity
 -gcpermcapacity
--gcutil                       # 常用
+-gcutil
 -printcompilation
 ```
 ### 示例
@@ -32,6 +32,18 @@ zll@zll-pc:bin$ jstat  -gcutil 22679
   0.00  99.17  75.12  68.32  57.97     21    1.099     2    1.253    2.352
 ```
 
+### -class
+```sh
+zll@zll-pc:bin$ jstat -class 18904
+Loaded  Bytes  Unloaded  Bytes     Time   
+  5784 11346.6        0     0.0       9.37
+
+Loaded             # 载入的Class的数量
+Bytes              # 载入的Class的字节数（kb）
+Unloaded           # 卸载的Class的数量
+Bytes              # 卸载的Class的字节数（kb）
+Time               # 载入和卸载Class所消耗的时间
+```
 ### 字段说明
 
 ```sh
