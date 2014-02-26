@@ -32,7 +32,8 @@ zll@zll-pc:bin$ jstat  -gcutil 22679
   0.00  99.17  75.12  68.32  57.97     21    1.099     2    1.253    2.352
 ```
 
-### -class
+### -class 
+Class加载状况统计
 ```sh
 zll@zll-pc:bin$ jstat -class 18904
 Loaded  Bytes  Unloaded  Bytes     Time   
@@ -44,6 +45,47 @@ Unloaded           # 卸载的Class的数量
 Bytes              # 卸载的Class的字节数（kb）
 Time               # 载入和卸载Class所消耗的时间
 ```
+### -compiler
+HotSpot Just-In-Time 编译器统计
+```sh
+zll@zll-pc:bin$ jstat -compiler 18904
+Compiled Failed Invalid   Time   FailedType FailedMethod
+    1464      1       0    41.96          1 com/alibaba/dubbo/config/spring/schema/DubboBeanDefinitionParser parse
+
+Compiled           # 进行编译任务的数量
+Failed             # 失败的编译任务数量
+Invalid            # 无效的编译任务的数量
+Time               # 编译消耗的时间
+FailedType         # 最后一次编译失败的类型
+FailedMethod       # 最后一次编译失败的类和方法
+```
+
+### -gc
+垃圾回收堆的统计
+```sh
+zll@zll-pc:bin$ jstat -gc 18904
+ S0C    S1C    S0U    S1U      EC       EU        OC         OU       PC     PU    YGC     YGCT    FGC    FGCT     GCT   
+8192.0 11264.0 8006.2  0.0   458752.0 117275.1  62976.0    42636.1   35840.0 35716.6     18    0.483   0      0.000    0.483
+
+S0C                # 
+S1C    
+S0U    
+S1U      
+EC       
+EU        
+OC         
+OU       
+PC     
+PU    
+YGC     
+YGCT    
+FGC    
+FGCT     
+GCT 
+```
+
+
+
 ### 字段说明
 
 ```sh
