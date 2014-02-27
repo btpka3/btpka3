@@ -12,3 +12,5 @@
 * Scriptable browser plugin
 * Linux login + LDAP
 * [Git](http://git-scm.com/book/zh)
+* Web App managed HttpSession stored in Redis
+* trie implementation in Java & JS
