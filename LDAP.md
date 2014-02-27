@@ -39,4 +39,16 @@ CR      | 回车符                     | 0x0D
 =       | 等于号                     | 0x3D
 /       | 斜杠                       | 0x2F
 
+# LDAP AdsPath
+* 路径语法：
+如果路径上的DistinguishedName含有保留字符需要使用反斜杠进行转义、或者使用 '\xx'的形式使用十六进制值。
+
+```txt
+LDAP://HostName[:PortNumber][/DistinguishedName]
+```
+
+* 路径示例
+```txt
+LDAP://server01/CN=Jeff Smith,CN=users,DC=fabrikam,DC=com
+```
  
