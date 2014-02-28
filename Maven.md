@@ -15,7 +15,8 @@ mvn -Dmaven.test.skip=true -am --projects subModule1/leafModule1 clean install
 注意：如果子模块B有一些自动生成代码的Maven插件依赖于子模块A，恐怕就不能一起编译了。而必须先install子模块A，才能在子模块B中自动生成代码、之后才可能重新一起编译、打包
 
 ## 经验
-   * 在pom.xml中使用属性的存在性来激活profile。示例
+   * 在pom.xml中使用属性的存在性来激活profile。示例:
+
    ```xml
 <profile>
   <id>release</id>
@@ -33,8 +34,9 @@ mvn -Dmaven.test.skip=true -am --projects subModule1/leafModule1 clean install
 
 ## 常用命令
 查看那些profile生效
-
-`mvn help:active-profiles -N`
+```sh
+mvn help:active-profiles -N
+```
 
 
 
@@ -227,7 +229,7 @@ daemon.xml
     </fileSet>
   </fileSets>
 </assembly>
-
+```
 
 * mybatis-generator-maven-plugin
 
