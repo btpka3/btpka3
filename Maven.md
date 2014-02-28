@@ -29,9 +29,14 @@ mvn -Dmaven.test.skip=true -am --projects subModule1/leafModule1 clean install
    ```
    之后就可以使用 `mvn -Dp_release ...` 来激活该profile了。
 
+
+
 ## 常用命令
 查看那些profile生效
+
 `mvn help:active-profiles -N`
+
+
 
 
 ## 简化开发机配置
@@ -68,3 +73,38 @@ mvn -Dmaven.test.skip=true -am --projects subModule1/leafModule1 clean install
 需要：
 * 局域网Maven仓库启启用分组，并且将所有仓库都纳入统一个组 `remote-repos` 中。
 * `<server/>` 配置是用以结合 pom.xml 中的 `<distributionManagement/>` 发布快照用的。
+
+
+
+
+# 常用插件
+
+* 向Maven仓库部署非其他类型的artifact？（比如：*.zip）
+
+```xml
+ <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-artifacts</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>target/${project.build.finalName}.zip</file>
+                  <type>zip</type>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+ </build>
+```
