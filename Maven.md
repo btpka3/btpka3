@@ -79,8 +79,24 @@ mvn -Dmaven.test.skip=true -am --projects subModule1/leafModule1 clean install
 
 # 常用插件
 
-* 向Maven仓库部署非其他类型的artifact？（比如：*.zip）
+* maven-compiler-plugin
 
+指定编译级别。
+```xml
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+```
+
+* build-helper-maven-plugin
+
+向Maven仓库部署非其他类型的artifact（比如：*.zip）。
 ```xml
  <build>
     <plugins>
@@ -108,4 +124,110 @@ mvn -Dmaven.test.skip=true -am --projects subModule1/leafModule1 clean install
       </plugin>
     </plugins>
  </build>
+```
+
+* maven-jar-plugin
+
+打包jar用，可以排除或加入特定的一些文件。
+```xml
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>config.properties</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+```
+
+* exec-maven-plugin
+
+执行特定的Java程序。
+```xml
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>com.alibaba.dubbo.container.Main</mainClass>
+        </configuration>
+      </plugin>
+```
+
+* maven-assembly-plugin
+
+打包（*.tar.gz, *.zip 等格式）。
+```xml
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>dubbo</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <appendAssemblyId>false</appendAssemblyId>
+              <descriptors>
+                <descriptor>${basedir}/src/main/assembly/daemon.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+```
+
+daemon.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+  <id>daemon</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <dependencySets>
+    <dependencySet>
+      <unpack>false</unpack>
+      <scope>runtime</scope>
+      <outputDirectory>lib</outputDirectory>
+    </dependencySet>
+  </dependencySets>
+  <fileSets>
+    <fileSet>
+      <directory>target/classes</directory> <!-- copy Maven filter 之后的 Resource -->
+      <outputDirectory>conf</outputDirectory>
+      <includes>
+        <include>config.properties</include>
+      </includes>
+      <fileMode>0755</fileMode>
+    </fileSet>
+    <fileSet>
+      <directory>.</directory>
+      <outputDirectory>.</outputDirectory>
+      <includes>
+        <include>README*</include>
+        <include>LICENSE*</include>
+        <include>NOTICE*</include>
+      </includes>
+      <fileMode>0755</fileMode>
+    </fileSet>
+    <fileSet>
+      <directory>target/bin</directory>
+      <outputDirectory>bin</outputDirectory>
+      <fileMode>0755</fileMode>
+      <directoryMode>0755</directoryMode>
+    </fileSet>
+  </fileSets>
+</assembly>
+
 ```
