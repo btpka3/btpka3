@@ -87,6 +87,7 @@ mvn -Dmaven.test.skip=true -am --projects subModule1/leafModule1 clean install
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.8</version>
         <executions>
           <execution>
             <id>attach-artifacts</id>
