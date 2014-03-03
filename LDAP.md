@@ -86,6 +86,8 @@ Root # aka "base","suffix"
 LDAP在设计时就支持代理部分内容的维护。LDAP没有固定如何如何处理referral。LDAP服务器通常会不会像DNS服务器那样自动查询referral节点上的内容，而是给客户端一个referral，让客户端去直连。但LDAP服务器的实现也可能提供chaining机制自动完成代理。
 
 # schema
-schema是一个打包单元。
-schema包含objectClass。objectClass包含attribute。
-objectClass和attribute必须在schema中声明。
+[schema](http://directory.apache.org/apacheds/basic-ug/2.3-introducing-schema.html)是一个打包单元。定义一下内容：
+* attributeType
+* objectClass 
+* syntax
+* matchingRule 
