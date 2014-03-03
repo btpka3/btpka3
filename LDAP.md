@@ -52,3 +52,10 @@ LDAP://HostName[:PortNumber][/DistinguishedName]
 LDAP://server01/CN=Jeff Smith,CN=users,DC=fabrikam,DC=com
 ```
  
+# LDIF
+[LDIF](http://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format)（LDAP Data Interchange Format）是一种普通文本形式的数据交换格式。用以展示LDAP信息或表示更新请求。
+
+## 内容记录格式
+每条记录由一组属性构成，记录之间通过空行分隔。记录的单个属性占一个逻辑行（可通过Line-folding机制由多个物理行组成），包含 "name:value" 键值对。如果值无法使用可移植性的ASCII子集表示，则需要使用 `::`作为前缀，后跟base64编码表示。参考：RFC2425。
+
+
