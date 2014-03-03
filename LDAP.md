@@ -4,18 +4,18 @@ RDN是 attribute=value 形式的属性值，通常是UTF-8字符串。
 
 * 常见属性名
 
-attribut | Alias                   | shema        | objectClass         | notes
----------|-------------------------|--------------|---------------------|-----------------
-c        | countryName             | core.schema | country              | ISO 3166:两位国家编码 
-cn       | commonName              | core.schema | person etc.          |
-dc       | domainComponent         | core.schema | dcObject             | 域名的任意部分
-mail     | rfc822Mailbox           | core.schema | inetOrgPerson        |
-O        | organizationName        | core.schema | organization         | 组织名称
-OU       | organizationalUnitName  | core.schema | organizationUnit     | 单位名称
-STREET   | streetAddress           | core.schema | organizationalPerson |街道地址
-L        | localityName            | core.schema | locality etc.        | 地区
-ST       | stateOrProvinceName     | core.schema | organizationalPerson | 州名/省名
-UID      | userid                  | core.schema | account etc.         | 用户名等
+attribute | Alias                   | shema        | objectClass         | notes
+----------|-------------------------|--------------|---------------------|-----------------
+c         | countryName             | core.schema | country              | ISO 3166:两位国家编码 
+cn        | commonName              | core.schema | person etc.          |
+dc        | domainComponent         | core.schema | dcObject             | 域名的任意部分
+mail      | rfc822Mailbox           | core.schema | inetOrgPerson        |
+O         | organizationName        | core.schema | organization         | 组织名称
+OU        | organizationalUnitName  | core.schema | organizationUnit     | 单位名称
+STREET    | streetAddress           | core.schema | organizationalPerson |街道地址
+L         | localityName            | core.schema | locality etc.        | 地区
+ST        | stateOrProvinceName     | core.schema | organizationalPerson | 州名/省名
+UID       | userid                  | core.schema | account etc.         | 用户名等
 
 * 示例：
 ```txt
@@ -78,6 +78,6 @@ Root # aka "base","suffix"
 ```
 * 每个Entry只有一个父Entry，可以有零个活多个子Entry
 * 每个Entry有一个或多个objectClass，每个objectClass都有名字
-* 每个objectClass都有一组属性组成（key=value）
-
+* 每个objectClass都有一组attribute组成（key=value）
+* 不同的objectClass可能有不同的[可选、必选attribute](http://www.zytrax.com/books/ldap/ape/index.html#objectclasses)
 
