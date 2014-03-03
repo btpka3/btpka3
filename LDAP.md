@@ -3,17 +3,19 @@
 RDN是 attribute=value 形式的属性值，通常是UTF-8字符串。
 
 * 常见属性名
-属性名 | 属性值
--------|---------------------------------------
-DC     | domainComponent : 域组件
-CN     | commonName : 普通名称
-OU     | organizationalUnitName :（组织）单位名称
-O      | organizationName : 组织名称
-STREET | streetAddress : 街道地址
-L      | localityName : 地区
-ST     | stateOrProvinceName : 州名/省名
-C      | countryName : 国家
-UID    | userid : 用户ID
+
+attribut | Alias                   | shema        | objectClass         | notes
+---------|-------------------------|--------------|---------------------|-----------------
+c        | countryName             | core.schema | country              | ISO 3166:两位国家编码 
+cn       | commonName              | core.schema | person etc.          |
+dc       | domainComponent         | core.schema | dcObject             | 域名的任意部分
+mail     | rfc822Mailbox           | core.schema | inetOrgPerson        |
+O        | organizationName        | core.schema | organization         | 组织名称
+OU       | organizationalUnitName  | core.schema | organizationUnit     | 单位名称
+STREET   | streetAddress           | core.schema | organizationalPerson |街道地址
+L        | localityName            | core.schema | locality etc.        | 地区
+ST       | stateOrProvinceName     | core.schema | organizationalPerson | 州名/省名
+UID      | userid                  | core.schema | account etc.         | 用户名等
 
 * 示例：
 ```txt
@@ -65,3 +67,17 @@ LDAP相对于数据库有何优缺点？应当[何时](http://www.zytrax.com/boo
 * LDAP 复制会为每个更新产生多个事务。所以使用LDAP时，应当保证读:写 >= 1000:1
 * 如果总数据量很大（比如：>10,0000条），即使很小数量的索引的更新都可能会很严重。因此，使用LDAP时，应保证读:写 >= 10000:1
 * 如果总数据量相对较小（比如：<1000条），且没有使用LDAP复制，则可以适当的使用有事务的LDAP。（每5~10个读操作之后又一个写操作）
+
+# Data Informaction Tree
+```txt
+Root # aka "base","suffix"
+ |--Entry#1    #ObjectClass=name(attr=value,attr=value)
+ |--Entry#2
+     |--Entry#3
+     |--Entry#3
+```
+* 每个Entry只有一个父Entry，可以有零个活多个子Entry
+* 每个Entry有一个或多个objectClass，每个objectClass都有名字
+* 每个objectClass都有一组属性组成（key=value）
+
+
