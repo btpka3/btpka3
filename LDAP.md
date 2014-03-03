@@ -10,12 +10,12 @@ c         | countryName             | core.schema | country              | ISO 3
 cn        | commonName              | core.schema | person etc.          |
 dc        | domainComponent         | core.schema | dcObject             | 域名的任意部分
 mail      | rfc822Mailbox           | core.schema | inetOrgPerson        |
-O         | organizationName        | core.schema | organization         | 组织名称
-OU        | organizationalUnitName  | core.schema | organizationUnit     | 单位名称
-STREET    | streetAddress           | core.schema | organizationalPerson |街道地址
-L         | localityName            | core.schema | locality etc.        | 地区
-ST        | stateOrProvinceName     | core.schema | organizationalPerson | 州名/省名
-UID       | userid                  | core.schema | account etc.         | 用户名等
+o         | organizationName        | core.schema | organization         | 组织名称
+ou        | organizationalUnitName  | core.schema | organizationUnit     | 单位名称
+street    | streetAddress           | core.schema | organizationalPerson |街道地址
+l         | localityName            | core.schema | locality etc.        | 地区
+st        | stateOrProvinceName     | core.schema | organizationalPerson | 州名/省名
+uid       | userid                  | core.schema | account etc.         | 用户名等
 
 * 示例：
 ```txt
@@ -80,4 +80,12 @@ Root # aka "base","suffix"
 * 每个Entry有一个或多个objectClass，每个objectClass都有名字
 * 每个objectClass都有一组attribute组成（key=value）
 * 不同的objectClass可能有不同的[可选、必选attribute](http://www.zytrax.com/books/ldap/ape/index.html#objectclasses)
+* objectClass可以继承
 
+# referral 
+LDAP在设计时就支持代理部分内容的维护。LDAP没有固定如何如何处理referral。LDAP服务器通常会不会像DNS服务器那样自动查询referral节点上的内容，而是给客户端一个referral，让客户端去直连。但LDAP服务器的实现也可能提供chaining机制自动完成代理。
+
+# schema
+schema是一个打包单元。
+schema包含objectClass。objectClass包含attribute。
+objectClass和attribute必须在schema中声明。
