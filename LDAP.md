@@ -101,6 +101,7 @@ LDAP 最佳实践，参考：[1](http://ldapmaven.com/2011/10/27/ldap-programmin
 # ApachDS
 ## 安装
 * 先下载ldapsearch工具包
+
 ```sh
 # for CentOS
 yum -y install openldap-clients
@@ -109,12 +110,14 @@ sudo apt-get install ldap-utils
 ```
 * 下载ApachDS压缩包，比如 apacheds-2.0.0-M15.tar.gz，并解压。
 * 开启匿名访问：
+
 ```sh
 vi ${ADS_PWD}/instances/default/conf/config.ldif
 dn: ads-directoryServiceId=default,ou=config
 ads-dsallowanonymousaccess: TRUE             # 将默认值从FALSE改为TRUE。
 ```
 * 启动
+
 ```sh
 ${ADS_PWD}/bin/apacheds.sh
 ```
