@@ -14,4 +14,5 @@
 * [Git](http://git-scm.com/book/zh)
 * Web App managed HttpSession stored in Redis
 * trie implementation in Java & JS
-* compare Spring Security vs. Apache Shiro
+* Spring Security vs. Apache Shiro
+* OSGI
