@@ -121,3 +121,58 @@ ads-dsallowanonymousaccess: TRUE             # 将默认值从FALSE改为TRUE。
 ```sh
 ${ADS_PWD}/bin/apacheds.sh
 ```
+
+* ldapsearch
+```sh
+zll@zll-pc:4$ ldapsearch -h localhost -p 10389 -x  -b "" -s base "(objectclass=*)" +
+# extended LDIF
+#
+# LDAPv3
+# base <> with scope baseObject
+# filter: (objectclass=*)
+# requesting: + 
+#
+
+#
+dn:
+supportedControl: 2.16.840.1.113730.3.4.7
+supportedControl: 1.3.6.1.4.1.42.2.27.8.5.1
+supportedControl: 1.3.6.1.4.1.4203.1.9.1.4
+supportedControl: 1.3.6.1.4.1.4203.1.9.1.3
+supportedControl: 1.3.6.1.4.1.4203.1.9.1.2
+supportedControl: 1.3.6.1.4.1.4203.1.9.1.1
+supportedControl: 1.2.840.113556.1.4.319
+supportedControl: 1.3.6.1.4.1.18060.0.0.1
+supportedControl: 2.16.840.1.113730.3.4.3
+supportedControl: 1.3.6.1.4.1.4203.1.10.1
+supportedControl: 2.16.840.1.113730.3.4.2
+namingContexts: ou=system
+namingContexts: dc=example,dc=com
+namingContexts: ou=config
+namingContexts: ou=schema
+supportedSASLMechanisms: NTLM
+supportedSASLMechanisms: DIGEST-MD5
+supportedSASLMechanisms: GSS-SPNEGO
+supportedSASLMechanisms: GSSAPI
+supportedSASLMechanisms: SIMPLE
+supportedSASLMechanisms: CRAM-MD5
+supportedLDAPVersion: 3
+supportedFeatures: 1.3.6.1.4.1.4203.1.5.1
+supportedExtension: 1.3.6.1.4.1.1466.20036
+supportedExtension: 1.3.6.1.4.1.18060.0.1.5
+supportedExtension: 1.3.6.1.4.1.18060.0.1.3
+supportedExtension: 1.3.6.1.4.1.4203.1.11.1
+supportedExtension: 1.3.6.1.4.1.1466.20037
+subschemaSubentry: cn=schema
+vendorName: Apache Software Foundation
+vendorVersion: 2.0.0-M15
+entryUUID: f290425c-8272-4e62-8a67-92b06f38dbf5
+
+# search result
+search: 2
+result: 0 Success
+
+# numResponses: 2
+# numEntries: 1
+
+```
