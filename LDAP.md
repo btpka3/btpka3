@@ -91,3 +91,8 @@ LDAP在设计时就支持代理部分内容的维护。LDAP没有固定如何如
 * objectClass 
 * syntax
 * matchingRule 
+
+# LDAP 术语
+参考[这里](http://www.zytrax.com/books/ldap/apd/)
+
+LDAP 最佳实践，参考：[1](http://ldapmaven.com/2011/10/27/ldap-programming-best-practices/)，[2](http://www.ldapguru.info/ldap/ldap-programming-practices.html)
