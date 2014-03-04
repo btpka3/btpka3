@@ -138,6 +138,8 @@ for windows AD
 ldapsearch -h 10.1.10.2 -x -D "tcgroup\zhangliangliang" -w "xxxxxx" -b "" -s base "(objectclass=*)" "*" +
 # 查找 schema entry
 ???
+# 查找邮箱
+ldapsearch -h 10.1.10.2 -x -D "tcgroup\zhangliangliang" -w "xxxxxx" -b "dc=tcgroup,dc=local" -s sub "(objectclass=person)" mail
 ```
 
 # Filter
