@@ -96,3 +96,25 @@ LDAP在设计时就支持代理部分内容的维护。LDAP没有固定如何如
 参考[这里](http://www.zytrax.com/books/ldap/apd/)
 
 LDAP 最佳实践，参考：[1](http://ldapmaven.com/2011/10/27/ldap-programming-best-practices/)，[2](http://www.ldapguru.info/ldap/ldap-programming-practices.html)
+
+
+# ApachDS
+## 安装
+* 先下载ldapsearch工具包
+```sh
+# for CentOS
+yum -y install openldap-clients
+# for Ubuntu
+sudo apt-get install ldap-utils
+```
+* 下载ApachDS压缩包，比如 apacheds-2.0.0-M15.tar.gz，并解压。
+* 开启匿名访问：
+```sh
+vi ${ADS_PWD}/instances/default/conf/config.ldif
+dn: ads-directoryServiceId=default,ou=config
+ads-dsallowanonymousaccess: TRUE             # 将默认值从FALSE改为TRUE。
+```
+* 启动
+```sh
+${ADS_PWD}/bin/apacheds.sh
+```
