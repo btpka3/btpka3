@@ -123,6 +123,7 @@ ${ADS_PWD}/bin/apacheds.sh
 ```
 
 * ldapsearch
+
 ```sh
 zll@zll-pc:4$ ldapsearch -h localhost -p 10389 -x  -b "" -s base "(objectclass=*)" +
 # extended LDIF
