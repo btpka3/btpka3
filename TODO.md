@@ -8,8 +8,10 @@
 * Comted sample
 * Spring Integration
 * Spring [LDAP](http://docs.spring.io/spring-ldap/docs/current/reference/)
-* Jenkins (LDAP + Auth)
-* Maven Nexus (LDAP + Auth)
+   * Jenkins (LDAP + Auth)
+   * Maven Nexus (LDAP + Auth)
+   * SonarQube (LDAP + Auth)
+   * VisualSVN (LDAP + Auth)
 * Scriptable browser plugin
 * Linux login + LDAP
 * [Git](http://git-scm.com/book/zh)
