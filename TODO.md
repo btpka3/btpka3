@@ -19,3 +19,4 @@
 * trie implementation in Java & JS
 * Spring Security vs. Apache Shiro
 * OSGI
+* design REST url template for HIS
