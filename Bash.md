@@ -182,7 +182,7 @@ funcResult=$(myFunc zhang3)
 ### File Content Search
 
 ```sh
-grep -r --include "*.java" systemProperties
+grep -r -n --include "*.java" systemProperties
 ```
 
 
