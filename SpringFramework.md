@@ -46,3 +46,17 @@ public class DispenseAction {
    }
 }
 ```
+
+
+* 在JSP中使用properties中的配置项
+    1. 将placeholder和引用properties分离
+        ```xml
+<util:properties id="config" location="/WEB-INF/config.properties" />
+<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+      p:properties-ref="config" />
+        ```
+    2. 在JSP中使用 `<spring:eval />` 执行SpEL，或直接输出，或保存到变量：
+        ```jsp
+<spring:eval var="defaultUrl" expression="@config['default.url']" />
+click <a href="${fn:escapeXml(defaultUrl)}">here</a>.
+        ```
