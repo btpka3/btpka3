@@ -179,7 +179,16 @@ funcResult=$(myFunc zhang3)
   find $PWD -maxdepth 1 -type d  ! \( -path '*/\.*' -o -path $PWD \)
 ```
 
+### File Content Search
 
+```sh
+grep -r --include "*.java" systemProperties
+```
+
+
+
+
+# PostgreSql backup cron job
 ```sh
 [root@s01 ~]# vi /data/srs/util/backDb
 #!/bin/bash
