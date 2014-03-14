@@ -12,3 +12,6 @@ git add Home.markdown
 git commit -m "recover home page for wiki"
 git push
 ```
+
+本地编辑wiki [参考](http://git.oschina.net/xieyajie/XDUI/wikis/git_access)
+使用[gollum](https://github.com/gollum/gollum)
