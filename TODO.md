@@ -23,4 +23,5 @@
 * design patten summary
 * avoid JVM memory leak
 * SQL preformance
-* AOP: singleton or prototype advice~
+* <del>AOP: singleton or prototype advice</del>  
+   Srping `<aop:advisor/>`不支持设置scope，只能是Singleton。
