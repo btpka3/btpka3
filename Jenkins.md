@@ -23,6 +23,29 @@ mvn -f ../../job1/workspace/pom.xml -Dmaven.test.skip=true -am --projects subMod
 * Jenkins Subversion Plug-in
 * Jenkins Translation Assistance plugin
 * LDAP Plugin
+  Jenkins 1.480  之后就包含在发布版本中了。下面示例如何使用使用域账户登录
+
+```txt
+1. Jenkins LDAP全局配置
+   Jenkins -> Manage Jenkins -> Configure Global Security :
+   * 选中“Enable security”
+   * Access Control/Security Realm 部分，选择："LDAP"：
+        Server             : ldap://10.1.10.2:389
+        root DN            : DC=TCGROUP,DC=LOCAL
+        User search filter : mail={0}
+        Manager DN         : 域管理员的@eetop.com电子邮箱地址
+        Manager Password   : 域管理员的域账户密码
+        （其他字段留空即可）
+    * Access Control/Authorization 部分
+      选择 “Project-base Matrix Authorization Strategy”
+      在下面就可以为所有project设置默认账户的权限了。（账户名就是 xxx@eetop.com)
+
+2. Jenkins单个project/job的权限控制
+   Jenkins -> 点击单个job名 -> 点击左侧 "Configure" -> 右侧最上面，
+   选中“Enable project-based security”。之后就可以设置权限控制的矩阵表了。
+   （账户名就是 xxx@eetop.com）
+```
+
 * Mailer
 * Maven Project Plugin
 * PAM Authentication Plugin
