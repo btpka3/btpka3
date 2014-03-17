@@ -22,3 +22,16 @@ numlock=1
 sudo apt-get install python-dev
 sudo apt-get install python-pip
 ```
+
+# Ruby
+
+```sh
+# 1.9.3
+sudo apt-get install ruby1.9.3
+
+# FIXME 2.0+
+wget http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.1.tar.gz
+tar zxvf ruby-2.1.1.tar.gz
+cd ruby-2.1.1/
+./configure
+```
