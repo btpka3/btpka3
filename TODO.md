@@ -23,3 +23,4 @@
 * design patten summary
 * avoid JVM memory leak
 * SQL preformance
+* AOP: singleton or prototype advice~
