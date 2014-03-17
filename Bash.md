@@ -111,6 +111,9 @@ tailf xxxFile | grep --line-buffered --color=auto xxxKeyWord
 dateStr1="$(stat -c %y z.sh)"
 dateStr2=$(date -d "${dateStr1}" +%Y%m%d%H%M%S)
 echo -e "dateStr1=$dateStr1\ndateStr2=$dateStr2"
+
+# 循环打印当前时间
+while true; do sleep 1; echo -n -e "\r`date "+%y-%m-%d %H:%M:%S"`" ; done;
 ```
 
 ## function
