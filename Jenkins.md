@@ -22,7 +22,7 @@ mvn -f ../../job1/workspace/pom.xml -Dmaven.test.skip=true -am --projects subMod
 
 * Jenkins Subversion Plug-in
 * Jenkins Translation Assistance plugin
-* LDAP Plugin
+* LDAP Plugin  
   Jenkins 1.480  之后就包含在发布版本中了。下面示例如何使用使用域账户登录
 
 ```txt
