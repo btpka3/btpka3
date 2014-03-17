@@ -34,4 +34,11 @@ wget http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.1.tar.gz
 tar zxvf ruby-2.1.1.tar.gz
 cd ruby-2.1.1/
 ./configure
+???
+
+# RVM
+curl -sSL https://get.rvm.io | bash -s stable
+# in new console
+rvm install 2.1.1
+
 ```
