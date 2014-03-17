@@ -15,3 +15,10 @@ sudo vi /etc/xdg/lubuntu/lxdm/lxdm.conf
 [base]
 numlock=1
 ```
+
+# python
+
+```sh
+sudo apt-get install python-dev
+sudo apt-get install python-pip
+```
