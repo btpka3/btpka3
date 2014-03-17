@@ -20,3 +20,6 @@
 * Spring Security vs. Apache Shiro
 * OSGI
 * design REST url template for HIS
+* design patten summary
+* avoid JVM memory leak
+* SQL preformance
