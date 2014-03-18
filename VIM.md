@@ -41,6 +41,7 @@ set fileformats=unix
 ```
 
 * 删除BOM头
+
 ```sh
 :set nobomb
 :wq
