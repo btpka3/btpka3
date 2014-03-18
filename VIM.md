@@ -39,3 +39,9 @@ set fileformats=unix
 :setlocal ff=unix	 This buffer will use LF-only line endings when written.
 :w	                 Write buffer using unix (LF-only) line endings.
 ```
+
+* 删除BOM头
+```sh
+:set nobomb
+:wq
+```
