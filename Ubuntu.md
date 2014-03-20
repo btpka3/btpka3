@@ -42,3 +42,35 @@ curl -sSL https://get.rvm.io | bash -s stable
 rvm install 2.1.1
 
 ```
+
+# 常见问题
+* 禁止自动login
+
+```sh
+$ sudo vi /etc/lightdm/lightdm.conf
+[SeatDefaults]
+#autologin-user=xxx            # comment this line
+#autologin-user-timeout=0      # comment this line
+```
+
+* Lununtu 截屏
+
+```sh
+$ vi ~/.config/openbox/lubuntu-rc.xml
+    <!-- Take a screenshot of the current window with scrot when Alt+Print are pressed -->
+    <keybind key="A-Print">
+      <action name="Execute">
+        <!--<command>lxsession-default screenshot window</command>-->
+        <command>scrot -u -b</command>
+      </action>
+    </keybind>
+    <!-- Launch scrot when Print is pressed -->
+    <keybind key="Print">
+      <action name="Execute">
+        <!--<command>lxsession-default screenshot</command>-->
+        <command>scrot</command>
+      </action>
+    </keybind>
+
+$ openbox --reconfigure
+```
