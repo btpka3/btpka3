@@ -174,12 +174,25 @@ funcResult=$(myFunc zhang3)
 
 ### File Search
 ```sh
+  which someExecutableFile # 从环境变量下查找可执行的文件位置
+
+  # 遍历磁盘，按指定规则查找文件
   find / -name xxx 2>/dev/null
   find / -name "*xxx*" | xargs ls -l
+
+  # 从Linux数据库文件中查找匹配的文件，速度快，但不及时
+  #（新建的文件无法立即找到，系统文件数据库一星期个更新一次）
+  # 可以通过 updatedb 命令更新系统文件数据库
+  whereis fileName 
+  locate fileName
+
   # 统计文件数量
   ls | wc -l
+
   # 统计当前目录下目录的数量（不含隐藏目录和当前目录本身）
   find $PWD -maxdepth 1 -type d  ! \( -path '*/\.*' -o -path $PWD \)
+
+
 ```
 
 ### File Content Search
@@ -187,6 +200,7 @@ funcResult=$(myFunc zhang3)
 ```sh
 grep -r -n --include "*.java" systemProperties
 ```
+
 
 
 
