@@ -74,3 +74,20 @@ $ vi ~/.config/openbox/lubuntu-rc.xml
 
 $ openbox --reconfigure
 ```
+
+* Lubuntu 锁屏
+
+```sh
+$ vi ~/.config/openbox/lubuntu-rc.xml
+    <!-- Lock the screen on Home + l-->
+    <keybind key="W-l">
+      <action name="Execute">
+<!--       <command>xscreensaver-command -lock</command>--> 
+        <command>dm-tool lock</command>
+      </action>
+    </keybind>
+
+$ openbox --reconfigure
+
+```
+
