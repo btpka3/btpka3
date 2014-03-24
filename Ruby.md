@@ -1,7 +1,7 @@
 
 # install
 
-```
+```sh
 # 会创建 /usr/local/rvm
 curl -sSL https://get.rvm.io | sudo bash -s stable
 
@@ -15,5 +15,12 @@ rvm list known
 
 # 安装ruby
 sudo -i rvm install ruby-2.1.1
+
+
+# 删除rvm
+sudo rm -fr ~/.rvm
+sudo rm -fr ~/.rvmrc
+sduo rm -fr /usr/local/rvm
+sduo rm -fr /etc/profile.d/rvm.sh
 
 ```
