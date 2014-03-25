@@ -16,6 +16,10 @@ rvm list known
 # 安装ruby
 sudo -i rvm install ruby-2.1.1
 
+# 为需要使用rvm的账户执行以下命令
+su - zll
+rvm user gemsets
+exit
 
 # 删除rvm
 sudo rm -fr ~/.rvm
