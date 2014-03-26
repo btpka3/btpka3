@@ -19,11 +19,10 @@ sudo -i rvm install ruby-2.1.1
 # 为需要使用rvm的账户执行以下命令
 su - zll
 rvm user gemsets
-
-#sudo -i rvm gemset use global
-#bundle init
-#bundle install
-#bundle install --deployment --without development test mysql aws
+rvm gemset use global
+bundle init
+bundle install
+bundle install --deployment --without development test mysql aws
 exit
 
 # 删除rvm
