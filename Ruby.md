@@ -20,6 +20,7 @@ sudo -i rvm install ruby-2.1.1
 su - zll
 rvm user gemsets
 rvm gemset use global
+bundle update
 bundle init
 bundle install
 bundle install --deployment --without development test mysql aws
