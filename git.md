@@ -16,3 +16,20 @@ login.........admin@local.host
 password......5iveL!fe
 
 ```
+
+# LDAP login
+
+```sh
+  ldap:
+    enabled: true
+    host: '10.1.10.2'
+    port: 389
+    uid: 'userPrincipalName' # "sAMAccountName"
+    method: 'plain' # "tls" or "ssl" or "plain"
+    bind_dn: 'CN=张亮亮,OU=研发中心,OU=信息事业部,OU=通策集团,DC=tcgroup,DC=local'
+    password: 'ZLL password'
+    allow_username_or_email_login: false
+    base: 'DC=TCGROUP,DC=LOCAL'
+    user_filter: '(objectCategory=CN=Person,CN=Schema,CN=Configuration,DC=tcgroup,DC=local)'
+
+```
