@@ -20,6 +20,7 @@ password......5iveL!fe
 # LDAP login
 
 ```sh
+vi config/gitlab.yml
   ldap:
     enabled: true
     host: '10.1.10.2'
@@ -32,4 +33,5 @@ password......5iveL!fe
     base: 'DC=TCGROUP,DC=LOCAL'
     user_filter: '(objectCategory=CN=Person,CN=Schema,CN=Configuration,DC=tcgroup,DC=local)'
 
+bundle exec rake gitlab:ldap:check RAILS_ENV=production
 ```
