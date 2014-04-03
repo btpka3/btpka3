@@ -1,3 +1,6 @@
+
+# TODO
+
 * OAuth sample
 * Spring Security # Domain Object Security (ACLs) sample
 * Spring Security + CAS for Ajax login status test
@@ -26,3 +29,8 @@
 * <del>AOP: singleton or prototype advice</del>  
    Srping `<aop:advisor/>`不支持设置scope，只能是Singleton。
 * Jsp Tag : output page scope var with custom var name.
+
+
+
+# FIXME
+* 云安全？[1](http://article.liepin.com/ask/qa130273)
