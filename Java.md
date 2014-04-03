@@ -117,3 +117,7 @@ java -Djavax.net.ssl.trustStore=/path/to/your.keystore\
      -Djavax.net.ssl.trustStorePassword=123456\
      YourJavaApp
 ```
+
+
+# 内存管理
+[java JVM 内存类型](http://javapapers.com/core-java/java-jvm-memory-types/)
