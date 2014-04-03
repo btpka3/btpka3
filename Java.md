@@ -120,6 +120,30 @@ java -Djavax.net.ssl.trustStore=/path/to/your.keystore\
 
 
 # 内存管理
+[Memory Management in the Java HotSpotTM Virtual Machine](http://www.oracle.com/technetwork/java/javase/memorymanagement-whitepaper-150215.pdf)
+
+
+
 [java JVM 内存类型](http://javapapers.com/core-java/java-jvm-memory-types/)
 
 [2](https://blogs.oracle.com/jonthecollector/entry/presenting_the_permanent_generation)
+
+## 内存分类
+* HEAP ： 存储对象、数组，又称为共享内存——多个线程共享该内存。
+* NON-HEAP
+    * Method Area : 
+        * 存储每个类的结构（比如：运行时常量、静态变量）、
+        * method和构造函数的代码。
+        * 运行时常量池（Runtime Constant Pool），每个class、interface都有。
+    * other
+## 内存管理
+是按照内存池进行管理。可能属于heap或non-heap。
+
+
+## 垃圾回收是按照
+* Yong generation
+    * Eden
+    * survivor x 2
+* Old generation
+    * Tenured : 新生代中经过多轮垃圾回收仍在幸存区的数据会转移至此。
+    * PermGen （Permanent generation）: 存储JVM的元数据，比如类对象，方法对象（注意：是Object，区别与method area的code--字节码）
