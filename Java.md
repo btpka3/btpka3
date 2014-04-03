@@ -121,3 +121,5 @@ java -Djavax.net.ssl.trustStore=/path/to/your.keystore\
 
 # 内存管理
 [java JVM 内存类型](http://javapapers.com/core-java/java-jvm-memory-types/)
+
+[2](https://blogs.oracle.com/jonthecollector/entry/presenting_the_permanent_generation)
