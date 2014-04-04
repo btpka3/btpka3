@@ -135,6 +135,7 @@ java -Djavax.net.ssl.trustStore=/path/to/your.keystore\
         * 存储每个类的结构（比如：运行时常量、静态变量）、
         * method和构造函数的代码。
         * 运行时常量池（Runtime Constant Pool），每个class、interface都有。
+    * ？？？ Stack : 对线程私有，以栈的方式存储立即数，对象的地址，返回值，异常。
     * other
 ## 内存管理
 是按照内存池进行管理。可能属于heap或non-heap。
@@ -146,4 +147,4 @@ java -Djavax.net.ssl.trustStore=/path/to/your.keystore\
     * survivor x 2
 * Old generation
     * Tenured : 新生代中经过多轮垃圾回收仍在幸存区的数据会转移至此。
-    * PermGen （Permanent generation）: 存储JVM的元数据，比如类对象，方法对象（注意：是Object，区别与method area的code--字节码）
+    * PermGen （Permanent generation）: 存储JVM的元数据，比如类对象，方法对象（注意：是“对象”，区别与method area的code--字节码）
