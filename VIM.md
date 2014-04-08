@@ -18,6 +18,7 @@ alias vi=vim
 修改vim配置文件
 ```sh
 [root@h01 ~]# vi ~/.vimrc
+set nocompatible
 set number
 colors desert
 syntax on
