@@ -1,4 +1,15 @@
 
+# 常用命令
+
+```sh
+# 查找指定的文件属于哪一个package
+apt-file search filename
+apt-file search /path/to/file
+
+```
+
+
+
 # JDK
 ## 安装Oracle [JDK](http://askubuntu.com/questions/56104/how-can-i-install-sun-oracles-proprietary-java-6-7-jre-or-jdk)
 ```sh
