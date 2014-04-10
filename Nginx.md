@@ -72,6 +72,11 @@ http {
     }
 }
 ```
+
+# OpenSSL heartbleed
+[heartbleed](http://heartbleed.com/)、
+[nginx and heartbleed](http://nginx.com/blog/nginx-and-the-heartbleed-vulnerability)
+
 ### 被代理的服务器健康检测
 [proxy_next_upstream](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html)  
 [fastcgi_next_upstream](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_next_upstream)  
