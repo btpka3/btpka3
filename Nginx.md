@@ -82,3 +82,23 @@ http {
 [fastcgi_next_upstream](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_next_upstream)  
 [healthcheck_nginx_upstreams](https://github.com/cep21/healthcheck_nginx_upstreams)  
 3rd [nginx_upstream_check_module](https://github.com/yaoweibin/nginx_upstream_check_module)
+
+
+## https 反向代理
+
+[1](http://www.cyberciti.biz/faq/howto-linux-unix-setup-nginx-ssl-proxy/)
+[2](http://webapp.org.ua/sysadmin/setting-up-nginx-ssl-reverse-proxy-for-tomcat/)
+
+```conf
+server {
+    location / {
+         proxy_pass              http://tomcat_server;
+         proxy_set_header        Host            $host;   # ???  $http_host;
+	 proxy_set_header        X-Real-IP       $remote_addr;
+	 proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+         proxy_set_header        X-Forwarded-Proto $scheme;
+         add_header              Front-End-Https   on;
+         proxy_redirect          off;
+    }
+}
+```
