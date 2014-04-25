@@ -2,6 +2,7 @@
 see [here](https://github.com/gitlabhq/gitlabhq/blob/master/doc/install/installation.md)
 
 
+
 # first login
 ```sh
 su - git
@@ -34,4 +35,14 @@ vi config/gitlab.yml
     user_filter: '(objectCategory=CN=Person,CN=Schema,CN=Configuration,DC=tcgroup,DC=local)'
 
 bundle exec rake gitlab:ldap:check RAILS_ENV=production
+```
+
+# 7788
+## show gitlab versions
+
+```sh
+[root@localhost ~] su - git
+[git@localhost ~] cd gitlab
+[git@localhost gitlab] bundle exec rake gitlab:env:info RAILS_ENV=production
+[git@localhost gitlab] git describe --tags
 ```
