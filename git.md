@@ -52,6 +52,13 @@ yum -y groupinstall 'Development Tools'
 yum -y install readline readline-devel ncurses-devel gdbm-devel glibc-devel tcl-devel openssl-devel curl-devel expat-devel db4-devel byacc sqlite-devel libyaml libyaml-devel libffi libffi-devel libxml2 libxml2-devel libxslt libxslt-devel libicu libicu-devel system-config-firewall-tui redis sudo wget crontabs logwatch logrotate perl-Time-HiRes
 ``` 
 
+## 使用RVM安装ruby
+参考 [ruby](ruby)，和[Installing Gitlab with RVM](https://github.com/gitlabhq/gitlab-public-wiki/wiki/Installing-Gitlab-with-RVM)
+
+需要将参考文档中使用到的bundle命令替换为相应的命令 ext-2.1.1_bundle，包括/etc/init.d/gitlab中的。
+
+
+
 
 ## 不使用本地的postgresql时
 
