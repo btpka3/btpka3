@@ -53,6 +53,12 @@ yum -y install readline readline-devel ncurses-devel gdbm-devel glibc-devel tcl-
 ``` 
 
 
+## 不使用本地的postgresql时
+
+```sh
+yum install postgresql93 postgresql93-devel postgresql93-libs
+```
+
 # first login
 ```sh
 su - git
