@@ -82,6 +82,17 @@ password......5iveL!fe
 
 ```
 
+# 常用命令
+
+```sh
+su - git
+cd ~/gitlab
+
+# 检查应用状态
+bundle exec rake gitlab:env:info RAILS_ENV=production
+
+```
+
 # LDAP login
 
 ```sh
