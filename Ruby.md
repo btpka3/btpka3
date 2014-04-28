@@ -18,6 +18,8 @@ sudo -i rvm install ruby-2.1.1
 
 # 为需要使用rvm的账户执行以下命令
 su - zll
+rvm use 2.1.1
+gem install bundler
 rvm user gemsets
 rvm gemset use global
 bundle update
