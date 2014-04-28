@@ -53,6 +53,7 @@ yum -y install readline readline-devel ncurses-devel gdbm-devel glibc-devel tcl-
 ``` 
 
 ## 使用RVM安装ruby
+[111](http://werein.cz/blog/en/posts/gitlab-on-rvm)
 参考 [ruby](ruby)，和[Installing Gitlab with RVM](https://github.com/gitlabhq/gitlab-public-wiki/wiki/Installing-Gitlab-with-RVM)
 
 需要将参考文档中使用到的bundle命令替换为相应的命令 ext-2.1.1_bundle，包括/etc/init.d/gitlab中的。
