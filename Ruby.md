@@ -2,8 +2,11 @@
 # install
 
 ```sh
+# root执行以下命令
 # 会创建 /usr/local/rvm
 curl -sSL https://get.rvm.io | sudo bash -s stable
+
+# logout and login again
 
 # 将使用rvm的用户添加到rvm用户组中
 usermod -a -G rvm zll
@@ -14,7 +17,8 @@ usermod -a -G rvm root
 rvm list known
 
 # 安装ruby
-sudo -i rvm install ruby-2.1.1
+rvm install ruby-2.1.1
+rvm alias create default 2.1.1
 
 # 为需要使用rvm的账户执行以下命令
 su - zll
