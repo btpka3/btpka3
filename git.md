@@ -132,3 +132,10 @@ bundle exec rake gitlab:ldap:check RAILS_ENV=production
 [git@localhost gitlab] bundle exec rake gitlab:env:info RAILS_ENV=production
 [git@localhost gitlab] git describe --tags
 ```
+
+admin user
+
+```sh
+less /home/git/gitlab/db/fixtures/production/001_admin.rb
+
+```
