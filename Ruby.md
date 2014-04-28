@@ -47,5 +47,5 @@ rvm gemset use global
 bundle update
 #bundle init
 bundle install
-
+/usr/local/rvm/scripts/rvm
 ```
