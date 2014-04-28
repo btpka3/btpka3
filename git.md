@@ -82,6 +82,17 @@ password......5iveL!fe
 
 ```
 
+#RVM
+
+```sh
+vi /home/git/gitlab/.rvmrc
+rvm use 2.1.1 2>&1 >/dev/null
+
+vi /etc/init.d/gitlab
+# 多追加了一个cd命令，以便启用rvm的hook，并设置path
+PATH_PATCH="PATH=$(su $USER -s /bin/bash -l -c "cd \"$APP_PATH\"; echo \"\$PATH\"") && export PATH && "
+
+```
 # 常用命令
 
 ```sh
