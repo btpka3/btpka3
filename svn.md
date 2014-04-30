@@ -34,6 +34,11 @@
 
 
 
-# 配置
+# 在当前work目录下update一个本地不存在的目录
+
+```sh
+svn update --depth=files
+#--depth : empty, files, immediates, infinity
+```
 
  
