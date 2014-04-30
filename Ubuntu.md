@@ -1,8 +1,22 @@
 
-# 常用命令
+# apt
+
 
 ```sh
+apt-get -s install <package>
+apt-cache policy <package>
+apt-show-versions <package>
+aptitude versions <package>
+
+# 查询安装包安装了那些内容
+dpkg-query -L <package_name>
+
+# 列出所有已经安装的软件包
+dpkg-query -l 
+
 # 查找指定的文件属于哪一个package
+sudo apt-get install apt-file
+sudo apt-file update
 apt-file search filename
 apt-file search /path/to/file
 
