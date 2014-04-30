@@ -40,8 +40,13 @@ NOTICE: 如果svn升级，比如从1.7升级到1.8，需要重新执行一下步
 # 在当前work目录下update一个本地不存在的目录
 
 ```sh
-svn update --depth=files
+cd /local/work/dir/
+
+svn update --depth=immediates
 #--depth : empty, files, immediates, infinity
+
+cd newDownloadDir
+svn update --set-depth infinity
 ```
 
  
