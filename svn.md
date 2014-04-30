@@ -8,7 +8,7 @@
 
 ## 安装SVN Connector
 可以从SVNKit或者JavaHL中二选一即可。SVNKit是纯JAVA编写。而JavaHL是调用外部库。
-到[该网址](http://www.polarion.com/products/svn/subversive/download.php)使用与Eclipse想对应的更新站点，再安装SVNKit或者JavaHL即可。
+到[该网址](http://www.polarion.com/products/svn/subversive/download.php)使用与Eclipse相对应的更新站点，再安装SVNKit或者JavaHL即可。
 
 如果安装的是JavaHL，还需要进行以下操作
 
