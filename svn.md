@@ -2,6 +2,9 @@
 # Eclipse 插件安装
 [参考](http://www.eclipse.org/subversive/installation-instructions.php )
 
+NOTICE: 如果svn升级，比如从1.7升级到1.8，需要重新执行一下步骤，并uninstall旧的插件。
+
+
 ## 安装 Subversive 插件
 默认在Eclipse中的Update Site中都有一个官方的更新站点，比如：`Kepler - http://download.eclipse.org/releases/kepler`。
 选中之后，在 “Collaboration” 安装所需的 Subversive 特性即可。重启Eclipse。
