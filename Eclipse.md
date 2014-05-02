@@ -91,6 +91,21 @@ none  /mnt/ramdisk    ramfs   defaults,gid=1000,uid=1000      0   0
     一个不足：键盘上Esc键下面的那个字符和单引号只有宽度上的区别，而没有字形上的区别。
 
 
+## Java Clean Up
+Preferences - Java - Code Style - Clean Up : 取消选中 "Show profile selection dialog for the 'Source > Clean Up' action"。
+在 Eclipse [build-in] 的基础上进行以下修改：
+
+1. Code Organizing : General settings : 选中 Format source code
+1. Code Organizing : General settings : 选中 Remove trailing whitespace
+1. Code Organizing : Imports : 选中 Organize imports
+1. Code Style : Control statements : 选中 Use blocks in if/while/for/do statements
+1. Code Style : Variable declarations : 选中 Use modifier 'final' where possible
+1. Code Style : Variable declarations : 选中 Parameter
+1. Missing Code : Annotations : Potential programming problems : 选中 Add serial version ID
+
+
+
+
 ## Java Formater
 在 Eclipse [build-in] 的基础上做以下修改：
 
