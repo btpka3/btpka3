@@ -99,5 +99,5 @@ none  /mnt/ramdisk    ramfs   defaults,gid=1000,uid=1000      0   0
 1. Line Wrapping : 选中 Never join already wrapped lines
 1. Comments : 选中 Never join lines
 1. Comments : Line width : Maximum line width for comments : 120
-
+1. Off/On Tags : 选中 Enable Off/On tags
 
