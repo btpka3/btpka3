@@ -89,3 +89,15 @@ none  /mnt/ramdisk    ramfs   defaults,gid=1000,uid=1000      0   0
     2. 解压之后，把YaHei.Consolas.1.12.ttfw文件复制到C:\Windows\Fonts目录下，完成字体的安装
     3. 打开Elcipse，点击菜单栏上的“Windows”——点击“Preferences”——点击“Genneral”——点击“Appearance”——点击“Colors and Font”——在右侧框展开“Basic”文件夹--双击“Text Font”——在弹出窗选择“YaHei.Consolas”——点击按钮“确定”——点击按钮“OK”，完成。  
     一个不足：键盘上Esc键下面的那个字符和单引号只有宽度上的区别，而没有字形上的区别。
+
+
+## Java Formater
+在 Eclipse [build-in] 的基础上做以下修改：
+
+1. Identation : General settings : Tab policy 选为 Spaces only
+1. Line Wrapping : Maximum line width : 120
+1. Line Wrapping : 选中 Never join already wrapped lines
+1. Comments : 选中 Never join lines
+1. Comments : Line width : Maximum line width for comments : 120
+
+
