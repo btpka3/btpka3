@@ -116,3 +116,5 @@ Preferences - Java - Code Style - Clean Up : 取消选中 "Show profile selectio
 1. Comments : Line width : Maximum line width for comments : 120
 1. Off/On Tags : 选中 Enable Off/On tags
 
+# 字体
+YaHei Consolas Hybrid ： 基本能满足等宽编程要求，但是tab键上面的那个字符和单引号很相似，且不等宽。
