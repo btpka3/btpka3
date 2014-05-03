@@ -119,4 +119,6 @@ Preferences - Java - Code Style - Clean Up : 取消选中 "Show profile selectio
 # 字体
 YaHei Consolas Hybrid ： 基本能满足等宽编程要求，但是tab键上面的那个字符和单引号很相似，且不等宽。
 
-最终，还是选择[文泉驿-微米黑](http://wiki.ubuntu.org.cn/%E5%AD%97%E4%BD%93)
+[文泉驿-微米黑](http://wiki.ubuntu.org.cn/%E5%AD%97%E4%BD%93)有点不好看。
+
+最终，还是选择 Microsoft YaHei Mono.ttf
