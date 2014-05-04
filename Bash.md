@@ -185,6 +185,7 @@ funcResult=$(myFunc zhang3)
   # 可以通过 updatedb 命令更新系统文件数据库
   whereis fileName 
   locate fileName
+  locate $PWD/*.sqd        # 列出当前目录及子目录下所有以 sqd 为后缀的文件
 
   # 统计文件数量
   ls | wc -l
