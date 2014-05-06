@@ -10,7 +10,7 @@ see [here](https://github.com/gitlabhq/gitlabhq/blob/master/doc/install/installa
 ```
 
 
-# 手动安装
+## 手动安装
 由于gitlab预编译的二进制包（*.rpm）包含了所有依赖，
 Ubuntu下的手动安装请参考[这里](https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/install/installation.md)。
 CentOS下的手动安装请参考[这里](https://gitlab.com/gitlab-org/gitlab-recipes/tree/master/install/centos)。
@@ -82,7 +82,7 @@ password......5iveL!fe
 
 ```
 
-#RVM
+##RVM
 
 ```sh
 vi /home/git/gitlab/.rvmrc
@@ -93,7 +93,7 @@ vi /etc/init.d/gitlab
 PATH_PATCH="PATH=$(su $USER -s /bin/bash -l -c "cd \"$APP_PATH\"; echo \"\$PATH\"") && export PATH && "
 
 ```
-# 常用命令
+## 常用命令
 
 ```sh
 su - git
@@ -104,7 +104,7 @@ bundle exec rake gitlab:env:info RAILS_ENV=production
 
 ```
 
-# LDAP login
+## LDAP login
 
 ```sh
 vi config/gitlab.yml
@@ -123,8 +123,8 @@ vi config/gitlab.yml
 bundle exec rake gitlab:ldap:check RAILS_ENV=production
 ```
 
-# 7788
-## show gitlab versions
+## 7788
+### show gitlab versions
 
 ```sh
 [root@localhost ~] su - git
@@ -138,4 +138,13 @@ admin user
 ```sh
 less /home/git/gitlab/db/fixtures/production/001_admin.rb
 
+```
+
+# git 命令
+
+## tag
+
+```sh
+git tag -l                  # 显示所有的tag
+git checkout 2.4.9          # 切换到2.4.9的tag
 ```
