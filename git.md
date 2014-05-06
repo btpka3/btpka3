@@ -145,6 +145,18 @@ less /home/git/gitlab/db/fixtures/production/001_admin.rb
 ## tag
 
 ```sh
+                            # TODO 创建tag
 git tag -l                  # 显示所有的tag
 git checkout 2.4.9          # 切换到2.4.9的tag
+                            # TODO 合并
+```
+
+## branch
+
+
+```sh
+                            # TODO 创建branch
+git branch -a               # 列出所有的branch，带*号的是工作环境所在的分支
+                            # TODO 切换branch
+                            # TODO 合并
 ```
