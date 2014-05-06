@@ -145,9 +145,9 @@ less /home/git/gitlab/db/fixtures/production/001_admin.rb
 ## tag
 
 ```sh
-                            # TODO 创建tag
+git tag newTag              # 创建tag
 git tag -l                  # 显示所有的tag
-git checkout 2.4.9          # 切换到2.4.9的tag
+git checkout tags/2.4.9     # 切换到2.4.9的tag
                             # TODO 合并
 ```
 
