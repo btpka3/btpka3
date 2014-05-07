@@ -4,8 +4,9 @@
 * CVS Plugin
 * External Monitor Job Type Plugin
 * Javadoc Plugin
-* Jenkins Parameterized Trigger plugin
-  可以使一个job在运行前或运行后调用另外一个job。示例：
+* Parameterized Trigger plugin
+
+   可以使一个job在运行前或运行后调用另外一个job。示例：
 
 ```sh
 # job1. 更新SVN  
