@@ -256,4 +256,11 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo $DIR
 ```
 
+## awk
 
+
+```sh
+# <td><a href="AAA.tar.bz2">AAA.tar.bz2</a></td>
+curl -s http://xxx/ | awk 'match($0, /<td><a.*>(.*)<\/a>.*<\/td>/,arr) {print arr[1]}'
+# output : AAA.tar.bz2
+```
