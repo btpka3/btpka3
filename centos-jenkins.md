@@ -1,3 +1,40 @@
+# 安装
+[参考](https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions)
+
+1. 先[安装JDK](CentOs-JDK)
+
+1. 新增 jenkins 的 yum 源
+
+    ```sh
+[root@localhost ~] wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+[root@localhost ~] rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+    ```
+1. 安装
+
+    ```sh
+    [root@localhost ~] yum list "*jenkins*"                         # 查找可安装的jenkins版本
+    [root@localhost ~] yum install jenkins                          # 安装
+    ```
+1. 按照规约修改jenkins的安装目录、存储目录
+    ```sh
+    [root@localhost ~] mkdir /data/software/jenkins/
+    [root@localhost ~] mkdir /data/store/jenkins/
+    [root@localhost ~] mv /usr/lib/jenkins/jenkins.war /data/software/jenkins/
+    [root@localhost ~] usermod -m -d /data/store/jenkins jenkins               # 修改jenkins用户的主目录为 /data/store/jenkins
+    ```
+
+1. 配置
+
+    ```sh
+    [root@localhost ~] vi /etc/sysconfig/jenkins
+      JENKINS_HOME="/data/store/jenkins"                               # 即jenkins用户的主目录
+      JENKINS_PORT="19010"
+      JENKINS_AJP_PORT="19011"
+    [root@localhost ~] vi /etc/init.d/jenkins
+      JENKINS_WAR="/data/software/jenkins/jenkins.war"
+    ```
+
+
 # 常用插件
 * Ant Plugin
 * Credentials Plugin
