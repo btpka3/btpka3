@@ -102,3 +102,91 @@ server {
     }
 }
 ```
+[参考](http://wiki.nginx.org/Install)
+
+# 安装
+1. 新增nginx的yum仓库，`vi /etc/yum.repos.d/nginx.repo`
+
+    ```sh
+    [nginx]
+    name=nginx repo
+    baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
+    gpgcheck=0
+    enabled=1
+    ```
+2. 安装
+
+    ```sh
+    [root@locahost ~]# yum list nginx 
+    [root@locahost ~]# yum install nginx
+    [root@locahost ~]# chkconfig --list nginx
+    [root@locahost ~]# chkconfig --level 345 nginx on
+    ```
+3. 创建所需的必要目录
+
+    ```sh
+    [root@locahost ~]# mkdir /data/outputs/log/nginx
+    [root@locahost ~]# mkdir /data/store/nginx
+    ```
+
+# 配置
+1. 修改nginx的默认配置
+
+    ```sh
+    [root@locahost ~]# vi /etc/nginx/nginx.conf
+          log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                                 '$status $body_bytes_sent "$http_referer" '
+                             '"$http_user_agent" "$http_x_forwarded_for" $upstream_addr';           # 追加 $upstream_addr 以方便追踪转给了哪一个后台服务。
+                                                                                                                                                                                          
+
+    ```
+1.  为sso配置。该示例与[tomcat 虚拟主机](centos-tomcat)的配置相呼应
+
+    ```sh
+    [root@locahost ~]# vi /etc/nginx/conf.d/sso.conf
+    ```
+    内容示例如下：
+    ```xml
+    upstream sso {
+        server                          10.1.10.213:8080  weight=1 max_fails=1 fail_timeout=60s;
+        server                          10.1.10.214:8080  weight=1 max_fails=1 fail_timeout=60s;
+    }
+    
+    server {
+        listen                          80; 
+        server_name                     ssolocal.eyar.com;
+        access_log                      /data/outputs/log/nginx/sso.access.log     main;
+        error_log                       /data/outputs/log/nginx/sso.error.log      notice;
+    
+        location /admin {
+            proxy_next_upstream         http_500 http_502 http_503 http_504 timeout error invalid_header;
+            proxy_pass                  http://sso;
+            proxy_set_header            Host ssolocal.eyar.com;           #如果tomcat使用虚拟主机的话，则需要加上该行。
+        }   
+    
+        location / { 
+            proxy_next_upstream         http_500 http_502 http_503 http_504 timeout error invalid_header;
+            proxy_pass                  http://sso;
+            proxy_set_header            Host ssolocal.eyar.com;                                                                                                                                                        
+        }   
+    
+    }
+    ```
+
+
+# 强制HTTPS （TODO）
+
+```conf
+server {
+    listen      80;
+    server_name hisdev.eyar.com;
+    return 301 https://hisdev.eyar.com$request_uri;                   # 用户直接浏览器地址栏中输入http开头的URL将会自动跳转为HTTPS
+}
+server {
+    listen      443 ssl;
+    server_name hisdev.eyar.com;
+    proxy_set_header            X-forward-ssl ;                              # 被反向代理的tomcat应用应根据此header设置生成的URL是https还是http。
+}
+```
+
+
