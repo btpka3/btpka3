@@ -1,4 +1,8 @@
 ## 多模块
+
+[参考1](http://maven.apache.org/guides/mini/guide-multiple-modules.html)、
+[参考2](http://blog.sonatype.com/people/2009/10/maven-tips-and-tricks-advanced-reactor-options/)
+
 ```
   -pl, --projects                ：只构建指定的模块列表，使用逗号分隔
   -rf, --resume-from             ：多模块构建时，跳过指定的模块
@@ -36,6 +40,12 @@ mvn -Dmaven.test.skip=true -am --projects subModule1/leafModule1 clean install
 查看那些profile生效
 ```sh
 mvn help:active-profiles -N
+
+# 打包所有模块，且忽略指定模块的构建错误
+mvn -Dmaven.test.skip=true --resume-from xxx-maven-plugin package
+
+# 只编译指定的模块及其依赖的模块
+mvn -Dmaven.test.skip=true -am --projects my/module1,my/module2 compile
 ```
 
 
