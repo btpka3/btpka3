@@ -1,3 +1,7 @@
+[参考](https://wiki.postgresql.org/wiki/YUM_Installation)
+
+[HA Streaming_replication](http://wiki.postgresql.org/wiki/Streaming_Replication)
+
 ## install
 ```
 [root@s01 ~]# vi /var/lib/pgsql/9.1/data/pg_hba.conf
