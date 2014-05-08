@@ -5,7 +5,7 @@ deploy-xxx-web
 #!/bin/bash
 . /etc/profile
 
-#------------------------------------------------end config
+#------------------------------------------------begin config
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BAK_DIR=${DIR}/bak
