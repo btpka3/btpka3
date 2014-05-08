@@ -49,4 +49,9 @@ cd newDownloadDir
 svn update --set-depth infinity
 ```
 
+# 批量add本地新建的文件
+
+```sh
+svn st | grep '\?' |awk '{print $2}' |xargs svn add
+```
  
