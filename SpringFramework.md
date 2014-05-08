@@ -68,3 +68,44 @@ click <a href="${fn:escapeXml(defaultUrl)}">here</a>.
 server.name=http://localhost:8080
 server.verify.url=${server.name}/verify
 ```
+
+
+## SpEL
+
+```java
+
+// 成员变量
+@Value("#{ <expression string> }")
+private String field;
+
+// 普通方法
+@Autowired
+public void configure(MovieFinder movieFinder,
+                      @Value("#{ <expression string> }"} String defaultLocale) {...}
+
+// 构造函数
+@Autowired
+public MovieRecommender(CustomerPreferenceDao customerPreferenceDao,
+                          @Value("#{systemProperties['user.country']}"} String defaultLocale) {...}
+```
+
+```xml
+<bean>
+  <property name="randomNumber" value="#{ <expression string> }"/>
+</bean>
+```
+
+```txt
+inline list
+#{1,2,3,{'a',"b","c"}}
+
+静态方法调用
+#{ T(java.lang.Math).random() * 100.0 }
+
+通过预定义变量systemProperties访问系统属性
+#{ systemProperties['user.region'] }
+
+调用Spring管理的bean
+#{@beanId.xxxAttr}
+
+```
