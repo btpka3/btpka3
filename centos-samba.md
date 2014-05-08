@@ -1,0 +1,117 @@
+# 安装
+
+1. 安装samba
+
+    ```sh
+[root@localhost ~]# rpm -qa | grep samba   # 确认samba是否已经安装
+[root@localhost ~]# yum list samba            #  查看可安装的samba版本
+[root@localhost ~]# yum install samba        #  安装
+    ```
+
+1. 设置默认运行级别
+
+    ```sh
+[root@localhost ~]# chkconfig --list smb                     # 查看smb默认运行级别
+[root@localhost ~]# chkconfig --list nmb                     # 查看nmb默认运行级别
+[root@localhost ~]# chkconfig --level 345 smb on       # 设置smb默认运行级别 
+[root@localhost ~]# chkconfig --level 345 nmb on       # 设置smb默认运行级别
+    ```
+
+1. （可选）设置防火墙
+
+    如果开启了防火墙的情况下，需要开启TCP 139、445端口; UDP 137、138端口。
+
+1.  （可选）设置SELinux
+
+    如果开启了SELinux，则需要为每个共享目录执行以下命令。
+
+    ```sh
+    [root@localhost ~]# chcon -R -t samba_share_t /path/to/shared/folder
+    ```
+    或者禁用SELinux
+
+    ```sh
+    [root@localhost ~]# setenforce 0                    # 临时禁用SELinux，重启后失效
+    [root@localhost ~]# vi /etc/selinux/config        # 永久禁用SELinux
+      SELINUX=disabled
+    ```
+
+# 认证访问
+
+1. 添加使用samba的账户
+
+    ```sh
+    # xxxUserName用户仅仅用来远程samba登录，不需要本地登录。
+    [root@localhost ~]# adduser -M xxxUserName  
+    # 为xxxUserName用户设置samba登录时的密码（注意：该密码不同于账户本地登录操作系统的密码）
+    # samba默认的密码文件是 /var/lib/samba/private/passdb.tdb
+    [root@localhost ~]# smbpasswd -a xxxUserName
+    ```
+
+
+1. 设置共享资源
+
+    ```sh
+    [root@localhost ~]# vi /etc/samba/smb.conf
+      # 先使用分号注释掉[homes]和[printers]部分的配置，以禁止共享各个账户的主目录和打印机
+      # 再追加以下共享配置
+      [share]                                                # 共享的名称，可以出现多个这样的配置
+      comment=some discription
+      path=/path/to/shared/folder
+      browseable=yes
+      writeable=no
+      valid users=xxxUserName
+      write list=
+    # 验证配置文件语法是否正确
+    [root@localhost ~]# testparm -s /etc/samba/smb.conf
+    ```
+
+1. 设置实际目录的权限，以便有samba写权限的用户在本地共享目录上就有写权限
+
+    ```sh
+    [root@localhost ~]# chown witeableUser:witeableUser /path/to/shared/folder
+    ```
+1. 重启 samba 服务
+
+    ```sh
+    [root@localhost ~]# service smb restart
+    [root@localhost ~]# service nmb restart
+    ```
+
+# 匿名访问
+
+1. 为samba设置匿名访问用的账户
+
+    ```sh
+    [root@localhost ~]# smbpasswd -an nobody
+    [root@localhost ~]# vi /etc/samba/smb.conf
+      [global]
+      security = share  
+      guest account = nobody
+    ```
+
+1. 设置可匿名访问的资源
+
+    ```sh
+    [root@localhost ~]# vi /etc/samba/smb.conf
+      [share]
+      path = /path/to/shared/folder
+      browseable=yes
+      writeable=no
+      guest ok = yes
+      guest only = yes
+    # 验证配置文件语法是否正确
+    [root@localhost ~]# testparm -s /etc/samba/smb.conf
+    ```
+
+1. 修改匿名可写目录的权限
+
+    ```sh
+    [root@localhost ~]# chown nobody:nobody /path/to/shared/folder
+    ```
+1. 重启 samba 服务
+
+    ```sh
+    [root@localhost ~]# service smb restart
+    [root@localhost ~]# service nmb restart
+    ```
