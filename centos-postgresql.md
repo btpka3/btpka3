@@ -177,3 +177,6 @@ CREATE TABLESPACE xxx OWNER xxx LOCATION '/data/database/xxx';
 CREATE DATABASE xxx WITH OWNER = xxx TABLESPACE = xxx ENCODING = 'UTF-8'; 
 
 ```
+
+## ddl diff
+http://apgdiff.com/how_to_use_it.php
