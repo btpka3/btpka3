@@ -1,3 +1,11 @@
+# 安装git
+
+## 下载
+不建议使用yum安装，安装的版本过低。
+如果git-scm.com下载太慢，可以从国内镜像网站 http://git.perlchina.org/ 上下载。
+下载tar包：git-1.8.4.4.tar.gz
+
+
 # install gitlab
 see [here](https://github.com/gitlabhq/gitlabhq/blob/master/doc/install/installation.md)
 
@@ -58,7 +66,21 @@ yum -y install readline readline-devel ncurses-devel gdbm-devel glibc-devel tcl-
 
 需要将参考文档中使用到的bundle命令替换为相应的命令 ext-2.1.1_bundle，包括/etc/init.d/gitlab中的。
 
+gitlab的官网是推荐使用编译安装ruby的，而不推荐使用rvm等其他ruby的版本控制工具进行安装。但是通过rvm安装起来确实很方便的。如果使用rvm安装ruby，请参考[1](xx)。
 
+需要执行以下步骤：
+
+```sh
+vi /home/git/gitlab/.rvmrc
+rvm use 2.1.1 2>&1 >/dev/null
+```
+和
+
+```sh
+vi /etc/init.d/gitlab
+# 多追加了一个cd命令，以便启用rvm的hook，并设置path
+PATH_PATCH="PATH=$(su $USER -s /bin/bash -l -c "cd \"$APP_PATH\"; echo \"\$PATH\"") && export PATH && "
+```
 
 
 ## 不使用本地的postgresql时
@@ -67,7 +89,20 @@ yum -y install readline readline-devel ncurses-devel gdbm-devel glibc-devel tcl-
 yum install postgresql93 postgresql93-devel postgresql93-libs
 ```
 
-# first login
+```sh
+vi /home/git/gitlab/config/gitlab.yml
+# 并修改其中数据库连接信息
+```
+
+## 使用远程redis
+
+```sh
+vi /home/git/gitlab-shell/config.yml
+cp /home/git/gitlab/config/resque.yml.example /home/git/gitlab/config/resque.yml
+vi /home/git/gitlab/config/resque.yml
+```
+
+## first login
 ```sh
 su - git
 cd /home/git/gitlab
@@ -82,7 +117,7 @@ password......5iveL!fe
 
 ```
 
-##RVM
+## RVM
 
 ```sh
 vi /home/git/gitlab/.rvmrc
