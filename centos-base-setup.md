@@ -221,3 +221,65 @@ set showcmd
 set cursorline
 set fileencodings=utf-8,gbk
 ```
+
+
+# CentOS 基础设定
+
+## 修改主机名，以及对主机名的本地解析
+```sh
+[root@localhost ~]# vi /etc/sysconfig/network
+  HOSTNAME=dev-dubbo2
+[root@localhost ~]# vi /etc/sysconfig/network
+  10.1.10.214 dev-dubbo2
+```
+
+## 修改网络配置
+暂略，此步骤一般已由网管完成。
+
+## 修改语言
+```sh
+[root@localhost ~]# vi /etc/sysconfig/i18n
+#LANG="zh_CN.UTF-8"
+LANG="en_US.UTF-8"
+```
+## 修改系统变量
+### kernel参数： 查看及修改每个进程可以打开的最大文件数
+
+```sh
+[root@localhost ~]# sysctl -A  | grep fs\.file-max
+fs.file-max = 291212
+[root@localhost ~]# cat /proc/sys/fs/file-max
+291212
+[root@localhost ~]# vi /etc/sysctl.conf
+fs.file-max = 383983
+```
+### 修改用户限制
+
+确认已经启用 pam_limits.so
+
+```sh
+[root@localhost ~]# vi /etc/pam.d/login
+session required pam_limits.so
+```
+
+检查配置是否合理（比如用户最大进程数、可打开的最大文件数）
+```sh
+[root@localhost ~]# ulimit -a
+```
+
+如果值太小，则修改以下文件
+```sh
+[root@localhost ~]# vi /etc/security/limits.d/xxx.conf
+root         soft    nofile         20000
+root         hard    nofile         20000
+root         soft    nproc          20000
+root         hard    nproc          20000
+
+*            soft    nofile         20000
+*            hard    nofile         20000
+*            soft    nproc          20000
+*            hard    nproc          20000
+```
+
+FIXME : `/etc/security/limits.conf`
+
