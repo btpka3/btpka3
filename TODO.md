@@ -31,6 +31,7 @@
 * Jsp Tag : output page scope var with custom var name.
 * Jetty Cluster 
 * DDD: CQRS
+* MySql cluster
 
 # FIXME
 * 云安全？[1](http://article.liepin.com/ask/qa130273)
