@@ -30,7 +30,7 @@
    Srping `<aop:advisor/>`不支持设置scope，只能是Singleton。
 * Jsp Tag : output page scope var with custom var name.
 * Jetty Cluster 
-
+* DDD: CQRS
 
 # FIXME
 * 云安全？[1](http://article.liepin.com/ask/qa130273)
