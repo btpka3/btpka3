@@ -9,7 +9,7 @@ git config --global user.email johndoe@example.com
 git config --global core.editor vim
 git config --global merge.tool vimdiff
 git config --list
-
+```
 
 ```sh
 git add path/file
@@ -17,7 +17,7 @@ git reset path/file
 git commit
 ```
 
-```
+
 # 创建仓库
 
 参考：http://gitref.org/
