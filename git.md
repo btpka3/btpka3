@@ -13,7 +13,7 @@ git config --list
 
 ```sh
 git add path/file              # 添加新文件
-git reset path/file            # 取消添加
+git reset HEAD path/file       # 取消添加
 git commit  -m "commit msg"    # 提交修改
 git push                       # 推送到远程
 ```
