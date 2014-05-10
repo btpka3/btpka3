@@ -32,6 +32,9 @@
 * Jetty Cluster 
 * DDD: CQRS
 * MySql cluster
+* servlet 3.0 aysnc
+* Spring 4 WebSocket
+* Spring Remoting HttpInvoker
 
 # FIXME
 * 云安全？[1](http://article.liepin.com/ask/qa130273)
