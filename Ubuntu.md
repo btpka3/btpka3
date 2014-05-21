@@ -136,3 +136,10 @@ $ openbox --reconfigure
 
 ```
 
+
+# SSH
+
+```sh
+sudo apt-get install openssh-client
+sudo apt-get install openssh-server
+```
