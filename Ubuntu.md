@@ -52,7 +52,7 @@ sudo apt-get install oracle-java7-installer
 sudo killall -9 apt-get
 ps aux | grep dpkg # kill them
 dpkg --configure -a
-sudo apt-get -r oracle-java7-installer
+sudo dpkg -r oracle-java7-installer
 
 ```
 
