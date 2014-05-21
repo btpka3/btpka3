@@ -38,6 +38,10 @@ apt-file search /path/to/file
 fcitx -r --enable fcitx-qimpanel
 fcitx-qimpanel
 
+gnome-terminal : Edit : Profiles : New 
+: Title and Command : 选中 Run command as a login shell
+
+
 ```
 
 # JDK
