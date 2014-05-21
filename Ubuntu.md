@@ -34,6 +34,9 @@ apt-file search /path/to/file
 [me@locahost]$ sudo apt-get install fcitx
 [me@locahost]$ sudo apt-get install gnome-language-selector
 [me@locahost]$ im-config
+#http://pinyin.sogou.com/linux/
+fcitx -r --enable fcitx-qimpanel
+fcitx-qimpanel
 
 ```
 
