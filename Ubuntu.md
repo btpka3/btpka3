@@ -24,8 +24,12 @@ apt-file search /path/to/file
 
 
 
+7788
 
+```sh
+[me@locahost]$ sudo apt-get install chromium-browser
 
+```
 
 # JDK
 ## 安装Oracle [JDK](http://askubuntu.com/questions/56104/how-can-i-install-sun-oracles-proprietary-java-6-7-jre-or-jdk)
