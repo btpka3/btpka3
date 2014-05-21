@@ -79,9 +79,19 @@ $ sudo vi /etc/lightdm/lightdm.conf
 ```
 
 * Lununtu 截屏
+[Lununtu Keyboard](https://help.ubuntu.com/community/Lubuntu/Keyboard)
 
 ```sh
 $ vi ~/.config/openbox/lubuntu-rc.xml
+
+    <keybind key="W-r">                
+      <action name="Execute">
+        <!-- <command>lxsession-default launcher_manager</command> -->
+        <command>lxpanelctl run</command>
+      </action>
+    </keybind>
+
+
     <!-- Take a screenshot of the current window with scrot when Alt+Print are pressed -->
     <keybind key="A-Print">
       <action name="Execute">
