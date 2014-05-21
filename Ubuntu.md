@@ -29,6 +29,12 @@ apt-file search /path/to/file
 ```sh
 [me@locahost]$ sudo apt-get install chromium-browser
 
+[me@locahost]$ sudo add-apt-repository ppa:fcitx-team/nightly
+[me@locahost]$ sudo apt-get update
+[me@locahost]$ sudo apt-get install fcitx
+[me@locahost]$ sudo apt-get install gnome-language-selector
+[me@locahost]$ im-config
+
 ```
 
 # JDK
