@@ -176,6 +176,7 @@ sudo vi /etc/X11/xinit/xinitrc
 
 # ???
 sudo vi /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf
+sudo vi /etc/lightdm/lightdm.conf.d/20-lubuntu.conf
 greeter-setup-script=/usr/bin/numlockx on
 ```
 
