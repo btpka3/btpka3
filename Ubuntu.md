@@ -160,3 +160,15 @@ $ openbox --reconfigure
 sudo apt-get install openssh-client
 sudo apt-get install openssh-server
 ```
+
+# 登录画面的number lock
+
+```sh
+sudo vi /etc/X11/xinit/xinitrc
+# 追加一下几行
+/usr/bin/numlockx on 
+
+sudo vi /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf
+greeter-setup-script=/usr/bin/numlockx on
+```
+
