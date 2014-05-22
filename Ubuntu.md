@@ -191,3 +191,10 @@ greeter-setup-script=/usr/bin/numlockx on
 
 ```
 
+
+# flash
+
+```sh
+sudo apt-get install pepperflashplugin-nonfree
+sudo update-pepperflashplugin-nonfree --install
+```
