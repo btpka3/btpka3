@@ -198,3 +198,10 @@ greeter-setup-script=/usr/bin/numlockx on
 sudo apt-get install pepperflashplugin-nonfree
 sudo update-pepperflashplugin-nonfree --install
 ```
+
+# 文件关联
+
+```sh
+vi ~/.local/share/applications/mimeapps.list
+cat /usr/share/applications/defaults.list
+```
