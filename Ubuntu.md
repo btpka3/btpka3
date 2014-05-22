@@ -134,6 +134,13 @@ $ vi ~/.config/openbox/lubuntu-rc.xml
       </action>
     </keybind>
 
+    <keybind key="W-t">                                                         
+      <action name="Execute">
+        <command>gnome-terminal</command>
+      </action>
+    </keybind>
+
+
 $ openbox --reconfigure
 ```
 
@@ -164,10 +171,14 @@ sudo apt-get install openssh-server
 # 登录画面的number lock
 
 ```sh
+# for login
 sudo vi /etc/lxdm/default.conf
 [base]
 numlock=1
 
+# for lock screen
+sudo vi /etc/lightdm/lightdm.conf.d/20-lubuntu.conf
+greeter-setup-script=/usr/bin/numlockx on
 
 # ???
 sudo vi /etc/X11/xinit/xinitrc
@@ -176,7 +187,7 @@ sudo vi /etc/X11/xinit/xinitrc
 
 # ???
 sudo vi /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf
-sudo vi /etc/lightdm/lightdm.conf.d/20-lubuntu.conf
 greeter-setup-script=/usr/bin/numlockx on
+
 ```
 
