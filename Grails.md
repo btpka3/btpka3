@@ -20,7 +20,8 @@ Grails 使用[Gant](http://gant.codehaus.org/)作为构建工具，它是对Grai
 Gant 脚本是一个Groovy文件，并调用预定义的一个AntBuilder和其他对象。其中两个主要的对象就是 includeTargets 和 includeTool。
 
 # 配置文件
-Grails读取配置文件是Groovy文件。使用的 [ConfigSlurper](http://groovy.codehaus.org/ConfigSlurper) [API](http://groovy.codehaus.org/gapi/index.html?groovy/util/ConfigSlurper.html) 读取配置文件。
+Grails读取配置文件是Groovy文件。使用的 [ConfigSlurper](http://groovy.codehaus.org/ConfigSlurper)、
+ [API](http://groovy.codehaus.org/gapi/index.html?groovy/util/ConfigSlurper.html) 读取配置文件。
 
 配置文件中也定义特定名称闭包，用以初始化特定的环境。
 
@@ -30,5 +31,9 @@ Grails读取配置文件是Groovy文件。使用的 [ConfigSlurper](http://groov
 [API](http://grails.org/doc/1.3.7/api/index.html?org/codehaus/groovy/grails/plugins/logging/Log4jConfig.html)
 
 ## dataSource
+[GrailsDataSource](http://grails.org/doc/1.3.7/api/index.html?org/codehaus/groovy/grails/commons/GrailsDataSource.html)
+
 ## environments
 
+## Dependency Resolution
+[IvyDomainSpecificLanguageEvaluator](http://grails.org/doc/1.3.7/api/index.html?org/codehaus/groovy/grails/resolve/IvyDomainSpecificLanguageEvaluator.html)
