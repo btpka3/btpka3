@@ -37,3 +37,19 @@ Grails读取配置文件是Groovy文件。使用的 [ConfigSlurper](http://groov
 
 ## Dependency Resolution
 [IvyDomainSpecificLanguageEvaluator](http://grails.org/doc/1.3.7/api/index.html?org/codehaus/groovy/grails/resolve/IvyDomainSpecificLanguageEvaluator.html)
+
+
+# GORM
+## Database Mapping 
+[HibernateMappingBuilder](http://grails.org/doc/1.3.7/api/index.html?org/codehaus/groovy/grails/orm/hibernate/cfg/HibernateMappingBuilder.html)、
+[Mapping](http://grails.org/doc/1.3.7/api/index.html?org/codehaus/groovy/grails/orm/hibernate/cfg/Mapping.html)
+
+# Domain Classes
+[HibernateCriteriaBuilder](http://grails.org/doc/1.3.7/api/index.html?grails/orm/HibernateCriteriaBuilder.html)、
+[NamedCriteriaProxy](http://grails.org/doc/1.3.7/api/index.html?org/codehaus/groovy/grails/orm/hibernate/cfg/NamedCriteriaProxy.html)
+
+
+## Constraints
+[validation(http://grails.org/doc/1.3.7/api/index.html?org/codehaus/groovy/grails/validation/package-summary.html)
+
+## 
