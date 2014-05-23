@@ -1,3 +1,11 @@
+# groovy-jdk vs. api vs. gapi
+see [this](http://stackoverflow.com/a/6525784): 
+
+1. api 是在所有Java文件上运行Javadoc之后的结果
+1. gapi 是在所有Java文件和Groovy文件上运行groovydoc之后的结果。（最初只是groovy文件，但是现在则包含两者）
+1. groovy-jdk 运行结果是对JDK进行增强的部分。
+
+
 # 惯例优先原则（convention over configuration）
 [参考](http://grails.org/doc/1.3.7/guide/2.%20Getting%20Started.html#2.6 Convention over Configuration)
 
@@ -10,3 +18,9 @@ Grails 使用[Gant](http://gant.codehaus.org/)作为构建工具，它是对Grai
 [Ant task列表](http://ant.apache.org/manual/tasklist.html)
 
 Gant 脚本是一个Groovy文件，并调用预定义的一个AntBuilder和其他对象。其中两个主要的对象就是 includeTargets 和 includeTool。
+
+# 配置文件
+Grails读取配置文件使用的是Groovy的 [ConfigSlurper](http://groovy.codehaus.org/ConfigSlurper) [API](http://groovy.codehaus.org/gapi/index.html?groovy/util/ConfigSlurper.html)
+
+# log4j
+
