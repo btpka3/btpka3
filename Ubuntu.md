@@ -52,6 +52,9 @@ sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
 sudo apt-get install oracle-java7-installer
 
+# 缓存文件
+# /var/cache/oracle-jdk8-installer/jdk-8u5-linux-x64.tar.gz
+
 # abort
 sudo killall -9 apt-get
 ps aux | grep dpkg # kill them
