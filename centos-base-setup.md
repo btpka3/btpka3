@@ -20,14 +20,28 @@ export XXX=xxx
 ```
 # 确认、修改 kernel 参数 
 ```bash
+# 系统限制
 # 确保能每个进程能打开足够多的文件
 [root@h01 ~]# sysctl -A | grep fs\.file-max
-fs.file-max = 383983				
+fs.file-max = 383983
 [root@h01 ~]# cat /proc/sys/fs/file-max
-383983
+797839
+
+# 查看指定进程使用的文件数量
+ls -la /proc/<pid>/fd
+lsof -p <pid of process>
+lsof -p <pid> | wc -l
+ulimit -n
+
+
+
 # 如果值太小，需要修改，则修改以下文件
 [root@h01 ~]# vi /etc/sysctl.conf
 fs.file-max = 383983
+[root@h01 ~]# sysctl -p
+
+# 用户、进程级别的限制
+[root@h01 ~]# vi /etc/security/limits.conf 
 ```
 ## Tools
 ### putty
