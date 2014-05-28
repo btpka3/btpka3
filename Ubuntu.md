@@ -208,3 +208,10 @@ sudo update-pepperflashplugin-nonfree --install
 vi ~/.local/share/applications/mimeapps.list
 cat /usr/share/applications/defaults.list
 ```
+
+
+# Mount UDF/ISO-13346 镜像
+
+```sh
+sudo mount -t auto /dev/cdrom0 / media/cdrom0
+```
