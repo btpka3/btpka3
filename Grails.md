@@ -1,3 +1,14 @@
+# 常用命令
+
+```sh
+
+grails create-app my-war
+cd my-war
+grails list-plugins
+grails 
+```
+
+
 # groovy-jdk vs. api vs. gapi
 see [this](http://stackoverflow.com/a/6525784): 
 
