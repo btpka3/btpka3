@@ -18,6 +18,17 @@ git commit  -m "commit msg"    # 提交修改
 git push                       # 推送到远程
 ```
 
+# 取消本地所有修改
+
+```sh
+# 取消对文件的修改
+git reset --hard HEAD
+
+# 删除本地未索引的文件
+git clean -fdx
+
+git status
+```
 
 # 创建仓库
 
