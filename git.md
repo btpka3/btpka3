@@ -1,3 +1,5 @@
+[Git中文手册](http://git-scm.com/book/zh)
+
 # 配置
 
 ```sh
@@ -60,6 +62,9 @@ git commit --amend
 git status
 # .gitignore 中可以忽略特定的文件
 git diff
+
+# 查看远程仓库的URL
+git config --get remote.origin.url
 ```
 
 #远程
@@ -132,7 +137,7 @@ git branch
 git branch -r
 # 查看所有分支（本地和远程）
 git branch -a
-
+git show-branch
 
 # 查看分支最后一个提交对象
 git branch -v
