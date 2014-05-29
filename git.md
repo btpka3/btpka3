@@ -126,8 +126,14 @@ git checkout branch-name
 # 新建并切换到该新分支(等价于上述两个命令)
 git checkout -b new-branch-name
 
-# 查看当前所有分支，以及工作空间所用的分支（前缀有*号）
+# 查看本地所有分支，以及工作空间所用的分支（前缀有*号）
 git branch
+# 查看远程分支
+git branch -r
+# 查看所有分支（本地和远程）
+git branch -a
+
+
 # 查看分支最后一个提交对象
 git branch -v
 （分别叫做 stashing 和 commit amending）
