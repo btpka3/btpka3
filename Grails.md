@@ -63,4 +63,44 @@ Grails读取配置文件是Groovy文件。使用的 [ConfigSlurper](http://groov
 ## Constraints
 [validation(http://grails.org/doc/1.3.7/api/index.html?org/codehaus/groovy/grails/validation/package-summary.html)
 
-## 
+##  生成递归的XML文件
+
+```groovy
+
+// A recursive XML demo
+import groovy.xml.MarkupBuilder 
+
+def builder = new MarkupBuilder();
+
+// define recursive method with parameter
+builder.metaClass.test = { n ->
+    span {
+        "l${n}" ("level" + n){
+            if( n < 3 ){
+                test n+1
+            }
+        }
+    }
+}
+
+builder.div(style:"myStyle", "before text"){
+    test 1
+    mkp.yield "end text"
+}
+
+/*
+<div style='myStyle'>before text
+  <span>
+    <l1>level1
+      <span>
+        <l2>level2
+          <span>
+            <l3>level3</l3>
+          </span>
+        </l2>
+      </span>
+    </l1>
+  </span>end text
+</div>
+*/
+```
