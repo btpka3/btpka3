@@ -2,10 +2,11 @@
 
 ```sh
 
-grails create-app my-war
-cd my-war
 grails list-plugins
-grails 
+grails create-app my-test
+cd my-test
+grails create-domain-class Book
+grails run-app
 ```
 
 
