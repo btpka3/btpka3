@@ -34,7 +34,8 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * Ctrl+Shift+D : Clean Up (需要自定义：STS-Windows-Preferences-General-Keys：Clean Up)
 * Ctrl+Shift+F : Format (建议使用Ctrl+Shift+D替代)
 * Alt+Shift+J  : 追加Javadoc（自动使用Java/Code Style/Code Templates）
-* Alt+/        : 自动提示
+* Alt+/        : Word Completion  (常常取消该快捷键的绑定)
+* Ctrl+Space   : Content Assist   (常常修改快捷键为Alt+/)
 
 ## 加速
 * 修改Eclipse.ini/STS.ini中的JVM参数，并[指定JVM](http://wiki.eclipse.org/Eclipse.ini#-vm_value:_Linux_Example)：
