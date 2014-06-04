@@ -5,6 +5,7 @@
 grails list-plugins
 grails create-app my-test
 cd my-test
+# grails generate-all helloworld.Book
 grails create-domain-class Book
 grails run-app
 ```
