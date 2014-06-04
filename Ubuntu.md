@@ -215,3 +215,10 @@ cat /usr/share/applications/defaults.list
 ```sh
 sudo mount -t auto /dev/cdrom0 / media/cdrom0
 ```
+
+# 重启网络
+
+```sh
+sudo service network-manager stop
+sudo service network-manager start
+```
