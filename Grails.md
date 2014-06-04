@@ -105,3 +105,24 @@ builder.div(style:"myStyle", "before text"){
 </div>
 */
 ```
+
+
+# 输入sql语句
+[see this](https://grails.org/FAQ#Q: How can I turn on logging for hibernate in order to see SQL statements, input parameters and output results?)
+
+Config.groovy
+
+```groovy
+hibernate.SQL="trace,stdout"
+hibernate.type="trace,stdout"
+```
+
+DataSource.groovy
+```groovy
+dataSource {
+   logSql = true
+   ...
+}
+```
+
+
