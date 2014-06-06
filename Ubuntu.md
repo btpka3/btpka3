@@ -222,3 +222,8 @@ sudo mount -t auto /dev/cdrom0 / media/cdrom0
 sudo service network-manager stop
 sudo service network-manager start
 ```
+
+# wine
+[wine](http://www.winehq.org/) 可以让部分Windows程序运行在Linux环境下，主要原理是其重新实现了Windows的API。
+
+[安装参考](http://wiki.ubuntu.com.cn/Wine)
