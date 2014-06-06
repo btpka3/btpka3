@@ -126,3 +126,10 @@ keytool -importkeystore -srckeystore src.keystore -srcstorepass 123456 -destkeys
 5. Copy your private key to ~/.ssh/id_dsa (or id_rsa).
 6. Create the RFC 4716 version of the public key using ssh-keygen
    `ssh-keygen -i -f ~/.ssh/id_dsa_com.pub > ~/.ssh/id_dsa.pub`
+
+
+# 生成SSH key
+
+```sh
+ssh-keygen -t rsa -C "hi@test.me" -N 'xxxPass' -f ~/.ssh/id_rsa
+```
