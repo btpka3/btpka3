@@ -189,4 +189,7 @@ server {
 }
 ```
 
+# Health Check
+使用Nginx Plus + 提供的 [health_check](http://nginx.org/en/docs/http/ngx_http_upstream_module.html#health_check) 指令
 
+使用 [ngx_http_healthcheck_module ](http://wiki.nginx.org/HttpHealthcheckModule)
