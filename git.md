@@ -155,3 +155,20 @@ git commit
 git branch -d branch-name
 
 ```
+
+# 远程分支
+
+```sh
+# 新建远程分支
+git push origin test:master         // 提交本地test分支作为远程的master分支
+
+# 合并远程分支
+git checkout remoteBranch1                 # ??? git checkout origin/branch1
+git push origin remoteBranch1:remoteBranch2
+
+
+# 删除远程分支
+git push origin :remoteBranch2
+
+
+```
