@@ -13,6 +13,15 @@
 [root@h01 ~]# chkconfig --list nfs
 [root@h01 ~]# chkconfig --level 345 nfs on
 ```
+## 启停命令
+
+```sh
+root@h01 ~]# service rpcbind
+Usage: /etc/init.d/rpcbind {start|stop|status|restart|reload|force-reload|condrestart|try-restart}
+[root@h01 ~]# service nfs
+Usage: nfs {start|stop|status|restart|reload|force-reload|condrestart|try-restart|condstop}
+```
+
 ## 设置共享目录
 
 ```sh
