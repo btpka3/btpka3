@@ -24,16 +24,16 @@ apt-file search /path/to/file
 
 
 
-7788
+# 7788
 
 ```sh
-[me@locahost]$ sudo apt-get install chromium-browser
+[me@locahost:~]$ sudo apt-get install chromium-browser
 
-[me@locahost]$ sudo add-apt-repository ppa:fcitx-team/nightly
-[me@locahost]$ sudo apt-get update
-[me@locahost]$ sudo apt-get install fcitx
-[me@locahost]$ sudo apt-get install gnome-language-selector
-[me@locahost]$ im-config
+[me@locahost:~]$ sudo add-apt-repository ppa:fcitx-team/nightly
+[me@locahost:~]$ sudo apt-get update
+[me@locahost:~]$ sudo apt-get install fcitx
+[me@locahost:~]$ sudo apt-get install gnome-language-selector
+[me@locahost:~]$ im-config
 #http://pinyin.sogou.com/linux/
 fcitx -r --enable fcitx-qimpanel
 fcitx-qimpanel
@@ -42,6 +42,14 @@ gnome-terminal : Edit : Profiles : New
 : Title and Command : 选中 Run command as a login shell
 
 
+```
+
+# service
+
+```sh
+# 等价于CentOS上的chkconfig
+[me@localhost:~]$ sudo apt-get install sysv-rc-conf
+[me@localhost:~]$ sudo sysv-rc-conf --help
 ```
 
 # JDK
