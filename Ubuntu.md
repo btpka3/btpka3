@@ -235,3 +235,20 @@ sudo service network-manager start
 [wine](http://www.winehq.org/) 可以让部分Windows程序运行在Linux环境下，主要原理是其重新实现了Windows的API。
 
 [安装参考](http://wiki.ubuntu.com.cn/Wine)
+
+# netbook/laptop screen brightness
+
+```sh
+# done.
+xrandr -q | grep " connected"
+xrandr --output LVDS1 --brightness 0.5 
+#xrandr --output VGA1 --brightness 0.9
+#xbacklight -inc XX 
+
+sudo vi /etc/default/grub 
+# GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_osi="
+#GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_backlight=vendor"
+sudo update-grub
+
+```
