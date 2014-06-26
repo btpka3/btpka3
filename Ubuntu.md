@@ -247,6 +247,7 @@ xrandr --output LVDS1 --brightness 0.5
 
 sudo vi /etc/default/grub 
 # GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+# OK...............
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_osi="
 #GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_backlight=vendor"
 sudo update-grub
