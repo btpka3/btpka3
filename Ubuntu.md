@@ -22,13 +22,9 @@ apt-file search /path/to/file
 
 ```
 
-
-
-# 7788
+# 输入法
 
 ```sh
-[me@locahost:~]$ sudo apt-get install chromium-browser
-
 [me@locahost:~]$ sudo add-apt-repository ppa:fcitx-team/nightly
 [me@locahost:~]$ sudo apt-get update
 [me@locahost:~]$ sudo apt-get install fcitx
@@ -43,11 +39,22 @@ apt-file search /path/to/file
 #http://pinyin.sogou.com/linux/
 #fcitx -r --enable fcitx-qimpanel
 #fcitx-qimpanel
+```
 
+# gedit
+
+# gnome-terminal
+
+```sh
 gnome-terminal : Edit : Profiles : New 
 : Title and Command : 选中 Run command as a login shell
 
+```
 
+# 7788
+
+```sh
+[me@locahost:~]$ sudo apt-get install chromium-browser
 ```
 
 # service
