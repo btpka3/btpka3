@@ -34,9 +34,15 @@ apt-file search /path/to/file
 [me@locahost:~]$ sudo apt-get install fcitx
 [me@locahost:~]$ sudo apt-get install gnome-language-selector
 [me@locahost:~]$ im-config
+[me@locahost:~]$ sudo apt-get install fcitx-googlepinyin fcitx-sunpinyin
+# 防止Fcitx的Ctrl+Shift+F进行繁简转换：语言指示图标上右键->Configure->Addon
+# ->选中 "Simple Chinese To Tranditional Chinese" -> 点击底部的Configure按钮
+# -> 取消相应的快捷键即可。
+
+
 #http://pinyin.sogou.com/linux/
-fcitx -r --enable fcitx-qimpanel
-fcitx-qimpanel
+#fcitx -r --enable fcitx-qimpanel
+#fcitx-qimpanel
 
 gnome-terminal : Edit : Profiles : New 
 : Title and Command : 选中 Run command as a login shell
