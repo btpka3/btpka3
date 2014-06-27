@@ -266,3 +266,9 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_osi="
 sudo update-grub
 
 ```
+# 远程桌面
+## TO windows
+
+```sh
+sudo apt-get install grdesktop
+```
