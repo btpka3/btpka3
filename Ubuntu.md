@@ -53,6 +53,15 @@ gnome-terminal : Edit : Profiles : New : xxx : 并设置默认为该 profile
    : 选中 Use custom default terminal size ： 120x30
 : Title and Command : 选中 Run command as a login shell
 
+# 使命令行提提示符彩色显示
+vi /etc/profile.d/xxx.sh
+#!/bin/bash
+export TERM=xterm-color
+
+# 使命令行提示符只显示父目录，而非整个路径
+vi ~/.bashrc
+查找 PS1 并将其中最后的 \w 替换为 \W
+
 ```
 
 # 文件管理器  PCManFM
