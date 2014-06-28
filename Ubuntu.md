@@ -46,12 +46,16 @@ apt-file search /path/to/file
 # gnome-terminal
 
 ```sh
-gnome-terminal : Edit : Profiles : New 
+
+gnome-terminal : Edit : Profiles : New : xxx : 并设置默认为该 profile
+: General 
+   : 取消选中 Use the system fixed width font，并选择使用 Monospace 14
+   : 选中 Use custom default terminal size ： 120x30
 : Title and Command : 选中 Run command as a login shell
 
 ```
 
-# 7788
+# 7788 
 
 ```sh
 [me@locahost:~]$ sudo apt-get install chromium-browser
