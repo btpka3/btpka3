@@ -55,6 +55,14 @@ gnome-terminal : Edit : Profiles : New : xxx : 并设置默认为该 profile
 
 ```
 
+# 文件管理器  PCManFM
+
+```sh
+Edit : Preference :
+  General : Default View : Detailed list view
+  Layout : 选中 Filesystem root
+```
+
 # 7788 
 
 ```sh
