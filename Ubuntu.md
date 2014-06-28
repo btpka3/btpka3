@@ -162,24 +162,17 @@ $ vi ~/.config/openbox/lubuntu-rc.xml
       </action>
     </keybind>
 
+    <!-- 打开控制台-->
     <keybind key="W-t">                                                         
       <action name="Execute">
         <command>gnome-terminal</command>
       </action>
     </keybind>
-
-
-$ openbox --reconfigure
-```
-
-* Lubuntu 锁屏
-
-```sh
-$ vi ~/.config/openbox/lubuntu-rc.xml
-    <!-- Lock the screen on Home + l-->
+ 
+    <!-- Lubuntu 锁屏-->
     <keybind key="W-l">
       <action name="Execute">
-<!--       <command>xscreensaver-command -lock</command>--> 
+        <!-- <command>xscreensaver-command -lock</command>--> 
         <command>dm-tool lock</command>
       </action>
     </keybind>
