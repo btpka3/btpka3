@@ -1,9 +1,9 @@
 # 为类添加静态方法
 
 ```groovy
-Object.metaClass."static".hi = {println "hi,"+it}                            
-Object.metaClass."static".hi = {String str-> println "hi-" + str}
-Object.metaClass."static".getMyClassName = { delegate.name }
+Object.metaClass.static.hi = {println "hi,"+it}                            
+Object.metaClass.static.hi = {String str-> println "hi-" + str}
+Object.metaClass.static.getMyClassName = { delegate.name }
 Integer.hi()    // 无参函数
 Integer.hi("a") // 含参函数
 println Integer.myClassName // java.lang.Integer  
