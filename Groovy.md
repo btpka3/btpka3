@@ -12,3 +12,15 @@ println 1.myClassName
 ```
 
 # 为所有对象添加新属性
+
+# 为特定的对象添加方法
+
+```groovy
+def a = "a" 
+def b = "b" 
+
+a.metaClass.hi{println "hi,$delegate"}
+
+a.hi()
+b.hi()  // ERROR 
+```
