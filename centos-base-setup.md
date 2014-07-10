@@ -243,7 +243,7 @@ set fileencodings=utf-8,gbk
 ```sh
 [root@localhost ~]# vi /etc/sysconfig/network
   HOSTNAME=dev-dubbo2
-[root@localhost ~]# vi /etc/sysconfig/network
+[root@localhost ~]# vi /etc/hosts
   10.1.10.214 dev-dubbo2
 ```
 
