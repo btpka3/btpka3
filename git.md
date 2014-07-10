@@ -20,17 +20,8 @@ git commit  -m "commit msg"    # 提交修改
 git push                       # 推送到远程
 ```
 
-# 取消本地所有修改
 
-```sh
-# 取消对文件的修改
-git reset --hard HEAD
 
-# 删除本地未索引的文件
-git clean -fdx
-
-git status
-```
 
 # 创建仓库
 
@@ -172,3 +163,56 @@ git push origin :remoteBranch2
 
 
 ```
+
+
+
+# 取消本地所有修改
+
+```sh
+# 取消对文件的修改
+git reset --hard HEAD
+
+# 删除本地未索引的文件
+git clean -fdx
+
+git status
+```
+
+# 删除最后几次commit
+```sh
+# 查看提交的log，并找到想要回滚到的commit的
+git log
+git reset --hard <sha1-commit-id>
+```
+
+# rebase
+假如有新修改提交到本地了。在push前进行pull的时候，
+git自动合并并创建了一个新的commit，其注释为 "Merge branch 'xxx' of git@xxxx/path/to/xxx.git into xxx"。此时，大家应当立即运行 
+
+```sh
+gitk  # 此时有比较复杂的路线图
+git rebase
+gitk  # 此时就变成单线路了
+```
+
+# 单个文件
+## 查看日志
+
+```sh
+git log path/to/file
+```
+
+## diff
+
+```sh
+git diff <sha1-commit-id1> <sha1-commit-id2> path/to/file
+```
+
+
+## 检出特定版本
+
+```sh
+git checkout <sha1-commit-id> path/to/file
+```
+
+
