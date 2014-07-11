@@ -50,7 +50,7 @@ yum install gettext
 yum install asciidoc
 yum install xmlto
 yum install docbook2X
-
+ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
 #
 
 # global install
