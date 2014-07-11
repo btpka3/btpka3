@@ -43,6 +43,15 @@ fs.file-max = 383983
 # 用户、进程级别的限制
 [root@h01 ~]# vi /etc/security/limits.conf 
 ```
+
+# 额外仓库
+
+```sh
+wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+sudo rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
+```
+
 ## Tools
 ### putty
 1. 防止vi时使用小键盘造成乱码：Terminal->Features: 选中 Disable application keypad mode
