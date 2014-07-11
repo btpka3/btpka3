@@ -306,6 +306,7 @@ yum install openssh-clients
 yum install wget
 yum install man
 yum install telnet
+yum install unzip
 ```
 
 
