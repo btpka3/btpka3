@@ -303,3 +303,14 @@ FIXME : `/etc/security/limits.conf`
 ```sh
 yum install openssh-clients
 ```
+
+# wget
+
+```sh
+yum install wget
+```
+# telnet
+
+```sh
+yum install telnet
+```
