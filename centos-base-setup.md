@@ -314,3 +314,19 @@ yum install wget
 ```sh
 yum install telnet
 ```
+
+
+# 防火墙
+如果是本地局域网，可以考虑将防火墙关闭
+
+```sh
+service iptables stop
+service ip6tables stop
+
+chkconfig --level 2345 iptables off
+chkconfig --level 2345 ip6tables off
+
+chkconfig --list iptables
+chkconfig --list ip6tables
+```
+
