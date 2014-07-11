@@ -19,8 +19,10 @@ vi ~/.ssh/authorized_keys
 
 ```sh
 vi /etc/ssh/sshd_config
-# 注释掉以下两行
+# 修改为：
 #GSSAPIAuthentication yes
-#GSSAPICleanupCredentials yes
+GSSAPIAuthentication no
+#UseDNS yes
+UseDNS no
 ```
 
