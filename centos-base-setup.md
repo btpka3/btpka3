@@ -297,3 +297,9 @@ root         hard    nproc          20000
 
 FIXME : `/etc/security/limits.conf`
 
+
+# scp
+
+```sh
+yum install openssh-clients
+```
