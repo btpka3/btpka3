@@ -48,6 +48,7 @@ yum install perl-ExtUtils-MakeMaker
 yum install tk
 yum install gettext
 yum install asciidoc
+yum install xmlto
 #
 
 # global install
