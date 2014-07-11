@@ -45,7 +45,8 @@ yum install openssl-devel
 yum install libcurl-devel
 yum install expat-devel
 yum install perl-ExtUtils-MakeMaker
-yum install tk 
+yum install tk
+yum install gettext
 #
 
 # global install
