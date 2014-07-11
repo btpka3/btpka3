@@ -31,7 +31,24 @@ Description : Git is a fast, scalable, distributed revision control system with 
 ```
 
 如果git-scm.com下载太慢，可以从国内镜像网站 http://git.perlchina.org/ 上下载。
-下载tar包：git-1.8.4.4.tar.gz
+下载tar包：git-2.0.1.tar.gz
+
+```sh
+tar zxvf git-2.0.1.tar.gz
+cd git-2.0.1
+less README
+less INSTALL
+
+# 需要已经安装了gcc
+yum install gcc
+
+#
+
+# global install
+make prefix=/usr all doc info
+make prefix=/usr install install-doc install-html install-info
+
+```
 
 
 # install gitlab
