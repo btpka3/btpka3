@@ -308,6 +308,8 @@ yum install man
 yum install telnet
 yum install unzip
 yum install gcc
+
+yum update
 ```
 
 
