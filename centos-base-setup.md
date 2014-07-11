@@ -307,6 +307,7 @@ yum install wget
 yum install man
 yum install telnet
 yum install unzip
+yum install gcc
 ```
 
 
