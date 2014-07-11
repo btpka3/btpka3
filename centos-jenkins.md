@@ -93,3 +93,7 @@ mvn -f ../../job1/workspace/pom.xml -Dmaven.test.skip=true -am --projects subMod
 
 [ref](https://gist.github.com/wataru420/1757063)
 
+
+
+# 升级
+RPM可以不用重装的。查看 /etc/init.d/jenkins 可以找到war包的路径。下载新的war包替换即可。
