@@ -1,7 +1,35 @@
 # 安装git
 
 ## 下载
-不建议使用yum安装，安装的版本过低。
+不建议使用yum安装，安装的版本过低。比如：
+
+```sh
+[root@localhost jenkins]# yum info git
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirrors.aliyun.com
+ * extras: mirrors.aliyun.com
+ * updates: mirrors.aliyun.com
+Available Packages
+Name        : git
+Arch        : x86_64
+Version     : 1.7.1
+Release     : 3.el6_4.1
+Size        : 4.6 M
+Repo        : base
+Summary     : Fast Version Control System
+URL         : http://git-scm.com/
+License     : GPLv2
+Description : Git is a fast, scalable, distributed revision control system with an
+            : unusually rich command set that provides both high-level operations
+            : and full access to internals.
+            : 
+            : The git rpm installs the core tools with minimal dependencies.  To
+            : install all git packages, including tools for integrating with other
+            : SCMs, install the git-all meta-package.
+
+```
+
 如果git-scm.com下载太慢，可以从国内镜像网站 http://git.perlchina.org/ 上下载。
 下载tar包：git-1.8.4.4.tar.gz
 
