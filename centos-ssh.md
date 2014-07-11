@@ -18,6 +18,13 @@ vi ~/.ssh/authorized_keys
 # ssh 登录慢
 
 ```sh
+# ------- for client
+vi /etc/ssh/ssh_config
+Host *
+    GSSAPIAuthentication no
+    AddressFamily inet
+
+# ------- for server
 vi /etc/ssh/sshd_config
 # 修改为：
 #GSSAPIAuthentication yes
