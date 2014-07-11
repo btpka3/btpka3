@@ -127,8 +127,10 @@ git branch
 # 查看远程分支
 git branch -r
 # 查看所有分支（本地和远程）
-git branch -a
+git branch -av
 git show-branch
+# 查看当前分支是track远程的哪个分支
+git remote show origin
 
 # 查看分支最后一个提交对象
 git branch -v
