@@ -44,7 +44,7 @@ yum install gcc
 yum install openssl-devel
 yum install libcurl-devel
 yum install expat-devel
-
+yum install perl-ExtUtils-MakeMaker
 #
 
 # global install
