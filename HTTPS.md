@@ -133,3 +133,12 @@ keytool -importkeystore -srckeystore src.keystore -srcstorepass 123456 -destkeys
 ```sh
 ssh-keygen -t rsa -C "hi@test.me" -N 'xxxPass' -f ~/.ssh/id_rsa
 ```
+
+
+# 确认openssl是否已经修正了 Heatbleed
+
+```sh
+yum update
+rpm -q --changelog openssl-1.0.1e | grep -B 1 CVE-2014-0160
+rpm -q --changelog openssl-devel | grep -B 1 CVE-2014-0160
+```
