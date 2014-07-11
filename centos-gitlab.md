@@ -39,7 +39,7 @@ cd git-2.0.1
 less README
 less INSTALL
 
-# 需要已经安装了gcc
+# 需要已经安装以下软件包，部分在EPEL仓库中
 yum install gcc
 yum install openssl-devel
 yum install libcurl-devel
@@ -49,6 +49,8 @@ yum install tk
 yum install gettext
 yum install asciidoc
 yum install xmlto
+yum install docbook2X
+
 #
 
 # global install
