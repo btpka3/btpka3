@@ -43,6 +43,7 @@ less INSTALL
 yum install gcc
 yum install openssl-devel
 yum install libcurl-devel
+yum install expat-devel
 
 #
 
