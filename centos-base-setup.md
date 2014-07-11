@@ -298,20 +298,13 @@ root         hard    nproc          20000
 FIXME : `/etc/security/limits.conf`
 
 
+# 7788
+
+```sh
 # scp
-
-```sh
 yum install openssh-clients
-```
-
-# wget
-
-```sh
 yum install wget
-```
-# telnet
-
-```sh
+yum install man
 yum install telnet
 ```
 
