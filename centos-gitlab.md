@@ -42,6 +42,7 @@ less INSTALL
 # 需要已经安装了gcc
 yum install gcc
 yum install openssl-devel
+yum install libcurl-devel
 
 #
 
