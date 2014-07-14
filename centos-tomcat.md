@@ -81,3 +81,15 @@ SSLHandshakeException - unable to find valid certification path to requested tar
 set JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.trustStore="C:\.keystore" -Djavax.net.ssl.trustStorePassword="123456"
 </source>
 
+
+# 最简单的 init 脚本
+
+```sh
+#!/bin/sh
+
+CATALINA_HOME=/home/lizi/nala-admin/apache-tomcat-6.0.41
+TOMCAT_USER=lizi
+
+export a=aaa
+su -p -s /bin/sh ${TOMCAT_USER} $CATALINA_HOME/bin/catalina.sh $@
+```
