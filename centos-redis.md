@@ -45,7 +45,7 @@
       exec="/data/software/redis/redis-2.8.7/src/redis-server"
       pidfile="/data/store/redis/redis.pid"                                                                 # 应当与redis.conf中的配置保持一致
       REDIS_CONFIG="/data/software/redis/redis-2.8.7/redis.conf"
-      REDIS_USR=redis
+      REDIS_USER=redis
     [root@localhost ~]# chmod u+x /etc/init.d/redis
     [root@localhost ~]# chkconfig --add redis
     [root@localhost ~]# chkconfig --list redis
