@@ -262,6 +262,12 @@ lsof -p <pid> | wc -l
 ulimit -n
 ```
 
+### 查看指定用户开启的总进程数
+
+```sh
+ps auxwwf | grep $USER_NAME | grep -v grep | wc -l
+```
+
 ### 修改用户限制
 
 确认已经启用 pam_limits.so
