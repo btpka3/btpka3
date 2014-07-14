@@ -86,6 +86,7 @@ set JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.trustStore="C:\.keystore" -Djavax.net.
 
 ```sh
 #!/bin/sh
+# chkconfig: 2345 60 60
 
 CATALINA_HOME=/home/lizi/nala-admin/apache-tomcat-6.0.41
 TOMCAT_USER=lizi
