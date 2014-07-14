@@ -26,7 +26,7 @@
 [root@localhost ~]# vi /etc/ntp.conf
 logfile /var/log/ntp.log
 
-[root@localhost ~]# vi /etc/sysconfig/ntpd.conf
+[root@localhost ~]# vi /etc/sysconfig/ntpd
 OPTIONS="-u ntp:ntp -p /var/run/ntpd.pid -g"
 SYNC_HWCLOCK=yes
 
@@ -40,7 +40,7 @@ SYNC_HWCLOCK=yes
 [root@localhost ~]# ntpstat
 
 [root@localhost ~]# ntpstat -unlnp		# 应该能看到ntpd使用了123端口
-[root@localhost ~]# ntpq -p			# 列出所有与上级ntp服务器的联系
+[root@localhost ~]# ntpq -p                     # 列出所有与上级ntp服务器的联系
 remote           上级ntp服务器的主机名
 refid            上级ntp服务器的IP地址
 st               startnum阶层
