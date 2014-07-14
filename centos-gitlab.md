@@ -136,6 +136,18 @@ vi /etc/init.d/gitlab
 PATH_PATCH="PATH=$(su $USER -s /bin/bash -l -c "cd \"$APP_PATH\"; echo \"\$PATH\"") && export PATH && "
 ```
 
+## 国内ruby镜像
+
+参考[这里](http://github.kimziv.com/2013/07/19/how-to-install-ruby-gems-in-china/)
+
+```sh
+gem sources --remove https://rubygems.org/
+gem sources -a http://ruby.taobao.org/
+gem sources -l
+
+```
+
+
 
 ## 不使用本地的postgresql时
 
