@@ -54,7 +54,8 @@ TODO
     ```
 
 
-==HTTPS==
+
+#HTTPS
 生成自签名证书
 <source>
 CMD /> %JAVA_HOME%\bin\keytool -genkeypair -alias mykey -keyalg RSA -keysize 1024 -sigalg SHA1withRSA -dname "CN=your.domain.com, OU=R & D department, O=\"ABC Tech Co., Ltd\", L=Weihai, S=Shandong, C=CN" -validity 365 -keypass 123456 -keystore C:/.keystore -storepass 123456
@@ -81,6 +82,11 @@ SSLHandshakeException - unable to find valid certification path to requested tar
 set JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.trustStore="C:\.keystore" -Djavax.net.ssl.trustStorePassword="123456"
 </source>
 
+# 安装后、部署前可选操作
+1. 删除 logs/*
+1. 删除 work/*
+1. 删除 conf/Catalina/localhost/host-manager.xml, conf/Catalina/localhost/manager.xml
+1. 删除 webapps下自带的app。
 
 # 最简单的 init 脚本
 
@@ -91,6 +97,6 @@ set JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.trustStore="C:\.keystore" -Djavax.net.
 CATALINA_HOME=/home/lizi/nala-admin/apache-tomcat-6.0.41
 TOMCAT_USER=lizi
 
-export a=aaa
-su -p -s /bin/sh ${TOMCAT_USER} $CATALINA_HOME/bin/catalina.sh $@
+export CATALINA_PID=$CATALINA_HOME/tomcat.pid
+su -p -s /bin/sh ${TOMCAT_USER} "$CATALINA_HOME/bin/catalina.sh $*"
 ```
