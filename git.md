@@ -116,7 +116,9 @@ git push remote-name --tags
 ```sh
 # 新建分支
 git branch branch-name
-# 切换分支
+# 检出远程分支
+git checkout -b local-branch-name origin/remote-branch-name
+# 切换本地分支
 git checkout branch-name
 
 # 新建并切换到该新分支(等价于上述两个命令)
@@ -138,7 +140,7 @@ git branch -v
 
 # 合并分支(将branch2合并到branch1)
 git checkout branch1
-git merger branch2
+git merge branch2
 
 # 如果有有合并冲突的文件，需要手动合并后，再使用以下命令就OK了
 git add merged-by-hand-file
