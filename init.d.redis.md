@@ -1,4 +1,6 @@
 
+来源：redis-2.8.12-1.el6.remi.i186.rpm
+
 ```sh
 #!/bin/sh
 #
