@@ -38,7 +38,7 @@
       dir /data/store/redis/
     ```
 
-1. 从[这里](/snippets/2)下载Redis的init.d脚本至 `/etc/init.d/redis`，修改后并启用
+1. 从[这里](init.d.redis)下载Redis的init.d脚本至 `/etc/init.d/redis`，修改后并启用
 
     ```sh
     [root@localhost ~] vi /etc/init.d/redis
