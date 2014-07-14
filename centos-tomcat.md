@@ -96,7 +96,13 @@ set JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.trustStore="C:\.keystore" -Djavax.net.
 
 CATALINA_HOME=/home/lizi/nala-admin/apache-tomcat-6.0.41
 TOMCAT_USER=lizi
+export CATALINA_PID=$CATALINA_HOME/tomcat.pid、
+export CATALINA_OPTS="-server -Xms=256m -Xmx=1024m -XX:PermSize=32m -XX:MaxPermSize=256m -Dfile.encoding=UTF-8"
 
-export CATALINA_PID=$CATALINA_HOME/tomcat.pid
-su -p -s /bin/sh ${TOMCAT_USER} "$CATALINA_HOME/bin/catalina.sh $*"
+if [[ "$USER" -eq "$TOMCAT_USER" ]]
+then
+   $CATALINA_HOME/bin/catalina.sh $@
+else
+    su -p -s /bin/sh ${TOMCAT_USER} -c "$CATALINA_HOME/bin/catalina.sh $*"
+fi
 ```
