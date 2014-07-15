@@ -141,9 +141,9 @@ PATH_PATCH="PATH=$(su $USER -s /bin/bash -l -c "cd \"$APP_PATH\"; echo \"\$PATH\
 参考[这里](http://github.kimziv.com/2013/07/19/how-to-install-ruby-gems-in-china/)
 
 ```sh
-gem sources --remove https://rubygems.org/
-gem sources -a http://ruby.taobao.org/
-gem sources -l
+sudo -u git -H gem sources --remove https://rubygems.org/
+sudo -u git -H gem sources -a http://ruby.taobao.org/
+sudo -u git -H gem sources -l
 
 vi Gemfile
 # 注释掉原有的source，使用国内镜像
