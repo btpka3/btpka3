@@ -255,6 +255,16 @@ less /home/git/gitlab/db/fixtures/production/001_admin.rb
 
 ```
 
+# 导入既有的git仓库
+
+```sh
+cd /home/git/repositories/$user
+git clone --mirror $URL
+
+cd /home/git/gitlab
+bundle exec rake gitlab:import:repos RAILS_ENV=production
+```
+
 # git 命令
 
 ## tag
