@@ -264,3 +264,22 @@ echo $DIR
 curl -s http://xxx/ | awk 'match($0, /<td><a.*>(.*)<\/a>.*<\/td>/,arr) {print arr[1]}'
 # output : AAA.tar.bz2
 ```
+
+## 免密码以root权限执行脚本
+### 使用SetUID特性
+
+```sh
+vi xxx.sh
+sudo chown root.root xxx.sh
+sudo chmod 4755 xxx.sh
+# 这样一来，只有root可以修改该脚本，但任何人都可以以脚本所有者——root的身份执行。
+```
+
+### 使用sudo
+
+```sh
+vi /etc/sudoers
+
+Cmnd_Alias        CMDS = /path/to/your/script
+<username>  ALL=NOPASSWD: CMDS
+```
