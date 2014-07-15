@@ -263,6 +263,9 @@ cd /home/git/repositories/$user/xxx
 rm -fr *
 git clone --mirror $URL
 
+# 同步
+git fetch -q --all -p
+
 #cd /home/git/gitlab
 #bundle exec rake gitlab:import:repos RAILS_ENV=production
 ```
