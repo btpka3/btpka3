@@ -16,6 +16,7 @@ LVM 卷组
 ## 修改环境变量
 ```bash
 root@h01 ~]# vi /etc/profile.d/custom.sh
+export EDITOR=vim
 export XXX=xxx
 ```
 
