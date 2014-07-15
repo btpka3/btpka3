@@ -273,12 +273,8 @@ vi xxx.sh
 sudo chown root.root xxx.sh
 sudo chmod 4755 xxx.sh
 # 这样一来，只有root可以修改该脚本，但任何人都可以以脚本所有者——root的身份执行。
-```
 
-### 使用sudo
-
-```sh
-vi /etc/sudoers
+visudo
 
 Cmnd_Alias        CMDS = /path/to/your/script
 <username>  ALL=NOPASSWD: CMDS
