@@ -153,6 +153,14 @@ source 'http://ruby.taobao.org/'
 
 
 
+## 安装gem install mysql2
+
+先安装mysql的[yum](http://dev.mysql.com/doc/mysql-repo-excerpt/5.6/en/linux-installation-yum-repo.html)
+
+```sh
+yum install mysql-community-devel
+gem install mysql2
+```
 
 
 ## 不使用本地的postgresql时
