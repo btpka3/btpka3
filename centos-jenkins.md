@@ -34,6 +34,32 @@
       JENKINS_WAR="/data/software/jenkins/jenkins.war"
     ```
 
+# nginx 反向代理配置示例
+
+```text
+upstream jenkins {
+  server 192.168.115.80:8080;
+}
+
+server {
+  listen *:80;
+  server_name ci.test.me;
+  server_tokens off;
+  root /notExisted;
+  
+  client_max_body_size 20m;
+  ignore_invalid_headers off;   # 否则会     
+
+  access_log  /var/log/nginx/jenkins_access.log;
+  error_log   /var/log/nginx/jenkins_error.log;
+
+  location / { 
+        proxy_pass                  http://jenkins;
+  }
+}
+
+```
+[405 not a valid crumb was include in the request](https://issues.jenkins-ci.org/browse/JENKINS-12875)
 
 # 常用插件
 * Ant Plugin
