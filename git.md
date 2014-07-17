@@ -1,5 +1,5 @@
 [Git中文手册](http://git-scm.com/book/zh)
-
+[Git Commit-ish/Tree-ish ](http://stackoverflow.com/questions/4044368/what-does-tree-ish-mean-in-git/18605496#18605496)
 # 配置
 
 ```sh
