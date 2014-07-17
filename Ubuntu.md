@@ -253,12 +253,46 @@ cat /usr/share/applications/defaults.list
 sudo mount -t auto /dev/cdrom0 / media/cdrom0
 ```
 
-# 重启网络
+
+# 静态IP地址
+参考[这里](http://www.sudo-juice.com/how-to-set-a-static-ip-in-ubuntu-the-proper-way/)
+
+## 先禁用图形化的网络管理工具
+
+```sh
+sudo vi /etc/NetworkManager/NetworkManager.conf
+[main]
+plugins=ifupdown,keyfile,ofono
+#dns=dnsmasq   # 注释掉这一行
+
+[ifupdown]
+#managed=false
+managed=true   # 将值改为true
+```
+## 配置静态IP地址
+
+```sh
+sudo vi /etc/network/interfaces
+
+auto lo
+iface lo inet loopback
+
+
+auto eth0
+iface     eth0 inet static
+address   192.168.115.222
+gateway   192.168.115.1
+netmask   255.255.255.0 
+dns-nameservers 8.8.8.8 8.8.4.4
+# ??? DNS貌似也可以配置在 /etc/resolvconf/resolv.conf.d/base
+```
+## 重启网络
 
 ```sh
 sudo service network-manager stop
 sudo service network-manager start
 ```
+
 
 # wine
 [wine](http://www.winehq.org/) 可以让部分Windows程序运行在Linux环境下，主要原理是其重新实现了Windows的API。
