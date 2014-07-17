@@ -218,5 +218,25 @@ git diff <sha1-commit-id1> <sha1-commit-id2> path/to/file
 ```sh
 git checkout <sha1-commit-id> path/to/file
 ```
+## 无本地copy情况下，从远程仓库检出最新的指定文件
+
+```sh
+git ls-remote git@git.test.me:/path/to/git/repo
+git archive --remote=git@git.test.me:/path/to/git/repo refs/heads/test path/to/file  --format zip -o /tmp/a.zip
+cd /tmp/
+unzip /tmp/a.zip 
+cp path/to/file /path/to/dest
+```
+
+## 无本地copy情况下，从远程仓库检出指定版本的指定文件
+
+```sh
+# 先通过SSH登录到远程仓库，看一下test分支上指定文件的最近3条日志，找到所需的commit SHA1.
+ssh git@git.test.me "cd /path/to/git/repo && git log -n 3 test -- path/to/file"
+git archive --remote=git@git.test.me:/path/to/git/repo d787416b0aec88747075ef0f5909bc4f863aa26e path/to/file  --format zip -o /tmp/a.zip
+cd /tmp/
+unzip /tmp/a.zip 
+cp path/to/file /path/to/dest
+```
 
 
