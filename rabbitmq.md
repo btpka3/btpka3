@@ -8,4 +8,8 @@
 [me@localhost:~] sudo rabbitmqctl stop_app
 [me@localhost:~] sudo rabbitmqctl force_reset
 [me@localhost:~] sudo rabbitmqctl start_app
+
+
+# 列出给定的 queues
+sudo rabbitmqctl list_queues
 ```
