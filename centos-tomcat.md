@@ -99,7 +99,7 @@ TOMCAT_USER=lizi
 export CATALINA_PID=$CATALINA_HOME/tomcat.pid、
 export CATALINA_OPTS="-server -noverify -Xshare:off -Xms=256m -Xmx=1024m -XX:PermSize=32m -XX:MaxPermSize=256m -XX:+UseParallelGC -Dfile.encoding=UTF-8"
 
-if [[ "$USER" -eq "$TOMCAT_USER" ]]
+if [[ `whoami` = "$TOMCAT_USER" ]]
 then
    $CATALINA_HOME/bin/catalina.sh $@
 else
