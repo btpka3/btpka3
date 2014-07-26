@@ -128,4 +128,21 @@ dataSource {
 }
 ```
 
+# Grails 1.3.7 升级至 2.4.0
+* 修改 application.properties ，
+   * 升级grails版本号
+
+       ```properties
+       app.grails.version=2.4.0
+       ``` 
+   * 将所有的插件依赖移至 BuildConfig.groovy 中
+
+       ```groovy
+       grails.project.dependency.resolution {
+           plugins {
+                compile ':tomcat:7.0.53'
+           }
+       }
+       ```
+
 
