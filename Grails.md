@@ -145,4 +145,8 @@ dataSource {
        }
        ```
 
-
+|a|b|
+|---|---|
+|org.codehaus.groovy.grails.commons.Holders |grails.util.Holders|
+|org.codehaus.groovy.grails.commons.ConfigurationHolder|grails.util.Holders|
+|org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils|grails.plugin.springsecurity.SpringSecurityUtils|
