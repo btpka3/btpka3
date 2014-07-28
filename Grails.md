@@ -145,8 +145,20 @@ dataSource {
        }
        ```
 
+
+* java
+
 |a|b|
 |---|---|
 |org.codehaus.groovy.grails.commons.Holders |grails.util.Holders|
 |org.codehaus.groovy.grails.commons.ConfigurationHolder|grails.util.Holders|
 |org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils|grails.plugin.springsecurity.SpringSecurityUtils|
+
+
+* spring security core
+ buildConfig.groovy
+
+```groovy
+# spring security core 升级至 2.0
+# grails.plugins.springsecurity.* -> grails.plugin.springsecurity.*
+```
