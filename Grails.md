@@ -153,7 +153,7 @@ dataSource {
 |org.codehaus.groovy.grails.commons.Holders |grails.util.Holders|
 |org.codehaus.groovy.grails.commons.ConfigurationHolder|grails.util.Holders|
 |org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils|grails.plugin.springsecurity.SpringSecurityUtils|
-
+|org.codehaus.groovy.grails.plugins.springsecurity.GrailsUser|grails.plugin.springsecurity.userdetails.GrailsUser|
 
 * spring security core
  buildConfig.groovy
