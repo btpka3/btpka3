@@ -135,7 +135,7 @@ dataSource {
        ```properties
        app.grails.version=2.4.0
        ``` 
-   * 将所有的插件依赖移至 BuildConfig.groovy 中
+    * 将所有的插件依赖移至 BuildConfig.groovy 中
 
        ```groovy
        grails.project.dependency.resolution {
@@ -144,7 +144,10 @@ dataSource {
            }
        }
        ```
+    * 升级插件的版本号
 
+* application.xml
+    *移除bean 'grailsResourceLoader'、'grailsResourceHolder' 的定义及引用
 
 * java
 
