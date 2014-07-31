@@ -259,7 +259,7 @@ greeter-setup-script=/usr/bin/numlockx on
 ```
 
 
-# flash
+# Adobe Flash Player
 
 ```sh
 sudo apt-get install flashplugin-installer 
