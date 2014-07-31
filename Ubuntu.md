@@ -70,7 +70,8 @@ export TERM=xterm-color
 # 使命令行提示符只显示父目录，而非整个路径
 vi ~/.bashrc
 查找 PS1 并将其中最后的 \w 替换为 \W
-
+修改ll别名
+alias ll='ls -lF'
 ```
 
 
