@@ -73,12 +73,32 @@ vi ~/.bashrc
 
 ```
 
+
 # 文件管理器  PCManFM
 
 ```sh
 Edit : Preference :
   General : Default View : Detailed list view
   Layout : 选中 Filesystem root
+```
+# 桌面图标
+
+```sh
+# 复制既有应用的图标
+ll /usr/share/applications/*.desktop
+cp /usr/share/applications/firefox.desktop ~/Desktop
+
+# 自定义一个图标
+
+vi ~/Desktop/idea-IU-135.909.desktop
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Icon[en_US]=gnome-panel-launcher
+Name[en_US]=idea-IU-135.909
+Exec=env UBUNTU_MENUPROXY=  /home/zll/work/idea-IU-135.909/bin/idea.sh
+Icon=/home/zll/work/idea-IU-135.909/bin/idea.png
 ```
 
 # 7788 
@@ -325,6 +345,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_osi="
 sudo update-grub
 
 ```
+
 # 远程桌面
 ## TO windows
 
