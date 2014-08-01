@@ -1,3 +1,8 @@
+# GRAILS_OPTS
+
+```
+export GRAILS_OPTS="-Xmx2G -Xms2G -XX:PermSize=512m -XX:MaxPermSize=512m -XX:-UseConcMarkSweepGC"
+```
 # 常用命令
 
 ```sh
