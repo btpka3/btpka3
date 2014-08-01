@@ -5,6 +5,7 @@
 ```sh
 apt-get -s install <package>
 apt-cache policy <package>
+apt-cache search <package>  # 模糊查找package
 apt-show-versions <package>
 aptitude versions <package>
 
