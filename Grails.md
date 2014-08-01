@@ -1,7 +1,7 @@
 # GRAILS_OPTS
 
 ```
-export GRAILS_OPTS="-Xms1G -Xmx2G -XX:PermSize=512m -XX:MaxPermSize=512m -XX:-UseConcMarkSweepGC -Xlint:deprecation -server"
+export GRAILS_OPTS="-server -Xms1G -Xmx2G -XX:PermSize=512m -XX:MaxPermSize=512m -XX:-UseConcMarkSweepGC"
 ```
 # 常用命令
 
