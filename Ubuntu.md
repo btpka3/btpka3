@@ -102,10 +102,16 @@ Exec=env UBUNTU_MENUPROXY=  /home/zll/work/idea-IU-135.909/bin/idea.sh
 Icon=/home/zll/work/idea-IU-135.909/bin/idea.png
 ```
 
-# 7788 
+# chromium-browser
 
 ```sh
 [me@locahost:~]$ sudo apt-get install chromium-browser
+```
+
+NOTICE: 该浏览器中文乱码可以参考[这里](https://code.google.com/p/chromium/issues/detail?id=316723&q=chinese%20title&colspec=ID%20Pri%20M%20Iteration%20ReleaseBlock%20Cr%20Status%20Owner%20Summary%20OS%20Modified)
+
+```sh
+sudo rm /etc/fonts/conf.d/65-droid-sans-fonts.conf
 ```
 
 # service
