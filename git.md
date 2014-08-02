@@ -20,6 +20,30 @@ git commit  -m "commit msg"    # 提交修改
 git push                       # 推送到远程
 ```
 
+# .gitignore
+
+```txt
+.idea
+*.iml
+*.iws
+*.ipr
+*Db.properties
+*Db.script
+.DS_Store
+.settings
+.project
+.classpath
+stacktrace.log
+/*.war
+/*.zip
+/*DB.*
+/cobertura.ser
+/out/
+/plugin.xml
+/target/
+/web-app/plugins
+/web-app/WEB-INF/classes
+```
 
 
 
