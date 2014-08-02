@@ -41,6 +41,7 @@ stacktrace.log
 /out/
 /plugin.xml
 /target/
+/target-eclipse/
 /web-app/plugins
 /web-app/WEB-INF/classes
 ```
