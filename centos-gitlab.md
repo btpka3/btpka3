@@ -238,6 +238,21 @@ vi config/gitlab.yml
 bundle exec rake gitlab:ldap:check RAILS_ENV=production
 ```
 
+## 502
+
+检查 /home/git/gitlab/conf/unicorn.rb
+
+```
+timeout 30
+```
+
+如果有使用Nginx进行反向代理，则检查nginx配置文件：
+
+```
+proxy_read_timeout 300;
+proxy_connect_timeout 300;
+```
+
 ## 7788
 ### show gitlab versions
 
@@ -270,6 +285,8 @@ git fetch -q --all -p
 #bundle exec rake gitlab:import:repos RAILS_ENV=production
 ```
 
+
+
 # git 命令
 
 ## tag
@@ -290,3 +307,5 @@ git branch -a               # 列出所有的branch，带*号的是工作环境�
                             # TODO 切换branch
                             # TODO 合并
 ```
+
+
