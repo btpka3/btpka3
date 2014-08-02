@@ -53,12 +53,18 @@ sudo apt-get install xfonts-wqy #文泉驿-点阵宋体
 
 # gedit
 
+## 安装
+
 ```sh
 sudo apt-cache search gedit
 sudo apt-get install gedit 
 sudo apt-get install gedit-plugins
 sudo apt-get install gedit-gmate
 ```
+
+## 配置
+
+
 
 
 # gnome-terminal
