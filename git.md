@@ -31,6 +31,7 @@ git push                       # 推送到远程
 *Db.properties
 *Db.script
 .DS_Store
+.groovy
 .settings
 .project
 .classpath
