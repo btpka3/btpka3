@@ -27,6 +27,7 @@ git push                       # 推送到远程
 *.iml
 *.iws
 *.ipr
+*.log
 *Db.properties
 *Db.script
 .DS_Store
