@@ -37,6 +37,25 @@ update site： http://findbugs.cs.umd.edu/eclipse
 * Alt+/        : Word Completion  (常常取消该快捷键的绑定)
 * Ctrl+Space   : Content Assist   (常常修改快捷键为Alt+/)
 
+# 常用Preferences设置
+
+```text
+General->Editors->Text Editors
+    : 选中 Insert spaces for tabs
+    : 选中 Show print margin, 120
+    : 选中 Show line numbers
+    : 选中 Show whitespace characters
+Web->CSS Files->Editor
+    : Line width 修改为 120
+    : 选中 Indent using spaces, 设置 Indentation size 为 4
+Web->HTML Files->Editor
+    : Line width 修改为 120
+    : 选中 Indent using spaces, 设置 Indentation size 为 4
+XML->XML Files->Editor
+    : Line width 修改为 120
+    : 选中 Indent using spaces, 设置 Indentation size 为 4
+```
+
 ## 加速
 * 修改Eclipse.ini/STS.ini中的JVM参数，并[指定JVM](http://wiki.eclipse.org/Eclipse.ini#-vm_value:_Linux_Example)：
 
@@ -116,6 +135,8 @@ Preferences - Java - Code Style - Clean Up : 取消选中 "Show profile selectio
 1. Comments : 选中 Never join lines
 1. Comments : Line width : Maximum line width for comments : 120
 1. Off/On Tags : 选中 Enable Off/On tags
+
+
 
 # 字体
 YaHei Consolas Hybrid ： 基本能满足等宽编程要求，但是tab键上面的那个字符和单引号很相似，且不等宽。
