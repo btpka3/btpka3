@@ -13,3 +13,13 @@ service mysqld start
 ```sql
 select  STR_TO_DATE('2014-07-15 12:13:14', '%Y-%m-%d %k:%i:%s')
 ```
+
+# 修改最大连接数
+
+```sh
+vi /etc/mysql/my.cnf
+
+root登录本地mysql
+set global max_connections=1000;
+```
+
