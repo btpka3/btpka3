@@ -320,6 +320,7 @@ plugins=ifupdown,keyfile,ofono
 #managed=false
 managed=true   # 将值改为true
 ```
+
 ## 配置静态IP地址
 
 ```sh
@@ -344,6 +345,24 @@ sudo service network-manager stop
 sudo service network-manager start
 ```
 
+
+# 配置DNS
+
+```sh
+# 方法1
+sudo vi /etc/network/interfaces
+# 追加一下一行
+dns-nameservers 192.168.101.1
+
+# 方法2
+sudo vi /etc/resolvconf/resolv.conf.d/base
+nameserver 8.8.8.8
+
+# 最后，更新
+sudo resolvconf -u
+cat /etc/resolv.conf
+
+```
 
 # wine
 [wine](http://www.winehq.org/) 可以让部分Windows程序运行在Linux环境下，主要原理是其重新实现了Windows的API。
