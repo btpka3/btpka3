@@ -2,6 +2,7 @@
 
 
 ```
+# wget http://repo.mysql.com/mysql-community-release-el5-5.noarch.rpm
 wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm
 yum localinstall mysql-community-release-el6-5.noarch.rpm
 yum repolist enabled | grep mysql
