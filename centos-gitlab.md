@@ -238,6 +238,15 @@ vi config/gitlab.yml
 bundle exec rake gitlab:ldap:check RAILS_ENV=production
 ```
 
+
+## 安装后的检查
+
+```sh
+su - git
+cd gitlab
+bundle exec rake gitlab:check RAILS_ENV=production
+
+```
 ## 502
 
 检查 /home/git/gitlab/conf/unicorn.rb
