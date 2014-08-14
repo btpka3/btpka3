@@ -1,3 +1,15 @@
+## group
+
+```sh
+# 查看用户隶属于哪些用户组
+group <userName>
+
+# 将用户添加到指定的用户组中
+usermod -a -G <newGroupName> <userName>
+
+```
+
+
 ## number calc
 ```sh
 let a=1+2  # a=3
