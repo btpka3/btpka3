@@ -28,7 +28,7 @@ set global max_connections=1000;
 
 ```sh
 create user 'btpka3'@'%' identified by '123456';
-grant all on testdb.* to 'btpka3'@'%' identified by 'nalanala';
+grant all on testdb.* to 'btpka3'@'%';
 FLUSH PRIVILEGES;
 
 ```
