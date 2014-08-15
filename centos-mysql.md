@@ -24,3 +24,13 @@ root登录本地mysql
 set global max_connections=1000;
 ```
 
+# 用户 && 权限
+
+```sh
+create user 'btpka3'@'%' identified by '123456';
+grant all on testdb.* to 'btpka3'@'%' identified by 'nalanala';
+FLUSH PRIVILEGES;
+
+```
+
+
