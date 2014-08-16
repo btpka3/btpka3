@@ -14,4 +14,10 @@ adding the following line to /var/lib/net-snmp/snmpd.conf:
    createUser zll MD5 "123456" DES
 adding the following line to /etc/snmp/snmpd.conf:
    rwuser zll
+
+service snmpd start
+# 本机测试
+snmpwalk -v 1 -c public localhost
+
 ```
+
