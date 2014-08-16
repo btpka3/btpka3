@@ -21,3 +21,4 @@ snmpwalk -v 1 -c public localhost
 
 ```
 
+安装 (cacti)[http://www.cacti.net/]
