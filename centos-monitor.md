@@ -1,5 +1,22 @@
 
 
+
+|工具 |功能描述|
+|---|---|
+|uptime|系统平均负载率|
+|dmesg|硬件/系统信息|
+|top|进程进行状态|
+|iostat|CPU和磁盘平均使用率|
+|vmstat|系统运行状态|
+|sar|实时收集系统使用状态|
+|KDE System Guard|图形监控工具|
+|free|内存使用率|
+|traffic-vis|网络监控（只有SUSE有）|
+|pmap|进程内存占用率|
+|strace|追踪程序运行状态|
+|ulimit|系统资源使用限制|
+|mpstat|多处理器使用率|
+
 ##
 
 ```
