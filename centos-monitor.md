@@ -43,3 +43,8 @@ snmpwalk -v 1 -c public localhost
 [Nagios](http://www.nagios.com/products/nagiosxi/)
 
 [zabbix](http://www.zabbix.org/wiki/Main_Page)
+
+
+[网络IO监控iftop](http://www.ex-parrot.com/~pdw/iftop/)
+
+[监控宝](http://www.vpser.net/manage/jiankongbao.html)
