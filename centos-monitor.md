@@ -41,3 +41,5 @@ snmpwalk -v 1 -c public localhost
 [cacti](http://www.cacti.net/)
 
 [Nagios](http://www.nagios.com/products/nagiosxi/)
+
+[zabbix](http://www.zabbix.org/wiki/Main_Page)
