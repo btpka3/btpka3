@@ -21,4 +21,6 @@ snmpwalk -v 1 -c public localhost
 
 ```
 
-安装 (cacti)[http://www.cacti.net/]
+[cacti](http://www.cacti.net/)
+
+[Nagios](http://www.nagios.com/products/nagiosxi/)
