@@ -393,3 +393,35 @@ sudo update-grub
 ```sh
 sudo apt-get install grdesktop
 ```
+
+
+# PHP
+
+```sh
+sudo apt-get install nginx
+sudo apt-get install php5-fpm php5-cli php5-cgi php5-mysql
+
+sudo vi /etc/php5/fpm/php.ini
+cgi.fix_pathinfo=0
+
+sudo vi /etc/nginx/sites-available/default
+    location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    #   # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+    #   
+    #   # With php5-cgi alone:
+    #   fastcgi_pass 127.0.0.1:9000;
+    #   # With php5-fpm:
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index index.php;
+        include fastcgi_params;
+    }
+
+sudo service php5-fpm restart
+sudo service nginx restart
+
+vi /usr/share/nginx/html/my.php
+<?php phpinfo(); ?>
+
+# 访问浏览器 http://localhost/my.php
+```
