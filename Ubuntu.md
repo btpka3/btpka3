@@ -425,3 +425,12 @@ vi /usr/share/nginx/html/my.php
 
 # 访问浏览器 http://localhost/my.php
 ```
+
+# 自动挂载Windows分区
+
+```sh
+sudo blkid   # 查看各个分区的UUID
+id           # 查看自己当前账户的uid和gid
+sudo vi /etc/fstab
+UUID=519CB82E5888AD0F  /media/Data  ntfs  defaults,gid=1000,uid=1000  0 0
+```
