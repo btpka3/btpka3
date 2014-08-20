@@ -193,3 +193,37 @@ server {
 使用Nginx Plus + 提供的 [health_check](http://nginx.org/en/docs/http/ngx_http_upstream_module.html#health_check) 指令
 
 使用 [ngx_http_healthcheck_module ](http://wiki.nginx.org/HttpHealthcheckModule)
+
+
+
+# 子域名跳转
+ 使得外部访问 http://www.test.me/ask/xxx 时都跳转到 http://ask.test.me/xxx 。
+ 但是内部app都只有一个，故内部访问 http://ask.test.me/xxx 时，还是在访问 http://www.test.me/ask/xxx 
+
+```conf
+upstream myTomcat {
+    server                        localhost:10010 weight=1 max_fails=1 fail_timeout=1s;
+}
+
+server {
+    listen 80 ;
+    server_name www.test.me ask.test.me;
+    root /404;
+    access_log                    /var/log/nginx/test.me.access.log     main;
+    error_log                     /var/log/nginx/test.me.error.log      notice;
+
+    if ($http_host =  www.test.me) {
+        rewrite ^/ask(.*)$ http://ask.test.me$1 permanent;
+    }   
+
+    location / { 
+
+        if ($http_host =  ask.test.me) {
+            rewrite ^(.*)$ /ask$1 break;
+        }
+        proxy_next_upstream http_500 http_502 http_503 http_504 timeout error invalid_header;
+        proxy_pass                http://myTomcat;
+        proxy_set_header  X-Real-IP  $remote_addr;
+    }   
+}
+```
