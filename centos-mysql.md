@@ -35,11 +35,22 @@ FLUSH PRIVILEGES;
 
 # 字符集 utf8mb4
 
+utf8mb4 是在 mysql 5.5.3 之后才支持的。MySql中utf8字符集允许的最大长度是3个字节。
+但 emoji 表情符号等的UTF8编码则是4个字节，会出错：
+```
+java.sql.SQLException: Incorrect string value: '\xF0\x9F\x98\x98' for column 'content' at row 1
+```
+
+
+
 ```sql
 # 检查服务器的版本
 status
+SHOW VARIABLES LIKE "%version%";
+
 # 检查服务器端支持的字符集
 show variables like 'char%';
+
 ```
 
 vi /etc/my.cnf
