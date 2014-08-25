@@ -35,6 +35,12 @@ FLUSH PRIVILEGES;
 
 # 字符集 utf8mb4
 
+```sql
+# 检查服务器的版本
+status
+# 检查服务器端支持的字符集
+show variables like 'char%';
+```
 
 vi /etc/my.cnf
 
@@ -42,10 +48,8 @@ vi /etc/my.cnf
 [client]
 default-character-set = utf8mb4
 
-
 [mysql]
 default-character-set = utf8mb4
-
 
 [mysqld]
 character-set-client-handshake = FALSE
