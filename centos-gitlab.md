@@ -208,16 +208,7 @@ vi /etc/init.d/gitlab
 PATH_PATCH="PATH=$(su $USER -s /bin/bash -l -c "cd \"$APP_PATH\"; echo \"\$PATH\"") && export PATH && "
 
 ```
-## 常用命令
-
-```sh
-su - git
-cd ~/gitlab
-
-# 检查应用状态
-bundle exec rake gitlab:env:info RAILS_ENV=production
-
-```
+ 
 
 ## LDAP login
 
@@ -245,6 +236,12 @@ bundle exec rake gitlab:ldap:check RAILS_ENV=production
 su - git
 cd gitlab
 bundle exec rake gitlab:check RAILS_ENV=production
+
+# 清空缓存
+bundle exec rake cache:clear RAILS_ENV=production
+
+# 检查应用状态
+bundle exec rake gitlab:env:info RAILS_ENV=production
 
 ```
 ## 502
