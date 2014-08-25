@@ -44,11 +44,11 @@ java.sql.SQLException: Incorrect string value: '\xF0\x9F\x98\x98' for column 'co
 
 
 ```sql
-# 检查服务器的版本
+-- 检查服务器的版本
 status
 SHOW VARIABLES LIKE "%version%";
 
-# 检查服务器端支持的字符集
+-- 检查服务器端支持的字符集
 show variables like 'char%';
 
 ```
