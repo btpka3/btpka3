@@ -33,4 +33,24 @@ FLUSH PRIVILEGES;
 
 ```
 
+# 字符集 utf8mb4
+
+
+vi /etc/my.cnf
+
+```cnf
+[client]
+default-character-set = utf8mb4
+
+
+[mysql]
+default-character-set = utf8mb4
+
+
+[mysqld]
+character-set-client-handshake = FALSE
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+init_connect='SET NAMES utf8mb4'
+```
 
