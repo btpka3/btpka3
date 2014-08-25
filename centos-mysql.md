@@ -53,6 +53,27 @@ SHOW VARIABLES LIKE "%version%";
 show variables like 'char%';
 ```
 
+查看编码
+```sql
+-- For Schemas:
+SELECT default_character_set_name FROM information_schema.SCHEMATA S
+WHERE schema_name = "schemaname";
+
+-- For table:
+SELECT CCSA.character_set_name FROM information_schema.`TABLES` T,
+       information_schema.`COLLATION_CHARACTER_SET_APPLICABILITY` CCSA
+WHERE CCSA.collation_name = T.table_collation
+  AND T.table_schema = "schemaname"
+  AND T.table_name = "tablename";
+
+-- For COLUMN:
+SELECT character_set_name FROM information_schema.`COLUMNS` C
+WHERE table_schema = "schemaname"
+  AND table_name = "tablename"
+  AND column_name = "columnname";
+```
+
+
 vi /etc/my.cnf
 
 ```cnf
