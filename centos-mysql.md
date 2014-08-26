@@ -26,10 +26,30 @@ select  STR_TO_DATE('2014-07-15 12:13:14', '%Y-%m-%d %k:%i:%s')
 [client]
 default-character-set = utf8mb4         # 除了mysqld、其他程序连接时使用的默认字符集
 socket=/data/mysql/mysql.sock           # 除了mysqld、其他程序连接的socket
-secure_auth=OFF 
+secure_auth=OFF                         # 使用旧的密码HASH算法
 
 [mysql]
-default-character-set = utf8mb4
+default-character-set = utf8mb4         # mysql程序在启动时的默认字符设定
+
+[mysqld]
+datadir=/data/mysql
+socket=/data/mysql/mysql.sock
+user=mysql
+server-id=90
+log_bin=/data/mysql/mysql-bin.log
+symbolic-links=0
+sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+character-set-client-handshake = FALSE
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+init_connect='SET NAMES utf8mb4'
+explicit_defaults_for_timestamp=true
+old_passwords=1          # 密码hash值使用旧的格式（长度较短）
+secure_auth=OFF          # 登录是使用老的认证协议，主要配合密码HASH长度。
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
 ```
 
 # 重置、更新root的密码为最新格式
