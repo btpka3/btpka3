@@ -151,6 +151,16 @@ WHERE table_schema = "schemaname"
 ALTER DATABASE <dbName> CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE account_detail CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- 如果出现下面的1071错误，则是索引列太长了
+-- ERROR 1071 (42000): Specified key was too long; max key length is 1000 bytes
+
+-- 查看索引列表
+show index from naladb.comment;
+-- 查看索引定义DDL
+mysqldump -d -u nalab2cdb -p mydb comment 
+-- 重建索引（比如utf8mb4编码的varchar(255)是1020字节，用来建立索引会超过1000个字节）
+alter table comment drop key FK38A5EE5F330F7244; 
+alter table comment add key FK38A5EE5F330F7244 (user_id(250));
 ```
 
 
