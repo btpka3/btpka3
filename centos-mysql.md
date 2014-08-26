@@ -44,33 +44,46 @@ java.sql.SQLException: Incorrect string value: '\xF0\x9F\x98\x98' for column 'co
 [utf8mb4](http://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8mb4.html) 是在 mysql 5.5.3 之后才支持的，每个字符允许的最大字节是4个字节。
 
 
+查看编码
+
 ```sql
 -- 检查服务器的版本 >=  5.5.3 
 status
 SHOW VARIABLES LIKE "%version%";
 
 -- 检查服务器端支持的字符集
-show variables like 'char%';
-```
+SHOW CHARACTER SET;
 
-查看编码
-```sql
--- For Schemas:
+-- 检查服务器的字符集设置
+show variables like 'char%';
+
+-- 查看特定database/schema 的字符集设置
 SELECT default_character_set_name FROM information_schema.SCHEMATA S
 WHERE schema_name = "schemaname";
 
--- For table:
+-- 查看特定表的字符集设置
 SELECT CCSA.character_set_name FROM information_schema.`TABLES` T,
        information_schema.`COLLATION_CHARACTER_SET_APPLICABILITY` CCSA
 WHERE CCSA.collation_name = T.table_collation
   AND T.table_schema = "schemaname"
   AND T.table_name = "tablename";
 
--- For COLUMN:
+-- 查看特定列的字符集设置
 SELECT character_set_name FROM information_schema.`COLUMNS` C
 WHERE table_schema = "schemaname"
   AND table_name = "tablename"
   AND column_name = "columnname";
+
+
+```
+
+修改编码
+
+```sql
+
+ALTER DATABASE <dbName> CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE account_detail CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
 ```
 
 
