@@ -4,16 +4,56 @@
 ```
 # wget http://repo.mysql.com/mysql-community-release-el5-5.noarch.rpm
 wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm
-yum localinstall mysql-community-release-el6-5.noarch.rpm
+rpm -ivh localinstall mysql-community-release-el6-5.noarch.rpm
 yum repolist enabled | grep mysql
 yum install mysql-community-server
 service mysqld start
+
+# 如果启动出错，说user.frm 执行无权限，则需要执行：
+mysql_install_db --user=mysql --datadir=/data/mysql  # datadir 默认是 /var/lib/mysql
+# 之后修改/etc/my.cnf
+
 ```
 
 
 ```sql
 select  STR_TO_DATE('2014-07-15 12:13:14', '%Y-%m-%d %k:%i:%s')
 ```
+
+# my.cnf 示例
+
+```cnf
+[client]
+default-character-set = utf8mb4         # 除了mysqld、其他程序连接时使用的默认字符集
+socket=/data/mysql/mysql.sock           # 除了mysqld、其他程序连接的socket
+secure_auth=OFF 
+
+[mysql]
+default-character-set = utf8mb4
+```
+
+# 重置、更新root的密码为最新格式
+重置密码参考[这里](http://dev.mysql.com/doc/refman/5.5/en/resetting-permissions.html)、更新密码格式参考[这里](http://code.openark.org/blog/mysql/upgrading-passwords-from-old_passwords-to-new-passwords)
+
+```txt
+# 1. 停止mysql服务器
+service mysqld stop
+# 2. 编辑文本文件 /tmp/pwd.txt，并设置新密码
+
+Set session old_passwords=1;  -- 1:使用新格式，使用较长的密码HASH
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('123456');
+--UPDATE mysql.user SET Password=PASSWORD('123456') WHERE User='root';
+FLUSH PRIVILEGES;
+
+# 3. 将该文本作为初始化脚本启动mysqld
+mysqld --init-file=/tmp/pwd.txt &
+
+# 4. 删除 /tmp/pwd.txt
+```
+
+
+
+
 
 # 修改最大连接数
 
@@ -23,6 +63,12 @@ vi /etc/mysql/my.cnf
 root登录本地mysql
 set global max_connections=1000;
 ```
+
+# mysql 重新更新root密码
+
+
+
+
 
 # 用户 && 权限
 
