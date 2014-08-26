@@ -147,8 +147,9 @@ WHERE table_schema = "schemaname"
 
 ```sql
 
-ALTER DATABASE <dbName> CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-ALTER TABLE account_detail CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+-- utf8mb4_general_ci;
+ALTER DATABASE <dbName> CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE account_detail CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 ```
 
