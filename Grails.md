@@ -170,3 +170,11 @@ dataSource {
 # spring security core 升级至 2.0
 # grails.plugins.springsecurity.* -> grails.plugin.springsecurity.*
 ```
+
+
+
+# Maven
+
+`grails create-pom me.test` 生成pom.xml 就可以使用GGTS以Maven工程的方式导入Grails工程。只不过刚开始容易造成找不到 GroovyObject 类。可以 工程上右键-> Groovy -> Add Groovy Library 解决。
+
+
