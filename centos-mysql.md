@@ -196,7 +196,11 @@ netstat -an | grep :3306 | wc -l
 #
 1. `[Warning] IP address '192.168.1.10' could not be resolved: Name or service not known`
 
-```
-[mysqld]
-skip-name-resolve             -- 可以禁止ip地址反解析，以加快速度
-```
+   ```
+   [mysqld]
+   skip-name-resolve             -- 可以禁止ip地址反解析，以加快速度
+   ```
+
+1. `[ERROR] Missing system table mysql.proxies_priv; please run mysql_upgrade to create it`, `[ERROR] Native table 'performance_schema'.'cond_instances' has the wrong structure`
+
+以root权限执行 `mysql_upgrade -u root -p` 即可。
