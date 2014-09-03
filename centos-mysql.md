@@ -192,3 +192,11 @@ into outfile '/tmp/xxx_20140903.csv' FIELDS ENCLOSED BY '"' TERMINATED BY ';' ES
 ```
 netstat -an | grep :3306 | wc -l
 ```
+
+#
+1. `[Warning] IP address '192.168.1.10' could not be resolved: Name or service not known`
+
+```
+[mysqld]
+skip-name-resolve             -- 可以禁止ip地址反解析，以加快速度
+```
