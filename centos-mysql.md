@@ -187,3 +187,8 @@ into outfile '/tmp/xxx_20140903.csv' FIELDS ENCLOSED BY '"' TERMINATED BY ';' ES
 
 # 注意：导出文件需要grant file 权限。
 ```
+
+# 统计链接数量
+```
+netstat -an | grep :3306 | wc -l
+```
