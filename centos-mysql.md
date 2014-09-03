@@ -179,4 +179,11 @@ character-set-server = utf8mb4
 collation-server = utf8mb4_unicode_ci
 init_connect='SET NAMES utf8mb4'
 ```
+# 导出CSV文件
 
+```
+select x, y, z from t order by x, y, z desc 
+into outfile '/tmp/xxx_20140903.csv' FIELDS ENCLOSED BY '"' TERMINATED BY ';' ESCAPED BY '"'
+
+# 注意：导出文件需要grant file 权限。
+```
