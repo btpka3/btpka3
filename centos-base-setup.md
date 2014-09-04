@@ -307,7 +307,7 @@ FIXME : `/etc/security/limits.conf`
 yum install openssh-clients
 yum install wget
 yum install man
-yum install telnet
+yum install telnet   # Ctrl+] 之后，quit 可以结束telnet
 yum install unzip
 yum install gcc
 
