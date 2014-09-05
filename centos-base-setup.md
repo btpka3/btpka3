@@ -287,15 +287,17 @@ session required pam_limits.so
 ```sh
 [root@localhost ~]# vi /etc/security/limits.d/xxx.conf
 root         soft    nofile         20000
-root         hard    nofile         20000
+root         hard    nofile         40000
 root         soft    nproc          20000
-root         hard    nproc          20000
+root         hard    nproc          40000
 
 *            soft    nofile         20000
-*            hard    nofile         20000
+*            hard    nofile         40000
 *            soft    nproc          20000
-*            hard    nproc          20000
+*            hard    nproc          40000
 ```
+
+说明：修改配置文件只能对新的session起作用。如果要想即时生效，可以通过 `ulimit -n 20000` 等开启，前提是 新的数值不能超过hard所设定的值。hard值一旦被设定，就不能够再增加。
 
 FIXME : `/etc/security/limits.conf`
  
