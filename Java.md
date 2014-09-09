@@ -1,5 +1,20 @@
 # JDK
+
+## jinfo
+可以输出并修改运行时的java 进程的opts。
+
+##jps
+与unix上的ps类似，用来显示本地的java进程，可以查看本地运行着几个java程序，并显示他们的进程号。
+
+
+##jmap
+打印出某个java进程（使用pid）内存内的所有'对象'的情况（如：产生那些对象，及其数量）。
+
+##jconsole
+一个java GUI监视工具，可以以图表化的形式显示各种数据。并可通过远程连接监视远程的服务器VM。 
+
 ## [jstat](http://docs.oracle.com/javase/6/docs/technotes/tools/share/jstat.html)
+可以用来监视VM内存内的各种堆和非堆的大小及其内存使用量
 ### 使用方法
 
 ```sh
