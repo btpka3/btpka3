@@ -7,6 +7,9 @@ group <userName>
 # 将用户添加到指定的用户组中
 usermod -a -G <newGroupName> <userName>
 
+# 修改用户的home路径
+usermod -m -d /path/to/new/home/dir userNameHere
+
 ```
 
 
