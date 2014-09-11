@@ -129,6 +129,43 @@ server {
     [root@locahost ~]# mkdir /data/store/nginx
     ```
 
+## 正向代理
+
+```conf
+server {
+    listen 80;
+    access_log                    /var/log/nginx/proxy.access.log     proxy;
+    error_log                     /var/log/nginx/proxy.error.log      notice;
+    #access_log  off;
+    #error_log off;
+
+    location / {
+             resolver 202.101.172.35;
+
+             set $flag 0;
+             if ($http_host =  fonts.googleapis.com) {
+                 set $flag 1;
+             }
+             if ($http_host =  ajax.googleapis.com) {
+                 set $flag 2;
+             }
+
+
+             if ($flag = 0) {
+                 proxy_pass http://$http_host$uri$is_args$args;                                                                                        
+             }
+             if ($flag = 1) {
+                 proxy_pass http://fonts.useso.com$uri$is_args$args;
+             }
+             if ($flag = 2) {
+                 proxy_pass http://ajax.useso.com$uri$is_args$args;
+             }
+
+    }
+}
+
+```
+
 # 配置
 1. 修改nginx的默认配置
 
