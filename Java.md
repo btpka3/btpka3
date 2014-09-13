@@ -6,6 +6,7 @@
 -XX:HeapDumpPath=/path/to/xxx.dump
 ```
 HPROF or jhat 
+http://www.eclipse.org/mat/
 
 
 # JDK
