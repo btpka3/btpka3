@@ -5,6 +5,8 @@
 -XX:+HeapDumpOnOutOfMemoryError     #  当发生OOM时，可以dump出HEAP
 -XX:HeapDumpPath=/path/to/xxx.dump
 ```
+HPROF or jhat 
+
 
 # JDK
 
