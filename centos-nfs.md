@@ -64,6 +64,12 @@ Usage: nfs {start|stop|status|restart|reload|force-reload|condrestart|try-restar
 
 ```
 
+## 开机就挂载
+参考[这里](http://man.ddvip.com/os/redhat9.0cut/s1-nfs-mount.html)
 
+```sh
+vi /etc/fstab
+192.168.101.80:/server/dir  /local/dir   nfs  rsize=8192,wsize=8192,timeo=14,intr
+```
 
 
