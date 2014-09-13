@@ -1,3 +1,10 @@
+# 线上环境
+
+```sh
+# JVM参数
+-XX:+HeapDumpOnOutOfMemoryError  #  当发生OOM时，可以dump出HEAP
+```
+
 # JDK
 
 ## jinfo
