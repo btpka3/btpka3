@@ -6,7 +6,8 @@
 -XX:HeapDumpPath=/path/to/xxx.dump
 ```
 HPROF or jhat 
-http://www.eclipse.org/mat/
+
+使用 [Eclipse MAT](http://www.eclipse.org/mat/) 进行[内存泄露](http://www.vogella.com/tutorials/EclipseMemoryAnalyzer/article.html)分析
 
 
 # JDK
@@ -26,7 +27,7 @@ jps -mlv
 打印出某个java进程（使用pid）内存内的所有'对象'的情况（如：产生那些对象，及其数量）。
 
 ```sh
-jmap -dump:format=b,file=xxx.201409132332.jmap -F 21561
+jmap -dump:format=b,file=xxx.201409132332.jmap.hprof -F 21561
 ```
 ##
 可以分析jamp dump出来的内存结果，并通过 http://localhost:7000 查看。
