@@ -28,6 +28,12 @@ jps -mlv
 ```sh
 jmap -dump:format=b,file=xxx.201409132332.jmap -F 21561
 ```
+##
+可以分析jamp dump出来的内存结果，并通过 http://localhost:7000 查看。
+
+```sh
+jhat -J-Xmx512m /path/to/dump.jmap
+```
 
 ##jconsole
 一个java GUI监视工具，可以以图表化的形式显示各种数据。并可通过远程连接监视远程的服务器VM。 
