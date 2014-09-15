@@ -11,5 +11,7 @@ vi $IDEA_HOME/bin/idea64.vmoptions
 -Dswing.aatext=true 
 -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel
 
-
+#
+Settings -> Appearance -> Override default fonts by ...
+Settings -> Editor -> Colors & Fonts -> Font.
 ```
