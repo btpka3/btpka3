@@ -12,6 +12,6 @@ vi $IDEA_HOME/bin/idea64.vmoptions
 -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel
 
 #
-Settings -> Appearance -> Override default fonts by ...
-Settings -> Editor -> Colors & Fonts -> Font.
+Settings -> Appearance -> Override default fonts by ... : WenQuanYi Micro Hei Mono 13
+Settings -> Editor -> Colors & Fonts -> Font.  : WenQuanYi Micro Hei Mono 14
 ```
