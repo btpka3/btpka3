@@ -6,8 +6,9 @@
 -XX:HeapDumpPath=/path/to/xxx.dump
 ```
 HPROF or jhat 
+http://publib.boulder.ibm.com/infocenter/realtime/v2r0/index.jsp?topic=%2Fcom.ibm.rt.doc.20%2Frealtime%2Fdiagnose_oom.html
 
-使用 [Eclipse MAT](http://www.eclipse.org/mat/) 进行[内存泄露](http://www.vogella.com/tutorials/EclipseMemoryAnalyzer/article.html)分析
+
 
 
 # JDK
@@ -25,16 +26,6 @@ jps -mlv
 
 ##jmap
 打印出某个java进程（使用pid）内存内的所有'对象'的情况（如：产生那些对象，及其数量）。
-
-```sh
-jmap -dump:format=b,file=xxx.201409132332.jmap.hprof -F 21561
-```
-##
-可以分析jamp dump出来的内存结果，并通过 http://localhost:7000 查看。
-
-```sh
-jhat -J-Xmx512m /path/to/dump.jmap
-```
 
 ##jconsole
 一个java GUI监视工具，可以以图表化的形式显示各种数据。并可通过远程连接监视远程的服务器VM。 
