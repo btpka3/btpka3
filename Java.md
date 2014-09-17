@@ -171,7 +171,11 @@ java -Djavax.net.ssl.trustStore=/path/to/your.keystore\
 
 [java JVM 内存类型](http://javapapers.com/core-java/java-jvm-memory-types/)
 
-[2](https://blogs.oracle.com/jonthecollector/entry/presenting_the_permanent_generation)
+[presenting the permanent generation](https://blogs.oracle.com/jonthecollector/entry/presenting_the_permanent_generation)
+
+[JVM Options](http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html)
+
+[gc tuning](http://www.oracle.com/technetwork/java/gc-tuning-5-138395.html)
 
 ## 内存分类
 * HEAP ： 存储对象、数组，又称为共享内存——多个线程共享该内存。
