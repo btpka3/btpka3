@@ -4,6 +4,7 @@
 # JVM参数
 -XX:+HeapDumpOnOutOfMemoryError     #  当发生OOM时，可以dump出HEAP
 -XX:HeapDumpPath=/path/to/xxx.dump
+-Xloggc:/path/to/gc.log             # 记录gc日志 
 ```
 HPROF or jhat 
 http://publib.boulder.ibm.com/infocenter/realtime/v2r0/index.jsp?topic=%2Fcom.ibm.rt.doc.20%2Frealtime%2Fdiagnose_oom.html
