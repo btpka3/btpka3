@@ -11,6 +11,8 @@ http://publib.boulder.ibm.com/infocenter/realtime/v2r0/index.jsp?topic=%2Fcom.ib
 
 
 
+
+
 # JDK
 
 ## jinfo
@@ -26,6 +28,10 @@ jps -mlv
 
 ##jmap
 打印出某个java进程（使用pid）内存内的所有'对象'的情况（如：产生那些对象，及其数量）。
+
+```sh
+jmap -dump:format=b,file=outfile.jmap.hprof 3024
+```
 
 ##jconsole
 一个java GUI监视工具，可以以图表化的形式显示各种数据。并可通过远程连接监视远程的服务器VM。 
