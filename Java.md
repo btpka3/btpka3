@@ -32,6 +32,12 @@ jps -mlv
 ```sh
 jmap -dump:format=b,file=outfile.jmap.hprof 3024
 ```
+如果报以下错误，请确认启用jmap的用户是否和目标java进程是同一个用户，否则追加参数 -F 尝试。
+
+```
+Unable to open socket file: target process not responding or HotSpot VM not loaded
+The -F option can be used when the target process is not responding
+```
 
 ##jconsole
 一个java GUI监视工具，可以以图表化的形式显示各种数据。并可通过远程连接监视远程的服务器VM。 
