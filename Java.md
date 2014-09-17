@@ -177,6 +177,11 @@ java -Djavax.net.ssl.trustStore=/path/to/your.keystore\
 
 [gc tuning](http://www.oracle.com/technetwork/java/gc-tuning-5-138395.html)
 
+[Garbage First](http://www.oracle.com/technetwork/java/javase/tech/g1-intro-jsp-135488.html)
+
+[jdk 1.7 - java](http://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html)
+
+
 ## 内存分类
 * HEAP ： 存储对象、数组，又称为共享内存——多个线程共享该内存。
 * NON-HEAP
