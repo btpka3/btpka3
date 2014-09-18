@@ -1,3 +1,6 @@
+[GORM Gotchas](http://spring.io/blog/2010/06/23/gorm-gotchas-part-1/)
+
+
 # GRAILS_OPTS
 
 ```
