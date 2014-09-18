@@ -1,7 +1,7 @@
 GORM Gotchas [part 1](http://spring.io/blog/2010/06/23/gorm-gotchas-part-1/)、[part 2](http://spring.io/blog/2010/07/02/gorm-gotchas-part-2/)、
 [part 3](http://spring.io/blog/2010/07/28/gorm-gotchas-part-3/)
 
-
+[参考这里](http://stackoverflow.com/questions/24309084/flush-mode-changed-in-grails-from-auto-to-manual)
 grails 从 2.4 开始，默认是的flush mode 从 FlushMode.MANUAL 改为了 FlushMode.AUTO。
 controller 中默认的事务是readonly，readonly事务的FlushMode是Manual。
 修改 Config.groovy，设置 `grails.gorm.autoFlush = true` 可以在调用 save() 方法时，都 flush=true.
