@@ -1,4 +1,5 @@
-[GORM Gotchas](http://spring.io/blog/2010/06/23/gorm-gotchas-part-1/)
+GORM Gotchas [part 1](http://spring.io/blog/2010/06/23/gorm-gotchas-part-1/)、[part 2](http://spring.io/blog/2010/07/02/gorm-gotchas-part-2/)、
+[part 3](http://spring.io/blog/2010/07/28/gorm-gotchas-part-3/)
 
 
 # GRAILS_OPTS
