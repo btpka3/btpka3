@@ -186,3 +186,313 @@ dataSource {
 `grails create-pom me.test` 生成pom.xml 就可以使用GGTS以Maven工程的方式导入Grails工程。只不过刚开始容易造成找不到 GroovyObject 类。可以 工程上右键-> Groovy -> Add Groovy Library 解决。
 
 
+以Maven形式创建Grails工程
+
+# 创建目录树
+
+```txt
+.
+├── grails-app
+│   ├── conf
+│   │   └── spring
+│   ├── controllers
+│   ├── domain
+│   ├── i18n
+│   ├── services
+│   ├── taglib
+│   ├── utils
+│   └── views
+├── pom.xml
+├── src
+│   ├── groovy
+│   └── java
+├── target
+│   └── eclipseclasses
+└── test
+    ├── integration
+    └── unit
+```
+
+# 创建pom.xml
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>me.test</groupId>
+	<artifactId>my-mvn-grails</artifactId>
+	<packaging>grails-app</packaging>
+	<version>0.1</version>
+
+	<name>my-mvn-grails</name>
+	<description>my-mvn-grails</description>
+
+	<properties>
+		<grails.version>2.3.11</grails.version>
+		<h2.version>1.3.170</h2.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-async</artifactId>
+			<version>${grails.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-rest</artifactId>
+			<version>${grails.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-services</artifactId>
+			<version>${grails.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-i18n</artifactId>
+			<version>${grails.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-databinding</artifactId>
+			<version>${grails.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-filters</artifactId>
+			<version>${grails.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-gsp</artifactId>
+			<version>${grails.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-log4j</artifactId>
+			<version>${grails.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-servlets</artifactId>
+			<version>${grails.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-url-mappings</artifactId>
+			<version>${grails.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-resources</artifactId>
+			<version>${grails.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-test</artifactId>
+			<version>${grails.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-testing</artifactId>
+			<version>${grails.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${h2.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-datastore-test-support</artifactId>
+			<version>1.0-grails-2.3</version>
+			<scope>test</scope>
+
+
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>scaffolding</artifactId>
+			<version>2.0.3</version>
+			<scope>compile</scope>
+
+			<type>zip</type>
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>cache</artifactId>
+			<version>1.1.7</version>
+			<scope>compile</scope>
+
+			<type>zip</type>
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.6.10.16</version>
+			<scope>runtime</scope>
+
+			<type>zip</type>
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>database-migration</artifactId>
+			<version>1.4.0</version>
+			<scope>runtime</scope>
+
+			<type>zip</type>
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>jquery</artifactId>
+			<version>1.11.1</version>
+			<scope>runtime</scope>
+
+			<type>zip</type>
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>resources</artifactId>
+			<version>1.2.8</version>
+			<scope>runtime</scope>
+
+			<type>zip</type>
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>tomcat</artifactId>
+			<version>7.0.54</version>
+			<scope>provided</scope>
+
+			<type>zip</type>
+
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<pluginManagement />
+
+		<plugins>
+			<!-- Disables the Maven surefire plugin for Grails applications, as we 
+				have our own test runner -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+				<executions>
+					<execution>
+						<id>surefire-it</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>false</skip>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.4.0</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>plugins</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.grails</groupId>
+				<artifactId>grails-maven-plugin</artifactId>
+				<version>2.4.2</version>
+				<configuration>
+					<grailsVersion>${grails.version}</grailsVersion>
+				</configuration>
+				<extensions>true</extensions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>grails</id>
+			<name>grails</name>
+			<url>http://repo.grails.org/grails/core</url>
+		</repository>
+		<repository>
+			<id>grails-plugins</id>
+			<name>grails-plugins</name>
+			<url>http://repo.grails.org/grails/plugins</url>
+		</repository>
+	</repositories>
+
+	<profiles>
+		<profile>
+			<id>tools</id>
+			<activation>
+				<property>
+					<name>java.vendor</name>
+					<value>Sun Microsystems Inc.</value>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.sun</groupId>
+					<artifactId>tools</artifactId>
+					<version>${java.version}</version>
+					<scope>system</scope>
+					<systemPath>${java.home}/../lib/tools.jar</systemPath>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+</project>
+
+```
