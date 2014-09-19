@@ -6,6 +6,36 @@
 -XX:HeapDumpPath=/path/to/xxx.dump
 -Xloggc:/path/to/gc.log             # 记录gc日志 
 ```
+
+# 远程jvisualvm
+
+
+参考[这里](http://ihuangweiwei.iteye.com/blog/1219302)
+1. 新建 policy 文件 : jstatd.all.policy
+
+    ```policy
+    grant codebase "file:${java.home}/../lib/tools.jar" {  
+       permission java.security.AllPermission;  
+    };  
+    ```
+1. 确保/etc/hosts 中主机名对应的是其他主机可以访问到的IP地址
+
+    ```sh
+    cat /etc/hosts
+    192.168.101.81     s81
+    ```
+
+1. 运行 jstad
+
+    ```sh
+    jstatd -J-Djava.security.policy=/path/to/jstatd.all.policy  &
+    ```
+
+然后就可以在其他主机上使用jvisulavm 查看远程的java运行信息了。
+
+
+
+
 HPROF or jhat 
 http://publib.boulder.ibm.com/infocenter/realtime/v2r0/index.jsp?topic=%2Fcom.ibm.rt.doc.20%2Frealtime%2Fdiagnose_oom.html
 
