@@ -9,7 +9,7 @@ Integer.hi("a") // 含参函数
 println Integer.myClassName // java.lang.Integer  
 ```
 
-# 为所有对象添加新方法
+# 为类添加新方法
 
 ```groovy
 Object.metaClass.hi = {println "hi,"+it}                            
@@ -20,10 +20,10 @@ Object.metaClass.getMyClassName { delegate.getClass().getName() }
 println 1.myClassName
 ```
 
-# 为所有对象添加新属性
+# 为类添加新属性
 TODO
 
-# 为特定的对象添加方法
+# 为特定的实例添加方法
 
 ```groovy
 def a = "a" 
@@ -35,3 +35,4 @@ a.hi()
 b.hi()  // ERROR 
 ```
 
+# TODO 为特定的实例添加新属性
