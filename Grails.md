@@ -188,6 +188,10 @@ dataSource {
 
 以Maven形式创建Grails工程
 
+```sh
+mvn archetype:generate -DarchetypeGroupId=org.grails -DarchetypeArtifactId=grails-maven-archetype -DarchetypeVersion=2.4.3 -DgroupId=me.test -DartifactId=my-mvn
+```
+
 # 创建目录树
 
 ```txt
