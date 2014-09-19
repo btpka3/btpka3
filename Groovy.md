@@ -12,7 +12,7 @@ println Integer.myClassName // java.lang.Integer
 # 为类添加预定义的新方法、属性
 
 ```groovy
-# 追加方法
+// 追加方法
 Object.metaClass.hi = {println "hi,"+it}                            
 Object.metaClass.hi = {String str-> println "hi-" + str}
 // 追加属性：命名要求是 getXxx
