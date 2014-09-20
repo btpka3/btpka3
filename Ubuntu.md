@@ -366,6 +366,8 @@ nameserver 8.8.8.8
 sudo resolvconf -u
 cat /etc/resolv.conf
 
+sudo ifdown eth0 && sudo ifup eth0
+cat /etc/resolv.conf
 ```
 
 # wine
