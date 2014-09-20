@@ -1,4 +1,10 @@
+# maven 
+http://gmaven.codehaus.org/Home
+
+
+
 # 为类添加静态方法
+http://groovy.codehaus.org/ExpandoMetaClass
 
 ```groovy
 Object.metaClass.static.hi = {println "hi,"+it}                            
