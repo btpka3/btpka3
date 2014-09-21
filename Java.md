@@ -2,9 +2,9 @@
 
 ```sh
 # JVM参数
--XX:+HeapDumpOnOutOfMemoryError     #  当发生OOM时，可以dump出HEAP
--XX:HeapDumpPath=/path/to/xxx.dump
--Xloggc:/path/to/gc.log             # 记录gc日志 
+-XX:+HeapDumpOnOutOfMemoryError            #  当发生OOM时，可以dump出HEAP
+-XX:HeapDumpPath=/path/to/xxx.dump.hprof
+-Xloggc:/path/to/gc.log                    # 记录gc日志 
 ```
 
 # 远程jvisualvm
