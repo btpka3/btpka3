@@ -4,9 +4,9 @@ http://gmaven.codehaus.org/Home
 
 
 # 为类添加静态方法
-http://groovy.codehaus.org/ExpandoMetaClass
-http://groovy.codehaus.org/JN3525-MetaClasses
-http://groovy.codehaus.org/Per-Instance+MetaClass
+[ExpandoMetaClass](http://groovy.codehaus.org/ExpandoMetaClass)、
+[MetaClasses](http://groovy.codehaus.org/JN3525-MetaClasses)、
+[Per-Instance MetaClass](http://groovy.codehaus.org/Per-Instance+MetaClass)
 
 ```groovy
 Object.metaClass.static.hi = {println "hi,"+it}                            
