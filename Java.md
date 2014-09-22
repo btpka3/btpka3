@@ -6,6 +6,9 @@
 # JVM参数
 -XX:+HeapDumpOnOutOfMemoryError            #  当发生OOM时，可以dump出HEAP
 -XX:HeapDumpPath=/path/to/xxx.dump.hprof
+
+-XX:+PrintGCDateStamps        
+-XX:+PrintGCDetails 
 -Xloggc:/path/to/gc.log                    # 记录gc日志 
 ```
 
