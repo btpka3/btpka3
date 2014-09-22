@@ -3,13 +3,23 @@
 # 线上环境
 
 ```sh
-# JVM参数
--XX:+HeapDumpOnOutOfMemoryError            #  当发生OOM时，可以dump出HEAP
--XX:HeapDumpPath=/path/to/xxx.dump.hprof
 
--XX:+PrintGCDateStamps        
--XX:+PrintGCDetails 
--Xloggc:/path/to/gc.log                    # 记录gc日志 
+today=`date +%Y%m%d%H%M%S`
+export CATALINA_OPTS=" \
+    -server \
+    -Xms512m \
+    -Xmx1024m \
+    -XX:PermSize=32m \
+    -XX:MaxPermSize=256m \
+    -Dfile.encoding=UTF-8 \
+    -XX:ErrorFile=${CATALINA_HOME}/logs/hs_err_pid%p.log \
+    -XX:+HeapDumpOnOutOfMemoryError \
+    -XX:HeapDumpPath=${CATALINA_HOME}/logs/start.at.$today.dump.hprof \
+    -XX:+UseConcMarkSweepGC \
+    -XX:+PrintGCDateStamps \                                  
+    -XX:+PrintGCDetails \
+    -Xloggc:${CATALINA_HOME}/logs/start.at.$today.gc.log \
+"
 ```
 
 # 远程jvisualvm
