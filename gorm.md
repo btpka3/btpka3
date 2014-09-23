@@ -51,7 +51,7 @@ class CmsPageView {
 }
 ```
 
-查询出
+查询出部分列
 
 ```
 // list：类型 grails.orm.PagedResultList, 长度：1
@@ -67,4 +67,15 @@ def list = CmsPageView.createCriteria().list(max:1) {
 }
 
 ```
+
+查询出最小日期
+
+```groovy
+def minDate = CmsPageView.createCriteria().get {
+    projections {
+        min('date')
+    }
+}
+```
+
 
