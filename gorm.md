@@ -29,3 +29,42 @@ class Nose {
 }
 
 ```
+
+# 查询出部分列
+
+```groovy
+class CmsPageView {
+
+    static constraints = {
+        cmspage nullable:false;
+        date nullable: false;
+        times nullable: false;
+    }
+
+    static mapping = {
+        date type: "date"
+    }
+   CmsPage cmspage;
+    Date date;
+
+    Integer times;
+}
+```
+
+查询出
+
+```
+// list：类型 grails.orm.PagedResultList, 长度：1
+// 元素一：类型Object[2] {java.sql.Date, Long}
+def list = CmsPageView.createCriteria().list(max:1) {
+    projections {
+        //min('date')
+        property('date')
+        cmspage {
+            property('id')
+        }
+    }
+}
+
+```
+
