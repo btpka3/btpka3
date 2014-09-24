@@ -11,6 +11,8 @@ http://gmaven.codehaus.org/Home
 http://stackoverflow.com/questions/24169976/understanding-groovy-grails-classloader-leak
 http://stackoverflow.com/questions/23121890/difference-between-delegate-mixin-and-traits-in-groovy
 
+http://groovy.329449.n5.nabble.com/Metaclass-methods-protecte-objects-from-gc-is-this-a-bug-td368195.html
+
 
 per-Instance 与 其 metaClass 存储在 org.codehaus.groovy.reflection.ClassInfo#perInstanceMetaClassMap 中，参见348行。
 
