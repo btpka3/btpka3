@@ -55,9 +55,11 @@ HPROF or jhat
 http://publib.boulder.ibm.com/infocenter/realtime/v2r0/index.jsp?topic=%2Fcom.ibm.rt.doc.20%2Frealtime%2Fdiagnose_oom.html
 
 
+# jstack
 
-
-
+```sh
+jstack <pid>
+```
 
 # JDK
 
