@@ -8,6 +8,7 @@ http://gmaven.codehaus.org/Home
 [MetaClasses](http://groovy.codehaus.org/JN3525-MetaClasses)、
 [Per-Instance MetaClass](http://groovy.codehaus.org/Per-Instance+MetaClass)
 
+http://stackoverflow.com/questions/24169976/understanding-groovy-grails-classloader-leak
 per-Instance 与 其 metaClass 存储在 org.codehaus.groovy.reflection.ClassInfo#perInstanceMetaClassMap 中，参见348行。
 
 
