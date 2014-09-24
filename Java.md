@@ -2,6 +2,8 @@
 
 # 线上环境
 
+`-XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled`
+
 ```sh
 
 today=`date +%Y%m%d%H%M%S`
