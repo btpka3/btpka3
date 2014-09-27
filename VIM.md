@@ -33,6 +33,19 @@ set hlsearch
 " set list
 " comment here
 ```
+## 安装vba插件
+[largeFile](http://www.drchip.org/astronaut/vim/#LARGEFILE)
+wget http://www.drchip.org/astronaut/vim/vbafiles/LargeFile.vba.gz
+gunzip LargeFile.vba.gz
+vi LargeFile.vba
+:source %
+```
+
+
+:source %
+
+```
+
 ## 将换行符从dos格式变为unix格式
 参考：[1](http://vim.wikia.com/wiki/File_format)
 ```
