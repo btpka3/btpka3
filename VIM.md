@@ -34,7 +34,8 @@ set hlsearch
 " comment here
 ```
 ## 安装vba插件
-[largeFile](http://www.drchip.org/astronaut/vim/#LARGEFILE)
+[largeFile](http://www.drchip.org/astronaut/vim/#LARGEFILE), 
+[Manual](http://www.drchip.org/astronaut/vim/doc/LargeFile.txt.html)
 wget http://www.drchip.org/astronaut/vim/vbafiles/LargeFile.vba.gz
 gunzip LargeFile.vba.gz
 vi LargeFile.vba
