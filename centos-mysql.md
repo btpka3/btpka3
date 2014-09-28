@@ -204,3 +204,23 @@ netstat -an | grep :3306 | wc -l
 1. `[ERROR] Missing system table mysql.proxies_priv; please run mysql_upgrade to create it`, `[ERROR] Native table 'performance_schema'.'cond_instances' has the wrong structure`
 
 以root权限执行 `mysql_upgrade -u root -p` 即可。
+
+
+# mysqldump
+
+```sh
+# 备份整个数据库
+mysqldump -h 192.168.1.101 -d -u myUser -p mydb 
+
+# 单个表
+mysqldump -h 192.168.1.101 -d -u myUser -p mydb myTable -w "column=1 and column=2"
+
+# 只备份ddl
+mysqldump -h 192.168.1.101 -d -u myUser -p -d mydb 
+
+# 只备份数据
+mysqldump -h 192.168.1.101 -d -u myUser -p --no-create-db --no-create-info --skip-triggers mydb 
+
+
+
+```
