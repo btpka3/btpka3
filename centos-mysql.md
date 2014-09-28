@@ -220,7 +220,4 @@ mysqldump -h 192.168.1.101 -d -u myUser -p -d mydb
 
 # 只备份数据
 mysqldump -h 192.168.1.101 -d -u myUser -p --no-create-db --no-create-info --skip-triggers mydb 
-
-
-
 ```
