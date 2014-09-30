@@ -119,7 +119,7 @@ ssh sshUser@sshHost -C -f -N -g -L [localBindIP:]localBindPort:remoteServiceIP:r
 ssh sshUser>@sshHost -C -f -N -g -R [sshBindIp:]sshBindPort:localBindHost:localBindPort &
 ```
 
-需求示例：需要从C@prod上直接访问 A@dev 的Redis服务
+需求示例：需要从`C@prod`上直接访问 `A@dev` 的Redis服务
 
 1. 开启远程端口反向转发
 
