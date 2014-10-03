@@ -62,3 +62,8 @@ vi LargeFile.vba
 :set nobomb
 :wq
 ```
+## 全局替换 
+
+```sh
+:%s/),/\0\r/g
+```
