@@ -208,16 +208,38 @@ netstat -an | grep :3306 | wc -l
 
 # mysqldump
 
+
+## 仅DDL
+
 ```sh
 # 备份整个数据库
 mysqldump -h 192.168.1.101 -d -u myUser -p mydb 
 
 # 单个表
-mysqldump -h 192.168.1.101 -d -u myUser -p mydb myTable -w "column=1 and column=2"
-
-# 只备份ddl
-mysqldump -h 192.168.1.101 -d -u myUser -p -d mydb 
-
-# 只备份数据
-mysqldump -h 192.168.1.101 -d -u myUser -p --no-create-db --no-create-info --skip-triggers mydb 
+mysqldump -h 192.168.1.101 -d -u myUser -p mydb myTable
 ```
+
+## 仅数据
+
+```sh
+# 备份整个数据库
+mysqldump -h 192.168.1.101 -d -u myUser -p --no-create-db --no-create-info --skip-triggers mydb 
+
+# 单个表
+mysqldump -h 192.168.1.101 -d -u myUser -p --no-create-db --no-create-info --skip-triggers mydb myTable
+
+# 单个表(部分数据)
+mysqldump -h 192.168.1.101 -d -u myUser -p --no-create-db --no-create-info --skip-triggers mydb myTable -w "column=1 and column=2"
+```
+
+
+## 备份大数据库中的部分数据
+1. drop all tables 
+1. backup table one by one with `where` condition
+
+--add-drop-table --add-drop-table=utf8 -f --hex-blob
+
+
+
+
+## 
