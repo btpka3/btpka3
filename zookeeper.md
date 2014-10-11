@@ -2,6 +2,8 @@
 
 # 秘诀（recipe）
 
+[recipes](http://zookeeper.apache.org/doc/r3.1.2/recipes.html)
+
 ## TODO : Barriers
 
 ## TODO : Queues
