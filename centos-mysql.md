@@ -223,13 +223,13 @@ mysqldump -h 192.168.1.101 -d -u myUser -p mydb myTable
 
 ```sh
 # 备份整个数据库
-mysqldump -h 192.168.1.101 -d -u myUser -p --no-create-db --no-create-info --skip-triggers mydb 
+mysqldump -h 192.168.1.101 -u myUser -p --no-create-db --no-create-info --skip-triggers mydb 
 
 # 单个表
-mysqldump -h 192.168.1.101 -d -u myUser -p --no-create-db --no-create-info --skip-triggers mydb myTable
+mysqldump -h 192.168.1.101 -u myUser -p --no-create-db --no-create-info --skip-triggers mydb myTable
 
 # 单个表(部分数据)
-mysqldump -h 192.168.1.101 -d -u myUser -p --no-create-db --no-create-info --skip-triggers mydb myTable -w "column=1 and column=2"
+mysqldump -h 192.168.1.101 -u myUser -p --no-create-db --no-create-info --skip-triggers mydb myTable -w "column=1 and column=2"
 ```
 
 
