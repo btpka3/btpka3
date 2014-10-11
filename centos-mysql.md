@@ -242,4 +242,10 @@ mysqldump -h 192.168.1.101 -u myUser -p --no-create-db --no-create-info --skip-t
 
 
 
-## 
+## 7788
+
+```sql
+# 列出所有表和其中的记录数
+SELECT TABLE_NAME, TABLE_ROWS FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'naladb' order by TABLE_ROWS desc;
+
+```
