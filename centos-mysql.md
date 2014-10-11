@@ -233,13 +233,6 @@ mysqldump -h 192.168.1.101 -u myUser -p --no-create-db --no-create-info --skip-t
 ```
 
 
-## 备份大数据库中的部分数据
-1. drop all tables 
-1. backup table one by one with `where` condition
-
---add-drop-table --add-drop-table=utf8 -f --hex-blob
-
-
 
 
 ## 7788
@@ -249,3 +242,56 @@ mysqldump -h 192.168.1.101 -u myUser -p --no-create-db --no-create-info --skip-t
 SELECT TABLE_NAME, TABLE_ROWS FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'naladb' order by TABLE_ROWS desc;
 
 ```
+
+# master-slave
+[replication-howto](http://dev.mysql.com/doc/refman/5.1/en/replication-howto.html)
+
+## master配置
+
+`vi my.cnf`
+
+```cnf
+[mysqld]
+log-bin=mysql-bin
+server-id=1
+```
+
+## slave配置
+
+
+`vi my.cnf`
+
+```cnf
+[mysqld]
+server-id=2
+```
+
+## 创建用于Replication的用户
+任何用户均可，需要有  REPLICATION SLAVE  权限。
+用户名和密码需要以明文的方式存储在 master.info 中，故最好单独创建一个这样的账户，赋予最小权限。
+
+```sql
+CREATE USER 'repl'@'%.mydomain.com' IDENTIFIED BY 'slavepass';
+GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%.mydomain.com';
+```
+
+## 查看Master状态
+
+```sql
+mysql>  SHOW MASTER STATUS;
++------------------+-----------+--------------+------------------+-------------------+
+| File             | Position  | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
++------------------+-----------+--------------+------------------+-------------------+
+| mysql-bin.000029 | 424473475 | naladb       |                  |                   |
++------------------+-----------+--------------+------------------+-------------------+
+1 row in set (0.00 sec)
+```
+
+## 用master快照备份
+
+```sh
+mysqldump --all-databases --master-data > dbdump.db
+```
+
+## 使用raw数据文件作为快照
+
