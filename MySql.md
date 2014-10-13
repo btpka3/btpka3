@@ -2,21 +2,19 @@
 
 # 存储引擎
 
-```sql
-mysql> show engines;
-+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
-| Engine             | Support | Comment                                                        | Transactions | XA   | Savepoints |
-+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
-| MyISAM             | YES     | MyISAM storage engine                                          | NO           | NO   | NO         |
-| CSV                | YES     | CSV storage engine                                             | NO           | NO   | NO         |
-| MRG_MYISAM         | YES     | Collection of identical MyISAM tables                          | NO           | NO   | NO         |
-| BLACKHOLE          | YES     | /dev/null storage engine (anything you write to it disappears) | NO           | NO   | NO         |
-| MEMORY             | YES     | Hash based, stored in memory, useful for temporary tables      | NO           | NO   | NO         |
-| InnoDB             | DEFAULT | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |
-| ARCHIVE            | YES     | Archive storage engine                                         | NO           | NO   | NO         |
-| FEDERATED          | NO      | Federated MySQL storage engine                                 | NULL         | NULL | NULL       |
-| PERFORMANCE_SCHEMA | YES     | Performance Schema                                             | NO           | NO   | NO         |
-+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
-9 rows in set (0.00 sec)
+* MyISAM
 
-```
+    * 每张表被存为3个文件。*.frm —— 表格定义文件，*.MYD——数据文件，*.MY——索引文件
+    * 查询快
+    * 不支持事务
+    * 不支持外键
+    * 支持全文索引
+
+* InnoDB
+
+    * 从 5.5.5 开始是默认引擎。
+    * 更新快
+    * 支持事务
+    * 支持外键
+    * 不支持全文索引
+
