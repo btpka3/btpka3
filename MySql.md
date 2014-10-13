@@ -90,6 +90,7 @@ ALTER TABLE t ENGINE = MYISAM;
 
     ```sh
     tar cf /tmp/db.tar ./data
+    # date ; tar cf mysql.tar ./mysql ; date 
     ```
 
 1. 配合相应的时机，在session1中释放所有读锁
