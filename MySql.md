@@ -54,6 +54,15 @@ ALTER TABLE t ENGINE = MYISAM;
 
 
 
+# 备份与恢复
+1. 要用bin-log。
+1. 要定期全量备份，且记录该对应bin-log的File和Position。
+1. 清除较旧的bin-log前，要确保全量备份已经包含该bin-log中的内容。
+1. 恢复时，需要：
+    1. 恢复全量备份
+    1. 在增量从bin-log中从全量的位置开始，恢复到故障发前的position或日期。
+
+
 
 
 # master-slave
