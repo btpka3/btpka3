@@ -246,52 +246,64 @@ SELECT TABLE_NAME, TABLE_ROWS FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA 
 # master-slave
 [replication-howto](http://dev.mysql.com/doc/refman/5.1/en/replication-howto.html)
 
-## master配置
+1. master配置
 
-`vi my.cnf`
+    `vi my.cnf`
+    
+    ```cnf
+    [mysqld]
+    log-bin=mysql-bin
+    server-id=1
+    ```
 
-```cnf
-[mysqld]
-log-bin=mysql-bin
-server-id=1
-```
+1. slave配置
 
-## slave配置
+    `vi my.cnf`
 
+    ```cnf
+    [mysqld]
+    server-id=2
+    ```
 
-`vi my.cnf`
+1. 在master上创建用于Replication的用户。
 
-```cnf
-[mysqld]
-server-id=2
-```
+   任何用户均可，需要有  REPLICATION SLAVE  权限。
+   用户名和密码需要以明文的方式存储在 master.info 中，故最好单独创建一个这样的账户，赋予最小权限。
 
-## 创建用于Replication的用户
-任何用户均可，需要有  REPLICATION SLAVE  权限。
-用户名和密码需要以明文的方式存储在 master.info 中，故最好单独创建一个这样的账户，赋予最小权限。
+   ```sql
+   CREATE USER 'repl'@'%.mydomain.com' IDENTIFIED BY 'slavepass';
+   GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%.mydomain.com';
+   SHOW GRANTS;
+   ```
 
-```sql
-CREATE USER 'repl'@'%.mydomain.com' IDENTIFIED BY 'slavepass';
-GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%.mydomain.com';
-```
+1. 查看Master状态
 
-## 查看Master状态
+    ```sql
+    mysql>  SHOW MASTER STATUS;
+    +------------------+-----------+--------------+------------------+-------------------+
+    | File             | Position  | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
+    +------------------+-----------+--------------+------------------+-------------------+
+    | mysql-bin.000029 | 424473475 | naladb       |                  |                   |
+    +------------------+-----------+--------------+------------------+-------------------+
+    1 row in set (0.00 sec)
+    ```
 
-```sql
-mysql>  SHOW MASTER STATUS;
-+------------------+-----------+--------------+------------------+-------------------+
-| File             | Position  | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
-+------------------+-----------+--------------+------------------+-------------------+
-| mysql-bin.000029 | 424473475 | naladb       |                  |                   |
-+------------------+-----------+--------------+------------------+-------------------+
-1 row in set (0.00 sec)
-```
+1. 用master快照备份???
 
-## 用master快照备份
+    ```sh
+    mysqldump --all-databases --master-data > dbdump.db
+    ```
 
-```sh
-mysqldump --all-databases --master-data > dbdump.db
-```
+1. 在slave上恢复快照备份???
 
-## 使用raw数据文件作为快照
+1. 在slave上设置master信息
+
+    ```sql
+    CHANGE MASTER TO
+        MASTER_HOST     = 'master_host_name',
+        MASTER_USER     = 'replication_user_name',
+        MASTER_PASSWORD = 'replication_password',
+        MASTER_LOG_FILE = 'recorded_log_file_name',
+        MASTER_LOG_POS  = recorded_log_position;
+    ```
 
