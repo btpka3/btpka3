@@ -61,7 +61,7 @@ ALTER TABLE t ENGINE = MYISAM;
 1. 恢复时，需要：
     1. 恢复全量备份
     1. 在增量从bin-log中从全量的位置开始，恢复到故障发前的position或日期。
-
+1. 如果在master-slave模式上进行备份和回滚，对应bin-log的File和Position可以通过 `SHOW slave STATUS` 获取，备份前可以 `STOP SLAVE`（而不必像在master上那样必须先锁表）。
 
 
 
