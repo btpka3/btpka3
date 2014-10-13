@@ -18,6 +18,42 @@
     * 不支持全文索引
 
 
+## 查看
+
+```sql
+
+-- 查看所支持的引擎和默认值
+show engines
+
+-- 查看既有表和对应的引擎
+select table_name, engine from INFORMATION_SCHEMA.TABLES where table_schema = 'myDb';
+```
+
+
+## 修改
+
+持久修改默认引擎： `vi  /etc/my.cnf`，重启生效：
+
+```cnf
+[mysqld]
+default-storage-engine=MyISAM
+```
+临时修改默认引擎，重启失效。
+
+```sql
+SET GLOBAL storage_engine='MyISAM';
+SET SESSION storage_engine='MyISAM';
+```
+
+修改既有表的引擎
+
+``` sql
+ALTER TABLE t ENGINE = MYISAM;
+```
+
+
+
+
 
 
 # master-slave
