@@ -279,7 +279,8 @@ SELECT TABLE_NAME, TABLE_ROWS FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA 
 1. 查看Master状态
 
     ```sql
-    mysql>  SHOW MASTER STATUS;
+    FLUSH TABLES WITH READ LOCK;
+    SHOW MASTER STATUS;
     +------------------+-----------+--------------+------------------+-------------------+
     | File             | Position  | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
     +------------------+-----------+--------------+------------------+-------------------+
@@ -288,15 +289,19 @@ SELECT TABLE_NAME, TABLE_ROWS FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA 
     1 row in set (0.00 sec)
     ```
 
-1. 用master快照备份???
+1. 获取master快照备份。
 
-    ```sh
-    mysqldump --all-databases --master-data > dbdump.db
-    ```
+    1. 使用 mysqldump
+
+        ```sh
+        # 参数 `--master-data` 会自动追加一条  `CHANGE MASTER TO` 语句到结果中的。
+        mysqldump --all-databases --master-data > dbdump.db
+        ```
+    2. 
 
 1. 在slave上恢复快照备份???
 
-1. 在slave上设置master信息
+1. 在slave上设置master信息，并启动
 
     ```sql
     CHANGE MASTER TO
@@ -305,13 +310,22 @@ SELECT TABLE_NAME, TABLE_ROWS FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA 
         MASTER_PASSWORD = 'replication_password',
         MASTER_LOG_FILE = 'recorded_log_file_name',
         MASTER_LOG_POS  = recorded_log_position;
+    START SLAVE;
     ```
 
 1. 在slave上确认状态
 
     ```sql
-    show slave status\G
+    show slave status \G
     ```
+
+1. 如果同步出现问题，可以参考[这里](http://dev.mysql.com/doc/refman/5.0/en/replication-problems.html)进行排查。如果在 slave 上执行`show slave status \G`，且结果中 Slave_SQL_Running 为 No 时，可以。
+
+    1. master: `show master status`，并记下 File 和 Position的值。
+    1. slave : `stop slave`
+    1. slave : `RESET SLAVE`         -- ??? 请自行斟酌是否使用
+    1. slave : `CHANGE MASTER TO ...`
+    1. slave : `start slave`
 
 
 # 常用命令
