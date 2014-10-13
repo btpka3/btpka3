@@ -307,3 +307,12 @@ SELECT TABLE_NAME, TABLE_ROWS FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA 
         MASTER_LOG_POS  = recorded_log_position;
     ```
 
+# 常用命令
+
+```sql
+-- 查看所有用户
+SELECT host, User FROM mysql.user;
+
+-- 查看用户权限
+show grants for 'xxxUser'@'192.168.1.%';
+```
