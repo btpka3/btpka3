@@ -310,7 +310,7 @@ SELECT TABLE_NAME, TABLE_ROWS FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA 
 1. 在slave上确认状态
 
     ```sql
-    show slave status;
+    show slave status\G
     ```
 
 
