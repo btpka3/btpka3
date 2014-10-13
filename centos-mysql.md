@@ -11,6 +11,13 @@ service mysqld start
 
 # 如果启动出错，说user.frm 执行无权限，则需要执行：
 mysql_install_db --user=mysql --datadir=/data/mysql  # datadir 默认是 /var/lib/mysql
+# 上述命令默认会创建以下文件
+ibdata1
+ib_logfile0
+ib_logfile1
+mysql
+performance_schema
+
 # 之后修改/etc/my.cnf
 
 ```
