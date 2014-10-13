@@ -68,6 +68,13 @@ ALTER TABLE t ENGINE = MYISAM;
     ```
 
 1. 在session2中查看MASTER的状态，并记录 `File` 和 `Position` 的值
+ 
+    ```sh
+    mysql -p -e "SHOW MASTER STATUS" > start_status.txt
+    ```
+
+
+    示例结果：
 
     ```sql
     SHOW MASTER STATUS;
@@ -104,6 +111,7 @@ ALTER TABLE t ENGINE = MYISAM;
     [mysqld]
     log-bin=mysql-bin
     server-id=1
+    binlog-do-db=xxxDb   # 可选，只有启动bin-log的数据库才能完成replication
     ```
 
 1. slave配置 : `vi my.cnf`
