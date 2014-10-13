@@ -85,7 +85,7 @@ ALTER TABLE t ENGINE = MYISAM;
     tar cf /tmp/db.tar ./data
     ```
 
-1. 在session1中释放所有读锁
+1. 配合相应的时机，在session1中释放所有读锁
 
     ```sql
     UNLOCK TABLES;
@@ -93,11 +93,12 @@ ALTER TABLE t ENGINE = MYISAM;
 
 
 
-## 配置
+## 对于在master中已经有数据的主从配置步骤
 
-1. master配置
+初始状态：master在运行，slave未运行。
 
-    `vi my.cnf`
+
+1. master配置 : `vi my.cnf`，如果尚未配置，则修改后需要重启。
     
     ```cnf
     [mysqld]
@@ -105,13 +106,16 @@ ALTER TABLE t ENGINE = MYISAM;
     server-id=1
     ```
 
-1. slave配置
-
-    `vi my.cnf`
+1. slave配置 : `vi my.cnf`
 
     ```cnf
     [mysqld]
     server-id=2
+    replicate-do-db=db_name                  # 可选 
+    replicate-ignore-db=db_name              # 可选
+    replicate-do-table=db_name.tbl_name      # 可选 
+    replicate-ignore-table=db_name.tbl_name  # 可选
+    # 注意：master-xxx参数从5.5开始被移除了，从5.6开始如果还有该参数，会启动报错。这些参数只能通过 CHANGE MASTER TO 命令完成。
     ```
 
 1. 在master上创建用于Replication的用户。
@@ -125,7 +129,6 @@ ALTER TABLE t ENGINE = MYISAM;
    SHOW GRANTS;
    ```
 
-
 1. 使用 mysqldump 获取master快照备份，并在slave上恢复。
 
     ```sh
@@ -138,29 +141,21 @@ ALTER TABLE t ENGINE = MYISAM;
     ```
 
 1. 使用 raw 文件（MyISAM）获取master快照备份，并在slave上恢复。
+(InnoDB需要停止服务器，故不建议使用该方式)
 
     1. 确保以下变量在master和slave上一致。
 
     ```sql
     show variables where variable_name in ('ft_stopword_file', 'ft_min_word_len', 'ft_max_word_len');
     ```
-    1. master：获得一个读锁，并获取master的状态
-
-    ```sql
-    FLUSH TABLES WITH READ LOCK;
-    ```
-    1. master : 在新session中查看master状态
-    ```sql
-
-    ```
-    1.
-
-
-1. 在slave上恢复快照备份???
+    1. 参考前面的 "查看Master状态"，以获取master的状态并备份raw文件。
+    1. 将备份文件加压到slave机器上
+    1. 使用 `--skip-slave-start` 参数启动slave
 
 1. 在slave上设置master信息，并启动
 
     ```sql
+    RESET SLAVE  -- 可选
     CHANGE MASTER TO
         MASTER_HOST     = 'master_host_name',
         MASTER_USER     = 'replication_user_name',
