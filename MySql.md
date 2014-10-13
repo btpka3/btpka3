@@ -59,6 +59,42 @@ ALTER TABLE t ENGINE = MYISAM;
 # master-slave
 [replication-howto](http://dev.mysql.com/doc/refman/5.1/en/replication-howto.html)
 
+## 查看Master状态
+
+1. 在session1中获取一个读锁，这会阻塞写操作， InnoDB 表还会阻塞 COMMIT 操作。
+
+    ```sql
+    FLUSH TABLES WITH READ LOCK;
+    ```
+
+1. 在session2中查看MASTER的状态，并记录 `File` 和 `Position` 的值
+
+    ```sql
+    SHOW MASTER STATUS;
+    +------------------+-----------+--------------+------------------+-------------------+
+    | File             | Position  | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
+    +------------------+-----------+--------------+------------------+-------------------+
+    | mysql-bin.000029 | 424473475 | naladb       |                  |                   |
+    +------------------+-----------+--------------+------------------+-------------------+
+    1 row in set (0.00 sec)
+    ```
+
+1. （可选）通过raw文件备份数据库
+
+    ```sh
+    tar cf /tmp/db.tar ./data
+    ```
+
+1. 在session1中释放所有读锁
+
+    ```sql
+    UNLOCK TABLES;
+    ```
+
+
+
+## 配置
+
 1. master配置
 
     `vi my.cnf`
@@ -89,28 +125,36 @@ ALTER TABLE t ENGINE = MYISAM;
    SHOW GRANTS;
    ```
 
-1. 查看Master状态
+
+1. 使用 mysqldump 获取master快照备份，并在slave上恢复。
+
+    ```sh
+    # 在master上
+    # 参数 `--master-data` 会自动追加一条  `CHANGE MASTER TO` 语句到结果中的。
+    mysqldump --all-databases --master-data > dbdump.db
+
+    # 在slave上
+    mysql < dbdump.db
+    ```
+
+1. 使用 raw 文件（MyISAM）获取master快照备份，并在slave上恢复。
+
+    1. 确保以下变量在master和slave上一致。
+
+    ```sql
+    show variables where variable_name in ('ft_stopword_file', 'ft_min_word_len', 'ft_max_word_len');
+    ```
+    1. master：获得一个读锁，并获取master的状态
 
     ```sql
     FLUSH TABLES WITH READ LOCK;
-    SHOW MASTER STATUS;
-    +------------------+-----------+--------------+------------------+-------------------+
-    | File             | Position  | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
-    +------------------+-----------+--------------+------------------+-------------------+
-    | mysql-bin.000029 | 424473475 | naladb       |                  |                   |
-    +------------------+-----------+--------------+------------------+-------------------+
-    1 row in set (0.00 sec)
     ```
+    1. master : 在新session中查看master状态
+    ```sql
 
-1. 获取master快照备份。
+    ```
+    1.
 
-    1. 使用 mysqldump
-
-        ```sh
-        # 参数 `--master-data` 会自动追加一条  `CHANGE MASTER TO` 语句到结果中的。
-        mysqldump --all-databases --master-data > dbdump.db
-        ```
-    2. 
 
 1. 在slave上恢复快照备份???
 
