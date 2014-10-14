@@ -135,6 +135,7 @@ ALTER TABLE t ENGINE = MYISAM;
     ```cnf
     [mysqld]
     server-id=2
+    relay-log=relay-log
     replicate-do-db=db_name                  # 可选 
     replicate-ignore-db=db_name              # 可选
     replicate-do-table=db_name.tbl_name      # 可选 
