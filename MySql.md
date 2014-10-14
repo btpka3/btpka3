@@ -66,7 +66,7 @@ ALTER TABLE t ENGINE = MYISAM;
 
 
 # master-slave
-[replication-howto](http://dev.mysql.com/doc/refman/5.6/en/replication-howto.html)。为replication可以做什么？
+[replication-howto](http://dev.mysql.com/doc/refman/5.6/en/replication-howto.html)。replication可以做什么？
 
 * 读写分离。所有更新都在master上进行，slave上只进行读取操作，减轻master的压力。
 * 数据安全。全量备份数据时，可以在slave上进行，避免中断正在提供服务的master。
