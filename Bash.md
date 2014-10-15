@@ -295,3 +295,49 @@ visudo
 Cmnd_Alias        CMDS = /path/to/your/script
 <username>  ALL=NOPASSWD: CMDS
 ```
+
+
+# backup 
+
+```sh
+#!/bin/bash
+
+TIME="date +%Y-%m-%d.%H:%M:%S"
+
+BAK_DIR=$1
+FILE=$2
+BACKUP_COUNT=$3
+
+CUR_BAK=$BAK_DIR/`$TIME`
+
+# get existed backups (as Array)
+dirList=(`find $BAK_DIR -maxdepth 1 -type d  ! \( -path '*/\.*' -o -path $BAK_DIR \) | sort`)
+
+# delete old backups, only keep the last one
+let loopEnd=${#dirList[@]}-$BACKUP_COUNT
+for i in `seq 0 $loopEnd`
+do
+  echo `$TIME` deleteing ${dirList[i]}
+  rm -fr ${dirList[i]} 2>&1  || {
+    exit $?
+  }
+done
+
+# bakup a new one
+echo `$TIME` creating new backup dir
+mkdir $CUR_BAK 2>&1 || {
+    rc=$?
+    rm -fr ${CUR_BAK} 2>&1
+    exit $rc
+}
+
+echo `$TIME` backing up $DB_NAME.$T
+mv $FILE $CUR_BAK || {
+    rc=$?
+    rm -fr ${CUR_BAK} 2>&1
+    exit $rc
+}
+
+echo `$TIME` success.
+
+```
