@@ -204,3 +204,79 @@ ALTER TABLE t ENGINE = MYISAM;
     1. slave : `CHANGE MASTER TO ...`
     1. slave : `start slave`
 
+
+# my.cnf
+
+```cnf
+[client]                                            # 应用于所有MySQL客户端
+port                    = 3306
+socket                  = ${datadir}/mysql.sock     # 除了mysqld、其他程序连接的socket
+secure-auth             = OFF                       # 使用旧的密码HASH算法
+default-character-set   = utf8mb4                   # 默认字符集
+
+[mysqld]
+port                    = 3306
+user                    = mysql                     # 以哪一个用户启动mysql数据库
+pid-file                = ${datadir}/mysql.pid      # PID 文件的位置
+socket                  = ${datadir}/mysql.sock     # socket文件的位置
+basedir                 = /usr                      # MySQL的安装目录
+datadir                 = ${datadir}                # 默认数据目录
+tmpdir                  = /tmp
+default-storage-engine  = MyISAM                    # 默认存储引擎
+
+default-authentication-plugin   = mysql_native_password
+secure-auth             = OFF                       # 登录是使用老的认证协议，主要配合密码HASH长度。
+
+max_connections         = 3072                      # 允许的最大连接数
+symbolic-links          = 0                         # 禁用符号链接
+skip-name-resolve       = ON                        # GRANT语句仅仅使用ip地址和 "localhost"
+skip-external-locking                               #
+
+server-id               = 90                        # 整数，通常为ip段最后一位
+log-bin                 = mysql-bin                 # 二进制日志的文件路径和基础文件名（不含后缀）
+expire_logs_days        = 0                         # 二进制日志flush多少天后删除
+
+
+thread_cache_size       = 32                        # 应当缓存多少个线程以备重用
+key_buffer_size         = 16M                       # 读MyISAM表的索引的buffer的大小
+myisam_sort_buffer_size = 8M                        # 对MyISAM表的索引进行排序的buffer的大小
+net_buffer_length       = 16K                       # client线程关于连接和结果buffer的大小
+max_allowed_packet      = 4M                        # package的最大大小，必须是1024整倍数
+sort_buffer_size        = 512K                      # 排序用的buffer size
+read_buffer_size        = 256K                      # 对MyISAM表进行顺序读取时buffer的大小
+read_rnd_buffer_size    = 512K                      # 对MyISAM表进行排序时buffer的大小，每个Client一个
+query_cache_limit       = 8M                        # 查询结果大于该大小的，将不被缓存
+query_cache_size        = 64M                       # 用以缓存查询结果的内存空间
+query_cache_type        = 1                         # 是否缓存查询结果，不影响 query_cache_size 内存的开辟
+sql_mode                = NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+
+collation-server        = utf8mb4_unicode_ci        # 字符串排序规则
+character-set-server    = utf8mb4                   # 服务器的默认字符集
+character-set-client-handshake  = TRUE              # 是否使用客户端指定的字符集
+
+
+log-error               = error.log                 # 错误日志文件
+log-output              = FILE                      # 日志的输出目标
+slow-query-log          = ON                        # 是否记录慢查询
+slow-query-log-file     = slow-query.log            # 慢查询日志位置
+log-queries-not-using-indexes   = ON                # 是否记录没有使用索引的查询
+
+performance_schema      = ON                        # 启用 performance schema
+
+
+
+
+
+[mysqldump]
+quick                                               # 按条从服务器端获取数据，而非按表。
+max_allowed_packet = 16M                            # 最大的buffer size
+
+
+[mysqld_safe]
+nice = 0
+
+[mysql]
+no-auto-rehash                                      # 禁用自动提示（命令行tab键），可提高速度
+
+
+```
