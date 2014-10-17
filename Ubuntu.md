@@ -93,6 +93,19 @@ vi ~/.bashrc
 alias ll='ls -lF'
 ```
 
+## 常用快捷键
+
+|hot key      | descrption|
+|-------------|-----------|
+|Alt+1        | 主键盘上的额数字键，可以快速切换至第N个标签页 |
+|Ctrl+Shift+T | 开启新的标签页 |
+|Ctrl+Shift+C | 复制 |
+|Ctrl+Shift+V | 粘贴 |
+|Ctrl+E       | 清屏 |
+|Ctrl+R       | 搜索历史命令 |
+|Ctrl+W       | 向后删除一个词 |
+|Ctrl+U       | 清空当前输入行 |
+
 
 # 文件管理器  PCManFM
 
