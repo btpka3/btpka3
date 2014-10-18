@@ -278,5 +278,16 @@ nice = 0
 [mysql]
 no-auto-rehash                                      # 禁用自动提示（命令行tab键），可提高速度
 
-
 ```
+
+# JDBC : stream resultset
+
+MySQL的游标方式读取大数据量是有一些限制的：
+
+1. 当前连接没处理完数据集，是不能执行其他查询操作的．
+1. 必须把ResultSet#close()掉，否则必须会：　
+    ```
+    Streaming result set com.mysql.jdbc.RowDataDynamic@4447393f is still active. No statements may be issued when any streaming result sets are open and in use on a given connection. Ensure that you have called .close() on any active streaming result sets before attempting more queries.
+    ```
+
+FIXME: 仅仅MySQL会有这样的问题？
