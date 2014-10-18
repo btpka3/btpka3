@@ -79,3 +79,25 @@ def minDate = CmsPageView.createCriteria().get {
 ```
 
 
+# createCriteria
+
+createCriteria 方法实际调用的是 [HibernateGormStaticApi](https://github.com/grails/grails-data-mapping/blob/master/grails-datastore-gorm-hibernate/src/main/groovy/org/codehaus/groovy/grails/orm/hibernate/HibernateGormStaticApi.groovy)上的 createCriteria() 方法。
+
+FIXME：该方法调用是何时与Domain类关联上的？
+
+HibernateCriteriaBuilder [javadoc](http://grails.github.io/grails-data-mapping/current/api/index.html?grails/orm/HibernateCriteriaBuilder.html)、
+[java](https://github.com/grails/grails-data-mapping/blob/master/grails-datastore-gorm-hibernate/src/main/groovy/grails/orm/HibernateCriteriaBuilder.java)
+
+
+```
+Xxx.createCriteria().list { /* ... */ } 
+// 等价于
+new HibernateCriteriaBuilder(Xxx.class, sessionFactory).list { /* ... */ }
+```
+FIXME: createCriteria 圆括弧中可以传递哪些参数？
+分析AbstractHibernateCriteriaBuilder#invokeMethod() 方法，和 GrailsHibernateUtil#populateArgumentsForCriteria() 得知：
+`max`、`offset`、`fetchSize`、`timeout`、`flushMode`、`readOnly`、`order`、`fetch`、`lock`、`cache`、`sort`、`ignoreCase`
+
+FIXME: createCriteria 花括号——闭包中可以使用哪些语句？
+分析AbstractHibernateCriteriaBuilder#invokeMethod() 方法，可以的调用HibernateCriteriaBuilder实例上的任何方法。
+
