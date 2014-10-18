@@ -128,9 +128,10 @@ builder.div(style:"myStyle", "before text"){
 Config.groovy
 
 ```groovy
-//hibernate = "off"
-hibernate.SQL="trace,stdout"
-hibernate.type="trace,stdout"
+log4j {
+    trace 'org.hibernate.SQL'
+    trace 'org.hibernate.type'
+}
 ```
 
 DataSource.groovy
