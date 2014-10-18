@@ -94,9 +94,10 @@ Xxx.createCriteria().list { /* ... */ }
 // 等价于
 new HibernateCriteriaBuilder(Xxx.class, sessionFactory).list { /* ... */ }
 ```
-FIXME: createCriteria 圆括弧中可以传递哪些参数？
+## createCriteria 圆括弧中可以传递哪些参数？
+
 分析AbstractHibernateCriteriaBuilder#invokeMethod() 方法，和 GrailsHibernateUtil#populateArgumentsForCriteria() 得知：
-圆括弧中的参数只对 `list` 方法有效。
+圆括弧中的参数只对 `list` 方法有效。且下列属性最终调用的是 Hibernate的 [Criteria](https://docs.jboss.org/hibernate/orm/3.6/javadocs/index.html?org/hibernate/Criteria.html) 上的相关方法。
 
 |param| type| description|
 |-----|-----|------------|
