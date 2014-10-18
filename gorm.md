@@ -96,7 +96,23 @@ new HibernateCriteriaBuilder(Xxx.class, sessionFactory).list { /* ... */ }
 ```
 FIXME: createCriteria 圆括弧中可以传递哪些参数？
 分析AbstractHibernateCriteriaBuilder#invokeMethod() 方法，和 GrailsHibernateUtil#populateArgumentsForCriteria() 得知：
-`max`、`offset`、`fetchSize`、`timeout`、`flushMode`、`readOnly`、`order`、`fetch`、`lock`、`cache`、`sort`、`ignoreCase`
+圆括弧中的参数只对 `list` 方法有效。
+
+|param| type| description|
+|-----|-----|------------|
+|max       |Integer          |设置结果集的最大值数量 |
+|offset    |Integer          |偏移量   |
+|fetchSize |Integer          |预取记录数的数量 |
+|timeout   |Integer          |Sql执行超时时间 |
+|flushMode |FlushMode,String | |
+|readOnly  |Boolean          |是否只读|
+|sort      |String,Map       |排序字段。如果为map，则key是排序字段，value是排序方式。|
+|order     |String           |排序方式:"asc","desc"。仅当sort参数类型为String时其作用 |
+|ignoreCase|Boolean          |排序时，是否区分大小写|
+|fetch     |Map              |指定字段的读取模式。key为字段名，value为FetchMode(String） |
+|lock      |Boolean          |读取时是否加锁|
+|cache     |Boolean          |是否使用缓存。当lock=true时忽略设置。|
+
 
 FIXME: createCriteria 花括号——闭包中可以使用哪些语句？
 分析AbstractHibernateCriteriaBuilder#invokeMethod() 方法，可以的调用HibernateCriteriaBuilder实例上的任何方法。
