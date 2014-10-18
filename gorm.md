@@ -115,6 +115,15 @@ new HibernateCriteriaBuilder(Xxx.class, sessionFactory).list { /* ... */ }
 |cache     |Boolean          |是否使用缓存。当lock=true时忽略设置。|
 
 
-FIXME: createCriteria 花括号——闭包中可以使用哪些语句？
-分析AbstractHibernateCriteriaBuilder#invokeMethod() 方法，可以的调用HibernateCriteriaBuilder实例上的任何方法。
+## createCriteria 花括号——闭包中可以使用哪些语句？
+
+结合分析AbstractHibernateCriteriaBuilder#invokeMethod() 方法得知，可以调用：
+
+* HibernateCriteriaBuilder 及其父类明确声明地方法。
+* HibernateCriteriaBuilder 提供的 `list`、`listDistinct`、`count`、`get`、`scroll`等动态方法，会有特殊处理;
+* 尝试调用该builder的metaClass上的metaMethod
+* 尝试调用该builder的criteriaMetaClass上的metaMethod、setter。即调用[Criteria](https://docs.jboss.org/hibernate/orm/3.6/javadocs/index.html?org/hibernate/Criteria.html) 上的相关方法。
+* 如果方法 （1）仅有有一个参数，且是Closure；（2）有两个参数，第一个是数值型，第二个是Closure。则方法名当作关联字段名进行关联处理。
+
+
 
