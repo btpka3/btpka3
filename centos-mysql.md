@@ -125,6 +125,7 @@ set global max_connections=1000;
 ```sh
 create user 'btpka3'@'%' identified by '123456';
 grant all on testdb.* to 'btpka3'@'%';
+GRANT ALL ON xxxDb.* TO 'xxxUser'@'192.168.1.%' IDENTIFIED BY 'xxxPassword';
 FLUSH PRIVILEGES;
 
 ```
