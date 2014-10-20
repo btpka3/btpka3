@@ -1,6 +1,5 @@
 [参考](http://dev.mysql.com/doc/mysql-repo-excerpt/5.6/en/linux-installation-yum-repo.html)
 
-
 ```
 # wget http://repo.mysql.com/mysql-community-release-el5-5.noarch.rpm
 wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm
@@ -22,10 +21,27 @@ performance_schema
 
 ```
 
+## SELINUX
 
-```sql
-select  STR_TO_DATE('2014-07-15 12:13:14', '%Y-%m-%d %k:%i:%s')
+如果SELINUX开启，则使用 `service mysqld start` 命令进行启动的时候，有可能会出现以下错误
+
+```sh
+[root@s82 mysql]# service mysqld start
+141020 17:27:31 mysqld_safe Logging to '/data0/mysql/mysql.err'.
+touch: cannot touch `/data0/mysql/mysql.err': Permission denied
+chown: changing ownership of `/data0/mysql/mysql.err': Permission denied
+141020 17:27:31 mysqld_safe Starting mysqld daemon with databases from /data0/mysql
+/usr/bin/mysqld_safe: line 129: /data0/mysql/mysql.err: Permission denied
+/usr/bin/mysqld_safe: line 166: /data0/mysql/mysql.err: Permission denied
+141020 17:27:31 mysqld_safe mysqld from pid file /var/run/mysqld/mysqld.pid ended
+/usr/bin/mysqld_safe: line 129: /data0/mysql/mysql.err: Permission denied
+MySQL Daemon failed to start.
+Starting mysqld:                                           [FAILED]
 ```
+
+而 `/data0/mysql/mysql.err` 是错误日志的绝对路径。 
+
+
 
 # my.cnf 示例
 
@@ -258,4 +274,8 @@ SELECT host, User FROM mysql.user;
 
 -- 查看用户权限
 show grants for 'xxxUser'@'192.168.1.%';
+
+select  STR_TO_DATE('2014-07-15 12:13:14', '%Y-%m-%d %k:%i:%s')
+
 ```
+
