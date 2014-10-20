@@ -39,7 +39,14 @@ MySQL Daemon failed to start.
 Starting mysqld:                                           [FAILED]
 ```
 
-而 `/data0/mysql/mysql.err` 是错误日志的绝对路径。 
+而 `/data0/mysql` 是数据目录的权限， `/data0/mysql/mysql.err` 是错误日志的绝对路径。 
+
+查看数据目录的权限：
+
+```sh
+[root@s82 mysql]# ll -Z -d /data0/mysql
+drwxr-xr-x. mysql mysql unconfined_u:object_r:etc_runtime_t:s0 /data0/mysql
+```
 
 
 
