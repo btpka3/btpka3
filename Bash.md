@@ -15,42 +15,46 @@ usermod -m -d /path/to/new/home/dir userNameHere
 ## array
 
 ```sh
+# 声明数组
 arr=( "aaa" "bbb" "xxx" )
 
 # 显示数组长度
-echo ${#arr[@]}        # 3
-echo ${#arr[*]}        # 3 
+echo ${#arr[@]}         # 3
+echo ${#arr[*]}         # 3 
 
 # 显示整个数组
-echo ${arr[@]}         # aaa bbb xxx
-echo ${arr[*]}         # aaa bbb xxx
-
+echo ${arr[@]}          # aaa bbb xxx
+echo ${arr[*]}          # aaa bbb xxx
+set | grep arr          # arr=([0]="aaa" [1]="bbb" [2]="xxx")
 
 # 显示单个元素
-echo ${arr[0]}         # aaa
-echo ${arr[999]}       # (Empty)
+echo ${arr[0]}          # aaa
+echo ${arr[999]}        # (Empty)
 
 # 单个元素重新设值
 arr[2]='yyy'
-echo ${arr[@]}         # aaa bbb yyy
+set | grep arr          # arr=([0]="aaa" [1]="bbb" [2]="yyy")
+
+arr[999]='yyz'
+set | grep arr          # arr=([0]="aaa" [1]="bbb" [2]="yyy" [999]="yyz")
 
 # 向末尾append新元素
 arr+=('zzz')
-echo ${arr[@]}         # aaa bbb zzz
+set | grep arr          # arr=([0]="aaa" [1]="bbb" [2]="yyy" [999]="yyz" [1000]="zzz")
 
 # 删除指定的元素
-unset arr[2]           # 3
-echo ${arr[@]}         # aaa bbb zzz
+unset arr[2]
+set | grep arr          # arr=([0]="aaa" [1]="bbb" [999]="yyz" [1000]="zzz")
 
 # 清除整个数组
 unset arr
-
 
 # 迭代每个元素
 for i in ${arr[@]}
 do
     echo ===$i===
 done
+
 
 # 迭代非最后一个元素
 for (( i=0; i<${#arr[@]}-1; i++ ));
