@@ -12,6 +12,50 @@ usermod -m -d /path/to/new/home/dir userNameHere
 
 ```
 
+## array
+
+基本使用示例
+
+```sh
+arr=( "aaa" "bbb" "xxx" )
+
+# 显示数组长度
+echo ${#arr[@]}        # 3
+echo ${#arr[*]}        # 3 
+
+# 显示整个数组
+echo ${arr[@]}         # aaa bbb xxx
+echo ${arr[*]}         # aaa bbb xxx
+
+
+# 显示单个元素
+echo ${arr[0]}         # aaa
+echo ${arr[999]}       # (Empty)
+
+# 单个元素重新设值
+arr[2]='yyy'
+echo ${arr[@]}         # aaa bbb yyy
+
+# 向末尾append新元素
+arr+=('zzz')
+echo ${arr[@]}         # aaa bbb zzz
+
+# 删除指定的元素
+unset arr[2]           # 3
+echo ${arr[@]}         # aaa bbb zzz
+
+# 清除整个数组
+unset arr
+```
+
+常用示例
+
+```sh
+test
+
+```
+
+
 
 ## number calc
 ```sh
