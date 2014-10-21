@@ -14,8 +14,6 @@ usermod -m -d /path/to/new/home/dir userNameHere
 
 ## array
 
-基本使用示例
-
 ```sh
 arr=( "aaa" "bbb" "xxx" )
 
@@ -46,15 +44,20 @@ echo ${arr[@]}         # aaa bbb zzz
 
 # 清除整个数组
 unset arr
+
+
+# 迭代每个元素
+for i in ${arr[@]}
+do
+    echo ===$i===
+done
+
+# 迭代非最后一个元素
+for (( i=0; i<${#arr[@]}-1; i++ ));
+do
+    echo ===${arr[i]}===
+done
 ```
-
-常用示例
-
-```sh
-test
-
-```
-
 
 
 ## number calc
