@@ -21,6 +21,12 @@ export XXX=xxx
 export VISUAL=vim   # crontab -e 使用的编辑器
 ```
 
+## email
+```sh
+echo "this is the body" | mail  -s "this is the subject" -r "from@test.me" "to@test.me"
+# 除此之外，还需要确保sendmail或postfix等MTA是否配置正确。
+```
+
 
 # 额外仓库
 
