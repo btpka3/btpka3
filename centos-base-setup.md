@@ -18,6 +18,7 @@ LVM 卷组
 root@h01 ~]# vi /etc/profile.d/custom.sh
 export EDITOR=vim
 export XXX=xxx
+export VISUAL=vim   # crontab -e 使用的编辑器
 ```
 
 
