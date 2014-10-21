@@ -214,7 +214,8 @@ init_connect='SET NAMES utf8mb4'
 
 ```
 select x, y, z from t order by x, y, z desc 
-into outfile '/tmp/xxx_20140903.csv' FIELDS ENCLOSED BY '"' TERMINATED BY ';' ESCAPED BY '"'
+into outfile '/tmp/xxx_20140903.csv' 
+FIELDS ENCLOSED BY '"' ESCAPED BY '"' TERMINATED BY ',' 
 
 # 注意：导出文件需要grant file 权限。
 ```
