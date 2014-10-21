@@ -15,7 +15,7 @@ usermod -m -d /path/to/new/home/dir userNameHere
 ## array
 
 ```sh
-# 声明数组
+# 声明数组，元素之间使用空格分隔
 arr=( "aaa" "bbb" "xxx" )
 
 # 显示数组长度
