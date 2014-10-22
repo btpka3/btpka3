@@ -392,3 +392,9 @@ mv $FILE $CUR_BAK || {
 echo `$TIME` success.
 
 ```
+
+# echo server
+
+```sh
+ncat -l 2000 -k -c 'xargs -n1 echo'
+```
