@@ -28,6 +28,7 @@ set cursorline
 set fileencodings=utf-8,gbk
 set expandtab
 set tabstop=4
+set shiftwidth=4
 set fileformats=unix
 set hlsearch
 " set list
