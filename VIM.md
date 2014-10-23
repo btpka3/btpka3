@@ -67,3 +67,15 @@ vi LargeFile.vba
 ```sh
 :%s/),/\0\r/g
 ```
+
+## tab
+```sh
+# 显示空白字符
+:set list
+
+# 替换为空格
+:%s/\t/    /g
+
+# 不显示空白字符
+:set nolist
+```
