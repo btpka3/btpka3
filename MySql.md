@@ -291,3 +291,13 @@ MySQL的游标方式读取大数据量是有一些限制的：
     ```
 
 FIXME: 仅仅MySQL会有这样的问题？
+
+
+ 
+
+#查看MyISAM表的记录数
+
+```
+select table_name, engine, table_rows from INFORMATION_SCHEMA.tables where table_schema='naladb' order by table_rows desc
+```
+
