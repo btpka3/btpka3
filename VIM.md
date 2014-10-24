@@ -80,3 +80,11 @@ vi LargeFile.vba
 # 不显示空白字符
 :set nolist
 ```
+
+
+# 常用命令
+
+```vi
+:open pathToFile             # 打开指定的文件
+
+```
