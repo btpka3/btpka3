@@ -17,4 +17,4 @@
 
 # 短信
 
-* [亿美](http://www.emay.cn/)
+* [亿美](http://www.emay.cn/)、[资料](http://www.emay.cn/down.htm)
