@@ -18,3 +18,23 @@
 # 短信
 
 * [亿美](http://www.emay.cn/)、[资料](http://www.emay.cn/down.htm)
+
+
+
+
+# cdn
+
+```
+User                        DNS Server1                                   DNS Server2
+ |  1. lookup "cdn.test.me"   |                                             |
+ | -------------------------> |                                             |
+ |                            | 2. found CNAME : cdn.test.me.xx-cdn.cn      |
+ |                            | 3. lookup "cdn.test.me.xx-cdn.cn"           |
+ |                            | ------------------------------------------> |
+ |                            |                                             | 4. found A: x.x.x.x
+ |                            |                                             |    found A: y.y.y.y
+ |                            |         5. base on client ip, return one ip |
+ |                            | <------------------------------------------ | 
+ |          6. return cdn ip  |                                             |
+ | <------------------------- |                                             |
+```
