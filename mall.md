@@ -25,7 +25,7 @@
 # cdn
 
 ```
-User                        DNS Server1                                   DNS Server2
+User                        DNS Server                                   CND's private DNS Server
  |  1. lookup "cdn.test.me"   |                                             |
  | -------------------------> |                                             |
  |                            | 2. found CNAME : cdn.test.me.xx-cdn.cn      |
