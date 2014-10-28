@@ -40,7 +40,7 @@
       ZOOPIDFILE=/data/store/zookeeper/zookeeper_server.pid    
     ```
 
-1. 从[这里](/snippets/3)下载Zookeeper的init.d脚本至 `/etc/init.d/zookeeper`，修改后并启用
+1. 从[这里](https://github.com/globocom/zookeeper-centos-6/blob/master/redhat/zookeeper.init)下载Zookeeper的init.d脚本至 `/etc/init.d/zookeeper`，修改后并启用
 
     ```sh
     vi /etc/init.d/zookeeper
