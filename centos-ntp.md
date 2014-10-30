@@ -37,7 +37,7 @@ SYNC_HWCLOCK=yes
 [root@localhost ~]# service ntpd start
 
 # 查看NTP运行状态
-[root@localhost ~]# ntpstat
+[root@localhost ~]# ntpstat                     # ubuntu下使用该命令 `ntpdc -c peers`
 
 [root@localhost ~]# ntpstat -unlnp		# 应该能看到ntpd使用了123端口
 [root@localhost ~]# ntpq -p                     # 列出所有与上级ntp服务器的联系
