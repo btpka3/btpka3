@@ -501,3 +501,6 @@ mvn archetype:generate -DarchetypeGroupId=org.grails -DarchetypeArtifactId=grail
 </project>
 
 ```
+
+
+http://grails.github.io/grails-howtos/en/performanceTuning.html
