@@ -31,6 +31,7 @@ set tabstop=4
 set shiftwidth=4
 set fileformats=unix
 set hlsearch
+set formatoptions-=cro
 " set list
 " comment here
 ```
