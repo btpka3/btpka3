@@ -1,6 +1,9 @@
 # 使用factory方法创建bean
 
 ```groovy
+import org.apache.curator.framework.CuratorFrameworkFactory
+import org.apache.curator.retry.ExponentialBackoffRetry
+
 beans = {
     def cfg = application.config
     // ZooKeeper相关配置
