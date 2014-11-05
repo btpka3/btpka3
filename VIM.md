@@ -32,6 +32,7 @@ set shiftwidth=4
 set fileformats=unix
 set hlsearch
 set formatoptions-=cro
+set paste
 " set list
 " comment here
 ```
