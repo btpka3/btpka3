@@ -24,6 +24,19 @@ export CATALINA_OPTS=" \
 "
 ```
 
+# 远程debug
+
+```sh
+#JDK 1.5+
+-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=10014
+
+# JDK 1.4.x
+-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=10014
+
+# JDK 1.3 or earlier
+-Xnoagent -Djava.compiler=NONE -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=10014
+```
+
 # 远程jvisualvm
 
 
