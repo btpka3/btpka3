@@ -35,6 +35,8 @@
 * servlet 3.0 aysnc
 * Spring 4 WebSocket
 * Spring Remoting HttpInvoker
+* grails quartz plugin - study, add enable singleJob 
+* Central configuration 
 
 # FIXME
 * 云安全？[1](http://article.liepin.com/ask/qa130273)
