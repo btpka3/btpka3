@@ -154,7 +154,7 @@ def result = A.withCriteria{
     createAlias('bb.c', 'cc', CriteriaSpecification.LEFT_JOIN)
     or {
         isNull('bb.c')
-        eq('cc.isDeleted', false)
+        eq('cc.isDeleted', true)
     } 
 }
 ```
