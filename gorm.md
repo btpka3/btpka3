@@ -127,3 +127,38 @@ new HibernateCriteriaBuilder(Xxx.class, sessionFactory).list { /* ... */ }
 
 
 
+
+# left join
+
+see [here](http://stackoverflow.com/questions/17083204/criteria-uses-inner-join-instead-left-join-approach-by-default-making-my-que)
+
+```groovy
+// domain
+class A {
+    B b
+}
+
+class B {
+    C c
+}
+
+class C {
+   boolean isDeleted;
+}
+
+
+// left join query : b.c is null or b.c.isDeleted = true
+
+def result = A.withCriteria{
+    createAlias('b', 'bb', CriteriaSpecification.LEFT_JOIN)
+    createAlias('bb.c', 'cc', CriteriaSpecification.LEFT_JOIN)
+    or {
+        isNull('bb.c')
+        eq('cc.isDeleted', false)
+    } 
+}
+```
+
+
+
+
