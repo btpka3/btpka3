@@ -57,6 +57,20 @@ Grails读取配置文件是Groovy文件。使用的 [ConfigSlurper](http://groov
 [参考](http://grails.org/doc/1.3.7/guide/3.%20Configuration.html#3.1.2 Logging)、
 [API](http://grails.org/doc/1.3.7/api/index.html?org/codehaus/groovy/grails/plugins/logging/Log4jConfig.html)
 
+输出日志时logger名称前缀
+
+|Type      |path                                |Logger prefix          |description|
+|----------|------------------------------------|-----------------------|-----------|
+|Controller|${APP_HOME}/grails-app/controllers  |grails.app.controllers |           |
+|Service   |${APP_HOME}/grails-app/services     |grails.app.services    |           |
+|Taglib    |${APP_HOME}/grails-app/taglib       |grails.app.taglib      |           |
+|Job       |${APP_HOME}/grails-app/jobs         |grails.app.jobs        |需要grails quartz 插件|
+```groovy
+# 
+
+```
+
+
 ## dataSource
 [GrailsDataSource](http://grails.org/doc/1.3.7/api/index.html?org/codehaus/groovy/grails/commons/GrailsDataSource.html)
 
