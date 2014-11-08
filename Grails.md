@@ -65,10 +65,7 @@ Grails读取配置文件是Groovy文件。使用的 [ConfigSlurper](http://groov
 |Service   |${APP_HOME}/grails-app/services     |grails.app.services    |           |
 |Taglib    |${APP_HOME}/grails-app/taglib       |grails.app.taglib      |           |
 |Job       |${APP_HOME}/grails-app/jobs         |grails.app.jobs        |需要grails quartz 插件|
-```groovy
-# 
 
-```
 
 
 ## dataSource
