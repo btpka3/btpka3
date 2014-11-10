@@ -271,6 +271,24 @@ server {
 ```sh
 # 如果需要，卸载之前安装的apache、php
 yum remove httpd* php*
-#
+# 安装
 yum install php-fpm
+# 启动
+service php-fpm start
+# 修改nginx配置
+location ~ \.php$ {  
+    root           html;  
+           fastcgi_pass   127.0.0.1:9000;  
+           fastcgi_index  index.php;  
+           fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;  
+           include        fastcgi_params;  
+}  
+
+# 重启nginx
+service nginx reload
+# 测试
+vi info.php
+<?php  
+phpinfo();  
+?> 
 ```
