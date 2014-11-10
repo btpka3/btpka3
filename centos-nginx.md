@@ -264,3 +264,13 @@ server {
     }   
 }
 ```
+
+
+# PHP
+
+```sh
+# 如果需要，卸载之前安装的apache、php
+yum remove httpd* php*
+#
+yum install php php-fpm
+```
