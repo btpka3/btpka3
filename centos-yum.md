@@ -1,6 +1,9 @@
 
 
 ```sh
+# 查看启用的yum仓库
+yum repolist enabled
+
 # 搜索
 yum search xxx
 
