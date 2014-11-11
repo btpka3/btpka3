@@ -33,11 +33,11 @@ echo "this is the body" | mail  -s "this is the subject" -r "from@test.me" "to@t
 ```sh
 # for centos 6
 rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+#rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
 # for centos 5
 rpm -ivh http://dl.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm
-rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-5.rpm
+#rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-5.rpm
 
 ```
 
