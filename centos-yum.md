@@ -22,5 +22,22 @@ yum install mysql-community-server
 
 # 安装特定版本号
 yum install mysql-community-server-5.6.20
+```
+
+# 缺点
+1. yum在安装时，会更新已安装的依赖。
+1. yum在安装时，无法忽略某个特定依赖。
+
+# 不使用依赖包安装
+
+
+```sh
+yum install yum-plugin-downloadonly
+
+# 仅仅下载，而不安装
+yum --downloadonly --downloaddir=/tmp/cache --enablerepo=remi --skip-broken install php-mysql
+
+# 安装
+yum --disablerepo=* --skip-broken install \*.rpm
 
 ```
