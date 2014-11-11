@@ -296,4 +296,13 @@ phpinfo();
 ?> 
 ```
 
+修改/etc/php.ini
+
+```ini
+post_max_size = 16M
+max_execution_time = 300
+max_input_time = 300
+date.timezone = Asia/Shanghai
+```
+
 
