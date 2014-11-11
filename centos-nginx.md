@@ -272,7 +272,9 @@ server {
 # 如果需要，卸载之前安装的apache、php
 yum remove httpd* php*
 # 安装
-yum install php-fpm
+yum --enablerepo=remi install php-fpm php-bcmath php-mbstring php-gd php-xml
+yum --enablerepo=remi --disablerepo=mysql56-community install php-mysql
+
 # 启动
 service php-fpm start
 # 修改nginx配置
@@ -292,7 +294,6 @@ vi info.php
 <?php  
 phpinfo();  
 ?> 
-
- 
-
 ```
+
+
