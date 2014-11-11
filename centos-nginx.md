@@ -292,4 +292,7 @@ vi info.php
 <?php  
 phpinfo();  
 ?> 
+
+ 
+
 ```
