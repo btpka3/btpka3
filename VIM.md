@@ -36,6 +36,16 @@ set paste
 " set list
 " comment here
 ```
+
+
+## colorschema
+
+```sh
+ll /usr/share/vim/vim74/colors
+# 或者在vim中
+:colo <tab>
+```
+
 ## 安装vba插件
 [largeFile](http://www.drchip.org/astronaut/vim/#LARGEFILE), 
 [Manual](http://www.drchip.org/astronaut/vim/doc/LargeFile.txt.html)
