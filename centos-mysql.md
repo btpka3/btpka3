@@ -293,3 +293,5 @@ select  STR_TO_DATE('2014-07-15 12:13:14', '%Y-%m-%d %k:%i:%s')
 http://www.2cto.com/database/201310/251493.html
 
 http://dev.mysql.com/doc/refman/5.5/en/performance-schema-quick-start.html
+
+阿里云关系数据库的[性能](http://help.aliyun.com/view/11108238_13440406.html)
