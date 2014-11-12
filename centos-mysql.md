@@ -288,3 +288,8 @@ select  STR_TO_DATE('2014-07-15 12:13:14', '%Y-%m-%d %k:%i:%s')
 
 ```
 
+# 性能监控
+
+http://www.2cto.com/database/201310/251493.html
+
+http://dev.mysql.com/doc/refman/5.5/en/performance-schema-quick-start.html
