@@ -1,7 +1,9 @@
 
 
 # CPU
-## I3-3240
+根据下面的测试数据，I3-3240（4核） 和 Xeon E31230（8核）在单线程执行测试的结果相仿，时间分别为 24.9281s和 26.5128s，但是分别给设置合适的线程数后，时间为 8.0047s 和 4.1689s。
+
+## I3-3240 （4）
 
 查看CPU 信息 ：`cat /proc/cpuinfo|grep "model name"`
 
@@ -42,7 +44,7 @@ Threads fairness:
     execution time (avg/stddev):   24.9281/0.00
 ```
 
-多线程执行压力测试： `sysbench --test=cpu --cpu-max-prime=20000 --num-threads=4 run`
+4线程执行压力测试： `sysbench --test=cpu --cpu-max-prime=20000 --num-threads=4 run`
 
 ```txt
 sysbench 0.4.12:  multi-threaded system evaluation benchmark
@@ -71,6 +73,37 @@ Test execution summary:
 Threads fairness:
     events (avg/stddev):           2500.0000/77.21
     execution time (avg/stddev):   8.0047/0.01
+```
+
+16线程执行压力测试： `sysbench --test=cpu --cpu-max-prime=20000 --num-threads=16 run`
+
+```txt
+sysbench 0.4.12:  multi-threaded system evaluation benchmark
+
+Running the test with following options:
+Number of threads: 16
+
+Doing CPU performance benchmark
+
+Threads started!
+Done.
+
+Maximum prime number checked in CPU test: 20000
+
+
+Test execution summary:
+    total time:                          7.9028s
+    total number of events:              10000
+    total time taken by event execution: 126.0871
+    per-request statistics:
+         min:                                  2.67ms
+         avg:                                 12.61ms
+         max:                                 59.78ms
+         approx.  95 percentile:              29.83ms
+
+Threads fairness:
+    events (avg/stddev):           625.0000/59.00
+    execution time (avg/stddev):   7.8804/0.01
 ```
 
 ## Xeon E31230
@@ -119,7 +152,7 @@ Threads fairness:
     execution time (avg/stddev):   26.5128/0.00
 ```
 
-多线程执行压力测试： `sysbench --test=cpu --cpu-max-prime=20000 --num-threads=8 run`
+8线程执行压力测试： `sysbench --test=cpu --cpu-max-prime=20000 --num-threads=8 run`
 
 ```txt
 sysbench 0.4.12:  multi-threaded system evaluation benchmark
@@ -148,4 +181,35 @@ Test execution summary:
 Threads fairness:
     events (avg/stddev):           1250.0000/157.26
     execution time (avg/stddev):   4.1689/0.00
+```
+
+16线程执行压力测试： `sysbench --test=cpu --cpu-max-prime=20000 --num-threads=16 run`
+
+```txt
+sysbench 0.4.12:  multi-threaded system evaluation benchmark
+
+Running the test with following options:
+Number of threads: 16
+
+Doing CPU performance benchmark
+
+Threads started!
+Done.
+
+Maximum prime number checked in CPU test: 20000
+
+
+Test execution summary:
+    total time:                          3.8671s
+    total number of events:              10000
+    total time taken by event execution: 61.7081
+    per-request statistics:
+         min:                                  3.06ms
+         avg:                                  6.17ms
+         max:                                 38.10ms
+         approx.  95 percentile:              14.09ms
+
+Threads fairness:
+    events (avg/stddev):           625.0000/24.28
+    execution time (avg/stddev):   3.8568/0.01
 ```
