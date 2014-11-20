@@ -11,6 +11,7 @@ http://blog.csdn.net/qiguiting/article/details/11584397
 sysbench
 HammerDB 
 BenchmarkSQL
+[mysqltuner](http://mysqltuner.com/)
 
 Jmeter
 
