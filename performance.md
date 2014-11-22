@@ -12,6 +12,7 @@ sysbench
 HammerDB 
 BenchmarkSQL
 [mysqltuner](http://mysqltuner.com/)
+[mysql-tuning-primer](https://launchpad.net/mysql-tuning-primer)
 
 Jmeter
 
