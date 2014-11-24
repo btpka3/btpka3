@@ -1,3 +1,15 @@
+# sshd 安全性
+
+`vi /etc/ssh/sshd_config`
+
+```conf
+X11Forwarding no  #
+PermitEmptyPasswords no     # 禁止空密码
+MaxStartups  10             # 最多保持多少个未认证的连接，防止SSH拒绝服务
+PermitRootLogin no          # 禁止root登录，否则很容易被用来暴力猜解
+
+```
+
 
 # 生成SSH KEY
 
