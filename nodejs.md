@@ -7,6 +7,8 @@ https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ub
 《[PayPal为什么从Java迁移到Node.js，性能提高一倍，文件代码减少44%](http://ourjs.com/detail/52a914f0127c763203000008)》
 
 
+[who use nodejs?](https://github.com/joyent/node/wiki/Projects,-Applications,-and-Companies-Using-Node)
+
 ```
 sudo add-apt-repository ppa:chris-lea/node.js
 sudo apt-get update
