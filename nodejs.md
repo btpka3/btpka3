@@ -9,6 +9,19 @@ https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ub
 
 [who use nodejs?](https://github.com/joyent/node/wiki/Projects,-Applications,-and-Companies-Using-Node)
 
+
+
+http://momentjs.com/
+https://ghost.org/
+https://cnodejs.org/
+
+https://pages.github.com/
+https://stackedit.io/
+
+
+# 安装
+
+## Ubuntu
 ```
 sudo add-apt-repository ppa:chris-lea/node.js
 sudo apt-get update
@@ -17,9 +30,3 @@ sudo apt-get install nodejs
 sudo apt-get install npm
 ```
 
-http://momentjs.com/
-https://ghost.org/
-https://cnodejs.org/
-
-https://pages.github.com/
-https://stackedit.io/
