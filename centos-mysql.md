@@ -295,7 +295,7 @@ SHOW ENGINE INNODB STATUS\G                    # 查看最后一次检测到的�
 mysqldumpslow -s t -t 10 /var/log/mysqld.log   # 查看慢查询日志
 EXPLAIN select ... from ... where ...;         # 检查查询语句是否用到key
 SHOW INDEX FROM XxxTable;                      # 查看指定表上的索引
-
+CREATE INDEX USER_IDX_PHONE ON user(PHONE);    # 如果需要，创建索引
 ```
 
 
