@@ -30,3 +30,27 @@ sudo apt-get install nodejs
 sudo apt-get install npm
 ```
 
+
+# Http Hello world
+
+新建 hi.js，内容如下
+
+```
+var http = require('http');
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World\n');
+}).listen(1337, '127.0.0.1');
+console.log('Server running at http://127.0.0.1:1337/');
+```
+
+然后运行：
+
+```
+node hi.js
+```
+
+最后浏览器访问 http://127.0.0.1:1337/
+
+
+
