@@ -19,6 +19,8 @@ https://pages.github.com/
 https://stackedit.io/
 http://nodeschool.io/
 https://npm.taobao.org/
+http://nqdeng.github.io/7-days-nodejs
+
 
 # 安装
 
