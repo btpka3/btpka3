@@ -18,6 +18,7 @@ https://cnodejs.org/
 https://pages.github.com/
 https://stackedit.io/
 http://nodeschool.io/
+https://npm.taobao.org/
 
 # 安装
 
