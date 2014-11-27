@@ -291,8 +291,14 @@ select  STR_TO_DATE('2014-07-15 12:13:14', '%Y-%m-%d %k:%i:%s')
 # 性能监控
 
 ```
-SHOW ENGINE INNODB STATUS\G
+SHOW ENGINE INNODB STATUS\G                    # 查看最后一次检测到的死锁
+mysqldumpslow -s t -t 10 /var/log/mysqld.log   # 查看慢查询日志
+EXPLAIN select ... from ... where ...;         # 检查查询语句是否用到key
+SHOW INDEX FROM XxxTable;                      # 查看指定表上的索引
+
 ```
+
+
 
 http://www.2cto.com/database/201310/251493.html
 
