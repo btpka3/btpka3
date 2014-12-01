@@ -113,7 +113,7 @@ zabbix 提供了两种前端：zabbix-web-mysql 和 zabbix-web-pgsql。但是，
     ```
 
 
-1. 修改本地hosts之后，浏览器访问 http://zabbix.lizi.com/，根据实际状况一步一步进行。
+1. 修改本地hosts之后，浏览器访问 `http://zabbix.lizi.com/`，根据实际状况一步一步进行。
 配置完成后可以通过初始账户 Admin/zabbix 登录。
 
 
