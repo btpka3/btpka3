@@ -9,6 +9,8 @@ Zabbix分为普通发布版和长期支持版（LST），所以安装的时候�
      
      # centos 6
     rpm -ivh http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/zabbix-release-2.2-1.el6.noarch.rpm
+
+    chkconfig --level 345 zabbix-server on
     ```
 
 ## 安装zabbix-server.
