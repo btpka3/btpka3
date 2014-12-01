@@ -40,7 +40,11 @@ Zabbix分为普通发布版和长期支持版（LST），所以安装的时候�
     DBUser=zabbix
     DBPassword=zabbix
     ```
+1. 启动
 
+   ```sh
+   service zabbix-server restart
+   ```
 1. 通过查看日志，telnet 端口确认是否启动成功。
 
 
