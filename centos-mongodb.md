@@ -27,3 +27,16 @@ echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
 echo "mongodb-org-tools hold"  | sudo dpkg --set-selections
 
 ```
+
+# 启停
+
+```sh
+sudo service mongod start
+sudo service mongod stop
+```
+
+## 连接到数据库
+
+```
+mongo
+```
