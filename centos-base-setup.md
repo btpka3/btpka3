@@ -260,6 +260,7 @@ LANG="en_US.UTF-8"
 ```sh
 [root@localhost ~]# sysctl -A  | grep fs\.file-max
 fs.file-max = 787933
+[root@localhost ~]# sysctl fs.file-max
 [root@localhost ~]# cat /proc/sys/fs/file-max
 787933
 [root@localhost ~]# vi /etc/sysctl.conf
