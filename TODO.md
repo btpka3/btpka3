@@ -37,6 +37,7 @@
 * Spring Remoting HttpInvoker
 * grails quartz plugin - study, add enable singleJob 
 * Central configuration 
+* Apache Mahout 推荐引擎
 
 # FIXME
 * 云安全？[1](http://article.liepin.com/ask/qa130273)
