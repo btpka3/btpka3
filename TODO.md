@@ -38,6 +38,7 @@
 * grails quartz plugin - study, add enable singleJob 
 * Central configuration 
 * Apache Mahout 推荐引擎
+* [HMM - Hidden Markov model](http://en.wikipedia.org/wiki/Hidden_Markov_model)
 
 # FIXME
 * 云安全？[1](http://article.liepin.com/ask/qa130273)
