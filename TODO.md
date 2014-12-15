@@ -39,6 +39,8 @@
 * Central configuration 
 * Apache Mahout 推荐引擎
 * [HMM - Hidden Markov model](http://en.wikipedia.org/wiki/Hidden_Markov_model)
+* [HBuilder](http://www.dcloud.io/)
+* [Clouda+](http://clouda.baidu.com/portal)
 
 # FIXME
 * 云安全？[1](http://article.liepin.com/ask/qa130273)
