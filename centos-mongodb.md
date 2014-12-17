@@ -1,3 +1,4 @@
+http://www.infoq.com/cn/articles/nosql-performance-test
 
 # 安装
 see [here](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat-centos-or-fedora-linux/)
