@@ -1,5 +1,9 @@
 apache benchmark 是一个简单的压力测试工具。
 
+```
+sudo apt-get install apache2-utils
+```
+
 # 小文件
 
 ```
