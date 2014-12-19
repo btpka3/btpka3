@@ -2,6 +2,8 @@ http://serverfault.com/questions/10852/what-limits-the-maximum-number-of-connect
 
 http://oldboy.blog.51cto.com/2561410/1336488
 
+http://www.jb51.net/os/RedHat/61570.html
+
 
 apache benchmark 是一个简单的压力测试工具。
 
