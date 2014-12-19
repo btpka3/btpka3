@@ -59,7 +59,9 @@ node hi.js
 
 ## Centos
 
-使用 [nvm](https://github.com/joyent/node/wiki/installing-node.js-via-package-manager#enterprise-linux-and-fedora)
+使用Linux二进制包。
+
+<del>使用 [nvm](https://github.com/joyent/node/wiki/installing-node.js-via-package-manager#enterprise-linux-and-fedora)</del>
 
 ```
 su - 
