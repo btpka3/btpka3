@@ -1,3 +1,5 @@
+http://serverfault.com/questions/10852/what-limits-the-maximum-number-of-connections-on-a-linux-server
+
 apache benchmark 是一个简单的压力测试工具。
 
 ```
