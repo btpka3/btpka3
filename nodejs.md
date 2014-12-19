@@ -57,3 +57,13 @@ node hi.js
 
 
 
+## Centos
+
+使用 [nvm](https://github.com/joyent/node/wiki/installing-node.js-via-package-manager#enterprise-linux-and-fedora)
+
+```
+su - 
+curl -sL https://deb.nodesource.com/setup | sudo bash -
+su -
+nvm install v0.10.34
+```
