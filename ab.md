@@ -16,6 +16,8 @@ sudo apt-get install apache2-utils
 
 # 小文件
 
+大小为891字节，小于1KB。并发为1000，结果如下：
+
 ```
 zll@zll-pc:~$ ab -c 1000 -n 1000 http://m.nala.com.cn/resource/config.json
 This is ApacheBench, Version 2.3 <$Revision: 1528965 $>
@@ -72,6 +74,70 @@ Percentage of the requests served within a certain time (ms)
   99%    923
  100%    927 (longest request)       # 完成所有请求，需要927ms
 ```
+
+
+并发为10000，结果如下：
+
+```
+zll@zll-pc:～$ ab -c 10000 -n 10000 http://m.nala.com.cn/resource/config.json
+This is ApacheBench, Version 2.3 <$Revision: 1528965 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking m.nala.com.cn (be patient)
+Completed 1000 requests
+Completed 2000 requests
+Completed 3000 requests
+Completed 4000 requests
+Completed 5000 requests
+Completed 6000 requests
+Completed 7000 requests
+Completed 8000 requests
+Completed 9000 requests
+Completed 10000 requests
+Finished 10000 requests
+
+
+Server Software:        nginx
+Server Hostname:        m.nala.com.cn
+Server Port:            80
+
+Document Path:          /resource/config.json
+Document Length:        891 bytes
+
+Concurrency Level:      10000
+Time taken for tests:   57.028 seconds
+Complete requests:      10000
+Failed requests:        34
+   (Connect: 0, Receive: 0, Length: 34, Exceptions: 0)
+Non-2xx responses:      35
+Total transferred:      12420052 bytes
+HTML transferred:       8894248 bytes
+Requests per second:    175.35 [#/sec] (mean)
+Time per request:       57027.570 [ms] (mean)
+Time per request:       5.703 [ms] (mean, across all concurrent requests)
+Transfer rate:          212.69 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0  902 1532.2     11    6992
+Processing:     3 1311 3781.8     31   57021
+Waiting:        3 3973304821 74986938987.8     11 1419037131536
+Total:          7 2213 4285.2    885   57021
+
+Percentage of the requests served within a certain time (ms)
+  50%    885
+  66%   1617
+  75%   2744
+  80%   3685
+  90%   7320
+  95%   9176
+  98%  10311
+  99%  10939
+ 100%  57021 (longest request)
+```
+
+
 
 # apr_pollset_poll: The timeout specified has expired (70007)
 ab 命令启用 `-k` 参数，使用keep-alive。
