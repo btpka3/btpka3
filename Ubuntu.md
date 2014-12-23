@@ -302,6 +302,9 @@ greeter-setup-script=/usr/bin/numlockx on
 
 # Adobe Flash Player
 
+火狐安装的版本一般都比较低，而Chromium浏览器自带一般相对高些。具体可以通过该[网页](https://www.adobe.com/software/flash/about/)检测查看。
+
+
 ```sh
 sudo apt-get install flashplugin-installer 
 
