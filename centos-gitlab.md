@@ -318,6 +318,14 @@ git branch -a               # 列出所有的branch，带*号的是工作环境�
 
 参考[这里](https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/update/upgrader.md)
 
+备份
   
+```
+su - git
+cd /home/git/gitlab
+# 该命令会创建一个备份 /home/git/gitlab/tmp/backups/1419398073_gitlab_backup.tar
+bundle exec rake gitlab:backup:create RAILS_ENV=production
+```
+
 
 
