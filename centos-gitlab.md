@@ -327,7 +327,29 @@ cd /home/git/gitlab
 bundle exec rake gitlab:backup:create RAILS_ENV=production
 ```
 
-鉴于国内无法从 https://rubygems.org/ 下载，需要现在当前版本的 git
+鉴于国内无法从 https://rubygems.org/ 下载，需要现在检出最新版本的gitlab的Gemfile，并
+注释掉 "#source "https://rubygems.org"，而使用淘宝镜像 "source 'http://ruby.taobao.org/'"
+
+```
+cp Gemfile /tmp/
+vi /home/git/gitlab/lib/gitlab/upgrader.rb  修改当前版的 更新脚本代码
+
+    def update_commands
+      {   
+        "Stash changed files" => %W(git stash),
+        "Get latest code" => %W(git fetch),
+        "Switch to new version" => %W(git checkout v#{latest_version}),
+        "using taobao ruby soruce " => %W(cp /tmp/Gemfile .),   # 插入该行，在获取最新代码后，替换掉Gemfile，使用taobao的ruby源。 
+        "Install gems" => %W(bundle),
+        "Migrate DB" => %W(bundle exec rake db:migrate),
+        "Recompile assets" => %W(bundle exec rake assets:clean assets:precompile),
+        "Clear cache" => %W(bundle exec rake cache:clear)
+      }   
+    end 
+```
 
 
+
+
+/home/git/gitlab/app/assets/stylesheets/generic/forms.scss  # Edit in fullscreen 的css
 
