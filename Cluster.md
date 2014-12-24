@@ -1,3 +1,7 @@
+http://storm.apache.org/
+
+http://spark.apache.org/
+
 * [spring-remoting-cluster ](http://code.google.com/p/spring-remoting-cluster/wiki/Usage)
 * [Build server-cluster-aware Java applications](http://www.ibm.com/developerworks/java/library/j-zookeeper/)
 * [Distributed lock manager](http://en.wikipedia.org/wiki/Distributed_lock_manager)
