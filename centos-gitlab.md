@@ -327,5 +327,7 @@ cd /home/git/gitlab
 bundle exec rake gitlab:backup:create RAILS_ENV=production
 ```
 
+鉴于国内无法从 https://rubygems.org/ 下载，需要现在当前版本的 git
+
 
 
