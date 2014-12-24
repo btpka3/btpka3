@@ -348,8 +348,40 @@ vi /home/git/gitlab/lib/gitlab/upgrader.rb  修改当前版的 更新脚本代�
     end 
 ```
 
+# 修改css
 
+```
+vi /home/git/gitlab/app/assets/stylesheets/generic/forms.scss  # Edit in fullscreen 的css
+  input:checked ~ .zen-backdrop {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1031;
 
+    textarea {
+      border: none;
+      box-shadow: none;
+      border-radius: 0;
+      color: #000;
+      /*font-size: 20px;*/                 -- 注释掉该行
+      /*line-height: 26px;*/               -- 注释掉该行
+      /*padding: 30px;*/                   -- 注释掉该行
+      display: block;
+      outline: none;
+      resize: none;
+      height: 100vh;
+      /*max-width: 900px;*/                -- 注释掉该行
+      max-width: 90%;                      -- 增加该行
+      margin: 0 auto;
+      border: 1px solid grey;              -- 增加该行
+    }   
+  }
 
-/home/git/gitlab/app/assets/stylesheets/generic/forms.scss  # Edit in fullscreen 的css
+sudo -u git -H bundle exec rake assets:clean assets:precompile cache:clear RAILS_ENV=production
 
+sudo service gitlab start
+
+```
