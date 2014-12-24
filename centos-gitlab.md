@@ -314,4 +314,10 @@ git branch -a               # 列出所有的branch，带*号的是工作环境�
                             # TODO 合并
 ```
 
+# 升级
+
+参考[这里](https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/update/upgrader.md)
+
+  
+
 
