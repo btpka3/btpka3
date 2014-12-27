@@ -1,3 +1,5 @@
+http://sematext.com/spm/
+
 # 安装
 Zabbix分为普通发布版和长期支持版（LST），所以安装的时候应选择[2.2 LTS](http://www.zabbix.com/life_cycle_and_release_policy.php)版。
 
