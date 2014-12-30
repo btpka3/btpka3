@@ -16,3 +16,17 @@ http://www.iteye.com/magazines/83
 * replication. 将数据副本拷贝到集群中其他节点的过程，用以保证可靠性和容错。
 * Partitioner. 负责负载均衡，将数据均衡的分发到集群中的节点上。
 * Data Center. 根据复制目的，集群内的一组一起配置的节点。
+
+
+
+```sql
+-- 重建 keyspace
+DROP KEYSPACE IF EXISTS test;
+CREATE KEYSPACE IF NOT EXISTS test
+    WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 }
+    AND DURABLE_WRITES = true;
+SELECT * FROM system.schema_keyspaces WHERE keyspace_name = 'test';
+USE test;
+
+
+```
