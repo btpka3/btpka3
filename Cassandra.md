@@ -30,3 +30,6 @@ USE test;
 
 
 ```
+https://github.com/datastax/java-driver
+http://www.datastax.com/documentation/developer/java-driver/2.1/common/drivers/introduction/introArchOverview_c.html
+http://docs.spring.io/spring-data/cassandra/docs/1.1.1.RELEASE/reference/html/
