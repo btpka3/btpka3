@@ -54,6 +54,12 @@ Web->HTML Files->Editor
 XML->XML Files->Editor
     : Line width 修改为 120
     : 选中 Indent using spaces, 设置 Indentation size 为 4
+
+# 可以方便自动提示/完成 "import static"
+Java->Editor->Content Assist->Favorites
+    : New type
+        org.junit.Assert
+        com.datastax.driver.core.querybuilder.QueryBuilder
 ```
 
 ## 加速
