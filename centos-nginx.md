@@ -1,3 +1,6 @@
+pam : see [here](http://www.doublecloud.org/2014/01/nginx-with-pam-authentication/)
+
+
 # 编译的模块
 
 [Nginx Modules](http://wiki.nginx.org/Modules)、
