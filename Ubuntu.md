@@ -77,7 +77,7 @@ sudo apt-get install gedit-gmate
 
 gnome-terminal : Edit : Profiles : New : xxx : 并设置默认为该 profile
 : General 
-   : 取消选中 Use the system fixed width font，并选择使用 Monospace 14
+   : 取消选中 Use the system fixed width font，并选择使用 Monospace 14 / ubuntu mono 14
    : 选中 Use custom default terminal size ： 120x30
 : Title and Command : 选中 Run command as a login shell
 
