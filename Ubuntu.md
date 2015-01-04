@@ -63,7 +63,7 @@ sudo apt-get install fonts-wqy-microhei fonts-wqy-zenhei
 sudo apt-cache search gedit
 sudo apt-get install gedit 
 sudo apt-get install gedit-plugins
-sudo apt-get install gedit-gmate
+sudo apt-get install gedit-gmate   # https://github.com/gmate/gmate
 ```
 
 ## 配置
