@@ -1,3 +1,11 @@
+
+## 下载源代码
+
+```
+mvn dependency:sources
+mvn clean install dependency:sources -Dmaven.test.skip=true
+```
+
 ## 多模块
 
 [参考1](http://maven.apache.org/guides/mini/guide-multiple-modules.html)、
