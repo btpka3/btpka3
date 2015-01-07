@@ -10,3 +10,5 @@
     * [SAE](http://lib.sinaapp.com/)
     * [Microsoft ASP.net CDN](http://www.asp.net/ajax/cdn)
     * http://www.freecdn.cn/
+* hybird app
+    * [Clouda+](http://clouda.baidu.com/)
