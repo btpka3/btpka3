@@ -23,14 +23,27 @@
     usermod -m -d /data/store/jenkins jenkins               # 修改jenkins用户的主目录为 /data/store/jenkins
     ```
 
-1. 配置
+1. 修改配置
 
     ```sh
     vi /etc/sysconfig/jenkins
-      JENKINS_HOME="/data/store/jenkins"                               # 即jenkins用户的主目录
-      JENKINS_PORT="19010"
-      JENKINS_AJP_PORT="19011"
+    ```
+    修改以下变量：
+
+    ```conf
+    JENKINS_HOME="/data/store/jenkins"                               # 即jenkins用户的主目录
+    JENKINS_PORT="19010"
+    JENKINS_AJP_PORT="19011"
+    ```
+
+1. 修改 init.d 脚本
+
+    ```sh
     vi /etc/init.d/jenkins
+    ```
+    修改内容如下：
+
+    ```sh
       JENKINS_WAR="/data/software/jenkins/jenkins.war"
     ```
 
