@@ -61,7 +61,7 @@ server {
   root /notExisted;
   
   client_max_body_size 20m;
-  ignore_invalid_headers off;   # 否则会     
+  ignore_invalid_headers off;   # 否则会 : 405 not a valid crumb was include in the request    
 
   access_log  /var/log/nginx/jenkins_access.log;
   error_log   /var/log/nginx/jenkins_error.log;
