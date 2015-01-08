@@ -44,7 +44,7 @@
     修改内容如下：
 
     ```sh
-      JENKINS_WAR="/data/software/jenkins/jenkins.war"
+    JENKINS_WAR="/data/software/jenkins/jenkins.war"
     ```
 
 # nginx 反向代理配置示例
