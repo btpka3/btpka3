@@ -1,8 +1,6 @@
  
 
 -----------------------------------------
-
-
 鉴于github使用的部分资源在国内访问不稳定，打算将在github上的wiki迁移到这里。
 
 ```
@@ -20,12 +18,14 @@ git push
 
 本地编辑wiki [参考](http://git.oschina.net/xieyajie/XDUI/wikis/git_access)
 使用[gollum](https://github.com/gollum/gollum)
-
-
-
 -----------------------------------------
 
 
 所有 [Wiki 列表](pages)
+
+
+* 开发环境、工具
+    * jenkins 
+        * [CentOS 下安装](centos-jenkins)
 
 
