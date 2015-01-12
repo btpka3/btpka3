@@ -1,4 +1,6 @@
 
+[打印](http://www.hplipopensource.com/hplip-web/install/install/index.html)
+
 # apt
 
 
