@@ -76,6 +76,7 @@
 |oschina        |no |http://maven.oschina.net/content/groups/public/ ||
 |grails-core    |no |http://repo.grails.org/grails/core/             |该库建议不要配置|
 |grails-plugins |no |http://repo.grails.org/grails/plugins/          ||
+|jboss          |yes|http://repository.jboss.com/maven2/             ||
 
 配置完上述仓库之后，为了方便使用，需要上述仓库添加到 "Public Repositories" 组中，注意先后顺序（可以拖拽上下移动）。
 
