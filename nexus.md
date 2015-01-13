@@ -57,6 +57,76 @@
       }
     }
     ```
+1. 之后通过URL `http://localhost:20010/` 登录，默认管理员 `admin`，密码 `admin123` 登录，并修改：
+
+    ```
+    Administration -> server:
+        Application server settings:
+            Base Url : 修改为 "http://mvn.lizi.com/"
+    ```
+
+# settings.xml
+
+```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+        <!--
+        <localRepository>E:/maven/repository</localRepository>
+         -->
+
+        <mirrors>
+            <mirror>
+                <id>mirror-all</id>
+                <name>mirror-all</name>
+                <mirrorOf>*</mirrorOf>
+                <url>http://mvn.lizi.com/content/groups/public/</url>
+            </mirror>
+        </mirrors>
+
+        <profiles>
+            <profile>
+                <id>profile-me</id>
+                <properties>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>false</downloadJavadocs>
+                </properties>
+                <pluginRepositories>
+                    <pluginRepository>
+                        <id>osc-plugins</id>
+                        <name>osc-plugins</name>
+                        <url>http://mvn.lizi.com/content/groups/public/c</url>
+                        <releases>
+                            <enabled>true</enabled>
+                        </releases>
+                        <snapshots>
+                            <enabled>false</enabled>
+                        </snapshots>
+                    </pluginRepository>
+                </pluginRepositories>
+            </profile>
+        </profiles>
+
+        <activeProfiles>
+            <activeProfile>profile-me</activeProfile>
+        </activeProfiles>
+    </settings>
+```
+
+
+# 常用仓库
+
+|maven repo/mirror|index published?| url |description|
+|-----------------|----------------|------|---|
+|central        |yes|http://repo1.maven.org/maven2/                  |默认自带|
+|ibiblio        |yes|http://mirrors.ibiblio.org/maven2/              ||
+|oschina        |no |http://maven.oschina.net/content/groups/public/ ||
+|grails-core    |no |http://repo.grails.org/grails/core/             |该库建议不要配置|
+|grails-plugins |no |http://repo.grails.org/grails/plugins/          ||
 
 
 
+
+    
