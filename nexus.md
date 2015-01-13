@@ -65,55 +65,6 @@
             Base Url : 修改为 "http://mvn.lizi.com/"
     ```
 
-# settings.xml
-
-```xml
-    <?xml version="1.0" encoding="UTF-8"?>
-    <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-
-        <!--
-        <localRepository>E:/maven/repository</localRepository>
-         -->
-
-        <mirrors>
-            <mirror>
-                <id>mirror-all</id>
-                <name>mirror-all</name>
-                <mirrorOf>*</mirrorOf>
-                <url>http://mvn.lizi.com/content/groups/public/</url>
-            </mirror>
-        </mirrors>
-
-        <profiles>
-            <profile>
-                <id>profile-me</id>
-                <properties>
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>false</downloadJavadocs>
-                </properties>
-                <pluginRepositories>
-                    <pluginRepository>
-                        <id>osc-plugins</id>
-                        <name>osc-plugins</name>
-                        <url>http://mvn.lizi.com/content/groups/public/c</url>
-                        <releases>
-                            <enabled>true</enabled>
-                        </releases>
-                        <snapshots>
-                            <enabled>false</enabled>
-                        </snapshots>
-                    </pluginRepository>
-                </pluginRepositories>
-            </profile>
-        </profiles>
-
-        <activeProfiles>
-            <activeProfile>profile-me</activeProfile>
-        </activeProfiles>
-    </settings>
-```
 
 
 # 常用仓库
@@ -126,7 +77,59 @@
 |grails-core    |no |http://repo.grails.org/grails/core/             |该库建议不要配置|
 |grails-plugins |no |http://repo.grails.org/grails/plugins/          ||
 
+配置完上述仓库之后，为了方便使用，需要上述仓库添加到 "Public Repositories" 组中，注意先后顺序（可以拖拽上下移动）。
+
+为了方便客户端下载索引，还需要在 `Administration` -> `Scheduled Tasks` 中为所需的仓库/组 增加下载索引/发布索引的任务。
 
 
 
-    
+
+# settings.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <!--
+    <localRepository>E:/maven/repository</localRepository>
+     -->
+
+    <mirrors>
+        <mirror>
+            <id>mirror-all</id>
+            <name>mirror-all</name>
+            <mirrorOf>*</mirrorOf>
+            <url>http://mvn.lizi.com/content/groups/public/</url>
+        </mirror>
+    </mirrors>
+
+    <profiles>
+        <profile>
+            <id>profile-me</id>
+            <properties>
+                <downloadSources>true</downloadSources>
+                <downloadJavadocs>false</downloadJavadocs>
+            </properties>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>osc-plugins</id>
+                    <name>osc-plugins</name>
+                    <url>http://mvn.lizi.com/content/groups/public/c</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+
+    <activeProfiles>
+        <activeProfile>profile-me</activeProfile>
+    </activeProfiles>
+</settings>
+```
