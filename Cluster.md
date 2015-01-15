@@ -18,3 +18,8 @@ http://spark.apache.org/
 
 ZooKeeper [recipes](http://zookeeper.apache.org/doc/r3.4.6/recipes.html).
 ZK的API相对来说都比较低级，可以使用 [curator](http://curator.apache.org/) 的高级API进行编程。
+
+
+# 架构
+
+*  [墨迹天气服务器架构简介](http://download.csdn.net/detail/u010702509/8357037)
