@@ -4,6 +4,9 @@
 
 
 ## CAS
+
+[cas 3.0 协议](http://jasig.github.io/cas/development/protocol/CAS-Protocol-Specification.html)
+
 ### 允许所有的URL接收ST
 [参考](http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity-single.html#cas-pt)   
 
