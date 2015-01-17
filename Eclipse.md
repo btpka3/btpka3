@@ -2,6 +2,8 @@
 [SPRING TOOL SUITE](http://www.springsource.org/sts )
 
 ##常用插件
+* [eclipse-ui-themes](https://github.com/rogerdudler/eclipse-ui-themes)
+* [Eclipse Color Themes](http://eclipsecolorthemes.org/)
 * [AnyEdit](http://andrei.gmxhome.de/anyedit/)  
 update site：http://andrei.gmxhome.de/eclipse -> Eclipse 3.5 - 4.2 plugins -> AnyEditTools  
 配置：STS : Preferences -> General/Editors/AnyEdit Tools 
