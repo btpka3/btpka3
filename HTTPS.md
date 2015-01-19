@@ -79,6 +79,7 @@ REM X.509)
         -destalias tomcat \
         -destkeypass 123456
     ```
+
 ## KeyTools -> OpenSSL
 
 1. 生成一个含自签名 CA 证书的 JKS 类型的 KeyStore
