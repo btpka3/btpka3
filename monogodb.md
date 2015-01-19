@@ -1,4 +1,5 @@
 http://www.csdn.net/article/2012-11-15/2811920-mongodb-quan-gong-lue
+http://www.csdn.net/article/2015-01-14/2823551
 
 # 安装
 参考[这里](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)
