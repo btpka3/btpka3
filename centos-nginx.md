@@ -52,6 +52,11 @@ configure arguments:
 3rd [nginx-upstream-jvm-route](https://code.google.com/p/nginx-upstream-jvm-route/)  
 3rd [nginx-sticky-module](https://code.google.com/p/nginx-sticky-module)  
 
+
+关于反向代理 Jetty 的 [X-Forwarded-For](http://eclipse.org/jetty/documentation/current/configuring-connectors.html#jetty-connectors-http-configuration) 的配置。
+
+
+
 ```conf
 http {
     # ...
