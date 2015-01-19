@@ -140,6 +140,12 @@ REM X.509)
         -passin pass:123456 \
         -out sos.pem.key \
         -passout pass:123456
+    # 明文私钥
+    openssl rsa \
+        -in sos.pem.key \
+        -passin pass:123456 \
+        -out sso.pem.clear.key
+
 
     # 公钥
     openssl rsa \
