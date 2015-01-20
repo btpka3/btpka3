@@ -5,6 +5,9 @@
 ```
 mvn dependency:sources
 mvn clean install dependency:sources -Dmaven.test.skip=true
+
+# 部署，skip掉testcase的执行，但还运行 test-jar 等功能
+mvn -Dmaven.test.skip.exec clean deploy
 ```
 
 ## 多模块
