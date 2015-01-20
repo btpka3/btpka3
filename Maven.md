@@ -95,6 +95,20 @@ mvn -Dmaven.test.skip=true -am --projects my/module1,my/module2 compile
 * 局域网Maven仓库启启用分组，并且将所有仓库都纳入统一个组 `remote-repos` 中。
 * `<server/>` 配置是用以结合 pom.xml 中的 `<distributionManagement/>` 发布快照用的。
 
+    ```xml
+    <project>
+        <distributionManagement>
+            <repository>
+                <id>SOS-releases</id>
+                <url>http://mvn.test.me/content/repositories/releases/</url>
+            </repository>
+            <snapshotRepository>
+                <id>SOS-snapshots</id>
+                <url>http://mvn.test.me/content/repositories/snapshots/</url>
+            </snapshotRepository>
+        </distributionManagement>
+    </project>
+    ```
 
 
 
