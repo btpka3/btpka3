@@ -109,3 +109,10 @@ inline list
 #{@beanId.xxxAttr}
 
 ```
+
+# config && placeholder
+
+```xml
+<util:properties id="CFG" location="classpath:/path/1;classpath:/path/2;" />
+<context:property-placeholder location="/WEB-INF/cas.properties" properties-ref="CFG" /> 
+```
