@@ -116,3 +116,69 @@ inline list
 <util:properties id="CFG" location="classpath:/path/1;classpath:/path/2;" />
 <context:property-placeholder location="/WEB-INF/cas.properties" properties-ref="CFG" /> 
 ```
+
+检查使用
+
+```java
+// Grails 环境？
+if (ClassUtils.isPresent("grails.util.Holders",
+        MqInfo.class.getClassLoader())) {
+
+    ConfigObject cfgObj = Holders.getConfig();
+
+    String[] configPath = CONFIG_PREFIX_KEY.split("\\.");
+    for (int i = 0; i < configPath.length; i++) {
+        Object obj = cfgObj.get(configPath[i]);
+        if (i < configPath.length - 1) {
+            if (obj instanceof ConfigObject) {
+                cfgObj = (ConfigObject) obj;
+            } else {
+                break;
+            }   
+        } else {
+            if (obj instanceof String) {
+                cfgObj = (ConfigObject) obj;
+            }   
+            break;
+        }                                                                                                                                                                                            
+    }
+}
+
+// 从系统环境变量中读取
+if (StringUtils.isEmpty(queueNamePrefix)) {
+    queueNamePrefix = System.getProperty(CONFIG_PREFIX_KEY);
+}
+
+if (StringUtils.isEmpty(queueNamePrefix)) {
+    ApplicationContext appContex = ApplicationContextHolder.getContext();
+    if (appContex != null) {
+        Properties prop = appContex.getBean("config", Properties.class);
+        if (prop != null) {
+            queueNamePrefix = prop.getProperty(CONFIG_PREFIX_KEY);
+        }
+    }
+}
+```
+
+# ApplicationContextHolder.java
+
+```java
+public class ApplicationContextHolder implements ApplicationContextAware {
+    private static ApplicationContext applicationContext;
+
+    private ApplicationContextHolder() {
+        super();
+    }   
+
+    public void setApplicationContext(ApplicationContext applicationContext)
+            throws BeansException {
+        ApplicationContextHolder.applicationContext = applicationContext;
+    }   
+
+    public static ApplicationContext getContext() {
+        return applicationContext;
+    }   
+
+}
+```
+
