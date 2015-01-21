@@ -161,6 +161,7 @@ YaHei Consolas Hybrid ： 基本能满足等宽编程要求，但是tab键上面
 [Groovy/Grails Tool Suite](http://grails.org/products/ggts)
 
 ## 安装插件
+* spring tool suit
 * m2e相关插件
 * Spring IDE 相关插件
 
