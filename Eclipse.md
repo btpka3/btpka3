@@ -153,3 +153,15 @@ YaHei Consolas Hybrid ： 基本能满足等宽编程要求，但是tab键上面
 [文泉驿-微米黑](http://wiki.ubuntu.org.cn/%E5%AD%97%E4%BD%93)有点不好看。
 
 最终，还是选择 Microsoft YaHei Mono.ttf
+
+
+
+
+# GGTS
+[Groovy/Grails Tool Suite](http://grails.org/products/ggts)
+
+## 安装插件
+* m2e相关插件
+* Spring IDE 相关插件
+
+
