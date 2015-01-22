@@ -73,9 +73,19 @@ http://publib.boulder.ibm.com/infocenter/realtime/v2r0/index.jsp?topic=%2Fcom.ib
 
 # jstack
 
+
+
 ```sh
 jstack <pid>
 ```
+Java 线程 CPU 100% 对应方法
+
+1. 通过 `top` 或者 `jps -mlv` 找到所需的 Java 进程的 pid1。
+1. 通过 `top -p pid1 -H` 观则得到最占 CPU 的线程的 pid2。. 
+1. `jstack pid1 > cpu.log`
+1. `vi cpu.log` 并用 pid2 查找所需的线程堆栈，然后分析代码。
+
+
 
 # JDK
 
