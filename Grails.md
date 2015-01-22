@@ -6,6 +6,24 @@ grails 从 2.4 开始，默认是的flush mode 从 FlushMode.MANUAL 改为了 Fl
 controller 中默认的事务是readonly，readonly事务的FlushMode是Manual。
 修改 Config.groovy，设置 `grails.gorm.autoFlush = true` 可以在调用 save() 方法时，都 flush=true.
 
+
+* 解决不合理的传递依赖，否则 `run-app` 会很慢
+    ```sh
+    grails.project.dependency.resolution = {
+        plugins {
+            compile(":spring-security-cas:2.0-RC1") {
+                transitive = false
+            }
+        }
+    }
+    ```
+
+*  `run-app` 没有 auto reload ，需要明确在命令行指定参数
+
+    ```sh
+    grails --stacktrace -Dserver.port=30010 run-app -reloading  # 注意 -reloading 需要放到 run-app 后面
+    ```
+
 # GRAILS_OPTS
 
 ```
