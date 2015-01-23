@@ -1,3 +1,7 @@
+## AOP debug 信息
+
+为 `org.springframework.aop.framework` 开启 DEBUG 级别的日志信息。
+
 ## spring mvc 注解
 ```xml
 <mvc:default-servlet-handler />
