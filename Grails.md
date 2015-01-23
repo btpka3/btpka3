@@ -24,6 +24,16 @@ controller 中默认的事务是readonly，readonly事务的FlushMode是Manual�
     grails --stacktrace -Dserver.port=30010 run-app -reloading  # 注意 -reloading 需要放到 run-app 后面
     ```
 
+* 在 `/WEB-INF/applicationContext.xml` 中使用 placeHolder :
+
+    ```xml
+    <!-- applicationContext.xml -->
+    <bean id="placeholderConfigurer"
+          class="org.codehaus.groovy.grails.commons.cfg.GrailsPlaceholderConfigurer">
+        <constructor-arg ref="grailsApplication"/>
+    </bean>
+    ```
+
 # GRAILS_OPTS
 
 ```
