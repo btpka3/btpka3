@@ -34,6 +34,19 @@ controller 中默认的事务是readonly，readonly事务的FlushMode是Manual�
     </bean>
     ```
 
+* 在 BuildConfig.groovy 中设置系统属性：
+
+    ```groovy
+    // 相当于grails命令行参数 -Dserver.port=30018
+    if (!System.getProperty("server.port")) {  
+        System.setProperty("server.port", "30010")
+    }
+
+    // 非 fork 模式 run-app 时，可以与自签名的其他 https 网站对接
+    System.setProperty("javax.net.ssl.trustStore", "${basedir}/test/lizi.jks")
+    System.setProperty("javax.net.ssl.trustStorePassword", "123456")
+    ```
+
 # GRAILS_OPTS
 
 ```
