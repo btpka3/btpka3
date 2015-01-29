@@ -16,8 +16,9 @@ alias vi=vim
 ```
 
 修改vim配置文件
-```sh
-[root@h01 ~]# vi ~/.vimrc      # 该文件是用户基本的，如果全局的，请修改 /usr/share/vim/vimrc
+修改用户级别的 需要修改 `~/.vimrc`。修改全局的，需要修改 `/usr/vimrc` （可以通过 `:version` 看到） 
+
+```vimrc
 set nocompatible
 set number
 colors desert
