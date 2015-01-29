@@ -29,6 +29,7 @@ set fileencodings=utf-8,gbk
 set expandtab
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
 set fileformats=unix
 set hlsearch
 set formatoptions-=cro
@@ -97,6 +98,43 @@ vi LargeFile.vba
 # 常用命令
 
 ```vi
-:open pathToFile             # 打开指定的文件
+```vi
+# 文件
+:open pathToFile                # 打开指定的文件
+:bn                             # 查看下一个文件
+:bp                             # 查看上一个文件
+:args                           # 查看当前打开的文件列表
+:split pathToFile               # 在分割窗口中打开指定的文件
+Ctrl+ww                         # 在分割窗口中循环切换文件
+:e ftp://192.168.1.101/xxx.txt  # 打开远程文件（FTP）
+:e \\sambahost\share\xxx.txt    # 打开远程文件（Samba）
+
+
+# 光标移动
+h                               # 左移1个字符（可前接数字）
+l                               # 右移1个字符（可前接数字）
+k                               # 上移1个字符（可前接数字）
+j                               # 下移1个字符（可前接数字）
+
+
+^                               # 移至行首第一个非空白字符
+0                               # 移至行首
+<Home>                          # 移至行首
+$                               # 移至行尾（可前接数字）
+<End>                           # 移至行尾
+
+w                               # 向后移动1个单词，光标停在单词首部（可前接数字）
+b                               # 向后移动1个单词，光标停在单词首部（可前接数字）
+e                               # 向后移动1个单词，光标停在单词尾部（可前接数字）
+ge                              # 向后移动1个单词，光标停在单词尾部（可前接数字）
+
+
+# 插入
+i                               # 在当前光标位置前插入
+I                               # 在当前行的行首插入
+a                               # 在当前光标位置后插入
+A                               # 在当前行的行尾插入
+o                               # 在当前行之后插入一行
+O                               # 在当前行之前插入一行
 
 ```
