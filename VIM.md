@@ -78,7 +78,7 @@ vi LargeFile.vba
 ## 全局替换 
 
 ```sh
-:%s/),/\0\r/g
+:%s/\t/    /g
 ```
 
 ## tab
