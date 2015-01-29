@@ -38,6 +38,12 @@ set paste
 " comment here
 ```
 
+## filetype
+
+```sh
+vi ~/.vim/filetype.vim              # mysql配置文件语法着色
+autocmd BufRead,BufNewFile my.cnf set syntax=dosini
+```
 
 ## colorschema
 
@@ -130,6 +136,13 @@ ge                              # 向后移动1个单词，光标停在单词尾
 <<                              # 当前行向左缩进
 >>                              # 当前行向右缩进
 
+查看当前set的值
+:set expandtab?                 # 打印该选项的使用方法和值
+:set autoindent!                # 该选项值取反（针对bool型）
+:set option&                    # 重置该选项值为默认值
+:verbose set textwidth?         # 查看值
+
+
 # 进入插入模式
 i                               # 在当前光标位置前插入
 I                               # 在当前行的行首插入
@@ -138,7 +151,8 @@ A                               # 在当前行的行尾插入
 o                               # 在当前行之后插入一行
 O                               # 在当前行之前插入一行
 
-# 进去 visual 模式
+# 进入 visual 模式
+v
 ```
 
 # 插入模式
