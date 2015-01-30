@@ -1,3 +1,16 @@
+
+# 移除事务、数据源
+1. 修改 BuildConfig.groovy
+
+    ```groovy
+    grails.project.dependency.resolution = {
+        inherits("global") {
+            excludes 'grails-plugin-datasource'
+    }
+    ```
+2. 删除 DataSource.groovy
+
+
 GORM Gotchas [part 1](http://spring.io/blog/2010/06/23/gorm-gotchas-part-1/)、[part 2](http://spring.io/blog/2010/07/02/gorm-gotchas-part-2/)、
 [part 3](http://spring.io/blog/2010/07/28/gorm-gotchas-part-3/)
 
