@@ -225,7 +225,7 @@ server {
 server {
     listen      80;
     server_name hisdev.eyar.com;
-    return 301 https://hisdev.eyar.com$request_uri;                   # 用户直接浏览器地址栏中输入http开头的URL将会自动跳转为HTTPS
+    return      301      https://$host$request_uri;  # 用户直接浏览器地址栏中输入http开头的URL将会自动跳转为HTTPS
 }
 server {
     listen      443 ssl;
