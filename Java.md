@@ -15,6 +15,7 @@ export CATALINA_OPTS=" \
     -XX:PermSize=32m \
     -XX:MaxPermSize=256m \
     -Dfile.encoding=UTF-8 \
+    -Djava.net.preferIPv4Stack=true \
     -XX:ErrorFile=${CATALINA_HOME}/logs/hs_err_pid%p.log \
     -XX:+HeapDumpOnOutOfMemoryError \
     -XX:HeapDumpPath=${CATALINA_HOME}/logs/start.at.$today.dump.hprof \
