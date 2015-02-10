@@ -1,3 +1,5 @@
+[interface not list](https://ask.wireshark.org/questions/7523/ubuntu-machine-no-interfaces-listed)
+
 
 
 # 捕捉过滤器
