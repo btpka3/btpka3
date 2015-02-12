@@ -25,3 +25,41 @@ sudo apt-get install -y mongodb-org=2.6.1 mongodb-org-server=2.6.1 mongodb-org-s
 ```
 mongo
 ```
+
+# user
+
+```sh
+use admin
+db.createUser( {
+    user: "siteUserAdmin",
+    pwd: "xxxx",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  });
+db.createUser( {
+    user: "siteRootAdmin",
+    pwd: "xxxx",
+    roles: [ { role: "root", db: "admin" } ]
+  });
+  
+  
+use admin
+db.auth("siteRootAdmin", "xxxx");
+
+
+use yyyDb
+db.createUser(
+  {
+    user: "yyyDbAdmin",
+    pwd: "xxx",
+    roles:
+    [
+      {
+        role: "dbOwner",
+        db: "yyyDb"
+      }
+    ]
+  }
+)
+
+db.auth("yyyDbAdmin", "xxx");
+```
