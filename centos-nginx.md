@@ -171,7 +171,14 @@ server {
 
     }
 }
+server {
+    listen 443;
+    return 301 http://$http_host$request_uri;                                                                                                                                                                
+    ssl on; 
+    ssl_certificate      /etc/nginx/conf.d/nginx.pem.cer;
+    ssl_certificate_key  /etc/nginx/conf.d/nginx.pem.clear.key;
 
+}
 ```
 
 # 配置
