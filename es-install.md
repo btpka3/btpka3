@@ -90,3 +90,70 @@ curl -XPUT 'localhost:9200/testIndex?pretty'  # 创建测试索引，之后再�
 
 
 
+
+# ES安装目录文件说明
+按照[这里](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup-repositories.html)安装之后，
+其es的文件目录为：
+* /etc/elasticsearch   -- 即为es的config目录，里面包括：elasticsearch.yml   logging.yml
+* /usr/share/elasticsearch -- es的安装目录
+
+这里和网上的资料不大一样！
+
+# 插件安装
+以大名鼎鼎的ik插件为例！
+###  下载[ik插件ZIP资源](https://github.com/medcl/elasticsearch-analysis-ik)
+右侧下方有一个按钮“Download ZIP"，点击下载源代码elasticsearch-analysis-ik-master.zip。
+
+###  解压ZIP文件
+解压文件elasticsearch-analysis-ik-master.zip，进入下载目录，执行命令：
+```java
+    unzip elasticsearch-analysis-ik-master.zip  
+```
+
+###  复制ik
+将解压目录文件中config文件夹下的ik文件夹复制到ES的config文件夹（即：/etc/elasticsearch/）下。
+
+###  打包
+因为是源代码，此处需要使用maven打包，进入解压文件夹中，执行命令：
+```java
+    mvn clean package  
+``` 
+### 复制jar
+* 在ES安装目录（/usr/share/elasticsearch）下新建文件夹plugins,以后的插件都放在这个文件夹下;
+* 在plugins下新建ik的文件夹analysis-ik;
+* 将上步打包生成的zip文件（位置：/target/releases/elasticsearch-analysis-ik-1.2.9.zip）复制到analysis-ik下并将其中的jar解压出来
+
+### 修改elasticsearch.yml配置
+在elasticsearch.yml的最后添加
+```java
+    index:  
+      analysis:                     
+        analyzer:        
+          ik:  
+              alias: [ik_analyzer]  
+              type: org.elasticsearch.index.analysis.IkAnalyzerProvider  
+          ik_max_word:  
+              type: ik  
+              use_smart: false  
+          ik_smart:  
+              type: ik  
+              use_smart: true  
+```
+或者
+```java
+index.analysis.analyzer.ik.type : "ik"  
+```
+
+### 重启ES
+```java
+sudo service elasticsearch restart
+sudo service elasticsearch status
+```
+
+### 验证
+执行
+```java
+    curl -XPOST  "http://localhost:9200/${index}/_analyze?analyzer=ik&pretty=true&text=我是中国人"  
+```
+验证结果是否正确。
+注意：必须先创建索引，才能验证。
