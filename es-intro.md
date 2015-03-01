@@ -1,8 +1,9 @@
-# 官方文档
+# 文档
 
 * 《[The Definitive Guide](http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/index.html)》: 适合初学者
    请先阅读 《[mappings and analysis](http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/mapping-analysis.html)》
 * 《[reference](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/index.html)》 : 需要有一定的搜索引擎基础、熟悉分布式系统、熟悉query DSL等。
+* [Elasticsearch 中文总结](http://learnes.net/)
 
 
 
