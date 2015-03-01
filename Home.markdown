@@ -7,4 +7,5 @@
     * [简介](es-intro)
     * [安装](es-install)
     * [示例](es-search)
-  
+    * [拼音/自动完成](es-pinyin)
+  	
