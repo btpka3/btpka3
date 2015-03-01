@@ -4,4 +4,5 @@
 * ElasticSearch
     * [简介](es-intro)
     * [安装](es-install)
-    * [插件安装](es-plugin-install)
+    * [示例](es-search)
+  
