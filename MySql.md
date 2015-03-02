@@ -21,6 +21,107 @@
 ## 查看
 
 ```sql
+-- 查看所支持的引擎和默认值
+show engines
+
+-- 查看既有表和对应的引擎
+select table_name, engine from INFORMATION_SCHEMA.TABLES where table_schema = 'myDb';
+```
+
+
+## 修改
+
+持久修改默认引擎： `vi  /etc/my.cnf`，重启生效：
+
+```cnf
+[mysqld]
+default-storage-engine=MyISAM
+```
+临时修改默认引擎，重启失效。
+
+```sql
+SET GLOBAL storage_engine='MyISAM';
+SET SESSION storage_engine='MyISAM';
+```
+
+修改既有表的引擎
+
+``` sql
+ALTER TABLE t ENGINE = MYISAM;
+```
+
+
+
+
+# 备份与恢复
+1. 要用bin-log。
+1. 要定期全量备份，且记录该对应bin-log的File和Position。
+1. 清除较旧的bin-log前，要确保全量备份已经包含该bin-log中的内容。
+1. 恢复时，需要：
+    1. 恢复全量备份
+    1. 在增量从bin-log中从全量的位置开始，恢复到故障发前的position或日期，参考[这里](http://dev.mysql.com/doc/refman/5.6/en/point-in-time-recovery.html)。
+1. 如果在master-slave模式上进行备份和回滚，对应bin-log的File和Position可以通过 `SHOW slave STATUS` 获取，备份前可以 `STOP SLAVE`（而不必像在master上那样必须先锁表）。
+
+
+# 存储过程、函数
+
+参考 [create-procedure](http://dev.mysql.com/doc/refman/5.6/en/create-procedure.html)、
+[stored-programs-defining](http://dev.mysql.com/doc/refman/5.6/en/stored-programs-defining.html)
+
+创建存储过程，需要 开启 [log_bin_trust_function_creators](http://dev.mysql.com/doc/refman/5.6/en/server-system-variables.html#sysvar_log_bin_trust_function_creators)、或者拥有 `SUPER` 权限。
+开启了二进制日期的情况下，还需要声明称成：`DETERMINISTIC`、`NO SQL`、或者 `READS SQL DATA`。
+
+简单示例：
+
+```sql
+use test;
+
+drop function has_trade_lastyear;
+delimiter //
+CREATE FUNCTION has_trade_lastyear(
+    userId varchar(255)
+) RETURNS BOOLEAN 
+ READS SQL DATA
+SQL SECURITY DEFINER
+BEGIN
+    DECLARE e boolean;
+    select count(*) from naladb.trade  
+     where buyer_id = userId 
+       and date_created between '2012-10-01' and '2014-03-01' 
+       and total_price > 14000 and  status IN (4,14,15) 
+      INTO e;
+    return (e>0);
+END//
+delimiter ;
+
+# 使用
+select * from naladb.user where   has_trade_lastyear(id) limit 10;
+```
+
+--------------------------------------------
+TODO 分解、合并
+# 存储引擎
+
+* MyISAM
+
+    * 每张表被存为3个文件。*.frm —— 表格定义文件，*.MYD——数据文件，*.MY——索引文件
+    * 查询快
+    * 不支持事务
+    * 不支持外键
+    * 支持全文索引
+
+* InnoDB
+
+    * 从 5.5.5 开始是默认引擎。
+    * 更新快
+    * 支持事务
+    * 支持外键
+    * 不支持全文索引
+
+
+## 查看
+
+```sql
 
 -- 查看所支持的引擎和默认值
 show engines
