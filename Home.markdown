@@ -7,6 +7,10 @@
     * [示例](md-demo)
 * CentOS
     * [CentOS基础设置](centos-base-setup)
+* Bash
+    * [bash 总结](bash-summary)
+* Vim
+    * [vim 总结](vim-summary)
 * Java
     * [JDK安装](java-jdk-install)
     * [Java调优总结](java-tuning)
