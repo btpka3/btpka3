@@ -7,7 +7,7 @@
     * [示例](md-demo)
 * CentOS
     * [CentOS基础设置](centos-base-setup)
-* java
+* Java
     * [JDK安装](java-jdk-install)
 * ssh
     * [总结](ssh-summary)
