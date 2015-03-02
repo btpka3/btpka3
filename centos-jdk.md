@@ -27,3 +27,23 @@ CentOS 下安装JDK
     
     [root@locahost ~] ln -s -T $JAVA_HOME/bin/java /usr/bin/java  # 如果是用RPM的bin包安装的，则跳过此步骤。
     ``` 
+
+# 安装JDK
+
+JDK版本统一使用1.7.0_60
+
+可以到 `smb://wiki.lizi.com/share on wiki.lizi.com/java/jdk-7u60-linux-x64.tar.gz` 下载。
+
+```sh
+tar zxvf jdk-7u60-linux-x64.tar.gz -C /usr/local/
+
+# 修改环境变量
+vi /etc/profile.d/lizi.sh
+export JAVA_HOME=/usr/local/jdk1.7.0_60
+export PATH=$JAVA_HOME/bin:$PATH
+
+# 重新登录后验证
+java -version
+```
+
+ 
