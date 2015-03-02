@@ -40,7 +40,12 @@
 * [mysql](MySql) TODO 分解/合并
     * [MySql 安装](mysql-install)
     * [MySql 调优](mysql-tuning)
-    * [MySql主从复制](mysql-replication)
+    * [MySql 主从复制](mysql-replication)
+    * [MySql 读写分离](mysql-rw-splitting) FIXME 旭阳总结，未验证
+* ZooKeeper
+    * [ZooKeeper简介](zk-intro)
+    * [ZooKeeper安装](zk-install)   TODO 合并
+    * [ZooKeeper单机集群配置示例](zk-cluster-demo)
 * ElasticSearch
     * [简介](es-intro)
     * [安装](es-install)
