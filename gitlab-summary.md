@@ -385,3 +385,11 @@ sudo -u git -H bundle exec rake assets:clean assets:precompile cache:clear RAILS
 sudo service gitlab start
 
 ```
+
+
+# 账户解锁
+
+```sh
+mysql -h 192.168.101.80 -u git -pnalanala gitlabhq_production
+update set locked_at=null where username='xxx'
+```
