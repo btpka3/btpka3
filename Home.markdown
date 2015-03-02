@@ -58,3 +58,12 @@
 * MongoDB                TODO 合并 [mongodb](mongodb)、
     * [mongoDB 简介](mongo-intro)
     * [mongoDB 安装](mongo-install)  TODO 合并
+    * [mongoDB 使用总结](mongo-summary)
+* CAS
+    * [CAS 简介](cas-intro)
+* Cassandra  —— 暂时放弃使用
+    * [Cassandra 简介](cassandra-intro)
+    * [Cassandra 安装](cassandra-install)
+    * [Cassandra cql](cassandra-cql)
+    * [Cassandra cql示例](cassandra-cql-demo)
+    * [java客户端示例，Spring-data-cassandra示例](https://github.com/btpka3/btpka3.github.com/tree/master/java/first-cassandra)
