@@ -10,6 +10,8 @@
 * Java
     * [JDK安装](java-jdk-install)
     * [Java调优总结](java-tuning)
+    * [Java JSR 规范](java-jsr)
+    * [java servlet总结](java-servlet)
 * ssh
     * [总结](ssh-summary)
 * https
@@ -22,7 +24,7 @@
 * Jenkins
     * [Jenkins总结](jenkins-summary)
 * Gitlab
-    * [](gitlab-summary)
+    * [gitlab总结](gitlab-summary)
 * ElasticSearch
     * [简介](es-intro)
     * [安装](es-install)
