@@ -5,7 +5,8 @@
 * 《[reference](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/index.html)》 : 需要有一定的搜索引擎基础、熟悉分布式系统、熟悉query DSL等。
 * [Elasticsearch 中文总结](http://learnes.net/)
 
-
+* ??? http://donlianli.iteye.com/blog/1924721
+* ??? http://blog.csdn.net/laigood/article/details/8733292
 
 
 
