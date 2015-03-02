@@ -31,8 +31,7 @@ CentOS 下安装JDK
 # 安装JDK
 
 JDK版本统一使用1.7.0_60
-
-可以到 `smb://wiki.lizi.com/share on wiki.lizi.com/java/jdk-7u60-linux-x64.tar.gz` 下载。
+ 
 
 ```sh
 tar zxvf jdk-7u60-linux-x64.tar.gz -C /usr/local/
