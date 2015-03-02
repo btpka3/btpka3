@@ -1,4 +1,5 @@
-CentOS 下安装JDK
+# Linux 下安装
+## 二进制包安装
 
 1. 从[oracle官网](http://www.oracle.com/technetwork/java/javase/downloads/index.html)下载所需的JDK二进制安装包，并保存到 `/data/tmp/` 目录下。
 1. 安装
@@ -28,8 +29,7 @@ CentOS 下安装JDK
     [root@locahost ~] ln -s -T $JAVA_HOME/bin/java /usr/bin/java  # 如果是用RPM的bin包安装的，则跳过此步骤。
     ``` 
 
-# 安装JDK
-
+## 压缩包安装
 JDK版本统一使用1.7.0_60
  
 
