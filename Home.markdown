@@ -51,5 +51,10 @@
     * [安装](es-install)
     * [示例](es-search)
     * [拼音/自动完成](es-pinyin)
-
-  		
+* sysbench
+    * [sysbench 进行 cpu 测试](sysbench-cpu)
+    * [sysbench 进行磁盘测试](sysbench-fileio)
+    * [sysbench 进行 MySql 压力测试](sysbench-mysql)
+* MongoDB                TODO 合并 [mongodb](mongodb)、
+    * [mongoDB 简介](mongo-intro)
+    * [mongoDB 安装](mongo-install)
