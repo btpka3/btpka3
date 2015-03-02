@@ -5,6 +5,8 @@
 * Markdown
     * [简介](md-intro)
     * [示例](md-demo)
+* CentOS
+    * [CentOS基础设置](centos-base-setup)
 * ssh
     * [总结](ssh-summary)
 * https
