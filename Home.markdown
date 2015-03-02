@@ -7,6 +7,8 @@
     * [示例](md-demo)
 * CentOS
     * [CentOS基础设置](centos-base-setup)
+* java
+    * [JDK安装](java-jdk-install)
 * ssh
     * [总结](ssh-summary)
 * https
@@ -16,6 +18,10 @@
     * [分支管理](git-branch)
 * Tengine
     * [总结](tengine-summary)
+* Jenkins
+    * [Jenkins总结](jenkins-summary)
+* Gitlab
+    * [](gitlab-summary)
 * ElasticSearch
     * [简介](es-intro)
     * [安装](es-install)
