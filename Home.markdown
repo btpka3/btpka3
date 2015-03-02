@@ -27,12 +27,16 @@
 * Git
     * [总结](git-summary)
     * [分支管理](git-branch)
+* Gitlab
+    * [gitlab总结](gitlab-summary)
 * Tengine
     * [总结](tengine-summary)
 * Jenkins
     * [Jenkins总结](jenkins-summary)
-* Gitlab
-    * [gitlab总结](gitlab-summary)
+* maven
+   * [maven总结](mvn-summary)
+* nexus
+    * [nexus总结](nexus-summary)
 * ElasticSearch
     * [简介](es-intro)
     * [安装](es-install)
