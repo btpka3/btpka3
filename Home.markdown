@@ -57,4 +57,4 @@
     * [sysbench 进行 MySql 压力测试](sysbench-mysql)
 * MongoDB                TODO 合并 [mongodb](mongodb)、
     * [mongoDB 简介](mongo-intro)
-    * [mongoDB 安装](mongo-install)
+    * [mongoDB 安装](mongo-install)  TODO 合并
