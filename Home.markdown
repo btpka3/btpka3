@@ -9,6 +9,7 @@
     * [CentOS基础设置](centos-base-setup)
 * Java
     * [JDK安装](java-jdk-install)
+    * [Java调优总结](java-tuning)
 * ssh
     * [总结](ssh-summary)
 * https
