@@ -17,6 +17,9 @@
 
     PS: 尚未正式发布的 2.8 版本增强了默认存储引擎——MMAPv1，使其允许 [collection/表 级别](http://docs.mongodb.org/v2.8/release-notes/2.8/)的锁。并且新增了 WiredTiger 引擎，后者提供 document/行记录 级别的锁和压缩。 敬请期待吧！
 
+## 客户端 
+第三方提供的 GUI 客户端 [Robomongo](http://robomongo.org/)
+
 # 基本使用
 
 ```js
