@@ -17,7 +17,7 @@
 * jetty
     * [jetty总结](jetty-summary)
 * redis
-    * [redis总结](redis-summary)
+    * [redis总结](redis-summary)  TODO 合并
 * rabbitMq
     * [RabbitMq总结](rabbitmq-summary)
 * ssh
@@ -37,6 +37,10 @@
    * [maven总结](mvn-summary)
 * nexus
     * [nexus总结](nexus-summary)
+* [mysql](MySql) TODO 分解/合并
+    * [MySql 安装](mysql-install)
+    * [MySql 调优](mysql-tuning)
+    * [MySql主从复制](mysql-replication)
 * ElasticSearch
     * [简介](es-intro)
     * [安装](es-install)
