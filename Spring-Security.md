@@ -1,6 +1,117 @@
-##  概念
-*   Authentication
-*   Principal
+
+
+Spring Security 
+
+# 解析总结
+
+## 通过AOP对Bean进行权限控制
+
+### 配置解析
+
+```xml
+// 1. servlet 级别的 Spring 配置文件中配置
+<context:component-scan base-package="me.test" />
+<sec:global-method-security pre-post-annotations="enabled" proxy-target-class="true" />
+
+// 2. spring-security-config 对 <sec> spring 命名空间进行解析
+SecurityNamespaceHandler -> GlobalMethodSecurityBeanDefinitionParser 解析，
+通过 SecuredAnnotationSecurityMetadataSource 等 MethodSecurityMetadataSource 获取要进行安全控制的bean,
+通过 注册 MethodSecurityMetadataSourceAdvisor 对上述bean进行aop
+```
+
+### 调用解析
+
+```txt
+SecuredAnnotationSecurityMetadataSource#getAttributes()
+MethodSecurityInterceptor.obtainSecurityMetadataSource()
+MethodInvocationPrivilegeEvaluator#isAllowed()
+
+MethodSecurityMetadataSourceAdvisor#getAdvice()
+MethodSecurityInterceptor#invoke()
+MethodSecurityInterceptor#beforeInvocation()
+AffirmativeBased#decide()
+WebExpressionVoter#vote()
+```
+
+## 通过Filter对URL进行权限控制
+
+### 配置解析
+
+```txt
+SecurityNamespaceHandler -> HttpSecurityBeanDefinitionParser -> HttpConfigurationBuilder
+
+HttpConfigurationBuilder#createFilterSecurityInterceptor()  
+        // 创建 FilterSecurityInterceptor bean
+FilterInvocationSecurityMetadataSourceParser#createSecurityMetadataSource()
+        // 创建 ExpressionBasedFilterInvocationSecurityMetadataSource，并保存 <sec:http>/<sec:intercept-url>; 
+        // 将其注入到 FilterSecurityInterceptor 中
+```
+
+### 调用解析
+
+```txt
+FilterSecurityInterceptor#doFilter()
+FilterSecurityInterceptor#invoke()
+FilterSecurityInterceptor#beforeInvocation()
+AffirmativeBased#decide()
+AccessDecisionVoter#vote()
+```
+## 通过JSP标签进行权限控制
+
+```txt
+JspAuthorizeTag#authorizeUsingUrlCheck()
+DefaultWebInvocationPrivilegeEvaluator#isAllowed()
+FilterSecurityInterceptor#getAccessDecisionManager().decide()
+AffirmativeBased#decide()
+AccessDecisionVoter#vote()
+```
+
+## Spring Security 的 Grails 插件解析
+仅仅通过 FilterSecurityInterceptor 进行控制，而没有使用 MethodSecurityInterceptor。
+因此，只能对URL进行控制，@Secured 注解只能使用在 Controller 的 Action 上，而无法使用在 Service 等 Spring bean 上。
+具体请参考 SpringSecurityCoreGrailsPlugin.groovy。
+
+
+### 权限检查
+
+```txt
+FilterSecurityInterceptor#beforeInvocation()
+AuthenticatedVetoableDecisionManager.decide()
+AccessDecisionVoter#vote()                    
+
+// 通过SpringSecurityUtils.java 会发现有以下 AccessDecisionVoter：
+//    authenticatedVoter  : org.springframework.security.access.vote.AuthenticatedVoter 
+//    roleVoter           : org.springframework.security.access.vote.RoleHierarchyVoter
+//    webExpressionVoter  : grails.plugin.springsecurity.web.access.expression.WebExpressionVoter
+//    closureVoter        : grails.plugin.springsecurity.access.vote.ClosureVoter
+// 主要通过 DefaultWebSecurityExpressionHandler 执行Spring Expression 进行检查。
+
+DefaultWebSecurityExpressionHandler#createSecurityExpressionRoot()
+WebSecurityExpressionRoot#xxx()                 // 也即 @Secured 注解中可以使用的 方法都在这里定义。
+WebSecurityExpressionRoot#getAuthoritySet()     // 通过从当前 authentication.getAuthorities() 获取权限
+```
+
+###  登录流程
+
+```txt
+// request 1 : 用户尚未登录，访问需要登录后才能访问的URL
+                                                // “权限检查” 流程中抛出 AuthenticationCredentialsNotFoundException
+ExceptionTranslationFilter#doFilter()           // 捕获异常，保存当前访问的URL到requestCache，并引导用户开始登录流程
+CasAuthenticationEntryPoint#commence()          // 将浏览器 301 重定向到 cas 的登录URL，带上 `service` 回调 URL
+
+// request 2 : 在 cas 上完成登录，携带 `ticket` 参数访问前面 `service` URL
+CasAuthenticationFilter#attemptAuthentication() // 创建 UsernamePasswordAuthenticationToken：
+                                                //  username="_cas_stateful_" 或者"_cas_stateless_"; 
+                                                //  password=从cas服务器301跳转带回来的一次性ticket
+                                                //  details=远程IP地址和当前sessionId
+ProviderManager#authenticate()
+CasAuthenticationProvider#authenticate()        // UsernamePasswordAuthenticationToken -> CasAuthenticationToken
+                                                // NOTICE：在这一步，GrailsUser 被封装成 CasAuthenticationToken，权限也进行了处理
+CasAuthenticationProvider#authenticateNow()     // service ticket -> cas server -> userId
+CasAuthenticationProvider#loadUserByAssertion()
+UserDetailsByNameServiceWrapper#loadUserDetails()
+UserDetailService#loadUserByUsername()          // 通过 userId 查询数据库，构建 UserDetails/GrailsUser 对象，并包含权限列表
+```
 
 
 ## CAS
