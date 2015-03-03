@@ -1,15 +1,16 @@
-
 参考：
-http://www.datastax.com/documentation/cassandra/2.0/cassandra/gettingStartedCassandraIntro.html
-
-http://www.datastax.com/documentation/cql/3.1/cql/cql_intro_c.html
-
-http://www.datastax.com/documentation/developer/java-driver/2.1/java-driver/whatsNew2.html
-
-http://www.datastax.com/drivers/java/2.1/
-
-http://www.ibm.com/developerworks/cn/opensource/os-apache-cassandra/
-
+* cassandra [documentation](http://www.datastax.com/documentation/cassandra/2.0/cassandra/gettingStartedCassandraIntro.html)
+* cql : [3.1](http://www.datastax.com/documentation/cql/3.1/cql/cql_intro_c.html)
+* [cassandra 2.1 新特性](http://www.datastax.com/documentation/developer/java-driver/2.1/java-driver/whatsNew2.html)
+* Java driver : [home page](http://www.datastax.com/drivers/java/2.1/)、
+ [Architectural overview](http://www.datastax.com/documentation/developer/java-driver/2.1/common/drivers/introduction/introArchOverview_c.html)、
+[github](https://github.com/datastax/java-driver)
+* [考虑 Apache Cassandra 数据库](http://www.ibm.com/developerworks/cn/opensource/os-apache-cassandra/)
+* spring-data-cassandra : [1.1.1 reference](http://docs.spring.io/spring-data/cassandra/docs/1.1.1.RELEASE/reference/html/)
+* [关于Cassandra的错误观点](http://www.infoq.com/cn/articles/cassandra-mythology)
+* [MongoDB to Cassandra Migrations](http://planetcassandra.org/mongodb-to-cassandra-migration/)
+* [HBase 在淘宝的应用和优化](http://www.iteye.com/magazines/83)
+* [HBase vs Cassandra：我们迁移系统的原因](http://www.csdn.net/article/2010-11-29/282698)
 
 
 # 2015-01-05 调查总结
