@@ -51,6 +51,7 @@
 * 服务器管理
     * CentOS
         * [CentOS基础设置](centos-base-setup)
+    * [Ubuntu](ubuntu)
     * Bash
         * [bash 总结](bash-summary)
     * Vim
