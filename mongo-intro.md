@@ -20,6 +20,9 @@
 ## 客户端 
 第三方提供的 GUI 客户端 [Robomongo](http://robomongo.org/)
 
+## 参考
+* [MongoDB. This is not the database you are looking for.](http://patrickmcfadin.com/2014/02/11/mongodb-this-is-not-the-database-you-are-looking-for/)
+
 # 基本使用
 
 ```js
