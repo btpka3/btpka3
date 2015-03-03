@@ -10,7 +10,8 @@
         * [JDK安装](java-jdk-install)
         * [Java调优总结](java-tuning)
         * [Java JSR 规范](java-jsr)
-        * [java servlet总结](java-servlet)
+        * [Java servlet总结](java-servlet)
+        * [Java tips](java-tips)
     * Groovy
         * [Groovy 总结](groovy)
     * [Spring Framework](spring-framework)
