@@ -43,6 +43,11 @@ Cassandra是 NoSQL 中一个后起之秀，比如
 
 
 # 概念
+* cluster. 一组用于存储数据的节点。
+* replication. 将数据副本拷贝到集群中其他节点的过程，用以保证可靠性和容错。
+* Partitioner. 负责负载均衡，将数据均衡的分发到集群中的节点上。
+* Data Center. 根据复制目的，集群内的一组一起配置的节点。
+
 ## keyspace
 keysppace可以大致当作普通关系数据库中的schema的概念。主要用于控制 Replication。不同 Replication 策略的表应当放到不同的keyspace中。
 
