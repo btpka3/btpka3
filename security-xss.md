@@ -1,16 +1,19 @@
 
 
-跨站脚本攻击(XSS - Cross Site Scripting)
+# 跨站脚本攻击(XSS - Cross Site Scripting)
 
-工具参考 Acunetix_Web_Vulnerability_Scanner_V9
-arachni-0.4.2-0.4
-Pangolin_jb51.rar
-==原理==
+## 工具参考
+
+* Acunetix_Web_Vulnerability_Scanner_V9
+* arachni-0.4.2-0.4
+* Pangolin_jb51.rar
+
+## 原理
 Web程序将数据直接作为HTML显示（未进行HTML特殊字符转义、script脚本过滤），在浏览器端显示的这些内容的时候，激活其中包含的JavaScript恶意脚本，这些脚本可以用来获取用户敏感信息，追踪用户浏览历史、将用户诱导至其他网站等。
 
 更多攻击方式请参考：[https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet XSS Filter Evasion Cheat Sheet]
 
-==分类==
+## 分类
 
 <table>
   <tr>
