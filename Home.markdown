@@ -63,6 +63,8 @@
     * [mongoDB 简介](mongo-intro)
     * [mongoDB 安装](mongo-install)  TODO 合并
     * [mongoDB 使用总结](mongo-summary)
+* Spring Security
+    * [Spring Security 总结](spring-security)
 * CAS
     * [CAS 简介](cas-intro)
 * Cassandra  —— 暂时放弃使用
