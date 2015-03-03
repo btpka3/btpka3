@@ -1,4 +1,4 @@
-==攻击原理==
+## 攻击原理
 Web程序进行重要更新操作的URL保护不当，只要用户已经认证，就可以简单地发送请求进行该操作。攻击流程示例：
 <ol>
 <li>某个允许“一个月内免登录”的A博客系统赠送积分，在用户已经登录的前提下，使用以下URL的GET请求进行积分赠送：
@@ -19,14 +19,15 @@ http://blog.a.com/curUser/score?transto=zhang3&amp;amount=100
 
 </ol>
 
-==无效的预防措施==
-===使用Secret Cookie===
+## 无效的预防措施
+### 使用Secret Cookie
 Secret Cookie是指只能在HTTPS协议下的保护下才能使用的Cookie。不能使用的原因是：在发送HTTP请求时都会携带上请求域下所有的Cookie（比如jsessionid）。
 下面的HTTP响应片段是设置了一个既是Secure又是HTTPOnly的Cookie。
 <source>
   Set-Cookie: SSID=Ap4P….GTEq; Domain=.foo.com; Path=/; Expires=Wed, 13-Jan-2021 22:23:01 GMT; Secure;  HttpOnly
 </source>
-===只允许POST请求===
+
+### 只允许POST请求
 因为攻击者可以填写隐藏的表单，并诱导受害者点击以出发submit请求。
 ===多步骤事务===
 将一个事务分成多个步骤（HTTP请求），并不能完全胜任预防工作。只要攻击者能够预测、或模拟完整事务的每一个步骤，就仍能够进行攻击。
