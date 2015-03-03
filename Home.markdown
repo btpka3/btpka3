@@ -55,6 +55,7 @@
         * [bash 总结](bash-summary)
     * Vim
         * [vim 总结](vim-summary)
+    * [Upstart](upstart)
     * Tomcat
         * [Tomcat配置总结](tomcat-summary)
     * jetty
