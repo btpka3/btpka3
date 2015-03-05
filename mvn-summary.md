@@ -1,4 +1,15 @@
 
+## 安装
+
+```
+tar zxvf apache-maven-3.2.5-bin.tar.gz -C /usr/local/maven
+
+vi /etc/profile.d/xxx.sh
+export M2_HOME=/usr/local/maven/apache-maven-3.2.5
+export PATH=$M2_HOME/bin:$PATH
+
+```
+
 
 ## 下载源代码
 
