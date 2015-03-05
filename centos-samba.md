@@ -1,3 +1,10 @@
+# ubuntu install
+
+```
+sudo apt-get install samba
+```
+
+
 # 安装
 
 1. 安装samba
