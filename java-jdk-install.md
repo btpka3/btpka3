@@ -37,7 +37,7 @@ JDK版本统一使用1.7.0_60
 tar zxvf jdk-7u60-linux-x64.tar.gz -C /usr/local/java
 
 # 修改环境变量
-vi /etc/profile.d/lizi.sh
+vi /etc/profile.d/xxx.sh
 export JAVA_HOME=/usr/local/java/jdk1.7.0_60
 export PATH=$JAVA_HOME/bin:$PATH
 
