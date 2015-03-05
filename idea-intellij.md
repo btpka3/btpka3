@@ -17,7 +17,7 @@ Icon=/usr/local/idea/idea-IU-139.1117.1/bin/idea.png
 cd /usr/local/idea/idea-IU-139.1117.1/bin/
 sudo cp idea64.vmoptions idea64.vmoptions.bak
 sudo vi idea64.vmoptions           // 修改JVM参数
-
+sudo vi idea.sh                            // 在最开始加入  `. /etc/profile.d/xxx.sh`
 ```
 
 
