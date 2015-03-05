@@ -1,5 +1,19 @@
 
-# 移除事务、数据源
+## 安装
+
+```
+sudo mkdir /usr/local/grails
+sudo unzip ~/Downloads/grails-2.3.11.zip -d /usr/local/grails
+
+vi /etc/profile.d/xxx.sh
+export GRAILS_HOME=/usr/local/grails/grails-2.3.11
+export PATH=$GRAILS_HOME/bin:$PATH
+
+grails --version
+```
+
+
+## 移除事务、数据源
 1. 修改 BuildConfig.groovy
 
     ```groovy
