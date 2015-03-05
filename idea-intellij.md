@@ -1,3 +1,26 @@
+# 安装
+
+```
+sudo mkdir /usr/local/idea
+sudo tar zxvf ~/Downloads/ideaIU-14.0.3.tar.gz -C /usr/local/idea
+
+vi ~/Desktop/idea14.desktop
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Icon[en_US]=gnome-panel-launcher
+Name[en_US]=idea-IU-14.0.3
+Exec=/usr/local/idea/idea-IU-139.1117.1/bin/idea.sh
+Icon=/usr/local/idea/idea-IU-139.1117.1/bin/idea.png
+
+cd /usr/local/idea/idea-IU-139.1117.1/bin/
+sudo cp idea64.vmoptions idea64.vmoptions.bak
+sudo vi idea64.vmoptions           // 修改JVM参数
+
+```
+
+
 
 # ubuntu 下中文字体
 
@@ -44,3 +67,4 @@ Editor :
 ```
 
 
+	
