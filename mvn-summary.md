@@ -8,6 +8,7 @@ vi /etc/profile.d/xxx.sh
 export M2_HOME=/usr/local/maven/apache-maven-3.2.5
 export PATH=$M2_HOME/bin:$PATH
 
+mvn --version
 ```
 
 
