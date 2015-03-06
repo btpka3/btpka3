@@ -30,15 +30,16 @@
     ``` 
 
 ## 压缩包安装
-JDK版本统一使用1.7.0_60
+
  
 
 ```sh
-tar zxvf jdk-7u60-linux-x64.tar.gz -C /usr/local/java
+sudo mkdir /usr/local/java
+sudo tar zxvf jdk-8u40-linux-x64.tar.gz -C /usr/local/java
 
 # 修改环境变量
 vi /etc/profile.d/xxx.sh
-export JAVA_HOME=/usr/local/java/jdk1.7.0_60
+export JAVA_HOME=/usr/local/java/jdk1.8.0_40
 export PATH=$JAVA_HOME/bin:$PATH
 
 # 重新登录后验证
