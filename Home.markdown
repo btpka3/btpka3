@@ -16,8 +16,8 @@
         * [Java JSR 规范](java-jsr)
         * [Java servlet总结](java-servlet)
         * [Java tips](java-tips)
-    * Groovy
-        * [Groovy 总结](groovy)
+    * [Groovy](groovy)
+    * [Grails](grails)
     * [Spring Framework](spring-framework)
     * Spring Security
         * [Spring Security 总结](spring-security)
