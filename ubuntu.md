@@ -91,11 +91,6 @@ gnome-terminal : Edit : Profiles : New : xxx : 并设置默认为该 profile
 : Title and Command 
    : 选中 Run a cunstom command instead of my shell，并输入 `env TERM=xterm-color /bin/bash`
 
-# 使命令行提提示符彩色显示
-vi /etc/profile.d/xxx.sh
-#!/bin/bash
-export TERM=xterm-color
-
 # 使命令行提示符只显示父目录，而非整个路径
 vi ~/.bashrc
 查找 PS1 并将其中最后的 \w 替换为 \W
