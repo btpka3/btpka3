@@ -36,8 +36,7 @@
         * [gitlab总结](gitlab-summary)
     * Jenkins
         * [Jenkins总结](jenkins-summary)
-    * maven
-        * [maven总结](mvn-summary)
+    * [maven](maven)
     * nexus
         * [nexus总结](nexus-summary)
 
