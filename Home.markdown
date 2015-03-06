@@ -60,6 +60,7 @@
     * [Ubuntu](ubuntu)
     * Bash
         * [bash 总结](bash-summary)
+    * [samba](samba)
     * Vim
         * [vim 总结](vim-summary)
     * [Upstart](upstart)
