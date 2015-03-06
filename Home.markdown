@@ -63,8 +63,7 @@
     * Vim
         * [vim 总结](vim-summary)
     * [Upstart](upstart)
-    * Tomcat
-        * [Tomcat配置总结](tomcat-summary)
+    * [Tomcat](tomcat)
     * jetty
         * [jetty总结](jetty-summary)
     * redis
