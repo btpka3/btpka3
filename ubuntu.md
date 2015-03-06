@@ -89,7 +89,8 @@ gnome-terminal : Edit : Profiles : New : xxx : 并设置默认为该 profile
    : 取消选中 Use the system fixed width font，并选择使用 Monospace 14 / ubuntu mono 14
    : 选中 Use custom default terminal size ： 120x30
 : Title and Command 
-   : 选中 Run a cunstom command instead of my shell，并输入 `env TERM=xterm-color /bin/bash`
+   : 选中 Run command  as login shell
+   // : 选中 Run a cunstom command instead of my shell，并输入 `env TERM=xterm-color /bin/bash`
 
 # gnome-terminal 彩色显示
 vi /etc/profile.d/xxx.sh
