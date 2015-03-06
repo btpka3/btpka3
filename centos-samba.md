@@ -1,27 +1,24 @@
-# ubuntu install
+# samba
 
-```
-sudo apt-get install samba
-```
+## centos
 
-
-# 安装
+###  安装
 
 1. 安装samba
 
     ```sh
-[root@localhost ~]# rpm -qa | grep samba   # 确认samba是否已经安装
-[root@localhost ~]# yum list samba            #  查看可安装的samba版本
-[root@localhost ~]# yum install samba        #  安装
+    rpm -qa | grep samba   # 确认samba是否已经安装
+    yum list samba            #  查看可安装的samba版本
+    yum install samba        #  安装
     ```
 
 1. 设置默认运行级别
 
     ```sh
-[root@localhost ~]# chkconfig --list smb                     # 查看smb默认运行级别
-[root@localhost ~]# chkconfig --list nmb                     # 查看nmb默认运行级别
-[root@localhost ~]# chkconfig --level 345 smb on       # 设置smb默认运行级别 
-[root@localhost ~]# chkconfig --level 345 nmb on       # 设置smb默认运行级别
+    chkconfig --list smb                     # 查看smb默认运行级别
+    chkconfig --list nmb                     # 查看nmb默认运行级别
+    chkconfig --level 345 smb on       # 设置smb默认运行级别 
+    chkconfig --level 345 nmb on       # 设置smb默认运行级别
     ```
 
 1. （可选）设置防火墙
@@ -121,4 +118,40 @@ sudo apt-get install samba
     ```sh
     [root@localhost ~]# service smb restart
     [root@localhost ~]# service nmb restart
+    ```
+
+
+## ubuntu 
+
+### 安装
+
+```
+sudo apt-get install samba
+```
+	
+### 匿名访问
+
+1. 修改 `vi /etc/samba/smb.conf`
+
+    ```
+    [global]
+    guest account = nobody
+    ```
+
+1. 创建共享目录、并修改权限
+
+    ```
+    mkdir -p /data0/samba/tmp
+    chown -R nobody:nobody /data0/samba/tmp
+    ```
+
+1. 配置 
+
+    ```conf
+    [tmp]
+    path=/data0/samba/tmp
+    browseable = yes
+    writeable = yes
+    guest ok = yes 
+    guest only = yes 
     ```
