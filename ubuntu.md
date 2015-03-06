@@ -32,6 +32,12 @@ apt-file search /path/to/file
 
 ```
 
+# RAR
+
+```
+sudo apt-get install rar
+```
+
 # 中文字体
 参考[这里](http://wiki.ubuntu.com.cn/%E5%AD%97%E4%BD%93)
 
