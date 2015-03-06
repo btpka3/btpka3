@@ -74,8 +74,7 @@
         * [总结](ssh-summary)
     * https
         * [总结](https-summary)
-    * Tengine
-        * [总结](tengine-summary)
+    * [Tengine](tengine)
     * [mysql](MySql) TODO 分解/合并
         * [MySql 安装](mysql-install)
         * [MySql 调优](mysql-tuning)
