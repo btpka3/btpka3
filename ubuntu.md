@@ -40,6 +40,8 @@ sudo apt-get remove xxx        # 如果通过 dpkg 或 apt-get 安装时，依�
 ```
 sudo apt-get install rar                                                 # rar
 sudo apt-get install libreoffice-common                      # libreoffice
+sudo apt-get install gnome-calculator                         # 计算器
+
 ```
 
 # 中文字体
