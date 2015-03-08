@@ -1,3 +1,7 @@
+## 安装
+
+[查看这里](https://www.virtualbox.org/wiki/Linux_Downloads)
+
 ## 网络连接
 1.  网络地址转换（NAT）
 
