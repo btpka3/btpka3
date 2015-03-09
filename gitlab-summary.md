@@ -133,6 +133,8 @@ make install                                          # 安装，默认安装到
 ruby --version
 
 gem install bundler --no-ri --no-rdoc    # 安装 bundler, 可以先参考后续使用Taobao的gem源
+gem install charlock_holmes -v '0.6.9.4'     # root 安装 
+gem install rugged -v '0.21.2'                      # root 安装
 ```
 
 ## 使用RVM安装ruby
@@ -413,4 +415,4 @@ sudo service gitlab start
 ```sh
 mysql -h 192.168.101.80 -u git -pnalanala gitlabhq_production
 update set locked_at=null where username='xxx'
-```
+```	
