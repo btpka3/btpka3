@@ -56,6 +56,7 @@ yum install libicu-devel
 yum install patch 
 yum install gcc-c++
 yum install cmake
+yum install postgresql94-devel
 
 # global install
 make prefix=/usr all doc info
