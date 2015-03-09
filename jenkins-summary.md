@@ -47,6 +47,15 @@
     JENKINS_WAR="/data/software/jenkins/jenkins.war"
     ```
 
+1. 启动
+
+    ```sh
+    systemctl daemon-reload
+
+    sudo /etc/init.d/jenkins restart
+    systemctl restart jenkins.service
+    ```
+
 # nginx 反向代理配置示例
 
 ```text
