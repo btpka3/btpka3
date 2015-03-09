@@ -52,7 +52,8 @@ yum install xmlto
 yum install docbook2X                                      # 需要 EPEL
 ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
 
-yum install libicu-devel 
+yum install libicu-devel
+yum install patch 
 #
 
 # global install
