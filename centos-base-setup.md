@@ -356,5 +356,10 @@ chkconfig --level 2345 ip6tables off
 
 chkconfig --list iptables
 chkconfig --list ip6tables
+
+# for centos 7
+systemctl disable firewalld
+systemctl stop firewalld
+systemctl status firewalld
 ```
 
