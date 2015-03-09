@@ -417,3 +417,21 @@ sudo service gitlab start
 mysql -h 192.168.101.80 -u git -pnalanala gitlabhq_production
 update set locked_at=null where username='xxx'
 ```	
+
+# STMP
+
+参考[这里](http://elijahpaul.co.uk/using-an-smtp-server-with-gitlab/) :
+
+## 修改 `` :
+
+```
+vi config/environments/production.rb
+# config.action_mailer.delivery_method = :sendmail
+config.action_mailer.delivery_method = :stmp
+
+cp config/initializers/smtp_settings.rb.sample config/initializers/smtp_settings.rb
+vi config/initializers/smtp_settings.rb
+```
+
+ 
+
