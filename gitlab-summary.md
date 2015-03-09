@@ -114,6 +114,20 @@ yum -y groupinstall 'Development Tools'
 yum -y install readline readline-devel ncurses-devel gdbm-devel glibc-devel tcl-devel openssl-devel curl-devel expat-devel db4-devel byacc sqlite-devel libyaml libyaml-devel libffi libffi-devel libxml2 libxml2-devel libxslt libxslt-devel libicu libicu-devel system-config-firewall-tui redis sudo wget crontabs logwatch logrotate perl-Time-HiRes
 ``` 
 
+## 使用源码安装ruby
+
+```
+wget http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.1.tar.gz
+tar zxvf ruby-2.2.1.tar.gz
+cd ruby-2.2.1
+
+./configure
+make                                                    # 编译
+make install                                          # 安装，默认安装到 /usr/local
+
+
+```
+
 ## 使用RVM安装ruby
 [111](http://werein.cz/blog/en/posts/gitlab-on-rvm)
 参考 [ruby](ruby)，和[Installing Gitlab with RVM](https://github.com/gitlabhq/gitlab-public-wiki/wiki/Installing-Gitlab-with-RVM)
