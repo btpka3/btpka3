@@ -55,7 +55,7 @@ ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
 yum install libicu-devel
 yum install patch 
 yum install gcc-c++
-
+yum install cmake
 
 # global install
 make prefix=/usr all doc info
