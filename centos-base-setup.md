@@ -13,7 +13,15 @@ LVM 卷组
     Sda1            500     /boot      ext4            yes
     Sda2         476439     vg_h01     物理卷组LVM      yes
 ```
+
+
+```
+yum install net-tools              # centos 7 最小化安装找不到 ifconfig 命令
+```
+
+
 ## 修改环境变量
+
 ```bash
 root@h01 ~]# vi /etc/profile.d/custom.sh
 export EDITOR=vim
@@ -126,12 +134,14 @@ DNS1=8.8.8.8
         ```
 
 4.  修改对主机名的本地DNS解析
+
     ```sh
 [root@h01 ~]# vi /etc/hosts             # 追加以下一行
 # 格式：内网IP地址 主机名，可防止RMI连接 127.0.0.1出错
 000.000.000.000 h01                     
     ```
 5.  检查网络的启动级别和启动状态
+
 ```sh
 [root@h01 ~]# chkconfig --list network
 network         0:off   1:off   2:on    3:on    4:on    5:on    6:off
@@ -216,7 +226,7 @@ Linux localhost.localdomain 2.6.32-279.el6.x86_64 #1 SMP Fri Jun 22 12:19:21 UTC
 ## vim
 ```sh
 # 安装
-[root@h01 ~]# yum install vim-X11 vim-common vim-enhanced vim-minimal
+yum install vim-common vim-enhanced vim-minimal
 
 # 修改环境变量
 [root@h01 ~]# vi /etc/profile.d/custom.sh
