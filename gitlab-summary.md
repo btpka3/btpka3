@@ -117,6 +117,8 @@ yum -y install readline readline-devel ncurses-devel gdbm-devel glibc-devel tcl-
 ## 使用源码安装ruby
 
 ```
+yum install libffi-devel
+
 wget http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.1.tar.gz
 tar zxvf ruby-2.2.1.tar.gz
 cd ruby-2.2.1
@@ -125,7 +127,7 @@ cd ruby-2.2.1
 make                                                    # 编译
 make install                                          # 安装，默认安装到 /usr/local
 
-
+ruby --version
 ```
 
 ## 使用RVM安装ruby
