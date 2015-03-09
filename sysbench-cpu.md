@@ -1,7 +1,7 @@
 
 
 # CPU
-通过命令 `cat /proc/cpuinfo|grep "model name"` 查看要对比的CPU信息：
+通过命令 `cat /proc/cpuinfo|grep "model name"` 或者 `nproc` 查看要对比的CPU信息：
 
 * Intel(R) Core(TM) i3-3240 CPU @ 3.40GHz
 * Intel(R) Xeon(R) CPU E31230 @ 3.20GHz
