@@ -41,6 +41,7 @@ sudo apt-get remove xxx        # 如果通过 dpkg 或 apt-get 安装时，依�
 sudo apt-get install rar                                                 # rar
 sudo apt-get install libreoffice-common                      # libreoffice
 sudo apt-get install gnome-calculator                         # 计算器
+sudo apt-get install curl
 
 sudo apt-get install p7zip                                             # 7z
 7z x xxx.7z -r -o /home/xx                                          # 解压
