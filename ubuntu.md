@@ -42,6 +42,9 @@ sudo apt-get install rar                                                 # rar
 sudo apt-get install libreoffice-common                      # libreoffice
 sudo apt-get install gnome-calculator                         # 计算器
 
+sudo apt-get install p7zip                                             # 7z
+7z x xxx.7z -r -o /home/xx                                          # 解压
+7z a -t7z -r manager.7z /home/manager/*                  # 压缩
 ```
 
 # 中文字体
