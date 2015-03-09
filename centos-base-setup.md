@@ -39,6 +39,9 @@ echo "this is the body" | mail  -s "this is the subject" -r "from@test.me" "to@t
 # 额外仓库
 
 ```sh
+# for centos 7
+rpm -ivh http://mirrors.zju.edu.cn/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+
 # for centos 6
 rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 #rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
