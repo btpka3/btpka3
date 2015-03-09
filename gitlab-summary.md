@@ -30,7 +30,7 @@ Description : Git is a fast, scalable, distributed revision control system with 
 
 ```
 
-如果git-scm.com下载太慢，可以从国内镜像网站 http://git.perlchina.org/ 上下载。
+如果git-scm.com下载太慢，可以从 [github](https://github.com/git/git/releases/tag/v2.2.0) 上下载。
 下载tar包：git-2.0.1.tar.gz
 
 ```sh
