@@ -348,6 +348,11 @@ yum update
 如果是本地局域网，可以考虑将防火墙关闭
 
 ```sh
+sestatus             # 查看selinux
+getenforce          # 查看selinux
+setenforce 0       # 临时关闭 selinux
+vi /etc/selinux/config   # SELINUX=enforcing  -> disabled : 关闭
+
 service iptables stop
 service ip6tables stop
 
