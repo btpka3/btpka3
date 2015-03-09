@@ -128,6 +128,8 @@ make                                                    # 编译
 make install                                          # 安装，默认安装到 /usr/local
 
 ruby --version
+
+gem install bundler --no-ri --no-rdoc    # 安装 bundler, 可以先参考后续使用Taobao的gem源
 ```
 
 ## 使用RVM安装ruby
