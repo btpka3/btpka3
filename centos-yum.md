@@ -22,6 +22,9 @@ yum install mysql-community-server
 
 # 安装特定版本号
 yum install mysql-community-server-5.6.20
+
+# 查询谁提供了指定的文件
+yum provides /path/to/your/file
 ```
 
 # 缺点
