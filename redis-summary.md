@@ -114,7 +114,13 @@ TODO 上下合并
     pidfile /data/store/redis/redis.pid
     port 6379
     dir /data/store/redis/
+
+    unixsocket /tmp/redis.sock
+    unixsocketperm 770
     ```
+
+
+## centos 6
 
 1. 准备 init.d 脚本（可以搜索 redis rpm，找到rpm包后解压获取相应的init.d脚本，然后在再其基础上修改配置项）
     ```sh
@@ -229,3 +235,29 @@ TODO 上下合并
     ```sh
     service redis start
     ```
+
+## centos 7
+
+1. `vi /usr/lib/systemd/system/redis.service`
+
+    ```
+    [Unit]
+    Description=Redis Server
+    After=network.target
+
+    [Service]
+    Type=forking                                                                                                                                                                                                       
+    ExecStart=/usr/local/bin/redis-server /home/redis/redis.conf
+    ExecStop=/bin/kill -15 $MAINPID
+    PIDFile=/home/redis/redis.pid
+    Restart=always
+    User=redis
+    LimitNOFILE=65535
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+
+1. `systemctl enable redis`
+
+1. `systemctl start redis`
