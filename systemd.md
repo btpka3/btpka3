@@ -37,3 +37,65 @@ ln -s '/usr/lib/systemd/system/graphical.target' '/etc/systemd/system/default.ta
 |/etc/systemd/user          | Local configuration         |
 |/run/systemd/user          | Runtime units               |
 |/usr/lib/systemd/user      | Units of installed packages |
+
+
+
+## 文件格式 
+
+```
+man systemd.directives
+man systemd.special
+
+man system.unit
+
+[Unit] / [Install]
+Description=xxx
+Documentation=空格分隔参考网址的URL
+Requires=依赖的服务
+RequiresOverridable=
+Requisite=
+RequisiteOverridable=
+Wants=
+BindsTo=
+PartOf=
+Conflicts=
+Before=
+After=
+OnFailure=
+PropagatesReloadTo=
+ReloadPropagatedFrom=
+
+man systemd.service
+[Service]
+Type=
+PIDFile=
+ExecStart=
+ExecStop=
+RestartSec=
+Restart=
+Sockets=
+
+
+man systemd.exec
+[Service], [Socket], [Mount], [Swap]
+WorkingDirectory=
+RootDirectory=
+User=
+Group=
+Nice=
+UMask=
+Environment=
+
+man systemd.resource-control
+[Slice], [Scope], [Service], [Socket], [Mount], [Swap]
+CPUAccounting=
+MemoryAccounting=
+Slice=
+
+man systemd.slice
+man systemd.scope
+man systemd.socket
+man systemd.mount
+man systemd.swap
+
+```
