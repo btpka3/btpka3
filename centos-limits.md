@@ -40,20 +40,13 @@ session required pam_limits.so
 man limits.conf
 ulimit -Ha                                                 # 检查所有硬限制（比如用户最大进程数、可打开的最大文件数）
 ulimit -Sa                                                 # 检查所有软限制
+
 ulimit -n 10240                                         # 临时生效，重启失效
 vi /etc/security/limits.d/xxx.conf              # 如果值太小，则修改该文件，持久生效
-root         soft    nofile         20000
-root         hard    nofile         40000
-root         soft    nproc          20000
-root         hard    nproc          unlimited
-
-*            soft    nofile         20000
-*            hard    nofile         40000
-*            soft    nproc          20000
-*            hard    nproc          40000
+*        -    nofile         65535
+*        -    nproc        40960
 ```
 
 说明：修改配置文件只能对新的session起作用。如果要想即时生效，可以通过 `ulimit -n 20000` 等开启，前提是 新的数值不能超过hard所设定的值。hard值一旦被设定，就不能够再增加。
-
-FIXME : `/etc/security/limits.conf`
+ 
  
