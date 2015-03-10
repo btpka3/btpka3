@@ -20,6 +20,16 @@ systemctl enable graphical.target
 ln -s '/usr/lib/systemd/system/graphical.target' '/etc/systemd/system/default.target'
 ```
 
+## 常用命令
+
+```
+systemctl enable name.service
+systemctl disable name.service
+systemctl status name.service
+systemctl is-enabled name.service
+systemctl list-unit-files --type service
+```
+
 
 ## Available systemd Unit Types
 |Unit Type      |File Extension     |Description|
