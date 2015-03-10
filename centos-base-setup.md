@@ -289,29 +289,7 @@ Linux localhost.localdomain 2.6.32-279.el6.x86_64 #1 SMP Fri Jun 22 12:19:21 UTC
 
 ```
 
-
-## vim
-```sh
-# 安装
-yum install vim-common vim-enhanced vim-minimal
-
-# 修改环境变量
-[root@h01 ~]# vi /etc/profile.d/custom.sh
-alias vi=vim
-
-# 修改配置文件
-[root@h01 ~]# vi ~/.vimrc
-" comment here
-set number
-colors desert
-syntax on
-set ruler
-set showcmd
-set cursorline
-set fileencodings=utf-8,gbk
-```
-
-
+ 
 # CentOS 基础设定
 
 ## 修改主机名，以及对主机名的本地解析
