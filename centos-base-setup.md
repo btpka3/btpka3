@@ -102,7 +102,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 
 1.  设置IP地址
 
-    * centos 6 : 静态IP `vi /etc/sysconfig/network-scripts/ifcfg-eth0` :
+    1. centos 6 : 静态IP `vi /etc/sysconfig/network-scripts/ifcfg-eth0` :
 
         ```sh
         DEVICE="eth0"                               # 设备名称
@@ -123,9 +123,9 @@ vi /etc/sysconfig/i18n   # 永久修改环境
         USERCTL=no                                  # 非root用户不能修改配置
         ```
 
-    * centos 7 : 静态IP `vi /etc/sysconfig/network-scripts/ifcfg-eth0` :
+    1. centos 7 : 静态IP `vi /etc/sysconfig/network-scripts/ifcfg-eth0` :
 
-    * 动态IP
+    1. 动态IP
 
         ```sh
 [root@localhost ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
