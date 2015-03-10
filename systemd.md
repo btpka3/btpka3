@@ -6,6 +6,8 @@
 ```
 # 查看默认启动级别
 systemctl get-default
+systemctl set-default multi-user.target
+
 
 # 修改默认启动级别为3
 systemctl enable multi-user.target
