@@ -102,8 +102,15 @@ vi /etc/sysconfig/i18n   # 永久修改环境
     NETWORKING=yes
     HOSTNAME=h01
     ```
+1. centos 7 通过命令修改 IP 地址
 
-1.  设置IP地址
+    ```
+    yum install NetworkManager-tui
+    nmtui edit enp0s3
+    systemctl restart network.service
+    ```
+
+1.  通过 修改文件 设置IP地址
 
     1. centos 6 : 静态IP `vi /etc/sysconfig/network-scripts/ifcfg-eth0` :
 
