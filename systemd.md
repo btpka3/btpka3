@@ -21,6 +21,22 @@ ln -s '/usr/lib/systemd/system/graphical.target' '/etc/systemd/system/default.ta
 ```
 
 
+## Available systemd Unit Types
+|Unit Type      |File Extension     |Description|
+|---------------|-------------------|-----------|
+|Service unit   |.service           |A system service.|
+|Target unit    |.target            |A group of systemd units.|
+|Automount unit |.automount         |A file system automount point.|
+|Device unit    |.device            |A device file recognized by the kernel.|
+|Mount unit     |.mount             |A file system mount point.|
+|Path unit      |.path              |A file or directory in a file system.|
+|Scope unit     |.scope             |An externally created process.|
+|Slice unit     |.slice             |A group of hierarchically organized units that manage system processes.|
+|Snapshot unit  |.snapshot          |A saved state of the systemd manager.|
+|Socket unit    |.socket            |An inter-process communication socket.|
+|Swap unit      |.swap              |A swap device or a swap file.|
+|T1imer unit    |.timer             |A systemd timer. |
+
 ## Load path when running in system mode (--system)
 
 |Path                    | Description                 |
