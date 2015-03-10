@@ -122,6 +122,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
         HWADDR=BC:30:5B:E9:7F:D8                    # 硬件IP地址
         USERCTL=no                                  # 非root用户不能修改配置
         ```
+
     * centos 7 : 静态IP `vi /etc/sysconfig/network-scripts/ifcfg-eth0` :
 
     * 动态IP
