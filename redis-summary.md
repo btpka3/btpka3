@@ -1,3 +1,7 @@
+# 参考
+
+* [Running Redis in production ](http://shokunin.co/blog/2014/11/11/operational_redis.html)
+
 # 安装
 
 1. 创建系统用户redis，及所需的目录
