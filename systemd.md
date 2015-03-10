@@ -4,6 +4,9 @@
 * [Chapter 6. Managing Services with systemd](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/chap-Managing_Services_with_systemd.html)
 
 ```
+# 查看默认启动级别
+systemctl get-default
+
 # 修改默认启动级别为3
 systemctl enable multi-user.target
 # 该命令相当于
@@ -25,9 +28,20 @@ ln -s '/usr/lib/systemd/system/graphical.target' '/etc/systemd/system/default.ta
 ```
 systemctl enable name.service
 systemctl disable name.service
+systemctl reenable name.service
 systemctl status name.service
+systemctl is-active name.service
 systemctl is-enabled name.service
 systemctl list-unit-files --type service
+
+systemctl mask name.service
+systemctl unmask name.service
+
+systemctl start name.service
+systemctl stop name.service
+systemctl restart name.service
+systemctl try-restart name.service
+systemctl reload name.service
 ```
 
 
