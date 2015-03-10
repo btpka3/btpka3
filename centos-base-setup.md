@@ -123,74 +123,122 @@ vi /etc/sysconfig/i18n   # 永久修改环境
         USERCTL=no                                  # 非root用户不能修改配置
         ```
 
-    1. centos 7 : 静态IP `vi /etc/sysconfig/network-scripts/ifcfg-eth0` :
+    1. centos 7 静态IP `vi /etc/sysconfig/network-scripts/ifcfg-eth0`
 
-    1. 动态IP
-
-        ```sh
-[root@localhost ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
-DEVICE="eth0"
-BOOTPROTO="dhcp"
-HWADDR="08:00:27:6E:BB:7E"
-NM_CONTROLLED="no"
-ONBOOT="yes"
-TYPE="Ethernet"
-UUID="6521ca0a-bb80-4c78-8683-1e9bf23d0d52"
-DNS1=8.8.8.8
+        ```
+        HWADDR="AA:BB:CC:DD:EE:FF"
+        TYPE="Ethernet"
+        BOOTPROTO="static"
+        DEFROUTE="yes"
+        PEERDNS="yes"
+        PEERROUTES="yes"
+        IPV4_FAILURE_FATAL="no"
+        IPV6INIT="yes"
+        IPV6_AUTOCONF="yes"
+        IPV6_DEFROUTE="yes"
+        IPV6_PEERDNS="yes"
+        IPV6_PEERROUTES="yes"
+        IPV6_FAILURE_FATAL="no"
+        NAME="enp2s0"
+        UUID="4f8451cc-8bcd-4318-8411-da1dcb753a15"
+        ONBOOT="yes"
+        IPADDR=192.168.0.101
+        GATEWAY=192.168.0.1
+        NETMASK=255.255.0.0
+        DNS1=192.168.7.1
         ```
 
-4.  修改对主机名的本地DNS解析
+    1. centos 6 动态IP `cat /etc/sysconfig/network-scripts/ifcfg-eth0`
+
+        ```sh
+        DEVICE="eth0"
+        BOOTPROTO="dhcp"
+        HWADDR="08:00:27:6E:BB:7E"
+        NM_CONTROLLED="no"
+        ONBOOT="yes"
+        TYPE="Ethernet"
+        UUID="6521ca0a-bb80-4c78-8683-1e9bf23d0d52"
+        DNS1=8.8.8.8
+        ```
+
+    1. centos 7 动态IP
+
+        ```
+        HWADDR="AA:BB:CC:DD:EE:FF"
+        TYPE="Ethernet"
+        BOOTPROTO="dhcp"
+        DEFROUTE="yes"
+        PEERDNS="yes"
+        PEERROUTES="yes"
+        IPV4_FAILURE_FATAL="no"
+        IPV6INIT="yes"
+        IPV6_AUTOCONF="yes"
+        IPV6_DEFROUTE="yes"
+        IPV6_PEERDNS="yes"
+        IPV6_PEERROUTES="yes"
+        IPV6_FAILURE_FATAL="no"
+        NAME="enp2s0"
+        UUID="4f8451cc-8bcd-4318-8411-da1dcb753a15"
+        ONBOOT="yes"
+        ```
+
+1.  修改对主机名的本地DNS解析 `vi /etc/hosts`
 
     ```sh
-[root@h01 ~]# vi /etc/hosts             # 追加以下一行
-# 格式：内网IP地址 主机名，可防止RMI连接 127.0.0.1出错
-000.000.000.000 h01                     
+    # 追加以下一行
+    # 格式：内网IP地址 主机名，可防止RMI连接 127.0.0.1出错
+    000.000.000.000 h01                     
     ```
-5.  检查网络的启动级别和启动状态
 
-```sh
-[root@h01 ~]# chkconfig --list network
-network         0:off   1:off   2:on    3:on    4:on    5:on    6:off
-[root@h01~]# service network status
-Configured devices:
-lo eth0
-Currently active devices:
-lo eth0
-```
+1.  检查网络的启动级别和启动状态
 
-6.  使用代理（若无请跳过） 
+    ```sh
+    [root@h01 ~]# chkconfig --list network
+    network         0:off   1:off   2:on    3:on    4:on    5:on    6:off
+    
+    [root@h01~]# service network status
+    Configured devices:
+    lo eth0
+    Currently active devices:
+    lo eth0
+    ```
+
+1.  使用代理（若无请跳过） 
 
 
 
 
     [参考](http://www.cyberciti.biz/faq/linux-unix-set-proxy-environment-variable/ "How To Use Proxy Server To Access Internet at Shell Prompt With http_proxy Variable")
+
     ```sh
-[root@h01 ~]# vi /etc/profile.d/custom.sh
-# ...
- export http_proxy=http://10.1.18.123:808/
+    [root@h01 ~]# vi /etc/profile.d/custom.sh
+    export http_proxy=http://10.1.18.123:808/
     ```
 
-7. 检查网络的启动级别和启动状态
-```sh
-network         0:关闭  1:关闭  2:启用  3:启用  4:启用  5:启用  6:关闭
-[root@h01 ~]# service network status
-配置设备：
-lo em1
-当前的活跃设备：
-lo em1
-```
+1. 检查网络的启动级别和启动状态
 
-8. 验证
-```sh
-[root@h01 ~]# ping -c 4 baidu.com
-PING baidu.com (123.125.114.144) 56(84) bytes of data.
-64 bytes from 123.125.114.144: icmp_seq=1 ttl=51 time=219 ms
-64 bytes from 123.125.114.144: icmp_seq=4 ttl=51 time=223 ms
---- baidu.com ping statistics ---
-4 packets transmitted, 2 received, 50% packet loss, time 4000ms
-rtt min/avg/max/mdev = 219.364/221.428/223.493/2.117 ms
-```
-9. 起停命令
+    ```sh
+    network         0:关闭  1:关闭  2:启用  3:启用  4:启用  5:启用  6:关闭
+    [root@h01 ~]# service network status
+    配置设备：
+    lo em1
+    当前的活跃设备：
+    lo em1
+    ```
+
+1. 验证
+
+    ```sh
+    [root@h01 ~]# ping -c 4 baidu.com
+    PING baidu.com (123.125.114.144) 56(84) bytes of data.
+    64 bytes from 123.125.114.144: icmp_seq=1 ttl=51 time=219 ms
+    64 bytes from 123.125.114.144: icmp_seq=4 ttl=51 time=223 ms
+    --- baidu.com ping statistics ---
+    4 packets transmitted, 2 received, 50% packet loss, time 4000ms
+    rtt min/avg/max/mdev = 219.364/221.428/223.493/2.117 ms
+    ```
+
+1. 起停命令
 
     ```sh
     service network
@@ -200,10 +248,9 @@ rtt min/avg/max/mdev = 219.364/221.428/223.493/2.117 ms
     nmcli dev status
     ```
 
-
-
 ## 安装较高版本GLibC
 CentOS 6.3 默认自带的GLibC 是2.12版的，但是有的程序是使用2.14版本的。这里是更新GLibC的命令：
+
 ```sh
 cd ~
 mkdir glibc-tmp
