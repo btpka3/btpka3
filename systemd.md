@@ -17,6 +17,23 @@ rm '/etc/systemd/system/default.target'
 systemctl enable graphical.target
 # 该命令相当于
 ln -s '/usr/lib/systemd/system/graphical.target' '/etc/systemd/system/default.target'
-
-
 ```
+
+
+## Load path when running in system mode (--system)
+
+|Path                    | Description                 |
+|------------------------|-----------------------------|
+|/etc/systemd/system     | Local configuration         |
+|/run/systemd/system     | Runtime units               |
+|/usr/lib/systemd/system | Units of installed packages |
+
+
+##  Load path when running in user mode (--user)
+
+|Path                       | Description                 |
+|---------------------------|-----------------------------|
+|$HOME/.config/systemd/user | User configuration          |
+|/etc/systemd/user          | Local configuration         |
+|/run/systemd/user          | Runtime units               |
+|/usr/lib/systemd/user      | Units of installed packages |
