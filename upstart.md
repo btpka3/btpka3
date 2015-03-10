@@ -1,10 +1,9 @@
+## 参考
 
+* [Linux启动：用Upstart代替传统init](http://www.linuxdiyf.com/viewarticle.php?id=48913)
+* [systemd、upstart和system V](http://blog.csdn.net/kumu_linux/article/details/7653802)
+* [Upstart - wikipedia](http://zh.wikipedia.org/wiki/Upstart)
 
-http://www.linuxdiyf.com/viewarticle.php?id=48913
-http://blog.csdn.net/kumu_linux/article/details/7653802
-
-http://zh.wikipedia.org/wiki/Upstart
-http://zh.wikipedia.org/wiki/Systemd
 
 
 
