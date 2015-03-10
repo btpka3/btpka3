@@ -1,6 +1,7 @@
 # 安装
 
 ## 分区
+
 ```sh             大小（MB）   挂载点     类型            格式化
 LVM 卷组
   Vg_h01        476436    
@@ -13,6 +14,7 @@ LVM 卷组
     Sda2         476439     vg_h01     物理卷组LVM      yes
 ```
 
+## 7788
 
 ```
 yum install net-tools              # centos 7 最小化安装找不到 ifconfig 命令
