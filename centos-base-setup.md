@@ -1,8 +1,7 @@
 # 安装
 
 ## 分区
-```sh
-设备             大小（MB）   挂载点     类型            格式化
+```sh             大小（MB）   挂载点     类型            格式化
 LVM 卷组
   Vg_h01        476436    
     Lv_root      51200      /          ext4            yes
@@ -79,49 +78,52 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 ```
 
 ## IP Config
-1.  检查DNS服务器
-```sh
-[root@h01 ~]# cat /etc/resolv.conf
-# No nameservers found; try putting DNS servers into your
-# ifcfg files in /etc/sysconfig/network-scripts like so:
-#
-# DNS1=xxx.xxx.xxx.xxx
-# DNS2=xxx.xxx.xxx.xxx
-# DOMAIN=lab.foo.com bar.foo.com
-# nameserver xxx.xxx.xxx.xxx
-nameserver 8.8.8.8
-nameserver 8.8.4.4
-```
 
-2.  检查是否启用网络和主机名 
-```sh
-[root@h01 ~]# cat /etc/sysconfig/network
-NETWORKING=yes
-HOSTNAME=h01
-```
+1.  检查DNS服务器 : `cat /etc/resolv.conf`
 
-3.  设置IP地址
-    * 静态IP
+    ```sh
+    # No nameservers found; try putting DNS servers into your
+    # ifcfg files in /etc/sysconfig/network-scripts like so:
+    #
+    # DNS1=xxx.xxx.xxx.xxx
+    # DNS2=xxx.xxx.xxx.xxx
+    # DOMAIN=lab.foo.com bar.foo.com
+    # nameserver xxx.xxx.xxx.xxx
+    nameserver 8.8.8.8
+    nameserver 8.8.4.4
+    ```
+
+1.  检查是否启用网络和主机名 `cat /etc/sysconfig/network` :
+
+    ```sh
+    NETWORKING=yes
+    HOSTNAME=h01
+    ```
+
+1.  设置IP地址
+
+    * centos 6 : 静态IP `vi /etc/sysconfig/network-scripts/ifcfg-eth0` :
 
         ```sh
-[root@h01 ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
-DEVICE="eth0"                               # 设备名称
-NM_CONTROLLED="no"                          # ? 若为yes，会报错
-ONBOOT=yes                                  # 是否启动时就启用
-TYPE=Ethernet                               # 网卡类型
-BOOTPROTO=none                              # 分配IP地址的协议，这里是静态
-IPADDR=000.000.000.000                      # 该网卡的IP地址
-PREFIX=24                                   # 网络/子网掩码长度
-GATEWAY=000.000.000.000                     # 网关
-DNS1=000.000.000.000                        # 第一个DNS服务器的IP地址
-DEFROUTE=yes                                # 将此设为默认路由
-IPV4_FAILURE_FATAL=yes
-IPV6INIT=no                                 # 不使用 IPv6
-NAME="System em1"                           # 该配置的名称
-UUID=1dad842d-1912-ef5a-a43a-bc238fb267e7   # 
-HWADDR=BC:30:5B:E9:7F:D8                    # 硬件IP地址
-USERCTL=no                                  # 非root用户不能修改配置
+        DEVICE="eth0"                               # 设备名称
+        NM_CONTROLLED="no"                          # ? 若为yes，会报错
+        ONBOOT=yes                                  # 是否启动时就启用
+        TYPE=Ethernet                               # 网卡类型
+        BOOTPROTO=none                              # 分配IP地址的协议，这里是静态
+        IPADDR=000.000.000.000                      # 该网卡的IP地址
+        PREFIX=24                                   # 网络/子网掩码长度
+        GATEWAY=000.000.000.000                     # 网关
+        DNS1=000.000.000.000                        # 第一个DNS服务器的IP地址
+        DEFROUTE=yes                                # 将此设为默认路由
+        IPV4_FAILURE_FATAL=yes
+        IPV6INIT=no                                 # 不使用 IPv6
+        NAME="System em1"                           # 该配置的名称
+        UUID=1dad842d-1912-ef5a-a43a-bc238fb267e7   # 
+        HWADDR=BC:30:5B:E9:7F:D8                    # 硬件IP地址
+        USERCTL=no                                  # 非root用户不能修改配置
         ```
+    * centos 7 : 静态IP `vi /etc/sysconfig/network-scripts/ifcfg-eth0` :
+
     * 动态IP
 
         ```sh
@@ -188,10 +190,14 @@ PING baidu.com (123.125.114.144) 56(84) bytes of data.
 rtt min/avg/max/mdev = 219.364/221.428/223.493/2.117 ms
 ```
 9. 起停命令
-```sh
-[root@h01 ~]# service network
-用法：/etc/init.d/network {start|stop|status|restart|reload|force-reload}
-```
+
+    ```sh
+    service network
+    用法：/etc/init.d/network {start|stop|status|restart|reload|force-reload}
+
+    systemctl status NetworkManager.service
+    nmcli dev status
+    ```
 
 
 
@@ -371,7 +377,6 @@ systemctl status firewalld
 # 禁用 IPv6
 
 ```
-
 # 临时 1
 sysctl -w net.ipv6.conf.all.disable_ipv6=1
 sysctl -w net.ipv6.conf.default.disable_ipv6=1
@@ -382,8 +387,6 @@ echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
 echo 1 > /proc/sys/net/ipv6/conf/default/disable_ipv6
 
 # 持久 vi /etc/sysctl.conf 
-
 net.ipv6.conf.all.disable_ipv6 = 1
 net.ipv6.conf.default.disable_ipv6 = 1
-
 ```
