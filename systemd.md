@@ -1,6 +1,7 @@
 ## 参考
 
 * [Systemd - wikipedia](* http://zh.wikipedia.org/wiki/Systemd)
+* [Chapter 6. Managing Services with systemd](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/chap-Managing_Services_with_systemd.html)
 
 ```
 # 修改默认启动级别为3
