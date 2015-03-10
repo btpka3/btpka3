@@ -83,43 +83,44 @@ systemctl reload name.service
 
 
 
-## 文件格式 
+## 参考
 
 ```
 man systemd.directives
 man systemd.special
-
 man system.unit
+man systemd.service
+man systemd.exec
+man systemd.slice
+man systemd.scope
+man systemd.socket
+man systemd.mount
+man systemd.swap
+man systemd.resource-control
+```
 
-[Unit] / [Install]
+## 文件格式 
+
+```
+[Unit]
+
 Description=xxx
 Documentation=空格分隔参考网址的URL
-Requires=依赖的服务
-RequiresOverridable=
-Requisite=
-RequisiteOverridable=
-Wants=
-BindsTo=
-PartOf=
-Conflicts=
-Before=
 After=
-OnFailure=
-PropagatesReloadTo=
-ReloadPropagatedFrom=
+Requires=
+Wants=
+Conflicts=
 
-man systemd.service
 [Service]
 Type=
-PIDFile=
 ExecStart=
 ExecStop=
-RestartSec=
+ExecReload=
 Restart=
-Sockets=
+RemainAfterExit
 
 
-man systemd.exec
+
 [Service], [Socket], [Mount], [Swap]
 WorkingDirectory=
 RootDirectory=
@@ -129,16 +130,11 @@ Nice=
 UMask=
 Environment=
 
-man systemd.resource-control
-[Slice], [Scope], [Service], [Socket], [Mount], [Swap]
-CPUAccounting=
-MemoryAccounting=
-Slice=
 
-man systemd.slice
-man systemd.scope
-man systemd.socket
-man systemd.mount
-man systemd.swap
-
+[Install]
+Alias=
+RequiredBy=
+WantedBy=
+Also=
+DefaultInstance=
 ```
