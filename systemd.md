@@ -61,7 +61,7 @@ systemctl reload name.service
 |Snapshot unit  |.snapshot          |A saved state of the systemd manager.|
 |Socket unit    |.socket            |An inter-process communication socket.|
 |Swap unit      |.swap              |A swap device or a swap file.|
-|T1imer unit    |.timer             |A systemd timer. |
+|Timer unit    |.timer             |A systemd timer. |
 
 ## Load path when running in system mode (--system)
 
