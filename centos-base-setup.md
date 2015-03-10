@@ -309,18 +309,19 @@ Linux localhost.localdomain 2.6.32-279.el6.x86_64 #1 SMP Fri Jun 22 12:19:21 UTC
 #LANG="zh_CN.UTF-8"
 LANG="en_US.UTF-8"
 ```
+
 ## 修改系统变量
 ### kernel参数： 查看及修改每个进程可以打开的最大文件数
 
 ```sh
-[root@localhost ~]# sysctl -A  | grep fs\.file-max
+sysctl -A  | grep fs\.file-max                      # fs.file-max = 764817
+sysctl fs.file-max
+cat /proc/sys/fs/file-max
+
+vi /etc/sysctl.conf
 fs.file-max = 787933
-[root@localhost ~]# sysctl fs.file-max
-[root@localhost ~]# cat /proc/sys/fs/file-max
-787933
-[root@localhost ~]# vi /etc/sysctl.conf
-fs.file-max = 787933
-[root@localhost ~]# sysctl -p
+
+sysctl -p
 ```
 ### 查看指定进程使用的文件数量
 
@@ -339,21 +340,17 @@ ps auxwwf | grep $USER_NAME | grep -v grep | wc -l
 
 ### 修改用户限制
 
-确认已经启用 pam_limits.so
+
 
 ```sh
-[root@localhost ~]# vi /etc/pam.d/login
+vi /etc/pam.d/login                                    # 确认已经启用 pam_limits.so
 session required pam_limits.so
-```
 
-检查配置是否合理（比如用户最大进程数、可打开的最大文件数）
-```sh
-[root@localhost ~]# ulimit -a
-```
 
-如果值太小，则修改以下文件
-```sh
-[root@localhost ~]# vi /etc/security/limits.d/xxx.conf
+ulimit -a                                                    # 检查配置是否合理（比如用户最大进程数、可打开的最大文件数）
+
+# 如果值太小，则修改以下文件
+vi /etc/security/limits.d/xxx.conf
 root         soft    nofile         20000
 root         hard    nofile         40000
 root         soft    nproc          20000
