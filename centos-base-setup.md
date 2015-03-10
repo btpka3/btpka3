@@ -354,7 +354,7 @@ vi /etc/security/limits.d/xxx.conf
 root         soft    nofile         20000
 root         hard    nofile         40000
 root         soft    nproc          20000
-root         hard    nproc          40000
+root         hard    nproc          unlimited
 
 *            soft    nofile         20000
 *            hard    nofile         40000
