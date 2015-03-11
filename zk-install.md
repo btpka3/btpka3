@@ -43,6 +43,8 @@
       ZOOPIDFILE=/data/store/zookeeper/zookeeper_server.pid    
     ```
 
+##  centos 6
+
 1. 从[这里](https://github.com/globocom/zookeeper-centos-6/blob/master/redhat/zookeeper.init)下载Zookeeper的init.d脚本至 `/etc/init.d/zookeeper`，修改后并启用
 
     ```sh
@@ -60,6 +62,37 @@
 
     ```sh
     service zookeeper start
+    ```
+
+##  centos 7
+
+1. `vi /usr/lib/systemd/system/zookeeper.service`
+
+    ```
+    [Unit]
+    Description=Zookeeper Server
+    After=network.target
+
+    [Service]
+    Type=forking
+    ExecStart=/usr/local/zookeeper/zookeeper-3.4.6/bin/zkServer.sh start
+    ExecStop=/bin/kill -15 $MAINPID
+    WorkingDirectory=/home/zookeeper
+    PIDFile=/home/zookeeper/data/zookeeper_server.pid
+    Restart=always
+    User=zookeeper
+    LimitNOFILE=65535
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+
+2. 启用并启动
+
+    ```
+    systemctl enable zookeeper
+    systemctl start zookeeper
+    systemctl status zookeeper
     ```
 
 
