@@ -43,8 +43,8 @@ ulimit -Sa                                                 # 检查所有软限�
 
 ulimit -n 10240                                         # 临时生效，重启失效
 vi /etc/security/limits.d/xxx.conf              # 如果值太小，则修改该文件，持久生效
-*        -    nofile         65535
-*        -    nproc        40960
+*        -    nofile         65535    # redis:64000
+*        -    nproc        40960    # redis:64000
 ```
 
 说明：修改配置文件只能对新的session起作用。如果要想即时生效，可以通过 `ulimit -n 20000` 等开启，前提是 新的数值不能超过hard所设定的值。hard值一旦被设定，就不能够再增加。
