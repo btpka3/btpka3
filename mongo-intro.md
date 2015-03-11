@@ -95,7 +95,10 @@ db.cart.find()                           // 列出 cart 集合（表）中所有
 
 # 配置文件
 
-MongoDB 2.6 开始，使用 YAML 语法书写配置文件，但仍然兼容 2.4 版的配置文件格式。 YAML版配置文件示例：
+MongoDB 2.6 开始，使用 YAML 语法书写配置文件，但仍然兼容 2.4 版的配置文件格式。 rpm包中的配置文件请参考[这里](https://github.com/mongodb/mongo/blob/master/rpm/mongod.conf)。
+
+
+YAML版配置文件示例：
 
 ```yaml
 # @see http://docs.mongodb.org/manual/reference/configuration-options
