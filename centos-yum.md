@@ -1,6 +1,8 @@
 
 
 ```sh
+yum makecache
+
 # 查看启用的yum仓库
 yum repolist enabled
 
