@@ -119,8 +119,6 @@ ExecReload=
 Restart=
 RemainAfterExit
 
-
-
 [Service], [Socket], [Mount], [Swap]
 WorkingDirectory=
 RootDirectory=
@@ -129,7 +127,6 @@ Group=
 Nice=
 UMask=
 Environment=
-
 
 [Install]
 Alias=
