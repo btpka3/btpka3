@@ -376,6 +376,8 @@ vi /home/git/gitlab/lib/gitlab/upgrader.rb  修改当前版的 更新脚本代�
 
 ```
 vi /home/git/gitlab/app/assets/stylesheets/generic/forms.scss  # Edit in fullscreen 的css
+# 或者 vi /home/git/gitlab/app/assets/stylesheets/generic/zen.scss
+
   input:checked ~ .zen-backdrop {
     background-color: white;
     position: fixed;
