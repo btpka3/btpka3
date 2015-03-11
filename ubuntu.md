@@ -2,6 +2,15 @@
 [打印](http://www.hplipopensource.com/hplip-web/install/install/index.html)
 
 
+# 版本
+
+ubuntu 所有的版本号以及 [codeName](https://wiki.ubuntu.com/DevelopmentCodeNames) :
+
+```
+lsb_release -a                      # 查看当前安装的 ubuntu 的版本
+```
+
+
 # dpkg
 
 ```
