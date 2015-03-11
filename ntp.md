@@ -61,3 +61,14 @@ jitter           系统时间与BIOS时间之差
 [root@localhost ~]# service ntpd
 Usage: /etc/init.d/ntpd {start|stop|status|restart|try-restart|force-reload}
 ```
+
+
+# centos 7 安装 ntp
+
+```
+yum install ntp ntpdate 
+systemctl is-enabled ntpd
+systemctl enable ntpd
+systemctl status ntpd
+systemctl start ntpd
+```
