@@ -22,7 +22,7 @@ sudo rabbitmqctl list_queues
 RabbitMQ是使用Erlang开发，因此需要先安装Erlang。具体要使用哪个版本。则需要看一下[这里](http://www.rabbitmq.com/which-erlang.html)了。最低需要 R13B03。
 
 
-PRM 安装请参考[这里](https://www.erlang-solutions.com/downloads/download-erlang-otp)
+PRM 安装请参考[这里](https://www.erlang-solutions.com/downloads/download-erlang-otp)。提示：请确 CentOS 上已经安装了 EPEL.
 
 虽然测试环境的都是 CentOs 6.x系列，而生产环境则还有 CentOs 5.x 系列。
 通过[这里](https://fedoraproject.org/wiki/Erlang)可以得知，CentOS 5.x下的EPEL只支持到 R12B-5，版本太低了。
