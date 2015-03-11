@@ -79,6 +79,8 @@ A.
 ## 安装RabbitMq
 参考[这里](http://www.rabbitmq.com/download.html)，安装 **Installing on Generic Unix**, 基本上解压后就可以直接运行了。
 
+使用yum/rpm 安装，请参考[这里](http://www.rabbitmq.com/install-rpm.html)。
+
 ```
 tar zxvf rabbitmq-server-generic-unix-3.3.5.tar.gz -C /usr/local/
 
