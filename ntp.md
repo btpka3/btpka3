@@ -17,7 +17,7 @@
 
 ```
 
-# 安装NTP
+# centos 6 安装NTP
 
 ```sh
 [root@localhost ~]# yum install ntp
