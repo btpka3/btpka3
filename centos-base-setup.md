@@ -156,7 +156,8 @@ vi /etc/sysconfig/i18n   # 永久修改环境
         USERCTL=no                                  # 非root用户不能修改配置
         ```
 
-    1. centos 7 静态IP `vi /etc/sysconfig/network-scripts/ifcfg-eth0`
+    1. centos 7 静态IP `vi /etc/sysconfig/network-scripts/ifcfg-eth0`  。 多IP地址配置请参考 [这里](http://netidy.com/blog/add-multiple-ips-network-adapter-centos-7)
+
 
         ```
         HWADDR="AA:BB:CC:DD:EE:FF"
