@@ -2,10 +2,14 @@
 ## 修改 kernel 参数
 
 ```
-locate grub.cfg             # or grub.conf
-vi /boot/efi/EFI/centos/grub.cfg
+# locate grub.cfg             # or grub.conf
+# vi /boot/efi/EFI/centos/grub.cfg
 
-
+ll /etc/rc.local
+chmod +x /etc/rc.d/rc.local
+vi /etc/rc.local                  # 追加以下两行内容
+echo never > /sys/kernel/mm/transparent_hugepage/enabled
+echo never > /sys/kernel/mm/transparent_hugepage/defrag
 ```
 
 
