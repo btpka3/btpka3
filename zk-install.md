@@ -65,6 +65,12 @@
     ```
 
 ##  centos 7
+1. `vi /usr/local/zookeeper/zookeeper-3.4.6/bin/zkServer.sh`
+
+    ```
+    # 在最开始追加以下语句
+    . /etc/profile.d/xxx.sh
+    ```
 
 1. `vi /usr/lib/systemd/system/zookeeper.service`
 
