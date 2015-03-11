@@ -32,8 +32,8 @@
 
     ```conf
     JENKINS_HOME="/data/store/jenkins"                               # 即jenkins用户的主目录
-    JENKINS_PORT="19010"
-    JENKINS_AJP_PORT="19011"
+    JENKINS_PORT="20020"
+    JENKINS_AJP_PORT="20022"
     ```
 
 1. 修改 init.d 脚本
