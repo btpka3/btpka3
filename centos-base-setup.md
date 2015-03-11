@@ -29,7 +29,9 @@ yum install man
 yum install telnet   # Ctrl+] 之后，quit 可以结束telnet
 yum install unzip
 yum install gcc
-yum install mlocate              # 使用updatedb，locate 命令
+yum install mlocate             # updatedb，locate 命令
+yum install lsof                    # lsof 命令
+yum install psmisc              # pstree 命令
 ```
 
 ## 修改主机名
