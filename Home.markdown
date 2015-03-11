@@ -27,18 +27,18 @@
 
 * 开发工具
     * Git
-        * [总结](git-summary)
+        * [总结](git)
         * [分支管理](git-branch)
     * [Eclipse](eclipse)
     * [Idea Intellij](idea-intellij)
     * [Firefox](firefox)
     * Gitlab
-        * [gitlab总结](gitlab-summary)
+        * [gitlab总结](gitlab)
     * Jenkins
-        * [Jenkins总结](jenkins-summary)
+        * [Jenkins总结](jenkins)
     * [maven](maven)
     * nexus
-        * [nexus总结](nexus-summary)
+        * [nexus总结](nexus)
 
 * 测试
     * sysbench
@@ -46,34 +46,34 @@
         * [sysbench 进行磁盘测试](sysbench-fileio)
         * [sysbench 进行 MySql 压力测试](sysbench-mysql)
     * Jmeter
-        * [Jmeter 使用总结](jmeter-summary)
+        * [Jmeter 使用总结](jmeter)
     * [apache benchmark](ab) 
 
 * 办公
     * ThunderBird
-        * [ThunderBird 使用总结](thunderbird-summary)
+        * [ThunderBird 使用总结](thunderbird)
 
 * 服务器管理
     * CentOS
         * [CentOS基础设置](centos-base-setup)
     * [Ubuntu](ubuntu)
     * Bash
-        * [bash 总结](bash-summary)
+        * [bash 总结](bash)
     * [samba](samba)
     * Vim
-        * [vim 总结](vim-summary)
+        * [vim 总结](vim)
     * [Upstart](upstart)
     * [Tomcat](tomcat)
     * jetty
-        * [jetty总结](jetty-summary)
+        * [jetty总结](jetty)
     * redis
-        * [redis总结](redis-summary)  TODO 合并
+        * [redis总结](redis)  TODO 合并
     * rabbitMq
-        * [RabbitMq总结](rabbitmq-summary)
+        * [RabbitMq总结](rabbitmq)
     * ssh
-        * [总结](ssh-summary)
+        * [总结](ssh)
     * https
-        * [总结](https-summary)
+        * [总结](https)
     * [Tengine](tengine)
     * [mysql](MySql) TODO 分解/合并
         * [MySql 安装](mysql-install)
@@ -92,7 +92,7 @@
     * MongoDB                TODO 合并 [mongodb](mongodb)、
         * [mongoDB 简介](mongo-intro)
         * [mongoDB 安装](mongo-install)  TODO 合并
-        * [mongoDB 使用总结](mongo-summary)
+        * [mongoDB 使用总结](mongo)
     * Cassandra  —— 暂时放弃使用
         * [Cassandra 简介](cassandra-intro)
         * [Cassandra 安装](cassandra-install)
