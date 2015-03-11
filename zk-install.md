@@ -12,7 +12,7 @@
     mkdir /data/outputs/log/zookeeper
     chown -R zookeeper:zookeeper /data/outputs/log/zookeeper 
     ```
-1. 从[Zookeeper官网](http://zookeeper.apache.org/)下载所需的安装包，或者查看文件共享：`\\10.1.10.212\share\java\zookeeper\`。放到 `/data/tmp/` 目录下，并解压：
+1. 从[Zookeeper官网](http://zookeeper.apache.org/)下载所需的安装包, 并解压：
 
     ```sh
     mkdir /data/tmp
@@ -20,6 +20,13 @@
     tar zxvf /data/tmp/zookeeper-3.4.6.tar.gz -C /data/software/zookeeper/
     chown -R zookeeper:zookeeper /data/software/zookeeper/zookeeper-3.4.6
     ```
+
+1. 创建运行所需的系统用户
+
+    ```
+    useradd zookeeper
+    ```
+
 1. 修改配置文件
 
     ```sh
