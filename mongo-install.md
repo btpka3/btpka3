@@ -1,7 +1,6 @@
 http://www.infoq.com/cn/articles/nosql-performance-test
 
 # 安装
-see [here](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat-centos-or-fedora-linux/)
 
 ## ubuntu
 see [here](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)
@@ -42,14 +41,42 @@ sudo service mongod stop
 mongo
 ```
 
+## CentOS
+centos 安装参考[这里](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat-centos-or-fedora-linux/)
+
+### 安装 mongodb 3.0
+使用yum 安装有点冲突问题，先使用 CentOS 7 的预编译的二进制包进行解压安装，参考[这里](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-linux/)
+
+1. 下载、解压
+
+    ```
+    mkdir -p /usr/local/mongo
+    tar zxvf mongodb-linux-x86_64-rhel70-3.0.0.tgz -C /usr/local/mongo
+    ```
+
+1. 配置环境变量 `vi /etc/profile.d/xxx.sh` :
+
+    ```
+    export MONGO_HOME=/usr/local/mongo/mongodb-linux-x86_64-rhel70-3.0.0
+    export PATH=$MONGO_HOME/bin:$PATH
+    ```
+
+1. 创建运行所需的用户
+
+    ```
+    useradd mongod
+    ```
+
+1. 创建 systemd 所需的 service 文件 ` vi /usr/lib/systemd/system/mongod.service`
 
 
-----------------------------------------
-TODO 合并
 
 
 
-# CentOS 64位 安装
+
+ 
+
+### 安装 mongodb 2.6
 
 1. 新建 yum 的仓库配置文件
 
@@ -250,3 +277,4 @@ TODO 合并
 
 
 
+	
