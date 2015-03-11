@@ -19,10 +19,8 @@
     * [Groovy](groovy)
     * [Grails](grails)
     * [Spring Framework](spring-framework)
-    * Spring Security
-        * [Spring Security 总结](spring-security)
-    * CAS
-        * [CAS 简介](cas-intro)
+    * [Spring Security](spring-security)
+    * [CAS](cas-intro)
 
 
 * 开发工具
@@ -32,48 +30,35 @@
     * [Eclipse](eclipse)
     * [Idea Intellij](idea-intellij)
     * [Firefox](firefox)
-    * Gitlab
-        * [gitlab总结](gitlab)
-    * Jenkins
-        * [Jenkins总结](jenkins)
+    * [Gitlab](gitlab)
+    * [Jenkins](jenkins)
     * [maven](maven)
-    * nexus
-        * [nexus总结](nexus)
+    * [nexus](nexus)
 
 * 测试
     * sysbench
         * [sysbench 进行 cpu 测试](sysbench-cpu)
         * [sysbench 进行磁盘测试](sysbench-fileio)
         * [sysbench 进行 MySql 压力测试](sysbench-mysql)
-    * Jmeter
-        * [Jmeter 使用总结](jmeter)
+    * [Jmeter](jmeter)
     * [apache benchmark](ab) 
 
 * 办公
-    * ThunderBird
-        * [ThunderBird 使用总结](thunderbird)
+    * [ThunderBird](thunderbird)
 
 * 服务器管理
-    * CentOS
-        * [CentOS基础设置](centos-base-setup)
+    * [CentOS](centos-base-setup)
     * [Ubuntu](ubuntu)
-    * Bash
-        * [bash 总结](bash)
+    * [Bash](bash)
     * [samba](samba)
-    * Vim
-        * [vim 总结](vim)
+    * [Vim](vim)
     * [Upstart](upstart)
     * [Tomcat](tomcat)
-    * jetty
-        * [jetty总结](jetty)
-    * redis
-        * [redis总结](redis)  TODO 合并
-    * rabbitMq
-        * [RabbitMq总结](rabbitmq)
-    * ssh
-        * [总结](ssh)
-    * https
-        * [总结](https)
+    * [jetty](jetty)
+    * [Redis](redis)               TODO 合并
+    * [RabbitMq](rabbitmq)
+    * [ssh](ssh)
+    * [https](https)
     * [Tengine](tengine)
     * [mysql](MySql) TODO 分解/合并
         * [MySql 安装](mysql-install)
