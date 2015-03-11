@@ -20,12 +20,7 @@
     tar zxvf /data/tmp/zookeeper-3.4.6.tar.gz -C /data/software/zookeeper/
     chown -R zookeeper:zookeeper /data/software/zookeeper/zookeeper-3.4.6
     ```
-
-1. 创建运行所需的系统用户
-
-    ```
-    useradd zookeeper
-    ```
+ 
 
 1. 修改配置文件
 
