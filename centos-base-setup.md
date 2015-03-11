@@ -175,7 +175,8 @@ vi /etc/sysconfig/i18n   # 永久修改环境
         NAME="enp2s0"
         UUID="4f8451cc-8bcd-4318-8411-da1dcb753a15"
         ONBOOT="yes"
-        IPADDR=192.168.0.101
+
+        IPADDR=192.168.0.101     # 多个IP地址的话，可以配置 IPADDR0=xxx.xxx.xxx.xxx, 另起一行：IPADDR1=yyy.yyy.yyy.yyy
         GATEWAY=192.168.0.1
         NETMASK=255.255.0.0
         DNS1=192.168.7.1
