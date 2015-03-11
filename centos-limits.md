@@ -1,4 +1,13 @@
 
+## 修改 kernel 参数
+
+```
+locate grub.cfg             # or grub.conf
+vi /boot/efi/EFI/centos/grub.cfg
+
+
+```
+
 
 ## 修改系统变量
 
