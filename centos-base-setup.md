@@ -1,5 +1,7 @@
 # 安装
 
+
+
 ## 分区
 
 ```sh 
@@ -15,10 +17,31 @@ LVM 卷组
     Sda2         476439     vg_h01     物理卷组LVM      yes
 ```
 
+
+
 ## 7788
 
 ```
 yum install net-tools              # centos 7 最小化安装找不到 ifconfig 命令
+yum install openssh-clients
+yum install wget
+yum install man
+yum install telnet   # Ctrl+] 之后，quit 可以结束telnet
+yum install unzip
+yum install gcc
+yum install mlocate              # 使用updatedb，locate 命令
+```
+
+## 修改主机名
+
+```
+hostname                         # 查看 hostname
+hostname xxx.xxx.xxx    # 临时修改 hostname
+
+vi /etc/hostname               # 持久修改hostname，重启才生效
+xxx.xxx.xxx
+
+nmtui                                 # 设置主机名
 ```
 
 
@@ -97,6 +120,9 @@ vi /etc/sysconfig/i18n   # 永久修改环境
     NETWORKING=yes
     HOSTNAME=h01
     ```
+
+
+
 1. centos 7 通过命令修改 IP 地址
 
     ```
@@ -305,21 +331,6 @@ Linux localhost.localdomain 2.6.32-279.el6.x86_64 #1 SMP Fri Jun 22 12:19:21 UTC
 LANG="en_US.UTF-8"
 ```
 
-
-# 7788
-
-```sh
-# scp
-yum install openssh-clients
-yum install wget
-yum install man
-yum install telnet   # Ctrl+] 之后，quit 可以结束telnet
-yum install unzip
-yum install gcc
-yum install mlocate              # 使用updatedb，locate 命令
-
-yum update
-```
 
 
 # 防火墙
