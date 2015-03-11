@@ -34,7 +34,8 @@
     
     vi /data/software/zookeeper/zookeeper-3.4.6/conf/log4j.properties
       zookeeper.log.dir=/data/outputs/log/zookeeper
-    
+      zookeeper.tracelog.dir=/data/outputs/log/zookeeper
+
     vi /data/software/zookeeper/zookeeper-3.4.6/bin/zkEnv.sh
       # 设置日志日志目录
       ZOO_LOG_DIR=/data/outputs/log/zookeeper
