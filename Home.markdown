@@ -74,9 +74,9 @@
         * [安装](es-install)
         * [示例](es-search)
         * [拼音/自动完成](es-pinyin)
-    * MongoDB                TODO 合并 [mongodb](mongodb)、
+    * MongoDB
         * [mongoDB 简介](mongo-intro)
-        * [mongoDB 安装](mongo-install)  TODO 合并
+        * [mongoDB 安装](mongo-install)
         * [mongoDB 使用总结](mongo)
     * Cassandra  —— 暂时放弃使用
         * [Cassandra 简介](cassandra-intro)
