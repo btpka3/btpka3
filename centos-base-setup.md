@@ -32,6 +32,8 @@ yum install gcc
 yum install mlocate             # updatedb，locate 命令
 yum install lsof                    # lsof 命令
 yum install psmisc              # pstree 命令
+
+systemctl enable NetworkManager-wait-online.service
 ```
 
 ## 修改主机名
