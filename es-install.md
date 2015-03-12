@@ -45,11 +45,11 @@ useradd elasticsearch
 
 ### 修改 init.d 脚本
 
-`vi /etc/init.d/elasticsearc`
+`vi /etc/init.d/elasticsearch`
 
 ```
 # 在最开始追加一下语句,使其能找到JAVA_HOME等相关环境变量
-. /etc/profile.d/lizi.sh
+. /etc/profile.d/xxx.sh
 ```
 
 ### 修改 elasticsearch.yml 配置文件
