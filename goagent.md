@@ -14,7 +14,7 @@
 1. 重启 proxy.sh （提示：ps,grep,kill）
 
 
-### SwitchyOmega.crx
+### SwitchyOmega
 
 1. 下载 SwitchyOmega，并安装到 chrome 浏览器中。
 1.  打开 SwitchyOmega， Import  -> Restore from file -> `${GO_AGENT_HOME}/local/SwitchyOptions.bak`
@@ -29,31 +29,31 @@
 
 步骤：
 
-# 下载并运行 [http://www.freegate8.info/ FreeGate]
-## 在<code>通道</code>标签页: 先点击<code>恢复默认设置</code>，如果以前从未更改过设置的话，可以跳过此步骤。
-## 在<code>通道</code>标签页: 将模式设定为<code>经典模式（浏览器不需要设置代理），因为我们接下来通过 Switchy! Options 为浏览器设置</code>。
-# 在Chrome浏览器中，安装 [https://chrome.google.com/webstore/detail/proxy-switchy/caehdcpeofiiigpdhbabniblemipncjj/related Proxy Switchy! 插件]
-## 单击浏览器右上角 Proxy Switchy! 的图标，选择<code>Options</code>
-## 在<code>Proxy Profiles</code>标签页中新建一个Profile：
-### 名称自定义，假设为<code>GFW</code>
-### 选择<code>Manual Configuration</code>
-### 选择<code>Use the same proxy server for all protocols</code>
-### 设置<code>HTTP Proxy</code>为<code>127.0.0.1</code>
-### 设置<code>Port</code>为<code>8580</code>（与FreeGate<code>服务器</code>标签页中<code>当前端口</code>保持一致）
-### 点击<code>Save</code>按钮进行保存
-## 在<code>Switch Rules</code>标签页中新建需要的规则：
-### <code>Role Name</code>可以自定义，这里保持默认
-### <code>URL Pattern</code>中输入被屏蔽的URL，比如<code>*.wordpress.com</code>
-### <code>Pattern Type</code>根据你输入的URL的格式进行选定，但大多均为<code>Wildcard</code>
-### <code>Proxy Profile</code>中应当选择为前面建立的Profile的名字，这里是<code>GFW</code>
-### 点击<code>Save</code>按钮进行保存
-# 单击浏览器右上角 Proxy Switchy! 的图标，将模式切换为<code>Auto Switch Mode</code>即可。
+1. 下载并运行 [http://www.freegate8.info/ FreeGate]
+    1. 在 `通道` 标签页: 先点击 `恢复默认设置`，如果以前从未更改过设置的话，可以跳过此步骤。
+    1. 在 `通道` 标签页: 将模式设定为 `经典模式`（浏览器不需要设置代理），因为我们接下来通过 Switchy! Options 为浏览器设置。
+1.  在Chrome浏览器中，安装 [Proxy Switchy! 插件](https://chrome.google.com/webstore/detail/proxy-switchy/caehdcpeofiiigpdhbabniblemipncjj/related)
+1. 单击浏览器右上角 Proxy Switchy! 的图标，选择`Options`
+    1. 在`Proxy Profiles`标签页中新建一个Profile：
+    1. 名称自定义，假设为`GFW`
+    1. 选择`Manual Configuration`
+    1. 选择`Use the same proxy server for all protocols`
+    1. 设置`HTTP Proxy`为`127.0.0.1`
+    1. 设置`Port`为`8580`（与FreeGate`服务器`标签页中`当前端口`保持一致）
+    1. 点击`Save`按钮进行保存
+1. 在`Switch Rules`标签页中新建需要的规则：
+    1. `Role Name`可以自定义，这里保持默认
+    1. `URL Pattern`中输入被屏蔽的URL，比如`*.wordpress.com`
+    1. `Pattern Type`根据你输入的URL的格式进行选定，但大多均为`Wildcard`
+    1. `Proxy Profile`中应当选择为前面建立的Profile的名字，这里是`GFW`
+    1. 点击`Save`按钮进行保存
+1. 单击浏览器右上角 Proxy Switchy! 的图标，将模式切换为`Auto Switch Mode`即可。
 
 附：被屏蔽URL总结
-<source>
+
+```
  *.sourceforge.net
  *.blogspot.com
  *.wordpress.com
-</source>
+```
 
-# http://jingyan.baidu.com/article/6766299717faec54d41b8477.html
