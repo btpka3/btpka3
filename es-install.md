@@ -27,7 +27,52 @@ gpgkey=http://packages.elasticsearch.org/GPG-KEY-elasticsearch
 enabled=1
 ```
 
-## 安装
+## centos 7 安装
+
+```
+yum install elasticsearch
+systemctl enable elasticsearch
+systemctl start elasticsearch
+systemctl status elasticsearch
+```
+
+### 配置方式一 
+通过环境变量进行配置。
+
+1. 不要修改 `/etc/elasticsearch/elasticsearch.yml`（其初始内容为空）
+1. 修改 `/usr/share/elasticsearch`            # 配置环境变量，含JAVA_HOME
+
+### 配置方式二
+
+通过配置文件进行配置
+
+1.  检查 systemd 配置文件
+
+    ```
+    cat /usr/lib/systemd/system/elasticsearch.service
+    ```
+
+1. `vi /etc/elasticsearch/elasticsearch.yml`
+
+    ```
+    cluster.name : elasticsearch-lizi                  # 所有的集群名称要一致
+    node.name : es3                                          # 节点名如果不设置，会自动随机生成
+    path.data : /home/elasticsearch/data          # 根据实际情况修改, 默认是 /var/lib/elasticsearch
+    path.logs : /home/elasticsearch/logs
+    path.work : /home/elasticsearch/work
+    ```
+
+1. 修改 `vi /usr/share/elasticsearch/bin/elasticsearch` ,
+
+    ```
+    # 在最开始引入如下一行，主要为了引入环境变量 JAVA_HOME
+    . /etc/profile.d/jujn.sh
+    ```
+
+
+
+
+## centos 6 安装
 
 ```
 yum install elasticsearch
@@ -157,3 +202,4 @@ sudo service elasticsearch status
 ```
 验证结果是否正确。
 注意：必须先创建索引，才能验证。
+		
