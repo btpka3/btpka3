@@ -1,3 +1,29 @@
+## SwitchySharp + GoAgent
+
+注意：关于安全性，请参考 《[GoAgent的安全风险](http://www.williamlong.info/archives/3882.html)》，是否使用了 GoAgent 的根证书，请使用不同浏览器访问 [https://goagent-cert-test.bamsoftware.com/](https://goagent-cert-test.bamsoftware.com/) 进行检测。
+
+一般情况下，请使用 Firefox 访问大部分网站，只用 Chrome 浏览器访问被屏蔽的网站。
+
+### GoAgent
+
+1. 下载 [GoAgent](https://github.com/goagent/goagent)，并解压
+1. 运行 `sudo ${GO_AGENT_HOME}/local/proxy.sh start`，GoAgent 自带 一部分GAE的账户，可以先使用着
+1. 到 [GAE](https://appengine.google.com) 注册一个app，并记住ID
+1. 运行 `${GO_AGENT_HOME}/server/uploader.py`, 并根据提示输入 app ID，输入Email（谷歌账户）、密码，把 服务端代码 上传到 GAE。
+1. 修改 `${GO_AGENT_HOME}/local/proxy.ini`， 将自己注册的 app id 添加到 `[gae]` 下的 appid 中。
+1. 重启 proxy.sh （提示：ps,grep,kill）
+
+
+### SwitchyOmega.crx
+
+1. 下载 SwitchyOmega，并安装到 chrome 浏览器中。
+1.  打开 SwitchyOmega， Import  -> Restore from file -> `${GO_AGENT_HOME}/local/SwitchyOptions.bak`
+1.  在 chrome 的 settings -> HTTP/SSL -> Manage certificates -> Authorities -> Import -> `${GO_AGENT_HOME}/local/CA.crt`
+1.  打开 SwitchyOmega，切换至 "Auto Switch" 模式
+
+
+
+## FreeGate
 在程序开发过程中，在搜索E文资料的时候，发现有好多好的文章总是被GFW给屏蔽掉了。
 这里就以Chrome浏览器或360极速浏览器为例（基于Chrome）总结一下如何通过 Proxy Switchy! 插件和 FreeGate 进行突破。
 
