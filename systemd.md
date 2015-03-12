@@ -28,6 +28,8 @@ ln -s '/usr/lib/systemd/system/graphical.target' '/etc/systemd/system/default.ta
 
 ```
 systemctl --failed                            # 检查启动失败的服务
+systemctl status network.service
+
 systemctl enable name.service
 systemctl disable name.service
 systemctl reenable name.service
