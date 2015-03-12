@@ -1,5 +1,11 @@
 ## 安装
 
+## win8 安装错误
+
+```
+VBoxManage.exe" setextradata "<Virtual machine name>" VBoxInternal/CPUM/CMPXCHG16B 1 
+```
+
 [查看这里](https://www.virtualbox.org/wiki/Linux_Downloads)
 
 ## 网络连接
