@@ -37,7 +37,7 @@ chkconfig --add elasticsearch
 ## 创建执行所需的系统用户
 
 ```
-useradd es
+useradd elasticsearch
 ```
 
 
