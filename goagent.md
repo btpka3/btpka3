@@ -52,8 +52,7 @@
 附：被屏蔽URL总结
 
 ```
- *.sourceforge.net
- *.blogspot.com
- *.wordpress.com
+*.sourceforge.net
+*.blogspot.com
+*.wordpress.com
 ```
-
