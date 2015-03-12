@@ -141,7 +141,7 @@ server {
 
 ```conf
 server {
-    listen 80;
+    listen 80;              # 如果想绑定到特定的IP地址（比如VIP），可以 `listen 192.168.0.101:80;`
     access_log                    /var/log/nginx/proxy.access.log     proxy;
     error_log                     /var/log/nginx/proxy.error.log      notice;
     #access_log  off;
