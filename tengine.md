@@ -51,12 +51,12 @@
 
     [Service]
     Type=forking
-    ExecStartPre=/usr/local/tengine-2.1.0/sbin/nginx -t
-    ExecStart=/usr/local/tengine-2.1.0/sbin/nginx
+    ExecStartPre=/usr/local/tengine/tengine-2.1.0/sbin/nginx -t
+    ExecStart=/usr/local/tengine/tengine-2.1.0/sbin/nginx
     ExecReload=/bin/kill -s HUP $MAINPID
     ExecStop=/bin/kill -s QUIT $MAINPID
-    WorkingDirectory=/usr/local/tengine-2.1.0/
-    PIDFile=/usr/local/tengine-2.1.0/logs/nginx.pid
+    WorkingDirectory=/usr/local/tengine/tengine-2.1.0/
+    PIDFile=/usr/local/tengine/tengine-2.1.0/logs/nginx.pid
     Restart=always
     User=root
     LimitNOFILE=65535
