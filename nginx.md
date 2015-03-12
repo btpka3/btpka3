@@ -160,7 +160,7 @@ server {
 
 
              if ($flag = 0) {
-                 proxy_pass http://$http_host$uri$is_args$args;                                                                                        
+                 proxy_pass http://$http_host$uri$is_args$args;
              }
              if ($flag = 1) {
                  proxy_pass http://fonts.useso.com$uri$is_args$args;
