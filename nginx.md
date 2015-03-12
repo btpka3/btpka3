@@ -141,43 +141,71 @@ server {
 
 ```conf
 server {
-    listen 80;              # 如果想绑定到特定的IP地址（比如VIP），可以 `listen 192.168.0.101:80;`
-    access_log                    /var/log/nginx/proxy.access.log     proxy;
-    error_log                     /var/log/nginx/proxy.error.log      notice;
-    #access_log  off;
-    #error_log off;
+    listen 192.168.0.10:80;
+
+    #access_log      logs/proxy.access.log   main;
+    #error_log       logs/proxy.error.log    notice;
+    access_log      off;
+    error_log       off;
 
     location / {
-             resolver 202.101.172.35;
+        resolver   180.76.76.76;
 
-             set $flag 0;
-             if ($http_host =  fonts.googleapis.com) {
-                 set $flag 1;
-             }
-             if ($http_host =  ajax.googleapis.com) {
-                 set $flag 2;
-             }
+        set $flag 0;
+        if ($http_host = fonts.googleapis.com) {
+            set $flag 1;
+        }
+        if ($http_host = ajax.googleapis.com) {
+            set $flag 2;
+        }
 
-
-             if ($flag = 0) {
-                 proxy_pass http://$http_host$uri$is_args$args;
-             }
-             if ($flag = 1) {
-                 proxy_pass http://fonts.useso.com$uri$is_args$args;
-             }
-             if ($flag = 2) {
-                 proxy_pass http://ajax.useso.com$uri$is_args$args;
-             }
-
+        if ($flag = 0) {
+            proxy_pass http://$http_host$uri$is_args$args;
+        }
+        if ($flag = 1) {
+            proxy_pass http://fonts.useso.com$uri$is_args$args;
+        }
+        if ($flag = 2) {
+            proxy_pass http://ajax.useso.com$uri$is_args$args;
+        }
     }
 }
-server {
-    listen 443;
-    return 301 http://$http_host$request_uri;
-    ssl on; 
-    ssl_certificate      /etc/nginx/conf.d/nginx.pem.cer;
-    ssl_certificate_key  /etc/nginx/conf.d/nginx.pem.clear.key;
 
+server {
+    listen 192.168.0.10:443;
+
+    ssl                     on;
+    ssl_certificate         conf.d/jujncn.com.pem.cer;
+    ssl_certificate_key     conf.d/jujncn.com.pem.clear.key;
+
+    #access_log      logs/proxy.access.log   main;
+    #error_log       logs/proxy.error.log    notice;
+    access_log      off;
+    error_log       off;
+
+    #return 301 http://$http_host$request_uri;
+
+    location / {
+        resolver   180.76.76.76;
+
+        set $flag 0;
+        if ($http_host = fonts.googleapis.com) {
+            set $flag 1;
+        }
+        if ($http_host = ajax.googleapis.com) {
+            set $flag 2;
+        }
+
+        if ($flag = 0) {
+            proxy_pass http://$http_host$uri$is_args$args;
+        }
+        if ($flag = 1) {
+            proxy_pass http://fonts.useso.com$uri$is_args$args;
+        }
+        if ($flag = 2) {
+            proxy_pass http://ajax.useso.com$uri$is_args$args;
+        }
+    }
 }
 ```
 
