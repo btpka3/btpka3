@@ -33,6 +33,7 @@ yum install mlocate             # updatedb，locate 命令
 yum install lsof                    # lsof 命令
 yum install psmisc              # pstree 命令
 
+# 防止 /etc/resolv.conf 被覆盖，就禁用  NetworkManager
 systemctl disable NetworkManager
 systemctl stop NetworkManager
 # systemctl enable NetworkManager-wait-online.service
