@@ -1,10 +1,24 @@
 ## 安装
 
-## win8 安装错误
+### win8 安装错误
 
 ```
 VBoxManage.exe" setextradata "<Virtual machine name>" VBoxInternal/CPUM/CMPXCHG16B 1 
 ```
+### centos 7
+
+```
+# 使用桥接方式
+vi /etc/sysconfig/network-scripts/ifcfg-enp0s3 
+DEVICE=eth0  
+BOOTPROTO=dhcp  
+ONBOOT=yes
+
+systemctl restart network
+yum install net-tools
+ifconfig
+```
+
 
 [查看这里](https://www.virtualbox.org/wiki/Linux_Downloads)
 
