@@ -16,7 +16,7 @@ mvn --version
 
 ```
 #  since 3.1
-mvn dependency:get -Dartifact=org.springframework:spring-instrument:3.2.3.RELEASE
+mvn dependency:get -Dtransitive=false -Dartifact=org.springframework:spring-instrument:3.2.3.RELEASE
 ```
 
 ## 下载源代码
