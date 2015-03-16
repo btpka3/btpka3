@@ -12,6 +12,12 @@ export PATH=$M2_HOME/bin:$PATH
 mvn --version
 ```
 
+## 下载单个jar包
+
+```
+#  since 3.1
+mvn dependency:get -Dartifact=org.springframework:spring-instrument:3.2.3.RELEASE
+```
 
 ## 下载源代码
 
