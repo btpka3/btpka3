@@ -141,6 +141,7 @@ Preferences - Java - Code Style - Clean Up : 取消选中 "Show profile selectio
 1. Identation : General settings : Tab policy 选为 Spaces only
 1. Line Wrapping : Maximum line width : 120
 1. Line Wrapping : 选中 Never join already wrapped lines
+1. Comments : 取消选中 “Enable line comment formatting”
 1. Comments : 选中 Never join lines
 1. Comments : Line width : Maximum line width for comments : 120
 1. Off/On Tags : 选中 Enable Off/On tags
