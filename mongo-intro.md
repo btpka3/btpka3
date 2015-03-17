@@ -93,6 +93,28 @@ db.cart.find()                           // 列出 cart 集合（表）中所有
 |mongostat  | 显示 mongo 服务器的状态 |
 |mongotop   | 显示 mongo 服务器的状态 |
 
+
+# 内建角色
+
+|Built-In Roles         |All db |
+|-----------------------|-------|
+|readAnyDatabase        |Yes    |
+|readWriteAnyDatabase   |Yes    |
+|userAdminAnyDatabase   |Yes    |
+|dbAdminAnyDatabase     |Yes    |
+|root                   |Yes    |
+|read                   |       |
+|readWrite              |       |
+|dbAdmin                |       |
+|dbOwner                |       |
+|userAdmin              |       |
+|clusterAdmin           |       |
+|clusterManager         |       |
+|clusterMonitor         |       |
+|hostManager            |       |
+|backup                 |       |
+|restore                |       |
+
 # 配置文件
 
 MongoDB 2.6 开始，使用 YAML 语法书写配置文件，但仍然兼容 2.4 版的配置文件格式。 rpm包中的配置文件请参考[这里](https://github.com/mongodb/mongo/blob/master/rpm/mongod.conf)。
