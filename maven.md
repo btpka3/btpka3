@@ -12,6 +12,44 @@ export PATH=$M2_HOME/bin:$PATH
 mvn --version
 ```
 
+## 向 Central 中心仓库发布
+
+参考：
+* 《[Guide to uploading artifacts to the Central Repository](http://maven.apache.org/guides/mini/guide-central-repository-upload.html)》
+* 《[Working with PGP Signatures](http://central.sonatype.org/pages/working-with-pgp-signatures.html)》
+* 《[OSSRH Guide](http://central.sonatype.org/pages/ossrh-guide.html)》
+* 《[发布Maven构件到中央仓库](http://my.oschina.net/songxinqiang/blog/313226)》
+
+### gpg
+
+```
+gpg2 --version
+gpg2 --gen-key              # 生成密钥对儿
+gpg2 --list-keys            # 列出公钥
+gpg2 --list-secret-keys     # 列出密钥
+
+gpg2 -ab xxx.txt            # 对指定的文件进行签名
+gpg2 --verify xxx.txt.asc   # 对指定文件的签名进行校验
+
+                            # 发布公钥
+gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys C6EED57A      
+
+                            # 其他人员载入你的公钥
+gpg2 --keyserver hkp://pool.sks-keyservers.net --recv-keys C6EED57A
+
+
+gpg2 --edit-key A6BAB25C    # 编辑公钥
+    1                       # 选择特定的公钥（如果有多个的话）
+    expire                  # 重新设置过期时间
+    save                    # 保存
+                            # TODO 重新发布公钥
+```
+
+
+
+
+
+
 ## 下载单个jar包
 
 ```
