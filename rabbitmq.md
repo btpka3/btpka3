@@ -86,7 +86,7 @@ tar zxvf rabbitmq-server-generic-unix-3.3.5.tar.gz -C /usr/local/
 
 # 修改配置 rabbitmq.config
 cd /usr/local/rabbitmq_server-3.3.5
-vi ./etc/rabbitmq/rabbitmq.config
+vi ./etc/rabbitmq/rabbitmq.config                          # 可以使guest账户远程主机登录
 [{rabbit, [{loopback_users, []}]}].
 
 
