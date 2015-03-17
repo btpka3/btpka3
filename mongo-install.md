@@ -158,6 +158,18 @@ centos 安装参考[这里](http://docs.mongodb.org/manual/tutorial/install-mong
         pwd: "<password>",
         roles: [ { role: "root", db: "admin" } ]
     });
+ 
+    db.auth("siteRootAdmin", "<password>");      # 认证
+    db.getUsers();                             # 获取当前数据库中的用户
+
+    // 对当前数据库中的用户 "siteRootAdmin"，授予不同数据库的不同权限
+    db.grantRolesToUser(
+      "siteRootAdmin",
+      [
+        { role: "read",      db: "db1" },
+        { role: "readWrite", db: "db2" }
+      ]
+    );
     ```
 1. 停止所有的 mongod
 
@@ -281,4 +293,4 @@ centos 安装参考[这里](http://docs.mongodb.org/manual/tutorial/install-mong
 
 
 
-	
+		
