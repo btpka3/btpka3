@@ -96,6 +96,8 @@ db.cart.find()                           // 列出 cart 集合（表）中所有
 
 # 内建角色
 
+参考[这里](http://docs.mongodb.org/manual/reference/built-in-roles/)
+
 |Built-In Roles         |All db |
 |-----------------------|-------|
 |readAnyDatabase        |Yes    |
