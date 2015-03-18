@@ -18,6 +18,7 @@
         * [Java tips](java-tips)
     * [Groovy](groovy)
     * [Grails](grails)
+        * [Spring DSL](grails-spring-dsl)
     * [Spring Framework](spring-framework)
     * [Spring Security](spring-security)
     * [CAS](cas-intro)
