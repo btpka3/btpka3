@@ -80,7 +80,7 @@
         * [mongoDB 安装](mongo-install)
         * [mongoDB 使用总结](mongo)
         * [MongoDB java示例](mongo-java-demo)
-        * [MongoDB Grails示例](mongo-grails-demo)
+        * [MongoDB Grails示例](https://github.com/btpka3/btpka3.github.com/tree/master/grails/my-mongo)
     * Cassandra  —— 暂时放弃使用
         * [Cassandra 简介](cassandra-intro)
         * [Cassandra 安装](cassandra-install)
