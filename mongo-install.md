@@ -134,6 +134,32 @@ centos 安装参考[这里](http://docs.mongodb.org/manual/tutorial/install-mong
     service mongod status
     ```
 
+# 单机配置
+
+mongodb.conf
+
+```
+net:
+    port: 27017
+    #bindIp: 127.0.0.1
+
+processManagement:
+    pidFilePath: /home/mongod/mongod.pid
+    fork: true
+
+storage:
+    dbPath: /home/mongod/data
+    directoryPerDB: true
+
+systemLog:
+    destination: file
+    path : /home/mongod/log/mongodb.log
+    logAppend: true
+
+security:
+    authorization: enabled
+```
+
 # 配置复制
 
 1. 配置好每台服务器的hostname，并确保每个节点都可以用主机名ping到任意其他节点。比如：修改每个节点的上的 `/etc/hosts`
