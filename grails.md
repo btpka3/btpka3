@@ -12,6 +12,12 @@ export PATH=$GRAILS_HOME/bin:$PATH
 grails --version
 ```
 
+## 分割 resources.groovy
+
+参考 [这里](http://blog.klarshift.de/?p=160)
+
+
+
 
 ## 移除事务、数据源
 1. 修改 BuildConfig.groovy
