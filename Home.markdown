@@ -79,6 +79,8 @@
         * [mongoDB 简介](mongo-intro)
         * [mongoDB 安装](mongo-install)
         * [mongoDB 使用总结](mongo)
+        * [MongoDB java示例](mongo-java-demo)
+        * [MongoDB Grails示例](mongo-grails-demo)
     * Cassandra  —— 暂时放弃使用
         * [Cassandra 简介](cassandra-intro)
         * [Cassandra 安装](cassandra-install)
