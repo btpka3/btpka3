@@ -1,3 +1,24 @@
+## 定义Map
+
+```groovy
+def map1 = [
+    keyToStr  : "value", 
+    keyToVar  : varRef, 
+    keyToList : [e1, e2, e3],
+    keyToMap  : [
+        key1  : 1,
+        key2  : 2,
+        key3  : 3
+    ],
+    (XxxClass.simpleName) : "xxx"      // Expression as Key
+]
+```
+
+
+
+
+
+
 # maven 
 http://gmaven.codehaus.org/Home
 
