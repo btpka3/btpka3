@@ -16,6 +16,7 @@
     sudo apt-get install openssl
     sudo apt-get install build-essential
     sudo apt-get install linux-kernel-headers
+    sudo apt-get install gcc libpcre3 libpcre3-dev zlib1g-dev 
     ```
 
 1. 下载、编译并安装
