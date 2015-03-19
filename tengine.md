@@ -15,6 +15,7 @@
     # 或者
     sudo apt-get install openssl
     sudo apt-get install build-essential
+    sudo apt-get install linux-kernel-headers
     ```
 
 1. 下载、编译并安装
