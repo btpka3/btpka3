@@ -27,6 +27,7 @@
     cd /tmp
     wget http://tengine.taobao.org/download/tengine-2.1.0.tar.gz
     tar zxvf tengine-2.1.0.tar.gz
+    chown -R root:root tengine-2.1.0
     cd tengine-2.1.0
     ./configure --prefix=/usr/local/tengine/tengine-2.1.0 --user=nginx
     make
