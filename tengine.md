@@ -90,3 +90,7 @@
     nginx="/usr/local/tengine-2.1.0/sbin/nginx"
     NGINX_CONF_FILE="/usr/local/tengine-2.1.0/conf/nginx.conf"
     ```	
+
+### ubuntu
+
+参考[这里](http://wiki.nginx.org/Upstart)
