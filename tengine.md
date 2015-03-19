@@ -14,6 +14,7 @@
     yum install openssl openssl-devel
     # 或者
     sudo apt-get install openssl
+    sudo apt-get install build-essential
     ```
 
 1. 下载、编译并安装
