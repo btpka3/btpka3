@@ -44,6 +44,9 @@
     # 2. 在 "http {...}" 内加入 "include conf.d/*.conf;"
     # 3. 在最开始，设置 `user www`, 以非root 用户运行
     # 4. 修改 worker_process 为 CPU 核心数量
+
+    useradd www
+    chown -R www:www logs
     ```
 
 ### centos 7
@@ -94,3 +97,38 @@
 ### ubuntu
 
 参考[这里](http://wiki.nginx.org/Upstart)
+
+1. `vi /etc/init/tengine.conf`
+
+    ```
+    # tengine
+
+    description "tengine http daemon"
+     
+    start on (filesystem and net-device-up IFACE=lo)
+    stop on runlevel [!2345]
+     
+    env DAEMON=/usr/local/tengine/tengine-2.1.0/sbin/nginx
+    env PID=/usr/local/tengine/tengine-2.1.0/logs/nginx.pid
+     
+    expect fork
+    respawn
+    respawn limit 10 5
+    #oom never
+     
+    pre-start script
+            $DAEMON -t
+            if [ $? -ne 0 ] 
+                    then exit $?
+            fi
+    end script
+     
+    exec $DAEMON
+    ```
+
+1. 启动
+ 
+    ```
+    sduo service tengine status
+    sduo service tengine start
+    ```
