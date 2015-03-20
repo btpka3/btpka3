@@ -273,22 +273,23 @@ cp path/to/file /path/to/dest
 # .gitignore
 
 ```text
-stacktrace.log
-web-app/WEB-INF/classes
-target/
+/target-eclipse/classes
+/web-app/WEB-INF/classes
+/target/
+/out/
+/test/
+/overlays/
+/db/
 .classpath
 .settings/
 .project
-/db/
-target-eclipse/classes
+.idea/                                                                                                                  
+.DS_Store
 *.iml
 *.ipr
 *.iws
 *.swp
-.idea/
-out/
-/test/
-.DS_Store
+*.log
 ```
 
 
