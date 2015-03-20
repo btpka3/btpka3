@@ -13,7 +13,7 @@
     ```sh
     yum install openssl openssl-devel
     # 或者
-    sudo apt-get install openssl
+    sudo apt-get install openssl libssl-dev
     sudo apt-get install build-essential
     sudo apt-get install linux-kernel-headers
     sudo apt-get install gcc libpcre3 libpcre3-dev zlib1g-dev 
