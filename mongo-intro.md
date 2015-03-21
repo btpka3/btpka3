@@ -57,6 +57,8 @@ db.cart.find()                           // 列出 cart 集合（表）中所有
 ```
 
 ### 编写独立的脚本
+需要先参考 《[Write Scripts for the mongo Shell](http://docs.mongodb.org/manual/tutorial/write-scripts-for-the-mongo-shell/)》，再细看 [API](http://docs.mongodb.org/manual/reference/method/)。
+
 
 1. 编写一个 `*.js` 文件 ： `vi mongo.js`
 
