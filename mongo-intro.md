@@ -32,18 +32,22 @@
 
 ## 基本使用
 
+### 管理登录
+
 ```js
 
-// 管理登录（需要连接到主节点上，通过命令行提示符判断） 
+// 需要连接到主节点上，通过命令行提示符判断
 mongo --host s82
 use admin
 // db.auth("siteUserAdmin", "password");
 db.auth("siteRootAdmin", "password");
 rs.conf()                               // 查看 Replica Set 的配置
 rs.status()                             // 查看 Replica Set 的当前状态
+```
 
+### 普通登录 
 
-// 普通登录 
+```js
 mongo --host s82                         // 连接到远程数据库，如果主机名不是标准的域名格式，必须使用 `--host`
 use lizidb                               // 切换数据库，PS：此时该数据库可能并不存在
 db.auth("lizidbAdmin", "password");      // 使用用户名、密码登录。否则后续操作将失败
@@ -51,6 +55,19 @@ db.getMongo().setSlaveOk()               // 如果当前节点是从节点，需
 show collections                         // 列出所有的集合（表）
 db.cart.find()                           // 列出 cart 集合（表）中所有的文档（记录）
 ```
+
+### 编写独立的脚本
+
+1. 编写一个 `*.js` 文件 ： `vi mongo.js`
+
+    ```js
+    var db = connect("host:27017/dbName");
+    db.auth("username","password");
+    var colNames = db.getCollectionNames();
+    printjson(colNames);
+    ```
+1. 执行该文件 `mongo mongo.js`
+
 
 ## 设计原则
 
