@@ -1,5 +1,5 @@
 
-# 简介
+## 简介
 
 [MongoDB](http://www.mongodb.org/) 是一个时下非常流行的非关系型数据库(NoSql)。如果官网的文档打开过慢，可以到[这里](http://docs.mongoing.com/manual-zh/faq/concurrency.html)看未翻译完的中文版参考手册。特点：
 
@@ -23,15 +23,24 @@
 ## 参考
 * [MongoDB. This is not the database you are looking for.](http://patrickmcfadin.com/2014/02/11/mongodb-this-is-not-the-database-you-are-looking-for/)
 
-# 基本使用
+## 常用命令
+
+|command|description|
+|------|-----|
+|mongo      | 使用 mongo shell 连接 mongo 服务器|
+|mongostat  | 显示 mongo 服务器的状态 |
+|mongotop   | 显示 mongo 服务器的状态 |
+
+
+## 基本使用
 
 ```js
 
 // 管理登录（需要连接到主节点上，通过命令行提示符判断） 
 mongo --host s82
 use admin
-// db.auth("siteUserAdmin", "nalanala");
-db.auth("siteRootAdmin", "nalanala");
+// db.auth("siteUserAdmin", "password");
+db.auth("siteRootAdmin", "password");
 rs.conf()                               // 查看 Replica Set 的配置
 rs.status()                             // 查看 Replica Set 的当前状态
 
@@ -39,13 +48,14 @@ rs.status()                             // 查看 Replica Set 的当前状态
 // 普通登录 
 mongo --host s82                         // 连接到远程数据库，如果主机名不是标准的域名格式，必须使用 `--host`
 use lizidb                               // 切换数据库，PS：此时该数据库可能并不存在
-db.auth("lizidbAdmin", "nalanala");      // 使用用户名、密码登录。否则后续操作将失败
+db.auth("lizidbAdmin", "password");      // 使用用户名、密码登录。否则后续操作将失败
 db.getMongo().setSlaveOk()               // 如果当前节点是从节点，需要设置 slaveOk 之后，才能进行查询。
 show collections                         // 列出所有的集合（表）
 db.cart.find()                           // 列出 cart 集合（表）中所有的文档（记录）
 ```
 
-# 设计原则
+## 设计原则
+
 * 所有集合都明确声明 String 类型的 id 字段 ： `String id`。GORM会自动将其赋值为 `new ObjectId().toString()`
 * Embedded 类型，其class定义应当声明在Domain类内部，比如：
 
@@ -85,16 +95,9 @@ db.cart.find()                           // 列出 cart 集合（表）中所有
     * 除了shard key， 唯一索引无法保证唯一性，其唯一性需要应用自行控制。
     * 在批量导入时，最好先根据 sharding key 将数据预分组。
 
-# 常用命令
-
-|command|description|
-|------|-----|
-|mongo      | 使用 mongo shell 连接 mongo 服务器|
-|mongostat  | 显示 mongo 服务器的状态 |
-|mongotop   | 显示 mongo 服务器的状态 |
 
 
-# 内建角色
+## 内建角色
 
 参考[这里](http://docs.mongodb.org/manual/reference/built-in-roles/)
 
@@ -117,7 +120,7 @@ db.cart.find()                           // 列出 cart 集合（表）中所有
 |backup                 |       |
 |restore                |       |
 
-# 配置文件
+## 配置文件
 
 MongoDB 2.6 开始，使用 YAML 语法书写配置文件，但仍然兼容 2.4 版的配置文件格式。 rpm包中的配置文件请参考[这里](https://github.com/mongodb/mongo/blob/master/rpm/mongod.conf)。
 
@@ -267,7 +270,7 @@ bind_ip                     net.bindIp
 
 
 
-# 参考文件
+## 参考文件
 * 《[Replication Lag & The Facts of Life](http://blog.mongolab.com/2013/03/replication-lag-the-facts-of-life/)》
 * 《[MongoDB Operations Best Practices guide](http://info.mongodb.com/rs/mongodb/images/MongoDB_Operations_Best_Practices.pdf)》 pdf
 * 《[MongoDB与内存](http://huoding.com/2011/08/19/107)》
