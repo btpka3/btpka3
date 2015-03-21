@@ -20,8 +20,6 @@
 ## 客户端 
 第三方提供的 GUI 客户端 [Robomongo](http://robomongo.org/)
 
-## 参考
-* [MongoDB. This is not the database you are looking for.](http://patrickmcfadin.com/2014/02/11/mongodb-this-is-not-the-database-you-are-looking-for/)
 
 ## 常用命令
 
@@ -274,3 +272,4 @@ bind_ip                     net.bindIp
 * 《[Replication Lag & The Facts of Life](http://blog.mongolab.com/2013/03/replication-lag-the-facts-of-life/)》
 * 《[MongoDB Operations Best Practices guide](http://info.mongodb.com/rs/mongodb/images/MongoDB_Operations_Best_Practices.pdf)》 pdf
 * 《[MongoDB与内存](http://huoding.com/2011/08/19/107)》
+* 《[MongoDB. This is not the database you are looking for.](http://patrickmcfadin.com/2014/02/11/mongodb-this-is-not-the-database-you-are-looking-for/)》
