@@ -2,7 +2,7 @@
 * [NoSQL性能测试白皮书](http://www.infoq.com/cn/articles/nosql-performance-test)
 * [MongoDB核心贡献者：不是MongoDB不行，而是你不懂！](http://www.csdn.net/article/2012-11-15/2811920-mongodb-quan-gong-lue)
 * [MongoDB：逐渐变得无关紧要](http://www.csdn.net/article/2015-01-14/2823551)
-
+* [再见 MongoDB，你好 PostgreSQL](http://www.oschina.net/translate/goodbye-mongodb-hello-postgresql?from=20150322)
 
 # 安装
 
