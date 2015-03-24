@@ -129,6 +129,6 @@
 1. 启动
  
     ```
-    sduo service tengine status
-    sduo service tengine start
+    sudo service tengine status
+    sudo service tengine start
     ```
