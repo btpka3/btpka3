@@ -1,4 +1,4 @@
-(QQ 企业邮箱配置参考)[http://service.exmail.qq.com/cgi-bin/help?subtype=1&&id=28&&no=1000564]
+[QQ 企业邮箱配置参考](http://service.exmail.qq.com/cgi-bin/help?subtype=1&&id=28&&no=1000564)
 
 # Foxmail for Windows
 
@@ -24,7 +24,7 @@ sudo apt-get  install thunderbird
             : 点击 manual config 
                 : incoming 选择 IMAP协议，服务器输入 imap.exmail.qq.com ，SSL选择 "SSL/TLS"; 
                 : outgoing服务器收入 smtp.exmail.qq.com，SSL选择 "SSL/TLS"; 
-                : Username的两个输入框均输入完整的邮箱地址（比如：zhangll@lizi.com）;
+                : Username的两个输入框均输入完整的邮箱地址（比如：zhangll@xxx.com）;
                 : 点击 Re-test确认配置
                 : done
     : 点击刚刚新建的邮箱账户
@@ -60,9 +60,6 @@ sudo apt-get  install thunderbird
 System->Preferences->Default Applications for LXSession : Autostart 标签页：输入 thunderbird
 
 
-## 导入地址簿
-
-`smb://wiki.lizi.com/share` 下面有个 lizi.idif 文件
 
 ## 使用过滤器
 
@@ -75,7 +72,7 @@ System->Preferences->Default Applications for LXSession : Autostart 标签页：
 1. 创建过滤器并运行一次
 
     在ThunderBird右上角，点击三条横杠的图标->Message Filters->Message Filters->弹出窗口中点击 按钮 new
-    ->为Filter启动一个名称，设置From contains "zentao@lizi.com", 设置将消息移动到 刚刚新建的目录中，OK
+    ->为Filter启动一个名称，设置From contains "zentao@xxx.com", 设置将消息移动到 刚刚新建的目录中，OK
     ->返回弹出窗口，选中刚刚新建的Filter，并点击按钮 "Run Now"
 
 
