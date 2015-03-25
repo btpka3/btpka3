@@ -11,7 +11,7 @@
 1. 到 [GAE](https://appengine.google.com) 注册一个app，并记住ID
 1. 运行 `${GO_AGENT_HOME}/server/uploader.py`, 并根据提示输入 app ID，输入Email（谷歌账户）、密码，把 服务端代码 上传到 GAE。
 1. 修改 `${GO_AGENT_HOME}/local/proxy.ini`， 将自己注册的 app id 添加到 `[gae]` 下的 appid 中。
-1. 重启 proxy.sh （提示：ps,grep,kill）
+1. 重启 proxy.sh : `sudo ./proxy.sh restart`
 
 
 ### SwitchyOmega
