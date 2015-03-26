@@ -9,14 +9,16 @@
 以命令 `sysbench --test=cpu --cpu-max-prime=20000 --num-threads=4 run` 在上述环境中分别变更线程数得到以下汇总结果：
 
 
-|cpu               | --num-threads | total time (s) |
-|------------------|---------------|----------------|
-|Intel i3-3240     |  1            |        24.9281 |
-|Intel i3-3240     |  4            |         8.0153 |
-|Intel i3-3240     |  16           |         7.9028 |
-|Intel Xeon E31230 |  1            |        26.5138 |
-|Intel Xeon E31230 |  8            |         4.1703 |
-|Intel Xeon E31230 |  16           |         3.8671 |
+|cpu               | --num-threads | total time (s) |memo|
+|------------------|---------------|----------------|---|
+|Intel i3-3240     |  1            |        24.9281 ||
+|Intel i3-3240     |  4            |         8.0153 ||
+|Intel i3-3240     |  16           |         7.9028 ||
+|Intel Xeon E31230 |  1            |        26.5138 ||
+|Intel Xeon E31230 |  8            |         4.1703 ||
+|Intel Xeon E31230 |  16           |         3.8671 ||
+|Intel Xeon E5-2650 |  1           |         32.7505 |aliyun ESC 2核|
+|Intel Xeon E5-2650 |  1           |         16.4267 |aliyun ESC 2核|
 
 说明：
 
