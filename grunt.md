@@ -1,9 +1,23 @@
+## nodejs
 
+```
+sudo mkdir /usr/local/nodejs
+sudo tar zxvf node-v0.12.1-linux-x64.tar.gz -C /usr/local/nodejs
+
+sudo vi /etc/profile.d/xxx.sh    # 追加以下配置
+export NODEJS_HOME=/usr/local/nodejs/node-v0.12.1-linux-x64
+export PATH=$NODEJS_HOME/bin:$PATH
+
+cd /usr/local/nodejs/node-v0.12.1-linux-x64
+sudo chmod 777 bin
+sudo chmod 777 lib/node_modules
+```
 
 ## init
 
 
 ```
+npm install -g grunt-cli
 npm install -g grunt-init
 
 npm init
@@ -18,4 +32,4 @@ npm install bootstrap --save
 
 ## 本地缓存
 
-[npm_lazy](https://github.com/mixu/npm_lazy) 或者 [sinopia](https://github.com/rlidwka/sinopia)
+[npm_lazy](https://github.com/mixu/npm_lazy) 或者 [sinopia](https://github.com/rlidwka/sinopia)		
