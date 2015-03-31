@@ -90,7 +90,7 @@ REM X.509)
         -keyalg RSA \
         -keysize 1024 \
         -sigalg SHA1withRSA \
-        -dname "CN=test.me, OU=R & D department, O=\\"BJ SOS Software Tech Co., Ltd\\", L=Beijing, S=Beijing, C=CN" \
+        -dname "CN=test.me, OU=R & D department, O=\"BJ SOS Software Tech Co., Ltd\", L=Beijing, S=Beijing, C=CN" \
         -validity 3650 \
         -keypass 123456 \
         -keystore sos.jks \
