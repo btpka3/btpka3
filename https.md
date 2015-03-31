@@ -144,7 +144,7 @@ REM X.509)
     openssl rsa \
         -in sos.pem.key \
         -passin pass:123456 \
-        -out sso.pem.clear.key
+        -out sos.pem.clear.key
 
 
     # 公钥
