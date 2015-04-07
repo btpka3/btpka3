@@ -7,6 +7,6 @@
 2. bbb
 
     ```
-    <script src="http://a.com/xss.js"></script>
+    <script src="http://a.com/xss.js"></script>   
     ```
     
