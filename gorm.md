@@ -38,7 +38,8 @@ class Nose {
 * 建议
     * 在子记录上给出parent的引用，而不要在父记录上包含子记录的list/set
     * 不要使用 List 来包含子元素，用默认的Set即可。更改List的中的顺序尚未尝试成功
-    * 不要使用 parentRec.addToXxx(childRec) ，使用 childRec.parent = xxx 来取代。
+    * 不要使用 `parentRec.addToXxx(childRec)` ，使用 `childRec.parent = xxx` 来取代。
+    * 明确使用 `static mappedBy = [manyPropInParentRec:'fieldInChildRec']`
 
 * case 1
 
