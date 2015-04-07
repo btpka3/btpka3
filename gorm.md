@@ -30,6 +30,75 @@ class Nose {
 
 ```
 
+
+## 
+
+## GORM 一对多
+
+* case 1
+
+    ```
+    class Zzz {
+        static hasMany = [list:Zzz]
+        String id
+        String name
+    }
+    ```
+
+    结果，父记录的list属性有值
+
+* case 2
+
+    ```
+    class Zzz {
+        static hasMany = [list:Zzz]
+        String id
+        Zzz parent
+    }
+    ```
+
+    结果，父记录没有list属性，子记录的parent有值（经过测验，parent 可以随便更名）
+
+
+* case 3
+
+    ```
+    class Zzz {
+        static hasMany = [list:Zzz]
+        String id
+        Zzz p1
+        Zzz p2
+        Zzz p3
+    }
+    ```
+
+    报错：
+
+    ```
+    Caused by: org.codehaus.groovy.grails.exceptions.GrailsDomainException: 
+    Property [list] in class [class com.jujn.domain.domain.Zzz] is a bidirectional one-to-many with two possible properties on the inverse side. 
+    Either name one of the properties on other side of the relationship [zzz] or use the 'mappedBy' static to define the property that the relationship is mapped with. 
+    Example: static mappedBy = [list:'myprop']
+    ```
+
+* case 4
+
+    ```
+    class Zzz {
+        static hasMany = [list:Zzz]
+        static mappedBy = [list : 'p2']
+        String id
+        Zzz p1
+        Zzz p2    
+        Zzz p3
+    }
+    ```
+
+    结果，父记录没有list属性，子记录的p2有值, p1和p3没有值
+
+ 
+
+
 # 查询出部分列
 
 ```groovy
