@@ -33,14 +33,14 @@ class Nose {
 
 ## 
 
-## GORM 一对多
+## GORM 一对多、多对多
 
-* 建议
+* 说明 && 建议
+    * `belongsTo` 仅仅影响级联删除，不应用记录之间的 一对多、多对多 关系映射。
     * 在一对多时，最好使用 reverse 的方式：在子记录上给出parent的引用，而不要在父记录上包含子记录的list/set
-    * 在多对多时，需要 `static mappedBy = [manyPropInParentRec: null]`， 从而在父记录中保存属性 list/set，而子记录中有没有、有多少个 父记录类型的引用就没关系了。
-    * 不要使用 List 来包含子元素，用默认的Set即可。更改List的中的顺序尚未尝试成功
-    * 不要使用 `parentRec.addToXxx(childRec)` ，使用 `childRec.parent = xxx` 来取代。
-    * 明确使用 `static mappedBy = [manyPropInParentRec:'fieldInChildRec']` , 如果
+    * 在一对多时，明确使用 `static mappedBy = [manyPropInParentRec:'fieldInChildRec']` 
+    * 在一对多时，不要使用 `parentRec.addToXxx(childRec)` ，使用 `childRec.parent = xxx` 来取代。
+    * 在多对多时，需要 `static mappedBy = [manyPropInParentRec: null]`， 从而在父记录中保存属性 list/set（可以明确指明类型 List/Set/OrderedSet），而子记录中有没有、有多少个 父记录类型的引用就没关系了。
 
 * case 1
 
