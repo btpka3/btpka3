@@ -46,7 +46,7 @@ Set-Cookie: SSID=Ap4P….GTEq; Domain=.foo.com; Path=/; Expires=Wed, 13-Jan-2021
 * 一个session一个token变为一个request一个token
 
 ```html
-<form action="/transfer.do" method="post">  <!-- 表单隐藏项 -->
+<form action="/transfer.do" method="post">  <!--  表单隐藏项 -->
     <input type="hidden" name="CSRFToken" value="OWY4NmQwOOA">
 </form>
 <a href="/xxxx.do?CSRFToken=OWY4NmQwOOA"> XXX </a>  <!-- 链接URL参数 -->
