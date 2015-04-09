@@ -1,8 +1,4 @@
-TODO
-
-[init 脚本](/snippets/4)
-
-
+ 
 # 虚拟主机
 [参考](http://tomcat.apache.org/tomcat-7.0-doc/virtual-hosting-howto.html)
 
@@ -55,7 +51,7 @@ TODO
 
 
 
-#HTTPS
+# HTTPS
 生成自签名证书
 <source>
 CMD /> %JAVA_HOME%\bin\keytool -genkeypair -alias mykey -keyalg RSA -keysize 1024 -sigalg SHA1withRSA -dname "CN=your.domain.com, OU=R & D department, O=\"ABC Tech Co., Ltd\", L=Weihai, S=Shandong, C=CN" -validity 365 -keypass 123456 -keystore C:/.keystore -storepass 123456
@@ -64,23 +60,26 @@ CMD /> %JAVA_HOME%\bin\keytool -genkeypair -alias mykey -keyalg RSA -keysize 102
 注意： 为了能在 tomcat 下使用，-keypass 和 -storepass 必须一致。
 
 修改tomcat的配置文件 server.xml ：
-<source>
+
+```
 <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
                maxThreads="150" scheme="https" secure="true"
                clientAuth="false" sslProtocol="TLS" 
                keystoreFile="C:/.keystore"
                keystorePass="123456"/>
-</source>
+```
 
 如果在tomcat内部还要使用JavaAPI连接到自己的网址上，为了防止出现以下错误：
-<source>
+
+```
 SSLHandshakeException - unable to find valid certification path to requested target
-</source>
+```
 
 可以在 %CATALINA_HOME%/bin/catalina.bat 中追加以下配置
-<source>
+
+```
 set JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.trustStore="C:\.keystore" -Djavax.net.ssl.trustStorePassword="123456"
-</source>
+```
 
 # 安装后、部署前可选操作
 1. 删除 logs/*
