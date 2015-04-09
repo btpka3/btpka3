@@ -138,6 +138,7 @@ mvn -f ../../job1/workspace/pom.xml -Dmaven.test.skip=true -am --projects subMod
 * Publish Over SSH
 * SSH Credentials Plugin
 * Multiple SCMs Plugin
+* Grails Plugin
 
 
 [ref](https://gist.github.com/wataru420/1757063)
