@@ -16,7 +16,7 @@
 ```sh
 #!/bin/bash
 
-DIR=/data/app/nala-time
+DIR=/data/app/my-app
 
 #先备份
 for f in ${DIR}/upload/*.war
