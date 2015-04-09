@@ -37,20 +37,21 @@ APP=my-app
 DIR=/data0/app/$APP
 CATALINA_HOME=$DIR/apache-tomcat-8.0.21
 WAR_NAME=ROOT
-[[ $# -gt 0 ]] && {                                                                                                                    
+[[ $# -gt 0 ]] && {
     WAR_NAME="$1"
 }
 
 . /etc/profile.d/jujn.sh
 
-/etc/init.d/$APP stop -force
+if [ -f $DIR/upload/$APP*.war ]; then
+    /etc/init.d/$APP stop -force
 
-rm -fr $CATALINA_HOME/work/*
-rm -fr $CATALINA_HOME/webapps/*
-cp $DIR/upload/$APP*.war $CATALINA_HOME/webapps/${WAR_NAME}.war
+    rm -fr $CATALINA_HOME/work/*
+    rm -fr $CATALINA_HOME/webapps/*
+    cp $DIR/upload/$APP*.war $CATALINA_HOME/webapps/${WAR_NAME}.war
 
-/etc/init.d/$APP start
-
+    /etc/init.d/$APP start                                                                                                             
+fi
 ```
 
 ## 安装
