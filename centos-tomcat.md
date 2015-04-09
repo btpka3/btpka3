@@ -74,7 +74,7 @@ rm -fr  webapps/*                 # 删除自带应用
     ```
 1. `vi $CATALINA_HOME/conf/server.xml`
 
-    1. 修改端口号(共4个)，端口号配置规则请参考[这里](ports)
+    1. 修改端口号(共4个)
     1. 加上默认字符集，防止页面乱码  `URIEncoding="UTF-8"`
 
         ```xml
