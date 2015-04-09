@@ -137,6 +137,7 @@ mvn -f ../../job1/workspace/pom.xml -Dmaven.test.skip=true -am --projects subMod
 * PAM Authentication Plugin
 * Publish Over SSH
 * SSH Credentials Plugin
+* Multiple SCMs Plugin
 
 
 [ref](https://gist.github.com/wataru420/1757063)
