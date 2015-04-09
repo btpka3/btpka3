@@ -62,8 +62,11 @@ mkdir my-app
 cd my-app
 
 tar zxvf /path/to/apache-tomcat-x.x.x.tar.gz .
+chown -R app:app apache-tomcat-x.x.x
 cd apache-tomcat-x.x.x
 rm -fr  webapps/*                 # 删除自带应用
+
+
 ```
 
 
@@ -83,7 +86,7 @@ rm -fr  webapps/*                 # 删除自带应用
         <Connector port="30010" protocol="HTTP/1.1"
                    connectionTimeout="20000"
                    URIEncoding="UTF-8"
-                   redirectPort="30081" />
+                   redirectPort="30081" ></Connector>
         ```
 
     1. 为反向代理 启用 RemoteIpValue
@@ -94,7 +97,7 @@ rm -fr  webapps/*                 # 删除自带应用
                 remoteIpHeader="X-Forwarded-For"
                 proxiesHeader="X-Forwarded-By"
                 protocolHeader="X-Forwarded-Proto"
-                trustedProxies="192\.168\..*"/>
+                trustedProxies="192\.168\..*"></Valve>
         </Server>
         ```
 
@@ -161,7 +164,7 @@ chkconfig --level 345 my-app on
 ## 安装依赖
 
 ```sh
-yum install apr-devel openssl-devel
+yum install apr-devel openssl-devel gcc
 ```
 
 ## 下载 tomcat-native
@@ -204,12 +207,12 @@ commons-pool-1.5.5.jar
 
 ```xml
 
-<Valve className="com.radiadesign.catalina.session.RedisSessionHandlerValve" />
+<Valve className="com.radiadesign.catalina.session.RedisSessionHandlerValve" ></Valve>
 <Manager className="com.radiadesign.catalina.session.RedisSessionManager"
          host="192.168.115.81"
          port="6379"
          database="0"
-         maxInactiveInterval="1800" />
+         maxInactiveInterval="1800" ></Manager>
 ```
 
 
