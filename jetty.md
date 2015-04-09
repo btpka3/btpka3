@@ -1,6 +1,6 @@
 # 安装
 1. 参考[Jetty/Howto/High_Load](http://wiki.eclipse.org/Jetty/Howto/High_Load),修改系统参数
-1. 从[官网](http://www.eclipse.org/jetty/) 或者 `smb://wiki.lizi.com/share/java/jetty-distribution-9.2.7.v20150116.tar.gz` 下载，并上传的指定的服务器上。
+1. 从[官网](http://www.eclipse.org/jetty/) 下载，并上传的指定的服务器上。
 
 1. 解压
 
@@ -9,7 +9,7 @@
     tar -xzvf jetty-distribution-9.2.7.v20150116.tar.gz -C /usr/jetty
     ```
 
-1. 设置 JETTY_HOME : `vi /etc/lizi.sh`
+1. 设置 JETTY_HOME : `vi /etc/xxx.sh`
 
     ```sh
     export JETTY_HOME=/usr/jetty/jetty-distribution-9.2.7.v20150116
@@ -40,17 +40,17 @@
         else
           "${RUN_CMD[@]}" > /dev/null &
         ```
-1. 创建某个工程（这里是 lizi-cas）特定的 `jetty.base`
+1. 创建某个工程（这里是 my-app）特定的 `jetty.base`
 
     1. 创建目录
 
         ```sh
-        mkdir -p /data/lizi-platform/lizi-cas/jetty.base
+        mkdir -p /data/lizi-platform/my-app/jetty.base
         ```
     1. 创建一个空 start.ini 文件
 
         ```sh
-        cd /data/lizi-platform/lizi-cas/jetty.base
+        cd /data/app/my-app/jetty.base
         touch start.ini
         ```
     1. 通过命令创建所需的 start.d/xxx.ini 文件
@@ -69,29 +69,29 @@
         vi start.d/http.ini
 
         # 修改 ssl 配置（线上环境不需要，因为使用的都是正式证书。）
-        # 开发、测试环境还需要从lizi-cas的git仓库中 
+        # 开发、测试环境还需要从my-app的git仓库中 
         scp yourUserName@xxx.xxx.xxx.xxx:/path/to/lizi-platform/lizi-cas/src/main/config/lizi.jks  etc/
         vi start.d/ssl.ini
         ```
     1. 修改文件权限
 
         ```sh
-        chown -R lizi:lizi /data/lizi-platform/lizi-cas/jetty.base     # lizi 用户是jetty启动时所用的系统用户身份
+        chown -R app:app /data/app/my-app/jetty.base     # lizi 用户是jetty启动时所用的系统用户身份
         ```
 
-1. 创建某个工程（这里是 lizi-cas）特定的配置文件 ： `vi /etc/default/lizi-cas` 。
+1. 创建某个工程（这里是 my-app）特定的配置文件 ： `vi /etc/default/my-app` 。
 
     ```sh
     #!/bin/bash
 
     if [[ "" = "${JAVA_HOME}" ]]
     then
-        . /etc/profile.d/lizi.sh 
+        . /etc/profile.d/xxx.sh 
     fi
 
     today=`date +%Y%m%d%H%M%S`
 
-    JETTY_BASE=/home/lizi/lizi-platform/lizi-cas/jetty.base
+    JETTY_BASE=/home/app/my-app/jetty.base
     JAVA_OPTIONS="-server \
         -Xms512m \
         -Xmx1024m \
@@ -109,7 +109,7 @@
         -Dspring.profiles.active=dev \
     "
     JETTY_RUN=$JETTY_BASE
-    JETTY_USER=lizi          # lizi 用户是jetty启动时所用的系统用户身份
+    JETTY_USER=app          # app 用户是jetty启动时所用的系统用户身份
     ```
     注意：
 
@@ -120,8 +120,8 @@
 1. 创建某个工程（这里是 lizi-cas）特定的 init.d 脚本
 
     ```sh
-    cp $JETTY_HOME/bin/jetty.sh /etc/init.d/lizi-platform.lizi-cas
-    service lizi-platform.lizi-cas                                  # 之后就可以使用 service 命令了
+    cp $JETTY_HOME/bin/jetty.sh /etc/init.d/my-app
+    service my-app                                  # 之后就可以使用 service 命令了
     ```
 
 
@@ -131,7 +131,7 @@
 
 ```
 #!/bin/bash
-APP=lizi-platform.lizi-cas
+APP=my-app
 . /etc/default/$APP
                                                    
 /etc/init.d/$APP stop
