@@ -33,22 +33,24 @@ scp  root@192.168.0.100:/data/app/my-app/upload/*.war /data/app/my-app/upload/
 ## deploy.sh
 
 ```
-DIR=/data/app/my-app
-CATALINA_HOME=$DIR/apache-tomcat-7.0.54
+APP=my-app
+DIR=/data0/app/$APP
+CATALINA_HOME=$DIR/apache-tomcat-8.0.21
 WAR_NAME=ROOT
-[[ $# -gt 0 ]] && {
+[[ $# -gt 0 ]] && {                                                                                                                    
     WAR_NAME="$1"
 }
 
-. /etc/profile.d/me.sh
+. /etc/profile.d/jujn.sh
 
-/etc/init.d/my-app stop -force
+/etc/init.d/$APP stop -force
 
 rm -fr $CATALINA_HOME/work/*
 rm -fr $CATALINA_HOME/webapps/*
-cp $DIR/upload/my-app*.war $CATALINA_HOME/webapps/${WAR_NAME}.war
+cp $DIR/upload/$APP*.war $CATALINA_HOME/webapps/${WAR_NAME}.war
 
-/etc/init.d/my-app start
+/etc/init.d/$APP start
+
 ```
 
 ## 安装
