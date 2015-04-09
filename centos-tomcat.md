@@ -62,11 +62,40 @@ cd my-app
 tar zxvf /path/to/apache-tomcat-x.x.x.tar.gz .
 cd apache-tomcat-x.x.x
 rm -fr  webapps/*                 # 删除自带应用
-vi conf/server.xml                
-# 1. 修改端口号
-# 2. 加上默认字符集，防止页面乱码，追加： URIEncoding="UTF-8" 
-
 ```
+
+
+# 配置
+
+1. 删除自带的应用 
+
+    ```sh
+    rm -fr $CATALINA_HOME/webapps/*
+    ```
+1. `vi $CATALINA_HOME/conf/server.xml`
+
+    1. 修改端口号(共4个)，端口号配置规则请参考[这里](ports)
+    1. 加上默认字符集，防止页面乱码  `URIEncoding="UTF-8"`
+
+        ```xml
+        <Connector port="30010" protocol="HTTP/1.1"
+                   connectionTimeout="20000"
+                   URIEncoding="UTF-8"
+                   redirectPort="30081" />
+        ```
+
+    1. 为反向代理 启用 RemoteIpValue
+
+        ```xml
+        <Server ...>
+            <Valve className="org.apache.catalina.valves.RemoteIpValve"
+                remoteIpHeader="X-Forwarded-For"
+                proxiesHeader="X-Forwarded-By"
+                protocolHeader="X-Forwarded-Proto"
+                trustedProxies="192\.168\..*"/>
+        </Server>
+        ```
+
  
 ## init.d 脚本
 
