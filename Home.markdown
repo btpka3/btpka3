@@ -33,6 +33,7 @@
     * Git
         * [总结](git)
         * [分支管理](git-branch)
+        * [WIKI同步](git-sync)
     * [Eclipse](eclipse)
     * [Idea Intellij](idea-intellij)
     * [Firefox](firefox)
