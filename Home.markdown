@@ -31,7 +31,7 @@
 * Web 前端
     * [CSS](css)
     * [AngularJs](angularjs )
-
+    * [Grunt](grunt)
 
 * 开发工具
     * Git
