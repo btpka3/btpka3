@@ -57,6 +57,7 @@
 * 办公
     * [ThunderBird](thunderbird)
     * [杭州住房公积金查询](http://www.hzgjj.gov.cn:8080/WebAccounts/pages/per/login.jsp)
+    * [杭州社保、养老保险查询](http://www.zjhz.lss.gov.cn/html/wsbs/denglu.html)
 
 * 服务器管理
     * [CentOS](centos-base-setup)
