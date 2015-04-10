@@ -63,5 +63,4 @@ echo `$TIME` Done.
 # crontab -e
 # m h  dom mon dow   command
 23 0 */1  * * * /home/zll/work/git-repo/oschina/sync-wiki.sh 2>&1 >> /home/zll/work/git-repo/oschina/sync-wiki.log 
-
 ```
