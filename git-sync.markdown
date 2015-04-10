@@ -1,10 +1,11 @@
 
 
-## 本地创建目录
+## 思路
 
-思路：以公网上（git@OSChina）的为主，本地 clone 一份。
-之后，在本地 git 仓库新增一个 remote，该 remote 为局域网内 gitlab 搭建的 git 仓库。
-更新的时候，先从 gitlab 上拉取，再从 oschina 上拉取，最后 push 到 oschina 上，强推到 gitlab 上。
+1. 以公网上（git@OSChina）的为主，本地 clone 一份。
+1. 之后，在本地 git 仓库新增一个 remote，该 remote 为局域网内 gitlab 搭建的 git 仓库。
+1. 更新的时候，先从 gitlab 上拉取，再从 oschina 上拉取，
+1. 最后 push 到 oschina 上，**强推** 到 gitlab 上。
 
 以下是思路测试用的脚本。
 
