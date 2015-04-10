@@ -5,7 +5,7 @@
 
 该目录并没有列出全部的wiki页面，如需浏览全部，请点击 “[页面](pages)” 标签页。   
 
-* 安  全
+* 安全
     * [Security CSRF](security-csrf)
     * [Security Clickjacking](security-clickjacking)
     * [Security XSS](security-xss)
