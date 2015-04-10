@@ -1,11 +1,11 @@
 # 简介
 该工程主要用于自我总结用，由于[经历原因](introduction)，代码仍然放在 [github](https://github.com/btpka3/btpka3.github.com) 上，而 wiki 总结则放在了这里—— [git @ oschina](http://git.oschina.net/btpka3/btpka3/wikis/home) 上。
 
-# 目录11
+# 目录
 
 该目录并没有列出全部的wiki页面，如需浏览全部，请点击 “[页面](pages)” 标签页。   
 
-* 安全22
+* 安全
     * [Security CSRF](security-csrf)
     * [Security Clickjacking](security-clickjacking)
     * [Security XSS](security-xss)
