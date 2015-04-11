@@ -62,6 +62,7 @@
 
 * 服务器管理
     * [CentOS](centos-base-setup)
+    * [ntp](ntp)
     * [Ubuntu](ubuntu)
     * [Bash](bash)
     * [samba](samba)
