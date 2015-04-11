@@ -218,6 +218,39 @@ sudo vi /etc/xdg/lubuntu/lxdm/lxdm.conf
 numlock=1
 ```
 
+# qq
+
+参考[这里](http://blog.csdn.net/beyond_ray/article/details/38966251)
+
+```
+
+#sudo add-apt-repository ppa:ubuntu-wine/ppa
+#sudo apt-get update
+#sudo apt-get install wine1.7
+
+
+sudo apt-get install    \
+    libasound2          \
+    libgtk2.0-0         \
+    liblcms2-2          \
+    libpng12-0          \
+    libsm6              \
+    libncurses5         \
+    libcups2            \
+    libpulse0           \
+    libmpg123-0         \
+    libasound2-plugins  \
+    ttf-wqy-microhei
+ 
+sudo apt-get install libgtk2.0-0:i386
+sudo apt-get install ia32-libs
+sudo apt-get install lib32ncurses5
+
+sudo dpkg -i wine-qqintl_0.1.3-2_i386.deb
+sudo apt-get install -f
+#sudo apt-get remove wine-qqintl
+```
+
 # python
 
 ```sh
