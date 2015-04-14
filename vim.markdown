@@ -41,9 +41,11 @@ set paste
 
 ## filetype
 
+`vi ~/.vim/filetype.vim`, 在 vim 中可以通过 `:set syntax?` 查看当前 syntax 的值
+
 ```sh
-vi ~/.vim/filetype.vim              # mysql配置文件语法着色
 autocmd BufRead,BufNewFile my.cnf set syntax=dosini
+autocmd BufRead,BufNewFile build.gradle set syntax=groovy
 ```
 
 ## colorschema
