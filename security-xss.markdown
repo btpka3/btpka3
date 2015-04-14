@@ -130,7 +130,7 @@ document.write(document.location.href.substring(document.location.href.indexOf("
 1. RULE #5 - 在插入URL数据前要先URL转义
 1. RULE #6 - 在输出用户输入的HTML内容时，要使用HTML策略引擎进行验证或移除其中的风险代码
 1. RULE #7 - 要预防 DOM-based XSS
-1. RULE #8 - 使用 [https://www.owasp.org/index.php/HTTPOnly HTTPOnly cookie]
+1. RULE #8 - 使用 [HTTPOnly cookie](https://www.owasp.org/index.php/HTTPOnly)
 
 
 
