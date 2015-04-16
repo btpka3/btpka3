@@ -63,6 +63,7 @@
 * 服务器管理
     * [CentOS](centos-base-setup)
         * [limits](centos-limits)
+        * [fdisk](fdisk)
     * [ntp](ntp)
     * [Ubuntu](ubuntu)
     * [Bash](bash)
