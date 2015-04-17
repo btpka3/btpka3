@@ -30,6 +30,8 @@
 
 * Web 前端
     * [CSS](css)
+    * [jQuery](http://jquery.com/)
+        * [Jcrop](http://deepliquid.com/content/Jcrop.html)
     * [AngularJs](angularjs )
     * [Grunt](grunt)
 
