@@ -14,6 +14,7 @@
     * Markdown
         * [简介](md-intro)
         * [示例](md-demo)
+        * [同步wiki](md-sync)
     * Java
         * [JDK安装](java-jdk-install)
         * [Java调优总结](java-tuning)
