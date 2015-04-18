@@ -13,6 +13,8 @@ git remote add gitlab git@xxx.test.me:zhangll/btpka3.wiki.git
 git push -f gitlab '*:*'
 ```
 
+再设置同步脚本
+
 ```
 #!/bin/bash
 TIME="date +%Y-%m-%d.%H:%M:%S"
