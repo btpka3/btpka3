@@ -33,8 +33,8 @@ org.eclipse.jdt.annotation.NonNullByDefault
 ```
 
 参考：
-* [http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.jdt.doc.user%2Ftasks%2Ftask-using_null_annotations.htm Eclipse : Using null annotations]
-* [http://stackoverflow.com/questions/4963300/which-notnull-java-annotation-should-i-use 在stackoverflow上的讨论]
+* [Eclipse : Using null annotations](http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.jdt.doc.user%2Ftasks%2Ftask-using_null_annotations.htm)
+* [在stackoverflow上的讨论](http://stackoverflow.com/questions/4963300/which-notnull-java-annotation-should-i-use)
 
 
 
