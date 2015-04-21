@@ -3,6 +3,7 @@
 
 ```
 df -lhT              # 查看分区的文件系统类型、大小、挂载点
+sudo lsblk -o name,mountpoint,label,size,uuid
 ```
 
 ## fdisk
@@ -26,6 +27,13 @@ w                          # 写入磁盘
 ```
 mkfs.xfs -f /dev/sdb1
 mkfs.xfs -f /dev/sdb2
+```
+
+## fat32
+
+```
+mkfs.msdos -F 32 /dev/sdb1
+fatlabel /dev/sdb1 YOUR_LABEL
 ```
 
 
