@@ -7,3 +7,10 @@
 * 视差动画
     * [利用CSS固定背景交替实现视差滚动效果](http://www.shejidaren.com/css-fixed-scroll-background.html)
     * [10个优秀视差滚动插件](http://www.w3cplus.com/source/10-best-Parallax-Scrolling-plugin.html)
+* link
+    * [Hover.css](http://ianlunn.github.io/Hover/)
+    * [Creative Link Effects](http://tympanus.net/Development/CreativeLinkEffects/)
+* button
+    * [Creative Button Styles][http://tympanus.net/Development/CreativeButtons/]
+* list 
+    * [listamatic](http://css.maxdesign.com.au/listamatic/index.htm)
