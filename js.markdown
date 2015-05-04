@@ -14,3 +14,7 @@
     * [Creative Button Styles][http://tympanus.net/Development/CreativeButtons/]
 * list 
     * [listamatic](http://css.maxdesign.com.au/listamatic/index.htm)
+* icon
+    * [Icon Hover Effects](http://tympanus.net/Development/IconHoverEffects/)
+* Modal Window 
+    * [Nifty Modal Window Effects](http://tympanus.net/Development/ModalWindowEffects/)
