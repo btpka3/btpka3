@@ -243,6 +243,7 @@ funcResult=$(myFunc zhang3)
   tar -xvf file.tar -C outpuDir # outputDir 必须先创建
   tar -xzvf file.tar.gz -C outpuDir # outputDir 必须先创建
   tar -xjvf file.tar.bz2 -C outputIdr # outputDir 必须先创建
+  rar x xxx.rar /path/to/extract
 ```
 #### list specific file/dir
 ```sh
