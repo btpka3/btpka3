@@ -31,6 +31,7 @@
 
 * Web 前端
     * [CSS](css)
+    * [font](font)
     * [JavaScript](js)
     * [jQuery](http://jquery.com/)
     * [AngularJs](angularjs )
