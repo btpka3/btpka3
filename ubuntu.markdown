@@ -10,8 +10,10 @@
 lspci -nnk | grep VGA                         # 查看显卡型号
 sudo add-apt-repository ppa:xorg-edgers/ppa   # 安装 Nvidia 驱动的 ppa
 sudo apt-get update
-sudo apt-get purge nvidia*                    # 移出旧的的显卡驱动
-sudo apt-get install nvidia-349               # 安装新的。最好通过 start-> Preferences -> Aditional Drivers 选择安装
+sudo apt-get purge nvidia*                    # 移除旧的的显卡驱动
+
+# 安装新的驱动。最好通过 start-> Preferences -> Aditional Drivers 选择安装
+sudo apt-get install nvidia-349   
 ```
 
 # 版本
@@ -59,14 +61,14 @@ sudo apt-get remove xxx        # 如果通过 dpkg 或 apt-get 安装时，依�
 # 7788
 
 ```
-sudo apt-get install rar                                                 # rar
-sudo apt-get install libreoffice-common                      # libreoffice
-sudo apt-get install gnome-calculator                         # 计算器
+sudo apt-get install rar                 # rar
+sudo apt-get install libreoffice-common  # libreoffice
+sudo apt-get install gnome-calculator    # 计算器
 sudo apt-get install curl
 
-sudo apt-get install p7zip                                             # 7z
-7z x xxx.7z -r -o /home/xx                                          # 解压
-7z a -t7z -r manager.7z /home/manager/*                  # 压缩
+sudo apt-get install p7zip               # 7z
+7z x xxx.7z -r -o /home/xx               # 7z : 解压
+7z a -t7z -r manager.7z /home/manager/*  # 7z : 压缩
 ```
 
 # 中文字体
