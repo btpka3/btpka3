@@ -24,13 +24,26 @@ http://nqdeng.github.io/7-days-nodejs
 
 # 安装
 
+## 二进制安装
+
+打开 nodejs 官网的[下载页](https://nodejs.org/download/), 下载二进制安装包
+
+
+
+
+
+
 ## Ubuntu
+
+参考[这里](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)
+
 ```
-sudo add-apt-repository ppa:chris-lea/node.js
-sudo apt-get update
+curl -sL https://deb.nodesource.com/setup | sudo bash -
+#sudo add-apt-repository ppa:chris-lea/node.js
+#sudo apt-get update
 apt-cache policy nodejs
 sudo apt-get install nodejs
-sudo apt-get install npm
+sudo apt-get install build-essential
 ```
 
 
