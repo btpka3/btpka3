@@ -1,6 +1,11 @@
 
 [打印](http://www.hplipopensource.com/hplip-web/install/install/index.html)
 
+# u盘安装
+
+使用 usb-creator-gtk 来创建可以启动U盘。该程序可以到 Ubuntu software center 中查找 'Startup disk creator' 进行安装
+
+
 
 # 版本
 
@@ -524,6 +529,8 @@ vi /usr/share/nginx/html/my.php
 ```
 
 # 自动挂载Windows分区
+
+
 
 ```sh
 sudo blkid   # 查看各个分区的UUID
