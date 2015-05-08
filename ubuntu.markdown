@@ -86,12 +86,12 @@ sudo apt-get install fonts-wqy-microhei fonts-wqy-zenhei
 # 输入法
 
 ```sh
-[me@locahost:~]$ sudo add-apt-repository ppa:fcitx-team/nightly
-[me@locahost:~]$ sudo apt-get update
-[me@locahost:~]$ sudo apt-get install fcitx
-[me@locahost:~]$ sudo apt-get install gnome-language-selector
-[me@locahost:~]$ im-config
-[me@locahost:~]$ sudo apt-get install fcitx-googlepinyin fcitx-sunpinyin
+sudo add-apt-repository ppa:fcitx-team/nightly
+sudo apt-get update
+sudo apt-get install fcitx
+sudo apt-get install gnome-language-selector
+im-config  # or im-switch
+sudo apt-get install fcitx-googlepinyin fcitx-sunpinyin
 # 防止Fcitx的Ctrl+Shift+F进行繁简转换：语言指示图标上右键->Configure->Addon
 # ->选中 "Simple Chinese To Tranditional Chinese" -> 点击底部的Configure按钮
 # -> 取消相应的快捷键即可。
