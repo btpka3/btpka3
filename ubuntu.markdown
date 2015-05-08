@@ -5,14 +5,13 @@
 
 使用 usb-creator-gtk 来创建可以启动U盘。该程序可以到 Ubuntu software center 中查找 'Startup disk creator' 进行安装
 
-# nvidia driver
-
+# 显卡驱动
 ```
-lspci -nnk | grep VGA
-sudo add-apt-repository ppa:xorg-edgers/ppa
+lspci -nnk | grep VGA                         # 查看显卡型号
+sudo add-apt-repository ppa:xorg-edgers/ppa   # 安装 Nvidia 驱动的 ppa
 sudo apt-get update
-sudo apt-get purge nvidia*
-sudo apt-get install nvidia-349
+sudo apt-get purge nvidia*                    # 移出旧的的显卡驱动
+sudo apt-get install nvidia-349               # 安装新的。最好通过 start-> Preferences -> Aditional Drivers 选择安装
 ```
 
 # 版本
@@ -115,6 +114,9 @@ sudo apt-get install gedit-plugins
 sudo apt-add-repository ppa:ubuntu-on-rails/ppa
 sudo apt-get update
 sudo apt-get install gedit-gmate
+
+# 移除旧的 文本编辑器 leafpa
+sudo apt-get remove leafpa
 ```
 
 ## 配置
