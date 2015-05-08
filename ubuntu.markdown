@@ -110,7 +110,11 @@ sudo apt-get install fcitx-googlepinyin fcitx-sunpinyin
 sudo apt-cache search gedit
 sudo apt-get install gedit 
 sudo apt-get install gedit-plugins
-sudo apt-get install gedit-gmate   # https://github.com/gmate/gmate
+
+# gmate https://github.com/gmate/gmate
+sudo apt-add-repository ppa:ubuntu-on-rails/ppa
+sudo apt-get update
+sudo apt-get install gedit-gmate
 ```
 
 ## 配置
