@@ -88,15 +88,22 @@ sudo apt-get install fonts-wqy-microhei fonts-wqy-zenhei
 sudo add-apt-repository ppa:fcitx-team/nightly
 sudo apt-get update
 sudo apt-get install fcitx
-sudo apt-get install gnome-language-selector
+#sudo apt-get install gnome-language-selector
 im-config  # or im-switch
-sudo apt-get install fcitx-googlepinyin fcitx-sunpinyin
+
+
+# 以下三种输入法选择其一就可以了。
+sudo apt-get install fcitx-googlepinyin 
+sudo apt-get install fcitx-sunpinyin
+# 搜狗输入法 for linux http://pinyin.sogou.com/linux/
+
+
+# 后续配置
+
 # 防止Fcitx的Ctrl+Shift+F进行繁简转换：语言指示图标上右键->Configure->Addon
 # ->选中 "Simple Chinese To Tranditional Chinese" -> 点击底部的Configure按钮
 # -> 取消相应的快捷键即可。
 
-
-#http://pinyin.sogou.com/linux/
 #fcitx -r --enable fcitx-qimpanel
 #fcitx-qimpanel
 ```
@@ -115,8 +122,8 @@ sudo apt-add-repository ppa:ubuntu-on-rails/ppa
 sudo apt-get update
 sudo apt-get install gedit-gmate
 
-# 移除旧的 文本编辑器 leafpa
-sudo apt-get remove leafpa
+# 移除旧的 文本编辑器 leafpad
+sudo apt-get remove leafpad
 ```
 
 ## 配置
