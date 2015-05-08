@@ -53,16 +53,15 @@ sudo apt-file update
 apt-file search filename
 apt-file search /path/to/file
 
-
-sudo apt-get remove xxx        # 如果通过 dpkg 或 apt-get 安装时，依赖未满足，可以使用该命令删除
-
+# 如果通过 dpkg 或 apt-get 安装时，依赖未满足，可以使用该命令删除
+sudo apt-get remove xxx
 ```
 
 # 7788
 
 ```
 sudo apt-get install rar                 # rar
-sudo apt-get install libreoffice-common  # libreoffice
+sudo apt-get install libreoffice         # libreoffice
 sudo apt-get install gnome-calculator    # 计算器
 sudo apt-get install curl
 
