@@ -252,14 +252,6 @@ sudo dpkg -r oracle-java7-installer
 
 ```
 
-# 系统配置
-## Lubuntu 开机就使用小键盘（numlock）
-```sh
-sudo vi /etc/xdg/lubuntu/lxdm/lxdm.conf
-[base]
-numlock=1
-```
-
 # qq
 
 参考[这里](http://blog.csdn.net/beyond_ray/article/details/38966251)
@@ -390,6 +382,11 @@ sudo apt-get install openssh-server
 
 ```sh
 # for login
+
+sudo vi /etc/xdg/lubuntu/lxdm/lxdm.conf
+[base]
+numlock=1
+
 sudo vi /etc/lxdm/default.conf
 [base]
 numlock=1
@@ -399,6 +396,9 @@ sudo vi /etc/lightdm/lightdm.conf.d/20-lubuntu.conf
 greeter-setup-script=/usr/bin/numlockx on
 
 # ???
+sudo apt-get install numlockx
+echo "/usr/bin/numlockx on" | sudo tee -a /etc/xdg/lxsession/Lubuntu/autostart
+
 sudo vi /etc/X11/xinit/xinitrc
 # 追加一下几行
 /usr/bin/numlockx on 
