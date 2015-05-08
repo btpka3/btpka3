@@ -1,7 +1,8 @@
 ## 安装
 CentOS 的最小化安装默认只安装了最小版的VI，可以通过以下命令安装全部功能的Vim：
 ```sh
-[root@h01 ~]# yum install vim-common vim-enhanced vim-minimal
+yum install vim-common vim-enhanced vim-minimal
+sudo apt-get install vim
 ```
 
 修改环境变量
