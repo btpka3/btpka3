@@ -283,6 +283,8 @@ sudo apt-get install lib32ncurses5
 sudo dpkg -i wine-qqintl_0.1.3-2_i386.deb
 sudo apt-get install -f
 #sudo apt-get remove wine-qqintl
+
+cp /usr/share/applications/qqintl.desktop ~/Desktop
 ```
 
 # python
