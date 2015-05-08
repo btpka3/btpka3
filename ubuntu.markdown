@@ -5,7 +5,15 @@
 
 使用 usb-creator-gtk 来创建可以启动U盘。该程序可以到 Ubuntu software center 中查找 'Startup disk creator' 进行安装
 
+# nvidia driver
 
+```
+lspci -nnk | grep VGA
+sudo add-apt-repository ppa:xorg-edgers/ppa
+sudo apt-get update
+sudo apt-get purge nvidia*
+sudo apt-get install nvidia-349
+```
 
 # 版本
 
