@@ -128,7 +128,22 @@ sudo apt-get remove leafpad
 
 ## 配置
 
-
+```
+View -> 取消选中 'toolbar'
+Edit -> Preferences :
+    View
+        -> 选中 'Display line numbers'
+        -> 选中 'Highlight current line'
+        -> 选中 'Highlight matching brackets'
+    Editor
+        -> Tab width 设置为 4 
+        -> 选中 'Insert spaces instead tabs'
+        -> 选中 'Enable automatic indentation'
+        -> 取消选中 'Create a backup copy of files before saving'
+        -> 取消选中 'Autosave files every 10 minutes'
+    Font & Colors
+        -> 选择一个自己喜爱的 Color Schema
+```
 
 
 # gnome-terminal
