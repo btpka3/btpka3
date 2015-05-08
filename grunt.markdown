@@ -10,7 +10,7 @@
 * 全局安装 npm_lazy
 
     ```
-    npm install -g npm_lazy
+    sudo npm install -g npm_lazy
     useradd npm_lazy
     ```
 
@@ -117,8 +117,8 @@
 
 
 ```
-npm install -g grunt-cli
-npm install -g grunt-init
+sudo npm install -g grunt-cli
+sudo npm install -g grunt-init
 
 npm init
 npm install grunt --save-dev
