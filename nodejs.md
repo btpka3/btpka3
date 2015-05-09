@@ -95,3 +95,28 @@ curl -sL https://deb.nodesource.com/setup | sudo bash -
 su -
 nvm install v0.10.34
 ```
+
+
+# npm
+
+## 使用国内淘宝的镜像
+
+* 通过 config 命令
+
+    ```
+    npm config set registry https://registry.npm.taobao.org
+    npm info underscore
+    ```
+
+* 通过命令行参数
+
+    ```
+    npm --registry https://registry.npm.taobao.org info underscore
+    ```
+
+* 通过修改 `~/.npmrc` 加入以下内容
+
+    ```
+    registry = https://registry.npm.taobao.org
+    ```
+
