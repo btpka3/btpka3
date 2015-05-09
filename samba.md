@@ -142,7 +142,7 @@ sudo apt-get install samba
 
     ```
     mkdir -p /data0/samba/tmp
-    chown -R nobody:nobody /data0/samba/tmp
+    chown -R nobody:nogroup /data0/samba/tmp
     ```
 
 1. 配置 
