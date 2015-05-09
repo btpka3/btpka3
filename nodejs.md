@@ -1,25 +1,15 @@
-http://www.ituring.com.cn/article/946
-http://segmentfault.com/a/1190000000372040
-https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server
 
-
-《[NODE.JS为什么会成为企业中的首选技术](http://ourjs.com/detail/532f0650c911679a2800000a)》
-《[PayPal为什么从Java迁移到Node.js，性能提高一倍，文件代码减少44%](http://ourjs.com/detail/52a914f0127c763203000008)》
-
-
-[who use nodejs?](https://github.com/joyent/node/wiki/Projects,-Applications,-and-Companies-Using-Node)
-
-
-
-http://momentjs.com/
-https://ghost.org/
-https://cnodejs.org/
-
-https://pages.github.com/
-https://stackedit.io/
-http://nodeschool.io/
-https://npm.taobao.org/
-http://nqdeng.github.io/7-days-nodejs
+# 参考
+* [从Java到Node.js](http://www.ituring.com.cn/article/946)
+* [Ghost 基于Node.js的开源博客系统](http://segmentfault.com/a/1190000000372040)
+* [How To Install Node.js on an Ubuntu 14.04 server](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server)
+* [NODE.JS为什么会成为企业中的首选技术](http://ourjs.com/detail/532f0650c911679a2800000a)
+* [PayPal为什么从Java迁移到Node.js，性能提高一倍，文件代码减少44%](http://ourjs.com/detail/52a914f0127c763203000008)
+* [who use nodejs?](https://github.com/joyent/node/wiki/Projects,-Applications,-and-Companies-Using-Node)
+* [stackedit](https://stackedit.io/)
+* [cnodejs](https://cnodejs.org/)
+* [nodeschool](http://nodeschool.io/)
+* [npm@taobao](https://npm.taobao.org/)
 
 
 # 安装
