@@ -66,5 +66,7 @@ Editor :
             1. 选中 "Show whitespaces"
 ```
 
+# 插件
 
-	
+* [sonarqube](http://plugins.jetbrains.com/plugin/7238?pr=idea)
+* [angularjs](http://plugins.jetbrains.com/plugin/6971?pr=idea)
