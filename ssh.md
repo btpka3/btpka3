@@ -8,6 +8,9 @@ ssh-keygen -t rsa -C "xxx@yyy.com"
 
 # 非交互模式。
 ssh-keygen -t rsa -C "xxx@yyy.com" -N 'xxxPass' -f ~/.ssh/id_rsa
+
+# 验证 公钥和私钥是否匹配
+diff <( ssh-keygen -y -e -f .ssh/id_rsa ) <( ssh-keygen -y -e -f .ssh/id_rsa.pub )
 ```
 
 之后可以把 `～/.ssh/id_rsa.pub` 中的内容追加到 远程ssh服务器用户的 `~/.ssh/authorized_keys` 中。（注意：线上环境不要配置为使用ssh登录）
