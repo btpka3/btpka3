@@ -98,6 +98,14 @@
 
 参考[这里](http://wiki.nginx.org/Upstart)
 
+1. make
+
+    ```
+    sudo apt-get install libpcre3 libpcre3-dev
+    sudo apt-get install openssl libssl-dev
+    ```
+
+
 1. `vi /etc/init/tengine.conf`
 
     ```
