@@ -3,7 +3,7 @@
 ## 参考
 * [css-tricks](https://css-tricks.com/)
 * 《[10步掌握CSS定位](http://www.see-design.com.tw/i/css_position.html)》
-
+* 《[使用viewport元标签控制布局](https://developer.mozilla.org/zh-CN/docs/Mobile/Viewport_meta_tag)》
 
 ## 屏幕常见尺寸
 
