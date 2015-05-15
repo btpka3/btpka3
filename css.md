@@ -39,3 +39,9 @@ DPI = 对角线的像素数 / 屏幕英寸数
 |正常屏幕|WQVGA400(240*400)、WQVGA432(240*432)|HVGA(320*480)| WVGA800(480*800)、WVGA854(480*854)
 |大屏幕  ||WVGA800(480*800)、WVGA854(480*854)
 
+
+
+# animation
+
+* [Animated Buttons](http://tympanus.net/Tutorials/AnimatedButtons/index6.html)
+* [Original Hover Effects](http://tympanus.net/Tutorials/OriginalHoverEffects/index10.html)
