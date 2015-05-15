@@ -36,6 +36,7 @@
     * [jQuery](http://jquery.com/)
     * [AngularJs](angularjs )
     * [Grunt](grunt)
+    * [Hybrid App](hybird-app)
 
 * 开发工具
     * Git
