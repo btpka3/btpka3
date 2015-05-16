@@ -28,7 +28,7 @@
     * [Spring Framework](spring-framework)
     * [Spring Security](spring-security)
     * [CAS](cas-intro)
-
+    * [Spring Boot](spring-boot)
 * Web 前端
     * [CSS](css)
     * [font](font)
