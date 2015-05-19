@@ -12,7 +12,7 @@
     * [Hover.css](http://ianlunn.github.io/Hover/)
     * [Creative Link Effects](http://tympanus.net/Development/CreativeLinkEffects/)
 * button
-    * [Creative Button Styles][http://tympanus.net/Development/CreativeButtons/]
+    * [Creative Button Styles](http://tympanus.net/Development/CreativeButtons/)
 * list 
     * [listamatic](http://css.maxdesign.com.au/listamatic/index.htm)
 * icon
