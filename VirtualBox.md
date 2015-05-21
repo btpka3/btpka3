@@ -1,15 +1,24 @@
 ## 安装(host)
 ### ubuntu
 
-```
-# 将 'vivid' 替换为 'utopic', 'trusty', 'raring', 'quantal', 'precise', 'lucid', 'jessie', 'wheezy', 或者 'squeeze'
-deb http://download.virtualbox.org/virtualbox/debian vivid contrib
-wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install virtualbox-4.3
+* 安装Ubuntu仓库中的版本
+    ```
+    apt-cache search virtualbox
+    sudo apt-get install virtualbox virtualbox-guest-additions-iso
+    ```
 
-# /usr/share/virtualbox/VBoxGuestAdditions.iso
-```
+* 安装官方渠道的最新版本
+  
+    ```
+    # 将 'vivid' 替换为 'utopic', 'trusty', 'raring', 'quantal', 'precise', 
+    # 'lucid', 'jessie', 'wheezy', 或者 'squeeze'
+    deb http://download.virtualbox.org/virtualbox/debian vivid contrib
+    wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+    sudo apt-get update
+    sudo apt-get install virtualbox-4.3
+
+    # /usr/share/virtualbox/VBoxGuestAdditions.iso
+    ```
 
 ## 安装(guest)
 
