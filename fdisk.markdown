@@ -36,6 +36,14 @@ mkfs.msdos -F 32 /dev/sdb1
 fatlabel /dev/sdb1 YOUR_LABEL
 ```
 
+## NTFS
+
+```
+mkfs.ntfs /dev/sdb1
+```
+
+
+
 
 ## blkid
 
