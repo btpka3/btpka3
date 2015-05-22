@@ -197,6 +197,7 @@ security:
       ]
     );
 
+    use test;                     // 为 test 数据库创建用户
     db.createUser( {
         user: "testUser",
         pwd: "testUser",
