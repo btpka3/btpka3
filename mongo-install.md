@@ -201,7 +201,7 @@ security:
     db.createUser( {
         user: "testUser",
         pwd: "testUser",
-        roles: [ { role: "dbAdmin", db: "test" } ]
+        roles: [ { role: "dbOwner", db: "test" } ]
     });```
 1. 停止所有的 mongod
 
