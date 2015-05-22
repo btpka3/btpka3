@@ -196,7 +196,12 @@ security:
         { role: "readWrite", db: "db2" }
       ]
     );
-    ```
+
+    db.createUser( {
+        user: "testUser",
+        pwd: "testUser",
+        roles: [ { role: "dbAdmin", db: "test" } ]
+    });```
 1. 停止所有的 mongod
 
     ```sh
