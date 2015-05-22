@@ -136,7 +136,7 @@ centos 安装参考[这里](http://docs.mongodb.org/manual/tutorial/install-mong
 
 # 单机配置
 
-mongodb.conf
+/etc/mongod.conf
 
 ```
 net:
