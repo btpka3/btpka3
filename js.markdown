@@ -21,3 +21,5 @@
     * [Icon Hover Effects](http://tympanus.net/Development/IconHoverEffects/)
 * Modal Window 
     * [Nifty Modal Window Effects](http://tympanus.net/Development/ModalWindowEffects/)
+
+* [javascript 6](http://es6-features.org/)
