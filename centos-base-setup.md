@@ -133,6 +133,9 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 1. centos 7 通过命令修改 IP 地址
 
     ```
+    ip addr  # 查看IP地址
+    ip link  # 查看网络连接
+
     yum install NetworkManager-tui
     nmtui edit enp0s3
     systemctl restart network.service
