@@ -80,7 +80,7 @@
     ```    
     systemctl enable tengine
     systemctl start tengine
-    systemctl statue tengine
+    systemctl status tengine
     ```
 
 ### centos 6
