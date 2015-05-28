@@ -20,7 +20,7 @@ sudo apt-get install python-openssl
     
 1. linux下运行的，可以查看日志 `/var/log/goagent.log` 确认为何连接不上。
 
-    1. 如果是 IP 地址连接超时，请参考 [Goagent 最新可用IP](http://www.ruooo.com/VPS/704.html)
+    1. 如果是 IP 地址连接超时，请参考 [Goagent 最新可用IP](http://www.ruooo.com/VPS/704.html)， 或者使用 [GoGo Tester](https://github.com/azzvx/gogotester/tree/2.3/GoGo%20Tester/bin/Release) 检测可用 IP 地址。
     1. 如果是 appid 不行，可以参考 使用以下值：
 
         ```
