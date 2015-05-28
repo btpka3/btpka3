@@ -18,7 +18,15 @@ sudo apt-get install python-openssl
 1. 修改 `${GO_AGENT_HOME}/local/proxy.ini`， 将自己注册的 app id 添加到 `[gae]` 下的 appid 中。
 1. 重启 proxy.sh : `sudo ./proxy.sh restart`
     
-    
+1. linux下运行的，可以查看日志 `/var/log/goagent.log` 确认为何连接不上。
+
+    1. 如果是 IP 地址连接超时，请参考 [Goagent 最新可用IP](http://www.ruooo.com/VPS/704.html)
+    1. 如果是 appid 不行，可以参考 使用以下值：
+
+        ```
+        [gae]
+        appid=hardseedexample|hardseedexample2|hardseedexample3|hardseedexample4|hardseedexample5|hardseedexample6|hardseedexample7|hardseedexample8|hardseedexample9|hardseedexample10|hardseedexample11|hardseedexample12|hardseedexample13|hardseedexample14|hardseedexample15|hardseedexample16|hardseedexample17|hardseedexample18|hardseedexample19|hardseedexample20|hardseedexample21|hardseedexample22|hardseedexample23|hardseedexample24|hardseedexample25|nucaodiss|nucaodiss1|nucaodiss2|nucaodiss3|nucaodiss4|nucaodiss5|nucaodiss6|nucaodiss7|nucaodiss8|nucaodiss9|nucaodiss10|lovesphinx1|lovesphinx2|lovesphinx3|lovesphinx4|lovesphinx5|lovesphinx6|lovesphinx7|lovesphinx8|lovesphinx9|lovesphinx10|goagent-dup001|goagent-dup002|goagent-dup003|gonggongid01|gongongid02|gonggongid03gonggongid04|gonggongid05|gonggongid06|gonggongid07|gonggongid08|gonggongid09|gonggongid10
+        ```
 
 ### SwitchyOmega
 
