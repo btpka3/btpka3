@@ -22,16 +22,16 @@ LVM 卷组
 ## 7788
 
 ```
-yum install net-tools              # centos 7 最小化安装找不到 ifconfig 命令
+yum install net-tools               # centos 7 最小化安装找不到 ifconfig 命令
 yum install openssh-clients
 yum install wget
 yum install man
-yum install telnet   # Ctrl+] 之后，quit 可以结束telnet
+yum install telnet                  # Ctrl+] 之后，quit 可以结束telnet
 yum install unzip
 yum install gcc
-yum install mlocate             # updatedb，locate 命令
+yum install mlocate                 # updatedb，locate 命令
 yum install lsof                    # lsof 命令
-yum install psmisc              # pstree 命令
+yum install psmisc                  # pstree 命令
 
 # 防止 /etc/resolv.conf 被覆盖，就禁用  NetworkManager
 systemctl disable NetworkManager
@@ -42,13 +42,13 @@ systemctl stop NetworkManager
 ## 修改主机名
 
 ```
-hostname                         # 查看 hostname
-hostname xxx.xxx.xxx    # 临时修改 hostname
+hostname                           # 查看 hostname
+hostname xxx.xxx.xxx               # 临时修改 hostname
 
-vi /etc/hostname               # 持久修改hostname，重启才生效
+vi /etc/hostname                   # 持久修改hostname，重启才生效
 xxx.xxx.xxx
 
-nmtui                                 # 设置主机名
+nmtui                              # 设置主机名
 ```
 
 
@@ -58,7 +58,7 @@ nmtui                                 # 设置主机名
 root@h01 ~]# vi /etc/profile.d/custom.sh
 export EDITOR=vim
 export XXX=xxx
-export VISUAL=vim   # crontab -e 使用的编辑器
+export VISUAL=vim                 # crontab -e 使用的编辑器
 ```
 
  
@@ -133,8 +133,9 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 1. centos 7 通过命令修改 IP 地址
 
     ```
-    ip addr  # 查看IP地址
-    ip link  # 查看网络连接
+    ip addr                              # 查看IP地址
+    ip link                              # 查看网络连接
+    dhclient -v -r eth0                  # 释放DHCP获取的IP地址，重新获取
 
     yum install NetworkManager-tui
     nmtui edit enp0s3
