@@ -8,6 +8,7 @@
 
 ```
 sudo yum install pyOpenSSL  
+sudo apt-get install python-openssl
 ```
 
 1. 下载 [GoAgent](https://github.com/goagent/goagent)，并解压
