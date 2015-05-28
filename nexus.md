@@ -60,10 +60,28 @@
 1. 之后通过URL `http://localhost:20010/` 登录，默认管理员 `admin`，密码 `admin123` 登录，并修改：
 
     ```
+    Views/Repositories -> Repositories:
+        把 "Apache Snapshots", Put out of service;
+        Add, Proxy Repository, 追加 grails-plugins，配置参考下面的表格。
+        修改 "Public Repositories", 下侧 Configuration, 把 grails-plugins 添加一下
+
     Administration -> server:
         Application server settings:
             Base Url : 修改为 "http://mvn.lizi.com/"
+            选中  Force Base URL
+
+     Administration -> Scheduled Tasks:
+        Add, 
+            name = download-indexes-central
+            type = Download indexes, 
+            Repository/Group = Central (Repo)
+            执行时间为每天凌晨1点
+        同样添加 grails-plugins 每天凌晨1点下载索引
+        为组 Public Repositories 添加每天凌晨2点的 Repair Repositories Index 任务
     ```
+
+
+
 
 
 
