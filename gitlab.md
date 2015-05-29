@@ -59,8 +59,8 @@ yum install cmake
 yum install postgresql94-devel
 
 # global install
-make prefix=/usr all doc info
-make prefix=/usr install install-doc install-html install-info
+make prefix=/usr/local all
+make prefix=/usr/local install
 ```
 
 
