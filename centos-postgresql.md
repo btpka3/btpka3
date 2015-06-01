@@ -17,6 +17,9 @@ Environment=PGDATA=/data0/pgsql/gitlab
 
 # 初始化数据库存储目录
 /usr/pgsql-9.4/bin/postgresql94-setup initdb postgresql-9.4
+
+systemctl daemon-reload
+systemctl status postgresql-9.4
 ```
 
 
