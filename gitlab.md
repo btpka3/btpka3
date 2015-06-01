@@ -119,6 +119,8 @@ yum -y install readline readline-devel ncurses-devel gdbm-devel glibc-devel tcl-
 
 # 如果通过yum安装ruby的话
 yum install ruby-devel
+
+yum install nodejs
 ``` 
 
 ## 使用源码安装ruby
