@@ -378,6 +378,7 @@ $ openbox --reconfigure
 ```sh
 sudo apt-get install openssh-client
 sudo apt-get install openssh-server
+sudo service ssh status
 ```
 
 # 登录画面的number lock
