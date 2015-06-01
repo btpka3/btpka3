@@ -18,6 +18,7 @@
 1. 按照规约修改jenkins的安装目录、存储目录
     ```sh
     mkdir /data/software/jenkins/
+    chown -R jenkins:jenkins /data/software/jenkins/
     mkdir /data/store/jenkins/
     mv /usr/lib/jenkins/jenkins.war /data/software/jenkins/
     usermod -m -d /data/store/jenkins jenkins               # 修改jenkins用户的主目录为 /data/store/jenkins
@@ -44,6 +45,13 @@
     修改内容如下：
 
     ```sh
+    . /etc/profile.d/xxx.sh
+
+    candidates="
+    $JAVA_HOME/bin/java
+    ...
+    "
+
     JENKINS_WAR="/data/software/jenkins/jenkins.war"
     ```
 
