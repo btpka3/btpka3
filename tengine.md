@@ -41,7 +41,7 @@
     mkdir conf/conf.d
     vi conf/nginx.conf
     # 1. 启用 "log_format main ..."
-    # 2. 在 "http {...}" 内加入 "include conf.d/*.conf;"
+    # 2. 在 "http {...}" 的 最后一行 加入 "include conf.d/*.conf;"
     # 3. 在最开始，设置 `user www`, 以非root 用户运行
     # 4. 修改 worker_process 为 CPU 核心数量
 
