@@ -4,6 +4,24 @@
 
 ## install
 
+### centos 7
+
+```
+# 创建自定义的数据库初存储目录
+mkdir /data0/pgsql/gitlab
+chown -R postgres:postgres /data0/pgsql/gitlab/
+
+# postgresql 默认使用指定的数据库存储目录
+vi /usr/lib/systemd/system/postgresql-9.4.service
+Environment=PGDATA=/data0/pgsql/gitlab
+
+# 初始化数据库存储目录
+/usr/pgsql-9.4/bin/postgresql94-setup initdb postgresql-9.4
+```
+
+
+### 修改数据库配置文件
+
 ```
 [root@s01 ~]# vi /var/lib/pgsql/9.1/data/pg_hba.conf
 # 修改以下一行（可以方便pg_dump时不用输入密码——仅限本地执行）
