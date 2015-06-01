@@ -1,7 +1,7 @@
 # 安装
 [参考](https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions)
 
-1. 先[安装JDK](CentOs-JDK)
+1. 先[安装JDK](java-jdk-install)
 
 1. 新增 jenkins 的 yum 源
 
