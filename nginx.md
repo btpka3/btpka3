@@ -308,6 +308,16 @@ server {
 }
 ```
 
+## 全部域名跳转
+
+```
+server {
+  listen *:80;
+  server_name wiki.kingsilk.xyz;
+  rewrite ^(.*)$  http://git.kingsilk.xyz$1 permanent;                                                                  
+}
+```
+
 
 # PHP
 
