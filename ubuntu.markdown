@@ -70,6 +70,18 @@ sudo apt-get install p7zip               # 7z
 7z a -t7z -r manager.7z /home/manager/*  # 7z : 压缩
 ```
 
+# 修改主机名
+
+```
+sudo hostname your-new-hostname
+
+sudo vim /etc/hostname
+your-new-hostname
+
+sudo vim /etc/hosts
+127.0.1.1     your-new-hostname
+```
+
 # 中文字体
 参考[这里](http://wiki.ubuntu.com.cn/%E5%AD%97%E4%BD%93)
 
