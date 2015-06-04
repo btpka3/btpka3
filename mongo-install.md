@@ -73,10 +73,36 @@ centos 安装参考[这里](http://docs.mongodb.org/manual/tutorial/install-mong
 
 1. 创建 systemd 所需的 service 文件 ` vi /usr/lib/systemd/system/mongod.service`
 
+    ```
+    [Unit]
+    Description=MongoDB Server
+    After=network.target
 
+    [Service]
+    User=mongod
+    Group=mongod
+    Type=forking
 
+    PIDFile=/data0/mongod/mongod.pid
+    ExecStartPre=
+    ExecStart=/usr/bin/mongod -f /etc/mongod.conf
+    ExecReload=/bin/kill -s HUP $MAINPID
+    ExecStop=/bin/kill -s QUIT $MAINPID
+    WorkingDirectory=/data0/mongod
+    Restart=always
 
+    LimitFSIZE=infinity
+    LimitCPU=infinity
+    LimitAS=infinity
+    LimitNOFILE=64000
+    LimitRSS=infinity
+    LimitNPROC=64000
 
+    PrivateTmp=true
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
 
  
 
