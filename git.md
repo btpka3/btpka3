@@ -79,6 +79,7 @@ git config --get remote.origin.url
 ```sh
 # 如果使用ssh key，就不要使用https协议
 git remote add origin git@10.1.18.153:zhangliangliang/test.git
+git remote set-url origin git@new-host:new-url
 git remote show
 git remote rm origin
 git push -u origin master
