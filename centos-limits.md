@@ -89,7 +89,7 @@ vi /etc/security/limits.d/xxx.conf  # 如果值太小，则修改该文件，持
 |-T     |                   |                   |The maximum number of threads
 
 
-sytstem 示例
+systemd 示例
 
 ```
 [Unit]
