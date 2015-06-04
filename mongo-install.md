@@ -48,6 +48,13 @@ mongo
 ## CentOS
 centos 安装参考[这里](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat-centos-or-fedora-linux/)
 
+### 环境准备
+
+```
+echo never >/sys/kernel/mm/transparent_hugepage/enabled
+echo never >/sys/kernel/mm/transparent_hugepage/defrag
+```
+
 ### 安装 mongodb 3.0
 使用yum 安装有点冲突问题，先使用 CentOS 7 的预编译的二进制包进行解压安装，参考[这里](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-linux/)
 
