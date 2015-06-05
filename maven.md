@@ -149,6 +149,20 @@ mvn -Dmaven.test.skip=true -am --projects my/module1,my/module2 compile
       <id>remote-repos</id>
     </mirror>
   </mirrors>
+
+  <profiles>
+    <profile>
+      <id>downloadSources</id>
+      <properties>
+        <downloadSources>true</downloadSources>
+        <downloadJavadocs>true</downloadJavadocs>
+      </properties>
+    </profile>
+  </profiles>
+
+  <activeProfiles>
+    <activeProfile>downloadSources</activeProfile>
+  </activeProfiles>
 </settings>
 ```
 需要：
