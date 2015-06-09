@@ -5,9 +5,10 @@
 
 
 # 使用 Groovy 类型的  BSF Sampler、PostProcessor、Assertion等
-1. 需要从 GRAILS安装目录中将 groovy-all-*.jar 拷贝到 JMETER/lib 目录下。
+1. 需要从 GRAILS安装目录中将 `lib/org.codehaus.groovy/groovy-all/jars/groovy-all-*.jar` 拷贝到 JMETER/lib 目录下。
 
     ```
+    sudo updatedb
     locate -r groovy-all*.jar
     cp /path/to/groovy-all*.jar ${JMETER_HOME}/lib
     ```
