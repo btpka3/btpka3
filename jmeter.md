@@ -6,6 +6,11 @@
 
 # 使用 Groovy 类型的  BSF Sampler、PostProcessor、Assertion等
 1. 需要从 GRAILS安装目录中将 groovy-all-*.jar 拷贝到 JMETER/lib 目录下。
+
+    ```
+    locate -r groovy-all*.jar
+    cp /path/to/groovy-all*.jar ${JMETER_HOME}/lib
+    ```
 2. 然后参考官方文档[BSF Sampler](http://jmeter.apache.org/usermanual/component_reference.html#BSF_Sampler)、
 [BSF PostProcessor](http://jmeter.apache.org/usermanual/component_reference.html#BSF_PostProcessor)、
 [BSF Assertion](http://jmeter.apache.org/usermanual/component_reference.html#BSF_Assertion)等。
