@@ -325,9 +325,29 @@ for f in *; do
 done
 
 cd ${CUR_PATH}
-~
+```
+
+## 同步多个git仓库
 
 ```
+#!/bin/bash
+
+DIR=/data0/backup/gitlab/jujn-platform
+TIME="date +%Y-%m-%d.%H:%M:%S"
+
+
+arr=("repo1" "repo2" "repo3")
+
+echo ----------------------------------------------------- `$TIME` 开始同步
+for i in ${arr[@]}
+do
+    cd ${DIR}/${i}
+    echo ----------------------------------------------------- `$TIME` ${i}
+    git pull --all
+done
+echo ----------------------------------------------------- `$TIME` 同步结束
+```
+
 
 ## 当前目录
 
