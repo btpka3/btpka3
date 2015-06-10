@@ -1,11 +1,14 @@
+## 目标
 
+网上的 github、gitlab、git@Oschina 等托管服务都太慢，频繁编辑wiki会惹火。
+但本地环境有自己搭建 gitlab， 希望无论在gitlab上编辑，还是在公网上编辑，都能合并到一起，两者内容一致
 
 ## 思路
 
 1. 以公网上（git@OSChina）的为主，本地 clone 一份。
 1. 之后，在本地 git 仓库新增一个 remote，该 remote 为局域网内 gitlab 搭建的 git 仓库。
-1. 更新的时候，先从 gitlab 上拉取，再从 oschina 上拉取，
-1. 最后 push 到 oschina 上，**强推** 到 gitlab 上。
+1. 更新的时候，先从本地 gitlab 上拉取，再从 oschina 上拉取，
+1. 最后 push 到 oschina 上，**强推** 到本地 gitlab 上。
 
 以下是思路测试用的脚本。
 
