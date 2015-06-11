@@ -17,7 +17,7 @@ Icon=/usr/local/idea/idea-IU-139.1117.1/bin/idea.png
 cd /usr/local/idea/idea-IU-139.1117.1/bin/
 sudo cp idea64.vmoptions idea64.vmoptions.bak
 sudo vi idea64.vmoptions           // 修改JVM参数
-sudo vi idea.sh                            // 在最开始加入  `. /etc/profile.d/xxx.sh`
+sudo vi idea.sh                    // 在最开始加入  `. /etc/profile.d/xxx.sh`
 ```
 
 
@@ -64,6 +64,9 @@ Editor :
         Appearance : 
             1. 选中 "Show line numbers"
             1. 选中 "Show whitespaces"
+Keymap : 复制一份 Eclipse 版的快捷键配置，搜索 close 并
+    移除 Window/Active Tool Window/Close Active Tab 的 `Ctrl+W` 的快捷键
+    为 Window/Editor Tabs/Close 追加 `Ctrl+W` 的快捷键
 ```
 
 # 插件
