@@ -192,6 +192,9 @@ dateStr2=$(date -d "${dateStr1}" +%Y%m%d%H%M%S)
 echo -e "dateStr1=$dateStr1\ndateStr2=$dateStr2"
 
 while true; do sleep 1; echo -n -e "\r`date "+%y-%m-%d %H:%M:%S"`" ; done;
+
+# 对命令组进行时间统计
+time { ll ; echo aaa ;}
 ```
 
 ## function
