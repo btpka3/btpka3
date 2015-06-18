@@ -1,4 +1,22 @@
 
+##  使 IEDA 下载源代码
+前提：Grails配置为使用Maven管理依赖，而非早期使用的Ivy。
+
+1. 在命令行下，Grails工程的主目录下执行以下命令
+
+    ```
+    grails refresh-dependencies --include-source
+    ```
+
+1. 在 IDEA Intellij 中 同步Grails配置
+
+   ```
+   IDEA : Grails View : 项目名称 上鼠标右键 : Grails : Synchronize Grails settings
+   ```
+
+2. 检查一下，现在你就可以在IDEA 中看到依赖Jar包的源码了，而不是IDEA反编译后的代码了。
+
+
 ## 安装
 
 ```
