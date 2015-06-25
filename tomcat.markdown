@@ -155,7 +155,22 @@ Environment=CATALINA_PID=/data/app/app-anem/apache-tomcat-xxx/tomcat.pid
 Environment=JAVA_HOME=/usr/java/default
 Environment=CATALINA_HOME=/data/app/app-anem/apache-tomcat-xxx/
 Environment=CATALINA_BASE=/data/app/app-anem/apache-tomcat-xxx/
-Environment=CATALINA_OPTS=
+Environment=CATALINA_OPTS= \
+    -server \
+    -Xms512m \
+    -Xmx1024m \
+    -XX:PermSize=32m \
+    -XX:MaxPermSize=256m \
+    -Xss256k \
+    -XX:ErrorFile=${CATALINA_HOME}/logs/start.at.${today}.hs_err_pid.log \
+    -XX:+UseConcMarkSweepGC \
+    -XX:+HeapDumpOnOutOfMemoryError \
+    -XX:HeapDumpPath=${CATALINA_HOME}/logs/start.at.${today}.dump.hprof \
+    -XX:+PrintGCDateStamps \
+    -XX:+PrintGCDetails \
+    -Xloggc:${CATALINA_HOME}/logs/start.at.${today}.gc.log \
+    -Duser.timezone=GMT+08 \
+    -Dfile.encoding=UTF-8 \
 
 User=qh
 ExecStartPre=
