@@ -5,7 +5,7 @@
 #!/bin/bash
 
 APP=lizi-wap
-DIR=/data/app/$APP
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 #先备份
 for f in ${DIR}/upload/*.war
