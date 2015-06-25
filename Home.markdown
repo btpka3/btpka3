@@ -49,6 +49,7 @@
     * [Firefox](firefox)
     * [Gitlab](gitlab)
     * [Jenkins](jenkins)
+        * [deploy.sh](deploy.sh)
     * [maven](maven)
     * [nexus](nexus)
 
