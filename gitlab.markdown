@@ -462,7 +462,7 @@ vi config/initializers/smtp_settings.rb
 
 2. 上一步新建文件 update 的内容如下：
 
-    ```
+    ```rb
     #!/usr/bin/env ruby
 
     $ref_name = ARGV[0]
@@ -470,13 +470,12 @@ vi config/initializers/smtp_settings.rb
     $new_value = ARGV[2]
     $repo_path = Dir.pwd
      
-
     def checkParentCount
         lastCommitParentCount = `git cat-file commit #{$new_value} |sed -n -r -e '/^parent [a-z0-9]{40}$/p'|wc -l`
-        if lastCommitParentCount.to_i > 1 
-           $stderr.puts "请先rebase之后再push"                                                                                                                                                                
+        if lastCommitParentCount.to_i > 1
+           $stderr.puts "请先rebase之后再push"
            exit 1
-        end 
+        end
     end
 
     checkParentCount
