@@ -136,6 +136,32 @@ chkconfig --level 345 nala-admin on
 
 ```
 
+# systemd 脚本
+
+参考[这里](https://panovski.me/install-tomcat-8-on-centos-7/)
+
+
+```
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/data/app/app-anem/apache-tomcat-xxx/tomcat.pid
+Environment=CATALINA_PID=/data/app/app-anem/apache-tomcat-xxx/tomcat.pid
+Environment=JAVA_HOME=/usr/java/default
+Environment=CATALINA_HOME=/data/app/app-anem/apache-tomcat-xxx/
+Environment=CATALINA_BASE=/data/app/app-anem/apache-tomcat-xxx/
+Environment=CATALINA_OPTS=
+ExecStart=/data/app/app-anem/apache-tomcat-xxx/bin/catalina.sh start
+ExecStop=/data/app/app-anem/apache-tomcat-xxx/bin/catalina.sh stop
+
+[Install]
+WantedBy=multi-user.target
+```
+
+
 # 部署脚本
 
 ## 创建
