@@ -8,6 +8,7 @@
 /data/app/${app-name}/deploy.sh                  # 负责起停tomcat，并将war包拷贝到 tomcat目录下
 /data/app/${app-name}/upload/                    
 /data/app/${app-name}/apache-tomcat-x.x.x/
+/data/app/${app-name}/bak/                       # 备份目录  
 
 # 日志
 /home/www/logs/${app-name}/
