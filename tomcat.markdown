@@ -142,6 +142,8 @@ chkconfig --level 345 nala-admin on
 
 
 ```
+# /usr/lib/systemd/system/app-name.service 
+
 [Unit]
 Description=Apache Tomcat Web Application Container
 After=network.target
@@ -154,8 +156,18 @@ Environment=JAVA_HOME=/usr/java/default
 Environment=CATALINA_HOME=/data/app/app-anem/apache-tomcat-xxx/
 Environment=CATALINA_BASE=/data/app/app-anem/apache-tomcat-xxx/
 Environment=CATALINA_OPTS=
+
+User=qh
+ExecStartPre=
 ExecStart=/data/app/app-anem/apache-tomcat-xxx/bin/catalina.sh start
 ExecStop=/data/app/app-anem/apache-tomcat-xxx/bin/catalina.sh stop
+
+LimitFSIZE=infinity
+LimitCPU=infinity
+LimitAS=infinity
+LimitNOFILE=64000
+LimitRSS=infinity
+LimitNPROC=64000
 
 [Install]
 WantedBy=multi-user.target
