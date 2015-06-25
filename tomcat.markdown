@@ -140,22 +140,18 @@ chkconfig --level 345 nala-admin on
 
 参考[这里](https://panovski.me/install-tomcat-8-on-centos-7/)
 
+因为 systemd 的服务配置文件中不容易写环境变量，因此，新建 `vi ${CATALINA_HOME}/bin/setenv.sh` 来处理环境变量
 
 ```
-# /usr/lib/systemd/system/app-name.service 
+#!/bin/bash
 
-[Unit]
-Description=Apache Tomcat Web Application Container
-After=network.target
+. /etc/profile.d/test12.sh
 
-[Service]
-Type=forking
-PIDFile=/data/app/app-name/apache-tomcat-xxx/tomcat.pid
-Environment=CATALINA_PID=/data/app/app-anem/apache-tomcat-xxx/tomcat.pid
-Environment=JAVA_HOME=/usr/java/default
-Environment=CATALINA_HOME=/data/app/app-anem/apache-tomcat-xxx/
-Environment=CATALINA_BASE=/data/app/app-anem/apache-tomcat-xxx/
-Environment=CATALINA_OPTS= \
+export today=`date %Y%m%d%H%M%S`                            
+
+export CATALINA_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+export CATALINA_PID=${CATALINA_HOME}/tomcat.pid
+export CATALINA_OPTS=" \
     -server \
     -Xms512m \
     -Xmx1024m \
@@ -171,11 +167,26 @@ Environment=CATALINA_OPTS= \
     -Xloggc:${CATALINA_HOME}/logs/start.at.${today}.gc.log \
     -Duser.timezone=GMT+08 \
     -Dfile.encoding=UTF-8 \
+"
+```
 
+
+
+vi /usr/lib/systemd/system/app-name.service
+
+```
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/data0/app/qh-wap/apache-tomcat-8.0.23/tomcat.pid
+                                                                                                                                                                                                          
 User=qh
 ExecStartPre=
-ExecStart=/data/app/app-anem/apache-tomcat-xxx/bin/catalina.sh start
-ExecStop=/data/app/app-anem/apache-tomcat-xxx/bin/catalina.sh stop
+ExecStart=/data0/app/qh-wap/apache-tomcat-8.0.23/bin/catalina.sh start
+ExecStop=/data0/app/qh-wap/apache-tomcat-8.0.23/bin/catalina.sh stop
 
 LimitFSIZE=infinity
 LimitCPU=infinity
