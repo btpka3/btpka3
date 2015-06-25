@@ -159,3 +159,6 @@ mvn -f ../../job1/workspace/pom.xml -Dmaven.test.skip=true -am --projects subMod
 
 # 升级
 RPM可以不用重装的。查看 /etc/init.d/jenkins 可以找到war包的路径。下载新的war包替换即可。
+
+
+参考 : [线上环境Servlet应用目录结构总结](https://github.com/btpka3/btpka3.github.com/tree/master/os/linux/prod-app-dir/app)
