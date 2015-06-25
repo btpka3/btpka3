@@ -49,9 +49,6 @@
     * [Firefox](firefox)
     * [Gitlab](gitlab)
     * [Jenkins](jenkins)
-        * [线上环境应用目录规则](prod-app-dir)
-        * [scp.sh](scp.sh)
-        * [deploy.sh](deploy.sh)
     * [maven](maven)
     * [nexus](nexus)
 
