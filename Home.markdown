@@ -35,6 +35,7 @@
     * [JavaScript](js)
     * [jQuery](http://jquery.com/)
     * [AngularJs](angularjs )
+    * [Node.js](nodejs)
     * [Grunt](grunt)
     * [Hybrid App](hybird-app)
 
