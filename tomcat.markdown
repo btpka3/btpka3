@@ -150,7 +150,7 @@ After=network.target
 
 [Service]
 Type=forking
-PIDFile=/data/app/app-anem/apache-tomcat-xxx/tomcat.pid
+PIDFile=/data/app/app-name/apache-tomcat-xxx/tomcat.pid
 Environment=CATALINA_PID=/data/app/app-anem/apache-tomcat-xxx/tomcat.pid
 Environment=JAVA_HOME=/usr/java/default
 Environment=CATALINA_HOME=/data/app/app-anem/apache-tomcat-xxx/
