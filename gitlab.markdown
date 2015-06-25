@@ -441,4 +441,44 @@ vi config/initializers/smtp_settings.rb
 ```
 
  
+# 强制 rebase
+参考:
+
+1. 《[Gitlab : Custom Git Hooks](https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/hooks/custom_hooks.md)》
+2. 《[8.4 Customizing Git - An Example Git-Enforced Policy](http://git-scm.com/book/en/v2/Customizing-Git-An-Example-Git-Enforced-Policy)》
+
+步骤：
+
+1. 在gitlab服务器的上
+
+    ```
+    su - git
+    cd /home/git/repositories/${username}/${repoName}.git
+    mkdir custom_hooks
+    cd custom_hooks
+    touch update
+    chomd 755 update
+    ```
+
+2. 上一步新建文件 update 的内容如下：
+
+    ```
+    #!/usr/bin/env ruby
+
+    $ref_name = ARGV[0]
+    $old_value = ARGV[1]
+    $new_value = ARGV[2]
+    $repo_path = Dir.pwd
+     
+
+    def checkParentCount
+        lastCommitParentCount = `git cat-file commit #{$new_value} |sed -n -r -e '/^parent [a-z0-9]{40}$/p'|wc -l`
+        if lastCommitParentCount.to_i > 1 
+           $stderr.puts "请先rebase之后再push"                                                                                                                                                                
+           exit 1
+        end 
+    end
+
+    checkParentCount
+    ```
 
