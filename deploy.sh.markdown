@@ -18,7 +18,7 @@ TOMCAT_DIR=/usr/local/tomcat
 cd "$DIR"
 
 checkFileCount(){
-    file=$1                                                                                                                                                                                                         
+    file=$1                                                      
     fileCount=`ls $file |wc -l`
     [[ $fileCount -eq 0 ]] && {
         echo "$file not found, abort." 1>&2
