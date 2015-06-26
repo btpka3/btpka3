@@ -67,6 +67,7 @@ Editor :
 Keymap : 复制一份 Eclipse 版的快捷键配置，搜索 close 并
     移除 Window/Active Tool Window/Close Active Tab 的 `Ctrl+W` 的快捷键
     为 Window/Editor Tabs/Close 追加 `Ctrl+W` 的快捷键
+    查找F2使用的快捷键，并全部移除，为 Main Menu/Refactor/Rename 增加 F2 快捷键
 ```
 
 # 插件
