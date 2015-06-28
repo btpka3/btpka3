@@ -24,9 +24,29 @@
 
 ### lubuntu
 
-```
-sudo apt-get install build-essential linux-headers-`uname -r` dkms
-```
+1. 安装必须的组件
+
+    ```
+    sudo apt-get install build-essential linux-headers-`uname -r` dkms
+    ```
+1. 安装 guest additions
+
+    ```
+    /media/zll/VBOXADDITIONS_4.3.28_100309/VBoxLinuxAdditions.run
+    ```
+
+1. 创建需要挂载的本地目录
+
+    ```
+    mkdir ~/c ~/c
+    ```
+
+1. 挂载
+
+    ```
+    sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) c ~/c
+    sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) d ~/d
+    ```
 
 ### win8 安装错误
 
