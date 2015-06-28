@@ -23,7 +23,7 @@
 ## 安装(guest)
 
 ### lubuntu
-
+1. 在host上对virtualbox设置共享目录,建议不要选中 "自动挂载"
 1. 安装必须的组件
 
     ```
@@ -41,12 +41,24 @@
     mkdir ~/c ~/c
     ```
 
-1. 挂载
+1. 手动挂载
 
     ```
     sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) c ~/c
     sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) d ~/d
+    # 提示:如果共享目录设置的是自动挂载, 是挂载到了 /media/sf_c
     ```
+1. 开机自动按自定义设置挂载
+
+    1. 确保在 virtualbox 中设置的共享目录没有勾选 "自动挂载"
+    1. `echo vboxsf >> /etc/moudules` 确保 kernel 提前加载所需模块
+    1. `vi /etc/fstab`, 内容如下:
+
+        ```
+        c /home/zll/c     vboxsf  defaults,gid=zll,uid=zll,_netdev  0 0
+        d /home/zll/d     vboxsf  defaults,gid=zll,uid=zll,_netdev  0 0
+        ```
+
 
 ### win8 安装错误
 
