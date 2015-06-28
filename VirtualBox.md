@@ -55,8 +55,8 @@
     1. `vi /etc/fstab`, 内容如下:
 
         ```
-        c /home/zll/c     vboxsf  defaults,gid=zll,uid=zll,_netdev  0 0
-        d /home/zll/d     vboxsf  defaults,gid=zll,uid=zll,_netdev  0 0
+        c /home/zll/c     vboxsf  defaults,gid=zll,uid=zll,dmode=774,fmode=664,_netdev  0 0
+        d /home/zll/d     vboxsf  defaults,gid=zll,uid=zll,dmode=774,fmode=664,_netdev  0 0
         ```
 
 
