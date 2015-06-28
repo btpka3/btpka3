@@ -22,6 +22,12 @@
 
 ## 安装(guest)
 
+### lubuntu
+
+```
+sudo apt-get install build-essential linux-headers-`uname -r` dkms
+```
+
 ### win8 安装错误
 
 ```
