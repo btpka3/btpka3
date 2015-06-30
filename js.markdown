@@ -22,5 +22,7 @@
     * [Icon Hover Effects](http://tympanus.net/Development/IconHoverEffects/)
 * Modal Window 
     * [Nifty Modal Window Effects](http://tympanus.net/Development/ModalWindowEffects/)
-
+* 上传/图片修改
+    * [WebUploader](http://fex.baidu.com/webuploader/)
+    * [美图开放平台](http://open.web.meitu.com/wiki/)
 * [javascript 6](http://es6-features.org/)
