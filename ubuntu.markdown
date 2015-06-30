@@ -570,6 +570,8 @@ sudo vi /etc/nginx/sites-available/default
         fastcgi_pass unix:/var/run/php5-fpm.sock;
         fastcgi_index index.php;
         include fastcgi_params;
+    # tengine 的话，还可能需要以下语句
+    #   fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
     }
 
 sudo service php5-fpm restart
