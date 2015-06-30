@@ -554,6 +554,7 @@ sudo apt-get install grdesktop
 ```sh
 sudo apt-get install nginx
 sudo apt-get install php5-fpm php5-cli php5-cgi php5-mysql
+sudo service php5-fpm status
 
 sudo vi /etc/php5/fpm/php.ini
 cgi.fix_pathinfo=0
