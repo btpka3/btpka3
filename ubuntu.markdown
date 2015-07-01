@@ -559,6 +559,14 @@ sudo service php5-fpm status
 sudo vi /etc/php5/fpm/php.ini
 cgi.fix_pathinfo=0
 
+sudo vi /etc/php5/fpm/pool.d/www.conf
+owner = www-data
+group = www-data
+listen.owner = www-data
+listen.group = www-data
+listen.mode = 0660
+
+
 sudo vi /etc/nginx/sites-available/default
     location ~ \.php$ {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
@@ -570,8 +578,6 @@ sudo vi /etc/nginx/sites-available/default
         fastcgi_pass unix:/var/run/php5-fpm.sock;
         fastcgi_index index.php;
         include fastcgi_params;
-    # tengine 的话，还可能需要以下语句
-    #   fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
     }
 
 sudo service php5-fpm restart
