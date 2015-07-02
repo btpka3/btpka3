@@ -1,0 +1,117 @@
+
+## 需求
+现在微信内嵌了自己的 X5 浏览器内核，该内核毕竟与别的主流浏览器还是有一点差别，如何线上调试成了一个棘手的问题。开发时我们还可以使用 alert 
+
+## 参考
+ 
+* 《[微信webview调试方法](http://bbs.mb.qq.com/thread-243399-1-1.html?pid=313743&fid=93)》
+ 
+    下面这个步骤将允许你在电脑的 chromium 浏览器 ：
+    1. 即时查看你在微信中渲染的html的 dom （会额外插入两个辅助用的 iframe）
+    1. 选中不同 dom 的节点，微信中渲染的html上相应的块高亮显示。
+    1. 修改相应的 dom 也会在 微信中渲染的html上及时反馈
+    1. 断点调试 javascript
+
+* 《[linux下android开发真机设备识别不了怎么办](http://jingyan.baidu.com/article/49711c6151ca75fa441b7c1c.html)》
+
+## 步骤
+
+### 手机开启USB调试
+
+手机上 -> 工具 -> 设置 -> 开发人员选项 -> 开启 `USB 调试`
+
+PS：华为的手机默认没有显示 `开发人员选项`，需要： 手机上 -> 工具 -> 设置 -> 关于手机 -> 连续点击 `版本号` 5～7次，
+之后会提示说 进入开发者模式，再返回后就可以看到 `开发人员选项` 了
+
+
+### 手机上安装 tbs 调试包
+
+[附件](http://res.imtt.qq.com/tbs_inspect/wx_sq_webview_debug.zip)
+
+1. 在手机上面安装微信（如果是第一次新装）
+1. 在微信中随便找个聊天窗口，收入 `//deletetbs` 删除原有的 TBS 工具
+1. 在手机上安装附件压缩包中的 tbs_20150526_021257_inspector.apk 或者 从[这里](http://res.imtt.qq.com/tbs_inspect/TbsSuiteNew.zip)下载。
+1. 打开 `TBS 工具集` ：
+
+    1. 选择 `安装本地TBS内核`
+    1. 选择 `com.tencent.mm` —— 即为微信安装 TBS
+    1. 点击最下面的 `快速杀死App（强行停止）` 按钮，退出微信
+    1. 点击 `(1)安装TBS` 按钮
+    1. 打开微信，随便找个服务号，公众号的链接，打开一个网址，停留1分钟，然后返回到 TBS 工具集 的画面
+    1. 点击 `(3)检查是否安装成功`， 确保安装成功
+
+### 电脑上安装 inspector_client 脚本
+
+1. 电脑上安装 python （略过，注意，Ubuntu下 python 3 的执行命令是 python3, python 2 的执行命令是 python）
+1. 解压附件中的 `inspector_client20150401.zip`
+
+    ```
+    file inspector_client20150401.zip             # 可以检测到使用的是 7zip 格式压缩的
+
+    sudo mkdir /usr/local/inspector_client
+    sudo apt-get install p7zip-full
+    7z x inspector_client20150401.zip -r -o /usr/local/inspector_client
+
+    cd /usr/local/inspector_client
+    sudo chomd +x platforms/linux/adb            # 为adb增加可执行权限
+    sudo chmod +x inspector.py
+    sudo vi inspector.py                         # 移除第一行中的 `^M`， 否则会报错，提示找不到 python
+
+    ./inspector.py                               # 开始执行，之后用 chromium 浏览器访问 http://localhost:9222
+                                                 # 如果提示未找到USB设备，请参考下面的 `让电脑识别手机的USB连接`
+    ```
+
+
+### 让电脑识别手机的USB连接
+
+国产手机大多无法被android开发套件的adb程序识别，需要手动配置一下
+
+1. 将手机用USB线连接上电脑
+1. 通过 `lsusb` 命令获取所有的 usb 设备
+
+    ```
+    Bus 002 Device 002: ID 8087:8000 Intel Corp. 
+    Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+    Bus 001 Device 002: ID 8087:8008 Intel Corp. 
+    Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+    Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+    Bus 003 Device 003: ID 0101:0007  
+    Bus 003 Device 018: ID 12d1:1052 Huawei Technologies Co., Ltd.      # 该行的 `12d1:1052` 就是手机的 USB ID
+    Bus 003 Device 004: ID 258a:0003  
+    Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+    ```
+
+1. 创建规则文件
+
+    ```
+    sudo touch /etc/udev/rules.d/50-android.rules
+
+    sudo vi /etc/udev/rules.d/50-android.rules
+    # 增加以下一行内容, 其中 12d1:1037 就是前一步获取的手机的 USB ID
+    SUBSYSTEM=="usb",SYSFS{idVendor}=="12d1:1037",MODE="0666"
+    ``` 
+
+1. 重启 udev 服务
+
+    ```
+    sudo service udev restart
+    ```
+
+1. 使用 adb 检查
+
+    ```
+    ${inspector_client_home}/platforms/linux/adb kill-server
+    ${inspector_client_home}/platforms/linux/adb devices
+    ```
+
+
+
+### 准备工作
+
+
+
+
+
+
+1. 下载所需的资源 [wx_sq_webview_debug.zip](http://res.imtt.qq.com/tbs_inspect/wx_sq_webview_debug.zip)
+2. 下载
