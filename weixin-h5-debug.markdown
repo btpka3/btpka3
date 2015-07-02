@@ -45,7 +45,7 @@ PS：华为的手机默认没有显示 `开发人员选项`，需要： 手机�
 
 ### 电脑上安装 inspector_client 脚本
 
-1. 电脑上安装 python （略过，注意，Ubuntu下 python 3 的执行命令是 python3, python 2 的执行命令是 python）
+1. 电脑上安装 python （略过，Ubuntu貌似已经自带安装了？ PS：注意，Ubuntu下 python 3 的执行命令是 python3, python 2 的执行命令是 python）
 1. 解压附件中的 `inspector_client20150401.zip`
 
     ```
