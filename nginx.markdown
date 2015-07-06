@@ -274,9 +274,36 @@ server {
 
 使用 [ngx_http_healthcheck_module ](http://wiki.nginx.org/HttpHealthcheckModule)
 
+## 路径相关
+
+### proxy_pass 带路径
+
+```conf
+location /aaa/bbb { 
+    proxy_pass              http://qh-wap/xxx/yyy/;
+    proxy_set_header        Host            $host;
+    proxy_set_header        X-Real-IP       $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header        X-Forwarded-Proto $scheme;
+}
+```
+
+效果：访问 `/aaa/bbb-111/222/333.html` 实际是代理访问了 `/xxx/yyy/-111/222/333.html`
+
+### proxy_pass 不带路径
+
+location /xxx/yyy { 
+    proxy_pass              http://qh-wap;
+    proxy_set_header        Host            $host;
+    proxy_set_header        X-Real-IP       $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header        X-Forwarded-Proto $scheme;
+}
+```
+效果：访问 `/xxx/yyy-111/222/333.html` 实际是代理访问了 `/xxx/yyy-111/222/333.html`
 
 
-# 子域名跳转
+## 子域名跳转
  使得外部访问 http://www.test.me/ask/xxx 时都跳转到 http://ask.test.me/xxx 。
  但是内部app都只有一个，故内部访问 http://ask.test.me/xxx 时，还是在访问 http://www.test.me/ask/xxx 
 
@@ -307,6 +334,9 @@ server {
     }   
 }
 ```
+
+
+
 
 ## 全部域名跳转
 
