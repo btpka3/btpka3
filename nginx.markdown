@@ -292,6 +292,7 @@ location /aaa/bbb {
 
 ### proxy_pass 不带路径
 
+```conf
 location /xxx/yyy { 
     proxy_pass              http://qh-wap;
     proxy_set_header        Host            $host;
