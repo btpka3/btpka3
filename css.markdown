@@ -45,3 +45,7 @@ DPI = 对角线的像素数 / 屏幕英寸数
 
 * [Animated Buttons](http://tympanus.net/Tutorials/AnimatedButtons/index6.html)
 * [Original Hover Effects](http://tympanus.net/Tutorials/OriginalHoverEffects/index10.html)
+
+
+# 笔记
+*  ？？？ `display:table-cell` 无法 float?
