@@ -49,3 +49,5 @@ DPI = 对角线的像素数 / 屏幕英寸数
 
 # 笔记
 *  ？？？ `display:table-cell` 无法 float?
+*  [`display:table` 垂直居中](http://jsfiddle.net/wZ96P/)
+* 《[A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)》
