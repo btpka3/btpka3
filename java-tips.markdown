@@ -66,6 +66,7 @@ public class JsonMessage implements Serializable {
 ```
 ### log
 * 日志的配置文件中的路径应为绝对路径
+
 ### 自定义错误画面
 * 要能根据请求返回HTML或者JSON
 * 要通过配置，可以在HTML中开发时显示错误堆栈，上线时不显示
