@@ -9,6 +9,8 @@
     * [Security CSRF](security-csrf)
     * [Security Clickjacking](security-clickjacking)
     * [Security XSS](security-xss)
+    * [JavaScript 允许重新定义 Array，因此JSON服务不要返回Array，而应当返回Object](http://haacked.com/archive/2008/11/20/anatomy-of-a-subtle-json-vulnerability.aspx/)
+    
 
 * Web 后端
     * Markdown
