@@ -27,3 +27,15 @@
     * [美图开放平台](http://open.web.meitu.com/wiki/)
 * [javascript 6](http://es6-features.org/)
 * [以 application/octet-stream 格式上传](http://stackoverflow.com/questions/19959072/sending-binary-data-in-javascript-over-http)
+
+
+
+## js equals
+
+|arg type|conditional result|
+|------|------|
+|undefined|false|
+|number| +0, -0, NaN 为 false，其他为true|
+|string| 长度为0则为false，其他为true|
+|object|null为false，其他为true|
+ 
