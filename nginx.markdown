@@ -304,6 +304,16 @@ location /xxx/yyy {
 效果：访问 `/xxx/yyy-111/222/333.html` 实际是代理访问了 `/xxx/yyy-111/222/333.html`
 
 
+### 移除某个路径前缀
+
+```
+location ~ ^/api(.*)$ {
+    proxy_pass                  http://wap-zll$1;
+}  
+```
+效果：访问 `/api/test/index` 实际是代理访问了 `/test/index`
+
+
 ## 子域名跳转
  使得外部访问 http://www.test.me/ask/xxx 时都跳转到 http://ask.test.me/xxx 。
  但是内部app都只有一个，故内部访问 http://ask.test.me/xxx 时，还是在访问 http://www.test.me/ask/xxx 
