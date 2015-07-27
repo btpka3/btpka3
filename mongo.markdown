@@ -36,10 +36,10 @@
 2. 管理后台需要有相关的画面来手动触发
 3. mapRecude 定时任务流程
 
-    *. GMONGO API: MapReduce 表A，以A表ID为主键区分，将结果存储到表 TmpXXX中( 只维护部分字段)
-    *. GMONGO API: MapReduce 表B，以A表ID为主键区分，将结果存储到表 TmpXXX中( 只维护另外一部分字段)
+    * GMONGO API: MapReduce 表A，以A表ID为主键区分，将结果存储到表 TmpXXX中( 只维护部分字段)
+    * GMONGO API: MapReduce 表B，以A表ID为主键区分，将结果存储到表 TmpXXX中( 只维护另外一部分字段)
 
 4. 查询流程
 
-    *. GMONGO API: where 过滤、排序、分页，查询出页面所需记录的ID列表
-    *. GORM API: 根据ID列表获取相关对象列表（注意顺序需要与ID列表中的一致）
+    * GMONGO API: where 过滤、排序、分页，查询出页面所需记录的ID列表
+    * GORM API: 根据ID列表获取相关对象列表（注意顺序需要与ID列表中的一致）
