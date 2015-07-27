@@ -173,6 +173,7 @@ PATH_PATCH="PATH=$(su $USER -s /bin/bash -l -c "cd \"$APP_PATH\"; echo \"\$PATH\
 sudo -u git -H gem sources --remove https://rubygems.org/
 sudo -u git -H gem sources -a http://ruby.taobao.org/
 sudo -u git -H gem sources -l
+npm config set strict-ssl false
 
 vi Gemfile
 # 注释掉原有的source，使用国内镜像
