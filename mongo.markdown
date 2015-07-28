@@ -41,3 +41,8 @@
 4. 查询流程
     * GMONGO API: where 过滤、排序、分页，查询出页面所需记录的ID列表
     * GORM API: 根据ID列表获取相关对象列表（注意顺序需要与ID列表中的一致）
+
+参考：
+* [Mongo Map-Reduce](http://docs.mongodb.org/manual/core/map-reduce/)
+* [GMongo Map-Reduce demo](https://github.com/poiati/gmongo#mapreduce)
+* [GORM Mongo Map-Reduce](http://stackoverflow.com/questions/5681851/mongodb-combine-data-from-multiple-collections-into-one-how/8746805#8746805)
