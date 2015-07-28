@@ -4,9 +4,13 @@
 * 《[中华人民共和国社会保险法](http://www.gov.cn/zxft/ft209/content_1748773.htm)》
 * [杭州市人力资源和社会保障网](http://www.zjhz.hrss.gov.cn/html/zcfg/zcfgk/zhl/index.html)
 * 2014
-    * [2014杭州市区最低工资 ： 1650 元](http://www.zjhz.hrss.gov.cn/html/zcfg/zcfgk/in/zcfg5525648.html)
+    * [2014杭州市区最低月工资标准 ： 1650 元](http://www.zjhz.hrss.gov.cn/html/zcfg/zcfgk/in/zcfg5525648.html)
     * [2014杭州市区全社会在岗职工年平均工资 ： 51449 元](http://www.zjhz.hrss.gov.cn/html/zcfg/zcfgk/gzfu/71265.html)
     * [2014浙江省在岗职工年平均工资 : 48372 元](http://www.zjhz.hrss.gov.cn/html/zcfg/zcfgk/gzfu/71140.html)
+* 2013 
+    * [2013杭州市区最低月工资标准 : 1470](http://www.zjhz.lss.gov.cn/html/zcfg/zcfgk/in/zcfg5519876.html)
+    * [2013杭州市区全社会在岗职工年平均工资 : 46831 元](http://www.zjhz.lss.gov.cn/html/zcfg/zcfgk/in/zcfg5519876.html)
+    * [2013浙江省在岗职工年平均工资 : 44513 元](http://www.zjhz.hrss.gov.cn/html/zcfg/zcfgk/gzfu/67953.html)
 * [杭州市基本养老保障办法（杭政〔2013〕104号）](http://www.hangzhou.gov.cn/main/wjgg/ZFGB/201312/szfwj/T470036.shtml)
 * [杭州市基本养老保障办法主城区实施细则（杭政办〔2014〕4号）](http://www.hangzhou.gov.cn/main/wjgg/ZFGB/201402/szfwj/T475790.shtml)
 
