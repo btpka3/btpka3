@@ -235,7 +235,10 @@ security:
         user: "testUser",
         pwd: "testUser",
         roles: [ { role: "dbOwner", db: "test" } ]
-    });```
+    });
+    ```
+
+
 1. 停止所有的 mongod
 
     ```sh
