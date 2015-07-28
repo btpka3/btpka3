@@ -218,8 +218,8 @@ security:
         roles: [ { role: "root", db: "admin" } ]
     });
  
-    db.auth("siteRootAdmin", "<password>");      # 认证
-    db.getUsers();                             # 获取当前数据库中的用户
+    db.auth("siteRootAdmin", "<password>");      // 认证
+    db.getUsers();                               // 获取当前数据库中的用户
 
     // 对当前数据库中的用户 "siteRootAdmin"，授予不同数据库的不同权限
     db.grantRolesToUser(
