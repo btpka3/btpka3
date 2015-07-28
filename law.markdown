@@ -13,6 +13,10 @@
     * [2013浙江省在岗职工年平均工资 : 44513 元](http://www.zjhz.hrss.gov.cn/html/zcfg/zcfgk/gzfu/67953.html)
 * [杭州市基本养老保障办法（杭政〔2013〕104号）](http://www.hangzhou.gov.cn/main/wjgg/ZFGB/201312/szfwj/T470036.shtml)
 * [杭州市基本养老保障办法主城区实施细则（杭政办〔2014〕4号）](http://www.hangzhou.gov.cn/main/wjgg/ZFGB/201402/szfwj/T475790.shtml)
+* 杭州住房公积金
+    * [单位版查询][http://www.hzgjj.gov.cn:8080/WebAccounts/pages/com/login.jsp]
+    * [个人版查询][http://www.hzgjj.gov.cn:8080/WebAccounts/pages/per/login.jsp]
+
 
 # 互联网相关
 * [《互联网信息服务管理办法》](http://www.gov.cn/gongbao/content/2011/content_1860864.htm)
