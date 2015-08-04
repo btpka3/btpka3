@@ -100,6 +100,11 @@ ifconfig
     ??? 前面几种功能在这里若合理配置均可实现。
 
 ## 共享本地硬盘
+
+### centos guest
+
+[参考](http://helpdeskgeek.com/virtualization/virtualbox-share-folder-host-guest/)
+
 这里以Host系统为Windows，Guest系统为CentOS为例进行讲解：
 
 1.  用虚拟光驱加载 VirtualBox 根目录下的 `VBoxGuestAdditions.iso`
@@ -138,6 +143,12 @@ ifconfig
     mount: block device /dev/sr0 is write-protected, mounting read-only
     cd /mnt/f
     ```
+
+### windows guest
+
+```
+net use x: \\vboxsvr\sharename
+```
 
 ##  搭建局域网
 
