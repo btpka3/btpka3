@@ -2,7 +2,6 @@
 
 # 跨站脚本攻击(XSS - Cross Site Scripting)
 
-## 工具参考
 
 * Acunetix_Web_Vulnerability_Scanner_V9
 * arachni-0.4.2-0.4
@@ -201,5 +200,6 @@ public class AntiSamyDemo {
 参考：
 * [Cross site Scripting](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS))
 * [XSS Filter Evasion Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet)
-
+* [各种工具使用demo](https://github.com/btpka3/btpka3.github.com/blob/master/owasp/first-AntiSamy/src/main/java/me/test/Test123.java)
+* 淘宝的 [HTML 白名单](http://open.taobao.com/doc/detail.htm?id=102538)、[CSS 白名单](http://open.taobao.com/doc/detail.htm?id=102539)
 
