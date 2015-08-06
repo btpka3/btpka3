@@ -97,10 +97,10 @@
         * [ZooKeeper安装](zk-install)   TODO 合并
         * [ZooKeeper单机集群配置示例](zk-cluster-demo)
     * ElasticSearch
-        * [简介](es-intro)
-        * [安装](es-install)
-        * [示例](es-search)
-        * [拼音/自动完成](es-pinyin)
+        * [ElasticSearch简介](es-intro)
+        * [ElasticSearch安装](es-install)
+        * [ElasticSearch示例](es-search)
+        * [ElasticSearch拼音/自动完成](es-pinyin)
     * MongoDB
         * [mongoDB 简介](mongo-intro)
         * [mongoDB 安装](mongo-install)
