@@ -27,7 +27,7 @@
     echo "1" > server.1/data/myid         # 创建数据目录中的myid文件，内容与当前节点的编号一致。
     ```
 
-1. 创建/修改zoo.cfg配置文件。注意：该配置文件不可使用行尾注释
+1. 创建/修改 $ZK_HOME/conf/zoo.cfg 配置文件。注意：该配置文件不可使用行尾注释
 
     ```cfg
     clientPort=2110
