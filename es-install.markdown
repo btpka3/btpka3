@@ -40,7 +40,7 @@ systemctl status elasticsearch
 通过环境变量进行配置。
 
 1. 不要修改 `/etc/elasticsearch/elasticsearch.yml`（其初始内容为空）
-1. 修改 `/usr/share/elasticsearch`            # 配置环境变量，含JAVA_HOME
+1. 修改 `/etc/sysconfig/elasticsearch`            # 配置环境变量，含JAVA_HOME
 
 ### 配置方式二
 
