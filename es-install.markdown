@@ -42,14 +42,14 @@ systemctl status elasticsearch
 1. 不要修改 `/etc/elasticsearch/elasticsearch.yml`（其初始内容为空）
 1. 修改 `/etc/sysconfig/elasticsearch`            # 配置环境变量，含JAVA_HOME
 
-### 配置方式二
+### 配置方式二 (推荐)
 
 通过配置文件进行配置
 
 1.  检查 systemd 配置文件
 
     ```
-    cat /usr/lib/systemd/system/elasticsearch.service
+    cat /usr/lib/systemd/system/elasticsearch.service       # 不用修改
     ```
 
 1. `vi /etc/elasticsearch/elasticsearch.yml`
@@ -69,6 +69,11 @@ systemctl status elasticsearch
     . /etc/profile.d/jujn.sh
     ```
 
+1. 校验
+
+    ```
+    curl localhost:9200/_nodes/process?pretty
+    ```
 
 
 
