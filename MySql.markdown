@@ -250,6 +250,7 @@ ALTER TABLE t ENGINE = MYISAM;
    用户名和密码需要以明文的方式存储在 master.info 中，故最好单独创建一个这样的账户，赋予最小权限。
 
    ```sql
+   select host, user from mysql.user;
    CREATE USER 'repl'@'%.mydomain.com' IDENTIFIED BY 'slavepass';
    GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%.mydomain.com';
    SHOW GRANTS;
@@ -316,6 +317,7 @@ secure-auth             = OFF                       # 使用旧的密码HASH算�
 default-character-set   = utf8mb4                   # 默认字符集
 
 [mysqld]
+bind-address            = 0.0.0.0
 port                    = 3306
 user                    = mysql                     # 以哪一个用户启动mysql数据库
 pid-file                = ${datadir}/mysql.pid      # PID 文件的位置
