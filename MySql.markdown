@@ -402,3 +402,15 @@ FIXME: 仅仅MySQL会有这样的问题？
 select table_name, engine, table_rows from INFORMATION_SCHEMA.tables where table_schema='naladb' order by table_rows desc
 ```
 
+# MySql Workbench
+
+## ubuntu
+ 安装mysql的 [apt 仓库](http://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/)
+
+```
+sudo dpkg -i /PATH/platform-and-version-specific-package-name.deb
+sudo apt-get update
+# 
+sudo apt-get install mysql-workbench-community
+```
+
