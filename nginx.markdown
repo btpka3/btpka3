@@ -400,3 +400,28 @@ date.timezone = Asia/Shanghai
 ```
 
 
+# basic 认证
+
+1. 安装 htpasswd
+
+    ```
+    # CentOS
+    yum provides \*bin/htpasswd
+    yum installl httpd-tools
+
+    # Ubuntu
+    apt-get install apache2-utils
+    ```
+2. 生成加密文件（Nginx是使用 crypt(3) 加密的、apache是md5加密）
+
+    ```
+    htpasswd -c -d /usr/local/tengine/tengine-2.1.0/conf/conf.d/test.me.htpasswd zhang3
+    # 回车输入密码
+    ```
+
+3. 配置 nginx 使用 basic 认证
+
+    ```
+    auth_basic "Restricted Access";
+    auth_basic_user_file ./conf.d/test.me.htpasswd;
+    ```
