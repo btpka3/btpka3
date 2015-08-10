@@ -5,6 +5,7 @@
     * [杭州市人力资源和社会保障网](http://www.zjhz.hrss.gov.cn/)
         * [职工社会保险参保登记](http://www.zjhz.lss.gov.cn/html/wsbs/ygzw/shbx/yanglaobx/zgsh/62362.html)
         * [杭州社保、养老保险查询](http://www.zjhz.lss.gov.cn/html/wsbs/denglu.html)
+    * [杭州网上办事大厅](http://wsbs.zjhz.hrss.gov.cn/index.html)
     * [杭州住房公积金网](http://www.hzgjj.gov.cn/)
         * [单位登记](http://www.hzgjj.gov.cn/col/col428/index.html)
         * [单位版查询](http://www.hzgjj.gov.cn:8080/WebAccounts/pages/com/login.jsp)
