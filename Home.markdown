@@ -28,6 +28,7 @@
         * [groovy 反编译](groovy-decompile)
     * [Grails](grails)
         * [Spring DSL](grails-spring-dsl)
+        * [反例](grails-counter-example)
     * [Spring Framework](spring-framework)
     * [Spring Security](spring-security)
     * [CAS](cas-intro)
