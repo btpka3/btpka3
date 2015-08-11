@@ -58,6 +58,9 @@
     * [nexus](nexus)
     * [禅道](zentao)
 
+* 第三方API
+    * [气象数据开放平台](weather)
+
 * 测试
     * sysbench
         * [sysbench 进行 cpu 测试](sysbench-cpu)
