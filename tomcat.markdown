@@ -199,7 +199,11 @@ LimitNPROC=64000
 WantedBy=multi-user.target
 ```
 
-最后执行 `systemctl daemon-reload; systemctl restart qh-wap; systemctl status qh-wap`
+最后执行 
+
+```
+systemctl daemon-reload; systemctl restart qh-wap; systemctl status qh-wap
+```
 
 
 # 部署脚本
