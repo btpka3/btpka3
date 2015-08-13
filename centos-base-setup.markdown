@@ -49,6 +49,8 @@ hostname xxx.xxx.xxx               # 临时修改 hostname
 vi /etc/hostname                   # 持久修改hostname，重启才生效
 xxx.xxx.xxx
 
+# ??? /etc/sysconfig/network
+
 nmtui                              # 设置主机名
 ```
 
