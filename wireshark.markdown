@@ -2,6 +2,7 @@
 
 ```
 sudo apt-get install wireshark
+cp /usr/share/applications/wireshark.desktop ~/Desktop/
 sudo dpkg-reconfigure wireshark-common 
 sudo usermod -a -G wireshark $USER
 # sudo reboot
