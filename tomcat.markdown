@@ -50,13 +50,13 @@ tar zxvf apache-tomcat-6.0.41.tar.gz .
     1. 为反向代理 启用 RemoteIpValue
 
         ```xml
-        <Server ...>
+        <Engine ...>
             <Valve className="org.apache.catalina.valves.RemoteIpValve"
                 remoteIpHeader="X-Forwarded-For"
                 proxiesHeader="X-Forwarded-By"
                 protocolHeader="X-Forwarded-Proto"
                 trustedProxies="192\.168\..*"/>
-        </Server>
+        </Engine>
         ```
 
 1. 其他修改，比如添加jar包，修改session集群等，希望大家在该wiki中详细说明
