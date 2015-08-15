@@ -103,7 +103,7 @@ document.write(document.location.href.substring(document.location.href.indexOf("
 
     ```
       <script>...NEVER PUT UNTRUSTED DATA HERE...</script>   直接放到script中
-      &lt;!--...NEVER PUT UNTRUSTED DATA HERE...-->             在HTML注释中
+      &lt;!--...NEVER PUT UNTRUSTED DATA HERE...-->          在HTML注释中
       <div ...NEVER PUT UNTRUSTED DATA HERE...=test />       在属性名中
       <NEVER PUT UNTRUSTED DATA HERE... href="/test" />      在标签名中
       <style>...NEVER PUT UNTRUSTED DATA HERE...</style>     直接在CSS中
