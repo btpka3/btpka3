@@ -81,7 +81,7 @@
     }
     ```
 
-8. 在微信的沙盒测试上提交测试服务器的URL和token， 按照上面的示例：
+8. 在微信的沙盒测试上提交测试服务器的URL和token，完成服务器的接入验证。按照上面的示例：
 
     ```
     URL   = http://p16030.ddns.kingsilk.xyz/testZll/verifyServer
