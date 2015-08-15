@@ -3,7 +3,9 @@
 
 ## 示例
 
-```
+ZllController.groovy
+
+```groovy
 package xyz.kingsilk.qh.wap.controller
 
 import grails.converters.JSON
@@ -27,9 +29,9 @@ class ZllController {
 
     def weather() {
 
-        def appId = '7d2cfd112a4e29af'
+        def appId = 'xxxxxxxxxxxx'
         def appId4Param = appId.substring(0, 6)
-        def priKey = 'aad5fd_SmartWeatherAPI_abe1191'
+        def priKey = 'xxx_SmartWeatherAPI_yyyy'
 
         // 杭州
         def areaId = '101210101'
