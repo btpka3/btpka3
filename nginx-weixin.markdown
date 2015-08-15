@@ -45,7 +45,7 @@
 6. 测试 `http://kingsilk.imwork.net:16030` 访问没有问题
 7. 测试 `http://p16030.ddns.kingsilk.xyz` 访问没有问题
 8. 在你的开发机上按照微信的 [接入指南](http://mp.weixin.qq.com/wiki/17/2d4265491f12608cd170a95559800f2d.html) ，
-设置自定义的 token 并编写服务器真实性验证 api。这里验证的URL是  `http://localhost:16030/testZll/verifyServer` :
+设置自定义的 token 并编写服务器真实性验证 api。这里验证的URL是  `http://localhost:16030/testZll/verifyServer` （TestZllController.groovy）:
 
     ```groovy
     package xyz.kingsilk.qh.wap.controller
