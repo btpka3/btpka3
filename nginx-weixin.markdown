@@ -42,4 +42,48 @@
     ```
  
 5. 在你的主机上启动 你的服务，确保 `http://localhost:16030` 访问没问题
-6. c
+6. 测试 `http://kingsilk.imwork.net:16030` 访问没有问题
+7. 测试 `http://p16030.ddns.kingsilk.xyz` 访问没有问题
+8. 在你的开发机上按照微信的 [接入指南](http://mp.weixin.qq.com/wiki/17/2d4265491f12608cd170a95559800f2d.html) ，
+设置自定义的 token 并编写服务器真实性验证 api。这里验证的URL是  `http://localhost:16030/testZll/verifyServer` :
+
+    ```groovy
+    package xyz.kingsilk.qh.wap.controller
+
+    import org.apache.commons.codec.binary.Hex
+    import org.apache.commons.codec.digest.DigestUtils
+
+    class TestZllController {
+
+        def index() {
+            render "OK " + System.currentTimeMillis()
+        }
+     
+        def appID = "xxxxx"
+        def appsecret = "xxxxxxxx"
+        def token = "yyyyy"
+
+        def verifyServer() {
+            log.debug("收到微信服务器验证请求")
+
+            def signature = params.signature
+            def timestamp = params.timestamp
+            def nonce = params.nonce
+            def echostr = params.echostr
+
+            def arr = [token, timestamp, nonce]
+            arr.sort()
+            def sign = Hex.encodeHexString(DigestUtils.sha(arr.join()))
+            println sign
+            render(sign == signature ? echostr : "invalid signature")
+        }
+
+    }
+    ```
+
+8. 在微信的沙盒测试上提交测试服务器的URL和token， 按照上面的示例：
+
+    ```
+    URL   = http://p16030.ddns.kingsilk.xyz/testZll/verifyServer
+    token = yyyy
+    ```
