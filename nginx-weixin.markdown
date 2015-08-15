@@ -85,5 +85,5 @@
 
     ```
     URL   = http://p16030.ddns.kingsilk.xyz/testZll/verifyServer
-    token = yyyy
+    token = yyyyy
     ```
