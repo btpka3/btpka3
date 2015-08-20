@@ -173,7 +173,7 @@
     ```groovy
     // 1. 使用XmlParser
     String xmlStr = ...
-    def rootNode = new XmlParser().parseText(XmlExamples.CAR_RECORDS)
+    def rootNode = new XmlParser().parseText(xmlStr)
     def node2Count = rootNode.node2.size()
     def attrValue = rootNode.node2[0].'@attr1'
 
