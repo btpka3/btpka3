@@ -37,6 +37,7 @@
     * [CSS](css)
     * [font](font)
     * [JavaScript](js)
+    * [jshint](jshint)
     * [jQuery](http://jquery.com/)
     * [AngularJs](angularjs )
     * [Node.js](nodejs)
