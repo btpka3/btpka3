@@ -35,7 +35,12 @@ chmod 600 ~/.ssh/*
 ```
 
 
+# SSH HTTP proxy
 
+```
+ssh -D ${localSocketProxyPort} user@remoteSShServer
+# 然后浏览器配置一下使用 localhost，上面的端口即可
+```
 
 # SSH 隧道
 
