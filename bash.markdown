@@ -155,10 +155,15 @@ echo "$target" | sed -r "s/^([[:space:]]*$ekk[[:space:]]*=).*$/\1$ekv/g"
 
 ## 字符串处理
 ### substr
+
 ```sh
 str='CREATE TABLE `offercalc_fields` ('
 echo $str | grep -Po '(?<=CREATE TABLE `).+(?=`)'
 echo $str | sed -nr 's/CREATE TABLE `(.+)`.*/\1/p'
+
+# "16000/tcp:           16737"
+fuser 16000/tcp 2>&1 | awk '{print $2}'
+fuser 16000/tcp 2>&1 | sed -nr 's/[^[:space:]]+[[:space:]]+([[:digit:]]+)/\1/p'
 ```
 
 ### replace
