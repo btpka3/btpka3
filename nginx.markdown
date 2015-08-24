@@ -311,7 +311,8 @@ location ~ ^/api(.*)$ {
     proxy_pass                  http://wap-zll$1;
 }  
 ```
-效果：访问 `/api/test/index` 实际是代理访问了 `/test/index`
+效果：访问 `/api/test/index` 实际是代理访问了 `/test/index`。
+但是，注意：此时返回的HTML的URL路径普遍都有问题。
 
 
 ## 子域名跳转
