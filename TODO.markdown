@@ -1,6 +1,9 @@
 
 # TODO
 
+* 提供　手机号／电子邮箱　注册账户的一览
+* 恶意使用指定的手机号去注册第三方的网站账户
+* 利用　Bower 创建前端资源CDN管理程序
 * OAuth sample
 * Spring Security # Domain Object Security (ACLs) sample
 * Spring Security + CAS for Ajax login status test
