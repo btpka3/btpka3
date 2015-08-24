@@ -116,6 +116,12 @@ for i in `seq 0 2 10`; do echo $i; done
 [ "$(/bin/ls -A yourDir)" ] && echo "Not Empty" || echo Empty`
 ```
 
+## port
+
+```sh
+fuser 16000/tcp   # 需要root用户，查看哪个进程监听了16000端口
+```
+
 ## sed 替换properties中的属性值
 参考：
 [1](http://en.wikipedia.org/wiki/Regular_expression)、
