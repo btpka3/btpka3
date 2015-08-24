@@ -145,3 +145,25 @@ ssh sshUser>@sshHost -C -f -N -g -R [sshBindIp:]sshBindPort:localBindHost:localB
 
 参考[1](http://bodhizazen.net/Tutorials/VPN-Over-SSH/)、[2](https://help.ubuntu.com/community/SSH_VPN)
 [sshuttle](https://github.com/apenwarr/sshuttle)
+
+
+# 超时设置
+
+## 方式一：修改 server 端的配置 `vi /etc/ssh/sshd_config`
+
+```conf
+ClientAliveInterval 60 ＃server每隔60秒发送一次请求给client，然后client响应，从而保持连接
+
+ClientAliveCountMax 3 ＃server发出请求后，客户端没有响应得次数达到3，就自动断开连接，正常情况下，client不会不响应
+```
+
+## 方式二：修改 client 端的配置 `vi /etc/ssh/ssh_config`
+
+```conf
+ServerAliveInterval 60 ＃client每隔60秒发送一次请求给server，然后server响应，从而保持连接
+ServerAliveCountMax 3  ＃client发出请求后，服务器端没有响应得次数达到3，就自动断开连接，正常情况下，server不会不响应
+```
+## 方式三： ssh 连接时，指定参数： `ssh -o ServerAliveInterval=60`
+
+
+
