@@ -119,7 +119,8 @@ for i in `seq 0 2 10`; do echo $i; done
 ## port
 
 ```sh
-fuser 16000/tcp   # 需要root用户，查看哪个进程监听了16000端口
+fuser 16000/tcp             # 需要root用户，查看哪个进程监听了16000端口
+chmod +s /usr/sbin/fuser    # 如果想要非root用户也可以执行该命令，则设置 SUID 即可
 ```
 
 ## sed 替换properties中的属性值
