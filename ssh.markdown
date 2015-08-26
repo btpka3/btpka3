@@ -121,7 +121,7 @@ ssh sshUser@sshHost -C -f -N -g -L [localBindIP:]localBindPort:remoteServiceIP:r
 
 ```sh
 # 在SSH client端执行
-ssh sshUser>@sshHost -C -f -N -g -R [sshBindIp:]sshBindPort:localBindHost:localBindPort &
+ssh sshUser>@sshHost -C -f -N -g -R [bindIpOnSshClient:]sshBindPortOnSshClient:bindHostOnSshServer:listenPortOnSshServer &
 ```
 
 需求示例：需要从C@prod上直接访问 A@dev 的Redis服务
