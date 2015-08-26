@@ -56,7 +56,7 @@ PS：华为的手机默认没有显示 `开发人员选项`，需要： 手机�
 
     sudo mkdir /usr/local/inspector_client
     sudo apt-get install p7zip-full
-    7z x inspector_client20150401.zip -r -o /usr/local/inspector_client
+    sudo 7z x inspector_client20150401.zip -r -o/usr/local/inspector_client
 
     cd /usr/local/inspector_client
     sudo chomd +x platforms/linux/adb            # 为adb增加可执行权限
