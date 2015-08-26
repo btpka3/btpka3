@@ -59,7 +59,8 @@ PS：华为的手机默认没有显示 `开发人员选项`，需要： 手机�
     sudo 7z x inspector_client20150401.zip -r -o/usr/local/inspector_client
 
     cd /usr/local/inspector_client
-    sudo chomd +x platforms/linux/adb            # 为adb增加可执行权限
+    sudo chmod +rx -R *
+    sudo chmod +x platforms/linux/adb            # 为adb增加可执行权限
     sudo chmod +x inspector.py
     sudo vi inspector.py                         # 移除第一行中的 `^M`， 否则会报错，提示找不到 python
 
