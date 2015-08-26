@@ -7,6 +7,13 @@
 1. 创建系统用户redis，及所需的目录
 
     ```sh
+    cd ~/Downloads
+    wget http://download.redis.io/releases/redis-3.0.3.tar.gz
+    tar xzf redis-3.0.3.tar.gz
+    cd redis-3.0.3
+    make
+    make PREFIX=/data0/soft/redis/redis-3.0.3 install
+
     [root@localhost ~]# adduser -r -m  -d /data/software/redis redis 
     [root@localhost ~]# passwd -l redis
     
