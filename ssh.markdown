@@ -44,6 +44,8 @@ ssh -D ${localSocketProxyPort} user@remoteSShServer
 
 # SSH 隧道
 
+[参考](https://help.ubuntu.com/community/SSH_VPN/)
+
 
 ## 场景举例
 
