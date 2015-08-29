@@ -30,6 +30,7 @@
 
 * 日期时间选择器
     * [eternicode/bootstrap-datepicker](http://tarruda.github.io/bootstrap-datetimepicker/)
+    * [Eonasdan/bootstrap-datetimepicker](http://eonasdan.github.io/bootstrap-datetimepicker/)
     * [smalot/bootstrap-datetimepicker](https://github.com/smalot/bootstrap-datetimepicker)
     * [mobiscroll](http://demo.mobiscroll.com/datetime/invalid/)
 
