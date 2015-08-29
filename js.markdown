@@ -28,7 +28,10 @@
 * [javascript 6](http://es6-features.org/)
 * [以 application/octet-stream 格式上传](http://stackoverflow.com/questions/19959072/sending-binary-data-in-javascript-over-http)
 
-
+* 日期时间选择器
+    * [eternicode/bootstrap-datepicker](http://tarruda.github.io/bootstrap-datetimepicker/)
+    * [smalot/bootstrap-datetimepicker](https://github.com/smalot/bootstrap-datetimepicker)
+    * [mobiscroll](http://demo.mobiscroll.com/datetime/invalid/)
 
 ## js equals
 
