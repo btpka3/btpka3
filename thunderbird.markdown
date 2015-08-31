@@ -31,8 +31,9 @@ sudo apt-get  install thunderbird
         : 右侧 Signature Text， 选中 Use Html。可以设置发送邮件的签名。
           可以通过Firefox登录qq企业邮箱，新建邮件，但无需发送，选中签名并右键 View Selection source 查看、复制、粘贴即可
         : 选中 Copies & Folders 
-            : 选中 Place a copy in : "Sent" Folder on Local Folders （否则由于qq企业邮箱的问题，远程没有Sent目录）
-              可选——选中 Bcc these email address: 收入自己的邮箱全路径。（这样，就可以保证自己所发送的邮件都有远程备份）
+            : 选中 Place a copy in : Other "Sent Messages on zhangll@xxx.com"
+              # (请忽略该设置) "Sent" Folder on Local Folders （否则由于qq企业邮箱的问题，远程没有Sent目录）
+              # (请忽略该设置) 可选——选中 Bcc these email address: 收入自己的邮箱全路径。（这样，就可以保证自己所发送的邮件都有远程备份）
 ```
 
 接收邮件服务器：imap.exmail.qq.com ，使用SSL，端口号993
