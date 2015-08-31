@@ -11,7 +11,7 @@
 [root@localhost ~]# tzselect       # 设置当前时区
 
 # 设置当前时区
-[root@localhost ~]# cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 [root@localhost ~]# cat /etc/sysconfig/clock
 
 
