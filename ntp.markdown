@@ -13,14 +13,17 @@
 # 设置当前时区
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 [root@localhost ~]# cat /etc/sysconfig/clock
-
-
 ```
 
 # centos 6 安装NTP
 
 ```sh
-[root@localhost ~]# yum install ntp
+yum install ntp
+systemctl is-enabled nptd
+systemctl enable nptd
+systemctl status nptd
+systemctl start nptd
+
 [root@localhost ~]# chkconfig --level 345 ntpd on
 [root@localhost ~]# chkconfig --list ntpd
 [root@localhost ~]# vi /etc/ntp.conf
