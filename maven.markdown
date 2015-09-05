@@ -83,6 +83,20 @@ mvn install:install-file -Dfile=your-artifact-1.0.jar \
                          [-Dclassifier=sources] \
                          [-DgeneratePom=true] \
                          [-DcreateChecksum=true]
+
+
+```
+
+示例: 安装 neuroph-2.9
+
+```
+
+mvn install:install-file -Dfile=neuroph-adapters-2.9.jar -DgroupId=org.neuroph -DartifactId=neuroph-adapters -Dpackaging=jar -Dversion=2.9
+mvn install:install-file -Dfile=neuroph-contrib-2.9.jar -DgroupId=org.neuroph -DartifactId=neuroph-contrib -Dpackaging=jar -Dversion=2.9
+mvn install:install-file -Dfile=neuroph-core-2.9.jar -DgroupId=org.neuroph -DartifactId=neuroph-core -Dpackaging=jar -Dversion=2.9
+mvn install:install-file -Dfile=neuroph-imgrec-2.9.jar -DgroupId=org.neuroph -DartifactId=neuroph-imgrec -Dpackaging=jar -Dversion=2.9
+mvn install:install-file -Dfile=neuroph-ocr-2.9.jar -DgroupId=org.neuroph -DartifactId=neuroph-ocr -Dpackaging=jar -Dversion=2.9
+mvn install:install-file -Dfile=neuroph-samples-2.9.jar -DgroupId=org.neuroph -DartifactId=neuroph-samples -Dpackaging=jar -Dversion=2.9
 ```
 
 ## 多模块
