@@ -70,6 +70,21 @@ mvn clean install dependency:sources -Dmaven.test.skip=true
 mvn -Dmaven.test.skip.exec clean deploy
 ```
 
+## 本地安装没有使用maven构建的jar包
+```
+mvn install:install-file -Dfile=your-artifact-1.0.jar \
+                         [-DpomFile=your-pom.xml] \
+                         [-Dsources=src.jar] \
+                         [-Djavadoc=apidocs.jar] \
+                         [-DgroupId=org.some.group] \
+                         [-DartifactId=your-artifact] \
+                         [-Dversion=1.0] \
+                         [-Dpackaging=jar] \
+                         [-Dclassifier=sources] \
+                         [-DgeneratePom=true] \
+                         [-DcreateChecksum=true]
+```
+
 ## 多模块
 
 [参考1](http://maven.apache.org/guides/mini/guide-multiple-modules.html)、
