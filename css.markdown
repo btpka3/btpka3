@@ -8,6 +8,7 @@
 * [2015移动app视觉规范](http://www.25xt.com/appsize)
 * [dpi.lv](http://dpi.lv/)
 * [viewportsizes.com](http://viewportsizes.com/)
+* [resolution](http://ryanve.com/lab/resolution/)
 
 ## 屏幕常见尺寸
 
