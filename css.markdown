@@ -5,8 +5,12 @@
 * 《[10步掌握CSS定位](http://www.see-design.com.tw/i/css_position.html)》
 * 《[使用viewport元标签控制布局](https://developer.mozilla.org/zh-CN/docs/Mobile/Viewport_meta_tag)》
 * [mydevice.io](http://www.mydevice.io/devices/)
+* [2015移动app视觉规范](http://www.25xt.com/appsize)
+* [dpi.lv](http://dpi.lv/)
 
 ## 屏幕常见尺寸
+
+
 
 | 标屏 | 分辨率 | 宽屏| 分辨率
 |-----|-----|-----|-----
