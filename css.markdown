@@ -7,6 +7,7 @@
 * [mydevice.io](http://www.mydevice.io/devices/)
 * [2015移动app视觉规范](http://www.25xt.com/appsize)
 * [dpi.lv](http://dpi.lv/)
+* [viewportsizes.com](http://viewportsizes.com/)
 
 ## 屏幕常见尺寸
 
