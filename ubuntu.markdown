@@ -62,6 +62,9 @@ sudo apt-get remove xxx
 ```
 sudo apt-get install rar                 # rar
 sudo apt-get install libreoffice         # libreoffice
+sudo apt-get purge abiword
+sudo apt-get purge gnumeric
+
 sudo apt-get install gnome-calculator    # 计算器
 sudo apt-get install curl
 
