@@ -33,6 +33,7 @@
     * [Eonasdan/bootstrap-datetimepicker](http://eonasdan.github.io/bootstrap-datetimepicker/)
     * [smalot/bootstrap-datetimepicker](https://github.com/smalot/bootstrap-datetimepicker)
     * [mobiscroll](http://demo.mobiscroll.com/datetime/invalid/)
+* [function的声明与调用](http://www.johnpapa.net/angular-function-declarations-function-expressions-and-readable-code/)
 
 ## js equals
 
