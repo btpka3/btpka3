@@ -44,6 +44,7 @@
     # 2. 在 "http {...}" 的 最后一行 加入 "include conf.d/*.conf;"
     # 3. 在最开始，设置 `user www`, 以非root 用户运行
     # 4. 修改 worker_process 为 CPU 核心数量
+    # 5. 在 "http {...}" 的 最后一行 加入 "add_header X-nodes test12;", 其中 test12 是主机名，请自行替换。
 
     useradd www
     chown -R www:www logs
