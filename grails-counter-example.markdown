@@ -59,6 +59,8 @@
     <a href="${createLink(controller:'item', action:'show', params:[k1:v1,k2:v2], absolute:true)}">...</a>
     <script src="${resource(dir: 'js', file: 'xxx.js', absolute:true)}"></script>
     ```
+1. render之后不应该有任何其他语句。如果在 `if...else...` 或者 循环等分支中出现了 render 语句，则之后一定要有个return语句。
+
 
 # 关于GORM
 
