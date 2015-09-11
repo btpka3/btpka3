@@ -1,3 +1,11 @@
+## 常用设置
+在 vm 内,禁止 'Alt+tab' 在vm内切换窗口:
+
+```text
+VirtualBox: File -> Preferences -> Input -> uncheck "Auto Capture Keyboard"
+```
+
+
 ## 安装(host)
 ### ubuntu
 
