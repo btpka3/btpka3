@@ -161,7 +161,10 @@
     reqMsg.schema = "xxx";
     reqMsg.param = "a\"b中国c"
     HttpOutputMessage outMsg = new MockHttpOutputMessage()
-    new FormHttpMessageConverter().write(reqMsg, MediaType.APPLICATION_FORM_URLENCODED, outMsg)
+    
+    HttpMessageConverter httpMsgConverter = new FormHttpMessageConverter()
+    httpMsgConverter.setCharset(Charset.forName("UTF-8"))        // 明确指明使用 UTF-8 进行进行URLEncoding
+    httpMsgConverter.write(reqMsg, MediaType.APPLICATION_FORM_URLENCODED, outMsg)
     return outMsg.getBodyAsString()
     ```
 
