@@ -152,8 +152,20 @@
 
     如果不能满足上述约束，建议使用日期，或者SQL的offset+limit循环地、小批量的进行处理（该小批量数据会一次性全部读取到内存中）
 
+# 关于 application/x-www-form-urlencoded
 
-# 关于XML
+1. MultiValueMap -> String
+
+    ```groovy
+    MultiValueMap reqMsg = new LinkedMultiValueMap()
+    reqMsg.schema = "xxx";
+    reqMsg.param = "a\"b中国c"
+    HttpOutputMessage outMsg = new MockHttpOutputMessage()
+    new FormHttpMessageConverter().write(reqMsg, MediaType.APPLICATION_FORM_URLENCODED, outMsg)
+    return outMsg.getBodyAsString()
+    ```
+
+# 关于 application/xml
 
 1. XML -> String
 
@@ -185,7 +197,7 @@
     ```
 
 
-# 关于JSON
+# 关于 application/json
 
 1. Map -> JSON -> String
     ```groovy
