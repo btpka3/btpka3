@@ -365,7 +365,7 @@ class TestZllController {
         p.onComplete { result ->
             println "22222222222222222222 Promise returned $result"
         }
-        println "33333333333" + p.get()
+        println "33333333333" // + p.get()
         render("@@@")
     }
 }
