@@ -347,3 +347,48 @@
             .encode("GBK")
             .query                          // a=a1&a=a2&c=c1%20%E4%B8%AD
     ```
+
+# 关于 Async
+Grails 在Controller中 Async 调用，必须阻塞请求，否则会出错。如果不想阻塞，则考虑使用类似于JDK中的Executor之类的框架。
+
+
+```groovy
+class TestZllController {
+    def async() {
+        Promise p = Promises.task {
+            Thread.sleep(10 * 1000)
+           return "1111"
+        }
+        p.onError { Throwable err ->
+            println "11111111111111111111 An error occured ${err.message}"
+        }
+        p.onComplete { result ->
+            println "22222222222222222222 Promise returned $result"
+        }
+        println "33333333333" + p.get()
+        render("@@@")
+    }
+}
+```
+
+错误堆栈
+
+```text
+2015-09-14 18:01:53,610 [ERROR][Actor Thread 9] org.grails.async.factory.gpars.LoggingPoolFactory - Async execution error: null
+java.lang.NullPointerException
+	at org.apache.catalina.connector.Request.notifyAttributeAssigned(Request.java:1498)
+	at org.apache.catalina.connector.Request.setAttribute(Request.java:1488)
+	at org.apache.catalina.connector.RequestFacade.setAttribute(RequestFacade.java:539)
+	at javax.servlet.ServletRequestWrapper.setAttribute(ServletRequestWrapper.java:246)
+	at javax.servlet.ServletRequestWrapper.setAttribute(ServletRequestWrapper.java:246)
+	at javax.servlet.ServletRequestWrapper.setAttribute(ServletRequestWrapper.java:246)
+	at org.codehaus.groovy.grails.web.util.WebUtils.storeGrailsWebRequest(WebUtils.java:431)
+	at org.codehaus.groovy.grails.plugins.web.async.WebRequestPromsiseDecorator$_decorate_closure1.doCall(WebRequestPromiseDecoratorLookupStrategy.groovy:55)
+	at org.codehaus.groovy.grails.plugins.web.async.WebRequestPromsiseDecorator$_decorate_closure1.call(WebRequestPromiseDecoratorLookupStrategy.groovy)
+	at org.grails.async.factory.gpars.GparsPromise$_onError_closure2.doCall(GparsPromise.groovy:72)
+	at org.grails.async.factory.gpars.GparsPromise$_onError_closure2.call(GparsPromise.groovy)
+	at groovyx.gpars.dataflow.DataCallback$1.run(DataCallback.java:62)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+```
