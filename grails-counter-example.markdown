@@ -349,8 +349,10 @@
     ```
 
 # 关于 Async
-Grails 在Controller中 Async 调用，必须阻塞请求，否则会出错。如果不想阻塞，则考虑使用类似于JDK中的Executor之类的框架。
+Grails 在Controller中 Async 调用，必须阻塞请求，否则会出错。如果不想阻塞，请：
 
+1. 请不要到用 Promise#onError、Promise#onError#onComplete 等方法传递在Controller中构造的 Closure。或者干脆不要调用。
+1. 则考虑使用类似于JDK中的Executor之类的框架。
 
 ```groovy
 class TestZllController {
