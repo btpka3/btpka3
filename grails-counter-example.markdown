@@ -394,3 +394,13 @@ java.lang.NullPointerException
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
 ```
+
+# Service 内访问 request， session
+
+```groovy
+GrailsWebRequest grailsReq = WebUtils.retrieveGrailsWebRequest()
+HttpServletRequest httpReq = grailsReq.getCurrentRequest()
+HttpSession httpSession = grailsReq.getSession()
+
+RequestAttributes req = RequestContextHolder.currentRequestAttributes();
+```
