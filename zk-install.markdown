@@ -63,6 +63,7 @@
 1. `vi ${ZK_HOME}/bin/zkServer.sh`
 
     ```
+    # 在最开始追加以下一行，引入环境变量 JAVA_HOME
     . /etc/profile.d/prod14.sh
     ```
 
