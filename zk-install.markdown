@@ -58,7 +58,7 @@
     # 设置日志日志目录
     ZOO_LOG_DIR=/data/software/zookeeper/zookeeper-3.4.6/server.1/logging
     # 新增：明确写明PID文件的路径。zookeeper用户必须对要求目录有写权限。
-    ZOOPIDFILE=/data/store/zookeeper/zookeeper_server.pid    
+    ZOOPIDFILE=/data/software/zookeeper/zookeeper-3.4.6/server.1/zookeeper_server.pid    
     ```
 
 ##  centos 6
