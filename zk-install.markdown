@@ -146,8 +146,8 @@
     Type=forking
     ExecStart=/usr/local/zookeeper/zookeeper-3.4.6/bin/zkServer.sh start
     ExecStop=/bin/kill -15 $MAINPID
-    WorkingDirectory=/home/zookeeper
-    PIDFile=/home/zookeeper/data/zookeeper_server.pid
+    WorkingDirectory=/usr/local/zookeeper/zookeeper-3.4.6
+    PIDFile=/data/software/zookeeper/zookeeper-3.4.6/server.1/zookeeper_server.pid 
     Restart=always
     User=zookeeper
     LimitNOFILE=65535
