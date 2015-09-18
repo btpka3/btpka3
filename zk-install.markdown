@@ -48,8 +48,8 @@
 1. `vi ${ZK_HOME}/conf/log4j.properties`
 
     ```properties
-    zookeeper.log.dir=/data/outputs/log/zookeeper
-    zookeeper.tracelog.dir=/data/outputs/log/zookeeper
+    zookeeper.log.dir=/data/software/zookeeper/zookeeper-3.4.6/server.1/logging
+    zookeeper.tracelog.dir=/data/software/zookeeper/zookeeper-3.4.6/server.1/logging
     ```
 
 1. `vi ${ZK_HOME}/bin/zkEnv.sh`
