@@ -60,6 +60,13 @@
     # 新增：明确写明PID文件的路径。zookeeper用户必须对要求目录有写权限。
     ZOOPIDFILE=/data/software/zookeeper/zookeeper-3.4.6/server.1/zookeeper_server.pid    
     ```
+1. `vi ${ZK_HOME}/bin/zkServer.sh`
+
+    ```
+    . /etc/profile.d/prod14.sh
+    ```
+
+
 
 ##  centos 6
 
