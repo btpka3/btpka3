@@ -44,6 +44,16 @@ ulimit -n
 ps auxwwf | grep $USER_NAME | grep -v grep | wc -l
 ```
 
+### upper limit on inotify watches reached
+
+```sh
+sudo sysctl fs.inotify.max_user_watches
+sudo sysctl fs.inotify.max_user_watches=8192000
+
+sudo vi /etc/sysctl.conf
+fs.inotify.max_user_watches=8192000
+```
+
 ### 修改用户限制
 
 ```sh
