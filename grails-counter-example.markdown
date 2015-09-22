@@ -218,7 +218,7 @@
 
     // 2. 使用JsonBuilder
     def builder = new JsonBuilder()
-    def jsonStr = builder.people {
+    builder {
         person {
             firstName 'Guillame'
             address(
@@ -227,7 +227,8 @@
                     zip: 12345,
             )
         }
-    }.toString()
+    }
+    def jsonStr = builder.toString()
 
     // 3. 在Action中可以使用
     def map = ...
