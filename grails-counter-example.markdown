@@ -152,6 +152,22 @@
 
     如果不能满足上述约束，建议使用日期，或者SQL的offset+limit循环地、小批量的进行处理（该小批量数据会一次性全部读取到内存中）
 
+1. 清空一对多
+
+    假设 user hasMany Order, 并且是在多的一侧（order）中追加user字段做关联
+
+    ```
+    // 清空
+    user.orders.each { order ->
+        order.delete()
+    }
+    user.orders.clear()  // 一定要有此句
+
+    // 添加
+    user.addToOrders(new Order())
+    ```
+
+
 # 关于 application/x-www-form-urlencoded
 
 1. MultiValueMap -> String
