@@ -34,6 +34,7 @@
     make install
     ```
 
+
 1. 修改配置
 
     ```sh
@@ -49,6 +50,22 @@
     useradd www
     chown -R www:www logs
     ```
+1. 线上生产环境还要启用一下gzip，可以直接修改 nginx.conf
+  
+    ```conf
+    gzip  on; 
+    gzip_types  text/plain
+                text/css
+                text/js
+                text/xml
+                text/javascript
+                application/javascript
+                application/x-javascript
+                application/json
+                application/xml
+                application/xml+rss;
+    ```
+
 
 ### centos 7
 
