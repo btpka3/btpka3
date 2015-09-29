@@ -47,7 +47,7 @@ tar zxvf apache-tomcat-6.0.41.tar.gz .
                    redirectPort="30081" />
         ```
 
-    1. 为反向代理 启用 RemoteIpValue
+    1. 为反向代理 启用 [RemoteIpValue](http://tomcat.apache.org/tomcat-6.0-doc/api/org/apache/catalina/valves/RemoteIpValve.html)
 
         ```xml
         <Engine ...>
