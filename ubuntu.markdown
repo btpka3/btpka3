@@ -103,7 +103,8 @@ sudo apt-get install fonts-wqy-microhei fonts-wqy-zenhei
 # 输入法
 
 ```sh
-sudo add-apt-repository ppa:fcitx-team/nightly
+#sudo add-apt-repository ppa:fcitx-team/nightly
+sudo add-apt-repository ppa:fcitx-team/stable
 sudo apt-get update
 sudo apt-get install fcitx
 #sudo apt-get install gnome-language-selector
