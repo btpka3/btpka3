@@ -57,6 +57,10 @@ apt-file search /path/to/file
 sudo apt-get remove xxx
 
 sudo add-apt-repository --remove ppa:whatever/ppa
+
+
+apt-mark showhold 
+sudo apt-mark unhold <package name>
 ```
 
 # 7788
