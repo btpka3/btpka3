@@ -552,11 +552,37 @@ sudo update-grub
 ```
 
 # 远程桌面
-## TO windows
+## TO Windows
 
 ```sh
 sudo apt-get install grdesktop
 ```
+
+## FROM Windows
+
+see [this](http://askubuntu.com/questions/247501/i-get-failed-to-load-session-ubuntu-2d-when-using-xrdp)
+
+```
+sudo apt-get install xrdp
+sudo apt-get install vnc4server  # tightvncserver
+
+sudo cp /etc/xrdp/xrdp.ini /etc/xrdp/xrdp.back && sudo nano /etc/xrdp/xrdp.ini
+
+[globals]
+max_bpp=128
+use_compression=yes
+
+[xrdp7]
+xserverbpp=128
+
+sudo service xrdp restart
+
+echo lxsession -s Lubuntu -e LXDE > ~/.xsession
+# sudo apt-get install gnome-session-fallback
+# echo gnome-session --session=gnome-fallback > ~/.xsession
+# echo xfce4-session > ~/.xsession
+```
+
 
 
 # PHP
