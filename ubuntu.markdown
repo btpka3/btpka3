@@ -55,6 +55,8 @@ apt-file search /path/to/file
 
 # 如果通过 dpkg 或 apt-get 安装时，依赖未满足，可以使用该命令删除
 sudo apt-get remove xxx
+
+sudo add-apt-repository --remove ppa:whatever/ppa
 ```
 
 # 7788
