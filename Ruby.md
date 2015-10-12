@@ -49,3 +49,8 @@ bundle update
 bundle install
 /usr/local/rvm/scripts/rvm
 ```
+
+# 卸载 rvm
+```
+rvm implode
+```
