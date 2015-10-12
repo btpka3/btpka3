@@ -2,6 +2,8 @@
 # install
 
 ```sh
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+
 # root执行以下命令
 # 会创建 /usr/local/rvm
 curl -sSL https://get.rvm.io | sudo bash -s stable
