@@ -360,6 +360,17 @@ server {
 }
 ```
 
+## 主页跳转
+
+```
+server {
+  location = / {
+    add_header Cache-Control no-cache;
+    return 302 $scheme://kingsilk.net/qh/mall/;
+  } 
+}
+```
+
 
 # PHP
 
