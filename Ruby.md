@@ -42,6 +42,14 @@ sduo rm -fr /etc/profile.d/rvm.sh
 
 ```
 
+# 更换 gem 源
+
+```
+gem sources -l
+gem sources --add https://ruby.taobao.org/ --remove https://rubygems.org/
+gem sources -l
+```
+
 ????
 ```sh
 #rvm user gemsets
