@@ -48,6 +48,8 @@ sduo rm -fr /etc/profile.d/rvm.sh
 gem sources -l
 gem sources --add https://ruby.taobao.org/ --remove https://rubygems.org/
 gem sources -l
+
+bundle config mirror.https://rubygems.org https://ruby.taobao.org
 ```
 
 ????
