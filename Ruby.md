@@ -6,20 +6,20 @@ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB8
 
 # root执行以下命令
 # 会创建 /usr/local/rvm
-curl -sSL https://get.rvm.io | sudo bash -s stable
+curl -sSL https://get.rvm.io | bash -s stable
 
 # logout and login again
 
 # 将使用rvm的用户添加到rvm用户组中
-usermod -a -G rvm zll
-usermod -a -G rvm git
-usermod -a -G rvm root
+#sudo usermod -a -G rvm git
+#sudo usermod -a -G rvm root
+sudo usermod -a -G rvm `whoami`
 
 # 查询已知的可安装组件的版本
 rvm list known
 
 # 安装ruby
-rvm install ruby-2.1.1
+rvm install ruby-2.2.1
 rvm alias create default 2.1.1
 gem install bundler --no-ri --no-rdoc
 which ruby
