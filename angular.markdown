@@ -27,9 +27,10 @@ angular.module('xxx', [])
     ],
 
     scope: {
-      customerInfo: '=info', // bind a model
+      aaa:      "@aaa",      // use data data-binding from the parent scope
+      bbb:      '=bbb',      // bind a model
       customer: '=',         // same as '=customer'
-      'close': '&onClose'    //  reference a fucntion   
+      close:    '&onClose'   //  reference a fucntion   
     },
 
     //template: 'Name: {{customer.name}} Address: {{customer.address}}'
