@@ -6,7 +6,10 @@ angular.module('xxx', [])
 
   var timeoutId;
 
-  function linkFunc(scope, element, attrs){
+  function linkFunc(scope, element, attrs, controllers){
+    var myPanelCtrl = controllers[0];
+    var myItemCtrl = controllers[1];
+
     element.on('$destroy', function() {
       $interval.cancel(timeoutId);
     });
@@ -18,6 +21,10 @@ angular.module('xxx', [])
   return {
     restrict: 'AE',   // A : attribute, E : element, C : class 
     transclude: true,
+    require: [
+      '^myPanel',    // require controller in parent
+       'myItem',     // require controller in own elements
+    ],
 
     scope: {
       customerInfo: '=info', // bind a model
