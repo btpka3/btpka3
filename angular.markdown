@@ -38,7 +38,11 @@ angular.module('xxx', [])
     //  return 'customer-'+attr.type+'.html';
     //},
     templateUrl: 'my-customer.html',
-    link: linkFunc
+
+    link: linkFunc,
+
+    replace: false,
+
   };
 }]);
 ```
