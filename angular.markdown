@@ -17,14 +17,16 @@ angular.module('xxx', [])
 
   return {
     restrict: 'AE',   // A : attribute, E : element, C : class 
+    transclude: true,
 
     scope: {
-      customerInfo: '=info',
-      customer: '=',   // same as '=customer'   
+      customerInfo: '=info', // bind a model
+      customer: '=',         // same as '=customer'
+      'close': '&onClose'    //  reference a fucntion   
     },
 
     //template: 'Name: {{customer.name}} Address: {{customer.address}}'
-    //templateUrl: function(elem, attr){
+    //templateUrl: function(elem, attr) {
     //  return 'customer-'+attr.type+'.html';
     //},
     templateUrl: 'my-customer.html',
