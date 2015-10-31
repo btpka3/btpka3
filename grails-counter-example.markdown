@@ -183,6 +183,15 @@
     httpMsgConverter.write(reqMsg, MediaType.APPLICATION_FORM_URLENCODED, outMsg)
     return outMsg.getBodyAsString()
     ```
+1. String -> MultiValueMap
+
+    ```
+    MultiValueMap reqMsg = UriComponentsBuilder.newInstance()
+            .query("a=a1&a=a2&b=bbb")
+            .build()
+            .getQueryParams()
+    ```
+
 
 # 关于 application/xml
 
