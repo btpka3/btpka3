@@ -1,6 +1,18 @@
 pam : see [here](http://www.doublecloud.org/2014/01/nginx-with-pam-authentication/)
 
 
+
+# 基础配置
+
+
+```
+http {
+    fastcgi_buffers          32      8k;
+    client_body_buffer_size  1024k;
+    client_max_body_size     10m;
+}
+```
+
 # 编译的模块
 
 [Nginx Modules](http://wiki.nginx.org/Modules)、
