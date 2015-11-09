@@ -1,21 +1,21 @@
 
 # provider vs. factory vs. service
 
-1.  provider 是唯一可以通过  `app.config()` 方法，在使用前进行全局配置的。
+1.  provider 是唯一可以通过  `app.config()` 方法，在使用前进行全局配置的。定义的函数是一个构造函数，该类实现了一个 `$get` 方法。
 
     ```js
-    myApp.provider('unicornLauncher', function UnicornLauncherProvider() {
-      var useTinfoilShielding = false;
+    myApp.provider('xxxProvider', function XxxProvider() {
+      var xxxConfig = false;
 
-      this.useTinfoilShielding = function(value) {
-        useTinfoilShielding = !!value;
+      this.setXxxConfig = function(value) {
+        xxxConfig = !!value;
       };
 
-      this.$get = ["apiToken", function unicornLauncherFactory(apiToken) {
+      this.$get = ["xxxDep", function xxxFactory(xxxDep) {
 
-        // let's assume that the UnicornLauncher constructor was also changed to
-        // accept and use the useTinfoilShielding argument
-        return new UnicornLauncher(apiToken, useTinfoilShielding);
+        function XxxService (){ /* ... */ };
+
+        return new XxxService(xxxDep, xxxConfig);
       }];
     });
     ```
@@ -23,10 +23,21 @@
     config
 
     ```js
-    myApp.config(["unicornLauncherProvider", function(unicornLauncherProvider) {
-      unicornLauncherProvider.useTinfoilShielding(true);
+    myApp.config(["xxxProvider", function(xxxProvider) {
+      xxxProvider.setXxxConfig(true);
     }]);
     ```
+
+    初始化流程：
+
+    ```
+    1. ng框架:  var xxxProvider : new XxxProvider();
+    2. myApp.config("xxxProvider"， function(xxxProvider) {});  // 传入 xxxProvider 对 provider 进行初始化
+    3. myApp.controller("xxxProvider", function(xxxProvider){  }) // 传入 xxxProvider.$get()
+    ```
+
+
+
 
 1. factory 定义一个工厂方法，直接传入依赖后调用，通常需要明确指明一个 `return` 语句。
 该工厂方法也仅仅会被调用一次，并缓存结果，供后续依赖注入使用。因此都是单例（singleton）。
