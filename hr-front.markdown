@@ -9,6 +9,17 @@
 * HTTP 规范中定义了那些 Http method？语义是？
 * HTTP 规范中与缓存相关 HTTP 请求头、响应头有哪些？
 * 请尽可能详细的介绍一个URL的组成部分
+* 请指出下面例子的打印结果
+
+    ```js
+    var messages = ["喵！", "我是一只会说话的猫！", "回调（callback）非常有趣!"];
+    for (var i = 0; i < messages.length; i++) {
+      setTimeout(function () {
+        cat.say(messages[i]);
+      }, i * 1500);
+    }
+    ```
+
 * 请讲解一下 Javascript 中 call()、 apply()、callee、caller，并说明下面代码的打印结果。
 
     ```
