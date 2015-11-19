@@ -79,6 +79,7 @@
     * [CentOS](centos-base-setup)
         * [limits](centos-limits)
         * [fdisk](fdisk)
+        * [top](top)
     * [ntp](ntp)
     * [Ubuntu](ubuntu)
     * [VirtualBox](virtualbox)
