@@ -9,14 +9,16 @@
 [root@locahost ~] ./jdk-6u45-linux-x64.bin                      # 会解压出一个名称为 "jdk1.6.0_45" 的目录
 [root@locahost ~] mv jdk1.6.0_45 /data/software/           # 移动到规约要求的目录下。
     ``` 
-1. 设置全局环境变量
+1. 设置全局环境变量 `vi /etc/profile.d/test12.sh`
 
     ```sh
-[root@locahost ~] vi /etc/profile.d/his.sh
-      #!/bin/bash
-      export JAVA_HOME=/data/software/jdk1.6.0_45
-      export CLASSPATH=.:
-      export PATH=${JAVA_HOME}/bin:${PATH}
+    #!/bin/bash
+    export JAVA_HOME=/data/software/jdk1.6.0_45
+
+    if [ "${_PATH}" != "1" ]; then
+        export _PATH=1
+        export PATH=$JAVA_HOME/bin:$PATH
+    fi
     ``` 
 1. 重新登录root用户后确认
 
