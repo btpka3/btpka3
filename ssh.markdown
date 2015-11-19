@@ -158,9 +158,11 @@ ssh sshUser>@sshHost -C -f -N -g -R [bindIpOnSshClient:]sshBindPortOnSshClient:b
 
 ```conf
 ClientAliveInterval 60 ＃server每隔60秒发送一次请求给client，然后client响应，从而保持连接
-
 ClientAliveCountMax 3 ＃server发出请求后，客户端没有响应得次数达到3，就自动断开连接，正常情况下，client不会不响应
 ```
+
+之后重启sshd服务 `systemctl restart sshd`
+
 
 ## 方式二：修改 client 端的配置 `vi /etc/ssh/ssh_config`
 
