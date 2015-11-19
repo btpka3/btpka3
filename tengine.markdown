@@ -22,6 +22,7 @@
 1. 下载、编译并安装
     
     ```sh
+    useradd nginx
     mkdir /usr/local/tengine
     
     cd /tmp
@@ -43,12 +44,11 @@
     vi conf/nginx.conf
     # 1. 启用 "log_format main ..."
     # 2. 在 "http {...}" 的 最后一行 加入 "include conf.d/*.conf;"
-    # 3. 在最开始，设置 `user www`, 以非root 用户运行
+    # 3. 在最开始，设置 `user nginx`, 以非root 用户运行
     # 4. 修改 worker_process 为 CPU 核心数量      # cat /proc/cpuinfo|grep "model name"
     # 5. 在 "http {...}" 的 最后一行 加入 "add_header X-nodes test12;", 其中 test12 是主机名，请自行替换。
 
-    useradd www
-    chown -R www:www logs
+    chown -R nginx:nginx logs
     ```
 1. 线上生产环境还要启用一下gzip，可以直接修改 nginx.conf
   
