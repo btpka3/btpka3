@@ -83,6 +83,7 @@ ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort
     export http_proxy=socks5://prod11.kingsilk.net:9999
     export HTTPS_PROXY=socks5://prod11.kingsilk.net:9999
     export ALL_PROXY=socks5://prod11.kingsilk.net:9999           # man curl
+    export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
     curl -x socks5://localhost:9999  http://www.baidu.com
     ```
 1. 在 chrome 浏览器中 安装 SwitchySharp 插件，新建 Proxy Profiles：
