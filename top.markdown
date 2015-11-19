@@ -7,4 +7,4 @@ linux 监控命令
 * dstat
 * top
 * vmstat
-* mpstat
+* mpstat -P ALL 1
