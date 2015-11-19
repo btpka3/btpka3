@@ -67,8 +67,8 @@ ssh -D ${localSocketProxyPort} user@remoteSShServer
 可通过本地特定端口，访问远程所有服务————即代理服务器。
 
 ```sh
-# 在SSH client端执行
-ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort
+# 在SSH client端执行 （如果想前台执行，则不要加 -f）
+ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort             
 ```
 
 需求示例：线上环境同一种web服务有集群，我需要调试特定某个节点上的服务。
