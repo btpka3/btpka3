@@ -23,7 +23,7 @@
     
     ```sh
     useradd nginx
-    mkdir /usr/local/tengine
+    mkdir /usr/local/tengine/tengine-2.1.0
     
     cd /tmp
     wget http://tengine.taobao.org/download/tengine-2.1.0.tar.gz
