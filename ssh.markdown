@@ -80,6 +80,9 @@ ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort
     ssh root@122.225.11.207 -C -f -N -g -D 9999
 
     # 如果D@dev无法上网，但可以连接到A@dev，则可以在D@dev上通过该代理上网
+    export http_proxy=socks5://prod11.kingsilk.net:9999
+    export HTTPS_PROXY=socks5://prod11.kingsilk.net:9999
+    export ALL_PROXY=socks5://prod11.kingsilk.net:9999           # man curl
     curl -x socks5://localhost:9999  http://www.baidu.com
     ```
 1. 在 chrome 浏览器中 安装 SwitchySharp 插件，新建 Proxy Profiles：
