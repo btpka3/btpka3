@@ -80,6 +80,7 @@
         * [limits](centos-limits)
         * [fdisk](fdisk)
         * [top](top)
+        * [yum](yum)
     * [ntp](ntp)
     * [Ubuntu](ubuntu)
     * [VirtualBox](virtualbox)
