@@ -71,7 +71,7 @@ ssh -D ${localSocketProxyPort} user@remoteSShServer
 ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort             
 ```
 
-需求示例：线上环境同一种web服务有集群，我需要调试特定某个节点上的服务。
+需求示例：线上环境同一种web服务有集群，我需要调试特定某个节点上的服务。 关于 xxx_proxy 环境变量设置请参考[这里](https://wiki.archlinux.org/index.php/Proxy_settings)
 
 1. 启动代理转发
 
