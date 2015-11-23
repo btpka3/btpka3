@@ -76,6 +76,7 @@
 * [法律法规](law)
 
 * 服务器管理
+    * [PostGreSql](centos-postgresql)
     * [CentOS](centos-base-setup)
         * [limits](centos-limits)
         * [fdisk](fdisk)
