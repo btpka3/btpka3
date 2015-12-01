@@ -15,3 +15,8 @@ http://mirrors.neusoft.edu.cn/android/repository/
 5.依次选择「Packages」、「Reload」。
 
 http://wear.techbrood.com/
+
+# native.js
+http://ask.dcloud.net.cn/article/88
+
+http://ask.dcloud.net.cn/article/114
