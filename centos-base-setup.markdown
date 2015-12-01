@@ -260,6 +260,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
     ```sh
     [root@h01 ~]# vi /etc/profile.d/custom.sh
     export http_proxy=http://10.1.18.123:808/
+    export http_proxy=socks5://prod11.kingsilk.net:9999
     ```
 
 1. 检查网络的启动级别和启动状态
