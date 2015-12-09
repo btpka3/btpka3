@@ -32,7 +32,7 @@ PS：华为的手机默认没有显示 `开发人员选项`，需要： 手机�
 [附件](http://res.imtt.qq.com/tbs_inspect/wx_sq_webview_debug.zip)
 
 1. 在手机上面安装微信（如果是第一次新装）
-1. 在微信中随便找个聊天窗口，收入 `//deletetbs` 删除原有的 TBS 工具
+1. 在微信中随便找个聊天窗口，收入 `//deletetbs` 删除原有的 TBS 工具 (注意：该操作没有任何提示的哦)
 1. 在手机上安装附件压缩包中的 tbs_20150526_021257_inspector.apk 或者 从[这里](http://res.imtt.qq.com/tbs_inspect/TbsSuiteNew.zip)下载。
 1. 打开 `TBS 工具集` ：
 
