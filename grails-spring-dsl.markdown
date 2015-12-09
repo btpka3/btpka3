@@ -13,6 +13,7 @@ beans = {
         bean.constructorArgs = [cfg.lizi.zk.connStr, ref('zkRetry')]
         bean.initMethod = 'start'
         bean.destroyMethod = 'close'
+        bean.scope = 'singleton'
     }
 }
 ```
