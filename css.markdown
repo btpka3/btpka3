@@ -66,3 +66,4 @@ DPI = 对角线的像素数 / 屏幕英寸数
 * 《[A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)》
 * 《[Flex布局新旧混合写法详解（兼容微信）](http://www.tuicool.com/articles/Yzeu6j7)》
 * http://www.zhihu.com/question/22991944
+* www.w3.org/TR/2009/WD-css3-flexbox-20090723/
