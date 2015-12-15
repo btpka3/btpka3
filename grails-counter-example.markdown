@@ -222,6 +222,10 @@
     // 2. 使用 grails.converters.XML
     String xmlStr = ...
     def xmlObj = XML.parse(xmlStr)
+
+    // 3. 使用 grails.converters.XML
+    GPathResult xml = request.XML
+    new XmlUtil().serialize(xml, System.out)
     ```
 
 
