@@ -266,7 +266,7 @@
     // 注意：由于JsonBuilder内部也是先构建map的，所以可以它的DSL来简化map的生成，最后使用 builder.getContent() 获取 map。
     def builder = new JsonBuilder()
     builder {
-        country: "aaa<>"\'&中文bbb"
+        country: 'aaa<>"\'&中文bbb'
     }
     def jsonStr = new ObjectMapper().writeValueAsString(builder.getContent());  // builder.getContent() 是 map类型
 
