@@ -246,20 +246,31 @@
     def jsonStr = new JsonBuilder(jsonMap).toString()
 
     // 2. 使用JsonBuilder
+    // 注意：该方法输出的JSON中的特殊字符、汉字等都会进行unicode转义，比如 "中文" -> "\u4E2D\u6587"
+    //      微信相关的API会报错，请参考下面的例子直接使用Jackson2
     def builder = new JsonBuilder()
     builder {
         person {
             firstName 'Guillame'
             address(
                     city: 'Paris',
-                    country: 'France',
+                    country: 'aaa<>"'&中文bbb',
                     zip: 12345,
             )
         }
     }
     def jsonStr = builder.toString()
 
-    // 3. 在Action中可以使用
+    // 3. 直接使用 Jaskson2 : map -> json string
+    // 该方式，默认是没有进行unicode转义的。但可以配置
+    // 注意：由于JsonBuilder内部也是先构建map的，所以可以它的DSL来简化map的生成，最后使用 builder.getContent() 获取 map。
+    def builder = new JsonBuilder()
+    builder {
+        country: 'aaa<>"'&中文bbb'
+    }
+    def jsonStr = new ObjectMapper().writeValueAsString(builder.getContent());  // builder.getContent() 是 map类型
+
+    // 4. 在Action中可以使用
     def map = ...
     render (map as JSON)
     ```
