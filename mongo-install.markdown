@@ -30,14 +30,17 @@ echo "mongodb-org-shell hold"  | sudo dpkg --set-selections
 echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
 echo "mongodb-org-tools hold"  | sudo dpkg --set-selections
 
-```
+# 防止开机自启动
+echo manual | sudo tee /etc/init/mongod.override
+# rm  /etc/init/mongod.override  # 允许开机自启动
 
 # 启停
-
-```sh
 sudo service mongod start
 sudo service mongod stop
 ```
+
+
+
 
 ## 连接到数据库
 
