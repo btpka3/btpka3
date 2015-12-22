@@ -13,7 +13,16 @@
 > 一大块儿的  
 >> 级联原文引用
 >
-> 和原文引用    
+> 和原文引用
+> ## This is a header.
+> 
+> 1.   This is the first list item.
+> 2.   This is the second list item.
+> 
+> Here's some example code:
+> 
+>     return shell_exec("echo $input | $markdown_script");
+
 
 
 ## 文本
@@ -23,11 +32,19 @@
 ## 链接
 
 * [github](https://www.github.com)
-* [baidu](https://www.baidu.com)
+* [baidu](https://www.baidu.com "百度")
+
+---------------------------------------
+
+* [网易][163]
+* [腾讯][qq]
+
+[163]: http://news.163.com/  "网易新闻"
+
 
 ## 代码块
 
-
+[qq]: http://news.qq.com/  "腾讯新闻"
 
 ```ruby
 require 'redcarpet'
