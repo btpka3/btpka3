@@ -26,7 +26,7 @@
 
 
 ## 文本
-这里是 *斜体文本* 、 **加粗文本**、~~有删除线的文本~~、`java code`、
+这里是 *斜体文本* 、 **加粗文本**、~~有删除线的文本~~、`printf()`、
 
 
 ## 链接
@@ -38,6 +38,8 @@
 
 * [网易][163]
 * [腾讯][qq]
+* [Google][]
+![微信图标][wx_logo]
 
 [163]: http://news.163.com/  "网易新闻"
 
@@ -45,6 +47,8 @@
 ## 代码块
 
 [qq]: http://news.qq.com/  "腾讯新闻"
+[Google]: http://google.com/ (谷歌在中国已经不能访问了)
+[wx_logo]: https://res.wx.qq.com/mpres/htmledition/images/bg/bg_logo2491a6.png
 
 ```ruby
 require 'redcarpet'
