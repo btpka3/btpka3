@@ -5,3 +5,4 @@
 
 * jekyll
 * pandoc. 如果想转成PDF文件，要安装LATEX。推荐安装MiKTex。但是，中文转PDF，因latex支持中文差，转换有问题。
+* https://github.com/progit/progit
