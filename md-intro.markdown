@@ -8,3 +8,8 @@
 * https://github.com/progit/progit
 * https://github.com/WebBooks/wbb
 * [Calibre2](http://calibre-ebook.com/)
+
+
+```
+sudo apt-get install texlive  # texlive-full
+```
