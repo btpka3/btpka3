@@ -110,3 +110,8 @@ nvm install v0.10.34
     registry = https://registry.npm.taobao.org
     ```
 
+# 常用工具
+
+```
+npm install -g npm-check-updates
+```
