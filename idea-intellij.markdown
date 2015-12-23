@@ -1,3 +1,9 @@
+# 15
+
+```
+>> License server 
+http://idea.lanyus.com
+```
 # 安装
 
 ```
