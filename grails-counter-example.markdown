@@ -445,3 +445,8 @@ HttpSession httpSession = grailsReq.getSession()
 
 RequestAttributes req = RequestContextHolder.currentRequestAttributes();
 ```
+
+# 关于Grails异步编程 task
+
+Grails 的异步编程 task 在当前请求返回response前，必须全部执行完，否则会引发多线程问题（比如，事务，cookie、session等问题）。
+因为 grails task的实现，引用了 HttpServletRequest。
