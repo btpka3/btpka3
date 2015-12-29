@@ -8,12 +8,18 @@
 
 ```
 curl -XDELETE "http://localhost:9200/lizi?pretty"
+{
+  "acknowledged" : true
+}
 ```
 ## 创建索引
 这里在创建索引时使用的是默认设置定
 
 ```
 curl -XPUT   "http://localhost:9200/lizi?pretty"
+{
+  "acknowledged" : true
+}
 ```
 
 ## 明确指定maping
