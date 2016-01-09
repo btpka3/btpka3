@@ -440,6 +440,15 @@ mv $FILE $CUR_BAK || {
 echo `$TIME` success.
 
 ```
+# 多行到文本
+
+```
+cat > aaa.txt <<EOF
+111
+222
+333
+EOF
+```
 
 # echo server
 
