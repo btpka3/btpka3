@@ -1,5 +1,6 @@
 
 # TODO
+* NW.js, electron, DirectUI, SkinUI
 * mobile app with ionic and angular
 * 图片仓库（cdn）
 * 另外一个 iconfont
