@@ -1,7 +1,7 @@
 
 # TODO
 * NW.js, electron, DirectUI, SkinUI
-* mobile app with <del>ionic and angular </del> cordova and angular material
+* mobile app with ~~ionic and angular~~ cordova and angular material
 * 图片仓库（cdn）
 * 另外一个 iconfont
 * 提供　手机号／电子邮箱　注册账户的一览
