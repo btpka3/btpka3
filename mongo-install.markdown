@@ -367,7 +367,7 @@ security:
 # backup
 
 ```
-# 备份单个数据库
+# 备份单个数据库， test1 是 dbOwner
 mongodump   --host=192.168.0.12             \
             --port=27017                    \
             --username test1                \
