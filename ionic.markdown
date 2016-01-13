@@ -11,5 +11,5 @@ vi platforms/android/project.properties
 target=android-21
 
 ionic build android
-ionic emulate android
+ionic emulate --target=test2 android
 ```
