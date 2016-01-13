@@ -364,4 +364,14 @@ security:
 
 
 
-		
+# backup
+
+```
+# 备份单个数据库
+mongodump   --host=192.168.0.12             \
+            --port=27017                    \
+            --username test1                \
+            --password test1                \
+            --db test                       \
+            --out .
+```
