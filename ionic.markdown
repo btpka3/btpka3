@@ -8,7 +8,7 @@ ionic platform add android
 
 vi platforms/android/project.properties
 #target=android-22
-target=android-17
+target=android-21
 
 ionic build android
 ionic emulate android
