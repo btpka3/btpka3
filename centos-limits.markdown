@@ -29,10 +29,10 @@ fs.file-max = 787933
 sysctl -p                                                     # 重新加载配置文件，使其即时生效
 
 
-# 
+#  高并发web连接
 net.ipv4.tcp_max_syn_backlog = 100000
 net.core.somaxconn = 65535
-
+net.ipv4.tcp_syncookies = 0
 ```
 
 查看指定进程正在使用的文件数量
