@@ -6,7 +6,56 @@ pam : see [here](http://www.doublecloud.org/2014/01/nginx-with-pam-authenticatio
 
 
 ```
+worker_processes      auto;
+worker_rlimit_nofile  100000; 
+
+
+
+events {
+    use                   epoll;
+    worker_connections    2048;
+    multi_accept          on;
+}
+
 http {
+    server_tokens            off;
+    sendfile                 on;
+    tcp_nopush               on;
+    tcp_nodelay              on;
+    access_log               off;
+    keepalive_timeout        30s;
+    client_header_timeout    20s;
+    client_body_timeout      20s;
+    send_timeout             20s;
+    reset_timedout_connection on;
+    limit_conn_zone          $binary_remote_addr zone=addr:10m;
+    limit_conn               addr 100;
+    charset                  UTF-8;
+    default_type             application/octet-stream;
+
+    gzip                     on;
+    gzip_disable             "msie6";
+    # gzip_static            on;
+    gzip_proxied             any;
+    gzip_min_length          1000;
+    gzip_comp_level          4;
+    gzip_types  text/plain
+                text/css
+                text/js
+                text/xml
+                text/javascript
+                application/javascript
+                application/x-javascript
+                application/json
+                application/xml
+                application/xml+rss;
+
+
+    open_file_cache         max=10000 inactive=600s;
+    open_file_cache_valid   30s;
+    open_file_cache_min_uses 1;
+    open_file_cache_errors  on;
+
     fastcgi_buffers          32      8k;
     client_body_buffer_size  1024k;
     client_max_body_size     10m;
