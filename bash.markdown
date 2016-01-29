@@ -163,6 +163,8 @@ echo $str | sed -nr 's/CREATE TABLE `(.+)`.*/\1/p'
 
 # "16000/tcp:           16737"
 fuser 16000/tcp 2>&1 | awk '{print $2}'
+# sed 的正则表达式请参考：
+# https://en.wikipedia.org/wiki/Regular_expression#POSIX_basic_and_extended
 fuser 16000/tcp 2>&1 | sed -nr 's/[^[:space:]]+[[:space:]]+([[:digit:]]+)/\1/p'
 ```
 
