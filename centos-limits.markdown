@@ -27,6 +27,12 @@ vi /etc/sysctl.conf                                      # 修改系统级的配
 fs.file-max = 787933
 
 sysctl -p                                                     # 重新加载配置文件，使其即时生效
+
+
+# 
+net.ipv4.tcp_max_syn_backlog = 100000
+net.core.somaxconn = 65535
+
 ```
 
 查看指定进程正在使用的文件数量
