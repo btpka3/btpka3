@@ -63,6 +63,14 @@ apt-mark showhold
 sudo apt-mark unhold <package name>
 ```
 
+## apt-get socks5 proxy 
+
+```
+http://pkgs.org
+apt-get install tsocks
+ sudo tsocks apt-get update
+```
+
 # 7788
 
 ```
