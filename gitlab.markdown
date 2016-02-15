@@ -421,7 +421,8 @@ sudo service gitlab start
 
 # 账户解锁
 
-参考 ： [devise](https://github.com/plataformatec/devise)-3.2.4/lib/devise/models/lockable.rb
+参考 ： [devise](https://github.com/plataformatec/devise)-3.2.4/lib/devise/models/lockable.rb 、 ["Your account is locked"](https://github.com/gitlabhq/gitlabhq/issues/9381)
+
 
 ```sh
 mysql -h 192.168.101.80 -u git -pXXXX gitlabhq_production
