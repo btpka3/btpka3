@@ -421,9 +421,13 @@ sudo service gitlab start
 
 # 账户解锁
 
+参考 ： [devise](https://github.com/plataformatec/devise)-3.2.4/lib/devise/models/lockable.rb
+
 ```sh
-mysql -h 192.168.101.80 -u git -pnalanala gitlabhq_production
-update set locked_at=null where username='xxx'
+mysql -h 192.168.101.80 -u git -pXXXX gitlabhq_production
+
+update set failed_attempts=0,locked_at=null where username='xxx'
+
 ```	
 
 # STMP
