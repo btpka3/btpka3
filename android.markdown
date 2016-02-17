@@ -33,3 +33,11 @@ http://wear.techbrood.com/
 http://ask.dcloud.net.cn/article/88
 
 http://ask.dcloud.net.cn/article/114
+
+#Ubuntu 14 LTS 需要安装32为的库才行
+
+http://stackoverflow.com/questions/18041769/error-cannot-run-aapt
+
+```
+sudo apt-get install gcc-multilib lib32z1 lib32stdc++6
+```
