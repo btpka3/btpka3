@@ -1,6 +1,21 @@
+
+
+# 安装
+
+```
+sudo mkdir /usr/local/android/
+sudo tar zxvf android-sdk_r24.3.4-linux.tgz -C /usr/local/android/
+
+sudo vi /etc/profile.d/zll.sh
+# 追加以下两行内容：
+export ANDROID_HOME=/usr/local/android/android-sdk-linux
+export PATH=$ANDROID_HOME/tools:$PATH
+```
+
+
 http://www.th7.cn/Program/Android/201411/320301.shtml
 
-Android SDK 国内镜像代理
+# Android SDK 国内镜像代理
 
 http://mirrors.neusoft.edu.cn/android/repository/
 
