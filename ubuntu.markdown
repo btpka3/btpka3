@@ -68,6 +68,7 @@ sudo apt-mark unhold <package name>
 ```
 http://pkgs.org
 apt-get install tsocks
+vi /etc/tsocks.conf
  sudo tsocks apt-get update
 ```
 
