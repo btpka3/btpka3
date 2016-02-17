@@ -5,6 +5,7 @@
 ```
 sudo mkdir /usr/local/android/
 sudo tar zxvf android-sdk_r24.3.4-linux.tgz -C /usr/local/android/
+sudo chown -R zll:zll /usr/local/android/
 
 sudo vi /etc/profile.d/zll.sh
 # 追加以下两行内容：
@@ -40,4 +41,16 @@ http://stackoverflow.com/questions/18041769/error-cannot-run-aapt
 
 ```
 sudo apt-get install gcc-multilib lib32z1 lib32stdc++6
+```
+
+
+
+# 绕过华数等宽带提供商的恶心http劫持现象
+
+```
+# 建立ssh隧道（需要有公网服务器）
+ssh sshUser@sshHost -C -f -N -g -D 9999
+
+export _JAVA_OPTIONS="-DsocksProxyHost=127.0.0.1 -DsocksProxyPort=9999"
+android
 ```
