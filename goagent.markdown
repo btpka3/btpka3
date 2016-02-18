@@ -1,4 +1,13 @@
-## SwitchySharp + GoAgent
+## XX-Net
+
+屏蔽了一个 goAgent, 又有 [XX-Net](https://github.com/XX-net/XX-Net) 在接续。
+使用方法同 GoAgent，但更加图形化，简易化。
+
+
+
+
+
+## <del>SwitchySharp + GoAgent</del>
 
 注意：关于安全性，请参考 《[GoAgent的安全风险](http://www.williamlong.info/archives/3882.html)》，是否使用了 GoAgent 的根证书，请使用不同浏览器访问 [https://goagent-cert-test.bamsoftware.com/](https://goagent-cert-test.bamsoftware.com/) 进行检测。
 
