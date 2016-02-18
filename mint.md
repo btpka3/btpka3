@@ -10,3 +10,6 @@ menu
 ```
 
 补充说明：虽然没找到类似于windows下面“运行”的窗口，但还是可以先点下 <kbd>Win</kbd>，在直接输入要进行的命令：比如 gedit。
+
+
+《[https://linux.cn/article-3353-1.html](https://linux.cn/article-3353-1.html)》
