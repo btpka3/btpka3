@@ -268,6 +268,7 @@ rpm -q --changelog openssl-devel | grep -B 1 CVE-2014-0160
 
 ## 签名
 
+
 ```
 keytool -genkeypair \
     -alias btpka3 \
@@ -287,15 +288,12 @@ jarsigner -keystore sos.jks \
     -digestalg SHA1 \
     -sigalg SHA1withRSA \
     -tsa http://timestamp.digicert.com \
-    -sigfile platforms/android/build/outputs/apk/android-release-signed.apk.sf \
     -signedjar platforms/android/build/outputs/apk/android-release-signed.apk \
     platforms/android/build/outputs/apk/android-release-unsigned.apk \
     btpka3
 ```
 
 ## 验证
-
-# 验证
 
 ```
 jarsigner -verify \
@@ -305,4 +303,15 @@ jarsigner -verify \
     -digestalg SHA1 \
     -sigalg SHA1withRSA \
     platforms/android/build/outputs/apk/android-release-signed.apk
+```
+
+说明:
+微信开发者中心登记的app的签名其实是证书的 md5值 (小写,无冒号间隔) : 
+
+```
+# 方法1: 通过keytool 查看 Certificate fingerprints: 提示中的 MD5 值:
+keytool -list -v -keystore sos.jks 
+
+# 方法2: 通过keytool 查看 APK 压缩包中 META-INF目录下 RSA 文件
+keytool -printcert -file path/to/xxx.apk/META-INF/PLATFORM.RSA 
 ```
