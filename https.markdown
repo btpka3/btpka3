@@ -262,3 +262,47 @@ yum update
 rpm -q --changelog openssl-1.0.1e | grep -B 1 CVE-2014-0160
 rpm -q --changelog openssl-devel | grep -B 1 CVE-2014-0160
 ```
+
+
+# jarsigner
+
+## 签名
+
+```
+keytool -genkeypair \
+    -alias btpka3 \
+    -keyalg RSA \
+    -keysize 1024 \
+    -sigalg SHA1withRSA \
+    -dname "CN=btpka3.github.io, OU=R&D, O=\"WeRun Club\", L=WeiHai, S=ShanDong, C=CN" \
+    -validity 3650 \
+    -keypass 123456 \
+    -keystore sos.jks \
+    -storepass 123456
+
+jarsigner -keystore sos.jks \
+    -storepass 123456 \
+    -storetype jks \
+    -keypass 123456 \
+    -digestalg SHA1 \
+    -sigalg SHA1withRSA \
+    -tsa http://timestamp.digicert.com \
+    -sigfile platforms/android/build/outputs/apk/android-release-signed.apk.sf \
+    -signedjar platforms/android/build/outputs/apk/android-release-signed.apk \
+    platforms/android/build/outputs/apk/android-release-unsigned.apk \
+    btpka3
+```
+
+## 验证
+
+# 验证
+
+```
+jarsigner -verify \
+    -keystore sos.jks \
+    -storetype jks \
+    -tsa http://timestamp.digicert.com \
+    -digestalg SHA1 \
+    -sigalg SHA1withRSA \
+    platforms/android/build/outputs/apk/android-release-signed.apk
+```
