@@ -1,5 +1,5 @@
 
-[CodePush](http://microsoft.github.io/code-push/)
+[CodePush](http://microsoft.github.io/code-push/)、 [CodePush-cli](https://github.com/Microsoft/code-push/tree/master/cli)
 
 ```
 npm install -g code-push-cli
