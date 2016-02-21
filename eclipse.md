@@ -1,6 +1,35 @@
 ## 安装
 [SPRING TOOL SUITE](http://www.springsource.org/sts )
 
+## 强制使用 GTK2
+
+> ### Issues on Linux (GTK3)
+> Eclipse 4.5, upon which STS and GGTS are based, is the first Eclipse
+> release where GTK3 is the default for the SWT widget library.
+> There are some issues with this still:
+> 
+> STS New Dashboard doesn't work under GTK3 because it uses JavaFX
+> which is not currently compatible with GTK3. Instead the old dashboard
+> will open.
+> The Eclipse editor may be slow to respond (Eclipse Bug 434898).
+> 
+> You may also experience other UI rendering glitches. If you exprience any of these problems you can avoid > them by forcing SWT to
+> switch back to using GTK2. Just set the environment variable "SWT_GTK3=0" before launching STS or GGTS.
+
+### STS.desktop
+
+```
+cat Desktop/STS.desktop
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Icon[en_US]=gnome-panel-launcher
+Name[en_US]=STS 3.7
+Exec=env SWT_GTK3=0 /usr/local/sts/sts-3.7.2.RELEASE/STS
+Icon=/usr/local/sts/sts-3.7.2.RELEASE/icon.xpm
+```
+
 ##常用插件
 * [MoonRise UI Theme](https://github.com/guari/eclipse-ui-theme)
 * ??? [eclipse-ui-themes](https://github.com/rogerdudler/eclipse-ui-themes)
