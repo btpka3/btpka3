@@ -15,6 +15,7 @@ git config --global push.default simple           # 在 "git push" 时，会推�
 git config --global core.filemode false           # 忽略文件仅文件权限的变更（比如 old mode 100755  new mode 100644）
 git config --global color.ui auto                 # git命令下会使用红色、绿色等来突出显示。
 git config --global branch.autosetuprebase always # 在 "git pull" 时，总会自动rebase
+git config --global credential.helper cache       # 在clone `https` 类型的URL时，可减少用户名密码输入次数
 git config --list
 ```
 
