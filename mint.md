@@ -13,3 +13,12 @@ menu
 
 
 《[https://linux.cn/article-3353-1.html](https://linux.cn/article-3353-1.html)》
+
+
+# fcitx
+一直没有找到正常的输入法配置入口，但是可以安装以下工具，手动进行配置（比如禁用 Ctrl+Shift+F 快捷键）
+
+```
+sudo apt-get install fcitx-config-gtk2
+fcitx-config-gtk
+```
