@@ -30,6 +30,25 @@ http://mirrors.neusoft.edu.cn/android/repository/
 
 http://wear.techbrood.com/
 
+
+# Ubuntu 下面模拟器加速
+
+```
+sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
+sudo adduser `whoami` kvm
+sudo adduser `whoami` libvirtd
+
+# 检验是否安装成功
+sudo virsh -c qemu:///system list
+
+# 列出所有的 avd
+android list avd
+
+# 选择一个并启动（使用 kvm）
+# 注意：下面命令中的 "test1" 是 avd 的名称
+emulator -avd test1 -qemu -m 2047 -enable-kvm
+```
+
 # native.js
 http://ask.dcloud.net.cn/article/88
 
