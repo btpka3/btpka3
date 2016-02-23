@@ -100,6 +100,10 @@ PS：华为的手机默认没有显示 `开发人员选项`，需要： 手机�
     sudo vi /etc/udev/rules.d/50-android.rules
     # 增加以下一行内容, 其中 12d1:1037 就是前一步获取的手机的 USB ID，只使用冒号前面的即可。这里是 "12d1"
     SUBSYSTEM=="usb",SYSFS{idVendor}=="12d1",MODE="0666"
+
+    #示例
+    SUBSYSTEM=="usb",SYSFS{idVendor}=="0bb4",MODE="0666"
+    SUBSYSTEM=="usb",ATTR{idVendor}=="0bb4",ATTR{idProduct}=="0c02",SYMLINK+="android_adb"
     ``` 
 
 1. 修改 adb_usb.ini
