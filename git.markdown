@@ -295,6 +295,14 @@ cp path/to/file /path/to/dest
 *.log
 ```
 
+注意：如果要忽略特定的目录中的文件，但还想在远程仓库中保持该目录，则：
+
+```
+emptyDir/*
+!emptyDir/.gitkeep
+```
+
+
 
 
 # 撤销提交
