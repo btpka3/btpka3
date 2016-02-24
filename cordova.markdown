@@ -5,6 +5,10 @@
 参考 [这里](http://blog.csdn.net/freshlover/article/details/42528643)
 
 
+# 跨域？
+
+cordova 默认是使用 file 协议加载html的。但默认 file 协议 是无法 ajax 访问外部网站数据的。
+
 # 安装
 
 
