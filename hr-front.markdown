@@ -15,9 +15,10 @@
     var messages = ["喵！", "我是一只会说话的猫！", "回调（callback）非常有趣!"];
     for (var i = 0; i < messages.length; i++) {
       setTimeout(function () {
-        cat.say(messages[i]);
+        console.log(messages[i]);
       }, i * 1500);
     }
+    console.log(messages[i]);
     ```
 
 * 请讲解一下 Javascript 中 call()、 apply()、callee、caller，并说明下面代码的打印结果。
