@@ -47,10 +47,17 @@
 * [GMongo Map-Reduce demo](https://github.com/poiati/gmongo#mapreduce)
 * [GORM Mongo Map-Reduce](http://stackoverflow.com/questions/5681851/mongodb-combine-data-from-multiple-collections-into-one-how/8746805#8746805)
 
+### 查询
+
+```js
+db.user.find({phone:"17011223344"}).pretty();
+```
 
 ### 更新
 
 ```js
+
+
 // 数组
 db.order.update({'orderItems.refund':"5656cdb6e4b07eb5d99b9767"}, { $set:{ "orderItems.0.refund" : null}}, {upsert:false});
 ```
