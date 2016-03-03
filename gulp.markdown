@@ -7,7 +7,7 @@ const gutil = require('gulp-util');
 const gulpIgnore = require('gulp-ignore');
 const vinylPaths = require('vinyl-paths');
 
-# 仅包含根目录下特定前缀的文件，和子目录中非js，css，less，map文件。
+// 仅包含根目录下特定前缀的文件，和子目录中非js，css，less，map文件。
 const libAssetsSrc = [
     'src/lib/?*/**/*',
     '!src/lib/?*/**/*.js',
