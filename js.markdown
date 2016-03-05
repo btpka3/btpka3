@@ -1,3 +1,19 @@
+# 性能优化建议
+
+参考 [1](http://coenraets.org/keypoint/phonegap-performance/)
+
+* Don't generate the UI on the server
+* Limit network access
+* Don't wait for the data to display the UI
+* Use hardware acceleration
+* Avoid click event's 300ms delay
+* Optimize images
+* Limit shadows and gradients
+* Do you need that framework?
+* Minimize browser reflows
+* Test
+
+# 参考
 
 * 《[浅谈移动前端的最佳实践](http://www.cnblogs.com/yexiaochai/p/4219523.html)》
 * [前端开发仓库](http://code.ciaoca.com/)
