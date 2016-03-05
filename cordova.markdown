@@ -4,6 +4,16 @@
 
 参考 [这里](http://blog.csdn.net/freshlover/article/details/42528643)
 
+# 设置 android webview 可调试
+参考 [1](https://developers.google.com/chrome-developer-tools/docs/remote-debugging#configure-webview)
+
+```java
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+      WebView.setWebContentsDebuggingEnabled(true);
+  }
+```
+
+
 
 # 跨域？
 
