@@ -13,6 +13,16 @@
   }
 ```
 
+WebView 能否被 debug，不受 AndroidManifest.xml 中的 `debuggable` 的影响。但是如果想只有 `debuggable` 为 true 时，webview 才能被调试，可以使用以下代码。
+
+```
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+    if (0 != (getApplicationInfo().flags &= ApplicationInfo.FLAG_DEBUGGABLE))
+    { WebView.setWebContentsDebuggingEnabled(true); }
+  }
+```
+
+
 
 
 # 跨域？
