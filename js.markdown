@@ -5,7 +5,7 @@
 * Don't generate the UI on the server
 * Limit network access
 * Don't wait for the data to display the UI
-* Use hardware acceleration
+* Use Css Transitions +  hardware acceleration
 * Avoid click event's 300ms delay
 * Optimize images
 * Limit shadows and gradients
