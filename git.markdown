@@ -327,3 +327,10 @@ git push -f                         # 本地修改之后，强制提交
 ```sh
 git rever <commit-id>               # 该方法通过在最新commit之后新建一个commit来达到回滚的效果。
 ```
+
+# 统计
+
+```
+# 一定时期内的代码提交次数
+git log --after=2015-01-01 --before=2016-03-01 --pretty='%ae' | sort | uniq -c | sort -k1 -n -r
+```
