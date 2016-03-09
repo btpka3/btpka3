@@ -1,5 +1,8 @@
 
 
+
+[Office 2013 and later](https://msdn.microsoft.com/en-us/library/office/fp179694%28v=office.15%29)
+
 ## 弹出消息
 
 ```vb
