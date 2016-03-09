@@ -12,7 +12,7 @@
 * 请指出下面例子的打印结果
 
     ```js
-    var messages = ["喵！", "我是一只会说话的猫！", "回调（callback）非常有趣!"];
+    var messages = ["aaa", "bbb", "ccc"];
     for (var i = 0; i < messages.length; i++) {
       setTimeout(function () {
         console.log(messages[i]);
