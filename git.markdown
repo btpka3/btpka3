@@ -333,4 +333,12 @@ git rever <commit-id>               # 该方法通过在最新commit之后新建
 ```
 # 一定时期内的代码提交次数
 git log --after=2015-01-01 --before=2016-03-01 --pretty='%ae' | sort | uniq -c | sort -k1 -n -r
+
+
+# gitstats
+gitstats -c project_name=qh-app \
+    -c commit_begin=`git log --date-order --date=iso --before=2015-01-01 -n 1 --pretty='%H'` \
+    -c commit_end=`git log --date-order --date=iso --before=2016-03-01  -n 1 --pretty='%H'`  \
+    qh-app \
+    stat/qh-app
 ```
