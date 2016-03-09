@@ -335,6 +335,12 @@ git rever <commit-id>               # 该方法通过在最新commit之后新建
 git log --after=2015-01-01 --before=2016-03-01 --pretty='%ae' | sort | uniq -c | sort -k1 -n -r
 
 
+# 统计代码修改量
+git log --after=2015-01-01 --before=2016-03-01 --pretty='%an' | sort -u
+git log --author="btpka3" --pretty=tformat: --numstat \
+    | gawk '{ add += $1 ; subs += $2 ; loc += $1 - $2 } \
+    END { printf "added lines: %s removed lines : %s total lines: %s\n",add,subs,loc }' -
+
 # gitstats
 gitstats -c project_name=qh-app \
     -c commit_begin=`git log --date-order --date=iso --before=2015-01-01 -n 1 --pretty='%H'` \
