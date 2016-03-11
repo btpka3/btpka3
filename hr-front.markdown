@@ -1,11 +1,9 @@
 
 ## 前端开发人员面试题
 
+注意：下面这些问题不是必须纸面作答，先思考如何口头回答即可。
 
- 
-
-
-* CSS中 `outline`、 `padding`、`margin` 作用是什么？请讲解一下 CSS 的 box 模型。
+* CSS中 `padding`、`margin`、`outline` 作用是什么？请讲解一下 CSS 的 box 模型。
 * HTTP 规范中定义了那些 Http method？语义是？
 * HTTP 规范中与缓存相关 HTTP 请求头、响应头有哪些？
 * 请尽可能详细的介绍一个URL的组成部分
@@ -142,4 +140,6 @@
 * 平常都使用哪些开发工具？调试工具？
 * 请讲解一些 XSS。
 * 有没有配置过 Apache/Nginx? 你常用的配置项有哪些？是否熟悉 Linux 服务器管理？
-* 是否熟悉 Node.js？ 是否熟悉 git？
+* 是否熟悉 Node.js？ 
+* 使用过哪些源代码管理工具？是否熟悉 git？
+* 什么是 hybrid app ? 请介绍一下你了解或用过的工具、框架。
