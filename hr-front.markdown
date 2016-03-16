@@ -42,7 +42,7 @@
 
 * 请问下题中 `div#d2` border 的右下角所在的像素的坐标是多少（针对body而言）？
 
-```
+    ```
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -85,7 +85,7 @@
     </div>
     </body>
     </html>
-```
+    ```
 
 
 * CSS 中 `padding`、`margin`、`outline` 作用是什么？请讲解一下 CSS 的 box 模型。
