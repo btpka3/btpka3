@@ -38,7 +38,7 @@
     ```
 
 * CSS 中 `padding`、`margin`、`outline` 作用是什么？请讲解一下 CSS 的 box 模型。
-* 是否了解 `box-sizing` ?
+* 是否了解 Css 属性: `box-sizing` ?
 
 * HTTP 规范中定义了那些 Http method？语义是？
 * HTTP 规范中与缓存相关 HTTP 请求头、响应头有哪些？
