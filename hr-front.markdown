@@ -5,25 +5,28 @@
 
 
 * 请问下题中 `div#d1` 的宽度是多少？
-    ```
+    ```html
     <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Title</title>
+        <title>div#d2.width=?</title>
         <style>
+    
             #d1 {
                 margin: 10px;
                 padding: 11px;
                 border: 2px solid red;
-                outline: 5px dotted blue;
+                outline: 5px dotted #555500;
+                display: inline-block;
             }
-
+    
             #d2 {
+                box-sizing: content-box;
                 margin: 1px;
                 padding: 2px;
-                border: none;
-                outline: 3px dotted blue;
+                border: 1px solid blue;
+                outline: 3px dotted #555500;
                 background-color: aquamarine;
                 width: 100px;
             }
@@ -39,7 +42,15 @@
 
 * CSS 中 `padding`、`margin`、`outline` 作用是什么？请讲解一下 CSS 的 box 模型。
 * Css 中 `display` 有哪些候选值？这些候选值的作用是？
+* Css 中 `position` 有哪些候选值？这些候选值的作用是？
 * 是否了解 Css 属性: `box-sizing` ?
+* 请介绍一下你熟悉的CSS预处理器。有何优缺点？
+* 是否了解一些关于 CSS Rest 框架？
+* 如何写出针对不同浏览器的布局代码？如何判断浏览器、或支持特性的不同？
+* 如何写出针对不同屏幕尺寸的代码？
+
+    ```html
+    ```
 
 * HTTP 规范中定义了那些 Http method？语义是？
 * HTTP 规范中与缓存相关 HTTP 请求头、响应头有哪些？
@@ -180,7 +191,6 @@
 * 是否熟悉 Node.js？ 
 * 使用过哪些源代码管理工具？是否熟悉 git？
 * 什么是 Native Aapp？什么是 Hybrid app ? 请介绍一下你了解或用过的工具、框架。
-* 请介绍一下你熟悉的CSS预处理器。有何优缺点？
 * 什么是 DOM，什么是 BOM？
 * 请介绍 ES 6、CCS 3、 HTML 5 相比前一版本有何新特点？
 
