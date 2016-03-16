@@ -40,6 +40,59 @@
     </html>
     ```
 
+* 请问下题中 `div#d2` border 的右下角所在的像素的坐标是多少（针对body而言）？
+
+```
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+    
+            #d1 {
+                position: absolute;
+                top: 20px;
+                left: 10px;
+    
+                margin: 10px;
+                border: 1px solid red;
+                padding: 10px;
+                outline: 2px dotted #555500;
+    
+                width: 200px;
+                height: 200px;
+            }
+    
+            #d2 {
+                position: absolute;
+                top: 40px;
+                left: 30px;
+    
+                margin: 20px;
+                border: 1px solid #880000;
+                padding: 10px;
+                outline: 2px dotted #555500;
+    
+                width: 50px;
+                height: 50px;
+    
+            }
+        </style>
+    </head>
+    <body>
+    <div id="d1">XXX
+        <div id="d2">YYY</div>
+    </div>
+    </body>
+    </html>
+```
+
+
 * CSS 中 `padding`、`margin`、`outline` 作用是什么？请讲解一下 CSS 的 box 模型。
 * Css 中 `display` 有哪些候选值？这些候选值的作用是？
 * Css 中 `position` 有哪些候选值？这些候选值的作用是？
