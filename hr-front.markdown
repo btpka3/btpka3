@@ -40,7 +40,7 @@
     </html>
     ```
 
-* 请问下题中 `div#d2` border 的右下角所在的像素的坐标是多少（针对body而言）？
+* 请问下题中 `div#d2` border 的右下角所在的像素的坐标是多少？（针对body而言）
 
     ```
     <!DOCTYPE html>
