@@ -17,7 +17,6 @@
                 padding: 11px;
                 border: 2px solid red;
                 outline: 5px dotted blue;
-                display: inline-block;
             }
 
             #d2 {
