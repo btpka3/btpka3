@@ -38,6 +38,7 @@
     ```
 
 * CSS 中 `padding`、`margin`、`outline` 作用是什么？请讲解一下 CSS 的 box 模型。
+* Css 中 `display` 有哪些候选值？这些候选值的作用是？
 * 是否了解 Css 属性: `box-sizing` ?
 
 * HTTP 规范中定义了那些 Http method？语义是？
