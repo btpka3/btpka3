@@ -49,11 +49,6 @@
         <meta charset="UTF-8">
         <title>Title</title>
         <style>
-            body {
-                margin: 0;
-                padding: 0;
-            }
-    
             #d1 {
                 position: absolute;
                 top: 20px;
