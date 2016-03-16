@@ -17,13 +17,14 @@
                 padding: 11px;
                 border: 2px solid red;
                 outline: 5px dotted blue;
+                display: inline-block;
             }
-    
+
             #d2 {
-                margin: 0;
-                padding: 0;
+                margin: 1px;
+                padding: 2px;
                 border: none;
-                outline: none;
+                outline: 3px dotted blue;
                 background-color: aquamarine;
                 width: 100px;
             }
