@@ -4,6 +4,38 @@
 注意：下面这些问题不是必须纸面作答，先思考如何口头回答即可。
 
 * CSS中 `padding`、`margin`、`outline` 作用是什么？请讲解一下 CSS 的 box 模型。
+* 请问下题中 `div#d1` 的宽度是多少？
+    ```
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <style>
+            #d1 {
+                margin: 10px;
+                padding: 11px;
+                border: 2px solid red;
+                outline: 5px dotted blue;
+            }
+    
+            #d2 {
+                margin: 0;
+                padding: 0;
+                border: none;
+                outline: none;
+                background-color: aquamarine;
+                width: 100px;
+            }
+        </style>
+    </head>
+    <body>
+    <div id="d1">
+        <div id="d2">XXX</div>
+    </div>
+    </body>
+    </html>
+    ```
 * HTTP 规范中定义了那些 Http method？语义是？
 * HTTP 规范中与缓存相关 HTTP 请求头、响应头有哪些？
 * 请尽可能详细的介绍一个URL的组成部分
