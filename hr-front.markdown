@@ -4,13 +4,14 @@
 注意：下面这些问题不是必须纸面作答，先思考如何口头回答即可。
 
 
-* 请问下题中 `div#d1` 的宽度是多少？
+1. 请问下题中 `div#d1` 的宽度是多少？
+
     ```html
     <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>div#d2.width=?</title>
+        <title>div#d1.width=?</title>
         <style>
     
             #d1 {
@@ -40,14 +41,14 @@
     </html>
     ```
 
-* 请问下题中 `div#d2` border 的右下角所在的像素的坐标是多少？（针对body而言）
+1. 请问下题中 `div#d2` border 的右下角所在的像素的坐标是多少？（针对body而言）
 
     ```
     <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Title</title>
+        <title>div#d2 边框的左下角的坐标是？</title>
         <style>
             #d1 {
                 position: absolute;
@@ -88,22 +89,18 @@
     ```
 
 
-* CSS 中 `padding`、`margin`、`outline` 作用是什么？请讲解一下 CSS 的 box 模型。
-* Css 中 `display` 有哪些候选值？这些候选值的作用是？
-* Css 中 `position` 有哪些候选值？这些候选值的作用是？
-* 是否了解 Css 属性: `box-sizing` ?
-* 请介绍一下你熟悉的CSS预处理器。有何优缺点？
-* 是否了解一些关于 CSS Reset 框架？
-* 如何写出针对不同浏览器的布局代码？如何判断浏览器、或支持特性的不同？
-* 如何写出针对不同屏幕尺寸的代码？
-
-    ```html
-    ```
-
-* HTTP 规范中定义了那些 Http method？语义是？
-* HTTP 规范中与缓存相关 HTTP 请求头、响应头有哪些？
-* 请尽可能详细的介绍一个URL的组成部分
-* 请指出下面例子的打印结果
+1. CSS 中 `padding`、`margin`、`outline` 作用是什么？请讲解一下 CSS 的 box 模型。
+1. CSS 中 `display` 有哪些候选值？这些候选值的作用是？
+1. CSS 中 `position` 有哪些候选值？这些候选值的作用是？
+1. 是否了解 Css 属性: `box-sizing` ?
+1. 请介绍一下你熟悉的CSS预处理器。有何优缺点？
+1. 是否了解一些关于 CSS Reset 框架？
+1. 如何写出针对不同浏览器的布局代码？如何判断浏览器、或支持特性的不同？
+1. 如何写出针对不同屏幕尺寸的代码？
+1. HTTP 规范中定义了那些 Http method？语义是？
+1. HTTP 规范中与缓存相关 HTTP 请求头、响应头有哪些？
+1. 请尽可能详细的介绍一个URL的组成部分
+1. 请指出下面例子的打印结果
 
     ```js
     var messages = ["aaa", "bbb", "ccc"];
@@ -115,7 +112,7 @@
     console.log(messages[i]);
     ```
 
-* 请讲解一下 Javascript 中 call()、 apply()、callee、caller，并说明下面代码的打印结果。
+1. 请讲解一下 Javascript 中 call()、 apply()、callee、caller，并说明下面代码的打印结果。
 
     ```
     <html>
@@ -142,7 +139,7 @@
     </html>
     ```
 
-* 请讲解一下 Javascript 中的 prototype，并说明下面代码的打印结果。
+1. 请讲解一下 Javascript 中的 prototype，并说明下面代码的打印结果。
 
     ```
     <html>
@@ -181,7 +178,7 @@
     </html>
     ```
 
-* 关于 Javascript 中的 typeof 操作符，请回答下面代码的输出结果。
+1. 关于 Javascript 中的 typeof 操作符，请回答下面代码的输出结果。
 
     ```
     <html>
@@ -197,9 +194,9 @@
     </html>
     ```
 
-* 关于 Javascript 中变量的查找方式，请回答下面代码的输出结果。
+1. 关于 Javascript 中变量的查找方式，请回答下面代码的输出结果。
 
-   ```
+    ```
     <html>
     <script>
         var age = 18;
@@ -230,15 +227,15 @@
     </script>
     </html>
    ```
-* 什么是跨域？Javascript 如何跨域请求数据？
-* 请尝试写出一个匹配含符号位、含小数位的正则表达式。
-* 关于Web前端开发，可以做哪些优化？
-* 平常都使用哪些开发工具？调试工具？
-* 请讲解一些 XSS。
-* 有没有配置过 Apache/Nginx? 你常用的配置项有哪些？是否熟悉 Linux 服务器管理？
-* 是否熟悉 Node.js？ 
-* 使用过哪些源代码管理工具？是否熟悉 git？
-* 什么是 Native Aapp？什么是 Hybrid app ? 请介绍一下你了解或用过的工具、框架。
-* 什么是 DOM，什么是 BOM？
-* 请介绍 ES 6、CCS 3、 HTML 5 相比前一版本有何新特点？
+1. 什么是跨域？Javascript 如何跨域请求数据？
+1. 请尝试写出一个匹配含符号位、含小数位的正则表达式。
+1. 关于Web前端开发，可以做哪些优化？
+1. 平常都使用哪些开发工具？调试工具？
+1. 请讲解一些 XSS。
+1. 有没有配置过 Apache/Nginx? 你常用的配置项有哪些？是否熟悉 Linux 服务器管理？
+1. 是否熟悉 Node.js？ 
+1. 使用过哪些源代码管理工具？是否熟悉 git？
+1. 什么是 Native Aapp？什么是 Hybrid app ? 请介绍一下你了解或用过的工具、框架。
+1. 什么是 DOM，什么是 BOM？
+1. 请介绍 ES 6、CSS 3、 HTML 5 相比前一版本有何新特点？
 
