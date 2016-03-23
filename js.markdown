@@ -27,6 +27,7 @@
 * 视差动画
     * [利用CSS固定背景交替实现视差滚动效果](http://www.shejidaren.com/css-fixed-scroll-background.html)
     * [10个优秀视差滚动插件](http://www.w3cplus.com/source/10-best-Parallax-Scrolling-plugin.html)
+    * [神奇的鼠标滚轴动画（视差滚动）](http://www.admin5.com/article/20140313/539258.shtml)
 * 洗牌/重拍/过滤动画
     * [quicksand](http://razorjack.net/quicksand/)
 * link
