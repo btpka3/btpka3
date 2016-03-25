@@ -441,7 +441,7 @@ yum remove httpd* php*
 
 # 安装
 yum install php-fpm php-bcmath php-mbstring php-gd php-xml php-mysql
-
+sudo apt-get install php5 php5-xdebug
 # 启动
 service php-fpm start
 # 修改nginx配置
