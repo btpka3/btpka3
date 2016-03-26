@@ -138,6 +138,9 @@ sudo apt-get install fcitx-sunpinyin
 
 #fcitx -r --enable fcitx-qimpanel
 #fcitx-qimpanel
+
+# Linux Mint 中如果找不到相应的配置入口，可以安装并调用以下命令
+fcitx-config-gtk
 ```
 
 # gedit
