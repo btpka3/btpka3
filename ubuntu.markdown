@@ -72,6 +72,13 @@ vi /etc/tsocks.conf
  sudo tsocks apt-get update
 ```
 
+# bt 下载
+
+```
+sudo add-apt-repository apt://transmission
+sudo apt-get install transmission
+```
+
 # 7788
 
 ```
