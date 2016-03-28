@@ -80,3 +80,22 @@ Keymap : 复制一份 Eclipse 版的快捷键配置，搜索 close 并
 
 * [sonarqube](http://plugins.jetbrains.com/plugin/7238?pr=idea)
 * [angularjs](http://plugins.jetbrains.com/plugin/6971?pr=idea)
+# 通过IP地址访问 build-in server
+
+在nginx/tengin 中加入如下配置文件
+
+```
+server {                                                                                                                
+    listen 192.168.0.60:63342;
+    server_name 192.168.0.60;
+    server_tokens off;
+    root /notExisted;
+    location / { 
+        proxy_pass              http://localhost:63342;
+        proxy_set_header        Host            $host;
+        proxy_set_header        X-Real-IP       $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header        X-Forwarded-Proto $scheme;
+    }   
+}
+```
