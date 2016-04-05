@@ -236,6 +236,7 @@ mvn -Dmaven.test.skip=true -am --projects my/module1,my/module2 compile
         </configuration>
       </plugin>
 ```
+* maven-shade-plugin
 
 * build-helper-maven-plugin
 
