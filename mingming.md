@@ -1,8 +1,13 @@
 
+## 学习方法
+请使用外国搜索引擎，进行英文搜索。
 
+* [global.bing.com](http://global.bing.com/?FORM=HPCNEN&setmkt=en-us&setlang=en-us), 
+* [search.com](http://search.com)
+* [yahoo.com](http://yahoo.com)
 
-## 基础教程
-以下是相应规范，js库的非官方部分文档，（1）找出给更多参考文档（2）给出官方规范、文档的出处。提示：请用外国网站的英文搜索，比如：global.bing.com, search.com, yahoo.com 等
+## 参考资料
+以下是相应规范，js库的非官方部分文档，（1）找出给更多参考文档（2）给出官方规范、文档的出处。
 
 
 * [HTML](http://www.w3school.com.cn/html/)
