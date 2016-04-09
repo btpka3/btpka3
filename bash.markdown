@@ -302,6 +302,15 @@ grep -r -n --include "*.java" systemProperties
 
 
 
+# crontab
+
+默认用户文件路径
+
+```
+/var/spool/cron/$USER_NAME
+/var/spool/cron/crontabs/$USER_NAME
+/
+```
 
 # PostgreSql backup cron job
 ```sh
