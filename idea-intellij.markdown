@@ -3,6 +3,8 @@
 ```
 >> License server 
 http://idea.lanyus.com
+或者
+http://www.iteblog.com/idea/key.php
 ```
 # 安装
 
