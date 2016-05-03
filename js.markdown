@@ -63,3 +63,8 @@
 |string| 长度为0则为false，其他为true|
 |object|null为false，其他为true|
  
+
+## 参考
+* 墨刀在用什么？ [here](https://modao.cc/posts/3344?page=1) 
+
+    在前端，我们用 spine.js、react.js、react-native、electron、webpack、cordova、nightmare.js、pm2、koa.js。而且在墨刀你有机会成为一名全栈开发者，你可以设计数据库，配置 nginx，写 ruby on rails。甚至可以参与设计。
