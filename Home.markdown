@@ -33,6 +33,7 @@
     * [Spring Security](spring-security)
     * [CAS](cas-intro)
     * [Spring Boot](spring-boot)
+    * [scala](scala)
 * Web 前端
     * [CSS](css)
     * [font](font)
