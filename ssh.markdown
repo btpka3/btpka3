@@ -12,7 +12,6 @@ ssh-keygen -t rsa -C "xxx@yyy.com" -N 'xxxPass' -f ~/.ssh/id_rsa
 # 验证 公钥和私钥是否匹配
 diff <( ssh-keygen -y -e -f .ssh/id_rsa ) <( ssh-keygen -y -e -f .ssh/id_rsa.pub )
 
-
 # 列出 key 的 fingerprint
 ssh-keygen -lf ~/.ssh/id_rsa
 
