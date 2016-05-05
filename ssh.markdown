@@ -23,7 +23,13 @@ ssh -T git@github.com
 之后可以把 `～/.ssh/id_rsa.pub` 中的内容追加到 远程ssh服务器用户的 `~/.ssh/authorized_keys` 中。（注意：线上环境不要配置为使用ssh登录）
 
 
-
+# windows
+1. 安装 [git for windows](https://git-scm.com/download/win)
+1. 安装 [tortoisegit](https://tortoisegit.org/)
+1. 安装 [putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) 完整版，建议放到环境变量 PATH 下。
+1. 通过 'git Bash Here' 打开名控制他，运行 ssh-genken 生成相应的公钥，私钥（默认路径同linux，但个人目录为 `/c/Users/YouName`)
+1. 运行 puttygen, Convertions -> import key : 选择刚刚生成的私钥 -> File -> Save private key : 建议保存到 `~/.ssh/id_rsa.ppk`
+1. 找一个目录，鼠标右键，git clone, 选中 'Load putty key'并选择刚刚生成的 ppk文件，即可。
 
 # 使用公钥远程登录
 
