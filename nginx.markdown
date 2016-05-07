@@ -1,6 +1,6 @@
 pam : see [here](http://www.doublecloud.org/2014/01/nginx-with-pam-authentication/)
 
-# 参考哦
+# 参考
 
 * 《[NGINX引入线程池 性能提升9倍](https://yq.aliyun.com/articles/26635?&utm_campaign=sys&utm_medium=market&utm_source=edm_email&msctype=email&mscmsgid=117816050400209379&)》
 
