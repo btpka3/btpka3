@@ -52,6 +52,7 @@
         * [总结](git)
         * [分支管理](git-branch)
         * [WIKI同步](git-sync)
+        * git工作量统计： [查看](http://btpka3.github.io/js/node/git-stat/stat/)， [源码](https://github.com/btpka3/btpka3.github.com/blob/master/js/node/git-stat/)
     * [Eclipse](eclipse)
     * [Idea Intellij](idea-intellij)
     * [Firefox](firefox)
