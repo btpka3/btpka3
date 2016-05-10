@@ -1,10 +1,15 @@
 
 ## df
 
+
 ```
 df -lhT              # 查看分区的文件系统类型、大小、挂载点
 sudo lsblk -o name,mountpoint,label,size,uuid
+
+df -i -h             # 查看 inode 使用状况
 ```
+
+
 
 ## fdisk
 
