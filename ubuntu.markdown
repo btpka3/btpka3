@@ -82,6 +82,7 @@ sudo apt-get install transmission
 # 7788
 
 ```
+sudo apt-get install trash-cli           # 今后不要使用rm命令删除文件，而使用 trash 将其移动到回收站，然后不定期的清理回收站，防止误删。
 sudo apt-get install rar                 # rar
 sudo apt-get install libreoffice         # libreoffice
 sudo apt-get purge abiword
