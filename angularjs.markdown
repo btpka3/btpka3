@@ -39,3 +39,12 @@ controller: ['$http', "$httpParamSerializerJQLike", function ($http, $stateParam
     });
 }]
 ```
+
+# 参考
+
+* 《[Why you shouldn’t use Angular Material today](https://medium.com/@vayvala/why-you-shouldn-t-use-angular-material-4ffb937ef232#.87o02z8tm)》 需要翻墙。 主要原因为：
+    1. 最小化的css，js文件尺寸仍然过大——总共560KB.
+    1. 缺少过多的组件： Collapsible content、Pagination、Breadcrumbs、Table、Badge、Vertical or two-handle slider、Responsive footer and navbar、Parallax、Scroll spy
+    1. 组件不灵活，难定制
+    1. bug多
+  该作者推荐使用 [Materialize Css](http://materializecss.com/) 或者 [Polymer](https://www.polymer-project.org/)
