@@ -25,6 +25,7 @@ VirtualBox: File -> Preferences -> Input -> uncheck "Auto Capture Keyboard"
     sudo apt-get update
     sudo apt-get install virtualbox-4.3
     echo "virtualbox-4.3 hold"        | sudo dpkg --set-selections
+    sudo dpkg --get-selections virtualbox-4.3
 
     # /usr/share/virtualbox/VBoxGuestAdditions.iso
     ```
