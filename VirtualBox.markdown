@@ -165,7 +165,16 @@ FIXME
 
 ## 调整磁盘大小
 
-```
-# 调整到80G
-VBoxManage modifyhd /path/to/file.vdi --resize 81920
-```
+
+# 0. 列出所登记的虚拟硬盘
+VBoxManage list hdds
+
+# 1.1 复制并修改 uuid
+cp /path/to/file1.vdi /path/to/file2.vdi 
+VBoxManage internalcommands sethduuid /path/to/file2.vdi
+
+# 1.2 克隆（作用同上）
+VBoxManage clonehd /path/to/file1.vdi /path/to/file2.vdi --format VDI --variant Standard
+
+# 2. 修改虚拟硬盘大小（100G）
+VBoxManage modifyhd /path/to/file2.vdi --resize 102400
