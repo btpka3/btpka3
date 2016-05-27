@@ -165,7 +165,7 @@ FIXME
 
 ## 调整磁盘大小
 
-
+```
 # 0. 列出所登记的虚拟硬盘
 VBoxManage list hdds
 
@@ -178,3 +178,4 @@ VBoxManage clonehd /path/to/file1.vdi /path/to/file2.vdi --format VDI --variant 
 
 # 2. 修改虚拟硬盘大小（100G）
 VBoxManage modifyhd /path/to/file2.vdi --resize 102400
+```
