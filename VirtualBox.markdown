@@ -162,3 +162,10 @@ net use x: \\vboxsvr\sharename
 ##  搭建局域网
 
 FIXME
+
+## 调整磁盘大小
+
+```
+# 调整到80G
+VBoxManage modifyhd /path/to/file.vdi --resize 81920
+```
