@@ -571,6 +571,16 @@ sudo update-grub
 
 ```
 
+# recovery mode
+
+```
+grub 编辑 
+linux ... ro recovery nomodeset
+linux ... rw single init=/bin/bash
+```
+
+
+
 # 远程桌面
 ## TO Windows
 
