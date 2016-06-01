@@ -31,6 +31,7 @@ ssh -T git@github.com
 # 使用多个密钥 
 
 ```
+# 该命令会生成 ~/.ssh/id_rsa.github 和 ~/.ssh/id_rsa.github.pub
 ssh-keygen -t rsa -f ~/.ssh/id_rsa.github  -C "511980432@qq.com"
 
 # 将以下公钥的内容作为你的ssh key 配置到 github 上
