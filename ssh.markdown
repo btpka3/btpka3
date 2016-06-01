@@ -22,6 +22,44 @@ ssh -T git@github.com
 之后可以把 `～/.ssh/id_rsa.pub` 中的内容追加到 远程ssh服务器用户的 `~/.ssh/authorized_keys` 中。（注意：线上环境不要配置为使用ssh登录）
 
 
+
+
+
+
+
+
+# 使用多个密钥 
+
+```
+ssh-keygen -t rsa -f ~/.ssh/id_rsa.github  -C "511980432@qq.com"
+
+# 将以下公钥的内容作为你的ssh key 配置到 github 上
+cat ~/.ssh/id_rsa.github.pub
+
+
+# 设置与github通讯时，使用刚刚生成的ssh key
+vi ~/.ssh/config    # 内容见后
+
+# 在github上创建仓库
+TuPengXiong.github.io
+```
+
+
+`~/.ssh/config` 内容如下：
+
+```
+Host kingsilk
+Hostname git.kingsilk.xyz
+IdentityFile ~/.ssh/id_rsa
+User tpx
+
+Host github
+Hostname github.com
+IdentityFile ~/.ssh/id_rsa.github
+User tpx
+```
+
+
 # windows
 1. 安装 [git for windows](https://git-scm.com/download/win)
 1. 安装 [tortoisegit](https://tortoisegit.org/)
