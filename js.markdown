@@ -68,3 +68,7 @@
 * 墨刀在用什么？ [here](https://modao.cc/posts/3344?page=1) 
 
     在前端，我们用 spine.js、react.js、react-native、electron、webpack、cordova、nightmare.js、pm2、koa.js。而且在墨刀你有机会成为一名全栈开发者，你可以设计数据库，配置 nginx，写 ruby on rails。甚至可以参与设计。
+* H5 游戏引擎有哪些？
+   * 《[H5游戏开发该如何选择游戏引擎](http://www.diyiyou.com/biz/bagua/54369.html)》
+   * 《[想入H5游戏圈 你应该先了解这些基础知识](http://games.qq.com/a/20150522/018816.htm)》
+   * 《[排名前10的H5、Js 3D游戏引擎和框架](http://www.html5cn.org/article-8308-1.html)》
