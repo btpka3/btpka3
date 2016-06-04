@@ -72,3 +72,9 @@
    * 《[H5游戏开发该如何选择游戏引擎](http://www.diyiyou.com/biz/bagua/54369.html)》
    * 《[想入H5游戏圈 你应该先了解这些基础知识](http://games.qq.com/a/20150522/018816.htm)》
    * 《[排名前10的H5、Js 3D游戏引擎和框架](http://www.html5cn.org/article-8308-1.html)》
+
+
+# nw.js vs Electron
+
+   [compaire 1 - old](http://tangiblejs.com/posts/nw-js-electron-compared)、
+   [compaire 2016](http://tangiblejs.com/posts/nw-js-and-electron-compared-2016-edition)
