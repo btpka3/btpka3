@@ -65,3 +65,10 @@ UUID=c0271228-51f7-4139-a3db-120faf8bda7d  /data1  xfs  defaults  0 0
 
 ## 参考
  [Win7 ISO -> U盘](http://serverfault.com/questions/6714/how-to-make-windows-7-usb-flash-install-media-from-linux)
+
+
+## 数据回复
+
+```
+photorec
+```
