@@ -17,7 +17,7 @@ ssh-keygen -lf ~/.ssh/id_rsa
 ssh-keygen -lf ~/.ssh/id_rsa.pub -E md5
 
 # test 
-ssh -T git@github.com
+ssh -vT git@github.com
 ```
 
 之后可以把 `～/.ssh/id_rsa.pub` 中的内容追加到 远程ssh服务器用户的 `~/.ssh/authorized_keys` 中。（注意：线上环境不要配置为使用ssh登录）
