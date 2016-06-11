@@ -14,6 +14,7 @@ diff <( ssh-keygen -y -e -f .ssh/id_rsa ) <( ssh-keygen -y -e -f .ssh/id_rsa.pub
 
 # 列出 key 的 fingerprint
 ssh-keygen -lf ~/.ssh/id_rsa
+ssh-keygen -lf ~/.ssh/id_rsa.pub -E md5
 
 # test 
 ssh -T git@github.com
