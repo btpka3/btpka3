@@ -70,6 +70,7 @@
 ### centos 7
 
 1. 新建 systemd 所需的 service 文件： `vi /usr/lib/systemd/system/tengine.service` :
+   注意： Ubuntu 16.04 LTS 版本文件路径为 `vi /lib/systemd/system/tengine.service`
 
     ```
     [Unit]
