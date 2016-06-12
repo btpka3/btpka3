@@ -107,3 +107,101 @@ DPI = 对角线的像素数 / 屏幕英寸数
 * 《[Flex布局新旧混合写法详解（兼容微信）](http://www.tuicool.com/articles/Yzeu6j7)》
 * http://www.zhihu.com/question/22991944
 * www.w3.org/TR/2009/WD-css3-flexbox-20090723/
+
+
+# css 规则的优先顺序？
+
+* 说明
+    * a : 选择器包含元素id的数量
+    * b : 选择器中类选择器，属性选择器，伪类选择器（不保护含 :not(X) 伪类）的数量
+    * c : 选择器包元素名称选择器，伪元素的数量
+    * 忽略通配符选择器
+    
+示例
+
+```css
+*               /* a=0 b=0 c=0 -> specificity =   0 */
+LI              /* a=0 b=0 c=1 -> specificity =   1 */
+UL LI           /* a=0 b=0 c=2 -> specificity =   2 */
+UL OL+LI        /* a=0 b=0 c=3 -> specificity =   3 */
+H1 + *[REL=up]  /* a=0 b=1 c=1 -> specificity =  11 */
+UL OL LI.red    /* a=0 b=1 c=3 -> specificity =  13 */
+LI.red.level    /* a=0 b=2 c=1 -> specificity =  21 */
+#x34y           /* a=1 b=0 c=0 -> specificity = 100 */
+#s12:not(FOO)   /* a=1 b=0 c=1 -> specificity = 101 */
+
+                /* a=0 b=3 c=3 -> specificity =  33 */
+md-list.md-dense md-list-item > md-icon:first-child:not(.md-avatar-icon) {
+    margin-right: 36px;
+}
+
+                /* a=0 b=3 c=2 -> specificity =  32 */
+.ks-category md-list-item > md-icon.subdir:first-child {
+    margin: 0 0 0 36px;
+}
+
+```
+
+
+## 参考
+* [css 3](https://www.w3.org/TR/css3-selectors/#specificity)
+* [css 2](http://www.w3.org/TR/CSS21/cascade.html#specificity)
+* [Pseudo-classes](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)
+
+
+
+# 伪类
+
+```css
+:active
+:any
+:checked
+:default
+:dir()
+:disabled
+:empty
+:enabled
+:first
+:first-child
+:first-of-type
+:fullscreen
+:focus
+:hover
+:indeterminate
+:in-range
+:invalid
+:lang()
+:last-child
+:last-of-type
+:left
+:link
+:not()
+:nth-child()
+:nth-last-child()
+:nth-last-of-type()
+:nth-of-type()
+:only-child
+:only-of-type
+:optional
+:out-of-range
+:read-only
+:read-write
+:required
+:right
+:root
+:scope
+:target
+:valid
+:visited
+```
+
+# 伪元素
+
+``` 
+element::after {}
+element::before {}
+element::first-letter {}
+element::first-line {}
+element::selection {} 
+```
+
