@@ -257,9 +257,11 @@ funcResult=$(myFunc zhang3)
 ```sh
   unzip file.zip -d outputDir
   unzip -O GBK windows.zip       # 解压在Windows平台上创建的zip
-  tar -xvf file.tar -C outpuDir # outputDir 必须先创建
-  tar -xzvf file.tar.gz -C outpuDir # outputDir 必须先创建
-  tar -xjvf file.tar.bz2 -C outputIdr # outputDir 必须先创建
+  tar -xvf file.tar       -C outputDir # outputDir 必须先创建
+  tar -xzvf file.tar.gz   -C outputDir # outputDir 必须先创建
+  tar -xjvf file.tar.bz2  -C outputdir # outputDir 必须先创建
+  tar -xJvf file.tar.xz   -C outputdir # outputDir 必须先创建
+
   rar x xxx.rar /path/to/extract
 ```
 #### list specific file/dir
