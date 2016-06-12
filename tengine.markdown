@@ -13,10 +13,7 @@
     ```sh
     yum install openssl openssl-devel
     # 或者
-    sudo apt-get install openssl libssl-dev
-    sudo apt-get install build-essential
-    sudo apt-get install linux-kernel-headers
-    sudo apt-get install gcc libpcre3 libpcre3-dev zlib1g-dev 
+    sudo apt-get install build-essential linux-kernel-headers openssl libssl-dev libpcre3 libpcre3-dev gcc zlib1g-dev 
     ```
 
 1. 下载、编译并安装
@@ -116,14 +113,6 @@
 ### ubuntu
 
 参考[这里](http://wiki.nginx.org/Upstart)
-
-1. make
-
-    ```
-    sudo apt-get install libpcre3 libpcre3-dev
-    sudo apt-get install openssl libssl-dev
-    ```
-
 
 1. `vi /etc/init/tengine.conf`
 
