@@ -48,3 +48,8 @@ controller: ['$http', "$httpParamSerializerJQLike", function ($http, $stateParam
     1. 组件不灵活，难定制
     1. bug多
   该作者推荐使用 [Materialize Css](http://materializecss.com/) 或者 [Polymer](https://www.polymer-project.org/)
+
+## service vs. factory vs.provider
+
+see [here](http://stackoverflow.com/a/34202483/533317)
+![service vs. factory vs.provider](http://i.stack.imgur.com/CkdHl.png)
