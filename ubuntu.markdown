@@ -197,6 +197,8 @@ Edit -> Preferences :
 sudo add-apt-repository ppa:webupd8team/sublime-text-3
 sudo apt-get update
 sudo apt-get install sublime-text-installer
+# 下面一句则 方便 Win+R 调出 "运行" 时输入 "sublime_text" 运行起来
+sudo ln -s  /opt/sublime_text/sublime_text /usr/local/bin/sublime_text
 
 # brackets
 sudo add-apt-repository ppa:webupd8team/brackets
