@@ -58,6 +58,9 @@ gpg2 --edit-key A6BAB25C    # 编辑公钥
 ```
 #  since 3.1
 mvn dependency:get -Dtransitive=false -Dartifact=org.springframework:spring-instrument:3.2.3.RELEASE
+
+# 下载sources jar包
+mvn dependency:get -Dtransitive=false -Dartifact=org.springframework:spring-beans:4.1.8.RELEASE:jar:sources
 ```
 
 ## 下载源代码
