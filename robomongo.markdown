@@ -18,7 +18,7 @@ sudo tar zxvf robomongo-0.9.0-rc8-linux-x86_64-c113244.tar.gz -C /usr/local/robo
 cd /usr/local/robomongo/robomongo-0.9.0-rc8-linux-x86_64-c113244/bin
 sudo wget https://robomongo.org/static/robomongo-128x128-129df2f1.png
 sudo mv robomongo-128x128-129df2f1.png robomongo.png
-vi ~/Desktop/robomongo.desktop
+vi ~/Desktop/robomongo.desktop               # 内容如下
 
 [Desktop Entry]                                      
 Name=Robomongo
@@ -27,5 +27,4 @@ Exec=/usr/local/robomongo/robomongo-0.9.0-rc8-linux-x86_64-c113244/bin/robomongo
 StartupNotify=true
 Terminal=false
 Type=Application
-
 ```
