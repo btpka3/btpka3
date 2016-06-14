@@ -150,8 +150,23 @@ sudo apt-get install fcitx-sunpinyin
 # Linux Mint 中如果找不到相应的配置入口，可以安装并调用以下命令
 fcitx-config-gtk
 ```
+# brackets
+NOTICIE：有些环境下，gedit超级慢的。
+
+```
+# install
+sudo add-apt-repository ppa:webupd8team/brackets
+sudo apt-get update
+sudo apt-get install brackets
+
+# remove
+sudo apt-get remove brackets
+sudo add-apt-repository --remove ppa:webupd8team/brackets
+```
+
 
 # gedit
+
 
 ## 安装
 
