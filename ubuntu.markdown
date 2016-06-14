@@ -150,18 +150,23 @@ sudo apt-get install fcitx-sunpinyin
 # Linux Mint 中如果找不到相应的配置入口，可以安装并调用以下命令
 fcitx-config-gtk
 ```
-# brackets
+# 
 NOTICIE：有些环境下，gedit超级慢的。
 
 ```
-# install
+# install brackets
 sudo add-apt-repository ppa:webupd8team/brackets
 sudo apt-get update
 sudo apt-get install brackets
 
-# remove
+# remove brackets
 sudo apt-get remove brackets
 sudo add-apt-repository --remove ppa:webupd8team/brackets
+
+# komodo-edit （这个开源，免费，但 komodo-ide 就收费了）
+sudo add-apt-repository ppa:mystic-mirage/komodo-edit
+sudo apt-get update
+sudo apt-get install komodo-edit
 ```
 
 
