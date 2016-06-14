@@ -193,14 +193,15 @@ Edit -> Preferences :
 有些环境下，gedit超级慢的。可以尝试选择以下几款编辑器。
 
 ```
-# install brackets
+# sublime text 3
+sudo add-apt-repository ppa:webupd8team/sublime-text-3
+sudo apt-get update
+sudo apt-get install sublime-text-installer
+
+# brackets
 sudo add-apt-repository ppa:webupd8team/brackets
 sudo apt-get update
 sudo apt-get install brackets
-
-# remove brackets
-sudo apt-get remove brackets
-sudo add-apt-repository --remove ppa:webupd8team/brackets
 
 # komodo-edit （这个开源，免费，但 komodo-ide 就收费了）
 sudo add-apt-repository ppa:mystic-mirage/komodo-edit
