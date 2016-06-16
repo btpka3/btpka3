@@ -189,10 +189,15 @@ Edit -> Preferences :
     Font & Colors
         -> 选择一个自己喜爱的 Color Schema
 ```
-# 文本编辑器
+# 其他文本编辑器
 有些环境下，gedit超级慢的。可以尝试选择以下几款编辑器。
 
 ```
+# Atom by Github
+sudo add-apt-repository ppa:webupd8team/atom 
+sudo apt-get update
+sudo apt-get install atom
+
 # sublime text 3
 sudo add-apt-repository ppa:webupd8team/sublime-text-3
 sudo apt-get update
