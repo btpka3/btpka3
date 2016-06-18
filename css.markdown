@@ -9,6 +9,7 @@
 * [dpi.lv](http://dpi.lv/)
 * [viewportsizes.com](http://viewportsizes.com/)
 * [resolution](http://ryanve.com/lab/resolution/)
+* 《[Height equals width with pure CSS](http://www.mademyday.de/css-height-equals-width-with-pure-css.html)》
 ## material design
 
 * [material design](http://wiki.jikexueyuan.com/project/material-design/)
@@ -208,3 +209,5 @@ element::selection {}
 # 进度条/spin
 
 * 《[10+ Best Pure CSS Loading Spinners For Front-end Developers](https://365webresources.com/10-best-pure-css-loading-spinners-front-end-developers/)》
+
+
