@@ -1,6 +1,6 @@
 # 免费的https证书
 * [WoSign](http://freessl.wosign.com/freessl)
-* [Let's Encrypt](https://letsencrypt.org/)
+* [Let's Encrypt](https://letsencrypt.org/)  就是时间短了点,需要3个月renew一下.
 * [startssl.com](https://www.startssl.com/)
 
 
