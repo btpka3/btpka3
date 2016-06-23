@@ -16,6 +16,7 @@
 1. 登录到服务器，
 
     1. 初次安装（仅一次）
+
         ```
         yum install epel-release
         yum install certbot
