@@ -14,6 +14,7 @@
     1. 记录并备份要新建/renew(更新)https证书的域名的原有配置。
     1. 修改要 新建/renew(更新)https证书的域名（不管是A记录，还是CNAME记录，使之最终查询到的IP为你管理服务器的公网IP）
 1. 登录到服务器，
+
     1. 初次安装（仅一次）
         ```
         yum install epel-release
@@ -35,7 +36,7 @@
     1. 更新证书
 
         ```
-        certbot renew
+        certbot renew --dry-run
         # 选择第二种 "2 Automatically use a temporary webserver (standalone)"
         # 输入要创建的证书的域名，用逗号或空格分隔。
         ```
