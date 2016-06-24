@@ -282,5 +282,32 @@
    1. Origin
    1. Status
    1. Expires
-   
+
+1. 文本 "xxx" 是红色还是蓝色？
+
+    ```
+    <html>
+    <head>
+      <style>
+        md-list.md-dense md-list-item > md-icon:first-child:not(.md-avatar-icon) {
+          color:red;
+        }
+
+        .ks-category md-list-item > md-icon.subdir:first-child {
+          color:blue;
+        }
+      </style>
+    </head>
+    <body>
+    <md-list class="ks-category md-dense">
+      <md-list-item>
+        <md-icon class="subdir" >xxx</md-icon>  <!-- 问：文本 "xxx" 是红色还是蓝色？ -->
+        <md-icon class="subdir" >yyy</md-icon>
+      </md-list-item>
+    </md-list>
+    </body>
+    </html>
+    ```
+
+
 
