@@ -133,13 +133,20 @@ LI.red.level    /* a=0 b=2 c=1 -> specificity =  21 */
 
                 /* a=0 b=3 c=3 -> specificity =  33 */
 md-list.md-dense md-list-item > md-icon:first-child:not(.md-avatar-icon) {
-    margin-right: 36px;
+    color:red;
 }
 
                 /* a=0 b=3 c=2 -> specificity =  32 */
 .ks-category md-list-item > md-icon.subdir:first-child {
-    margin: 0 0 0 36px;
+    color:blue;
 }
+
+<md-list class="ks-category md-dense">
+   <md-list-item>
+      <md-icon class="subdir" >xxx<md-icon>  <!-- 问：文本 "xxx" 是红色还是蓝色？ -->
+      <md-icon class="subdir" >yyy<md-icon>
+   </md-list-item>
+</md-list>
 
 ```
 
