@@ -8,7 +8,24 @@
 . ./XX-Net-2.8.9/start.sh
 
 http://127.0.0.1:8085/
+
+
+cat ./data/launcher/config.yaml   # 使能远程链接 
+
+
+language: zh_CN
+modules:
+  gae_proxy: {auto_start: 1, show_detail: 1}
+  launcher: {allow_remote_connect: 1, auto_start: 1, control_port: 8085, proxy: pac}
+  php_proxy: {control_port: 8083}
+update: {last_path: /home/zll/work/XX-Net-2.8.9/launcher, uuid: 08e45ba0-0e4d-4217-9eae-7e8901ad1c8e}
+
+
 ```
+
+
+
+
 
 
 
