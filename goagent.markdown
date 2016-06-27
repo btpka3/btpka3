@@ -4,24 +4,62 @@
 使用方法同 GoAgent，但更加图形化，简易化。
 
 
-```
-. ./XX-Net-2.8.9/start.sh
+1.  `vi /usr/lib/systemd/system/xx-net.service`
 
-http://127.0.0.1:8085/
+    ```
+    [Unit]
+    Description=xx-net
+    After=network.target
 
+    [Service]
+    Type=simple
+    ExecStart=/usr/local/XX-Net-3.1.19/start
 
-cat ./data/launcher/config.yaml   # 使能远程链接 
+    [Install]
+    WantedBy=multi-user.target
+    ```
+1. 启动 xx-net
+   
+    ```
+    systemctl daemon-reload
+    systemctl enable xx-net
+    systemctl is-enabled xx-net
+    systemctl restart xx-net
+    systemctl status xx-net
+    ```
+1. `cat ./data/launcher/config.yaml` 允许远程Web管理
 
+    ```yaml
+    language: zh_CN
+    modules:
+      gae_proxy: {auto_start: 1, show_detail: 1}
+      launcher: {allow_remote_connect: 1, control_port: 8085, last_run_version: 3.1.19,
+        proxy: pac, xxnet_port: 8087}
+      php_proxy: {control_port: 8083}
+      x_tunnel: {auto_start: 1}
+    update: {last_path: /usr/local/XX-Net-3.1.19/code/default/launcher, uuid: 39b40023-7ad4-4b1f-994f-9d12bbf27ef5}
+    ```
+1. `vi data/gae_proxy/manual.ini` 允许局域网其他人使用该代理
 
-language: zh_CN
-modules:
-  gae_proxy: {auto_start: 1, show_detail: 1}
-  launcher: {allow_remote_connect: 1, auto_start: 1, control_port: 8085, proxy: pac}
-  php_proxy: {control_port: 8083}
-update: {last_path: /home/zll/work/XX-Net-2.8.9/launcher, uuid: 08e45ba0-0e4d-4217-9eae-7e8901ad1c8e}
+    ```
+    [listen]
+    enable=1
+    ip=192.168.0.13
+    port = 8087
 
+    [pac]
+    enable=1
+    ip=192.168.0.13
+    port = 8086
+    ```
+1. Chrome 浏览器中安装插件 
+    1. 安装 `XX-Net-3.1.19/SwitchyOmega/SwitchyOmega.crx`
+    1. 导入配置文件 `XX-Net-3.1.19/SwitchyOmega/SwitchyOmega.bak`
+    1. 导入 代理服务器生成的CA证书 `XX-Net-3.1.19/data/gae_proxy/CA.crt`
 
-```
+1. 访问国外网站是使用 XX-Net 代理.
+
+ 
 
 
 
