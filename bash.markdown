@@ -468,3 +468,14 @@ EOF
 ```sh
 ncat -l 2000 -k -c 'xargs -n1 echo'
 ```
+
+
+# 大文件中查找并截取上下文
+
+```
+# 查找，显示行号，限定最多显示几条
+grep -n -m 10 xxx /path/to/largeFile
+
+# 提取特定行之间的内容
+sed -n -e '80000,10000p' ~/qh/qh-wap/logs/default.log > stackoverflow.log
+```
