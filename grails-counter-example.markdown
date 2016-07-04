@@ -200,6 +200,7 @@
     ```groovy
     def writer = new StringWriter()
     def xml = new MarkupBuilder(writer)
+    xml.mkp.xmlDeclaration(version: '1.0', encoding: "UTF-8")
     xml.rootNode() {
         node1(a: "a")
         2.times {
@@ -209,6 +210,7 @@
         }
     }
     String xmlStr = writer.toString()
+    render(contentType: "application/xml", text: xmlStr)
     ```
 1. String -> XML
 
