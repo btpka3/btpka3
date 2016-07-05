@@ -438,6 +438,20 @@ $ vi ~/.config/openbox/lubuntu-rc.xml
       </action>
     </keybind>
 
+    <!-- 注释掉以下代码，防止意外logout-->  
+<!-- 
+    <keybind key="C-A-Delete">
+      <action name="Execute">
+        <command>lxsession-default tasks</command>
+      </action>
+    </keybind>
+-->
+    <keybind key="W-t">                                                         
+      <action name="Execute">
+        <command>gnome-terminal</command>
+      </action>
+    </keybind>
+
 $ openbox --reconfigure
 
 ```
