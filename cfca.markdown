@@ -37,9 +37,9 @@ CFCA-开发资料
 │   │       │   ├── common.ini
 │   │       │   ├── payment.ini
 │   │       │   ├── paymentuser.ini
-│   │       │   ├── paytest.cer
-│   │       │   ├── test.pfx
-│   │       │   └── trust.jks
+│   │       │   ├── paytest.cer                // 支付平台的公钥证书
+│   │       │   ├── test.pfx                   // 机构的的签名证书和口令
+│   │       │   └── trust.jks                  // 自定义信任证书链的密钥库文件和口令
 │   │       └── system
 │   │           ├── log4j.dtd
 │   │           └── log4j.xml
