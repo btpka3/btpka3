@@ -27,26 +27,22 @@ w                          # 写入磁盘
 ```
 
 
-## mkfs.xfs
+## mkfs 创建文件系统
 
 ```
+# XFS
 mkfs.xfs -f /dev/sdb1
-mkfs.xfs -f /dev/sdb2
-```
 
-## fat32
-
-```
+# Fat32
 mkfs.msdos -F 32 /dev/sdb1
 fatlabel /dev/sdb1 YOUR_LABEL
-```
 
-## NTFS
+# exFat
+mkfs.exfat /dev/sdX1
 
-```
+# NTFS
 mkfs.ntfs /dev/sdb1
 ```
-
 
 
 
