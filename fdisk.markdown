@@ -72,3 +72,13 @@ UUID=c0271228-51f7-4139-a3db-120faf8bda7d  /data1  xfs  defaults  0 0
 ```
 photorec
 ```
+
+## exfat
+
+```
+# ubuntu 
+sudo apt-get install exfat-utils exfat-fuse
+
+# centos
+yum install exfat-utils fuse-exfat
+```
