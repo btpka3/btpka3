@@ -189,5 +189,5 @@ VBoxManage modifyhd /path/to/file2.vdi --resize 102400
 ```
 fdisk -l
 umount /dev/sdb1
-VBoxManage internalcommands createrawvmdk -rawdisk /dev/sdb -filename /opt/sdb.vmdk
+VBoxManage internalcommands createrawvmdk -rawdisk /dev/sdb -filename /opt/sdb.vmdk  # 注意：是整个U盘，而不是其中的一个分区。
 ```
