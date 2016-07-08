@@ -3,6 +3,7 @@
 
 ## 参考
 * [参考1](http://blog.qqbrowser.cc/)
+* [参考2](https://mp.weixin.qq.com/wiki?t=resource/resmain&id=mp1455784140&token=&lang=zhCN)
 
 
 smb://192.168.0.12/public/wechat_web_devtools_0.7.0_x64.exe
