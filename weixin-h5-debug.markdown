@@ -2,8 +2,8 @@
 
 
 ## 参考
-* [参考1](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455784140&token=&lang=zh_CN)
-* [参考2](https://mp.weixin.qq.com/wiki?action=doc&id=mp1455784140&t=0.6418246237983594&token=&lang=zh_CN#6)
+* [参考1](http://blog.qqbrowser.cc/)
+
 
 smb://192.168.0.12/public/wechat_web_devtools_0.7.0_x64.exe
 
