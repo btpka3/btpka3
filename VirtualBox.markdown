@@ -180,3 +180,14 @@ VBoxManage clonehd /path/to/file1.vdi /path/to/file2.vdi --format VDI --variant 
 # 2. 修改虚拟硬盘大小（100G）
 VBoxManage modifyhd /path/to/file2.vdi --resize 102400
 ```
+
+
+# U盘启动
+## linux 
+[参考](http://tecadmin.net/how-to-boot-from-usb-drive-in-virtualbox-on-linux/)
+
+```
+fdisk -l
+umount /dev/sdb1
+VBoxManage internalcommands createrawvmdk -rawdisk /dev/sdb -filename /opt/sdb.vmdk
+```
