@@ -18,6 +18,15 @@
 
 ## ios vs Safari
 
+| iPhone          |year|iOS|
+|-----------------|----|------------|
+|iPhone 4         |2010|4.0 ~ 7.1.2 |
+|iPhone 4s        |2011|5.0 ~ 8.4  |
+|iPhone 5         |2012|6.0 ~ 8.4  |
+|iPhone 5c/5s     |2013|7.0 ~ 8.4  |
+|iPhone 6/6 Plus  |2014|8.0 ~ 8.4  |
+
+
 ```
 iPhone 3GS        - Mobile Safari 4.0.5
 iPhone 4          - Mobile Safari 4.0.5
