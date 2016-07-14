@@ -290,8 +290,14 @@ mvn -Dmaven.test.skip=true -am --projects my/module1,my/module2 compile
 
 * exec-maven-plugin
 
-执行特定的Java程序。
-```xml
+    执行特定的Java程序。
+
+    ```sh
+    mvn exec:java  -Dexec.mainClass=me.test.TesseractExample
+    ```
+
+    配置示例
+    ```xml
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
@@ -306,7 +312,7 @@ mvn -Dmaven.test.skip=true -am --projects my/module1,my/module2 compile
           <mainClass>com.alibaba.dubbo.container.Main</mainClass>
         </configuration>
       </plugin>
-```
+     ```
 
 * maven-assembly-plugin
 
