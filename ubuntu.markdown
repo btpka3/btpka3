@@ -205,6 +205,11 @@ sudo apt-get install sublime-text-installer
 # 下面一句则 方便 Win+R 调出 "运行" 时输入 "sublime_text" 运行起来
 sudo ln -s  /opt/sublime_text/sublime_text /usr/local/bin/sublime_text
 
+# sublime text 3 插件 - package control
+# https://packagecontrol.io/installation
+# 重启并用package control 安装  "Codecs33","ConvertToUTF8"
+
+
 # brackets
 sudo add-apt-repository ppa:webupd8team/brackets
 sudo apt-get update
