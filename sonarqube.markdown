@@ -3,6 +3,18 @@
 # 触发运行
 
 
+
+## 集成 Idea Intellij
+
+Idea 中安装 SonarLint 插件, 仅限常见的语言（Java，Js，不包括 Groovy）
+
+
+
+
+
+
+
+
 ## SonarQube Scanner
 参考 《[Analyzing Source Code](http://docs.sonarqube.org/display/SONAR/Analyzing+Source+Code)》
 
@@ -36,6 +48,3 @@ sonar.sourceEncoding=UTF-8
 #sonar.exclusions=\
 #  grails-app/controllers/xyz/kingsilk/qh/wap/controller/Test*.groovy
 ```
-
-
-
