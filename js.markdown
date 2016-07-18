@@ -44,7 +44,7 @@
 * 上传/图片修改
     * [WebUploader](http://fex.baidu.com/webuploader/)
     * [美图开放平台](http://open.web.meitu.com/wiki/)
-* [javascript 6](http://es6-features.org/)
+* [javascript 6](http://es6-features.org/), [ECMAScript 6入门](http://es6.ruanyifeng.com/)
 * [以 application/octet-stream 格式上传](http://stackoverflow.com/questions/19959072/sending-binary-data-in-javascript-over-http)
 
 * 日期时间选择器
