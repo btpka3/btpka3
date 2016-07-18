@@ -35,7 +35,7 @@ sonar-project.properties 文件示例
 sonar.host.url=http://test12.kingsilk.xyz:9000
 sonar.projectKey=net.kingsilk:qh-wap-front
 sonar.projectName=qh-wap-front
-sonar.projectVersion=1.0
+sonar.projectVersion=2.1.0
 sonar.sources=\
   src/controllers,\
   src/directives,\
