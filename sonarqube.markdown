@@ -6,7 +6,7 @@
 
 ## 集成 Idea Intellij
 
-Idea 中安装 SonarLint 插件, 仅限常见的语言（Java，Js，不包括 Groovy）
+Idea 中安装 [SonarLint](http://www.sonarlint.org/intellij/index.html) 插件, 但仅限开发语言——Java，Js，PHP（不包括 Groovy）
 
 
 
