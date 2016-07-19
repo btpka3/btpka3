@@ -13,7 +13,10 @@
 * Minimize browser reflows
 * Test
 
+
 # 参考
+* ECMA-262 Edition 5.1,ECMA-262 Edition 6 (ES2015/ES6)  [ES6 兼容性表](http://kangax.github.io/compat-table/es6/)
+
 * [microsoft-edge - testdrive](https://developer.microsoft.com/en-us/microsoft-edge/testdrive/)
 * 《[浅谈移动前端的最佳实践](http://www.cnblogs.com/yexiaochai/p/4219523.html)》
 * [前端开发仓库](http://code.ciaoca.com/)
