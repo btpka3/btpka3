@@ -22,6 +22,9 @@
 
     # Global installation
     npm install -g jasmine
+
+    jasmine init
+    jasmine xxxTest.js
     ```
 
 # 参考
