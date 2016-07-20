@@ -32,6 +32,8 @@
     jasmine init
     jasmine xxxTest.js
     ```
+# store
+* [LokiJS](http://lokijs.org/)
 
 # 参考
 * ECMA-262 Edition 5.1,ECMA-262 Edition 6 (ES2015/ES6)  [ES6 兼容性表](http://kangax.github.io/compat-table/es6/)
