@@ -14,6 +14,7 @@
 * Test
 
 # testing
+* [mocha](http://mochajs.org/)
 * [jasmine](http://jasmine.github.io/)
 
     ```
