@@ -18,6 +18,7 @@
 
     ```
     npm install -g mocha
+    mocha xxxTest.js
     ```
 * [jasmine](http://jasmine.github.io/)
 
