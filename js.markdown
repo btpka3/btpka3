@@ -16,6 +16,14 @@
 # testing
 * [jasmine](http://jasmine.github.io/)
 
+    ```
+    # Local installation:
+    npm install --save-dev jasmine
+
+    # Global installation
+    npm install -g jasmine
+    ```
+
 # 参考
 * ECMA-262 Edition 5.1,ECMA-262 Edition 6 (ES2015/ES6)  [ES6 兼容性表](http://kangax.github.io/compat-table/es6/)
 
