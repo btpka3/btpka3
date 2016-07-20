@@ -15,6 +15,10 @@
 
 # testing
 * [mocha](http://mochajs.org/)
+
+    ```
+    npm install -g mocha
+    ```
 * [jasmine](http://jasmine.github.io/)
 
     ```
