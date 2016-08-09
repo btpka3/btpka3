@@ -49,6 +49,14 @@ autocmd BufRead,BufNewFile my.cnf set syntax=dosini
 autocmd BufRead,BufNewFile build.gradle set syntax=groovy
 ```
 
+## Mac OS X 下的 plist文件着色
+
+彩色查看 `/Library/LaunchDaemons` 目录下文件
+[vim-plist](https://github.com/darfink/vim-plist)
+
+```
+git clone git://github.com/darfink/vim-plist.git ~/.vim/bundle/vim-plist
+```
 ## colorschema
 
 ```sh
