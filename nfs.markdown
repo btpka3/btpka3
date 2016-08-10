@@ -33,3 +33,11 @@ sudo mount 192.168.0.12:/data1/samba/public ./public/
 
 vi /etc/auto.master
 ```
+
+
+## Mac OS X
+
+```
+mkdir -p ~/work/nfs/12/public/
+sudo mount -t nfs -o resvport 192.168.0.12:/data1/samba/public /Users/zll/work/nfs/12/public/
+```
