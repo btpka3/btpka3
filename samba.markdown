@@ -4,6 +4,12 @@
 
 匿名共享
 
+1. 同步工作组
+
+    ```
+    http://jingyan.baidu.com/article/8275fc86ba2f6346a03cf6dc.html
+    ```
+
 1. 开启 Guest 账户，并留空 Guest 密码。
    
     ```
