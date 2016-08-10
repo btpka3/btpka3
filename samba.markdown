@@ -118,8 +118,8 @@ NetBIOS Message Block (NMB )
     [root@localhost ~]# smbpasswd -an nobody
     [root@localhost ~]# vi /etc/samba/smb.conf
       [global]
-      security = share  
-      guest account = nobody
+      security = share          # 该值已经废弃，应使用 user
+      guest account = nobody    # 此为默认值，可不必明确设置
       dns proxy = no
     ```
 
