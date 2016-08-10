@@ -14,6 +14,8 @@ vi /etc/exports
 exportfs -a
 chmod -R ugo+rx /data
 
-systemctl status rpcbind       
+systemctl status rpcbind     
+systemctl status rpc-statd 
+systemctl status nfs-idmap 
 systemctl status nfs-server
 ```
