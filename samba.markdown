@@ -7,7 +7,7 @@
 1. 同步工作组
 
     ```
-    
+    aaa
     ```
 
 1. 开启 Guest 账户，并留空 Guest 密码。
@@ -117,6 +117,7 @@
       [global]
       security = share  
       guest account = nobody
+      dns proxy = no
     ```
 
 1. 设置可匿名访问的资源
