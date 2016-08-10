@@ -29,6 +29,9 @@
 
 ###  安装
 
+NetBIOS Message Block (NMB )
+可以通过主机名代替IP地址来访问局域网里的主机。
+
 1. 安装samba
 
     ```sh
