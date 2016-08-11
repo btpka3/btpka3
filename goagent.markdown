@@ -61,7 +61,19 @@
 
  
 
+1. 苹果电脑上设置
 
+    ```
+    Finder -> Applications -> Utilities -> Keychain Access 
+        -> File -> Import Items -> 选择XX-Net生成的 crt 证书文件
+        -> 左侧上方菜单中 选中 "login" 
+        -> 左侧下方菜单中 选中 "Certificates"
+        -> 右侧选中 "GoAgent XX-Net"
+           -> 鼠标右键 -> Get Info
+           -> 展开 "Trust"，修改为 "Always Trust"
+    
+    Chrome 浏览器中安装 XX-Net 安装包中的 "SwitchyOmega.crx" 插件，并恢复备份。
+    ```
 
 
 
