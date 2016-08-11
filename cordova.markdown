@@ -1,5 +1,10 @@
 
 
+# 版本？
+最新的 cordova (6.3.0) 使用的是 cordova-ios@4.2.0，cordova-android@5.2.1。
+安卓开发的话，支持 14 - 23 的安卓 API(Android 4.0~6.0)。
+
+
 # 如何真机调试？
 
 参考 [这里](http://blog.csdn.net/freshlover/article/details/42528643)
