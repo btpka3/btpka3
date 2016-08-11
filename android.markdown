@@ -10,7 +10,7 @@ sudo chown -R `whoami`:`whoami` /usr/local/android/
 sudo vi /etc/profile.d/xxx.sh
 # 追加以下两行内容：
 export ANDROID_HOME=/usr/local/android/android-sdk-linux
-export PATH=$ANDROID_HOME/tools:$PATH
+export PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH
 ```
 
 参考： [1](http://www.th7.cn/Program/Android/201411/320301.shtml)
