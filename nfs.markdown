@@ -40,4 +40,16 @@ vi /etc/auto.master
 ```
 mkdir -p ~/work/nfs/12/public/
 sudo mount -t nfs -o resvport 192.168.0.12:/data1/samba/public /Users/zll/work/nfs/12/public/
+
+# 自动挂载
+
+automount -vc
+
+vi /etc/auto_master
+/Users/zll/work/nfs/12/public/ -fstype=nfs4,resvport 192.168.0.12:/data1/samba/public
+
+sudo launchctl list | grep -i auto
+sudo launchctl list com.apple.automountd.plist
+sudo launchctl list com.apple.autofsd.plist
+
 ```
