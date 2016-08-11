@@ -13,4 +13,8 @@ sudo vi /etc/profile.d/zll.sh
 export GRADLE_HOME=/usr/local/grale/gradle-2.11
 export PATH=$GRADLE_HOME/bin:$PATH
 
+# 启用 Gradle Daemon
+vi ~/.gradle/gradle.properties
+org.gradle.daemon=true
+
 ```
