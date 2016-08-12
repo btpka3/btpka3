@@ -63,8 +63,8 @@ export EDITOR=vim
 export XXX=xxx
 export VISUAL=vim                 # crontab -e 使用的编辑器
 
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
+#export LC_ALL=en_US.UTF-8
+#export LANG=en_US.UTF-8
 ```
 
  
