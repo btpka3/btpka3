@@ -47,6 +47,10 @@ andorid
         -> Internal Sotrage : 2048M
         -> SD Card          : 2048M 
         -> Emulation Options: 选中 "Use Host GPU"
+
+   # 重要：安装 Extra/Intel x86 Enumlator Accelerator(HAXM installer)
+     会将 HAXM 下载到 Android SDK 目录下的 Extra下面，仍然需要浏览到该目录手动安装一下的。
+
 ```
 
 参考： [1](http://mirrors.neusoft.edu.cn/android/repository/)、[2](http://wear.techbrood.com/)
