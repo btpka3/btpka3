@@ -7,7 +7,9 @@
 
 # 如何真机调试？
 
-参考 [这里](http://blog.csdn.net/freshlover/article/details/42528643)
+参考 [这里](http://blog.csdn.net/freshlover/article/details/42528643)。
+
+注意：初次使用时，会白屏，因为谷歌的服务器被墙了。可以使用 XX-NET 翻墙一下就OK了。
 
 # 设置 android webview 可调试
 参考 [1](https://developers.google.com/chrome-developer-tools/docs/remote-debugging#configure-webview)
