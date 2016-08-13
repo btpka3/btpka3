@@ -28,5 +28,5 @@
 
 # svg
 
-1. 使用 [icomoon](https://icomoon.io/) 在线管理图标字体。
-2. 使用 [fontforge](http://fontforge.github.io/) 提取单个svg文件。
+1. 使用 [icomoon](https://icomoon.io/) 在线管理图标字体。并导出单个svg图片使用。
+2. ~~使用 [fontforge](http://fontforge.github.io/) 提取单个svg文件~~。
