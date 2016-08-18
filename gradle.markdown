@@ -17,4 +17,7 @@ export PATH=$GRADLE_HOME/bin:$PATH
 vi ~/.gradle/gradle.properties
 org.gradle.daemon=true
 
+
+# 列出所有task
+gradle tasks --all
 ```
