@@ -57,6 +57,13 @@ export CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL=file:///local/path/to/gradle-2.2.
 cordova build android
 ```
 
+# cordova 插件版本检查
+
+```
+npm install -g cordova-check-plugins
+cordova-check-plugins
+```
+
 # android 自动签名
 
 ```sh
