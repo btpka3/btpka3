@@ -1,5 +1,10 @@
 
 
+
+# 如何定制修改 build.gradle?
+build.gradle 都是自动生成的，那又是如何自动生成？如何修改其中的代码？
+
+
 # 版本？
 最新的 cordova (6.3.0) 使用的是 cordova-ios@4.2.0，cordova-android@5.2.1。
 安卓开发的话，支持 [14-23](https://cordova.apache.org/docs/en/latest/guide/platforms/android/) 的安卓 API(Android 4.0~6.0)。
@@ -60,6 +65,8 @@ cordova build android
 # cordova 插件版本检查
 
 ```
+cordova plugin list
+
 npm install -g cordova-check-plugins
 cordova-check-plugins
 ```
