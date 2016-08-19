@@ -1,5 +1,32 @@
 
 
+# plugin.xml 是如何更新合并的？
+
+```
+cordova platform install ios
+    根据以下文件找到相应的配置
+    cordova-lib/src/platforms/platformsConfig.json
+    cordova-lib/src/cordova/metadata/*_parse
+
+  
+    通过 cordova-fetch ，调用 npm 安装相应的包（比如 cordova-ios）安装到
+    `~/cordova/lib/npm_cache/cordova-ios/4.2.0` 目录下。
+
+
+    运行相应的 Api.js ： ~/.cordova/lib/npm_cache/cordova-ios/4.2.0/package/bin/templates/scripts/cordova/Api.js 
+        Api.createPlatform
+        Api.updatePlatform
+
+
+cordova prepare ios
+
+    $PROJECT_ROOT/platforms/android/cordova/Api.js
+    $PROJECT_ROOT/platforms/ios/cordova/Api.js
+
+cordoca HOOK 所暴露的 
+    context 类型为 ordova-lib/src/hooks/Context.js
+    ctx.cordova == require('cordova-lib').cordova
+```
 
 # 如何定制修改 build.gradle?
 build.gradle 都是自动生成的，那又是如何自动生成？如何修改其中的代码？
@@ -86,6 +113,41 @@ storePassword=xxx
 storeType=jks
 keyAlias=xxx
 keyPassword=xxx
+```
+
+
+# Hook
+
+```
+var fs = ctx.requireCordovaModule('fs');
+var path = ctx.requireCordovaModule('path');
+var cordovaCommon = ctx.requireCordovaModule('cordova-common');
+var ConfigParser = cordovaCommon.ConfigParser;
+var xmlHelpers = ctx.requireCordovaModule('cordova-common').xmlHelpers;
+var plist = ctx.requireCordovaModule('plist');
+
+// 获取项目根目录
+var projectRoot = ctx.cordova.findProjectRoot();
+
+// 获取 config.xml 中的配置并更新
+var appConfig = new ConfigParser(path.join(projectRoot, "config.xml"));
+var appName = appConfig.name();
+var appId = appConfig.packageName();
+
+xmlHelpers.mergeXml(appConfig1.doc.getroot(), appConfig0.doc.getroot(), "ios", true);
+appConfig0.write();
+
+// iOS：更新 plist 文件
+var plistFile = path.join(projectRoot, "platforms/ios", appName, appName + '-Info.plist');
+var infoPlist = plist.parse(fs.readFileSync(plistFile, 'utf8'));
+infoPlist['CFBundleIdentifier'] = newId;
+var info_contents = plist.build(infoPlist);
+fs.writeFileSync(plistFile, info_contents, 'utf-8');        
+
+// 获取 PlatformApi
+var cordovaLib = ctx.requireCordovaModule('cordova-lib');
+var iosApi = cordovaLib.cordova_platforms.getPlatformApi("ios");
+
 ```
 
 
