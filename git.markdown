@@ -1,6 +1,26 @@
 [Git中文手册](http://git-scm.com/book/zh)、
 [git Refspec](http://git-scm.com/book/zh/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-The-Refspec)、
 [Git Commit-ish/Tree-ish ](http://stackoverflow.com/questions/4044368/what-does-tree-ish-mean-in-git/18605496#18605496)
+
+# 记住密码
+使用ssh协议，可以使用ssh key来免密码登录。但是如果使用 http/https 协议来clone，则可以参考 [这里](https://help.github.com/articles/caching-your-github-password-in-git/)
+
+```
+# Mac
+git credential-osxkeychain
+brew install git
+git config --global credential.helper osxkeychain
+
+git credential-osxkeychain erase
+
+# Windows
+git config --global credential.helper wincred
+
+# Linux
+git config --global credential.helper 'cache --timeout=3600'   # 保存在内存中
+# 保存在磁盘上, 默认查找 ~/.git-credentials  $XDG_CONFIG_HOME/git/credentials
+git config credential.helper 'store --file=<path>'             
+```
 # 配置
 
 ```sh
