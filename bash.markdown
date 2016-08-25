@@ -1,4 +1,14 @@
-##
+## grep
+
+```
+# 查找出不匹配 "xxx" 和 "yyy" 的内容
+grep -v "xxx\|yyy" 
+```
+
+
+## dd
+
+
 
 ```
 dd if=/dev/zero of=test.1M.txt bs=1M count=1
