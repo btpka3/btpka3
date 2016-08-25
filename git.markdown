@@ -353,6 +353,15 @@ gitstats -c project_name=qh-app \
 
 # sync
 
+
+## repo
+
+```
+git clone http://git.oschina.net/btpka3/btpka3.wiki.git
+cd btpka3.wiki
+git remote add gitlab git@git.kingsilk.xyz:btpka3/btpka3.wiki.git
+git config --list
+```
 ## crontab
 ```
 0 */1  *   *   *   /home/zll/work/git-repo/oschina/sync-wiki.sh 2>&1 >>  /home/zll/work/git-repo/oschina/sync-wiki.log
