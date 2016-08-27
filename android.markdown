@@ -1,4 +1,6 @@
 
+
+
 ## 安装 Android SDK
 
 ```
@@ -98,3 +100,8 @@ ssh sshUser@sshHost -C -f -N -g -D 9999
 export _JAVA_OPTIONS="-DsocksProxyHost=127.0.0.1 -DsocksProxyPort=9999"
 android
 ```
+
+
+# 学习
+
+* 《[Android状态栏微技巧，带你真正理解沉浸式模式](http://blog.csdn.net/guolin_blog/article/details/51763825)》
