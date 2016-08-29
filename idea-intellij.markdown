@@ -26,6 +26,9 @@ cd /usr/local/idea/idea-IU-139.1117.1/bin/
 sudo cp idea64.vmoptions idea64.vmoptions.bak
 sudo vi idea64.vmoptions           // 修改JVM参数
 sudo vi idea.sh                    // 在最开始加入  `. /etc/profile.d/xxx.sh`
+
+# 注意： Mac OS X 下，会单独生成文件的保存路径，比如：/Users/zll/Library/Preferences/IntelliJIdea2016.2/idea.vmoptions
+
 ```
 
 
