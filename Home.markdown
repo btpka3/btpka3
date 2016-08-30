@@ -131,3 +131,6 @@
         * [java客户端示例，Spring-data-cassandra示例](https://github.com/btpka3/btpka3.github.com/tree/master/java/first-cassandra)
 * 机器学习
     * 《[28款GitHub最流行的开源机器学习项目（一）：TensorFlow排榜首](https://yq.aliyun.com/articles/30794?&utm_campaign=sys&utm_medium=market&utm_source=edm_email&msctype=email&mscmsgid=117816050400209379&)》
+
+* 7788
+    * [semver](http://semver.org/lang/zh-CN/)
