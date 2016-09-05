@@ -4,6 +4,13 @@
 * [startssl.com](https://www.startssl.com/)
 问: 各大https证书厂商推的 普通, DV, OV, EV 证书差别在何处?
 
+
+# to pem
+
+```
+openssl rsa -in ~/.ssh/id_rsa -outform pem > ~/.ssh/id_rsa.pem
+```
+
 # Let's Encrypt
 所有相关资料均请参考 [Let's Encrypt](https://letsencrypt.org/) 官网。
 
