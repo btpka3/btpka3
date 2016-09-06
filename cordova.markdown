@@ -21,6 +21,9 @@ cordova plugin add cordova-plugin-splashscreen --save
 # 如果创建过程中没有使用 `--save` 选项，也可以使用以下命令
 cordova platform save
 cordova plugin save
+
+# 
+cordova prepare
 ```
 
 
