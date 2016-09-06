@@ -1,5 +1,103 @@
 
 
+
+
+
+
+
+ qh-app/platforms/android/cordova/lib/builders/GradleBuilder.js  #prepBuildFiles
+
+
+
+# create
+
+```
+# `--save` 选项 : 会在 config.xml 中追加 `<engine name="android" spec="~5.2.1" />`
+cordova create my-cordova --save
+
+# `--save` 选项 : 会在 config.xml 中追加 `<plugin name="cordova-plugin-splashscreen" spec="~3.2.2" />`
+cordova plugin add cordova-plugin-splashscreen --save
+
+# 如果创建过程中没有使用 `--save` 选项，也可以使用以下命令
+cordova platform save
+cordova plugin save
+```
+
+
+# how to upgrade
+
+sudo npm update -g cordova
+cordova platform check
+cordova platform update ios
+cordova platform update android
+
+cordova plugin list
+npm install -g cordova-check-plugins
+cordova-check-plugins --update=auto
+
+
+
+# install android
+
+```
+cordova platform install android
+    根据以下文件找到相应的配置
+    cordova-lib/src/platforms/platformsConfig.json
+    cordova-lib/src/cordova/metadata/*_parse
+
+    通过 cordova-fetch ，调用 npm 安装相应的包（比如 cordova-ios）安装到
+    `~/cordova/lib/npm_cache/cordova-android/5.2.1` 目录下。
+
+    运行 ~/.cordova/lib/npm_cache/cordova-android/5.2.1/package/bin/lib/create.js # create
+         ~/.cordova/lib/npm_cache/cordova-android/5.2.1/package/bin/template/project -> qh-app/platforms/android
+
+    运行 ~/.cordova/lib/npm_cache/cordova-android/5.2.1/package/bin/templates/cordova/lib/builders/GradleBuilder.js # prepBuildFiles
+        1. qh-app/platforms/android/cordova/lib/plugin-build.gradle         -> qh-app/platforms/android/build.gradle
+        1. 读取 qh-app/platforms/android/project.properties
+        1. 生成 qh-app/platforms/android/settings.gradle
+        1. 替换 qh-app/platforms/android/build.gradle 中的  
+        1. dependencies : "// SUB-PROJECT DEPENDENCIES START"  和 "// SUB-PROJECT DEPENDENCIES END" 之间的内容
+        1. apply from   : "// PLUGIN GRADLE EXTENSIONS START"  和 "// PLUGIN GRADLE EXTENSIONS END" 之间的内容
+
+
+
+    运行相应的 Api.js : ~/.cordova/lib/npm_cache/cordova-android/5.2.1/package/bin/templates/cordova/Api.js
+        Api.createPlatform
+
+        Api.updatePlatform
+
+```
+
+# install ios
+
+```
+cordova platform install ios
+    根据以下文件找到相应的配置
+    cordova-lib/src/platforms/platformsConfig.json
+    cordova-lib/src/cordova/metadata/*_parse
+
+
+    通过 cordova-fetch ，调用 npm 安装相应的包（比如 cordova-ios）安装到
+    `~/cordova/lib/npm_cache/cordova-ios/4.2.0` 目录下。
+
+
+    运行相应的 Api.js ： ~/.cordova/lib/npm_cache/cordova-ios/4.2.0/package/bin/templates/scripts/cordova/Api.js 
+        Api.createPlatform
+        Api.updatePlatform
+
+
+cordova prepare ios
+
+    $PROJECT_ROOT/platforms/android/cordova/Api.js
+    $PROJECT_ROOT/platforms/ios/cordova/Api.js
+
+cordoca HOOK 所暴露的 
+    context 类型为 ordova-lib/src/hooks/Context.js
+    ctx.cordova == require('cordova-lib').cordova
+```
+
+
+
 # plugin.xml 是如何更新合并的？
 
 ```
