@@ -31,6 +31,10 @@
 
 ## ios vs Safari
 
+* [IOS vs. Safari 版本](http://www.somegeekintn.com/blog/stuff/iosvers/)
+* [IOS 版本](https://en.wikipedia.org/wiki/IOS_version_history)
+* [MacOSX 与 Safari 版本](https://en.wikipedia.org/wiki/Safari_version_history)
+
 | iPhone          |year|iOS|
 |-----------------|----|------------|
 |iPhone 4         |2010|4.0 ~ 7.1.2 |
