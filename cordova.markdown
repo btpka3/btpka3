@@ -26,6 +26,7 @@ cordova plugin save
 
 # how to upgrade
 
+```
 sudo npm update -g cordova
 cordova platform check
 cordova platform update ios
@@ -35,7 +36,7 @@ cordova plugin list
 npm install -g cordova-check-plugins
 cordova-check-plugins --update=auto
 
-
+```
 
 # install android
 
