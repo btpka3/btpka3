@@ -2,6 +2,10 @@
 ## 下载站
 http://jenv.mvnsearch.org/
 
+《[开源中国 Maven 镜像库关闭访问](http://www.oschina.net/news/75946/maven-oschina-closed)》
+
+国内替代品 http://maven.aliyun.com/nexus/#welcome
+
 ## 安装
 
 ```
