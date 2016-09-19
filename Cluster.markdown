@@ -2,6 +2,9 @@ http://storm.apache.org/
 
 http://spark.apache.org/
 
+* [集群管理框架 Apache Helix](http://helix.apache.org/)
+* [开源群集框架 Terracotta](http://terracotta.org/)
+* [Mesos](http://mesos.apache.org/) 框架 [Apache Aurora](http://aurora.apache.org/)
 * [spring-remoting-cluster ](http://code.google.com/p/spring-remoting-cluster/wiki/Usage)
 * [Build server-cluster-aware Java applications](http://www.ibm.com/developerworks/java/library/j-zookeeper/)
 * [Distributed lock manager](http://en.wikipedia.org/wiki/Distributed_lock_manager)
