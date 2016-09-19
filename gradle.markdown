@@ -32,6 +32,17 @@ task execute(type:JavaExec) {
    main = mainClass
    classpath = sourceSets.main.runtimeClasspath
 }
+
+// gradle -DmainClass=me.test.Example bootRun
+springBoot {
+    mainClass = System.properties['mainClass']
+}
+
+// gradle -DmainClass=me.test.Example execute
+task execute(type:JavaExec) {
+    main = System.getProperty('mainClass')
+    classpath = sourceSets.main.runtimeClasspath
+}
 ```
 ## init script
 maven可以通过 settings.xml 进行全局配置，比如本地仓库的位置，mirror等。
