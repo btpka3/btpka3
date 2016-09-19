@@ -23,3 +23,7 @@ ZK的API相对来说都比较低级，可以使用 [curator](http://curator.apac
 # 架构
 
 *  [墨迹天气服务器架构简介](http://download.csdn.net/detail/u010702509/8357037)
+
+# 微服务
+
+* 《[微服务实战（一）：微服务架构的优势与不足](http://kb.cnblogs.com/page/521880/)》
