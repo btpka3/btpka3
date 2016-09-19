@@ -22,6 +22,17 @@ org.gradle.daemon=true
 gradle tasks --all
 ```
 
+## run main
+
+build.gradle
+
+```
+# gradle -PmainClass=Boo execute
+task execute(type:JavaExec) {
+   main = mainClass
+   classpath = sourceSets.main.runtimeClasspath
+}
+```
 ## init script
 maven可以通过 settings.xml 进行全局配置，比如本地仓库的位置，mirror等。
 那Gradle如何进行类似设置？——可以使用 [init script](https://docs.gradle.org/current/userguide/init_scripts.html)
