@@ -31,3 +31,9 @@ ZK的API相对来说都比较低级，可以使用 [curator](http://curator.apac
 
 * 《[微服务实战（一）：微服务架构的优势与不足](http://kb.cnblogs.com/page/521880/)》
 * http://microservices.io/
+
+# 学习型网站
+
+* [hackerrank](https://www.hackerrank.com/)
+* [qlcode](http://www.qlcoder.com)
+* [openjudge](http://www.bailian.openjudge.cn/)
