@@ -2,7 +2,7 @@
 # Grails3
 流程参考 grails.boot.GrailsApp
 
-# 初始化流程
+# Grails 3 中 Bean 的初始化流程
 
 1. 调用 grails-app/init 目录下 `your.package.Application#main()` 方法
 1. 调用 `GrailsApp#createApplicationContext()`，并通过反射，设置使用 `OptimizedAutowireCapableBeanFactory` 作为Sping上下文的 beanFactory
