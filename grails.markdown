@@ -1,4 +1,9 @@
 
+# Grails3
+流程参考 grails.boot.GrailsApp
+
+
+
 ##  使 IEDA 下载源代码
 前提：Grails配置为使用Maven管理依赖，而非早期使用的Ivy。
 
