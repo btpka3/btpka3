@@ -2,6 +2,31 @@
 # Grails3
 流程参考 grails.boot.GrailsApp
 
+# 初始化流程
+
+1. 调用 grails-app/init 目录下 `your.package.Application#main()` 方法
+1. 调用 GrailsApp#createApplicationContext()：
+    1. 使用 OptimizedAutowireCapableBeanFactory 作为Sping上下文的 beanFactory
+    1. 注册 BeanCreationProfilingPostProcessor
+1. 通过 GrailsApp 调用 AbstractApplicationContext#refresh()：
+    1. 调用 GrailsApplicationPostProcessor#postProcessBeanDefinitionRegistry() ： 
+        1. 通过 GrailsPluginManager 调用各个插件（比如 SpringSecurityCoreGrailsPlugin）的doWithSpring设置。
+        1. 依次加载 `classpath:spring/resources.groovy`, `classpath:spring/resources.xml`
+        1. 调用 `your.package.Application#doWithSpring()` 。
+        1. 注意：上述都是通过BeanBuilder创建的Bean定义（尚未初始化），且Grails提供的接口 RuntimeSpringConfiguration 并未
+           提供删除Bean定义/配置的方法。因此，如果要override（插件默认中）的bean定义，只能在上述后两者中声明，
+           而无法通过@Service或@Bean的方式来覆盖（后者一旦发现有同名的bean，就不会再初始化该注解所标识的类、方法的）
+
+    1. 自调用 finishBeanFactoryInitialization 方法，初始化所有的bean，包含：
+        1. Grails插件的doWithSpring，resources.[groovy|xml|、Grails App的 doWithSpring 中声明的bean
+        1. @ComponentScan + @Component/@Service/@Controller/@Repository 注解标识要生成的bean。
+        1. @Configuration + @Bean 标识的方法
+    1. 自调用 finishRefresh() 方法并发送 ContextRefreshedEvent：
+        1. 调用Grails插件(比如SpringSecurityCoreGrailsPlugin)的 doDynamicMethods(), doPostProcessing(), onStartup()
+        1. 调用Grails应用(Application.groovy)的 doWithDynamicMethods(), doWithApplicationContext(), onStartup()
+        1. 执行 grails-app/init/BootStrap.groovy 中的回调方法。
+
+ 
 
 
 ##  使 IEDA 下载源代码
