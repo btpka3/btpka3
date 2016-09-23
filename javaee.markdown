@@ -40,8 +40,17 @@
 </web-app>
 ```
 
-FIXME: 如何在Spring boot中禁用 Servlet 3的注解扫描？（因为可能就压根没有web.xml)
+如何在Spring boot中禁用 Servlet 3的注解扫描？（因为可能就压根没有web.xml)。
+参考[这里](http://docs.spring.io/spring-boot/docs/1.4.1.RELEASE/reference/htmlsingle/#howto-disable-registration-of-a-servlet-or-filter)：
 
+```
+@Bean
+public FilterRegistrationBean registration(MyFilter filter) {
+    FilterRegistrationBean registration = new FilterRegistrationBean(filter);
+    registration.setEnabled(false);
+    return registration;
+}
+```
 
 ## 
 [DispatcherType](http://docs.oracle.com/javaee/6/api/javax/servlet/DispatcherType.html) 有以下四种枚举值：
