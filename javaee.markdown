@@ -59,6 +59,8 @@ FIXME: 如何在Spring boot中禁用 Servlet 3的注解扫描？（因为可能�
 * `INCLUDE`: 比如: `GenericServlet#getServletContext().getRequestDispatcher(String).include(req,resp)` 
 * `REQUEST`: ??? 用户正常请求时，第一个接收请求的servlet就是该类型。
 
+理解上述类型很重要，会影响filter的配置。
+
 可以通过 `ServletRequest#getDispatcherType()` 获取当前请求是哪种类型。
 
 
