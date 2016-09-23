@@ -33,4 +33,5 @@ docker run -d -p 80:80 --name webserver nginx
 ```
 # 默认有三个网络
 docker network ls 
+docker network inspect bridge
 ```
