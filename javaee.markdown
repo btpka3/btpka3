@@ -44,6 +44,7 @@
 参考[这里](http://docs.spring.io/spring-boot/docs/1.4.1.RELEASE/reference/htmlsingle/#howto-disable-registration-of-a-servlet-or-filter)：
 
 ```
+// 注意：这是通过Spring Bean的注册机制设置的。
 @Bean
 public FilterRegistrationBean registration(MyFilter filter) {
     FilterRegistrationBean registration = new FilterRegistrationBean(filter);
@@ -51,6 +52,8 @@ public FilterRegistrationBean registration(MyFilter filter) {
     return registration;
 }
 ```
+
+如果针对 `@WebServlet` 等注解，在Spring boot中，只有启用 `@Configuration` + `@ServletComponentScan` 才会扫描注册。
 
 ## 
 [DispatcherType](http://docs.oracle.com/javaee/6/api/javax/servlet/DispatcherType.html) 有以下四种枚举值：
