@@ -1,0 +1,39 @@
+
+# Servlet 3.0:
+
+## 新特性：
+
+1. SCI (javax.servlet.ServletContainerInitializer)。主要用来在 `WEB-INF/lib/*.jar!/META-INF/services/javax.servlet.ServletContainerInitializer`
+    中包含一个实现该接口的类的全限定名，该文件不应当出现在 webapp 本身中。用于模块化开发。而基于`ServletContextListener`/`@WebListener`的话，有可能被禁用掉的。
+
+1. Web fragments。 主要用来扫描 `WEB-INF/lib/*.jar!/META-INF/web-fragment.xml`。
+     web-fragment.xml 可以包括几乎所有可以在web.xml中指定的元素。
+     当web.xml设置了 `metadata-complete="true"` 时，会不被扫描。
+     web.xml中可以设置 `<absolute-ordering>` 以通过filter名称明确指定filter顺序。
+
+1. 直接从 `META-INF/resources/*` 下获取静态资源。
+1. @WebFilter,@WebListener,@WebServlet 等注解
+1. 被@HandlesTypes标识的类可以传递给 SCI 来执行。
+1. 对文件上传优化。 `HttpServletRequest#getPart`、 `#getParts`
+1. 异步编程
+
+## 新注解
+* `@HandlesTypes` : 该注解用以定义一组要传递到 `ServletContainerInitializer`(SCI) 中类的数组
+* `@HttpConstraint` : 安全限定：是否允许未登录访问，是否需要https，是否需要特定权限
+* `@HttpMethodConstraint` : 安全限定：同上
+* `@MultipartConfig` : 为servlet设定文件上传时的相关限定：文件临时存储路径，大小限制等
+* `@ServletSecurity` : 组合使用 `@HttpConstraint`、 `@HttpMethodConstraint` 为Servlet进行安全限定，配合 `@WebServlet`
+                        但是，由于主流框架通常由单个Servlet代理了所有的请求，故此方式多不实用。
+* `@WebFilter` : 注册一个filter。 FIXME：但是无法指定顺序
+* `@WebInitParam` : 配合 `@WebFilter`，`@WebServlet` 使用
+* `@WebListener` : 注册一个listener
+* `@WebServlet` : 注册一个servlet
+
+
+# Servlet 4.0
+[Servlet 4.0](https://jcp.org/en/jsr/detail?id=369) 预计会在 2017年定稿。 内容变更有：
+
+1. 请求/响应复用(Request/Response multiplexing)
+1. 流的优先级(Stream Prioritization)
+1. 服务器推送(Server Push)
+1. HTTP1.1升级(Upgrade from HTTP 1.1)
