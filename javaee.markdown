@@ -57,7 +57,7 @@ FIXME: 如何在Spring boot中禁用 Servlet 3的注解扫描？（因为可能�
 * `ERROR`:  当发生404，500等错误时，进行错误处理时。 
 * `FORWARD`: 比如:  `GenericServlet#getServletContext().getRequestDispatcher(String).forward(req,resp)` 
 * `INCLUDE`: 比如: `GenericServlet#getServletContext().getRequestDispatcher(String).include(req,resp)` 
-* `REQUEST`: 
+* `REQUEST`: ??? 用户正常请求时，第一个接收请求的servlet就是该类型。
 
 可以通过 `ServletRequest#getDispatcherType()` 获取当前请求是哪种类型。
 
