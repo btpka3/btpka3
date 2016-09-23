@@ -6,7 +6,7 @@
 ## 新特性：
 
 1. SCI (javax.servlet.ServletContainerInitializer)。主要用来在 `WEB-INF/lib/*.jar!/META-INF/services/javax.servlet.ServletContainerInitializer`
-    中包含一个实现该接口的类的全限定名，该文件不应当出现在 webapp 本身中。用于模块化开发。而基于`ServletContextListener`/`@WebListener`的话，有可能被禁用掉的。
+    中包含一个实现该接口的类的全限定名，该文件不应当出现在 webapp 本身中。用于模块化开发。而基于`ServletContextListener`/`@WebListener`的话，有可能被禁用掉的。spring-web.jar 中的 `SpringServletContainerInitializer` 就是基于该接口，进而提供了 `WebApplicationInitializer` 类型的回调。
 
 1. Web fragments。 主要用来扫描 `WEB-INF/lib/*.jar!/META-INF/web-fragment.xml`。
      web-fragment.xml 可以包括几乎所有可以在web.xml中指定的元素。
