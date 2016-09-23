@@ -55,7 +55,7 @@ public FilterRegistrationBean registration(MyFilter filter) {
 
 如果针对 `@WebServlet` 等注解，在Spring boot中，只有启用 `@Configuration` + `@ServletComponentScan` 才会扫描注册。
 
-## 
+## DispatcherType
 [DispatcherType](http://docs.oracle.com/javaee/6/api/javax/servlet/DispatcherType.html) 有以下四种枚举值：
 
 * `ASYNC`: 比如:
