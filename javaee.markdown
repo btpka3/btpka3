@@ -44,11 +44,12 @@
 参考[这里](http://docs.spring.io/spring-boot/docs/1.4.1.RELEASE/reference/htmlsingle/#howto-disable-registration-of-a-servlet-or-filter)：
 
 ```
-// 注意：这是通过Spring Bean的注册机制设置的。
+// 注意：这是通过Spring boot Bean的注册机制设置的。
 @Bean
 public FilterRegistrationBean registration(MyFilter filter) {
     FilterRegistrationBean registration = new FilterRegistrationBean(filter);
-    registration.setEnabled(false);
+    registration.setEnabled(false);                 // 不启用
+    registration.setOrder(Integer.MAX_VALUE - 1);   // 如果启用的话，可以设置优先级。
     return registration;
 }
 ```
