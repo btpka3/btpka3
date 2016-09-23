@@ -32,11 +32,13 @@
 参考《[How do I make Tomcat startup faster?](https://wiki.apache.org/tomcat/HowTo/FasterStartUp)》。
 示例：
 
-```
+```xml
 <web-app metadata-complete="true">
     <absolute-ordering/>
 </web-app>
 ```
+
+FIXME: 如何在Spring boot中禁用 Servlet 3的注解扫描？（因为可能就压根没有web.xml)
 
 # Servlet 4.0
 [Servlet 4.0](https://jcp.org/en/jsr/detail?id=369) 预计会在 2017年定稿。 内容变更有：
