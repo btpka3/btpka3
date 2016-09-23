@@ -1,6 +1,8 @@
 
 # Servlet 3.0:
 
+
+
 ## 新特性：
 
 1. SCI (javax.servlet.ServletContainerInitializer)。主要用来在 `WEB-INF/lib/*.jar!/META-INF/services/javax.servlet.ServletContainerInitializer`
@@ -39,6 +41,19 @@
 ```
 
 FIXME: 如何在Spring boot中禁用 Servlet 3的注解扫描？（因为可能就压根没有web.xml)
+
+
+## 
+[DispatcherType](http://docs.oracle.com/javaee/6/api/javax/servlet/DispatcherType.html) 有以下四种枚举值：
+
+* `ASYNC`: 
+* `ERROR`:  当发生404，500等错误时，进行错误处理时。 
+* `FORWARD`: 比如:  `GenericServlet#getServletContext().getRequestDispatcher(String).forward(req,resp)` 
+* `INCLUDE`: 比如: `GenericServlet#getServletContext().getRequestDispatcher(String).include(req,resp)` 
+* `REQUEST`: 
+
+可以通过 `ServletRequest#getDispatcherType()` 获取当前请求是哪种类型。
+
 
 # Servlet 4.0
 [Servlet 4.0](https://jcp.org/en/jsr/detail?id=369) 预计会在 2017年定稿。 内容变更有：
