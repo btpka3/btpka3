@@ -22,13 +22,21 @@
 * `@HttpConstraint` : 安全限定：是否允许未登录访问，是否需要https，是否需要特定权限
 * `@HttpMethodConstraint` : 安全限定：同上
 * `@MultipartConfig` : 为servlet设定文件上传时的相关限定：文件临时存储路径，大小限制等
-* `@ServletSecurity` : 组合使用 `@HttpConstraint`、 `@HttpMethodConstraint` 为Servlet进行安全限定，配合 `@WebServlet`
-                        但是，由于主流框架通常由单个Servlet代理了所有的请求，故此方式多不实用。
+* `@ServletSecurity` : 组合使用 `@HttpConstraint`、 `@HttpMethodConstraint` 为Servlet进行安全限定，配合 `@WebServlet`，但是，由于主流框架通常由单个Servlet代理了所有的请求，故此方式多不实用。
 * `@WebFilter` : 注册一个filter。 FIXME：但是无法指定顺序
 * `@WebInitParam` : 配合 `@WebFilter`，`@WebServlet` 使用
 * `@WebListener` : 注册一个listener
 * `@WebServlet` : 注册一个servlet
 
+## 如何禁用Servlet3的注解扫描？
+参考《[How do I make Tomcat startup faster?](https://wiki.apache.org/tomcat/HowTo/FasterStartUp)》。
+示例：
+
+```
+<web-app metadata-complete="true">
+    <absolute-ordering/>
+</web-app>
+```
 
 # Servlet 4.0
 [Servlet 4.0](https://jcp.org/en/jsr/detail?id=369) 预计会在 2017年定稿。 内容变更有：
