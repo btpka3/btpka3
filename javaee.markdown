@@ -46,7 +46,14 @@ FIXME: 如何在Spring boot中禁用 Servlet 3的注解扫描？（因为可能�
 ## 
 [DispatcherType](http://docs.oracle.com/javaee/6/api/javax/servlet/DispatcherType.html) 有以下四种枚举值：
 
-* `ASYNC`: 
+* `ASYNC`: 比如:
+
+    ```
+    AsyncContext actx = request.startAsync();  
+    actx.setTimeout(30*1000);  
+    actx.start(new YourExecutor(actx));  
+    ```
+
 * `ERROR`:  当发生404，500等错误时，进行错误处理时。 
 * `FORWARD`: 比如:  `GenericServlet#getServletContext().getRequestDispatcher(String).forward(req,resp)` 
 * `INCLUDE`: 比如: `GenericServlet#getServletContext().getRequestDispatcher(String).include(req,resp)` 
