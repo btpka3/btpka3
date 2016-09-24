@@ -190,6 +190,9 @@
         console.log(typeof false);
         console.log(typeof []);
         console.log(typeof {});
+        
+        var a = null || undefined || false || 0 || "" || [] || {} || true;
+        console.log(a);
     </script>
     </html>
     ```
@@ -238,4 +241,13 @@
 1. 什么是 Native Aapp？什么是 Hybrid app ? 请介绍一下你了解或用过的工具、框架。
 1. 什么是 DOM，什么是 BOM？
 1. 请介绍 ES 6、CSS 3、 HTML 5 相比前一版本有何新特点？
+
+
+
+
+
+
+
+
+
 
