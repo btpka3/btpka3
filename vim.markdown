@@ -5,6 +5,10 @@ yum install vim-common vim-enhanced vim-minimal
 sudo apt-get install vim
 ```
 
+
+
+
+
 修改环境变量
 ```sh
 [root@h01 ~]# vi /etc/profile.d/custom.sh
@@ -125,6 +129,7 @@ vi LargeFile.vba
 Ctrl+ww                         # 在分割窗口中循环切换文件
 :e ftp://192.168.1.101/xxx.txt  # 打开远程文件（FTP）
 :e \\sambahost\share\xxx.txt    # 打开远程文件（Samba）
+:set binary noeol               # 重要，vim默认会追加一个0xOA(换行符)，可以通过该设置不追加，否则会影响md5sum等计算。
 
 
 # 光标移动
