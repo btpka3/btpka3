@@ -241,7 +241,16 @@
 1. 什么是 Native Aapp？什么是 Hybrid app ? 请介绍一下你了解或用过的工具、框架。
 1. 什么是 DOM，什么是 BOM？
 1. 请介绍 ES 6、CSS 3、 HTML 5 相比前一版本有何新特点？
+1. 要求实现相应的JS代码，执行结果为依次打印：1,2,3。
+    ```js
+    function yourSyncFn(){
+       // TODO：3秒钟后返回数值：2
+    }
 
+    console.log(1);
+    console.log(yourSyncFn());
+    console.log(3);
+    ```
 
 
 
