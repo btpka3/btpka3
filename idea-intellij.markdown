@@ -31,8 +31,14 @@ sudo vi idea.sh                    // 在最开始加入  `. /etc/profile.d/xxx.
 
 ```
 
+# 苹果下快捷键
 
+<!-- → ← ↑ ↓⬆️⬇️➡️⬅️ -->
 
+|key |description|
+|------|-----|
+|<kbd>Fn + Cmd + ←</kdb>|回到编辑器第一行|
+|<kbd>Fn + Cmd + →</kdb>|回到编辑器最后一行|
 # ubuntu 下中文字体
 
 ```sh
