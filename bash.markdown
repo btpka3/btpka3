@@ -401,6 +401,31 @@ echo $DIR
 # <td><a href="AAA.tar.bz2">AAA.tar.bz2</a></td>
 curl -s http://xxx/ | awk 'match($0, /<td><a.*>(.*)<\/a>.*<\/td>/,arr) {print arr[1]}'
 # output : AAA.tar.bz2
+
+zll@mac-pro 333$ ll
+total 24
+drwxr-xr-x  2 zll  wheel  68 Sep 26 10:21 a
+-rw-r--r--  1 zll  wheel   4 Sep 26 10:21 a.txt
+-rw-r--r--  1 zll  wheel   8 Sep 26 10:21 b.txt
+-rw-r--r--  1 zll  wheel   2 Sep 26 10:21 c.txt
+drwxr-xr-x  2 zll  wheel  68 Sep 26 10:22 x
+
+# 按照特定字段排序
+zll@mac-pro 333$ ll | sort -n -r -k 5 
+drwxr-xr-x  2 zll  wheel  68 Sep 26 10:22 x
+drwxr-xr-x  2 zll  wheel  68 Sep 26 10:21 a
+-rw-r--r--  1 zll  wheel   8 Sep 26 10:21 b.txt
+-rw-r--r--  1 zll  wheel   4 Sep 26 10:21 a.txt
+-rw-r--r--  1 zll  wheel   2 Sep 26 10:21 c.txt
+
+# 提取特定字段。注意不可使用cut命令——不支持多个空格作为一个分隔符。
+zll@mac-pro 333$ ll | awk '{print $5}'
+
+68
+4
+8
+2
+68
 ```
 
 ## 免密码以root权限执行脚本
