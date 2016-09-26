@@ -38,6 +38,9 @@
 ## 对应微信内的APP不支持直接文件上传，该如何对应CDN直传？
 
 安卓版微信文件上传提示[只能上传SD卡内容](http://www.zhihu.com/question/21452742?rf=27008938).
+图片上传的话，只能使用 [微信JS-SDK](https://mp.weixin.qq.com/wiki/11/74ad127cc054f6b80759c40f77ec03db.html) 先上传到微信的服务器上，
+在通知服务器去下载。
+如果要上传其他类型文件就不行了。
 
 七牛云支持[fetch](http://developer.qiniu.com/code/v6/api/kodo-api/rs/fetch.html) API 来处理。
 
