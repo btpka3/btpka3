@@ -24,7 +24,8 @@
 
 1. 用户只有将图片上传到七牛云服务器上之后，才知道是否重复上传了，可能会白白浪费带宽。
 1. 使用七牛云ETAG作为文件名的话，将绑定到七牛云上，不利于更换其他API，能自己指定文件名防止重复的话最好。
-1. [七牛云ETAG类库](https://github.com/qiniu/qetag)的JS版本，只能运行再Node环境下，无法运行在浏览器环境下。
+1. [七牛云ETAG类库](https://github.com/qiniu/qetag)的JS版本，只能运行再Node环境下，如果要其运行再浏览器环境下，需要使用[browserify](http://browserify.org/)，生成的JS文件在未压缩前有500K+, 即便使用 [uglify-js](https://www.npmjs.com/package/uglify-js) 压缩了，
+也仍然有 400K+。因此，并不太实用。
 
 
 搜索了一下，可用的相关JS类库有 [sjcl](https://github.com/bitwiseshiftleft/sjcl)、
