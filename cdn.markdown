@@ -24,4 +24,14 @@
 1. 使用七牛云ETAG作为文件名的话，将绑定到七牛云上，不利于更换其他API，能自己指定文件名防止重复的话最好。
 
 
+搜索了一下，可用的相关JS类库有 [sjcl](https://github.com/bitwiseshiftleft/sjcl)、
+[crypto-js](https://github.com/brix/crypto-js/tree/develop/src)、
+[SpartMd5](https://github.com/satazor/js-spark-md5)，但最推荐的当属 [Web Cryptography API](https://www.w3.org/TR/WebCryptoAPI/)，可以在MDN上看到详尽的[API ](https://developer.mozilla.org/en-US/docs/Web/API/Window/crypto)， 在[CanIUse网站上](http://caniuse.com/#feat=cryptography)可以看到，除了IE旧版本之外，其他的基本都支持了。
+
+但是 Web Cryptography API [不支持](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest) MD5的方式。
+
+
+
+# 微信内的APP不支持直接文件上传，因此，该如何对应CDN直传？
+
 
