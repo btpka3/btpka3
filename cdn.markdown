@@ -2,6 +2,8 @@
 
 # 七牛云
 
+## 直传
+
 目前(2016)公司项目图片资源所用的CDN为 [七牛云](http://www.qiniu.com/)。但是为了防止文件命名问题（包含重命名，文件重复上传），采用的方案是：
 
 1. 用户先上传图片到 自己的WebApp服务器
@@ -22,6 +24,7 @@
 
 1. 用户只有将图片上传到七牛云服务器上之后，才知道是否重复上传了，可能会白白浪费带宽。
 1. 使用七牛云ETAG作为文件名的话，将绑定到七牛云上，不利于更换其他API，能自己指定文件名防止重复的话最好。
+1. [七牛云ETAG类库](https://github.com/qiniu/qetag)的JS版本，只能运行再Node环境下，无法运行在浏览器环境下。
 
 
 搜索了一下，可用的相关JS类库有 [sjcl](https://github.com/bitwiseshiftleft/sjcl)、
@@ -32,6 +35,14 @@
 
 
 
-# 微信内的APP不支持直接文件上传，因此，该如何对应CDN直传？
+## 对应微信内的APP不支持直接文件上传，该如何对应CDN直传？
+
+七牛云支持[fetch](http://developer.qiniu.com/code/v6/api/kodo-api/rs/fetch.html) API 来处理。
+
+
+# 阿里云OSS
+
+[阿里云OSS](https://www.aliyun.com/product/oss) 配合其 CDN 服务，是已经在用的网站静态资源网站存储的方案。
+
 
 
