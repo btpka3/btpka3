@@ -46,5 +46,5 @@
 
 [阿里云OSS](https://www.aliyun.com/product/oss) 配合其 CDN 服务，是已经在用的网站静态资源网站存储的方案。
 
-
+支持通过URL进行图片处理。但是没有类似七牛云的fetch 的 API。
 
