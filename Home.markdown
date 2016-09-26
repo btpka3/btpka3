@@ -14,7 +14,7 @@
     
 
 * Web 后端
-    * [CDN](CDN)
+    * [CDN](cdn)
     * [docker](docker)
     * [cluster](Cluster)
     * Markdown
