@@ -1,3 +1,8 @@
+
+# Web Crypto API
+
+ERROR : WebCrypto is only supported over secure origins. See http://crbug.com/373032
+
 # 性能优化建议
 
 参考 [1](http://coenraets.org/keypoint/phonegap-performance/)
