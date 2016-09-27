@@ -3,7 +3,7 @@
 
 ## 参考
 * [参考1](http://blog.qqbrowser.cc/)
-* [参考2](https://mp.weixin.qq.com/wiki?t=resource/resmain&id=mp1455784140&token=&lang=zhCN)
+* 《[微信-公众平台：微信web开发者工具](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455784140&token=&lang=zh_CN)》
 * 《[微信调试工具问题反馈和建议收集贴](http://bbs.browser.qq.com/thread-205291-1-1.html)》
 
 smb://192.168.0.12/public/wechat_web_devtools_0.7.0_x64.exe
