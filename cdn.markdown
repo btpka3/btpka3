@@ -18,7 +18,7 @@
 
 缺点：时不时被反馈用户上传慢，因此在考虑使用浏览器端计算文件MD5值。
 
-七牛云的[直传API](http://developer.qiniu.com/code/v6/api/kodo-api/up/upload.html) 支持通过[魔法变量](http://developer.qiniu.com/article/kodo/kodo-developer/up/vars.html#magicvar)来自动使用七牛云ETAG [`$(etag)`](http://developer.qiniu.com/article/kodo/kodo-developer/appendix.html#qiniu-etag) 来设定文件名。 
+七牛云的[直传API](http://developer.qiniu.com/code/v6/api/kodo-api/up/upload.html) 支持通过[魔法变量](http://developer.qiniu.com/article/kodo/kodo-developer/up/vars.html#magicvar)来自动使用[七牛云ETAG `$(etag)`](http://developer.qiniu.com/article/kodo/kodo-developer/appendix.html#qiniu-etag) 来设定文件名。 
 
 虽然七牛云ETAG不是MD5值，也不是标准的SHA1算法，但也能起到防重复上传的作用。但是仍有一下问题：
 
