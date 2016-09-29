@@ -52,5 +52,4 @@ function myTask(intArr){
 1. 1分：参考文档是否权威（比如是否是百度的中文博文，还是MDN等文章、API，还是stackoverflow等上的问答 等）
 1. 1分：是否有自己的总结，总结是否深刻
 
-
-```
+ 
