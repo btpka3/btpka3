@@ -32,6 +32,7 @@
 
 ## ios vs Safari
 
+* [Safari version history](https://en.wikipedia.org/wiki/Safari_version_history)
 * [IOS vs. Safari 版本](http://www.somegeekintn.com/blog/stuff/iosvers/)
 * [IOS 版本](https://en.wikipedia.org/wiki/IOS_version_history)
 * [MacOSX 与 Safari 版本](https://en.wikipedia.org/wiki/Safari_version_history)
