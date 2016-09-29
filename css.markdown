@@ -152,6 +152,19 @@ DPI = 对角线的像素数 / 屏幕英寸数
 
 
 
+# safari 远程调试：
+
+1. safari @ mac os:
+
+    1. 菜单 "Safari" -> "Preferences" -> "Advanced" -> 选中最底部的 "Show Developer menu in menu bar"
+    1. 有必要的时候，退出并重启 Safari
+
+1. safari @ ios
+
+    1. ios : 设置 -> Safari -> 高级 -> 开启 "Web 检查器"
+    1. 使用 Safari 浏览网页
+
+1. safari @ mac os: -> Develop 菜单 -> xxx's iPad -> 选择要检查的网页。
 
 
 
