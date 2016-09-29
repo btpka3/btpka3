@@ -55,19 +55,23 @@ iPad 2 / 4.3.3    - Mobile Safari 5.02
 iPad 2 / 5.0      - Mobile Safari 5.1
 iPad 3 / 5.1      - Mobile Safari 5.1
 iPad 4 / 6.0      - Mobile Safari 6.0
+ 
+## 微信
 
-# 毛豆豆 iphone 5s 微信 （iOS 8.1）
 
-Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12B411 MicroMessenger/6.3.13 NetType/WIFI Language/zh_CN
+|Owner|device     |iOS    |soft    |UserAgent|
+|-----|-----------|-------|--------|---------|
+|小卉  |iphone 4s  |7.0.3  |微信    |Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_3 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B511 MicroMessenger/6.1 NetType/WIFI|
+|小卉  |iphone 4s  |7.0.3  |Safari |Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_3 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11B511 Safari/9537.53|
+|豆豆  |iphone 5s  |8.1   |微信    |Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12B411 MicroMessenger/6.3.13 NetType/WIFI Language/zh_CN|
+|豆豆 |iphone 5s   |8.1   |Safari |Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B411 Safari/600.1.4|
+|沐风  |ipone 6    |9.3.2 |微信    | Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13F69 MicroMessenger/6.3.22 NetType/WIFI Language/zh_CN|
+|沐风  |ipone 6    |9.3.2 |Safari  |Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1|
 
-# 毛豆豆 iphone 5s 系统自带 （iOS 8.1）
-Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B411 Safari/600.1.4
 
-# 沐风 iphone 6 微信 （iOS 9.3.2）
-Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13F69 MicroMessenger/6.3.22 NetType/WIFI Language/zh_CN
 
-# 沐风 iphone 6 系统自带（iOS 9.3.2）
-Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1
+
+ 
 ```
 
 ## 屏幕常见尺寸
