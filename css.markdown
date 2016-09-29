@@ -11,6 +11,7 @@
 * [resolution](http://ryanve.com/lab/resolution/)
 * 《[Height equals width with pure CSS](http://www.mademyday.de/css-height-equals-width-with-pure-css.html)》
 * https://csstriggers.com/
+* 《[在 iOS 模拟器中调试 Web 页面](http://www.open-open.com/news/view/16e47a2)》
 
 ## Web Components
 
