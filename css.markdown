@@ -56,6 +56,10 @@ iPad 2 / 5.0      - Mobile Safari 5.1
 iPad 3 / 5.1      - Mobile Safari 5.1
 iPad 4 / 6.0      - Mobile Safari 6.0
  
+ 
+```
+
+
 ## 微信
 
 
@@ -71,8 +75,6 @@ iPad 4 / 6.0      - Mobile Safari 6.0
 
 
 
- 
-```
 
 ## 屏幕常见尺寸
 
