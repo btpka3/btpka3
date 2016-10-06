@@ -47,9 +47,12 @@ docker --version
 docker-compose --version
 docker-machine --version
 
-docker run docker/whalesay cowsay hi~
-
+# 下载镜像
+docker pull elasticsearch:2.4.1
 docker images
+
+# 运行镜像
+docker run docker/whalesay cowsay hi~
 ```
 
 ## 创建自定义 image
