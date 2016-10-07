@@ -53,13 +53,16 @@ docker images
 
 # 运行镜像
 docker run docker/whalesay cowsay hi~
+
+docker-machine ls
+docker-machine ssh YOUR_VM_NAME
 ```
 
 ## 创建自定义 image
 
 ```
 # 1. 创建空目录，并创建Dockerfile
-# 2. 
+# 2. 构建
 docker build -t docker-whale .
 docker images
 docker run docker-whale
