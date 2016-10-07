@@ -67,3 +67,10 @@ docker build -t docker-whale .
 docker images
 docker run docker-whale
 ```
+
+## 示例：ElasticSearch
+
+```
+docker pull elasticsearch:2.4.1
+docker run elasticsearch:2.4.1
+```
