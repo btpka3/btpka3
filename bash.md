@@ -230,6 +230,13 @@ myFunc(){
 funcResult=$(myFunc zhang3)
 ```
 
+## xargs
+
+```sh
+# 批量重命名文件后缀
+ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
+```
+
 ## 压缩包
 ### zip
 ```sh

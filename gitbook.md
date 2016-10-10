@@ -23,12 +23,12 @@ gitbook build
 
 ```txt
 .
-├── book.json           // 配置文件
-├── README.md           // 前言、简介
-├── SUMMARY.md          // ToC 目录
-├── GLOSSARY.md         // 术语表
+├── book.json           // 可选: 配置文件
+├── README.md           // 必须: 前言、简介
+├── SUMMARY.md          // 必须: ToC 目录
+├── GLOSSARY.md         // 可选: 术语表
 ├── chapter-1/      
-|   ├── README.md
+|   ├── README.md       // 每个章节特定的说明文档
 |   └── something.md
 └── chapter-2/
     ├── README.md
