@@ -105,3 +105,33 @@ android
 # 学习
 
 * 《[Android状态栏微技巧，带你真正理解沉浸式模式](http://blog.csdn.net/guolin_blog/article/details/51763825)》
+
+```
+
+App Manifest
+
+https://developer.mozilla.org/en-US/Apps/Fundamentals
+
+
+Chrome Apps
+developer.chrome.com/apps
+
+Web Worker
+Service Worker
+Web Sockert
+
+Activity
+    onCreate()
+    onStart()
+    onResume()
+    onStop()
+    onDestroy()
+
+    
+    Activity栈 后进先出LIFO
+Service
+Broadcast Receiver
+    正常广播
+    有序广播
+Content Provider
+```

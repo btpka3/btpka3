@@ -186,3 +186,119 @@ public class ApplicationContextHolder implements ApplicationContextAware {
 }
 ```
 
+## 通过注解进行配置
+
+
+---------------------------------------------------------------------- spring
+
+FIXME : 使用注解定义bean的时候，如果override 一个同名的bean的定义？
+@Inject
+
+
+
+@PropertySource        从配置文件加载配置项，可以通过Environment#getProperty() 获取属性，或者通过 @Value("${propName}") 依赖注入。
+                    如果有多个被@PropertySource    注解的配置，则key同名的配置项，将取最后一个被@PropertySource    注解的值。
+
+
+
+@ComponentScan         默认，Spring仅仅扫描 @Component, @Controller, @Repository, @Service
+ 
+==================================javax.annotation
+@Resource
+@PostConstruct
+
+==================================org.springframework.stereotype
+@Component         一个通用的，没有特定意义的组件注解。
+@Controller     @Component下的一个特定的注解，主要用来在Spring MVC中注册 Controller
+@Repository     @Component下的一个特定的注解，主要是DDD（Domain-Driven Design）中用来封装存储动作——即数据持久化
+@Service        @Component下的一个特定的注解，主要是DDD（Domain-Driven Design）中用来封装业务操作（无状态）
+                   注意：如果该注解包含参数（bean的建议名称），且当前容器中已经有同名bean，将不会创建。
+                   因此，如果需要明确覆盖的话，请使用 @Configuration + @Bean
+
+
+==================================org.springframework.beans.factory.annotation
+@Autowired
+@Configurable
+@Qualifier
+@Required
+@Value
+
+
+
+==================================org.springframework.<context class="annotation"></context>
+@Configuration        @Component下的一个特定的注解，说明该类会包含多个被@Bean注解的方法。
+
+
+@Bean 说明一个方法返回一个bean, 只有在 @Configuration 下才起作用。
+@Scope 
+@Primary
+@Lazy
+
+
+```
+
+@Configuration
+@PropertySource("classpath:/com/myco/app.properties")
+public class AppConfig {
+
+    @Autowired
+    Environment env;
+
+    @Value("${xxx.prop:'defaultValue'}")
+    String xxxProp
+
+
+    @Bean(name={"b1","b2"})
+    @Scope("prototype")
+    public MyBean myBean() {
+        println env.getProperty("xxx.prop")
+         return obj;
+    }
+
+    // FIXME : 只有该类所有的 @Autowired 解决完毕之后，才会调用相应的 @Bean方法？
+    @Autowired(required = false)
+    @Qualifier("springSessionDefaultRedisSerializer")
+    public void setDefaultRedisSerializer(RedisSerializer<Object> defaultRedisSerializer) {
+        this.defaultRedisSerializer = defaultRedisSerializer;
+    }
+}
+```
+
+==================================7788
+@WebServlet(urlPatterns = "/AsyncLongRunningServlet", asyncSupported = true)  
+public class AsyncLongRunningServlet extends HttpServlet {  
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+        throws ServletException, IOException { 
+                    
+    }
+}
+ServletRequest#getAsyncContext().
+
+startAsync()
+
+servlet dispatcherType
+
+
+==================================Servlet 注解配置： javax.servlet.annotation
+@HandlesTypes            该注解用以定义一组要传递到 ServletContainerInitializer(SCI) 中类的数组
+@HttpConstraint         安全限定：是否允许未登录访问，是否需要https，是否需要特定权限
+@HttpMethodConstraint   安全限定：同上
+@MultipartConfig        为servlet设定文件上传时的相关限定：文件临时存储路径，大小限制等
+@ServletSecurity        组合使用 @HttpConstraint、 @HttpMethodConstraint 为Servlet进行安全限定，配合 @WebServlet
+                        但是，由于主流框架通常由单个Servlet代理了所有的请求，故此方式多不实用。
+@WebFilter              注册一个filter。 FIXME：但是无法指定顺序
+@WebInitParam           配合 @WebFilter，@WebServlet    使用
+@WebListener            注册一个listener
+@WebServlet                注册一个servlet
+
+FIXME： 如何禁用上述注解扫描？修改web.xml
+
+```
+<web-app metadata-complete="true">
+    <absolute-ordering/>
+</web-app>
+```
+
+《[How do I make Tomcat startup faster?](https://wiki.apache.org/tomcat/HowTo/FasterStartUp)》
+
+??? Web fragments
