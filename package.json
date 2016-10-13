@@ -1,0 +1,31 @@
+{
+  "name": "btpka3.github.com.wiki",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "gitbook-plugin-mathjax-full": "^0.6.2"
+  },
+  "devDependencies": {
+    "chalk": "^1.1.3",
+    "gulp": "^3.9.1",
+    "gulp-util": "^3.0.7",
+    "map-stream": "0.0.6",
+    "run-sequence": "^1.2.2",
+    "vinyl": "^2.0.0",
+    "vinyl-fs": "^2.4.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/btpka3/btpka3.github.com.wiki.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/btpka3/btpka3.github.com.wiki/issues"
+  },
+  "homepage": "https://github.com/btpka3/btpka3.github.com.wiki#readme"
+}
