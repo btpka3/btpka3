@@ -27,7 +27,7 @@
         access_log  logs/ddns.kingsilk.xyz.access.log;
         error_log   logs/ddns.kingsilk.xyz.error.log;
 
-        location / { 
+        location ~ /qh/mall/local/ { 
             set $p 9999;
             if ($host ~ "p(\d*)\.ddns\.kingsilk\.xyz" ) {
                 set $p $1; 
@@ -37,7 +37,7 @@
             proxy_set_header        X-Real-IP       $remote_addr;
             proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header        X-Forwarded-Proto $scheme;
-        }   
+        }
     }
     ```
  

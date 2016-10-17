@@ -4,6 +4,23 @@
 2016 在 杭州钱皇, 公司在给配置(租赁)了一个顶配的苹果笔记本电脑给用,这是第一次正式使用苹果的设备。
 下面就记录一下总结。
 
+
+## 参考
+
+* [苹果推送证书的设置](https://code.csdn.net/micrqwe/document/file/iphoneAPN.md)
+* [ Why does chown report “Operation not permitted” on OS X?](http://superuser.com/questions/279235/why-does-chown-report-operation-not-permitted-on-os-x)
+* [copying file under root got failed in OS X El Capitan 10.11](http://stackoverflow.com/questions/32590053/copying-file-under-root-got-failed-in-os-x-el-capitan-10-11)
+* [Microsoft Office 2016 for Mac with VL License Utility V2.0](https://www.firewolf.science/2015/09/microsoft-office-2016-for-mac-15-25-0-with-vl-license-utility/)
+* [Microsoft Office 2016 for Mac Downloads](http://macadmins.software/)
+* [360安全卫士for Mac](http://www.360.cn/mac/)
+
+* [insanelymac.com](http://www.insanelymac.com/forum/files/)
+* [osx86project](http://wiki.osx86project.org/wiki/index.php/Main_Page)
+* [hackintosh.com](http://www.hackintosh.com/)
+* [VMware 11安装Mac OS X 10.10](http://jingyan.baidu.com/article/ff411625b9011212e48237b4.html)
+* [bootdiskutility.exe](http://cvad-mac.narod.ru/index/bootdiskutility_exe/0-5)
+* [clover](https://clover-wiki.zetam.org/zh-CN/What-is-what)
+
 ## brew
 苹果电脑并没有类似 Ubuntu 的 apt-get 或 CentOS 的 yum 命令, 但第三方提供了类似的工具 [brew](http://brew.sh/)
 
@@ -220,12 +237,6 @@ launchctl stop         net.xxx.yyy.plist
 launchctl list
 ```
 
-
-《Why does chown report “Operation not permitted” on OS X?》
-http://superuser.com/questions/279235/why-does-chown-report-operation-not-permitted-on-os-x
-
-《copying file under root got failed in OS X El Capitan 10.11》
-http://stackoverflow.com/questions/32590053/copying-file-under-root-got-failed-in-os-x-el-capitan-10-11
 
 ## 共享文件夹
 
