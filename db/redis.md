@@ -2,6 +2,48 @@
 
 * [Running Redis in production ](http://shokunin.co/blog/2014/11/11/operational_redis.html)
 
+# docker
+
+```
+ 
+docker pull redis:3.2.4
+
+docker stop my-redis
+docker rm my-redis
+docker run -itd \
+        --name my-redis \
+        -p 6379:6379 \
+        -v /Users/zll/tmp/my-redis/data/:/data \
+        redis:3.2.4
+
+docker start my-redis
+
+docker exec -it my-redis bash
+
+```
+
+
+# Cluster and Sentinel
+
+每个 Redis 集群节点都要提供两个端口:
+
+* 6379: 数据端口
+* 16379: 集群端口,是数据端口号加上固定值 1000
+
+
+Redis Cluster的作用: 将超过单机存储限制的数据分片存储在多台主机上。
+Redis Sentinel的作用: 使用一主多从模式保证高可用性。
+
+设计
+
+|Host| Cluster Node, Sentinel Master Node| cluster slots | Sentinel slave node  |
+|----|-----------------------------------|---------------|----------------------|
+| 1  | A                                 |    0 -  999   | B1                   |
+| 2  | B                                 | 1000 - 1999   | C1                   |
+| 3  | C                                 | 2000 - 2999   | A1                   |
+
+假如 host2 宕机了, 则由 A@host1, B1@host1, C@host3 共通构成一个完整的集群。
+
 # 安装
 
 1. 创建系统用户redis，及所需的目录

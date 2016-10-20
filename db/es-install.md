@@ -1,4 +1,26 @@
+# docker 
 
+```
+# docker cp my-es:/usr/share/elasticsearch/config /Users/zll/tmp/es-conf
+docker stop my-es
+docker rm my-es
+docker run -itd \
+        --name my-es \
+        -p 9200:9200 \
+        -p 9300:9300 \
+        -v "/Users/zll/tmp/es-conf":/usr/share/elasticsearch/config \
+        -v /Users/zll/tmp/es-data:/usr/share/elasticsearch/data \
+        elasticsearch:2.4.1
+docker start my-es
+
+docker exec -it my-es bash
+
+vi /Users/zll/tmp/es-conf/elasticsearch.yml 
+cluster.name: "my-es"
+node.name: "local"
+index.number_of_shards: 1
+index.number_of_replicas: 0
+```
 
 # yum 安装
 

@@ -2,6 +2,12 @@
 
 # CURL 示例 
 
+## 查看集群状态
+
+```
+curl -XGET 'http://localhost:9200/_cluster/state'
+```
+
 ## 删除索引
 
 如果有的话，先删除索引。
@@ -27,34 +33,33 @@ curl -XPUT   "http://localhost:9200/lizi?pretty"
 
 ```
 curl -XPUT "http://localhost:9200/lizi/_mapping/item?pretty" -d '{
-    "item" : {
-        "properties":{
-            "_all" : {
-                "type":"string",
-                "index": "analyzed",
-                "analyzer": "standard"
-            },
-            "title" : {
-                "type":"string",
-                "index": "analyzed",
-                "analyzer": "standard"
-            },
-            "origin" : {
-                "type":"string",
-                "index": "analyzed",
-                "analyzer": "standard"
-            },
-            "description" : {
-                "type":"string",
-                "index": "analyzed",
-                "analyzer": "standard"
-            },
-            "sales_count" : {
-                "type":"long"
-            },
-            "price" : {
-                "type":"long"
-            }
+    "_all" : {
+        "type":"string",
+        "index": "analyzed",
+        "analyzer": "standard"
+    },
+    "properties":{
+        
+        "title" : {
+            "type":"string",
+            "index": "analyzed",
+            "analyzer": "standard"
+        },
+        "origin" : {
+            "type":"string",
+            "index": "analyzed",
+            "analyzer": "standard"
+        },
+        "description" : {
+            "type":"string",
+            "index": "analyzed",
+            "analyzer": "standard"
+        },
+        "sales_count" : {
+            "type":"long"
+        },
+        "price" : {
+            "type":"long"
         }
     }
 }'

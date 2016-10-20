@@ -133,6 +133,15 @@ none  /mnt/ramdisk    ramfs   defaults,gid=1000,uid=1000      0   0
 * 关闭不需要的 label declaration（SVN/GIT）
 
 
+## 常用快捷键
+
+|key|desp|
+|----|---|
+|<kbd>Ctrl+Shift+T</kbd>|Open Type|
+|<kbd>Ctrl+Shift+R</kbd>|Open Resource|
+|<kbd>Ctrl+Shift+R</kbd>|Open Resource|
+
+
 ##常见问题
 ###Win7下eclipse3.7中文字体过小
 原因：由于Eclipse 3.7 用的字体是 Consolas，显示中文的时候默认太小了。

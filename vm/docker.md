@@ -32,7 +32,7 @@ docker run <image> <command>            # 使用image创建container并执行相
 #   映射文件系统路径。默认为读写权限,可以后加 ":ro" 设置为只读。
 docker run -i -t \
         --name yourNewContainerName \
-        -e MY_ENV_VAR=XXX \
+        -e "MY_ENV_VAR=XXX" \
         -h yourNewHostName \
         -p <host_port:contain_port> \
         -v /host/path:/container/path:ro \
@@ -154,7 +154,13 @@ docker run docker-whale
 
 ```
 docker pull elasticsearch:2.4.1
-docker run elasticsearch:2.4.1
+
+docker run -itd \
+        --name my-es \
+        -p 9200:9200 \
+        -p 9300:9300 \
+        -v /Users/zll/tmp/es-data:/usr/share/elasticsearch/data \
+        elasticsearch:2.4.1
 ```
 
 

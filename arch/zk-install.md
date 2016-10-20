@@ -1,3 +1,32 @@
+
+# docker
+
+
+```
+# docker cp my-es:/usr/share/elasticsearch/config /Users/zll/tmp/es-conf
+docker stop my-zk
+docker rm my-zk
+docker run -d \
+        --name my-zk \
+        --restart always \
+        -p 2181:2181 \
+        -p 2888:2888 \
+        -p 3888:3888 \
+        -v /Users/zll/tmp/my-zk/zoo.cfg:/conf/zoo.cfg \
+        -v /Users/zll/tmp/es-data:/usr/share/elasticsearch/data \
+        elasticsearch:2.4.1
+docker start my-es
+
+docker exec -it my-es bash
+
+vi /Users/zll/tmp/es-conf/elasticsearch.yml 
+cluster.name: "my-es"
+node.name: "local"
+index.number_of_shards: 1
+index.number_of_replicas: 0
+```
+
+
 # 安装
 
 1. 创建系统用户zookeeper，及所需的目录
