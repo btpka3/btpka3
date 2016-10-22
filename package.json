@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "gitbook-plugin-mathjax-full": "^0.6.2"
+    "gitbook-plugin-mathjax-full": "^0.6.2",
+    "shelljs": "^0.7.4"
   },
   "devDependencies": {
     "chalk": "^1.1.3",

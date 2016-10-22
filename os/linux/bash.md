@@ -6,6 +6,46 @@ grep -v "xxx\|yyy"
 ```
 
 
+## free
+
+
+《[linux内存监控](http://www.cnblogs.com/xuxinkun/p/5541894.html)》
+Mac OSX 上没有 free 命令,类似的可以使用 vm_stat 命令。
+
+```
+[root@localhost ~]$ free 
+             total       used       free        shared    buffers   cached
+Mem:     total_mem   used_mem    free_mem   shared_mem    buffer     cache
+-/+ buffers/cache:  real_used   real_free
+Swap:   total_swap  used_swap   free_swap
+```
+
+* mem: 物理内存
+* swap: 虚拟内存。即可以把数据存放在硬盘上的数据
+* shared: 共享内存。存在在物理内存中。
+* buffers: 用于存放要输出到disk（块设备）的数据的
+* cached: 存放从disk上读出的数据
+
+|名称       |说明 |
+|-----------|-----------------|
+|total_mem  |物理内存总量|
+|used_mem   |已使用的物理内存量|
+|free_mem   |空闲的物理内存量|
+|shared_mem |共享内存量|
+|buffer     |buffer所占内存量|
+|cache      |cache所占内存量|
+|real_used  |实际使用的内存量|
+|real_free  |实际空闲的内存量|
+|total_swap |swap总量|
+|used_swap  |已使用的swap|
+|free_swap  |空闲的swap|
+
+```
+real_used = used_mem - buffer - cache
+real_free = free_mem + buffer + cache
+total_mem = used_mem + free_mem
+```
+
 ## dd
 
 

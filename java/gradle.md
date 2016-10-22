@@ -44,6 +44,14 @@ task execute(type:JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
 }
 ```
+
+## init plugin
+
+```
+gradle init --type groovy-library
+gradle wrapper --gradle-version 3.1
+```
+
 ## init script
 maven可以通过 settings.xml 进行全局配置，比如本地仓库的位置，mirror等。
 那Gradle如何进行类似设置？——可以使用 [init script](https://docs.gradle.org/current/userguide/init_scripts.html)
@@ -62,3 +70,29 @@ allprojects {
 
 ```
 
+# io.spring.gradle:dependency-management-plugin
+
+
+https://spring.io/blog/2015/02/23/better-dependency-management-for-gradle
+
+```
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath "io.spring.gradle:dependency-management-plugin:0.5.1.RELEASE"
+  }
+}
+
+apply plugin: "io.spring.dependency-management"
+
+dependencyManagement {
+  imports {
+    mavenBom 'io.spring.platform:platform-bom:1.1.1.RELEASE'
+  }
+}
+dependencies {
+    compile 'org.springframework:spring-core'
+}
+```

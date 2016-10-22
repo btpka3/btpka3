@@ -2,7 +2,13 @@
 《[Docker 入门实战](http://yuedu.baidu.com/ebook/d817967416fc700abb68fca1?fr=aladdin&key=docker&f=read###)》
 
 MacOS上，image的存储位置在 `~/Library/Containers/com.docker.docker/Data/`
+《[阿里云开发者平台](https://dev.aliyun.com/search.html)》
 
+daocloud.io
+
+```
+docker pull registry.mirrors.aliyuncs.com/library/java
+```
 
 ## 常用命令
 
@@ -45,6 +51,7 @@ docker run -i -t \
         /bin/bash
 
 # ----------------------- container
+docker create <image>
 docker start/stop/restart/kill <container>   
                                         # 开启/停止/重启/Kill container
 docker start -i <container>             # 启动一个container并进入交互模式
@@ -53,7 +60,10 @@ docker attach <container>               # attach一个运行中的container,
                                         # 只能看到正在运行的程序的输出,如果有输入的话,可以交互
 docker exec -it <container> bash        # 在一个container 中执行一个命令, 常常用来bash操作
 
+
+# ----------------------- 运行状态
 docker ps                               # 默认显示正在运行中的container
+docker stats                            # 对容器内存进行监控
 docker ps -l                            # 显示最后一次创建的container，包括未运行的
 docker ps -a                            # 显示所有的container，包括未运行的
 docker logs <container>                 # 查看container的日志，也就是执行命令的一些输出
@@ -306,8 +316,74 @@ exit
 
 * 想在 Mac OS和 Windows OS上使用docker。这是在上述操作系统上使用 docker engine 的唯一途径。
 * 想管理其他主机上运行的docker服务。
+* 《[Docker集群管理之Docker Machine](http://www.csdn.net/article/2015-08-11/2825438)》
+
+```
+
+docker-machine ls                   # 列出所创建的 machine
+                                    # 新建一个 machine
+docker-machine create \
+        --driver virtualbox \
+        default 
+        
+docker-machine env default          # 使用指定 machine 做为当前环境
+docker run busybox echo hello world # 测试当前环境
+docker-machine ip default           # 查看指定 machine 的ip
+
+docker-machine stop default         # 启动 machine
+docker-machine start default        # 停止 machine
+docker-machine restart default      # 重启 machine
+docker-machine ssh
+docker-machine config
+
+```
+
 
 
 ## Docker Swarm
 
+用以管理Docker集群.
+推荐以镜像的方式运行。
+
+```
+ 
+docker swarm init
+ 
+ 
+docker swarm join
+docker swarm join-token
+docker swarm update
+docker swarm leave
+
+
+```
+
 ## Docker Compose
+
+适用于:
+
+* 开发环境
+* 自动测试环境
+* 单主机上的部署
+
+
+docker-compose.yml
+
+```yml
+version: '2'
+services:
+    web:
+        build: .
+        ports:
+            - "5000:5000"
+        volumes:
+            - .:/code
+        depends_on:
+            - redis
+    redis:
+        image: redis
+```
+
+参考
+
+* 《[Docker集群管理之Docker Compose](http://www.csdn.net/article/1970-01-01/2825554)》

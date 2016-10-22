@@ -3,7 +3,15 @@
 
 
 ```
-# docker cp my-es:/usr/share/elasticsearch/config /Users/zll/tmp/es-conf
+# 镜像内相关目录
+/zookeeper-3.4.9/
+/conf/
+/data/
+/datalog/
+
+# docker cp my-zk:/conf/ 
+
+docker pull zookeeper:3.4.9
 docker stop my-zk
 docker rm my-zk
 docker run -d \
@@ -12,18 +20,21 @@ docker run -d \
         -p 2181:2181 \
         -p 2888:2888 \
         -p 3888:3888 \
-        -v /Users/zll/tmp/my-zk/zoo.cfg:/conf/zoo.cfg \
-        -v /Users/zll/tmp/es-data:/usr/share/elasticsearch/data \
-        elasticsearch:2.4.1
-docker start my-es
+        -v /Users/zll/tmp/my-zk/conf/zoo.cfg:/conf/zoo.cfg \
+        -v /Users/zll/tmp/my-zk/data/:/data \
+        -v /Users/zll/tmp/my-zk/datalog/:/datalog \
+        zookeeper:3.4.9
+docker start my-zk
 
-docker exec -it my-es bash
+docker exec -it my-zk bash
 
-vi /Users/zll/tmp/es-conf/elasticsearch.yml 
-cluster.name: "my-es"
-node.name: "local"
-index.number_of_shards: 1
-index.number_of_replicas: 0
+vi /Users/zll/tmp/my-zk/conf/zoo.cfg
+clientPort=2181
+dataDir=/data
+dataLogDir=/datalog
+tickTime=2000
+initLimit=5
+syncLimit=2
 ```
 
 
