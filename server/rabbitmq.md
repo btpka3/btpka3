@@ -1,3 +1,74 @@
+# Docker 安装
+
+
+## 创建自定义镜像
+
+构建本地镜像
+
+
+```
+mkdir /tmp/aaa
+cd /tmp/aaa
+touch Dockerfile  # 文件内容见后面
+docker build -t btpka3/my-mq:1.0 .
+docker images
+```
+
+Dockerfile 文件内容
+
+```
+FROM rabbitmq
+
+RUN rabbitmq-plugins enable --offline rabbitmq_management
+EXPOSE 15671 15672
+
+RUN rabbitmq-plugins enable --offline rabbitmq_mqtt
+EXPOSE 1883 8883
+
+RUN echo =====RABBITMQ_VERSION: ${RABBITMQ_VERSION}
+ADD https://dl.bintray.com/rabbitmq/community-plugins/rabbitmq_web_mqtt-3.6.x-14dae543.ez \
+    /usr/lib/rabbitmq/lib/rabbitmq_server-$RABBITMQ_VERSION/plugins/
+RUN chmod go+r /usr/lib/rabbitmq/lib/rabbitmq_server-$RABBITMQ_VERSION/plugins/rabbitmq_web_mqtt-3.6.x-14dae543.ez
+EXPOSE 15675
+
+RUN rabbitmq-plugins enable --offline rabbitmq_web_mqtt
+```
+
+
+
+
+
+```
+docker run -d \
+    --name mq \
+    -p 4369:4369 \
+    -p 5671:5671 \
+    -p 5672:5672 \
+    -p 25672:25672 \
+    -p 15671:15671 \
+    -p 15672:15672 \
+    -p 1883:1883 \
+    -p 8883:8883 \
+    -p 15675:15675 \
+    btpka3/my-mq:1.0
+
+docker exec -it mq bash
+# 启用 MQTT 插件
+rabbitmq-plugins enable rabbitmq_mqtt
+
+# 显示默认配置
+cat /etc/rabbitmq/rabbitmq.config
+cat /etc/rabbitmq/enabled_plugins
+
+
+# 通过浏览器访问
+# http://localhost:15672
+
+
+
+```
+
+
 ## RabbitMQ常用命令
 
 ```sh
