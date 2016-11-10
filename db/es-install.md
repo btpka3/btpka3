@@ -8,8 +8,8 @@ docker run -itd \
         --name my-es \
         -p 9200:9200 \
         -p 9300:9300 \
-        -v "/Users/zll/tmp/es-conf":/usr/share/elasticsearch/config \
-        -v /Users/zll/tmp/es-data:/usr/share/elasticsearch/data \
+        -v "/Users/zll/tmp/es-conf/":/usr/share/elasticsearch/config/ \
+        -v /Users/zll/tmp/es-data/:/usr/share/elasticsearch/data/:rw \
         elasticsearch:2.4.1
 docker start my-es
 

@@ -38,15 +38,19 @@ sudo /usr/libexec/locate.updatedb
 ## 常用快捷键
  
 ```
-Home 键        Command + <-
-End  键         Command + ->
+Command + <-                    : Home 键          
+Command + ->                    : End  键          
+Command + tab                   : 在不同应用之间循环切换窗口
+Command + `                     : 在同一个应用之间循环切换窗口
+
+Command + Control + F           : 全屏显示当前窗口
 
 # 显示桌面
-Command + F3    部分第三方软件下不行
-Fn + F11          部分第三方软件下不行
-Command + Shift + 3          全屏截图
-Command + Shift + 4          选定区域截图
-Command + Shift + 4, Space  对特定窗体进行截图
+Command + F3                    : 部分第三方软件下不行
+Fn + F11                        : 部分第三方软件下不行
+Command + Shift + 3             : 全屏截图
+Command + Shift + 4             : 选定区域截图
+Command + Shift + 4, Space      : 对特定窗体进行截图
 ```
 
 ## Finder

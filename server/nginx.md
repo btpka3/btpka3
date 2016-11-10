@@ -1,3 +1,29 @@
+# docker 安装
+
+```
+mkdkir -p ~/tmp/my-nginx/conf/conf.d
+
+
+docker pull nginx:1.10.2
+docker run -d --name my-nginx nginx:1.10.2
+docker cp my-nginx:/etc/nginx/nginx.conf ~/tmp/my-nginx/conf/nginx.conf
+docker cp my-nginx:/etc/nginx/conf.d ~/tmp/my-nginx/conf/
+docker stop my-nginx
+docker rm my-nginx 
+
+docker run \
+    --name my-nginx \
+    -d \
+    -p 80:80 \
+    -p 443:443 \
+    -v ~/tmp/my-nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
+    -v ~/tmp/my-nginx/conf/conf.d:/etc/nginx/conf.d:ro \
+    nginx:1.10.2
+
+docker exec -it my-nginx bash
+```
+
+
 pam : see [here](http://www.doublecloud.org/2014/01/nginx-with-pam-authentication/)
 
 # 参考

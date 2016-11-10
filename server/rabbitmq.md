@@ -36,9 +36,14 @@ RUN rabbitmq-plugins enable --offline rabbitmq_web_mqtt
 
 
 
-
+/var/lib/rabbitmq
 
 ```
+mkdir -p ~/tmp/mq/conf/
+mkdir -p ~/tmp/mq/data/
+echo '[ { rabbit, [ { loopback_users, [ ] } ] } ].' > ~/tmp/mq/conf/rabbitmq.config
+touch ~/tmp/mq/conf/rabbitmq-env.conf
+
 docker run -d \
     --name mq \
     -p 4369:4369 \
@@ -50,6 +55,9 @@ docker run -d \
     -p 1883:1883 \
     -p 8883:8883 \
     -p 15675:15675 \
+    -v /Users/zll/tmp/mq/data/:/var/lib/rabbitmq/:rw \
+    -v /Users/zll/tmp/mq/conf/rabbitmq.config:/etc/rabbitmq/rabbitmq.config \
+    -v /Users/zll/tmp/mq/conf/rabbitmq-env.conf:/etc/rabbitmq/rabbitmq-env.conf \
     btpka3/my-mq:1.0
 
 docker exec -it mq bash
@@ -66,6 +74,43 @@ cat /etc/rabbitmq/enabled_plugins
 
 
 
+```
+
+## TLS
+
+```
+[
+    {ssl,           [
+        {versions,              ['tlsv1.2', 'tlsv1.1']}
+    ]},
+    {rabbit,        [
+        {loopback_users,        []},  
+        {ssl_listeners,         [5671]},
+        {ssl_options,           [
+            {cacertfile,            "/var/lib/rabbitmq/myca.pem.cer"},
+            {certfile,              "/var/lib/rabbitmq/server.pem.cer"},
+            {keyfile,               "/var/lib/rabbitmq/server.pem.key"},
+            {versions,              ['tlsv1.2', 'tlsv1.1']},
+            {verify,                verify_peer},
+            {fail_if_no_peer_cert,  false}
+        ]}
+    ]},
+    {rabbitmq_mqtt, [
+        {default_user,          "guest"},
+        {default_pass,          "guest"},
+        {allow_anonymous,       false},
+        {vhost,                 "/"},
+        {exchange,              "amq.topic"},
+        {subscription_ttl,      1800000},
+        {prefetch,              10},
+        {ssl_listeners,         [8883]},
+        {tcp_listeners,         [1883]},
+        {tcp_listen_options,    [
+            {backlog,               128},
+            {nodelay,               true}
+        ]}
+    ]}
+].
 ```
 
 

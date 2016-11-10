@@ -9,3 +9,10 @@ curl --verbose -X POST --header "Cookie: JSESSIONID=136zm5iif8o2e8tcelqk9nd6e"  
 ```
 curl -s -D - www.baidu.com -o /dev/null
 ```
+
+# 使用socks代理
+
+```
+ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort     
+curl --socks5 localhost:9999 https://www.baidu.com/
+```

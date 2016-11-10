@@ -5,6 +5,7 @@
 ZooKeeper是一种类似于目录树结构的共享层级命名空间提供该功能的。但不同于目录树的是：每个节点都可以存放数据和创建子节点。
 ZooKeeper通常以集群的方式对外提供服务，集群节点间通过选举出Leader，并经Leader完成所有节点间的数据同步。
 
+《[服务发现：Zookeeper vs etcd vs Consul](http://blog.csdn.net/zdy0_2004/article/details/48463805)》
 
 # 简单尝试
 

@@ -9,6 +9,16 @@ daocloud.io
 ```
 docker pull registry.mirrors.aliyuncs.com/library/java
 ```
+ 
+
+《[docker使用阿里云Docker镜像库加速](http://blog.csdn.net/bwlab/article/details/50542261)》
+
+# Docker Toolbox
+
+Docker Toolbox 主要用于为老旧的Mac, Windows系统提供支持,并使其能运行docker。
+但有了 "Docker for Mac" 之后,就不需要 Docker Toolbox 了。
+
+
 
 ## 常用命令
 
@@ -84,8 +94,10 @@ docker port <container> <container port>    # 查看本地哪个端口映射到c
 
 
 
-# ----------------------- running
-
+# ----------------------- network
+# 默认有 host和birdge 网络驱动, 
+docker network ls
+docker network inspect bridge
 ```
 
 ## Mac
@@ -126,10 +138,15 @@ docker network inspect bridge
 ```
 
 
+
 ## volume container
 
 ```
 docker run -v /data --name my-data busybox true
+
+docker volume ls            # 查看已有的数据卷
+
+# FIXME 如何创建? 如何挂载?
 ```
 
 ## 安装
@@ -152,13 +169,25 @@ docker-machine ssh YOUR_VM_NAME
 
 ## 创建自定义 image
 
+参考 [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
+
 ```
 # 1. 创建空目录，并创建Dockerfile
+mkdir test
+cd test
+touch Dockerfile
+touch .dockerignore
+
 # 2. 构建
-docker build -t docker-whale .
+docker build -t btpka3/my-img:1.0 .
+
+# 3. 检查本地的images
 docker images
-docker run docker-whale
+
+# 4. 运行
+docker run -d btpka3/my-img:1.0
 ```
+
 
 ## 示例：ElasticSearch
 
@@ -312,6 +341,16 @@ exit
 
 ## docker-machine
 
+
+### 如何设置共享目录?
+
+* 命令行: 需要VM已经停止。 
+
+    ```
+    VBoxManage sharedfolder add <machine name/id> --name <mount_name> \
+        --hostpath <host_dir> --automount
+    ```
+* GUI: 通过 VirtualBox GUI程序设置共享目录。 Mac 下已经默认共享了 `/Users` 目录。
 ### 为何要用 docker-machine
 
 * 想在 Mac OS和 Windows OS上使用docker。这是在上述操作系统上使用 docker engine 的唯一途径。
@@ -319,37 +358,104 @@ exit
 * 《[Docker集群管理之Docker Machine](http://www.csdn.net/article/2015-08-11/2825438)》
 
 ```
-
-docker-machine ls                   # 列出所创建的 machine
+docker-machine create --driver virtualbox default 
                                     # 新建一个 machine
-docker-machine create \
-        --driver virtualbox \
-        default 
-        
-docker-machine env default          # 使用指定 machine 做为当前环境
+
+# 上述命令会下载 boot2docker.iso 并存放在 
+# ??? : ~/.boot2docker/
+# ??? : ~/.docker/machine/cache/boot2docker.iso
+
+docker-machine rm default           # 删除一个 machine
+ 
+docker-machine env default          # 打印要使用指定 machine 做为当前环境所需的命令
+eval $(docker-machine env node1)    # 使用指定 machine 做为当前环境
+docker-machine ls                   # 列出所创建的 machine, 加星号的是当前使用的环境
+docker-machine active               # 列出当前使用的是那一个 machine
+
+sudo vi ~/Library/LaunchAgents/com.docker.machine.default.plist  # 设置开启启动
+
+
 docker run busybox echo hello world # 测试当前环境
 docker-machine ip default           # 查看指定 machine 的ip
 
 docker-machine stop default         # 启动 machine
 docker-machine start default        # 停止 machine
 docker-machine restart default      # 重启 machine
-docker-machine ssh
+docker-machine ssh default          # ssh 到远程主机上
+
+# ssh 到远程主机上并设置加速器
+docker-machine ssh default \
+    "echo 'EXTRA_ARGS=\"--registry-mirror=https://pee6w651.mirror.aliyuncs.com\"' | sudo tee -a /var/lib/boot2docker/profile"
 docker-machine config
-
 ```
-
 
 
 ## Docker Swarm
 
-用以管理Docker集群.
-推荐以镜像的方式运行。
+用以管理Docker集群. 将一群docker节点当做一个来操作。
+
+
+ 
 
 ```
+# 使用阿里云的 docker 加速
  
+docker-machine create -d virtualbox local       # 创建节点 local        
+eval "$(docker-machine env local)"              # 使用节点 local
+docker run swarm create                         # 在 local 节点上运行 swarm, 并创建集群。
+                                                # 最后会打印集群 token : feb57580075676ccd7d17d0c5452e6be
+
+docker-machine create \
+        -d virtualbox \
+        --swarm \
+        --swarm-master \
+        --swarm-discovery token://feb57580075676ccd7d17d0c5452e6be \
+        swarm-master
+
+docker-machine create \
+        -d virtualbox \
+###        --engine-opt "--registry-mirror=https://pee6w651.mirror.aliyuncs.com" \
+        --swarm \
+        --swarm-discovery token://feb57580075676ccd7d17d0c5452e6be \
+        swarm-agent-00
+
 docker swarm init
  
  
+---
+在host主机中(MacOS)里有 :
+vboxnet0 : 192.168.99.1/24
+
+
+docker-machine create -d virtualbox consul0         # 192.168.99.200
+docker-machine create -d virtualbox manager0        # 192.168.99.210
+docker-machine create -d virtualbox manager1        # 192.168.99.211
+docker-machine create -d virtualbox node0           # 192.168.99.220
+docker-machine create -d virtualbox node1           # 192.168.99.221
+
+# 为了方便, 一次ssh到vm上, 按照上述明确指明IP地址 (默认登录的用户是 docker, 而非root)
+docker-machine ssh manager0
+sudo ifconfig eth1 192.168.99.210 netmask 255.255.255.0
+
+# @consul0: 创建 consul 发现服务
+docker run -d -p 8500:8500 --name=consul progrium/consul -server -bootstrap
+
+# @manager0: 创建 swarm 集群 (因为首先创建,所以是Primary管理节点)
+docker run -d -p 4000:4000 swarm manage -H :4000 --replication \
+    --advertise 192.168.99.210:4000 consul://192.168.99.200:8500
+docker -H :4000 info        # Role: primary
+
+# @manager1: 创建 swarm 集群 (因为首先创建,所以是Primary管理节点)
+docker run -d -p 4000:4000 swarm manage -H :4000 --replication \
+    --advertise 192.168.99.211:4000 consul://192.168.99.200:8500
+docker -H :4000 info        # Role: replica
+
+# @node0: 加入集群
+docker run -d swarm join --advertise=192.168.99.220:2375 consul://192.168.99.200:8500
+    
+# @node1: 加入集群
+docker run -d swarm join --advertise=192.168.99.221:2375 consul://192.168.99.200:8500
+
 docker swarm join
 docker swarm join-token
 docker swarm update
@@ -387,3 +493,45 @@ services:
 参考
 
 * 《[Docker集群管理之Docker Compose](http://www.csdn.net/article/1970-01-01/2825554)》
+
+
+## DDC - Docker Datacenter
+包含一些企业级的工具,包含 docker-engine, UCP, DTR。
+
+
+### UCP - Universal Control Plane
+提供一个Web界面来统一管理所有的节点。收费的。
+
+```
+# 创建节点1,并安装ucp
+docker-machine create -d virtualbox \
+  --virtualbox-memory "2500" \
+  --virtualbox-disk-size "5000" node2
+  
+eval $(docker-machine env node1)
+
+docker run --rm -it \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --name ucp docker/ucp install -i \
+  --swarm-port 3376 
+  --host-address $(docker-machine ip node1)
+
+# 创建节点2, 并加入先前安装的ucp。 注意:没有License的情况下,无法加入的。
+docker-machine create -d virtualbox \
+  --virtualbox-memory "2500" \
+  --virtualbox-disk-size "5000" node2
+eval $(docker-machine env node2)
+docker run --rm -it \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --name ucp docker/ucp join -i \
+  --host-address $(docker-machine ip node2)
+  
+# 最后提示访问的网址, 比如: 
+https://192.168.99.100:443 
+```
+
+### DTR - Docker Trusted Registry
+需要先安装 UCP。
+
+
+

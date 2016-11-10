@@ -57,13 +57,52 @@ openssl rsa -in ~/.ssh/id_rsa -outform pem > ~/.ssh/id_rsa.pem
 ## KeyTool 和 OpenSSL 相互转换 
 参考：
 
+* [OpenSSL](https://www.openssl.org/docs/man1.1.0/apps/)
+* [x509v3_config](https://www.openssl.org/docs/man1.1.0/apps/x509v3_config.html)
+* [RabbitMQ SSL](http://www.rabbitmq.com/ssl.html)
 * [Win32 OpenSSL](http://slproweb.com/products/Win32OpenSSL.html)
 * 《[How to create a self-signed SSL Certificate](http://www.akadia.com/services/ssh_test_certificate.html)》
 * [OpenSSL to Keytool Conversion tips](http://conshell.net/wiki/index.php/OpenSSL_to_Keytool_Conversion_tips
 REM X.509)
 * http://en.wikipedia.org/wiki/X.509#Certificate_filename_extensions
+* [RDN, Relative Distinguished Names](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol)
+
+
+||||
+|---|---|---|
+|CN| CommonName||
+|OU| OrganizationalUnit||
+|O| Organization||
+|L| Locality||
+|S| StateOrProvinceName||
+|C| CountryName||
 
 ### OpenSSL -> KeyTools
+
+1. 创建所需的配置文件 openssl.cnf
+
+
+    ```
+    [ req ]
+    distinguished_name = root_ca_distinguished_name
+    
+    [ root_ca_distinguished_name ]
+    commonName = hostname
+    
+    [ root_ca_extensions ]
+    basicConstraints = CA:true
+    keyUsage = keyCertSign, cRLSign
+    
+    [ client_ca_extensions ]
+    basicConstraints = CA:false
+    keyUsage = digitalSignature
+    extendedKeyUsage = 1.3.6.1.5.5.7.3.2
+    
+    [ server_ca_extensions ]
+    basicConstraints = CA:false
+    keyUsage = keyEncipherment
+    extendedKeyUsage = 1.3.6.1.5.5.7.3.1
+    ```
 
 1. 一个命令就生成自签名的 CA 证书
 
@@ -71,55 +110,85 @@ REM X.509)
     # 该命令仅供参考，后续命令会将该命令分解演示
     openssl req \
         -x509 \
-        -newkey rsa:1024 \
-        -passout pass:123456 \
+        -newkey rsa:2048 \
         -days 3650 \
-        -keyout whhit.pem.key \
+        -sha256 \
+        -config openssl.cnf \
+        -extensions root_ca_extensions \
+        -subj "/CN=whhit.me/OU=WeRun Club/O=whhit/L=Weihai/C=CN" \
+        -outform PEM \
         -out whhit.pem.cer \
-        -subj "/CN=whhit.me/OU=WeRun Club/O=whhit/L=Weihai/S=Shandong/C=CN"
+        -keyout whhit.pem.key \
+        -nodes
+        
+        #-passout pass:123456
     ```
+
 1. 生成一个新的私钥
   
     ```sh
-    openssl genrsa -des3 -out whhit.pem.key -passout pass:123456 1024
+    openssl genrsa \
+        -out server.pem.key \
+        2048
+        
+        #-passout pass:123456 \
     ```
+
 1. 使用指定的私钥生成一个CSR (Certificate Signing Request)
 
     ```sh
     openssl req \
         -new \
-        -key whhit.pem.key \
-        -passin pass:123456 \
-        -out whhit.pem.csr \
-        -subj "/CN=whhit.me/OU=WeRun Club/O=whhit/L=Weihai/S=Shandong/C=CN"
+        -key server.pem.key \
+        -out server.pem.csr \
+        -subj "/CN=btpka3.me/OU=WeRun Club/O=whhit/L=Weihai/C=CN"
+    
+        # -passin pass:123456 \
+    # 可以使用 "-nodes" 选项使得在创建私钥时加密
     ```
-1. 将加密的私钥导出为明文的私钥
 
-    ```sh
-    openssl rsa -in whhit.pem.key -passin pass:123456 -out whhit.pem.clear.key
-    ```
 1. 使用指定的私钥签名生成证书
 
     ```sh
     openssl x509 \
         -req \
         -days 3650 \
-        -in whhit.pem.csr \
-        -signkey whhit.pem.clear.key \
-        -out whhit.pem.cer
+        -in server.pem.csr \
+        -CA whhit.pem.cer \
+        -CAkey whhit.pem.key \
+        -CAcreateserial \
+        -extfile openssl.cnf \
+        -extensions server_ca_extensions \
+        -out server.pem.cer
+    
+    # 或者
+    openssl x509 \
+        -req \
+        -days 3650 \
+        -in server.pem.csr \
+        -signkey whhit.pem.key \
+        -extfile openssl.cnf \
+        -extensions server_ca_extensions \
+        -out server.pem.cer
+        
+        # -passin pass:123456 \
+    # 上述命令也可以使用 ca 子命令替换
     ```
+
 1. 将私钥和证书转化为 PKCS#12 格式的单个文件
 
     ```sh
     openssl pkcs12 \
         -export \
-        -in whhit.pem.cer \
-        -inkey whhit.pem.key \
-        -passin pass:123456 \
-        -out whhit.p12 \
+        -in server.pem.cer \
+        -inkey server.pem.key \
+        -out server.p12 \
         -passout pass:123456 \
-        -name tomcat
+        -name server
+        
+        #-passin pass:123456 \
     ```
+
 1. 使用 KeyTools 将 PKSC#12 文件导入为 JKS 的 KeyStore
 
     ```sh
@@ -136,6 +205,40 @@ REM X.509)
         -destkeypass 123456
     ```
 
+
+1. 其他命令
+
+    ```sh
+    # 将加密的私钥导出为明文的私钥
+    openssl rsa \
+        -in whhit.pem.key \
+        -passin pass:123456 \
+        -out whhit.pem.clear.key
+        
+    # PEM -> DER
+    openssl x509 \
+        -in whhit.pem.cer \
+        -out whhit.der.cer \
+        -outform DER
+        
+    # 显示证书信息
+    openssl x509 \
+        -in whhit.pem.cer \
+        -text
+     
+    # 检验证书 
+    openssl verify \
+        -verbose \
+        -CAfile whhit.pem.cer \
+        zll.pem.cer
+
+    # 检查使用特定版本的 SSL/TLS 协议进行链接
+    # 如果链接成功，通常可以输入 "GET /" 进行检测。
+    openssl s_client \
+        -ssl3 \
+        -connect 127.0.0.1:5671 
+    ```
+    
 ## KeyTools -> OpenSSL
 
 1. 生成一个含自签名 CA 证书的 JKS 类型的 KeyStore
@@ -148,9 +251,11 @@ REM X.509)
         -sigalg SHA1withRSA \
         -dname "CN=test.me, OU=R & D department, O=\"BJ SOS Software Tech Co., Ltd\", L=Beijing, S=Beijing, C=CN" \
         -validity 3650 \
-        -keypass 123456 \
+        -keypass 456789 \
         -keystore sos.jks \
         -storepass 123456
+        
+     keytool -list -keystore sos.jks
      ```
 1. 从 KeyStore 中导出证书
 
@@ -170,13 +275,27 @@ REM X.509)
         -srckeystore sos.jks \
         -srcstorepass 123456 \
         -srcalias tomcat \
-        -srckeypass 123456 \
+        -srckeypass 456789 \
         -deststoretype PKCS12 \
         -destkeystore sos.p12 \
         -deststorepass 123456 \
         -destalias tomcat \
         -destkeypass 123456 \
         -noprompt
+
+    # 导出证书
+    openssl pkcs12 \
+        -in sos.p12 \
+        -passin pass:123456 \
+        -nokeys \
+        -out sos.pem.cer
+
+    openssl pkcs12 \
+        -in sos.p12  \
+        -passin pass:123456 \
+        -nodes \
+        -nocerts \
+        -out sos.pem.key
     ```
 1. 使用 OpenSSL 解析 PKCS#12 格式的 KeyStore，并转化为 PEM 格式(包含证书和私钥)
 
@@ -185,9 +304,9 @@ REM X.509)
         -in sos.p12 \
         -out sos.pem.p12 \
         -passin pass:123456 \
-        -passout pass:123456
+        -nodes
     ```
-1. 单独输出私钥和公钥
+1. 单独输出私钥和公钥  (注意：不是证书）
 
     ```sh
     # 私钥

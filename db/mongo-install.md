@@ -6,6 +6,27 @@
 
 # 安装
 
+## docker
+
+```
+mkdir -p /Users/zll/tmp/my-mongo/db
+mkdir -p /Users/zll/tmp/my-mongo/configdb
+touch /Users/zll/tmp/my-mongo/mongod.conf
+
+
+docker pull mongo:3.2.10
+docker run -d \
+    --name my-mongo \
+    -p 27017:27017 \
+    -v /Users/zll/tmp/my-mongo/mongod.conf:/etc/mongod.conf \
+    -v /Users/zll/tmp/my-mongo/db:/data/db \
+    -v /Users/zll/tmp/my-mongo/configdb:/data/configdb \
+    mongo:3.2.10
+
+docker exec -it my-mongo bash
+    
+```
+
 ## ubuntu
 see [here](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)
 
