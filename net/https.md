@@ -430,7 +430,7 @@ ssh-keygen -t rsa -C "hi@test.me" -N 'xxxPass' -f ~/.ssh/id_rsa
 ```
 
 
-# 确认openssl是否已经修正了 Heatbleed
+# 确认openssl是否已经修正了 Heartbleed
 
 ```sh
 yum update
@@ -489,4 +489,15 @@ keytool -list -v -keystore sos.jks
 
 # 方法2: 通过keytool 查看 APK 压缩包中 META-INF目录下 RSA 文件
 keytool -printcert -file path/to/xxx.apk/META-INF/PLATFORM.RSA 
+```
+
+
+# 版本
+
+```
+# 检查版本
+openssl version
+yum info openssl
+
+# 可以到 https://www.openssl.org/ 下载并编译安装
 ```

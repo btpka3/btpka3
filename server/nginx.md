@@ -174,6 +174,15 @@ http {
 [heartbleed](http://heartbleed.com/)、
 [nginx and heartbleed](http://nginx.com/blog/nginx-and-the-heartbleed-vulnerability)
 
+```
+# nginx 使用的ssl的版本是？
+ldd /path/to/nginx | grep ssl
+strings /lib64/libssl.so.10 | grep "^OpenSSL "
+
+# nginx 使用的是静态链接还是动态链接？
+/path/to/nginx -V
+```
+
 ### 被代理的服务器健康检测
 [proxy_next_upstream](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html)  
 [fastcgi_next_upstream](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_next_upstream)  
@@ -538,3 +547,55 @@ date.timezone = Asia/Shanghai
     auth_basic "Restricted Access";
     auth_basic_user_file ./conf.d/test.me.htpasswd;
     ```
+# TCP 反向代理
+
+参考：[ngx_stream_upstream_module](http://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#upstream)
+
+修改 nginx.conf
+
+```
+# 最后追加以下配置
+stream {
+    include /etc/nginx/conf.d/*.conf.stream;
+}
+```
+
+创建 `/etc/nginx/conf.d/mq.conf.stream`
+
+```
+upstream mqtt_1883 {
+    server mq:1883;
+}   
+upstream mqtts_8883 {
+    server mq:8883;
+}
+
+# 完全 tcp 转发   
+server {
+    listen 11883;
+    proxy_connect_timeout       20s;
+    proxy_timeout               5m; 
+    proxy_pass                  mqtt_1883;
+}
+server {
+    listen 18883;
+    proxy_connect_timeout       20s;
+    proxy_timeout               5m; 
+    proxy_pass                  mqtts_8883;
+}
+
+# 代为TSL
+server {
+    listen 19883 ssl;
+    ssl_certificate             conf.d/mq/server.pem.cer;
+    ssl_certificate_key         conf.d/mq/server.pem.key;
+    ssl_session_cache           shared:SSL:10m;
+    ssl_session_timeout         10m;
+    #ssl_ciphers                HIGH:!aNULL:!MD5;
+    #ssl_prefer_server_ciphers  on;
+    proxy_connect_timeout       20s;
+    proxy_timeout               5m; 
+    proxy_pass                  mqtt_1883;
+}
+```
+
