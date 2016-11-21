@@ -12,7 +12,7 @@
   "pluginsConfig": {
     "prism": {
       "css": [
-        "prismjs/themes/prism-solarizedlight.css"
+        "prism-themes/themes/prism-duotone-dark.css"
       ]
     }
   }

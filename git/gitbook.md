@@ -77,3 +77,30 @@ gitbook epub ./ ./mybook.epub
 [prism](https://plugins.gitbook.com/plugin/prism) 插件提供了更好的代码着色配置。
 但是在本地启动过程中，如果发现控制台有提示 `{ [Error: Cannot find module 'prismjs/components/prism-cfg.js'] code: 'MODULE_NOT_FOUND' }` 这样的提示，
 务必请查找并修改为 prism 支持的语法类型。该类型可以在 `./node_modules/prismjs/components` 目录下通过文件名来快速判别。
+
+### 使用其他的主题？
+
+确保你的book目录中有 package.json （可以通过 `npm init` 创建）
+
+```bash
+npm install --save prism-themes
+```
+
+修改 book.json 
+
+```json
+{
+  "pluginsConfig": {
+    "prism": {
+      "css": [
+        "prism-themes/themes/prism-duotone-dark.css"
+      ]
+    }
+  }
+}
+```
+
+
+# 主题
+
+[theme-default](https://github.com/GitbookIO/theme-default) 是默认主题。
