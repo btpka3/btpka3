@@ -18,7 +18,7 @@
 
 1. 在 ${ZK_HOME}/conf/ 目录下创建多个配置文件：zoo1.cfg、zoo2.cfg、zoo3.cfg
 
-    ```cfg
+    ```ini
     clientPort=2110
     dataDir=${ZK_HOME}/data/1/data
     dataLogDir=${ZK_HOME}/data/1/log

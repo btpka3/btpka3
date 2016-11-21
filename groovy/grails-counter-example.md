@@ -48,7 +48,7 @@
 
 1. 针对站内连接，不要硬编码写链接地址，哪怕根据SEO建议也写完整的URL地址，应使用`<g:createLink>`、`<g:resource/>`。
 
-    ```markup
+    ```html
     // 反例
     <a href="/xxx/yyy">...</a>
     <a href="http://www.lizi.com/product-458695865.html">...</a>

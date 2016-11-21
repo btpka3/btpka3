@@ -62,7 +62,7 @@ public class DispenseAction {
 ```
     2. 在JSP中使用 `<spring:eval />` 执行SpEL，或直接输出，或保存到变量：
 
-```markup
+```html
 <spring:eval var="defaultUrl" expression="@config['default.url']" />
 click <a href="${fn:escapeXml(defaultUrl)}">here</a>.
 ```

@@ -72,3 +72,8 @@ gitbook pdf ./ ./mybook.pdf
 gitbook epub ./ ./mybook.epub
 
 ```
+
+## 插件 - prism
+[prism](https://plugins.gitbook.com/plugin/prism) 插件提供了更好的代码着色配置。
+但是在本地启动过程中，如果发现控制台有提示 `{ [Error: Cannot find module 'prismjs/components/prism-cfg.js'] code: 'MODULE_NOT_FOUND' }` 这样的提示，
+务必请查找并修改为 prism 支持的语法类型。该类型可以在 `./node_modules/prismjs/components` 目录下通过文件名来快速判别。

@@ -69,7 +69,7 @@ syncLimit=2
 
 1. 创建/修改 $ZK_HOME/conf/zoo.cfg 配置文件。注意：该配置文件不可使用行尾注释
 
-    ```cfg
+    ```ini
     clientPort=2110
     dataDir=/data/software/zookeeper-3.4.6/server.3/data
     dataLogDir=/data/software/zookeeper-3.4.6/server.3/log

@@ -241,13 +241,13 @@ web.xml
 ```
 
 
-```markup
+```html
 <c:forEach items="${xxxList}" var="xxx" varStatus="loopStatus">
    <tr class="${loopStatus.index % 2 == 0 ? 'even_row' : 'odd_row'}">...</tr>
 </c:forEach>
 ```
 
-```markup
+```html
 <c:forEach items="${xxxList}" var="xxx" >
   <tr>
       <td>XXX</td>

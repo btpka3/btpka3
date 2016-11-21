@@ -39,7 +39,7 @@ Web程序将数据直接作为HTML显示（未进行HTML特殊字符转义、scr
 
 1. 博客系统B使用以下方式显示回帖（JSP语法）：
 
-    ```markup
+    ```html
     回帖人：<%=comment.userId %>，回帖内容是：<%= comment.content %>
     ```
 
@@ -54,7 +54,7 @@ Web程序将数据直接作为HTML显示（未进行HTML特殊字符转义、scr
 
 1. 恶意用户A搜索、验证并确信某系统B在访问 <code>http://b.com/welcome.do?user=zhang3</code> 时，是以以下方式显示URL中的用户名的（JSP语法）：
 
-    ```markup
+    ```html
     welcome <%=param["user"] %>!
     ```
 1. 恶意用户A就利用此漏洞，以系统B的名义向多个用户发送包含以下连接的HTML邮件，并诱导用户点击该链接：

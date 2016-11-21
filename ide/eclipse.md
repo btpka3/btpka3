@@ -97,19 +97,19 @@ Java->Editor->Content Assist->Favorites
 ## 加速
 * 修改Eclipse.ini/STS.ini中的JVM参数，并[指定JVM](http://wiki.eclipse.org/Eclipse.ini#-vm_value:_Linux_Example)：
 
-    ```cfg
--vm /usr/lib/jvm/java-7-openjdk-amd64/bin/java  # 第一行
-# ...
--Xms1024m
--Xmx2000m
--XX:PermSize=128m
--XX:MaxPermSize=512m
--Xss2m
--Xmn128m
--Xverify:none
--server
--XX:+UseParallelGC
--XX:ParallelGCThreads=10
+    ```ini
+    -vm /usr/lib/jvm/java-7-openjdk-amd64/bin/java  # 第一行
+    # ...
+    -Xms1024m
+    -Xmx2000m
+    -XX:PermSize=128m
+    -XX:MaxPermSize=512m
+    -Xss2m
+    -Xmn128m
+    -Xverify:none
+    -server
+    -XX:+UseParallelGC
+    -XX:ParallelGCThreads=10
     ```
 * 禁用Dashboard ：Window->Preferences->SpringSource->Dashboard：取消勾选 Show Dashboard On Startup
 * 禁用Spell Check：Window->Preferences->General->Editors->Text Editors->Spelling ：取消选择Enable spell checking
@@ -119,13 +119,13 @@ Java->Editor->Content Assist->Favorites
 * 将JDK整个放入ramdisk中（？？？貌似不易实施？重启后内容丢失。）
     * [linux](https://wiki.archlinux.org/index.php/Ramdisk)
 
-    ```bash
-sudo mkdir -p /media/ramdisk
-#sudo mount -t ramfs -o size=256M ramfs /media/ramdisk/
-sudo mount -t ramfs none /media/ramdisk/
-sudo vi /etc/fstab
-none  /mnt/ramdisk    ramfs   defaults,gid=1000,uid=1000      0   0 
-    ```
+        ```bash
+        sudo mkdir -p /media/ramdisk
+        #sudo mount -t ramfs -o size=256M ramfs /media/ramdisk/
+        sudo mount -t ramfs none /media/ramdisk/
+        sudo vi /etc/fstab
+        none  /mnt/ramdisk    ramfs   defaults,gid=1000,uid=1000      0   0 
+        ```
     * [Windows](http://www.softperfect.com/products/ramdisk/)
 * 不要打开过多的工程/关闭不相关的工程
 * 不要打开过多的文件/Editor
