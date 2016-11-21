@@ -4,14 +4,14 @@
 1. 从[oracle官网](http://www.oracle.com/technetwork/java/javase/downloads/index.html)下载所需的JDK二进制安装包，并保存到 `/data/tmp/` 目录下。
 1. 安装
 
-    ```sh
+    ```bash
 [root@locahost ~] cd /data/tmp
 [root@locahost ~] ./jdk-6u45-linux-x64.bin                      # 会解压出一个名称为 "jdk1.6.0_45" 的目录
 [root@locahost ~] mv jdk1.6.0_45 /data/software/           # 移动到规约要求的目录下。
     ``` 
 1. 设置全局环境变量 `vi /etc/profile.d/test12.sh`
 
-    ```sh
+    ```bash
     #!/bin/bash
     export JAVA_HOME=/data/software/jdk1.6.0_45
 
@@ -22,7 +22,7 @@
     ``` 
 1. 重新登录root用户后确认
 
-    ```sh
+    ```bash
     [root@his-branch-proxy1 ~]# java -version
     java version "1.6.0_45"
     Java(TM) SE Runtime Environment (build 1.6.0_45-b06)
@@ -35,7 +35,7 @@
 
  
 
-```sh
+```bash
 sudo mkdir /usr/local/java
 sudo tar zxvf jdk-8u40-linux-x64.tar.gz -C /usr/local/java
 

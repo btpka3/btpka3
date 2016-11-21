@@ -8,12 +8,12 @@ TODO
 
 ## 安装
 
-```sh
+```bash
 sudo apt-get  install thunderbird
 
 ## 配置qq企业邮箱
 
-```text
+```
 启动thunderbird后，点击右上角的 三条杠 的图标 
     : Preferences 
     : Account Settings 

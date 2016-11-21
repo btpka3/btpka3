@@ -37,13 +37,13 @@
 
 1. 创建数据库目录、日志目录
 
-    ```sh
+    ```bash
     cd $ZK_HOME
     mkdir -p data/{1,2,3}/{data,log,logging}
     ```
 1. 在数据目录下创建 myid 文件，该文件内容是server的Id。
 
-    ```sh
+    ```bash
     cd $ZK_HOME
     echo 1 > data/1/data/myid
     echo 2 > data/2/data/myid
@@ -53,7 +53,7 @@
 
 1. 依次启动zk节点 
 
-    ```sh
+    ```bash
     cd $ZK_HOME
 
     # 启动节点1
@@ -74,7 +74,7 @@
 
 1. 连接到集群上进行查看
 
-    ```sh
+    ```bash
     cd $ZK_HOME
     ./bin/zkCli.sh -server localhost:2110
     ./bin/zkCli.sh -server localhost:2120
@@ -83,7 +83,7 @@
 
 1. 停止
 
-    ```sh
+    ```bash
     cd $ZK_HOME
     ./bin/zkServer.sh stop zoo1.cfg
     ./bin/zkServer.sh stop zoo2.cfg

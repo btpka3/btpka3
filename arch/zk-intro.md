@@ -9,7 +9,7 @@ ZooKeeper通常以集群的方式对外提供服务，集群节点间通过选�
 
 # 简单尝试
 
-```sh
+```bash
 wget http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz
 tar zxvf zookeeper-3.4.6.tar.gz
 cd zookeeper-3.4.6

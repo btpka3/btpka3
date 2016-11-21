@@ -95,7 +95,7 @@ http {
 [Nginx Modules](http://wiki.nginx.org/Modules)、
 [Nginx 3rdPartyModules](http://wiki.nginx.org/3rdPartyModules)
 
-```sh
+```bash
 [root@locahost ~]# /usr/sbin/nginx -h
 [root@locahost ~]# /usr/sbin/nginx -V
 nginx version: nginx/1.4.7
@@ -146,7 +146,7 @@ configure arguments:
 
 
 
-```conf
+```groovy
 http {
     # ...
     upstream tomcat8080 {
@@ -195,7 +195,7 @@ strings /lib64/libssl.so.10 | grep "^OpenSSL "
 [1](http://www.cyberciti.biz/faq/howto-linux-unix-setup-nginx-ssl-proxy/)
 [2](http://webapp.org.ua/sysadmin/setting-up-nginx-ssl-reverse-proxy-for-tomcat/)
 
-```conf
+```groovy
 server {
     location / {
          proxy_pass              http://tomcat_server;
@@ -213,7 +213,7 @@ server {
 # 安装
 1. 新增nginx的yum仓库，`vi /etc/yum.repos.d/nginx.repo`
 
-    ```sh
+    ```bash
     [nginx]
     name=nginx repo
     baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
@@ -222,7 +222,7 @@ server {
     ```
 2. 安装
 
-    ```sh
+    ```bash
     [root@locahost ~]# yum list nginx 
     [root@locahost ~]# yum install nginx
     [root@locahost ~]# chkconfig --list nginx
@@ -230,14 +230,14 @@ server {
     ```
 3. 创建所需的必要目录
 
-    ```sh
+    ```bash
     [root@locahost ~]# mkdir /data/outputs/log/nginx
     [root@locahost ~]# mkdir /data/store/nginx
     ```
 
 ## 正向代理
 
-```conf
+```groovy
 server {
     listen 192.168.0.10:80;
 
@@ -310,7 +310,7 @@ server {
 # 配置
 1. 修改nginx的默认配置
 
-    ```sh
+    ```bash
     [root@locahost ~]# vi /etc/nginx/nginx.conf
           log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
                                  '$status $body_bytes_sent "$http_referer" '
@@ -320,7 +320,7 @@ server {
     ```
 1.  为sso配置。该示例与[tomcat 虚拟主机](centos-tomcat)的配置相呼应
 
-    ```sh
+    ```bash
     [root@locahost ~]# vi /etc/nginx/conf.d/sso.conf
     ```
     内容示例如下：
@@ -354,7 +354,7 @@ server {
 
 # 强制HTTPS （TODO）
 
-```conf
+```groovy
 server {
     listen      80;
     server_name hisdev.eyar.com;
@@ -388,7 +388,7 @@ server{
 
 ### proxy_pass 带路径
 
-```conf
+```groovy
 location /aaa/bbb { 
     proxy_pass              http://qh-wap/xxx/yyy/;
     proxy_set_header        Host            $host;
@@ -402,7 +402,7 @@ location /aaa/bbb {
 
 ### proxy_pass 不带路径
 
-```conf
+```groovy
 location /xxx/yyy { 
     proxy_pass              http://qh-wap;
     proxy_set_header        Host            $host;
@@ -429,7 +429,7 @@ location ~ ^/api(.*)$ {
  使得外部访问 http://www.test.me/ask/xxx 时都跳转到 http://ask.test.me/xxx 。
  但是内部app都只有一个，故内部访问 http://ask.test.me/xxx 时，还是在访问 http://www.test.me/ask/xxx 
 
-```conf
+```groovy
 upstream myTomcat {
     server                        localhost:10010 weight=1 max_fails=1 fail_timeout=1s;
 }
@@ -484,7 +484,7 @@ server {
 
 # PHP
 
-```sh
+```bash
 # 如果需要，卸载之前安装的apache、php
 yum remove httpd* php*
 

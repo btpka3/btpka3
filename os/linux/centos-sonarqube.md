@@ -1,7 +1,7 @@
 
 # maven 插件
 
-```sh
+```bash
 mvn -U 
     -Dsonar.host.url=http://10.1.10.100:9000/
     -Dsonar.jdbc.url=jdbc:postgresql://10.1.10.105:1949/sonar
@@ -26,13 +26,13 @@ mvn -U
 1. 从[官网](http://www.sonarqube.org/downloads/)下载所需的zip包。保存到 `/data/tmp` 目录下。
 1. 解压
 
-    ```sh
+    ```bash
     [root@localhost ~] mkdir /data/software/sonarQube
     [root@localhost ~] unzip /data/tmp/sonar-3.7.4.zip -d /data/software/sonarQube/
     ```
 1. 修改配置文件
 
-    ```sh
+    ```bash
     [root@localhost ~] vi /data/software/sonarQube/sonar-3.7.4/conf/sonar.properties
       sonar.web.port:                           19020
       sonar.jdbc.username:                  sonar
@@ -41,7 +41,7 @@ mvn -U
     ```
 1. 追加init.d脚本
 
-    ```sh
+    ```bash
     [root@localhost ~] vi /etc/init.d/sonar 
       #!/bin/bash
       # chkconfig: 345 20 80
@@ -54,7 +54,7 @@ mvn -U
     ```
 1. 启动。注意：需要先停止旧版本的SonarQube（如果有的话。）
 
-    ```sh
+    ```bash
     [root@localhost ~] service sonar start
     ```
 1. 升级。
@@ -77,7 +77,7 @@ mvn -U
 
 执行以下mvn命令（无需在pom.xml中进行任何设定）：
 
-```sh
+```bash
 # 第二行开始后的配置参数是SonarQube分析所需的参数
 mvn -Dmave.test.skip=true -DsonarHostURL=http://10.1.10.212:19020 sonar:sonar \
 -Dsonar.host.url=http://10.1.10.212:19020 \

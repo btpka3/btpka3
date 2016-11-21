@@ -6,7 +6,7 @@
 * [GitBook Toolchain Documentation](http://toolchain.gitbook.com/)
 
 
-```sh
+```bash
 npm install gitbook-cli -g
 cd youBookRootDir
 gitbook init
@@ -19,7 +19,7 @@ gitbook build
 
 目录结构
 
-```txt
+```
 .
 ├── cover.jpg           // 可选: 转换为电子书时,使用的封面
 ├── book.json           // 可选: 配置文件

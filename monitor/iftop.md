@@ -5,7 +5,7 @@ Linux 下监控网络流量的工具、命令
    
     参考[这里](http://blog.csdn.net/gaojinshan/article/details/40781241)
 
-    ```sh
+    ```bash
     yum install iftop
     iftop -i eth1
     ```

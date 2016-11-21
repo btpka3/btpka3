@@ -26,7 +26,7 @@ tag名称：  v${major}.${minor}
 
 假设当前最新版本为 2.2.0 ，尚在开发中，未发布生产环境，分支示意图：
 
-```txt
+```
 -*(tag 2.1.0)--*(-> 2.2.0)(tag v2.2-test)--*--*--*--- master (即相当于 v2.2-dev 分支)
   \
     \--*--*(tag 2.1.1)--*(-> 2.1.2)(tag v2.1-test v2.1-prod)--*--*-- v2.1-dev
@@ -35,7 +35,7 @@ tag名称：  v${major}.${minor}
 ```
 ## git 操作步骤示例
 
-```sh
+```bash
 # clone 仓库
 git clone git@newcrm.nalashop.com:/home/git/web/nala-core
 

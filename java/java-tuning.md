@@ -5,7 +5,7 @@
 
 `-XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled`
 
-```sh
+```bash
 
 today=`date +%Y%m%d%H%M%S`
 export CATALINA_OPTS=" \
@@ -28,7 +28,7 @@ export CATALINA_OPTS=" \
 
 # 远程debug
 
-```sh
+```bash
 #JDK 1.5+
 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=10014
 
@@ -45,21 +45,21 @@ export CATALINA_OPTS=" \
 参考[这里](http://ihuangweiwei.iteye.com/blog/1219302)
 1. 新建 policy 文件 : jstatd.all.policy
 
-    ```policy
+    ```groovy
     grant codebase "file:${java.home}/../lib/tools.jar" {  
        permission java.security.AllPermission;  
     };  
     ```
 1. 确保/etc/hosts 中主机名对应的是其他主机可以访问到的IP地址
 
-    ```sh
+    ```bash
     cat /etc/hosts
     192.168.101.81     s81
     ```
 
 1. 运行 jstad
 
-    ```sh
+    ```bash
     jstatd -J-Djava.security.policy=/path/to/jstatd.all.policy  &
     ```
 
@@ -76,7 +76,7 @@ http://publib.boulder.ibm.com/infocenter/realtime/v2r0/index.jsp?topic=%2Fcom.ib
 
 
 
-```sh
+```bash
 jstack <pid>
 ```
 Java 线程 CPU 100% 对应方法
@@ -96,7 +96,7 @@ Java 线程 CPU 100% 对应方法
 ##jps
 与unix上的ps类似，用来显示本地的java进程，可以查看本地运行着几个java程序，并显示他们的进程号。
 
-```sh
+```bash
 jps -mlv
 ```
 
@@ -104,7 +104,7 @@ jps -mlv
 ##jmap
 打印出某个java进程（使用pid）内存内的所有'对象'的情况（如：产生那些对象，及其数量）。
 
-```sh
+```bash
 jmap -dump:format=b,file=outfile.jmap.hprof 3024
 ```
 如果报以下错误，请确认启用jmap的用户是否和目标java进程是同一个用户，否则追加参数 -F 尝试。
@@ -121,7 +121,7 @@ The -F option can be used when the target process is not responding
 可以用来监视VM内存内的各种堆和非堆的大小及其内存使用量
 ### 使用方法
 
-```sh
+```bash
 zll@zll-pc:bin$ jstat -help
 Usage: jstat -help|-options
        jstat -<option> [-t] [-h<lines>] <vmid> [<interval> [<count>]]
@@ -129,7 +129,7 @@ Usage: jstat -help|-options
 
 ### 选项列表
 
-```sh
+```bash
 zll@zll-pc:bin$ jstat -options
 -class
 -compiler
@@ -145,7 +145,7 @@ zll@zll-pc:bin$ jstat -options
 -printcompilation
 ```
 ### 示例
-```sh
+```bash
 zll@zll-pc:bin$ jstat  -gcutil 22679 
   S0     S1     E      O      P     YGC     YGCT    FGC    FGCT     GCT   
   0.00  99.17  75.12  68.32  57.97     21    1.099     2    1.253    2.352
@@ -153,7 +153,7 @@ zll@zll-pc:bin$ jstat  -gcutil 22679
 
 ### -class 
 Class加载状况统计
-```sh
+```bash
 zll@zll-pc:bin$ jstat -class 18904
 Loaded  Bytes  Unloaded  Bytes     Time   
   5784 11346.6        0     0.0       9.37
@@ -166,7 +166,7 @@ Time               # 载入和卸载Class所消耗的时间
 ```
 ### -compiler
 HotSpot Just-In-Time 编译器统计
-```sh
+```bash
 zll@zll-pc:bin$ jstat -compiler 18904
 Compiled Failed Invalid   Time   FailedType FailedMethod
     1464      1       0    41.96          1 com/alibaba/dubbo/config/spring/schema/DubboBeanDefinitionParser parse
@@ -181,7 +181,7 @@ FailedMethod       # 最后一次编译失败的类和方法
 
 ### -gc
 垃圾回收堆的统计
-```sh
+```bash
 zll@zll-pc:bin$ jstat -gc 18904
  S0C    S1C    S0U    S1U      EC       EU        OC         OU       PC     PU    YGC     YGCT    FGC    FGCT     GCT   
 8192.0 11264.0 8006.2  0.0   458752.0 117275.1  62976.0    42636.1   35840.0 35716.6     18    0.483   0      0.000    0.483
@@ -207,7 +207,7 @@ GCT
 
 ### 字段说明
 
-```sh
+```bash
 S0       # Heap上的 Survivor space 0 区已使用空间的百分比
 S1       # Heap上的 Survivor space 1 区已使用空间的百分比
 E        # Heap上的 Eden space 区已使用空间的百分比

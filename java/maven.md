@@ -146,7 +146,7 @@ mvn -Dmaven.test.skip=true -am --projects subModule1/leafModule1 clean install
 
 ## 常用命令
 查看那些profile生效
-```sh
+```bash
 mvn help:active-profiles -N
 
 # 打包所有模块，且忽略指定模块的构建错误
@@ -296,7 +296,7 @@ mvn -Dmaven.test.skip=true -am --projects my/module1,my/module2 compile
 
     执行特定的Java程序。
 
-    ```sh
+    ```bash
     mvn exec:java  -Dexec.mainClass=me.test.TesseractExample
     ```
 

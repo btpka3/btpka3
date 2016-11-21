@@ -254,7 +254,7 @@ snmp:
 
 为了方便统一以YAML格式配置，现在将默认的配置项与 YAML配置项的对应关系列表如下：
 
-```conf
+```groovy
 # default config entry      # YAML config entry
 logpath                     systemLog.path
 logappend                   systemLog.logAppend

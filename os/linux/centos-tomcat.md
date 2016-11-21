@@ -13,7 +13,7 @@
 
 ## scp.sh
 
-```sh
+```bash
 #!/bin/bash
 
 DIR=/data/app/my-app
@@ -75,7 +75,7 @@ rm -fr  webapps/*                 # 删除自带应用
 
 1. 删除自带的应用 
 
-    ```sh
+    ```bash
     rm -fr $CATALINA_HOME/webapps/*
     ```
 1. `vi $CATALINA_HOME/conf/server.xml`
@@ -164,20 +164,20 @@ chkconfig --level 345 my-app on
 
 ## 安装依赖
 
-```sh
+```bash
 yum install apr-devel openssl-devel gcc
 ```
 
 ## 下载 tomcat-native
 
-```sh
+```bash
 wget http://mirror.bit.edu.cn/apache/tomcat/tomcat-connectors/native/1.1.31/source/tomcat-native-1.1.31-src.tar.gz
 tar zxvf tomcat-native-1.1.31-src.tar.gz
 ```
 
 ## 配置、编译、安装
 
-```sh
+```bash
 cd tomcat-native-1.1.31-src/jni/native
 
 # 源码安装时，请指定prefix，否则将来多版本安装、删除时将很头疼。下面的prefix是1.1.31的默认安装路径，当明确设置
@@ -309,7 +309,7 @@ set JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.trustStore="C:\.keystore" -Djavax.net.
 
 # 最简单的 init 脚本
 
-```sh
+```bash
 #!/bin/sh
 # chkconfig: 2345 60 60
 # description: xxx

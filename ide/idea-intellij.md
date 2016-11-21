@@ -41,7 +41,7 @@ sudo vi idea.sh                    // 在最开始加入  `. /etc/profile.d/xxx.
 |<kbd>Fn + Cmd + →</kdb>|回到编辑器最后一行|
 # ubuntu 下中文字体
 
-```sh
+```bash
 # 安装文泉驿中文字体
 sudo apt-get install ttf-wqy-microhei
 

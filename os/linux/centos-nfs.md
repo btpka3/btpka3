@@ -6,7 +6,7 @@
 
 ## 安装
 
-```sh
+```bash
 [root@localhost ~]# yum list nfs*
 [root@localhost ~]# yum install nfs-utils nfs-utils-lib
 
@@ -15,7 +15,7 @@
 ```
 ## 启停命令
 
-```sh
+```bash
 root@h01 ~]# service rpcbind
 Usage: /etc/init.d/rpcbind {start|stop|status|restart|reload|force-reload|condrestart|try-restart}
 [root@h01 ~]# service nfs
@@ -24,7 +24,7 @@ Usage: nfs {start|stop|status|restart|reload|force-reload|condrestart|try-restar
 
 ## 设置共享目录
 
-```sh
+```bash
 [root@h01 ~]# man 5 exports
 [root@h01 ~]# vi /etc/exports
 /data/ttt/share/ 		000.000.000.000(rw,sync,no_root_squash)
@@ -36,7 +36,7 @@ Usage: nfs {start|stop|status|restart|reload|force-reload|condrestart|try-restar
 
 ## 启动NFS服务
 
-```sh
+```bash
 [root@h01 ~]# service rpcbind status			# 要先确保 rpcbind服务已经启动
 [root@h01 ~]# service nfs start
 
@@ -45,19 +45,19 @@ Usage: nfs {start|stop|status|restart|reload|force-reload|condrestart|try-restar
 # 客户端
 ## 安装
 
-```sh
+```bash
 [root@h01 ~]# yum list nfs*
 [root@h01 ~]# yum install nfs-utils nfs-utils-lib
 ```
 
 ## 启动rpcbind服务
-```sh
+```bash
 [root@h01 ~]# service rpcbind start
 ```
 
 ## 验证
 
-```sh
+```bash
 [root@h01 ~]# mount 000.000.000.000:/data/ttt/share     /data/srs/appData/appName/share-nfs/
 [root@h01 ~]# echo hello > /data/ttt/appData/appName/share-nfs/hi.txt
 [root@h01 ~]# rm –f /data/ttt/appData/appName/share-nfs/hi.txt
@@ -67,7 +67,7 @@ Usage: nfs {start|stop|status|restart|reload|force-reload|condrestart|try-restar
 ## 开机就挂载
 参考[这里](http://man.ddvip.com/os/redhat9.0cut/s1-nfs-mount.html)
 
-```sh
+```bash
 vi /etc/fstab
 192.168.101.80:/server/dir  /local/dir   nfs  rsize=8192,wsize=8192,timeo=14,intr
 ```

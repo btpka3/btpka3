@@ -2,7 +2,7 @@
 
 # 生成公钥、私钥
 
-```sh
+```bash
 # 交互模式：没有密码，默认文件位置。
 ssh-keygen -t rsa -C "xxx@yyy.com"
 
@@ -121,7 +121,7 @@ ssh -D ${localSocketProxyPort} user@remoteSShServer
 ## SSH 动态端口转发
 可通过本地特定端口，访问远程所有服务————即代理服务器。
 
-```sh
+```bash
 # 在SSH client端执行 （如果想前台执行，则不要加 -f）
 ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort             
 ```
@@ -130,7 +130,7 @@ ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort
 
 1. 启动代理转发
 
-    ```sh
+    ```bash
     # 在 A@dev 上执行以下命令：
     ssh root@122.225.11.207 -C -f -N -g -D 9999
 
@@ -157,7 +157,7 @@ PS：不同应用的socks代理设置的方式不同，需要自行阅读相关�
 
 访问本地特定端口，就是访问远程特定服务。
 
-```sh
+```bash
 # 在SSH client端执行
 ssh sshUser@sshHost -C -f -N -g -L [localBindIP:]localBindPort:remoteServiceIP:remoteServicePort
 ```
@@ -167,13 +167,13 @@ ssh sshUser@sshHost -C -f -N -g -L [localBindIP:]localBindPort:remoteServiceIP:r
 
 1. 开启端口转发
 
-    ```sh
+    ```bash
     # 在 A@dev 上执行
     ssh ssh@122.225.11.207 -C -N -g -L 13306:192.168.71.80:3306 -p 2222
     ```
 1. 本地访问远程MySql服务
 
-    ```sh
+    ```bash
     # 在A@dev 上执行
     mysql -h 192.168.101.222 -P 13306 -u yourDbUser -p yourDb
     ```
@@ -183,7 +183,7 @@ ssh sshUser@sshHost -C -f -N -g -L [localBindIP:]localBindPort:remoteServiceIP:r
 比如：有静态外网IP的网络中的主机 可以访问 无静态外网IP（ASDL）的网络中主机上的服务。
 
 
-```sh
+```bash
 # 在SSH client端执行
 ssh sshUser>@sshHost -C -f -N -g -R [bindIpOnSshClient:]sshBindPortOnSshClient:bindHostOnSshServer:listenPortOnSshServer &
 ```
@@ -192,14 +192,14 @@ ssh sshUser>@sshHost -C -f -N -g -R [bindIpOnSshClient:]sshBindPortOnSshClient:b
 
 1. 开启远程端口反向转发
 
-    ```sh
+    ```bash
     # 在 A@dev 上执行
     ssh root@122.225.11.207 -C -N -g -R 192.168.71.207:16379:localhost:6379  -o ExitOnForwardFailure=yes
     ```
 
 1. 访问Redis服务
 
-    ```sh
+    ```bash
     telnet 192.168.71.207 16379
     key *                            # redis 命令 : 列出所有key
     ```
@@ -215,7 +215,7 @@ ssh sshUser>@sshHost -C -f -N -g -R [bindIpOnSshClient:]sshBindPortOnSshClient:b
 
 ## 方式一：修改 server 端的配置 `vi /etc/ssh/sshd_config`
 
-```conf
+```groovy
 ClientAliveInterval 60 ＃server每隔60秒发送一次请求给client，然后client响应，从而保持连接
 ClientAliveCountMax 3 ＃server发出请求后，客户端没有响应得次数达到3，就自动断开连接，正常情况下，client不会不响应
 ```
@@ -225,7 +225,7 @@ ClientAliveCountMax 3 ＃server发出请求后，客户端没有响应得次数�
 
 ## 方式二：修改 client 端的配置 `vi /etc/ssh/ssh_config`
 
-```conf
+```groovy
 ServerAliveInterval 60 ＃client每隔60秒发送一次请求给server，然后server响应，从而保持连接
 ServerAliveCountMax 3  ＃client发出请求后，服务器端没有响应得次数达到3，就自动断开连接，正常情况下，server不会不响应
 ```

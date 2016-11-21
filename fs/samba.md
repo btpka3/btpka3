@@ -43,7 +43,7 @@ NetBIOS Message Block (NMB )
 
 1. 安装samba
 
-    ```sh
+    ```bash
     rpm -qa | grep samba   # 确认samba是否已经安装
     yum list samba            #  查看可安装的samba版本
     yum install samba        #  安装
@@ -51,7 +51,7 @@ NetBIOS Message Block (NMB )
 
 1. 设置默认运行级别
 
-    ```sh
+    ```bash
     chkconfig --list smb                     # 查看smb默认运行级别
     chkconfig --list nmb                     # 查看nmb默认运行级别
     chkconfig --level 345 smb on       # 设置smb默认运行级别 
@@ -66,12 +66,12 @@ NetBIOS Message Block (NMB )
 
     如果开启了SELinux，则需要为每个共享目录执行以下命令。
 
-    ```sh
+    ```bash
     [root@localhost ~]# chcon -R -t samba_share_t /path/to/shared/folder
     ```
     或者禁用SELinux
 
-    ```sh
+    ```bash
     [root@localhost ~]# setenforce 0                    # 临时禁用SELinux，重启后失效
     [root@localhost ~]# vi /etc/selinux/config        # 永久禁用SELinux
       SELINUX=disabled
@@ -81,7 +81,7 @@ NetBIOS Message Block (NMB )
 
 1. 添加使用samba的账户
 
-    ```sh
+    ```bash
     # xxxUserName用户仅仅用来远程samba登录，不需要本地登录。
     [root@localhost ~]# adduser -M xxxUserName  
     # 为xxxUserName用户设置samba登录时的密码（注意：该密码不同于账户本地登录操作系统的密码）
@@ -92,7 +92,7 @@ NetBIOS Message Block (NMB )
 
 1. 设置共享资源
 
-    ```sh
+    ```bash
     [root@localhost ~]# vi /etc/samba/smb.conf
       # 先使用分号注释掉[homes]和[printers]部分的配置，以禁止共享各个账户的主目录和打印机
       # 再追加以下共享配置
@@ -109,12 +109,12 @@ NetBIOS Message Block (NMB )
 
 1. 设置实际目录的权限，以便有samba写权限的用户在本地共享目录上就有写权限
 
-    ```sh
+    ```bash
     [root@localhost ~]# chown witeableUser:witeableUser /path/to/shared/folder
     ```
 1. 重启 samba 服务
 
-    ```sh
+    ```bash
     [root@localhost ~]# service smb restart
     [root@localhost ~]# service nmb restart
     ```
@@ -123,7 +123,7 @@ NetBIOS Message Block (NMB )
 
 1. 为samba设置匿名访问用的账户
 
-    ```sh
+    ```bash
     [root@localhost ~]# smbpasswd -an nobody
     [root@localhost ~]# vi /etc/samba/smb.conf
       [global]
@@ -134,7 +134,7 @@ NetBIOS Message Block (NMB )
 
 1. 设置可匿名访问的资源
 
-    ```sh
+    ```bash
     [root@localhost ~]# vi /etc/samba/smb.conf
       [share]
       path = /path/to/shared/folder
@@ -148,12 +148,12 @@ NetBIOS Message Block (NMB )
 
 1. 修改匿名可写目录的权限
 
-    ```sh
+    ```bash
     [root@localhost ~]# chown nobody:nobody /path/to/shared/folder
     ```
 1. 重启 samba 服务
 
-    ```sh
+    ```bash
     [root@localhost ~]# service smb restart
     [root@localhost ~]# service nmb restart
     ```
@@ -185,7 +185,7 @@ sudo apt-get install samba
 
 1. 配置 
 
-    ```conf
+    ```groovy
     [tmp]
     path=/data0/samba/tmp
     browseable = yes

@@ -1,6 +1,9 @@
-# btpka3 的个人总结
-
 # 简介
-该工程主要用于自我总结用，由于[经历原因](introduction)，代码仍然放在 [github](https://github.com/btpka3/btpka3.github.com) 上，而 wiki 总结则放在了这里—— [git @ oschina](http://git.oschina.net/btpka3/btpka3/wikis/home) 上。
+该文档主要用于自我总结用，由于[经历原因](me/intro.md)，
+代码部分位于 [btpka3.github.com @ github](https://github.com/btpka3/btpka3.github.com)，
+本文档的文字总结的源码位于 [btpka3 @ github](https://github.com/btpka3/btpka3) 上，
+本文档的在线浏览地址位于 [btpka3 @ gitbook](https://btpka3.gitbooks.io/btpka3/content/)。
+
+
 
  

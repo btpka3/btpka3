@@ -62,13 +62,13 @@ public class DispenseAction {
 ```
     2. 在JSP中使用 `<spring:eval />` 执行SpEL，或直接输出，或保存到变量：
 
-```jsp
+```markup
 <spring:eval var="defaultUrl" expression="@config['default.url']" />
 click <a href="${fn:escapeXml(defaultUrl)}">here</a>.
 ```
 提醒：Spring的PlaceHolder是支持在properties中进行级联配置的
 
-```properties
+```ini
 server.name=http://localhost:8080
 server.verify.url=${server.name}/verify
 ```
@@ -99,7 +99,7 @@ public MovieRecommender(CustomerPreferenceDao customerPreferenceDao,
 </bean>
 ```
 
-```txt
+```
 inline list
 #{1,2,3,{'a',"b","c"}}
 

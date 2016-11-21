@@ -278,7 +278,7 @@ exit
 
 * nginx.conf
 
-    ```conf
+    ```groovy
     user  nginx;
     worker_processes  1;
     
@@ -314,7 +314,7 @@ exit
 * default.conf
     请修改下面中的ip地址为你自己的ip地址。
 
-    ```conf
+    ```groovy
     server {
         listen       80;
         server_name  localhost;
@@ -434,6 +434,7 @@ docker-machine create -d virtualbox node0           # 192.168.99.220
 docker-machine create -d virtualbox node1           # 192.168.99.221
 
 # 为了方便, 一次ssh到vm上, 按照上述明确指明IP地址 (默认登录的用户是 docker, 而非root)
+# docker start manager0
 docker-machine ssh manager0
 sudo ifconfig eth1 192.168.99.210 netmask 255.255.255.0
 
@@ -475,7 +476,7 @@ docker swarm leave
 
 docker-compose.yml
 
-```yml
+```yaml
 version: '2'
 services:
     web:

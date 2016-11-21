@@ -34,7 +34,7 @@ dpkg -i package.deb
 # apt
 
 
-```sh
+```bash
 apt-get -s install <package>
 apt-cache policy <package>
 apt-cache search <package>  # 模糊查找package
@@ -111,7 +111,7 @@ sudo vim /etc/hosts
 # 中文字体
 参考[这里](http://wiki.ubuntu.com.cn/%E5%AD%97%E4%BD%93)
 
-```sh
+```bash
 sudo apt-get install ttf-wqy-microhei   #文泉驿-微米黑
 sudo apt-get install ttf-wqy-zenhei     #文泉驿-正黑
 sudo apt-get install xfonts-wqy         #文泉驿-点阵宋体
@@ -123,7 +123,7 @@ sudo apt-get install fonts-wqy-microhei fonts-wqy-zenhei
 
 # 输入法
 
-```sh
+```bash
 #sudo add-apt-repository ppa:fcitx-team/nightly
 sudo add-apt-repository ppa:fcitx-team/stable
 sudo apt-get update
@@ -157,7 +157,7 @@ fcitx-config-gtk
 
 ## 安装
 
-```sh
+```bash
 sudo apt-cache search gedit
 sudo apt-get install gedit 
 sudo apt-get install gedit-plugins
@@ -224,7 +224,7 @@ sudo apt-get install komodo-edit
 
 # gnome-terminal
 
-```sh
+```bash
 
 gnome-terminal : Edit : Profiles : New : xxx : 并设置默认为该 profile
 : General 
@@ -263,14 +263,14 @@ alias ll='ls -lF'
 
 # 文件管理器  PCManFM
 
-```sh
+```bash
 Edit : Preference :
   General : Default View : Detailed list view
   Layout : 选中 Filesystem root
 ```
 # 桌面图标
 
-```sh
+```bash
 # 复制既有应用的图标
 ll /usr/share/applications/*.desktop
 cp /usr/share/applications/firefox.desktop ~/Desktop
@@ -290,19 +290,19 @@ Icon=/home/zll/work/idea-IU-135.909/bin/idea.png
 
 # chromium-browser
 
-```sh
+```bash
 [me@locahost:~]$ sudo apt-get install chromium-browser
 ```
 
 NOTICE: 该浏览器中文乱码可以参考[这里](https://code.google.com/p/chromium/issues/detail?id=316723&q=chinese%20title&colspec=ID%20Pri%20M%20Iteration%20ReleaseBlock%20Cr%20Status%20Owner%20Summary%20OS%20Modified)
 
-```sh
+```bash
 sudo rm /etc/fonts/conf.d/65-droid-sans-fonts.conf
 ```
 
 # service
 
-```sh
+```bash
 # 等价于CentOS上的chkconfig
 [me@localhost:~]$ sudo apt-get install sysv-rc-conf
 [me@localhost:~]$ sudo sysv-rc-conf --help
@@ -310,7 +310,7 @@ sudo rm /etc/fonts/conf.d/65-droid-sans-fonts.conf
 
 # JDK
 ## 安装Oracle [JDK](http://askubuntu.com/questions/56104/how-can-i-install-sun-oracles-proprietary-java-6-7-jre-or-jdk)
-```sh
+```bash
 sudo apt-get install python-software-properties
 sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
@@ -364,14 +364,14 @@ cp /usr/share/applications/qqintl.desktop ~/Desktop
 
 # python
 
-```sh
+```bash
 sudo apt-get install python-dev
 sudo apt-get install python-pip
 ```
 
 # Ruby
 
-```sh
+```bash
 # 1.9.3
 sudo apt-get install ruby1.9.3
 
@@ -392,7 +392,7 @@ rvm install 2.1.1
 # 常见问题
 * 禁止自动login
 
-```sh
+```bash
 $ sudo vi /etc/lightdm/lightdm.conf
 [SeatDefaults]
 #autologin-user=xxx            # comment this line
@@ -402,7 +402,7 @@ $ sudo vi /etc/lightdm/lightdm.conf
 * Lununtu 截屏
 [Lununtu Keyboard](https://help.ubuntu.com/community/Lubuntu/Keyboard)
 
-```sh
+```bash
 $ vi ~/.config/openbox/lubuntu-rc.xml
 
     <keybind key="W-r">                
@@ -464,7 +464,7 @@ $ openbox --reconfigure
 
 # SSH
 
-```sh
+```bash
 sudo apt-get install openssh-client
 sudo apt-get install openssh-server
 sudo service ssh status
@@ -472,7 +472,7 @@ sudo service ssh status
 
 # 登录画面的number lock
 
-```sh
+```bash
 # for login
 
 sudo vi /etc/xdg/lubuntu/lxdm/lxdm.conf
@@ -507,7 +507,7 @@ greeter-setup-script=/usr/bin/numlockx on
 火狐安装的版本一般都比较低，而Chromium浏览器自带一般相对高些。具体可以通过该[网页](https://www.adobe.com/software/flash/about/)检测查看。
 
 
-```sh
+```bash
 sudo apt-get install flashplugin-installer 
 
 #sudo apt-get install pepperflashplugin-nonfree
@@ -516,7 +516,7 @@ sudo apt-get install flashplugin-installer
 
 # 文件关联
 
-```sh
+```bash
 vi ~/.local/share/applications/mimeapps.list
 cat /usr/share/applications/defaults.list
 ```
@@ -524,7 +524,7 @@ cat /usr/share/applications/defaults.list
 
 # Mount UDF/ISO-13346 镜像
 
-```sh
+```bash
 sudo mount -t auto /dev/cdrom0 / media/cdrom0
 ```
 
@@ -534,7 +534,7 @@ sudo mount -t auto /dev/cdrom0 / media/cdrom0
 
 ## 先禁用图形化的网络管理工具
 
-```sh
+```bash
 sudo vi /etc/NetworkManager/NetworkManager.conf
 [main]
 plugins=ifupdown,keyfile,ofono
@@ -547,7 +547,7 @@ managed=true   # 将值改为true
 
 ## 配置静态IP地址
 
-```sh
+```bash
 sudo vi /etc/network/interfaces
 
 auto lo
@@ -564,7 +564,7 @@ dns-nameservers 8.8.8.8 8.8.4.4
 ```
 ## 重启网络
 
-```sh
+```bash
 sudo service network-manager stop
 sudo service network-manager start
 ```
@@ -572,7 +572,7 @@ sudo service network-manager start
 
 # 配置DNS
 
-```sh
+```bash
 # 方法1
 sudo vi /etc/network/interfaces
 # 追加一下一行
@@ -602,7 +602,7 @@ dig @8.8.8.8 www.not-exist-domain.com
 
 # netbook/laptop screen brightness
 
-```sh
+```bash
 # done.
 xrandr -q | grep " connected"
 xrandr --output LVDS1 --brightness 0.5 
@@ -632,7 +632,7 @@ linux ... rw single init=/bin/bash
 # 远程桌面
 ## TO Windows
 
-```sh
+```bash
 sudo apt-get install grdesktop
 ```
 
@@ -665,7 +665,7 @@ echo lxsession -s Lubuntu -e LXDE > ~/.xsession
 
 # PHP
 
-```sh
+```bash
 sudo apt-get install nginx
 sudo apt-get install php5-fpm php5-cli php5-cgi php5-mysql
 sudo service php5-fpm status
@@ -707,7 +707,7 @@ vi /usr/share/nginx/html/my.php
 
 
 
-```sh
+```bash
 sudo blkid   # 查看各个分区的UUID
 id           # 查看自己当前账户的uid和gid
 sudo vi /etc/fstab

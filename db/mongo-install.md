@@ -30,7 +30,7 @@ docker exec -it my-mongo bash
 ## ubuntu
 see [here](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)
 
-```sh
+```bash
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
 echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
 sudo apt-get update
@@ -141,12 +141,12 @@ echo never >/sys/kernel/mm/transparent_hugepage/defrag
 
 1. 新建 yum 的仓库配置文件
 
-    ```sh
+    ```bash
     vi /etc/yum.repos.d/mongodb.repo
     ```
     文件内容如下：
 
-    ```conf
+    ```groovy
     [mongodb]
     name=MongoDB Repository
     baseurl=http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/
@@ -156,14 +156,14 @@ echo never >/sys/kernel/mm/transparent_hugepage/defrag
 
 1. 查看可用版本
 
-    ```sh
+    ```bash
     yum --showduplicates list mongodb-org       # 查看可用的版本
     yum install mongodb-org-2.6.6               # 明确指定版本号并安装
     ```
 
 1. 修改配置文件
 
-    ```sh
+    ```bash
     df -h                                      # 根据磁盘状况，规划数据存储目录，日志目录。
     mkdir -p /home/mongod/log                  # 创建日志目录
     mkdir -p /home/mongod/db                   # 创建数据目录
@@ -174,7 +174,7 @@ echo never >/sys/kernel/mm/transparent_hugepage/defrag
     ```
     修改以下配置项：
 
-    ```conf
+    ```groovy
     logpath=/home/mongod/log/mongod.log        # 日志路径。（默认：/var/log/mongodb/mongod.log）
     dbpath=/home/mongod/db                     # 数据目录。（默认：/var/lib/mongo）
     #bind_ip=127.0.0.1                         # 注释掉该行，以便监听所有网卡
@@ -185,7 +185,7 @@ echo never >/sys/kernel/mm/transparent_hugepage/defrag
 
 1. 启动并检查
 
-    ```sh
+    ```bash
     chkconfig --list mongod
     service mongod restart
     service mongod status
@@ -265,39 +265,39 @@ security:
 
 1. 停止所有的 mongod
 
-    ```sh
+    ```bash
     service mongod stop
     ```    
 
 1. 创建一个 keyfile，用于 replica set。
 
-    ```sh
+    ```bash
     openssl rand -base64 741 > /home/mongod/mongodb-keyfile
     chown mongod:mongod /home/mongod/mongodb-keyfile
     chmod 600 /home/mongod/mongodb-keyfile
     ```
 1. 将 keyfile 复制到规划的 replica set 中的其他服务器上
 
-    ```sh
+    ```bash
     scp -P 2222 /home/mongod/mongodb-keyfile root@192.168.101.85:/home/mongod/mongodb-keyfile
     ssh -p 2222 root@192.168.101.85 chown mongod:mongod /home/mongod/mongodb-keyfile
     ssh -p 2222 root@192.168.101.85 chmod 600 /home/mongod/mongodb-keyfile
     ```
 1. 修改每一个 mongodb 的配置文件，设置 replica 参数
 
-    ```sh
+    ```bash
     vi /etc/mongod.conf
     ```
     修改以下配置项：
 
-    ```conf
+    ```groovy
     replSet=rs_lizi
     keyFile=/home/mongod/mongodb-keyfile
     ```
 
 1. 启动每一个 mongod 
 
-    ```sh
+    ```bash
     service mongod start
     ```
 
@@ -342,7 +342,7 @@ security:
 
 1. 在上述所有对 `/etc/mongod.conf` 修改的基础上，再修改以下设置
 
-    ```conf
+    ```groovy
     storage:
         smallFiles: true
         journal:
@@ -351,7 +351,7 @@ security:
 
 1. 启动仲裁者节点
 
-    ```sh
+    ```bash
     service mongod start
     ```
 

@@ -83,7 +83,7 @@
 
 1. 以下html内容有错么？如果有，请指出，并给出更正后的答案：
 
-    ```text
+    ```
     <!DOCTYPE html>
     <html lang="en">
     <head>

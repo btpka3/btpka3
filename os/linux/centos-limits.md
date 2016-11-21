@@ -17,7 +17,7 @@ echo never > /sys/kernel/mm/transparent_hugepage/defrag
 
  查看kernel参数
 
-```sh
+```bash
                                                                    # 每个进程可以打开的最大文件数
 sysctl -A  | grep fs\.file-max                      # fs.file-max = 764817
 sysctl fs.file-max
@@ -37,7 +37,7 @@ net.ipv4.tcp_syncookies = 0
 
 查看指定进程正在使用的文件数量
 
-```sh
+```bash
 ls -la /proc/<pid>/fd
 lsof -p <pid of process>
 lsof -p <pid> | wc -l
@@ -46,13 +46,13 @@ ulimit -n
 
 查看指定用户开启的总进程数
 
-```sh
+```bash
 ps auxwwf | grep $USER_NAME | grep -v grep | wc -l
 ```
 
 ### upper limit on inotify watches reached
 
-```sh
+```bash
 sudo sysctl fs.inotify.max_user_watches
 sudo sysctl fs.inotify.max_user_watches=8192000
 
@@ -62,7 +62,7 @@ fs.inotify.max_user_watches=8192000
 
 ### 修改用户限制
 
-```sh
+```bash
 vi /etc/pam.d/login                 # 确认已经启用 pam_limits.so
 session required pam_limits.so
 

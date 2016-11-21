@@ -10,7 +10,7 @@
 
 1. 安装依赖
 
-    ```sh
+    ```bash
     yum install openssl openssl-devel
     # 或者
     sudo apt-get install build-essential linux-kernel-headers openssl libssl-dev libpcre3 libpcre3-dev gcc zlib1g-dev 
@@ -18,7 +18,7 @@
 
 1. 下载、编译并安装
     
-    ```sh
+    ```bash
     useradd nginx
     mkdir /usr/local/tengine/tengine-2.1.0
     
@@ -35,7 +35,7 @@
 
 1. 修改配置
 
-    ```sh
+    ```bash
     cd /usr/local/tengine/tengine-2.1.0
     mkdir conf/conf.d
     vi conf/nginx.conf
@@ -49,7 +49,7 @@
     ```
 1. 线上生产环境还要启用一下gzip，可以直接修改 nginx.conf
   
-    ```conf
+    ```groovy
     gzip  on; 
     gzip_types  text/plain
                 text/css
@@ -105,7 +105,7 @@
 
 1.  修改  `/etc/init.d/nginx` ,
 
-    ```sh
+    ```bash
     nginx="/usr/local/tengine-2.1.0/sbin/nginx"
     NGINX_CONF_FILE="/usr/local/tengine-2.1.0/conf/nginx.conf"
     ```	

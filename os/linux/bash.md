@@ -56,7 +56,7 @@ dd if=/dev/zero of=test.1M.txt bs=1M count=1
 
 ## group
 
-```sh
+```bash
 # 查看用户隶属于哪些用户组
 group <userName>
 
@@ -70,7 +70,7 @@ usermod -m -d /path/to/new/home/dir userNameHere
 
 ## array
 
-```sh
+```bash
 # 声明数组，元素之间使用空格分隔
 arr=( "aaa" "bbb" "xxx" )
 
@@ -121,12 +121,12 @@ done
 
 
 ## number calc
-```sh
+```bash
 let a=1+2  # a=3
 expr 1 + 2 # 3, 注意，需要使用空格分隔
 ```
 ## exit code
-```sh
+```bash
 . /etc/rc.d/init.d/functions
 (( 0 && 1 )) # simulate an error exit code
 rc=$?
@@ -143,7 +143,7 @@ rc=$?
 ```
 
 ## loop
-```sh
+```bash
 for (( COUNTER=0; COUNTER<=10; COUNTER+=2 )); do
     echo $COUNTER
 done
@@ -162,13 +162,13 @@ for i in `seq 0 2 10`; do echo $i; done
 
 ## 检查目录是否为空
 参考：[1](http://www.cyberciti.biz/faq/linux-unix-shell-check-if-directory-empty/)
-```sh
+```bash
 [ "$(/bin/ls -A yourDir)" ] && echo "Not Empty" || echo Empty`
 ```
 
 ## port
 
-```sh
+```bash
 fuser 16000/tcp             # 需要root用户，查看哪个进程监听了16000端口
 chmod +s /usr/sbin/fuser    # 如果想要非root用户也可以执行该命令，则设置 SUID 即可
 ```
@@ -181,7 +181,7 @@ chmod +s /usr/sbin/fuser    # 如果想要非root用户也可以执行该命令�
 [4](http://www.gnu.org/software/sed/manual/html_node/Escapes.html#Escapes)、
 [5](http://docs.oracle.com/javase/1.4.2/docs/api/java/util/regex/Pattern.html)
 
-```sh
+```bash
 escSedRegKey(){
   # POSIX basic regular expression metacharacter : . [ ] ^ $ ( ) \ * { }
   # POSIX extended regular expression metacharacter : ? + |
@@ -206,7 +206,7 @@ echo "$target" | sed -r "s/^([[:space:]]*$ekk[[:space:]]*=).*$/\1$ekv/g"
 ## 字符串处理
 ### substr
 
-```sh
+```bash
 str='CREATE TABLE `offercalc_fields` ('
 echo $str | grep -Po '(?<=CREATE TABLE `).+(?=`)'
 echo $str | sed -nr 's/CREATE TABLE `(.+)`.*/\1/p'
@@ -219,20 +219,20 @@ fuser 16000/tcp 2>&1 | sed -nr 's/[^[:space:]]+[[:space:]]+([[:digit:]]+)/\1/p'
 ```
 
 ### replace
-```sh
+```bash
 str=my-app-2.0.2.war
 echo $str | sed -nr 's/-([0-9]+\.)+[0-9]+//p'
 ```
 
 ### insert
-```sh
+```bash
 str=my-app-2.0.2.war
 dateStr=$(date +%Y%m%d%H%M%S)
 echo $str | sed -nr "s/(.*)(\.war)/\1-${dateStr}\2/p"
 ```
 
 ### 指定行的内容
-```sh
+```bash
 str="a\nb\nc\nd\ne"
 echo -e $str | sed -n '1p'    # 打印第1行
 echo -e $str | sed -n '2,3p'  # 打印第2~3行
@@ -245,12 +245,12 @@ tailf xxxFile | grep --line-buffered --color=auto xxxKeyWord
 ## date
 设置时间
 
-```sh
+```bash
 date -s "20150130 10:45:00"   
 ```
 循环打印当前时间
 
-```sh
+```bash
 dateStr1="$(stat -c %y z.sh)"
 dateStr2=$(date -d "${dateStr1}" +%Y%m%d%H%M%S)
 echo -e "dateStr1=$dateStr1\ndateStr2=$dateStr2"
@@ -262,7 +262,7 @@ time { ll ; echo aaa ;}
 ```
 
 ## function
-```sh
+```bash
 myFunc(){
   echo hello $1
   exit 1
@@ -272,37 +272,37 @@ funcResult=$(myFunc zhang3)
 
 ## xargs
 
-```sh
+```bash
 # 批量重命名文件后缀
 ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
 ```
 
 ## 压缩包
 ### zip
-```sh
+```bash
   zip -r file.zip file1 file2 ...
   tar -cvf file.tar file1 file2 ...
   tar -czvf file.tar.gz file1 file2 ...
   tar -cjvf file.tar.bz2 file1 file2 ...
 ```
 ### add
-```sh
+```bash
   zip -r file.zip file1 file2 ...
   tar -rf file.tar file1 file2 ...
 ```
 ### update
-```sh
+```bash
   zip -r file.zip file1 file2 ...
   #tar -uf file.tar file1 file2 ...
   tar -rf file.tar file1 file2 ...
 ```
 ### delete
-```sh
+```bash
   zip -d file.zip file1 file2 ...
   tar -f file.tar --delete file1 file2 ...
 ```
 ### list
-```sh
+```bash
   unzip -Z -1 file.zip
   zipinfo -1 file.zip
   tar -tf file.tar | sort | uniq
@@ -311,7 +311,7 @@ ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
 ```
 ### unzip 
 #### list all
-```sh
+```bash
   unzip file.zip -d outputDir
   unzip -O GBK windows.zip       # 解压在Windows平台上创建的zip
   tar -xvf file.tar       -C outputDir # outputDir 必须先创建
@@ -322,14 +322,14 @@ ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
   rar x xxx.rar /path/to/extract
 ```
 #### list specific file/dir
-```sh
+```bash
   unzip file.zip entry/path/to/dir/* 
   unzip file.zip entry/path/to/file
   unzip -p file.zip entry/path/to/file > newFile
 ```
 
 ### File Search
-```sh
+```bash
   which someExecutableFile # 从环境变量下查找可执行的文件位置
 
   # 遍历磁盘，按指定规则查找文件
@@ -354,7 +354,7 @@ ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
 
 ### File Content Search
 
-```sh
+```bash
 grep -r -n --include "*.java" systemProperties
 ```
 
@@ -372,7 +372,7 @@ grep -r -n --include "*.java" systemProperties
 ```
 
 # PostgreSql backup cron job
-```sh
+```bash
 [root@s01 ~]# vi /data/srs/util/backDb
 #!/bin/bash
 
@@ -436,7 +436,7 @@ echo ----------------------------------------------------- `$TIME` 同步结束
 
 ## 当前目录
 
-```sh
+```bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo $DIR
 ```
@@ -444,7 +444,7 @@ echo $DIR
 ## awk
 
 
-```sh
+```bash
 # <td><a href="AAA.tar.bz2">AAA.tar.bz2</a></td>
 curl -s http://xxx/ | awk 'match($0, /<td><a.*>(.*)<\/a>.*<\/td>/,arr) {print arr[1]}'
 # output : AAA.tar.bz2
@@ -478,7 +478,7 @@ zll@mac-pro 333$ ll | awk '{print $5}'
 ## 免密码以root权限执行脚本
 ### 使用SetUID特性
 
-```sh
+```bash
 vi xxx.sh
 sudo chown root.root xxx.sh
 sudo chmod 4755 xxx.sh
@@ -493,7 +493,7 @@ Cmnd_Alias        CMDS = /path/to/your/script
 
 # backup 
 
-```sh
+```bash
 #!/bin/bash
 
 TIME="date +%Y-%m-%d.%H:%M:%S"
@@ -547,7 +547,7 @@ EOF
 
 # echo server
 
-```sh
+```bash
 ncat -l 2000 -k -c 'xargs -n1 echo'
 ```
 

@@ -12,7 +12,7 @@
     环境变量，运行用的系统用户应尽量在 init.d 脚本中配置。
     如果源码编译安装时不提供init.d脚本，需要手动编写，。之后一般需要执行以下命令：
 
-    ```sh
+    ```bash
 [root@localhost ~] chkconfig --add xxxInit.d                    # xxxInit.d 是init.d脚本的文件名
 [root@localhost ~] chkconfig --list xxxInit.d                    # 查看默认启动级别
 [root@localhost ~] chkconfig --level 345 xxxInit.d  on      # 设置默认启动级别为 init 3, 4, 5
@@ -26,7 +26,7 @@
 3. TC研发中心开发的应用都放到 `/data/app/${software-name}/` 目录下
 
 示例：
-```sh
+```bash
 # 解压类、编译类软件包的安装路径
 /data/software/tomcat/default/                           # tomcat 根目录。一个tomcat运行所有的Web应用时，应使用该tomcat
 /data/software/tomcat/${app-artifact-id}/             # tomcat 根目录。一个tomcat运行单独某个Web应用时使用

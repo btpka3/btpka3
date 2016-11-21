@@ -10,13 +10,13 @@ df -i # 查看inode数量状况（创建的文件数）
 
 ## What OPTIONS is the running kernel using?
 [See this](http://www.walkernews.net/2008/11/21/how-to-check-what-kernel-build-options-enabled-in-the-linux-kernel/):
-```sh
+```bash
 cat /boot/config-$(uname -r)
 ```
 
 ## Loadable kernel module
 [See this](http://www.tldp.org/HOWTO/html_single/Module-HOWTO/)
-```sh
+```bash
 # where is the location of kernel modules?
 ls -l /lib/modules/$(uname -r)
 

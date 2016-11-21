@@ -1,7 +1,7 @@
 ## 常用设置
 在 vm 内,禁止 'Alt+tab' 在vm内切换窗口:
 
-```text
+```
 VirtualBox: File -> Preferences -> Input -> uncheck "Auto Capture Keyboard"
 ```
 
@@ -121,7 +121,7 @@ ifconfig
 1.  启动Guest系统，`设备` 菜单 -> 分配光驱 -> 选择第一步加载的虚拟光驱
 1.  在Guest系统（CentOS）中加载cdrom，
 
-    ```sh
+    ```bash
     mount /dev/cdrom /media/cdrom
     # mount: block device /dev/sr0 is write-protected, mounting read-only
     cd /media/cdrom
@@ -131,7 +131,7 @@ ifconfig
 
 1.  重启系统
 
-    ```sh
+    ```bash
     init 6
     ```
 1.  Guest系统运行窗口： 
@@ -148,7 +148,7 @@ ifconfig
 
 1.  在Guest系统中运行以下命令加载
 
-    ```sh
+    ```bash
     mount -t vboxsf F /mnt/f    # 其中`F`是前一步设置的`共享文件名称`，`/mnt/f` 是挂载目录，若不存在请自行创建
     mount: block device /dev/sr0 is write-protected, mounting read-only
     cd /mnt/f

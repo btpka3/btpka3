@@ -5,13 +5,13 @@
 1. 下载最新版本，并解压。比如：解压到 `/home/nexus`
 1. 修改 `/etc/profile.d/xxx.sh` ，追加/修改以下环境变量
 
-   ```sh
+   ```bash
    export NEXUS_HOME=/home/nexus/nexus-2.11.1-01
    export PATH=${NEXUS_HOME}/bin:$PATH
    ```
 1. 修改 `${NEXUS_HOME}/conf/nexus.properties`，按需修改以下配置项
 
-   ```properties
+   ```ini
    application-port=20010                # 默认值是 8081
    nexus-webapp-context-path=/           # 默认值是 /nexus
    ```
@@ -23,7 +23,7 @@
     ```
     内容如下：
 
-    ```sh
+    ```bash
     # NEXUS_HOME=".."                   # 注释掉此行
     . /etc/profile.d/xxx.sh             # 在文件开头追加此行
     RUN_AS_USER=nexus                   # 修改此值为最开始创建的用户   

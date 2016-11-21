@@ -1,6 +1,6 @@
 
 
-```sh
+```bash
 yum makecache
 
 # 查看启用的yum仓库
@@ -36,7 +36,7 @@ yum provides /path/to/your/file
 # 不使用依赖包安装
 
 
-```sh
+```bash
 yum install yum-plugin-downloadonly
 
 # 仅仅下载，而不安装

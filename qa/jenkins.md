@@ -5,18 +5,18 @@
 
 1. 新增 jenkins 的 yum 源
 
-    ```sh
+    ```bash
     wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
     rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
     ```
 1. 安装
 
-    ```sh
+    ```bash
     yum list "*jenkins*"                         # 查找可安装的jenkins版本
     yum install jenkins                          # 安装
     ```
 1. 按照规约修改jenkins的安装目录、存储目录
-    ```sh
+    ```bash
     mkdir /data/software/jenkins/
     chown -R jenkins:jenkins /data/software/jenkins/
     mkdir /data/store/jenkins/
@@ -26,12 +26,12 @@
 
 1. 修改配置
 
-    ```sh
+    ```bash
     vi /etc/sysconfig/jenkins
     ```
     修改以下变量：
 
-    ```conf
+    ```groovy
     JENKINS_HOME="/data/store/jenkins"                               # 即jenkins用户的主目录
     JENKINS_PORT="20020"
     JENKINS_AJP_PORT="20022"
@@ -39,12 +39,12 @@
 
 1. 修改 init.d 脚本
 
-    ```sh
+    ```bash
     vi /etc/init.d/jenkins
     ```
     修改内容如下：
 
-    ```sh
+    ```bash
     . /etc/profile.d/xxx.sh
 
     candidates="
@@ -57,7 +57,7 @@
 
 1. 启动
 
-    ```sh
+    ```bash
     systemctl daemon-reload
 
     sudo /etc/init.d/jenkins restart
@@ -66,7 +66,7 @@
 
 # nginx 反向代理配置示例
 
-```text
+```
 upstream jenkins {
   server 192.168.115.80:8080;
 }
@@ -105,7 +105,7 @@ server {
 
    可以使一个job在运行前或运行后调用另外一个job。示例：
 
-```sh
+```bash
 # job1. 更新SVN  
 
 # job2. 打包并使用SSH部署：
@@ -123,7 +123,7 @@ mvn -f ../../job1/workspace/pom.xml -Dmaven.test.skip=true -am --projects subMod
 * LDAP Plugin  
   Jenkins 1.480  之后就包含在发布版本中了。下面示例如何使用使用域账户登录
 
-```txt
+```
 1. Jenkins LDAP全局配置
    Jenkins -> Manage Jenkins -> Configure Global Security :
    * 选中“Enable security”

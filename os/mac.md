@@ -24,13 +24,13 @@
 ## brew
 苹果电脑并没有类似 Ubuntu 的 apt-get 或 CentOS 的 yum 命令, 但第三方提供了类似的工具 [brew](http://brew.sh/)
 
-```sh
+```bash
 sudo chown -R $USER /usr/local
 ```
 
 ## 修改主机名
 
-```sh
+```bash
 sudo scutil –-set HostName new_hostname
 sudo /usr/libexec/locate.updatedb
 ```

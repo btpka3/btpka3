@@ -6,7 +6,7 @@
 
 输入代码：
 
-```txt
+```
 
     代码块前需要空一个空行、代码块内容需要都缩进4个空格
     这种方法不能用在List中、无法指定着色语法
@@ -25,7 +25,7 @@
 输入代码：
 
     
-    ```txt
+    ```
     代码块前需要空一个空行
     如果要嵌套到List中，代码块内容需要都缩进4*N个空格。
     echo 1+2
@@ -33,7 +33,7 @@
     ```
 结果示例：
 
-```txt
+```
 代码块前需要空一个空行
 如果要嵌套到List中，代码块内容需要都缩进4*N个空格。
 echo 1+2
@@ -42,14 +42,14 @@ echo hello world
 
 # List 示例
 
-```sh
+```bash
 no indent code block
 ```
 * level1-1
 
-    ```sh
+    ```bash
 # echo hello world
-需要将 ```sh  和 ``` 缩进4个空格。
+需要将 ```bash  和 ``` 缩进4个空格。
     ```
     indent * 1 paragraph (ending with two space)  
     indent * 1 paragraph
@@ -57,7 +57,7 @@ no indent code block
         indent * 1 paragraph (ending with two space)  
         indent * 1 paragraph
 
-        ```sh
+        ```bash
 # echo hello world
         ```
     1. level2-2
@@ -65,7 +65,7 @@ no indent code block
     1. aaa
     2. bbb
 
-```sh
+```bash
 # vi /etc/profile.d/his.sh
 #!/bin/bash
 export JAVA_HOME=/x/x/x

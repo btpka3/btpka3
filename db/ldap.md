@@ -18,7 +18,7 @@ st        | stateOrProvinceName     | core.schema | organizationalPerson | 州�
 uid       | userid                  | core.schema | account etc.         | 用户名等
 
 * 示例：
-```txt
+```
 CN=Karen Berge,CN=admin,DC=corp,DC=Fabrikam,DC=COM
 ```
 
@@ -45,12 +45,12 @@ CR      | 回车符                     | 0x0D
 * 路径语法：
 如果路径上的DistinguishedName含有保留字符需要使用反斜杠进行转义、或者使用 '\xx'的形式使用十六进制值。
 
-```txt
+```
 LDAP://HostName[:PortNumber][/DistinguishedName]
 ```
 
 * 路径示例
-```txt
+```
 LDAP://server01/CN=Jeff Smith,CN=users,DC=fabrikam,DC=com
 ```
  
@@ -69,7 +69,7 @@ LDAP相对于数据库有何优缺点？应当[何时](http://www.zytrax.com/boo
 * 如果总数据量相对较小（比如：<1000条），且没有使用LDAP复制，则可以适当的使用有事务的LDAP。（每5~10个读操作之后又一个写操作）
 
 # Data Informaction Tree
-```txt
+```
 Root # aka "base","suffix"
  |--Entry#1    #ObjectClass=name(attr=value,attr=value)
  |--Entry#2
@@ -102,7 +102,7 @@ LDAP 最佳实践，参考：[1](http://ldapmaven.com/2011/10/27/ldap-programmin
 ## 安装
 * 先下载ldapsearch工具包
 
-```sh
+```bash
 # for CentOS
 yum -y install openldap-clients
 # for Ubuntu
@@ -111,21 +111,21 @@ sudo apt-get install ldap-utils
 * 下载ApachDS压缩包，比如 apacheds-2.0.0-M15.tar.gz，并解压。
 * 开启匿名访问：
 
-```sh
+```bash
 vi ${ADS_PWD}/instances/default/conf/config.ldif
 dn: ads-directoryServiceId=default,ou=config
 ads-dsallowanonymousaccess: TRUE             # 将默认值从FALSE改为TRUE。
 ```
 * 启动
 
-```sh
+```bash
 ${ADS_PWD}/bin/apacheds.sh
 ```
 
 * ldapsearch
 
 for ApacheDirectory
-```sh
+```bash
 # 查找 root DSE
 ldapsearch -h localhost -p 10389 -x  -b "" -s base "(objectclass=*)" "*" +
 # 查找 schema entry
@@ -133,7 +133,7 @@ ldapsearch -h localhost -p 10389 -x  -b "cn=schema" -s base "(objectclass=subsch
 ```
 
 for windows AD
-```sh
+```bash
 # 查找 root DSE
 ldapsearch -h 10.1.10.2 -x -D "tcgroup\zhangliangliang" -w "xxxxxx" -b "" -s base "(objectclass=*)" "*" +
 # 查找 schema entry

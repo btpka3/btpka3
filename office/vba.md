@@ -5,7 +5,7 @@
 
 ## 弹出消息
 
-```vb
+```basic
 MsgBox "xxx"
 MsgBox "xxx", vbOKOnly + vbInformation, "智能Excel"
 ```

@@ -9,7 +9,7 @@
 ## 查看是否已经安装
 
 
-```sh
+```bash
 # 查询是否已经安装了mysql的相关RPM包
 rpm -qa | grep -i mysql   
 
@@ -24,7 +24,7 @@ rpm -e xxxx
 
 ## 使用 MySQL的yum源进行安装
 
-```sh
+```bash
 # 为CentOS 5.x 获取MySQL的yum源
 # wget http://repo.mysql.com/mysql-community-release-el5-5.noarch.rpm
 
@@ -48,7 +48,7 @@ yum install mysql-community-server-5.6.20
 其中server可以配置的参数值参考[这里](http://dev.mysql.com/doc/refman/5.6/en/innodb-parameters.html)
 
 
-```cnf
+```groovy
 [client]                                            # 应用于所有MySQL客户端
 port                    = 3306
 socket                  = ${datadir}/mysql.sock     # 除了mysqld、其他程序连接的socket
@@ -123,7 +123,7 @@ no-auto-rehash                                      # 禁用自动提示（命�
 
 ## 初始化数据目录
 
-```sh
+```bash
 # 查看分区信息，根据大小制订合理的数据目录
 df -h 
 
@@ -143,7 +143,7 @@ performance_schema
 
 ## 安装后启动mysql
 
-```sh
+```bash
 service mysqld start
 ```
 

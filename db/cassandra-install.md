@@ -73,7 +73,7 @@ cql介绍请参考[这里](http://cassandra.apache.org/doc/cql3/CQL.html)
 1. 重启 Cassandra 客户端。默认超级用户的为 cassandra/cassandra
 1. 新建一个超级用户，设置复杂、难猜测的密码。
 
-    ```sh
+    ```bash
     cqlsh -u cassandra -p cassandra
     create user zhangll with password '123456' superuser;
     quit
@@ -81,7 +81,7 @@ cql介绍请参考[这里](http://cassandra.apache.org/doc/cql3/CQL.html)
 
 1. 使用新的超级用户登录，并修改cassandra用户的密码
 
-    ```sh
+    ```bash
     cqlsh -u zhangll -p 123456
     alter user cassandra with password '(*(JHJ(*&*GHdf';
     -- ...

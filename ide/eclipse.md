@@ -71,7 +71,7 @@ update site： http://findbugs.cs.umd.edu/eclipse
 
 # 常用Preferences设置
 
-```text
+```
 General->Editors->Text Editors
     : 选中 Insert spaces for tabs
     : 选中 Show print margin, 120

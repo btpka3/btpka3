@@ -48,7 +48,7 @@ Redis Sentinel的作用: 使用一主多从模式保证高可用性。
 
 1. 创建系统用户redis，及所需的目录
 
-    ```sh
+    ```bash
     cd ~/Downloads
     wget http://download.redis.io/releases/redis-3.0.3.tar.gz
     tar xzf redis-3.0.3.tar.gz
@@ -68,7 +68,7 @@ Redis Sentinel的作用: 使用一主多从模式保证高可用性。
     ```
 1. 从[Redis官网](http://redis.io/download)下载所需的安装包，或者查看文件共享：`\\10.1.10.212\share\java\redis\`。放到 `/data/tmp/` 目录下，并解压：
 
-    ```sh
+    ```bash
     [root@localhost ~]# mkdir /data/tmp
     [root@localhost ~]# scp root@10.1.10.212:/data/share/java/redis/redis-2.8.7.tar.gz /data/tmp
     [root@localhost ~]# tar zxvf /data/tmp/redis-2.8.7.tar.gz -C /data/software/redis/
@@ -76,14 +76,14 @@ Redis Sentinel的作用: 使用一主多从模式保证高可用性。
     ```
 1. 编译
 
-    ```sh
+    ```bash
     [root@localhost ~]# su - redis
     [redis@localhost ~]$ cd /data/software/redis/redis-2.8.7/
     [redis@localhost redis-2.8.7]$ make
     ```
 1. 修改配置文件
 
-    ```sh
+    ```bash
     [root@localhost ~]# /data/software/redis/redis-2.8.7/redis.conf
       daemonize yes
       pidfile /data/store/redis/redis.pid
@@ -93,7 +93,7 @@ Redis Sentinel的作用: 使用一主多从模式保证高可用性。
 
 1. 从[这里](init.d.redis)下载Redis的init.d脚本至 `/etc/init.d/redis`，修改后并启用
 
-    ```sh
+    ```bash
     [root@localhost ~] vi /etc/init.d/redis
       exec="/data/software/redis/redis-2.8.7/src/redis-server"
       pidfile="/data/store/redis/redis.pid"                                                                 # 应当与redis.conf中的配置保持一致
@@ -106,7 +106,7 @@ Redis Sentinel的作用: 使用一主多从模式保证高可用性。
     ```
 1. 启动
 
-    ```sh
+    ```bash
     [root@localhost ~]# service redis start
     ```
 
@@ -120,7 +120,7 @@ TODO 上下合并
 
 1. 创建系统用户redis，及所需的目录
 
-    ```sh
+    ```bash
     adduser -r -m  -d /data/software/redis redis 
     passwd -l redis
     
@@ -133,7 +133,7 @@ TODO 上下合并
     ```
 1. 从[Redis官网](http://redis.io/download)下载所需的安装包。放到 `/data/tmp/` 目录下，并解压：
 
-    ```sh
+    ```bash
     mkdir /data/tmp
     wget http://download.redis.io/releases/redis-2.8.14.tar.gz
     tar zxvf redis-2.8.14.tar.gz -C redis/
@@ -141,14 +141,14 @@ TODO 上下合并
     ```
 1. 编译
 
-    ```sh
+    ```bash
     su - redis
     cd /data/software/redis/redis-2.8.7/
     make
     ```
 1. 修改系统设置
 
-    ```sh
+    ```bash
     vi /etc/sysctl.conf
     vm.overcommit_memory = 1
 
@@ -158,7 +158,7 @@ TODO 上下合并
 
 1. 修改配置文件 `/data/software/redis/redis-2.8.7/redis.conf`
 
-    ```conf
+    ```groovy
     daemonize yes
     pidfile /data/store/redis/redis.pid
     port 6379
@@ -172,7 +172,7 @@ TODO 上下合并
 ## centos 6
 
 1. 准备 init.d 脚本（可以搜索 redis rpm，找到rpm包后解压获取相应的init.d脚本，然后在再其基础上修改配置项）
-    ```sh
+    ```bash
     #!/bin/sh
     #
     # redis        init file for starting up the redis daemon
@@ -265,7 +265,7 @@ TODO 上下合并
     ```
     并修改其中的配置项 `vi /etc/init.d/redis`
 
-    ```sh
+    ```bash
     exec="/data/software/redis/redis-2.8.14/src/redis-server"
     pidfile="/data/store/redis/redis.pid"                                                                 # 应当与redis.conf中的配置保持一致
     REDIS_CONFIG="/data/software/redis/redis-2.8.14/redis.conf"
@@ -273,7 +273,7 @@ TODO 上下合并
     ```
     最后为 init.d 脚本修改权限
 
-    ```sh
+    ```bash
     chmod u+x /etc/init.d/redis
     chkconfig --add redis
     chkconfig --list redis
@@ -281,7 +281,7 @@ TODO 上下合并
     ```
 1. 启动
 
-    ```sh
+    ```bash
     service redis start
     ```
 

@@ -135,7 +135,7 @@ normal exit STATUS|SIGNAL
 
 ## mysql.conf
 
-```conf
+```groovy
 # MySQL Service                                                                                                                                                                                              
 
 description     "MySQL Server"

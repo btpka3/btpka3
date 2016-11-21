@@ -4,14 +4,14 @@
 
 1. 解压
 
-    ```sh
+    ```bash
     mkdir /usr/jetty
     tar -xzvf jetty-distribution-9.2.7.v20150116.tar.gz -C /usr/jetty
     ```
 
 1. 设置 JETTY_HOME : `vi /etc/xxx.sh`
 
-    ```sh
+    ```bash
     export JETTY_HOME=/usr/jetty/jetty-distribution-9.2.7.v20150116
     ```
 
@@ -23,7 +23,7 @@
 
     1. `vi $JETTY_HOME/bin/jetty.sh` ，为方便非root用户可以执行该脚本，修改以下配置。
 
-        ```sh
+        ```bash
         # 修改 169 行左右, 修改 `for CONFIG in $ETC/default/${NAME}{,9} $HOME/.${NAME}rc; do` 为：
         for CONFIG in {/etc,~/etc}/default/${NAME}{,9} $HOME/.${NAME}rc; do 
 
@@ -32,7 +32,7 @@
         ```
     1. `vi $JETTY_HOME/bin/jetty.sh` ，防止Jenkins 通过SSH执行时，因stdout而超时。
 
-        ```sh
+        ```bash
         # 修改 459 行左右，修改 `exec ${RUN_CMD[*]} start-log-file="$JETTY_LOGS/start.log" &` 为：
         exec ${RUN_CMD[*]} start-log-file="$JETTY_LOGS/start.log" > /dev/null &
 
@@ -44,18 +44,18 @@
 
     1. 创建目录
 
-        ```sh
+        ```bash
         mkdir -p /data/lizi-platform/my-app/jetty.base
         ```
     1. 创建一个空 start.ini 文件
 
-        ```sh
+        ```bash
         cd /data/app/my-app/jetty.base
         touch start.ini
         ```
     1. 通过命令创建所需的 start.d/xxx.ini 文件
 
-        ```sh 
+        ```bash 
         java -jar ${JETTY_HOME}/start.jar --add-to-startd=server,deploy,http,logging,jsp,jstl,jaas,ssl
         mkdir work                        # 注意，该目录不会自动清空的。如果不再jetty.base目录下创建，会使用临时目录，重启一次，就创建一个临时目录
 
@@ -64,7 +64,7 @@
         ```
     1. 修改 start.d 文件
 
-        ```sh
+        ```bash
         # 修改 http 端口等配置
         vi start.d/http.ini
 
@@ -75,13 +75,13 @@
         ```
     1. 修改文件权限
 
-        ```sh
+        ```bash
         chown -R app:app /data/app/my-app/jetty.base     # lizi 用户是jetty启动时所用的系统用户身份
         ```
 
 1. 创建某个工程（这里是 my-app）特定的配置文件 ： `vi /etc/default/my-app` 。
 
-    ```sh
+    ```bash
     #!/bin/bash
 
     if [[ "" = "${JAVA_HOME}" ]]
@@ -119,7 +119,7 @@
 
 1. 创建某个工程（这里是 lizi-cas）特定的 init.d 脚本
 
-    ```sh
+    ```bash
     cp $JETTY_HOME/bin/jetty.sh /etc/init.d/my-app
     service my-app                                  # 之后就可以使用 service 命令了
     ```
@@ -149,7 +149,7 @@ cp $JETTY_BASE/../upload/*.war $JETTY_BASE/webapps/ROOT.war
 
 1. nginx https 反向代理。浏览器与nginx之间是https，但nginx与tomcat/jetty之间是普通的http。nginx配置文件如下所示：
 
-    ```conf
+    ```groovy
     upstream lizi-platform.lizi-cas {
             server 127.0.0.1:30080;
     }
@@ -276,7 +276,7 @@ cp $JETTY_BASE/../upload/*.war $JETTY_BASE/webapps/ROOT.war
 
 1. 独立运行 jetty 时，连接其他 https 服务，并验证证书。`vi /etc/default/xxxAppName` :
 
-    ```sh
+    ```bash
     JAVA_OPTIONS="-server \
          -Djavax.net.ssl.trustStore=/home/lizi/lizi-platform/lizi-www/jetty.base/etc/lizi.jks \
          -Djavax.net.ssl.trustStorePassword=123456 \ 

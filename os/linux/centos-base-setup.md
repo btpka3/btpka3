@@ -4,7 +4,7 @@
 
 ## 分区
 
-```sh 
+```bash 
             大小（MB）   挂载点     类型            格式化
 LVM 卷组
   Vg_h01        476436    
@@ -71,7 +71,7 @@ export VISUAL=vim                 # crontab -e 使用的编辑器
 
 # EPEL
 
-```sh
+```bash
 # for centos 7
 rpm -ivh http://mirrors.zju.edu.cn/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
 
@@ -90,7 +90,7 @@ rpm -ivh http://dl.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm
 1. 防止vi时使用小键盘造成乱码：Terminal->Features: 选中 Disable application keypad mode
 
 ## Locale && Language
-```sh
+```bash
 locale # show current settings
 # LC_COLLATE : 定义该环境的排序和比较规则
 # LC_CTYPE : 用于字符分类和字符串处理(单字节？多字节？字符编码？)
@@ -115,7 +115,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 
 1.  检查DNS服务器 : `cat /etc/resolv.conf`
 
-    ```sh
+    ```bash
     # No nameservers found; try putting DNS servers into your
     # ifcfg files in /etc/sysconfig/network-scripts like so:
     #
@@ -129,7 +129,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 
 1.  检查是否启用网络和主机名 `cat /etc/sysconfig/network` :
 
-    ```sh
+    ```bash
     NETWORKING=yes
     HOSTNAME=h01
     ```
@@ -152,7 +152,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 
     1. centos 6 : 静态IP `vi /etc/sysconfig/network-scripts/ifcfg-eth0` :
 
-        ```sh
+        ```bash
         DEVICE="eth0"                               # 设备名称
         NM_CONTROLLED="no"                          # ? 若为yes，会报错
         ONBOOT=yes                                  # 是否启动时就启用
@@ -200,7 +200,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 
     1. centos 6 动态IP `cat /etc/sysconfig/network-scripts/ifcfg-eth0`
 
-        ```sh
+        ```bash
         DEVICE="eth0"
         BOOTPROTO="dhcp"
         HWADDR="08:00:27:6E:BB:7E"
@@ -234,7 +234,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 
 1.  修改对主机名的本地DNS解析 `vi /etc/hosts`
 
-    ```sh
+    ```bash
     # 追加以下一行
     # 格式：内网IP地址 主机名，可防止RMI连接 127.0.0.1出错
     000.000.000.000 h01                     
@@ -242,7 +242,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 
 1.  检查网络的启动级别和启动状态
 
-    ```sh
+    ```bash
     [root@h01 ~]# chkconfig --list network
     network         0:off   1:off   2:on    3:on    4:on    5:on    6:off
     
@@ -260,7 +260,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 
     [参考](http://www.cyberciti.biz/faq/linux-unix-set-proxy-environment-variable/ "How To Use Proxy Server To Access Internet at Shell Prompt With http_proxy Variable")
 
-    ```sh
+    ```bash
     [root@h01 ~]# vi /etc/profile.d/custom.sh
     export http_proxy=http://10.1.18.123:808/
     export http_proxy=socks5://prod11.kingsilk.net:9999
@@ -268,7 +268,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 
 1. 检查网络的启动级别和启动状态
 
-    ```sh
+    ```bash
     network         0:关闭  1:关闭  2:启用  3:启用  4:启用  5:启用  6:关闭
     [root@h01 ~]# service network status
     配置设备：
@@ -279,7 +279,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 
 1. 验证
 
-    ```sh
+    ```bash
     [root@h01 ~]# ping -c 4 baidu.com
     PING baidu.com (123.125.114.144) 56(84) bytes of data.
     64 bytes from 123.125.114.144: icmp_seq=1 ttl=51 time=219 ms
@@ -291,7 +291,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 
 1. 起停命令
 
-    ```sh
+    ```bash
     service network
     用法：/etc/init.d/network {start|stop|status|restart|reload|force-reload}
 
@@ -302,7 +302,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 ## 安装较高版本GLibC
 CentOS 6.3 默认自带的GLibC 是2.12版的，但是有的程序是使用2.14版本的。这里是更新GLibC的命令：
 
-```sh
+```bash
 cd ~
 mkdir glibc-tmp
 cd glibc-tmp
@@ -315,7 +315,7 @@ make install
 
 ## 常用命令
 ### 查看Linux 版本
-```sh
+```bash
 [root@localhost ~]# cat /etc/issue            # 安装时的默认发行版本信息，不会再发生改变
 CentOS release 6.3 (Final)
 Kernel \r on an \m
@@ -334,7 +334,7 @@ Linux localhost.localdomain 2.6.32-279.el6.x86_64 #1 SMP Fri Jun 22 12:19:21 UTC
 # CentOS 基础设定
 
 ## 修改主机名，以及对主机名的本地解析
-```sh
+```bash
 [root@localhost ~]# vi /etc/sysconfig/network
   HOSTNAME=dev-dubbo2
 [root@localhost ~]# vi /etc/hosts
@@ -345,7 +345,7 @@ Linux localhost.localdomain 2.6.32-279.el6.x86_64 #1 SMP Fri Jun 22 12:19:21 UTC
 暂略，此步骤一般已由网管完成。
 
 ## 修改语言
-```sh
+```bash
 [root@localhost ~]# vi /etc/sysconfig/i18n
 #LANG="zh_CN.UTF-8"
 LANG="en_US.UTF-8"
@@ -356,7 +356,7 @@ LANG="en_US.UTF-8"
 # 防火墙
 如果是本地局域网，可以考虑将防火墙关闭
 
-```sh
+```bash
 sestatus             # 查看selinux
 getenforce          # 查看selinux
 setenforce 0       # 临时关闭 selinux

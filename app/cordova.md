@@ -202,14 +202,14 @@ cordova-check-plugins
 
 # android 自动签名
 
-```sh
+```bash
 cd $PROJECT_ROOT
 vi ./platforms/android/debug-signing.properties         # debug 签名用
 vi ./platforms/android/release-signing.properties       # release 签名用
 ```
 
 示例内容如下 (具体可分析 ./platforms/android/build.gradle 中 addSigningProps 方法)
-```properties
+```ini
 storeFile=../../xxx.jks
 storePassword=xxx
 storeType=jks

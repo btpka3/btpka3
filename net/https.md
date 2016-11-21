@@ -106,7 +106,7 @@ REM X.509)
 
 1. 一个命令就生成自签名的 CA 证书
 
-    ```sh
+    ```bash
     # 该命令仅供参考，后续命令会将该命令分解演示
     openssl req \
         -x509 \
@@ -126,7 +126,7 @@ REM X.509)
 
 1. 生成一个新的私钥
   
-    ```sh
+    ```bash
     openssl genrsa \
         -out server.pem.key \
         2048
@@ -136,7 +136,7 @@ REM X.509)
 
 1. 使用指定的私钥生成一个CSR (Certificate Signing Request)
 
-    ```sh
+    ```bash
     openssl req \
         -new \
         -key server.pem.key \
@@ -149,7 +149,7 @@ REM X.509)
 
 1. 使用指定的私钥签名生成证书
 
-    ```sh
+    ```bash
     openssl x509 \
         -req \
         -days 3650 \
@@ -177,7 +177,7 @@ REM X.509)
 
 1. 将私钥和证书转化为 PKCS#12 格式的单个文件
 
-    ```sh
+    ```bash
     openssl pkcs12 \
         -export \
         -in server.pem.cer \
@@ -191,7 +191,7 @@ REM X.509)
 
 1. 使用 KeyTools 将 PKSC#12 文件导入为 JKS 的 KeyStore
 
-    ```sh
+    ```bash
     keytool -importkeystore \
         -srcstoretype PKCS12 \
         -srckeystore whhit.p12 \
@@ -208,7 +208,7 @@ REM X.509)
 
 1. 其他命令
 
-    ```sh
+    ```bash
     # 将加密的私钥导出为明文的私钥
     openssl rsa \
         -in whhit.pem.key \
@@ -243,7 +243,7 @@ REM X.509)
 
 1. 生成一个含自签名 CA 证书的 JKS 类型的 KeyStore
 
-    ```sh
+    ```bash
     keytool -genkeypair \
         -alias tomcat \
         -keyalg RSA \
@@ -259,7 +259,7 @@ REM X.509)
      ```
 1. 从 KeyStore 中导出证书
 
-     ```sh
+     ```bash
      keytool -exportcert \
          -rfc \
          -file sos.pem.cer \
@@ -269,7 +269,7 @@ REM X.509)
      ```
 1. 将 KeyStore 变更为 PKCS#12 格式
 
-    ```sh
+    ```bash
     keytool -importkeystore \
         -srcstoretype JKS \
         -srckeystore sos.jks \
@@ -299,7 +299,7 @@ REM X.509)
     ```
 1. 使用 OpenSSL 解析 PKCS#12 格式的 KeyStore，并转化为 PEM 格式(包含证书和私钥)
 
-    ```sh
+    ```bash
     openssl pkcs12 \
         -in sos.p12 \
         -out sos.pem.p12 \
@@ -308,7 +308,7 @@ REM X.509)
     ```
 1. 单独输出私钥和公钥  (注意：不是证书）
 
-    ```sh
+    ```bash
     # 私钥
     openssl rsa \
         -in sos.pem.p12 \
@@ -331,13 +331,13 @@ REM X.509)
     ```
 1. 单独输出证书
 
-    ```sh
+    ```bash
     openssl x509 -in sos.pem.p12 -out sos.pem.cer
     ```
 
 ## Apahce 配置 HTTPS
 1. 修改apache的配置文件 conf/httpd.conf，启用以下两句
-```conf
+```groovy
 LoadModule ssl_module modules/mod_ssl.so
 Include conf/extra/httpd-ssl.conf
 ```
@@ -425,14 +425,14 @@ keytool -importkeystore -srckeystore src.keystore -srcstorepass 123456 -destkeys
 
 # 生成SSH key
 
-```sh
+```bash
 ssh-keygen -t rsa -C "hi@test.me" -N 'xxxPass' -f ~/.ssh/id_rsa
 ```
 
 
 # 确认openssl是否已经修正了 Heartbleed
 
-```sh
+```bash
 yum update
 rpm -q --changelog openssl-1.0.1e | grep -B 1 CVE-2014-0160
 rpm -q --changelog openssl-devel | grep -B 1 CVE-2014-0160

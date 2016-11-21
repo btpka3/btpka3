@@ -56,7 +56,7 @@ xxxProj/.jshintrc                                   # jsHint基础配置
 
 ### xxxProj/.jshintignore
 
-```text
+```
 bower_components
 node_modules
 target

@@ -24,7 +24,7 @@ git config credential.helper 'store --file=<path>'
 ```
 # 配置
 
-```sh
+```bash
 # 用户级的配置文件路径
 ~/.gitconfig 
 # 配置用户身份
@@ -41,7 +41,7 @@ git config --global core.quotepath false          # 在提交中文名称的文�
 git config --list
 ```
 
-```sh
+```bash
 git add path/file              # 添加新文件
 git reset HEAD path/file       # 取消添加
 git commit  -m "commit msg"    # 提交修改
@@ -55,7 +55,7 @@ git push                       # 推送到远程
 
 参考：http://gitref.org/
 
-```sh
+```bash
 # 远程服务器创建
 mkdir lizi-tmp
 cd lizi-tmp
@@ -99,7 +99,7 @@ git config --get remote.origin.url
 
 # 远程
 
-```sh
+```bash
 # 如果使用ssh key，就不要使用https协议
 git remote add origin git@10.1.18.153:zhangliangliang/test.git
 git remote set-url origin git@new-host:new-url
@@ -127,7 +127,7 @@ git push remote-name [branch-name]
 
 # Tag
 
-```sh
+```bash
 # 显示本地所有tag
 git tag
 # 显示指定前缀的tag
@@ -162,7 +162,7 @@ git checkout tags/tag-name
 
 # Branch
 
-```sh
+```bash
 # 新建分支
 git branch branch-name
 # 检出远程分支
@@ -202,7 +202,7 @@ git branch -d branch-name
 
 # 远程分支
 
-```sh
+```bash
 # 新建远程分支
 git push origin test:master         // 提交本地test分支作为远程的master分支
 
@@ -221,7 +221,7 @@ git push origin :remoteBranch2
 
 # 取消本地所有修改
 
-```sh
+```bash
 # 取消对文件的修改
 git reset --hard HEAD
 
@@ -232,7 +232,7 @@ git status
 ```
 
 # 删除最后几次commit
-```sh
+```bash
 # 查看提交的log，并找到想要回滚到的commit的
 git log
 git reset --hard <sha1-commit-id>
@@ -242,7 +242,7 @@ git reset --hard <sha1-commit-id>
 假如有新修改提交到本地了。在push前进行pull的时候，
 git自动合并并创建了一个新的commit，其注释为 "Merge branch 'xxx' of git@xxxx/path/to/xxx.git into xxx"。此时，大家应当立即运行 
 
-```sh
+```bash
 gitk  # 此时有比较复杂的路线图
 git rebase
 gitk  # 此时就变成单线路了
@@ -257,25 +257,25 @@ git cherry-pick 12944d8
 # 单个文件
 ## 查看日志
 
-```sh
+```bash
 git log path/to/file
 ```
 
 ## diff
 
-```sh
+```bash
 git diff <sha1-commit-id1> <sha1-commit-id2> path/to/file
 ```
 
 
 ## 检出特定版本
 
-```sh
+```bash
 git checkout <sha1-commit-id> path/to/file
 ```
 ## 无本地copy情况下，从远程仓库检出最新的指定文件
 
-```sh
+```bash
 git ls-remote git@git.test.me:/path/to/git/repo
 git archive --remote=git@git.test.me:/path/to/git/repo refs/heads/test path/to/file  --format zip -o /tmp/a.zip
 cd /tmp/
@@ -285,7 +285,7 @@ cp path/to/file /path/to/dest
 
 ## 无本地copy情况下，从远程仓库检出指定版本的指定文件
 
-```sh
+```bash
 # 先通过SSH登录到远程仓库，看一下test分支上指定文件的最近3条日志，找到所需的commit SHA1.
 ssh git@git.test.me "cd /path/to/git/repo && git log -n 3 test -- path/to/file"
 git archive --remote=git@git.test.me:/path/to/git/repo d787416b0aec88747075ef0f5909bc4f863aa26e path/to/file  --format zip -o /tmp/a.zip
@@ -297,7 +297,7 @@ cp path/to/file /path/to/dest
 
 # .gitignore
 
-```text
+```
 /target-eclipse/classes
 /web-app/WEB-INF/classes
 /target/
@@ -331,7 +331,7 @@ emptyDir/*
 ## 编辑最后一次本地提交
 也即，本地已经commit，但是没push到远程
 
-```sh
+```bash
 git reset --soft HEAD~1             # 先reset，会copy HEAD为.git/ORIG_HEAD
 doSomeEdit
 git add .
@@ -340,13 +340,13 @@ git commit -c ORIG_HEAD             # 使用原来的commit消息，并提交
 
 
 ## 本地已经commit，也已经push到远程，但其他开发人员尚未拉取
-```sh
+```bash
 git push -f                         # 本地修改之后，强制提交 
 ```
 
 ## 本地已经commit，也已经push到远程，但其他开发人员已经拉取，且进行了多次提交
 
-```sh
+```bash
 git rever <commit-id>               # 该方法通过在最新commit之后新建一个commit来达到回滚的效果。
 ```
 

@@ -87,7 +87,7 @@ controller 中默认的事务是readonly，readonly事务的FlushMode是Manual�
 
 
 * 解决不合理的传递依赖，否则 `run-app` 会很慢
-    ```sh
+    ```bash
     grails.project.dependency.resolution = {
         plugins {
             compile(":spring-security-cas:2.0-RC1") {
@@ -99,7 +99,7 @@ controller 中默认的事务是readonly，readonly事务的FlushMode是Manual�
 
 *  `run-app` 没有 auto reload ，需要明确在命令行指定参数
 
-    ```sh
+    ```bash
     grails --stacktrace -Dserver.port=30010 run-app -reloading  # 注意 -reloading 需要放到 run-app 后面
     ```
 
@@ -133,7 +133,7 @@ export GRAILS_OPTS="-server -Xms1G -Xmx2G -XX:PermSize=512m -XX:MaxPermSize=512m
 ```
 # 常用命令
 
-```sh
+```bash
 
 grails list-plugins
 grails create-app my-test
@@ -277,7 +277,7 @@ dataSource {
 * 修改 application.properties ，
    * 升级grails版本号
 
-       ```properties
+       ```ini
        app.grails.version=2.4.0
        ``` 
     * 将所有的插件依赖移至 BuildConfig.groovy 中
@@ -320,13 +320,13 @@ dataSource {
 
 以Maven形式创建Grails工程
 
-```sh
+```bash
 mvn archetype:generate -DarchetypeGroupId=org.grails -DarchetypeArtifactId=grails-maven-archetype -DarchetypeVersion=2.4.3 -DgroupId=me.test -DartifactId=my-mvn
 ```
 
 # 创建目录树
 
-```txt
+```
 .
 ├── grails-app
 │   ├── conf

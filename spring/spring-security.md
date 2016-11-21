@@ -19,7 +19,7 @@ SecurityNamespaceHandler -> GlobalMethodSecurityBeanDefinitionParser 解析，
 
 ### 调用解析
 
-```txt
+```
 SecuredAnnotationSecurityMetadataSource#getAttributes()
 MethodSecurityInterceptor.obtainSecurityMetadataSource()
 MethodInvocationPrivilegeEvaluator#isAllowed()
@@ -35,7 +35,7 @@ WebExpressionVoter#vote()
 
 ### 配置解析
 
-```txt
+```
 SecurityNamespaceHandler -> HttpSecurityBeanDefinitionParser -> HttpConfigurationBuilder
 
 HttpConfigurationBuilder#createFilterSecurityInterceptor()  
@@ -47,7 +47,7 @@ FilterInvocationSecurityMetadataSourceParser#createSecurityMetadataSource()
 
 ### 调用解析
 
-```txt
+```
 FilterSecurityInterceptor#doFilter()
 FilterSecurityInterceptor#invoke()
 FilterSecurityInterceptor#beforeInvocation()
@@ -56,7 +56,7 @@ AccessDecisionVoter#vote()
 ```
 ## 通过JSP标签进行权限控制
 
-```txt
+```
 JspAuthorizeTag#authorizeUsingUrlCheck()
 DefaultWebInvocationPrivilegeEvaluator#isAllowed()
 FilterSecurityInterceptor#getAccessDecisionManager().decide()
@@ -72,7 +72,7 @@ AccessDecisionVoter#vote()
 
 ### 权限检查
 
-```txt
+```
 FilterSecurityInterceptor#beforeInvocation()
 AuthenticatedVetoableDecisionManager.decide()
 AccessDecisionVoter#vote()                    
@@ -91,7 +91,7 @@ WebSecurityExpressionRoot#getAuthoritySet()     // 通过从当前 authenticatio
 
 ###  登录流程
 
-```txt
+```
 // request 1 : 用户尚未登录，访问需要登录后才能访问的URL
                                                 // “权限检查” 流程中抛出 AuthenticationCredentialsNotFoundException
 ExceptionTranslationFilter#doFilter()           // 捕获异常，保存当前访问的URL到requestCache，并引导用户开始登录流程

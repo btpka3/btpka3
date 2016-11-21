@@ -5,7 +5,7 @@ Zabbix分为普通发布版和长期支持版（LST），所以安装的时候�
 
 1. 安装Zabbix yum仓库
 
-    ```sh
+    ```bash
      # centos 5
     rpm -ivh http://repo.zabbix.com/zabbix/2.2/rhel/5/x86_64/zabbix-release-2.2-1.el5.noarch.rpm
      
@@ -26,7 +26,7 @@ Zabbix分为普通发布版和长期支持版（LST），所以安装的时候�
     ```
 1. 初始化MySQL数据库
 
-    ```sh
+    ```bash
     ll -d /usr/share/doc/zabbix-server-mysql-*
     cd /usr/share/doc/zabbix-server-mysql-2.2.7/create
     mysql -u root zabbix < schema.sql              # 也可以： mysql -u root zabbix; source schema.sql
@@ -36,7 +36,7 @@ Zabbix分为普通发布版和长期支持版（LST），所以安装的时候�
 
 1. 修改 /etc/zabbix/zabbix_server.conf
 
-    ```conf
+    ```groovy
     ListenPort=9010
     LogFile=/var/log/zabbix/zabbix_server.log
     DBHost=localhost
@@ -46,7 +46,7 @@ Zabbix分为普通发布版和长期支持版（LST），所以安装的时候�
     ```
 1. 启动
 
-   ```sh
+   ```bash
    service zabbix-server restart
    ```
 1. 通过查看日志，telnet 端口确认是否启动成功。
@@ -60,7 +60,7 @@ zabbix 提供了两种前端：zabbix-web-mysql 和 zabbix-web-pgsql。但是，
 
 1. 解压源码包中的php文件
 
-    ```sh
+    ```bash
     tar zxvf zabbix-2.2.7.tar.gz
     mkdir -p /data/software/zabbix/zabbix-2.2.7/frontends
     cp -R zabbix-2.2.7/frontends/php /data/software/zabbix/zabbix-2.2.7/frontends
@@ -97,7 +97,7 @@ zabbix 提供了两种前端：zabbix-web-mysql 和 zabbix-web-pgsql。但是，
 
 1. 修改Nginx中的配置 /etc/nginx/conf.d/zabbix.conf
 
-    ```conf
+    ```groovy
     server {                                                                                                                                                                                                     
         listen *:80;
         server_name zabbix.lizi.com;
@@ -128,14 +128,14 @@ zabbix 提供了两种前端：zabbix-web-mysql 和 zabbix-web-pgsql。但是，
 
 # 安装zabbix-agent.
 
-    ```sh
+    ```bash
     yum install zabbix-agent
     chkconfig --level 2345 zabbix-agent on
     service zabbix-agent start
     ```
 
 
-    ```conf
+    ```groovy
     Server=192.168.101.80                    # 允许访问该agent的IP地址列表，通常是zabbix server 的IP地址
     ListenPort=9011                          # 该agent的监听端口，server向agent查询数据用
     ServerActive=192.168.101.80:9010         # zabbix server 的ip地址和端口，agent向server发送存活信息

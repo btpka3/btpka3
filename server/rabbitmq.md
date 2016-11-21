@@ -116,7 +116,7 @@ cat /etc/rabbitmq/enabled_plugins
 
 ## RabbitMQ常用命令
 
-```sh
+```bash
 # 启停命令等
 [me@localhost:~] sudo service rabbitmq-server xxx
 
@@ -147,7 +147,7 @@ PRM 安装请参考[这里](https://www.erlang-solutions.com/downloads/download-
 
 从[这里](http://www.erlang.org/download.html)下载 otp_src_17.1.tar.gz。解压后需要先阅读一下 `README.md` 和 `HOWTO/INSTALL.md`
 
-```sh
+```bash
 
 # 依赖检查
 yum install unixODBC unixODBC-dev openssl openssl-devel
@@ -228,7 +228,7 @@ systemctl restart rabbitmq-server
 下面以服务器 s83 和 s85 创建集群为例，进行步骤介绍
 
 
-```sh
+```bash
 # 分别在 s83、s85 修改hosts
 vi /etc/hosts
 192.168.101.83 s83
@@ -295,7 +295,7 @@ rabbitmqctl set_policy ha-all "^" '{"ha-mode":"all"}'
 
 # 启停命令
 
-```sh
+```bash
 # 1. 先到所有集群节点的电脑上执行以下命令
 su - rabbitmq
 rabbitmq-server -detached
@@ -309,7 +309,7 @@ rabbitmqctl cluster_status
 
 XXX：不要使用以下init.d脚本。`/etc/init.d/rabbitmq-server` 以下示例文件是从rpm包中提取的。
 
-```sh
+```bash
 #!/bin/sh
 #
 # rabbitmq-server RabbitMQ broker

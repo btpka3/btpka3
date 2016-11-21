@@ -45,7 +45,7 @@ srsPgMap        postgres                mocktrading
 
 ## psql
 
-```txt
+```
 # 显示psql命令行帮助
 postgres-# \?
 

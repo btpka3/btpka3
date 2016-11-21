@@ -17,7 +17,7 @@
 
 版本号： 6.0.41 。
 
-```sh
+```bash
 su - lizi
 mkdir nala-admin
 mkdir upload
@@ -32,7 +32,7 @@ tar zxvf apache-tomcat-6.0.41.tar.gz .
 
 1. 删除自带的应用 
 
-    ```sh
+    ```bash
     rm -fr $CATALINA_HOME/webapps/*
     ```
 1. `vi $CATALINA_HOME/conf/server.xml`
@@ -75,7 +75,7 @@ tar zxvf apache-tomcat-6.0.41.tar.gz .
 
 ## 创建脚本
 
-```sh
+```bash
 su - root
 touch /etc/init.d/nala-admin
 chomd +x /etc/init.d/nala-admin
@@ -83,7 +83,7 @@ chomd +x /etc/init.d/nala-admin
 
 ## 脚本内容
 
-```sh
+```bash
 #!/bin/bash
 # chkconfig: 2345 60 60
 # description: xxx
@@ -124,7 +124,7 @@ fi
 
 ## 后续处理
 
-```sh
+```bash
 # 执行以下命令后，root用户就可以使用service命令启停了。并且，按照注释行 chkconfig 的配置设置默认启动级别
 chkconfig --add nala-admin
 
@@ -210,7 +210,7 @@ systemctl daemon-reload; systemctl restart qh-wap; systemctl status qh-wap
 
 ## 创建
 
-```sh
+```bash
 su - lizi
 cd nala-admin
 touch deploy.sh
@@ -219,7 +219,7 @@ chmod u+x deploy.sh
 
 ## 脚本内容：
 
-```sh
+```bash
 #!/bin/bash                                                                                      
 DIR=/data/app/lizi
 CATALINA_HOME=$DIR/apache-tomcat-7.0.54
@@ -249,20 +249,20 @@ cp $DIR/upload/lizi*.war $CATALINA_HOME/webapps/${WAR_NAME}.war
 
 ## 安装依赖
 
-```sh
+```bash
 yum install apr-devel openssl-devel
 ```
 
 ## 下载 tomcat-native
 
-```sh
+```bash
 wget http://mirror.bit.edu.cn/apache/tomcat/tomcat-connectors/native/1.1.31/source/tomcat-native-1.1.31-src.tar.gz
 tar zxvf tomcat-native-1.1.31-src.tar.gz
 ```
 
 ## 配置、编译、安装
 
-```sh
+```bash
 cd tomcat-native-1.1.31-src/jni/native
 
 # 源码安装时，请指定prefix，否则将来多版本安装、删除时将很头疼。下面的prefix是1.1.31的默认安装路径，当明确设置
@@ -275,7 +275,7 @@ make install
 
 ## 配置tomcat
 
-```sh
+```bash
 vi /etc/init.d/lizi
 # 追加以下一句话
 export LD_LIBRARY_PATH=/usr/local/apr/lib:$LD_LIBRARY_PATH
@@ -307,7 +307,7 @@ commons-pool-1.5.5.jar
 
 # scp.sh
 
-```sh
+```bash
 #!/bin/bash
 
 DIR=/data/app/nala-time

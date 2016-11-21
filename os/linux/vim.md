@@ -1,5 +1,5 @@
 CentOS 的最小化安装默认只安装了最小版的VI，可以通过以下命令安装全部功能的Vim：
-```sh
+```bash
 yum install vim-common vim-enhanced vim-minimal
 sudo apt-get install vim
 ```
@@ -9,12 +9,12 @@ sudo apt-get install vim
 
 
 修改环境变量
-```sh
+```bash
 [root@h01 ~]# vi /etc/profile.d/custom.sh
 alias vi=vim
 ```
 或者
-```sh
+```bash
 [root@h01 ~]# vi ~/.bashrc
 alias vi=vim
 ```
@@ -22,7 +22,7 @@ alias vi=vim
 # 修改vim配置文件
 修改用户级别的 需要修改 `~/.vimrc`。修改全局的，需要修改 `/etc/vimrc` （可以通过 `:version` 看到） 
 
-```vimrc
+```vim
 set nocompatible
 set number
 colors desert
@@ -47,7 +47,7 @@ set paste
 
 `vi ~/.vim/filetype.vim`, 在 vim 中可以通过 `:set syntax?` 查看当前 syntax 的值
 
-```sh
+```bash
 autocmd BufRead,BufNewFile my.cnf set syntax=dosini
 autocmd BufRead,BufNewFile build.gradle set syntax=groovy
 ```
@@ -62,7 +62,7 @@ git clone git://github.com/darfink/vim-plist.git ~/.vim/bundle/vim-plist
 ```
 ## colorschema
 
-```sh
+```bash
 ll /usr/share/vim/vim74/colors
 # 或者在vim中
 :colo <tab>
@@ -93,18 +93,18 @@ vi LargeFile.vba
 
 * 删除BOM头
 
-```sh
+```bash
 :set nobomb
 :wq
 ```
 ## 全局替换 
 
-```sh
+```bash
 :%s/\t/    /g
 ```
 
 ## tab
-```sh
+```bash
 # 显示空白字符
 :set list
 
@@ -118,7 +118,7 @@ vi LargeFile.vba
 
 # 命令模式
 
-```vi
+```vim
 # 文件
 :open pathToFile                # 打开指定的文件
 :bn                             # 查看下一个文件
@@ -173,7 +173,7 @@ v
 
 # 插入模式
 
-```vi
+```vim
 # 缩进
 C-d                             # 当前行向左缩进
 C-t                             # 当前行向右缩进
@@ -181,7 +181,7 @@ C-t                             # 当前行向右缩进
 
 # visual 模式
 
-```vi
+```vim
 <                               # 当前选区向左缩进
 >                               # 当前选区向右缩进
 ```

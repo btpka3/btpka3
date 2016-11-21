@@ -17,7 +17,7 @@ NOTICE: 如果svn升级，比如从1.7升级到1.8，需要重新执行一下步
 
 1.  Ubuntu
 
-    ```sh
+    ```bash
     # 可以加 -s 参数先模拟安装，并查看相关信息。
     [me@localhost ~]$ sudo apt-get install libsvn-java
     # 查找安装类库的路径
@@ -39,7 +39,7 @@ NOTICE: 如果svn升级，比如从1.7升级到1.8，需要重新执行一下步
 
 # 在当前work目录下update一个本地不存在的目录
 
-```sh
+```bash
 cd /local/work/dir/
 
 svn update --depth=immediates
@@ -51,7 +51,7 @@ svn update --set-depth infinity
 
 # 批量add本地新建的文件
 
-```sh
+```bash
 svn st | grep '\?' |awk '{print $2}' |xargs svn add
 ```
  

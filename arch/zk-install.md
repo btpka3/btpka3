@@ -42,7 +42,7 @@ syncLimit=2
 
 1. 创建系统用户zookeeper，及所需的目录
 
-    ```sh
+    ```bash
     adduser -r -m  -d /data/software/zookeeper zookeeper 
     passwd -l zookeeper
     ```
@@ -58,7 +58,7 @@ syncLimit=2
 
 1. 创建所需的目录结构
 
-    ```sh
+    ```bash
     cd $ZK_HOME
     mkdir server.1                        # ZK集群第一个节点的数据目录
     mkdir server.1/data                   # ZK的数据目录
@@ -87,7 +87,7 @@ syncLimit=2
 
 1. `vi ${ZK_HOME}/conf/log4j.properties`
 
-    ```properties
+    ```ini
     zookeeper.log.dir=/data/software/zookeeper/zookeeper-3.4.6/server.1/logging
     zookeeper.tracelog.dir=/data/software/zookeeper/zookeeper-3.4.6/server.1/logging
     ```
@@ -113,7 +113,7 @@ syncLimit=2
 
 1. `vi /etc/init.d/zk`
 
-    ```sh
+    ```bash
     #!/bin/bash
     # chkconfig: 2345 60 60
     # description: xxx
@@ -163,14 +163,14 @@ syncLimit=2
 
 1. 启动ZK集群
 
-    ```sh
+    ```bash
     # 到不同的ZK节点的服务上执行
     service zk start
     ```
 
 1. 命令行连接ZK集群
 
-    ```sh
+    ```bash
     cd $ZK_HOME
     ./bin/zkCli.sh -server localhost:2110
     ```

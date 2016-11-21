@@ -109,7 +109,7 @@ PS：华为的手机默认没有显示 `开发人员选项`，需要： 手机�
 
 1. 创建规则文件
 
-    ```sh
+    ```bash
     sudo touch /etc/udev/rules.d/50-android.rules
 
     sudo vi /etc/udev/rules.d/50-android.rules
@@ -123,7 +123,7 @@ PS：华为的手机默认没有显示 `开发人员选项`，需要： 手机�
 
 1. 修改 adb_usb.ini
 
-    ```sh
+    ```bash
     echo "0x12d1" >> ~/.android/adb_usb.ini
     ```
 

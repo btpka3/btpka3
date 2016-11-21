@@ -48,7 +48,7 @@
 
 1. 针对站内连接，不要硬编码写链接地址，哪怕根据SEO建议也写完整的URL地址，应使用`<g:createLink>`、`<g:resource/>`。
 
-    ```gsp
+    ```markup
     // 反例
     <a href="/xxx/yyy">...</a>
     <a href="http://www.lizi.com/product-458695865.html">...</a>
@@ -418,7 +418,7 @@ class TestZllController {
 
 错误堆栈
 
-```text
+```
 2015-09-14 18:01:53,610 [ERROR][Actor Thread 9] org.grails.async.factory.gpars.LoggingPoolFactory - Async execution error: null
 java.lang.NullPointerException
 	at org.apache.catalina.connector.Request.notifyAttributeAssigned(Request.java:1498)

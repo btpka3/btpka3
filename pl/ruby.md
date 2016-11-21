@@ -1,7 +1,7 @@
 
 # install
 
-```sh
+```bash
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 
 # root执行以下命令
@@ -53,7 +53,7 @@ bundle config mirror.https://rubygems.org https://ruby.taobao.org
 ```
 
 ????
-```sh
+```bash
 #rvm user gemsets
 rvm gemset use global
 bundle update

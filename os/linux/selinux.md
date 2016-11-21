@@ -9,7 +9,7 @@
 
 一般Linux内核中都自带了，额外可能需要安装一些管理工具
 
-```sh
+```bash
 yum install policycoreutils-python
 ```
 
@@ -31,7 +31,7 @@ yum install policycoreutils-python
 
 
 
-```sh
+```bash
 # 持久设置，重启生效
 vi /etc/selinux/config 
 
@@ -45,7 +45,7 @@ sestatus
 
 # 示例
 
-```sh
+```bash
 [root@s82 mysql]# ll -Z -d /data0/mysql
 drwxr-xr-x. mysql mysql unconfined_u:object_r:etc_runtime_t:s0 /data0/mysql
 

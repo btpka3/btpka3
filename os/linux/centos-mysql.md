@@ -25,7 +25,7 @@ performance_schema
 
 如果SELINUX开启，则使用 `service mysqld start` 命令进行启动的时候，有可能会出现以下错误
 
-```sh
+```bash
 [root@s82 mysql]# service mysqld start
 141020 17:27:31 mysqld_safe Logging to '/data0/mysql/mysql.err'.
 touch: cannot touch `/data0/mysql/mysql.err': Permission denied
@@ -43,7 +43,7 @@ Starting mysqld:                                           [FAILED]
 
 查看数据目录的权限：
 
-```sh
+```bash
 [root@s82 mysql]# ll -Z -d /data0/mysql
 drwxr-xr-x. mysql mysql unconfined_u:object_r:etc_runtime_t:s0 /data0/mysql
 ```
@@ -52,7 +52,7 @@ drwxr-xr-x. mysql mysql unconfined_u:object_r:etc_runtime_t:s0 /data0/mysql
 
 # my.cnf 示例
 
-```cnf
+```groovy
 [client]
 default-character-set = utf8mb4         # 除了mysqld、其他程序连接时使用的默认字符集
 socket=/data/mysql/mysql.sock           # 除了mysqld、其他程序连接的socket
@@ -85,7 +85,7 @@ pid-file=/var/run/mysqld/mysqld.pid
 # 重置、更新root的密码为最新格式
 重置密码参考[这里](http://dev.mysql.com/doc/refman/5.5/en/resetting-permissions.html)、更新密码格式参考[这里](http://code.openark.org/blog/mysql/upgrading-passwords-from-old_passwords-to-new-passwords)
 
-```txt
+```
 # 1. 停止mysql服务器
 service mysqld stop
 # 2. 编辑文本文件 /tmp/pwd.txt，并设置新密码
@@ -107,7 +107,7 @@ mysqld --init-file=/tmp/pwd.txt &
 
 # 修改最大连接数
 
-```sh
+```bash
 vi /etc/mysql/my.cnf
 
 root登录本地mysql
@@ -122,7 +122,7 @@ set global max_connections=1000;
 
 # 用户 && 权限
 
-```sh
+```bash
 create user 'btpka3'@'%' identified by '123456';
 grant all on testdb.* to 'btpka3'@'%';
 GRANT ALL ON xxxDb.* TO 'xxxUser'@'192.168.1.%' IDENTIFIED BY 'xxxPassword';
@@ -197,7 +197,7 @@ alter table comment add key FK38A5EE5F330F7244 (user_id(250));
 
 vi /etc/my.cnf
 
-```cnf
+```groovy
 [client]
 default-character-set = utf8mb4
 
@@ -243,7 +243,7 @@ netstat -an | grep :3306 | wc -l
 
 ## 仅DDL
 
-```sh
+```bash
 # 备份整个数据库
 mysqldump -h 192.168.1.101 -d -u myUser -p mydb 
 
@@ -253,7 +253,7 @@ mysqldump -h 192.168.1.101 -d -u myUser -p mydb myTable
 
 ## 仅数据
 
-```sh
+```bash
 # 备份整个数据库
 mysqldump -h 192.168.1.101 -u myUser -p --no-create-db --no-create-info --skip-triggers mydb 
 

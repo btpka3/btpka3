@@ -4,7 +4,7 @@ http://os.51cto.com/art/201012/240113.htm
 
 `vi /etc/ssh/sshd_config`
 
-```conf
+```groovy
 X11Forwarding no  #
 PermitEmptyPasswords no     # 禁止空密码
 MaxStartups  10             # 最多保持多少个未认证的连接，防止SSH拒绝服务
@@ -15,13 +15,13 @@ PermitRootLogin no          # 禁止root登录，否则很容易被用来暴力�
 
 # 生成SSH KEY
 
-```sh
+```bash
 ssh-keygen -t rsa -C "hi@test.me" -N 'xxxPass' -f ~/.ssh/id_rsa
 ```
 
 # 加入信任的ssh 公钥
 
-```sh
+```bash
 vi ~/.ssh/authorized_keys 
 # 将 id_rsa.pub 中的内容追加进来
 
@@ -31,7 +31,7 @@ vi ~/.ssh/authorized_keys
 
 # ssh 登录慢
 
-```sh
+```bash
 # ------- for client
 vi /etc/ssh/ssh_config
 Host *
@@ -73,7 +73,7 @@ UseDNS no
 ## SSH 动态端口转发
 可通过本地特定端口，访问远程所有服务————即代理服务器。
 
-```sh
+```bash
 # 在SSH client端执行
 ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort
 ```
@@ -82,7 +82,7 @@ ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort
 
 1. 启动代理转发
 
-    ```sh
+    ```bash
     # 在 A@dev 上执行以下命令：
     ssh root@122.225.22.222 -C -f -N -g -D 9999 &
     ```
@@ -102,7 +102,7 @@ PS：不同应用的socks代理设置的方式不同，需要自行阅读相关�
 
 访问本地特定端口，就是访问远程特定服务。
 
-```sh
+```bash
 # 在SSH client端执行
 ssh sshUser@sshHost -C -f -N -g -L [localBindIP:]localBindPort:remoteServiceIP:remoteServicePort
 ```
@@ -112,13 +112,13 @@ ssh sshUser@sshHost -C -f -N -g -L [localBindIP:]localBindPort:remoteServiceIP:r
 
 1. 开启端口转发
 
-    ```sh
+    ```bash
     # 在 A@dev 上执行
     ssh root@122.225.22.222 -C -N -g -L 13306:172.17.17.80:3306 &
     ```
 1. 本地访问远程MySql服务
 
-    ```sh
+    ```bash
     # 在A@dev 上执行
     mysql -h 192.168.1.111 -P 13306 -u yourDbUser -p yourDb
     ```
@@ -128,7 +128,7 @@ ssh sshUser@sshHost -C -f -N -g -L [localBindIP:]localBindPort:remoteServiceIP:r
 比如：有静态外网IP的网络中的主机 可以访问 无静态外网IP（ASDL）的网络中主机上的服务。
 
 
-```sh
+```bash
 # 在SSH client端执行
 ssh sshUser>@sshHost -C -f -N -g -R [sshBindIp:]sshBindPort:localBindHost:localBindPort &
 ```
@@ -137,14 +137,14 @@ ssh sshUser>@sshHost -C -f -N -g -R [sshBindIp:]sshBindPort:localBindHost:localB
 
 1. 开启远程端口反向转发
 
-    ```sh
+    ```bash
     # 在 A@dev 上执行
     ssh root@122.225.22.222 -C -N -g -R 172.17.17.10:16379:localhost:6379  -o ExitOnForwardFailure=yes &
     ```
 
 1. 访问Redis服务
 
-    ```sh
+    ```bash
     telnet 172.17.17.10 16379
     key *                            # redis 命令 : 列出所有key
     ```

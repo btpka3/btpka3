@@ -19,7 +19,7 @@
 
 1. 在session2中查看MASTER的状态，并记录 `File` 和 `Position` 的值
  
-    ```sh
+    ```bash
     mysql -p -e "SHOW MASTER STATUS" > start_status.txt
     ```
 
@@ -38,7 +38,7 @@
 
 1. （可选）通过raw文件备份数据库
 
-    ```sh
+    ```bash
     tar cf /tmp/db.tar ./data
     # date ; tar cf mysql.tar ./mysql ; date 
     ```
@@ -58,7 +58,7 @@
 
 1. master配置 : `vi my.cnf`，如果尚未配置，则修改后需要重启。
     
-    ```cnf
+    ```groovy
     [mysqld]
     log-bin=mysql-bin
     server-id=1
@@ -67,7 +67,7 @@
 
 1. slave配置 : `vi my.cnf`
 
-    ```cnf
+    ```groovy
     [mysqld]
     server-id=2
     relay-log=relay-log
@@ -91,7 +91,7 @@
 
 1. 使用 mysqldump 获取master快照备份，并在slave上恢复。
 
-    ```sh
+    ```bash
     # 在master上
     # 参数 `--master-data` 会自动追加一条  `CHANGE MASTER TO` 语句到结果中的。
     mysqldump --all-databases --master-data > dbdump.db

@@ -3,7 +3,7 @@
 ## 下载
 不建议使用yum安装，安装的版本过低。比如：
 
-```sh
+```bash
 [root@localhost jenkins]# yum info git
 Loaded plugins: fastestmirror
 Loading mirror speeds from cached hostfile
@@ -33,7 +33,7 @@ Description : Git is a fast, scalable, distributed revision control system with 
 如果git-scm.com下载太慢，可以从 [github](https://github.com/git/git/releases/tag/v2.2.0) 上下载。
 下载tar包：git-2.0.1.tar.gz
 
-```sh
+```bash
 tar zxvf git-2.0.1.tar.gz
 cd git-2.0.1
 less README
@@ -68,7 +68,7 @@ make prefix=/usr/local install
 see [here](https://github.com/gitlabhq/gitlabhq/blob/master/doc/install/installation.md)
 
 
-```txt
+```
 1. 从gitlab上git clone操作时，如果https链接出错，而已将地址换成http的。
 2. vi ～/gitlab-shell/config.yml
 修改redis的连接地址
@@ -84,7 +84,7 @@ CentOS下的手动安装请参考[这里](https://gitlab.com/gitlab-org/gitlab-r
 
 ## install EPEL
 
-```sh
+```bash
 wget -O /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6 https://www.fedoraproject.org/static/0608B895.txt
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 
@@ -96,7 +96,7 @@ gpg-pubkey-0608b895-4bd22942
 ```
 ## add PUIAS Computational repository
 
-```sh
+```bash
 wget -O /etc/yum.repos.d/PUIAS_6_computational.repo https://gitlab.com/gitlab-org/gitlab-recipes/raw/master/install/centos/PUIAS_6_computational.repo
 
 wget -O /etc/pki/rpm-gpg/RPM-GPG-KEY-puias http://springdale.math.ias.edu/data/puias/6/x86_64/os/RPM-GPG-KEY-puias
@@ -106,13 +106,13 @@ rpm -qa gpg*
 gpg-pubkey-41a40948-4ce19266
 ```
 
-```sh
+```bash
 yum repolist
 ```
 
 ## 安装所需的必要工具
 
-```sh
+```bash
 yum -y update
 yum -y groupinstall 'Development Tools'
 yum -y install readline readline-devel ncurses-devel gdbm-devel glibc-devel tcl-devel openssl-devel curl-devel expat-devel db4-devel byacc sqlite-devel libyaml libyaml-devel libffi libffi-devel libxml2 libxml2-devel libxslt libxslt-devel libicu libicu-devel system-config-firewall-tui redis sudo wget crontabs logwatch logrotate perl-Time-HiRes 
@@ -153,13 +153,13 @@ gitlab的官网是推荐使用编译安装ruby的，而不推荐使用rvm等其�
 
 需要执行以下步骤：
 
-```sh
+```bash
 vi /home/git/gitlab/.rvmrc
 rvm use 2.1.1 2>&1 >/dev/null
 ```
 和
 
-```sh
+```bash
 vi /etc/init.d/gitlab
 # 多追加了一个cd命令，以便启用rvm的hook，并设置path
 PATH_PATCH="PATH=$(su $USER -s /bin/bash -l -c "cd \"$APP_PATH\"; echo \"\$PATH\"") && export PATH && "
@@ -169,7 +169,7 @@ PATH_PATCH="PATH=$(su $USER -s /bin/bash -l -c "cd \"$APP_PATH\"; echo \"\$PATH\
 
 参考[这里](http://github.kimziv.com/2013/07/19/how-to-install-ruby-gems-in-china/)
 
-```sh
+```bash
 sudo -u git -H gem sources --remove https://rubygems.org/
 sudo -u git -H gem sources -a http://ruby.taobao.org/
 sudo -u git -H gem sources -l
@@ -187,7 +187,7 @@ source 'http://ruby.taobao.org/'
 
 先安装mysql的[yum](http://dev.mysql.com/doc/mysql-repo-excerpt/5.6/en/linux-installation-yum-repo.html)
 
-```sh
+```bash
 yum install mysql-community-devel
 gem install mysql2
 ```
@@ -195,25 +195,25 @@ gem install mysql2
 
 ## 不使用本地的postgresql时
 
-```sh
+```bash
 yum install postgresql93 postgresql93-devel postgresql93-libs
 ```
 
-```sh
+```bash
 vi /home/git/gitlab/config/gitlab.yml
 # 并修改其中数据库连接信息
 ```
 
 ## 使用远程redis
 
-```sh
+```bash
 vi /home/git/gitlab-shell/config.yml
 cp /home/git/gitlab/config/resque.yml.example /home/git/gitlab/config/resque.yml
 vi /home/git/gitlab/config/resque.yml
 ```
 
 ## first login
-```sh
+```bash
 su - git
 cd /home/git/gitlab
 bundle exec rake db:seed_fu RAILS_ENV=production
@@ -229,7 +229,7 @@ password......5iveL!fe
 
 ## RVM
 
-```sh
+```bash
 vi /home/git/gitlab/.rvmrc
 rvm use 2.1.1 2>&1 >/dev/null
 
@@ -242,7 +242,7 @@ PATH_PATCH="PATH=$(su $USER -s /bin/bash -l -c "cd \"$APP_PATH\"; echo \"\$PATH\
 
 ## LDAP login
 
-```sh
+```bash
 vi config/gitlab.yml
   ldap:
     enabled: true
@@ -262,7 +262,7 @@ bundle exec rake gitlab:ldap:check RAILS_ENV=production
 
 ## 安装后的检查
 
-```sh
+```bash
 su - git
 cd gitlab
 bundle exec rake gitlab:check RAILS_ENV=production
@@ -292,7 +292,7 @@ proxy_connect_timeout 300;
 ## 7788
 ### show gitlab versions
 
-```sh
+```bash
 [root@localhost ~] su - git
 [git@localhost ~] cd gitlab
 [git@localhost gitlab] bundle exec rake gitlab:env:info RAILS_ENV=production
@@ -301,14 +301,14 @@ proxy_connect_timeout 300;
 
 admin user
 
-```sh
+```bash
 less /home/git/gitlab/db/fixtures/production/001_admin.rb
 
 ```
 
 # 导入既有的git仓库
 
-```sh
+```bash
 # 先通过Web画面创建一个工程。
 cd /home/git/repositories/$user/xxx
 rm -fr *
@@ -327,7 +327,7 @@ git fetch -q --all -p
 
 ## tag
 
-```sh
+```bash
 git tag newTag              # 创建tag
 git tag -l                  # 显示所有的tag
 git checkout tags/2.4.9     # 切换到2.4.9的tag
@@ -337,7 +337,7 @@ git checkout tags/2.4.9     # 切换到2.4.9的tag
 ## branch
 
 
-```sh
+```bash
                             # TODO 创建branch
 git branch -a               # 列出所有的branch，带*号的是工作环境所在的分支
                             # TODO 切换branch
@@ -424,7 +424,7 @@ sudo service gitlab start
 参考 ： [devise](https://github.com/plataformatec/devise)-3.2.4/lib/devise/models/lockable.rb 、 ["Your account is locked"](https://github.com/gitlabhq/gitlabhq/issues/9381)
 
 
-```sh
+```bash
 mysql -h 192.168.101.80 -u git -pXXXX gitlabhq_production
 
 update set failed_attempts=0,locked_at=null where username='xxx'

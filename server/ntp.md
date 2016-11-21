@@ -1,7 +1,7 @@
 
 # 时间相关命令
 
-```sh
+```bash
 [root@localhost ~]# date           # 查看系统时间
 [root@localhost ~]# date -R        # 查看当前时区
 [root@localhost ~]# date 020304052001        # 设置系统时间为：2001年2月3日4点5分
@@ -17,7 +17,7 @@ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # centos 6 安装NTP
 
-```sh
+```bash
 yum install ntp
 systemctl is-enabled nptd
 systemctl enable nptd
@@ -60,7 +60,7 @@ jitter           系统时间与BIOS时间之差
 
 启停命令
 
-```sh
+```bash
 [root@localhost ~]# service ntpd
 Usage: /etc/init.d/ntpd {start|stop|status|restart|try-restart|force-reload}
 ```
