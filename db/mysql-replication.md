@@ -58,7 +58,7 @@
 
 1. master配置 : `vi my.cnf`，如果尚未配置，则修改后需要重启。
 
-    ```groovy
+    ```ini
     [mysqld]
     log-bin=mysql-bin
     server-id=1
@@ -67,7 +67,7 @@
 
 1. slave配置 : `vi my.cnf`
 
-    ```groovy
+    ```ini
     [mysqld]
     server-id=2
     relay-log=relay-log

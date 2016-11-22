@@ -185,7 +185,7 @@ sudo apt-get install samba
 
 1. 配置
 
-    ```groovy
+    ```ini
     [tmp]
     path=/data0/samba/tmp
     browseable = yes

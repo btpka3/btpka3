@@ -65,6 +65,7 @@
 # 关于GORM
 
 1. 需要部分查询时，一定要设置一个合理的最大记录数。
+
    ```groovy
     // 反例
     def list = Item.createCriteria().list() {           // 没有设置返回的最大记录数 max
@@ -234,6 +235,7 @@
 # 关于 application/json
 
 1. Map -> JSON -> String
+
     ```groovy
     // 1. 使用Map+JsonBuilder。
     def jsonMap = [

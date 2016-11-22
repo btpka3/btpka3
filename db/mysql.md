@@ -33,7 +33,7 @@ select table_name, engine from INFORMATION_SCHEMA.TABLES where table_schema = 'm
 
 持久修改默认引擎： `vi  /etc/my.cnf`，重启生效：
 
-```groovy
+```ini
 [mysqld]
 default-storage-engine=MyISAM
 ```
@@ -135,7 +135,7 @@ select table_name, engine from INFORMATION_SCHEMA.TABLES where table_schema = 'm
 
 持久修改默认引擎： `vi  /etc/my.cnf`，重启生效：
 
-```groovy
+```ini
 [mysqld]
 default-storage-engine=MyISAM
 ```
@@ -224,7 +224,7 @@ ALTER TABLE t ENGINE = MYISAM;
 
 1. master配置 : `vi my.cnf`，如果尚未配置，则修改后需要重启。
 
-    ```groovy
+    ```ini
     [mysqld]
     log-bin=mysql-bin
     server-id=1
@@ -233,7 +233,7 @@ ALTER TABLE t ENGINE = MYISAM;
 
 1. slave配置 : `vi my.cnf`
 
-    ```groovy
+    ```ini
     [mysqld]
     server-id=2
     relay-log=relay-log
@@ -309,7 +309,7 @@ ALTER TABLE t ENGINE = MYISAM;
 
 # my.cnf
 
-```groovy
+```ini
 [client]                                            # 应用于所有MySQL客户端
 port                    = 3306
 socket                  = ${datadir}/mysql.sock     # 除了mysqld、其他程序连接的socket

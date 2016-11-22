@@ -36,7 +36,7 @@ Zabbix分为普通发布版和长期支持版（LST），所以安装的时候�
 
 1. 修改 /etc/zabbix/zabbix_server.conf
 
-    ```groovy
+    ```ini
     ListenPort=9010
     LogFile=/var/log/zabbix/zabbix_server.log
     DBHost=localhost
@@ -97,7 +97,7 @@ zabbix 提供了两种前端：zabbix-web-mysql 和 zabbix-web-pgsql。但是，
 
 1. 修改Nginx中的配置 /etc/nginx/conf.d/zabbix.conf
 
-    ```groovy
+    ```nginx
     server {
         listen *:80;
         server_name zabbix.lizi.com;
@@ -135,7 +135,7 @@ zabbix 提供了两种前端：zabbix-web-mysql 和 zabbix-web-pgsql。但是，
     ```
 
 
-    ```groovy
+    ```ini
     Server=192.168.101.80                    # 允许访问该agent的IP地址列表，通常是zabbix server 的IP地址
     ListenPort=9011                          # 该agent的监听端口，server向agent查询数据用
     ServerActive=192.168.101.80:9010         # zabbix server 的ip地址和端口，agent向server发送存活信息

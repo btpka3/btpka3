@@ -49,7 +49,7 @@
     ```
 1. 线上生产环境还要启用一下gzip，可以直接修改 nginx.conf
 
-    ```groovy
+    ```nginx
     gzip  on;
     gzip_types  text/plain
                 text/css

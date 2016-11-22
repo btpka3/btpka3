@@ -278,7 +278,7 @@ exit
 
 * nginx.conf
 
-    ```groovy
+    ```nginx
     user  nginx;
     worker_processes  1;
 
@@ -314,7 +314,7 @@ exit
 * default.conf
     请修改下面中的ip地址为你自己的ip地址。
 
-    ```groovy
+    ```nginx
     server {
         listen       80;
         server_name  localhost;
@@ -397,7 +397,7 @@ docker-machine config
 
 
 
-```
+```bash
 # 使用阿里云的 docker 加速
 
 docker-machine create -d virtualbox local       # 创建节点 local

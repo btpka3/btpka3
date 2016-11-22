@@ -146,7 +146,7 @@ echo never >/sys/kernel/mm/transparent_hugepage/defrag
     ```
     文件内容如下：
 
-    ```groovy
+    ```ini
     [mongodb]
     name=MongoDB Repository
     baseurl=http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/
@@ -174,7 +174,7 @@ echo never >/sys/kernel/mm/transparent_hugepage/defrag
     ```
     修改以下配置项：
 
-    ```groovy
+    ```ini
     logpath=/home/mongod/log/mongod.log        # 日志路径。（默认：/var/log/mongodb/mongod.log）
     dbpath=/home/mongod/db                     # 数据目录。（默认：/var/lib/mongo）
     #bind_ip=127.0.0.1                         # 注释掉该行，以便监听所有网卡
@@ -290,7 +290,7 @@ security:
     ```
     修改以下配置项：
 
-    ```groovy
+    ```ini
     replSet=rs_lizi
     keyFile=/home/mongod/mongodb-keyfile
     ```
@@ -342,7 +342,7 @@ security:
 
 1. 在上述所有对 `/etc/mongod.conf` 修改的基础上，再修改以下设置
 
-    ```groovy
+    ```yaml
     storage:
         smallFiles: true
         journal:

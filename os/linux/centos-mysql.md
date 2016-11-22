@@ -52,7 +52,7 @@ drwxr-xr-x. mysql mysql unconfined_u:object_r:etc_runtime_t:s0 /data0/mysql
 
 # my.cnf 示例
 
-```groovy
+```ini
 [client]
 default-character-set = utf8mb4         # 除了mysqld、其他程序连接时使用的默认字符集
 socket=/data/mysql/mysql.sock           # 除了mysqld、其他程序连接的socket

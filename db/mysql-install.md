@@ -48,7 +48,7 @@ yum install mysql-community-server-5.6.20
 其中server可以配置的参数值参考[这里](http://dev.mysql.com/doc/refman/5.6/en/innodb-parameters.html)
 
 
-```groovy
+```ini
 [client]                                            # 应用于所有MySQL客户端
 port                    = 3306
 socket                  = ${datadir}/mysql.sock     # 除了mysqld、其他程序连接的socket

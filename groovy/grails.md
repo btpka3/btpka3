@@ -266,6 +266,7 @@ log4j {
 ```
 
 DataSource.groovy
+
 ```groovy
 dataSource {
    logSql = true

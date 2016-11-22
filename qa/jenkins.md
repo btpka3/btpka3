@@ -31,7 +31,7 @@
     ```
     修改以下变量：
 
-    ```groovy
+    ```bash
     JENKINS_HOME="/data/store/jenkins"                               # 即jenkins用户的主目录
     JENKINS_PORT="20020"
     JENKINS_AJP_PORT="20022"

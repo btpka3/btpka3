@@ -149,7 +149,7 @@ cp $JETTY_BASE/../upload/*.war $JETTY_BASE/webapps/ROOT.war
 
 1. nginx https 反向代理。浏览器与nginx之间是https，但nginx与tomcat/jetty之间是普通的http。nginx配置文件如下所示：
 
-    ```groovy
+    ```nginx
     upstream lizi-platform.lizi-cas {
             server 127.0.0.1:30080;
     }
@@ -265,11 +265,11 @@ cp $JETTY_BASE/../upload/*.war $JETTY_BASE/webapps/ROOT.war
 
 1. 通过 `grails run-app` 运行时，连接其他 https 服务，并验证证书。
 
-    ```groovy
-    // 方式一 ： 在命令行修改参数
+    ```bash
+    # 方式一 ： 在命令行修改参数
     grails -Djavax.net.ssl.trustStore=/path/to/lizi.jks -Djavax.net.ssl.trustStorePassword=123456 run-app
 
-    // 方式二 ： 修改 BuildConfig.groovy
+    # 方式二 ： 修改 BuildConfig.groovy
     System.setProperty("javax.net.ssl.trustStore", "${basedir}/test/lizi.jks")
     System.setProperty("javax.net.ssl.trustStorePassword", "123456")
     ```

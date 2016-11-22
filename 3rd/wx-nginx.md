@@ -13,7 +13,7 @@
 3. 在域名服务商的平台上（阿里云），进行泛域名配置。比如新增 CNAME（别名） `*.ddns.kingsilk.xyz` 指向到 阿里云主机的静态公网IP
 4. 在 阿里云主机 上配置 nginx 进行反向代理，将 `p${port}.ddns.kingsilk.xyz` 的请求都转发到 `http://kingsilk.imwork.net:${port}` 上：
 
-    ```groovy
+    ```nginx
     # 该配置主要是为了方便开发人员自测微信相关API
 
     server {

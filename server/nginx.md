@@ -146,7 +146,7 @@ configure arguments:
 
 
 
-```groovy
+```nginx
 http {
     # ...
     upstream tomcat8080 {
@@ -195,7 +195,7 @@ strings /lib64/libssl.so.10 | grep "^OpenSSL "
 [1](http://www.cyberciti.biz/faq/howto-linux-unix-setup-nginx-ssl-proxy/)
 [2](http://webapp.org.ua/sysadmin/setting-up-nginx-ssl-reverse-proxy-for-tomcat/)
 
-```groovy
+```nginx
 server {
     location / {
          proxy_pass              http://tomcat_server;
@@ -237,7 +237,7 @@ server {
 
 ## 正向代理
 
-```groovy
+```nginx
 server {
     listen 192.168.0.10:80;
 
@@ -354,7 +354,7 @@ server {
 
 # 强制HTTPS （TODO）
 
-```groovy
+```nginx
 server {
     listen      80;
     server_name hisdev.eyar.com;
@@ -388,7 +388,7 @@ server{
 
 ### proxy_pass 带路径
 
-```groovy
+```nginx
 location /aaa/bbb {
     proxy_pass              http://qh-wap/xxx/yyy/;
     proxy_set_header        Host            $host;
@@ -402,7 +402,7 @@ location /aaa/bbb {
 
 ### proxy_pass 不带路径
 
-```groovy
+```nginx
 location /xxx/yyy {
     proxy_pass              http://qh-wap;
     proxy_set_header        Host            $host;
@@ -429,7 +429,7 @@ location ~ ^/api(.*)$ {
  使得外部访问 http://www.test.me/ask/xxx 时都跳转到 http://ask.test.me/xxx 。
  但是内部app都只有一个，故内部访问 http://ask.test.me/xxx 时，还是在访问 http://www.test.me/ask/xxx
 
-```groovy
+```nginx
 upstream myTomcat {
     server                        localhost:10010 weight=1 max_fails=1 fail_timeout=1s;
 }

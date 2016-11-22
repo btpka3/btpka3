@@ -4,7 +4,7 @@ http://os.51cto.com/art/201012/240113.htm
 
 `vi /etc/ssh/sshd_config`
 
-```groovy
+```ini
 X11Forwarding no  #
 PermitEmptyPasswords no     # 禁止空密码
 MaxStartups  10             # 最多保持多少个未认证的连接，防止SSH拒绝服务
