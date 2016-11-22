@@ -39,7 +39,7 @@ gpg2 -ab xxx.txt            # 对指定的文件进行签名
 gpg2 --verify xxx.txt.asc   # 对指定文件的签名进行校验
 
                             # 发布公钥
-gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys C6EED57A      
+gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys C6EED57A
 
                             # 其他人员载入你的公钥
 gpg2 --keyserver hkp://pool.sks-keyservers.net --recv-keys C6EED57A
@@ -123,7 +123,7 @@ mvn install:install-file -Dfile=neuroph-samples-2.9.jar -DgroupId=org.neuroph -D
 mvn -Dmaven.test.skip=true -am --projects subModule1/leafModule1 clean install
 ```
 参考：[Guide multiple modules](http://maven.apache.org/guides/mini/guide-multiple-modules.html)
-注意：使用以上参数时，当前路径应当是根模块的pom.xml所在的目录  
+注意：使用以上参数时，当前路径应当是根模块的pom.xml所在的目录
 注意：如果子模块B有一些自动生成代码的Maven插件依赖于子模块A，恐怕就不能一起编译了。而必须先install子模块A，才能在子模块B中自动生成代码、之后才可能重新一起编译、打包
 
 ## 经验
@@ -163,9 +163,9 @@ mvn -Dmaven.test.skip=true -am --projects my/module1,my/module2 compile
 ### settings.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 
-          http://maven.apache.org/xsd/settings-1.0.0.xsd" 
-          xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+          http://maven.apache.org/xsd/settings-1.0.0.xsd"
+          xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <localRepository>D:\maven\repository</localRepository>
   <servers>

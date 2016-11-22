@@ -1,4 +1,4 @@
-## JSR 308: Annotations on Java Types 
+## JSR 308: Annotations on Java Types
 从JDK 1.5 引入，追加了Annotation这一个概念，注解可以设置保留到什么阶段（编译时、运行时）等，提供一些额外的描述。个人感觉是copy自C#。
 参考
 * [JSR 308](http://jcp.org/en/jsr/detail?id=308)

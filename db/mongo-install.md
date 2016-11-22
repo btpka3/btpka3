@@ -24,7 +24,7 @@ docker run -d \
     mongo:3.2.10
 
 docker exec -it my-mongo bash
-    
+
 ```
 
 ## ubuntu
@@ -135,7 +135,7 @@ echo never >/sys/kernel/mm/transparent_hugepage/defrag
     WantedBy=multi-user.target
     ```
 
- 
+
 
 ### 安装 mongodb 2.6
 
@@ -241,7 +241,7 @@ security:
         pwd: "<password>",
         roles: [ { role: "root", db: "admin" } ]
     });
- 
+
     db.auth("siteRootAdmin", "<password>");      // 认证
     db.getUsers();                               // 获取当前数据库中的用户
 
@@ -267,7 +267,7 @@ security:
 
     ```bash
     service mongod stop
-    ```    
+    ```
 
 1. 创建一个 keyfile，用于 replica set。
 
@@ -295,7 +295,7 @@ security:
     keyFile=/home/mongod/mongodb-keyfile
     ```
 
-1. 启动每一个 mongod 
+1. 启动每一个 mongod
 
     ```bash
     service mongod start
@@ -333,7 +333,7 @@ security:
         ]
     }
     ```
-1. 添加剩余的节点到 replica set 中 
+1. 添加剩余的节点到 replica set 中
 
     ```js
     rs.add("s85")

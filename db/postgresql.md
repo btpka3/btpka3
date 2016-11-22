@@ -158,7 +158,7 @@ CREATE TABLE imageslo (imgname text, imgoid oid);
 FIXME：trigger影响效率，且有时会失效？应该使用定时任务处理？
 
 ### Object Permissions
-[9.0 release note](http://www.postgresql.org/docs/9.0/static/release-9-0.html#AEN101496)  
+[9.0 release note](http://www.postgresql.org/docs/9.0/static/release-9-0.html#AEN101496)
 [grant syntax](http://www.postgresql.org/docs/9.0/static/sql-grant.html)
 ```sql
 GRANT { { SELECT | UPDATE } [,...] | ALL [ PRIVILEGES ] }
@@ -172,7 +172,7 @@ GRANT { { SELECT | UPDATE } [,...] | ALL [ PRIVILEGES ] }
 
 查询哪些用户有多少个largeObject
 ```sql
-select t.lomowner as userOid, p.rolname, t.count 
+select t.lomowner as userOid, p.rolname, t.count
 from (select lomowner as lomowner, count(*) as count from pg_largeobject_metadata group by lomowner ) t,
      pg_authid p
 where t.lomowner = p.oid
@@ -182,7 +182,7 @@ where t.lomowner = p.oid
 
 整理largeObject
 ```sql
-Vacuumlo –n –v dbName 
+Vacuumlo –n –v dbName
 Vacuum analyze verbose pg_largeobject;
 Vacuum analyze verbose pg_largeobject_metadata;
 
@@ -199,7 +199,7 @@ ALTER USER xxx WITH SUPERUSER;
 mkdir /data/database/xxx
 chown -R postgres:postgres /data/database/xxx
 CREATE TABLESPACE xxx OWNER xxx LOCATION '/data/database/xxx';
-CREATE DATABASE xxx WITH OWNER = xxx TABLESPACE = xxx ENCODING = 'UTF-8'; 
+CREATE DATABASE xxx WITH OWNER = xxx TABLESPACE = xxx ENCODING = 'UTF-8';
 
 ```
 

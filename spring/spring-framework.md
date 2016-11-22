@@ -118,7 +118,7 @@ inline list
 
 ```xml
 <util:properties id="CFG" location="classpath:/path/1;classpath:/path/2;" />
-<context:property-placeholder location="/WEB-INF/cas.properties" properties-ref="CFG" /> 
+<context:property-placeholder location="/WEB-INF/cas.properties" properties-ref="CFG" />
 ```
 
 检查使用
@@ -138,13 +138,13 @@ if (ClassUtils.isPresent("grails.util.Holders",
                 cfgObj = (ConfigObject) obj;
             } else {
                 break;
-            }   
+            }
         } else {
             if (obj instanceof String) {
                 cfgObj = (ConfigObject) obj;
-            }   
+            }
             break;
-        }                                                                                                                                                                                            
+        }
     }
 }
 
@@ -172,16 +172,16 @@ public class ApplicationContextHolder implements ApplicationContextAware {
 
     private ApplicationContextHolder() {
         super();
-    }   
+    }
 
     public void setApplicationContext(ApplicationContext applicationContext)
             throws BeansException {
         ApplicationContextHolder.applicationContext = applicationContext;
-    }   
+    }
 
     public static ApplicationContext getContext() {
         return applicationContext;
-    }   
+    }
 
 }
 ```
@@ -202,7 +202,7 @@ FIXME : 使用注解定义bean的时候，如果override 一个同名的bean的�
 
 
 @ComponentScan         默认，Spring仅仅扫描 @Component, @Controller, @Repository, @Service
- 
+
 ==================================javax.annotation
 @Resource
 @PostConstruct
@@ -230,7 +230,7 @@ FIXME : 使用注解定义bean的时候，如果override 一个同名的bean的�
 
 
 @Bean 说明一个方法返回一个bean, 只有在 @Configuration 下才起作用。
-@Scope 
+@Scope
 @Primary
 @Lazy
 
@@ -265,11 +265,11 @@ public class AppConfig {
 ```
 
 ==================================7788
-@WebServlet(urlPatterns = "/AsyncLongRunningServlet", asyncSupported = true)  
-public class AsyncLongRunningServlet extends HttpServlet {  
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-        throws ServletException, IOException { 
-                    
+@WebServlet(urlPatterns = "/AsyncLongRunningServlet", asyncSupported = true)
+public class AsyncLongRunningServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+
     }
 }
 ServletRequest#getAsyncContext().

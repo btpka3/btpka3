@@ -4,6 +4,8 @@
   "language": "zh",
   "gitbook": ">=3.0.0",
   "plugins": [
+    "-sharing",
+    "-search",
     "-highlight",
     "prism",
     "prism-themes",
@@ -13,11 +15,11 @@
   "pluginsConfig": {
     "prism": {
       "css": [
-        "prism-themes/themes/prism-duotone-dark.css"
+        "prism-themes/themes/prism-vs.css"
       ]
     },
     "fontsettings": {
-      "theme": "night",
+      "theme": "white",
       "family": "sans",
       "size": 1
     }

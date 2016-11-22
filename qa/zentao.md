@@ -21,7 +21,7 @@ zentao.conf
 ```
 server {
     listen *:80;
-    server_name zentao.kingsilk.xyz;                                
+    server_name zentao.kingsilk.xyz;
     root        /data0/zentaopms/www;
 
     client_max_body_size 20m;
@@ -30,15 +30,15 @@ server {
     access_log  logs/zentao.kingsilk.xyz.access.log main;
     error_log   logs/zentao.kingsilk.xyz.error.log;
 
-    location / { 
+    location / {
         index  index.html index.htm index.php;
-    }   
+    }
     location ~ \.php$ {
         fastcgi_pass   127.0.0.1:9000;
         fastcgi_index  index.php;
         fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
         include        fastcgi_params;
-    }   
+    }
 
 }
 ```

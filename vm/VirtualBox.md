@@ -16,9 +16,9 @@ VirtualBox: File -> Preferences -> Input -> uncheck "Auto Capture Keyboard"
     ```
 
 * 安装官方渠道的最新版本
-  
+
     ```
-    # 将 'vivid' 替换为 'utopic', 'trusty', 'raring', 'quantal', 'precise', 
+    # 将 'vivid' 替换为 'utopic', 'trusty', 'raring', 'quantal', 'precise',
     # 'lucid', 'jessie', 'wheezy', 或者 'squeeze'
     deb http://download.virtualbox.org/virtualbox/debian vivid contrib
     wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
@@ -73,15 +73,15 @@ VirtualBox: File -> Preferences -> Input -> uncheck "Auto Capture Keyboard"
 ### win8 安装错误
 
 ```
-VBoxManage.exe" setextradata "<Virtual machine name>" VBoxInternal/CPUM/CMPXCHG16B 1 
+VBoxManage.exe" setextradata "<Virtual machine name>" VBoxInternal/CPUM/CMPXCHG16B 1
 ```
 ### centos 7
 
 ```
 # 使用桥接方式
-vi /etc/sysconfig/network-scripts/ifcfg-enp0s3 
-DEVICE=eth0  
-BOOTPROTO=dhcp  
+vi /etc/sysconfig/network-scripts/ifcfg-enp0s3
+DEVICE=eth0
+BOOTPROTO=dhcp
 ONBOOT=yes
 
 systemctl restart network
@@ -134,15 +134,15 @@ ifconfig
     ```bash
     init 6
     ```
-1.  Guest系统运行窗口： 
+1.  Guest系统运行窗口：
 
     ```
-    `设备` 菜单 
-        -> 共享文件夹 
-        -> 点击`添加共享文件夹`图标 
+    `设备` 菜单
+        -> 共享文件夹
+        -> 点击`添加共享文件夹`图标
         -> 设置`共享文件夹路径`（比如：`F:/`）
-        -> 设置`共享文件名称`（比如: `F`） 
-        -> 选中`固定分配` 
+        -> 设置`共享文件名称`（比如: `F`）
+        -> 选中`固定分配`
         -> 确定
     ```
 
@@ -171,7 +171,7 @@ FIXME
 VBoxManage list hdds
 
 # 1.1 复制并修改 uuid
-cp /path/to/file1.vdi /path/to/file2.vdi 
+cp /path/to/file1.vdi /path/to/file2.vdi
 VBoxManage internalcommands sethduuid /path/to/file2.vdi
 
 # 1.2 克隆（作用同上）
@@ -183,7 +183,7 @@ VBoxManage modifyhd /path/to/file2.vdi --resize 102400
 
 
 # U盘启动
-## linux 
+## linux
 [参考](http://tecadmin.net/how-to-boot-from-usb-drive-in-virtualbox-on-linux/)
 
 ```

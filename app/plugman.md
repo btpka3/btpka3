@@ -7,4 +7,3 @@
 
 cordova-plugman 在 github 上[镜像](https://github.com/apache/cordova-plugman/)
 
- 

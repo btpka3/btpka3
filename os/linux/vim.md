@@ -20,7 +20,7 @@ alias vi=vim
 ```
 
 # 修改vim配置文件
-修改用户级别的 需要修改 `~/.vimrc`。修改全局的，需要修改 `/etc/vimrc` （可以通过 `:version` 看到） 
+修改用户级别的 需要修改 `~/.vimrc`。修改全局的，需要修改 `/etc/vimrc` （可以通过 `:version` 看到）
 
 ```vim
 set nocompatible
@@ -69,7 +69,7 @@ ll /usr/share/vim/vim74/colors
 ```
 
 ## 安装vba插件
-[largeFile](http://www.drchip.org/astronaut/vim/#LARGEFILE), 
+[largeFile](http://www.drchip.org/astronaut/vim/#LARGEFILE),
 [Manual](http://www.drchip.org/astronaut/vim/doc/LargeFile.txt.html)
 wget http://www.drchip.org/astronaut/vim/vbafiles/LargeFile.vba.gz
 gunzip LargeFile.vba.gz
@@ -97,7 +97,7 @@ vi LargeFile.vba
 :set nobomb
 :wq
 ```
-## 全局替换 
+## 全局替换
 
 ```bash
 :%s/\t/    /g

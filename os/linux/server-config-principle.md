@@ -7,7 +7,7 @@
 
 1. 全局性的环境变量应配置到 `/etc/profile.d/his.sh`。用户别的环境变量应当配置到  `~/.bashrc` 中
 1. 安装的服务、应用，需使用各自独立的系统账户运行，不可使用root账户运行。
-1. 安装的服务、应统一使用 `service xxxServiceName  start|stop|restart|status` 进行起停控制。  
+1. 安装的服务、应统一使用 `service xxxServiceName  start|stop|restart|status` 进行起停控制。
     该命令需要配置init脚本： `/etc/init.d/xxxServiceName`。
     环境变量，运行用的系统用户应尽量在 init.d 脚本中配置。
     如果源码编译安装时不提供init.d脚本，需要手动编写，。之后一般需要执行以下命令：
@@ -18,7 +18,7 @@
 [root@localhost ~] chkconfig --level 345 xxxInit.d  on      # 设置默认启动级别为 init 3, 4, 5
 [root@localhost ~] service xxxInit.d  start                      #  之后就可以通过service命令启动了。注意：service命令只能由root账户运行。
     ```
-    
+
 
 # 目录规范
 1. rpm 安装类的软件按照其默认的安装路径。比如：nginx，postgresql等。但是主要数据存放应通过环境变量、配置文件单独指定目录。比如 PostgreSql 指定PG_DATA环境变量指定到 /data/store/${software-name}/ 。
@@ -39,7 +39,7 @@
 
 
 # his 应用部署目录
-/data/app/${app-artifact-id}/${app-artifact-id}-x.x.x.zip  
+/data/app/${app-artifact-id}/${app-artifact-id}-x.x.x.zip
 /data/app/${app-artifact-id}/${app-artifact-id}/conf
 /data/app/${app-artifact-id}/${app-artifact-id}/bin
 /data/app/${app-artifact-id}/${app-artifact-id}/lib
@@ -58,7 +58,7 @@
 ## 本地开发主机列表
 | IP | 主机名| 备注 |
 | ---- | ---- | ---- |
-|10.1.110.0 | dev-db1 | DB: HIS、SSO、MIN；zookeeper | 
+|10.1.110.0 | dev-db1 | DB: HIS、SSO、MIN；zookeeper |
 
 
 # 端口分配

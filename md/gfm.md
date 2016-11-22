@@ -1,6 +1,6 @@
 
 
-# 一级标题 
+# 一级标题
 ## 二级标题
 ### 三级标题
 #### 四级标题
@@ -9,18 +9,18 @@
 
 ## 引用
 
-> 这是  
-> 一大块儿的  
+> 这是
+> 一大块儿的
 >> 级联原文引用
 >
 > 和原文引用
 > ## This is a header.
-> 
+>
 > 1.   This is the first list item.
 > 2.   This is the second list item.
-> 
+>
 > Here's some example code:
-> 
+>
 >     return shell_exec("echo $input | $markdown_script");
 
 

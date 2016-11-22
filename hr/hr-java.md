@@ -49,20 +49,20 @@ XxxController{  // 没有任何AOP
 
      ```java
      int i=0,s=0;
-     do{ 
+     do{
         if (i % 2 == 0 )
-        {   
+        {
             i++;
          	continue;
      	}
      	i++;
-     	s = s + i;      
+     	s = s + i;
      }while (i < 7);
      System.out.println(s);
      ```
 3. 介绍一下java的集合框架(可配图解释)。
 4. JAVA语言如何进行异常处理，关键字：throws,throw,try,catch,finally分别代表什么意义？在try块中可以抛出异常吗？
-5. java中有几种类型的流？JDK为每种类型的流提供了一些抽象类以供继承，请说出他们分别是哪些类？ 
+5. java中有几种类型的流？JDK为每种类型的流提供了一些抽象类以供继承，请说出他们分别是哪些类？
 6. 创建线程有哪几种几种方式，并说说它们的区别。
 7. GC是什么,为什么要有GC?
 8. 说一说Servlet的生命周期?

@@ -2,7 +2,7 @@
 ## 学习方法
 请使用外国搜索引擎，进行英文搜索。
 
-* [global.bing.com](http://global.bing.com/?FORM=HPCNEN&setmkt=en-us&setlang=en-us), 
+* [global.bing.com](http://global.bing.com/?FORM=HPCNEN&setmkt=en-us&setlang=en-us),
 * [search.com](http://search.com)
 * [yahoo.com](http://yahoo.com)
 
@@ -35,13 +35,13 @@
 前端开发所需技能
     JavaScript 原生API，ES 6，
        基础知识：
-            值传递、引用传递等 
+            值传递、引用传递等
             变量查找方式
             var、let等关键词
             for 循环等语法
-       Prototype chain、 
+       Prototype chain、
        require/export 包管理
-       Promise、 
+       Promise、
        Function Generator 等
     CSS 2, CSS 3
     HTML 4, HTML 5
@@ -58,8 +58,8 @@
 
     Node.js
         grunt/gulp, (必须项)
-        express.js， 
-        koa.js 
+        express.js，
+        koa.js
         hexo.js
 
     Cordova/Ionic 混合APP开发

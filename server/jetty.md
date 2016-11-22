@@ -18,17 +18,17 @@
 1. 修改 jetty 的全局性配置
 
     1. `vi $JETTY_HOME/etc/jetty.xml`, 修改92行左右，启用 **ForwardedRequestCustomizer**，该配置允许使用 HaProxy, Nginx等反向代理设置 `X-Real-IP`, `X-Forwarded-For`, `X-Forwarded-Proto` 等 http 请求头
-    1. `vi $JETTY_HOME/etc/jetty-logging.xml`, 修改19行左右，修改时区 `GMT` -> `GMT+8`. 
+    1. `vi $JETTY_HOME/etc/jetty-logging.xml`, 修改19行左右，修改时区 `GMT` -> `GMT+8`.
        这会使得 jetty 生成的日志备份文件 `yyyy_mm_dd.stderrout.log.HHmmssSSS"` 的后缀能与我们的时区相一致。
 
     1. `vi $JETTY_HOME/bin/jetty.sh` ，为方便非root用户可以执行该脚本，修改以下配置。
 
         ```bash
         # 修改 169 行左右, 修改 `for CONFIG in $ETC/default/${NAME}{,9} $HOME/.${NAME}rc; do` 为：
-        for CONFIG in {/etc,~/etc}/default/${NAME}{,9} $HOME/.${NAME}rc; do 
+        for CONFIG in {/etc,~/etc}/default/${NAME}{,9} $HOME/.${NAME}rc; do
 
         # 修改 447 行左右， 修改 `if [ -n "$JETTY_USER" ]`  为：
-        if [ -n "$JETTY_USER" ] && [ `whoami` != "$JETTY_USER" ] 
+        if [ -n "$JETTY_USER" ] && [ `whoami` != "$JETTY_USER" ]
         ```
     1. `vi $JETTY_HOME/bin/jetty.sh` ，防止Jenkins 通过SSH执行时，因stdout而超时。
 
@@ -55,7 +55,7 @@
         ```
     1. 通过命令创建所需的 start.d/xxx.ini 文件
 
-        ```bash 
+        ```bash
         java -jar ${JETTY_HOME}/start.jar --add-to-startd=server,deploy,http,logging,jsp,jstl,jaas,ssl
         mkdir work                        # 注意，该目录不会自动清空的。如果不再jetty.base目录下创建，会使用临时目录，重启一次，就创建一个临时目录
 
@@ -69,7 +69,7 @@
         vi start.d/http.ini
 
         # 修改 ssl 配置（线上环境不需要，因为使用的都是正式证书。）
-        # 开发、测试环境还需要从my-app的git仓库中 
+        # 开发、测试环境还需要从my-app的git仓库中
         scp yourUserName@xxx.xxx.xxx.xxx:/path/to/lizi-platform/lizi-cas/src/main/config/lizi.jks  etc/
         vi start.d/ssl.ini
         ```
@@ -86,7 +86,7 @@
 
     if [[ "" = "${JAVA_HOME}" ]]
     then
-        . /etc/profile.d/xxx.sh 
+        . /etc/profile.d/xxx.sh
     fi
 
     today=`date +%Y%m%d%H%M%S`
@@ -96,7 +96,7 @@
         -Xms512m \
         -Xmx1024m \
         -XX:PermSize=32m \
-        -XX:MaxPermSize=256m 
+        -XX:MaxPermSize=256m
         -XX:ErrorFile=${JETTY_BASE}/logs/start.at.${today}.hs_err_pid.log \
         -XX:+UseConcMarkSweepGC \
         -XX:+HeapDumpOnOutOfMemoryError \
@@ -133,7 +133,7 @@
 #!/bin/bash
 APP=my-app
 . /etc/default/$APP
-                                                   
+
 /etc/init.d/$APP stop
 
 rm -fr $JETTY_BASE/work/*
@@ -267,7 +267,7 @@ cp $JETTY_BASE/../upload/*.war $JETTY_BASE/webapps/ROOT.war
 
     ```groovy
     // 方式一 ： 在命令行修改参数
-    grails -Djavax.net.ssl.trustStore=/path/to/lizi.jks -Djavax.net.ssl.trustStorePassword=123456 run-app 
+    grails -Djavax.net.ssl.trustStore=/path/to/lizi.jks -Djavax.net.ssl.trustStorePassword=123456 run-app
 
     // 方式二 ： 修改 BuildConfig.groovy
     System.setProperty("javax.net.ssl.trustStore", "${basedir}/test/lizi.jks")
@@ -279,6 +279,6 @@ cp $JETTY_BASE/../upload/*.war $JETTY_BASE/webapps/ROOT.war
     ```bash
     JAVA_OPTIONS="-server \
          -Djavax.net.ssl.trustStore=/home/lizi/lizi-platform/lizi-www/jetty.base/etc/lizi.jks \
-         -Djavax.net.ssl.trustStorePassword=123456 \ 
+         -Djavax.net.ssl.trustStorePassword=123456 \
     "
     ```

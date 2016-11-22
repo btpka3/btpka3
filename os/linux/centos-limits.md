@@ -78,7 +78,7 @@ vi /etc/security/limits.d/xxx.conf  # 如果值太小，则修改该文件，持
 ```
 
 说明：修改配置文件只能对新的session起作用。如果要想即时生效，可以通过 `ulimit -n 20000` 等开启，前提是 新的数值不能超过hard所设定的值。hard值一旦被设定，就不能够再增加。
- 
+
 ## ulimit 与 systemd 的配置映射表
 
 
@@ -96,7 +96,7 @@ vi /etc/security/limits.d/xxx.conf  # 如果值太小，则修改该文件，持
 |-p     |                   |                   |The pipe size in 512-byte blocks (this may not be set)
 |-q     |RLIMIT_MSGQUEUE    |LimitMSGQUEUE      |The maximum number of bytes in POSIX message queues
 |-r     |RLIMIT_RTPRIO      |LimitRTPRIO        |The maximum real-time scheduling priority
-|       |RLIMIT_RTTIME      |LimitRTTIME       
+|       |RLIMIT_RTTIME      |LimitRTTIME
 |-s     |RLIMIT_STACK       |LimitSTACK         |The maximum stack size
 |-t     |RLIMIT_CPU         |LimitCPU           |The maximum amount of cpu time in seconds
 |-u     |RLIMIT_NPROC       |LimitNPROC         |The maximum number of processes available to a single user

@@ -1,7 +1,7 @@
 
 
 
-## 常用命令 
+## 常用命令
 ```
 df -h # 查看磁盘空间使用状况
 df -i # 查看inode数量状况（创建的文件数）
@@ -30,7 +30,7 @@ less /proc/modules
 # show loaded module's parameter
 modprobe -c | grep module_name
 
-# show dependencies 
+# show dependencies
 modprobe --show-depends module_name
 
 # install module
@@ -44,5 +44,5 @@ rmmod module_name
 ### tail
 ```
 tail -f xxxFile
-tailf xxxFile | grep --line-buffered --color=auto xxxKeyWord 
+tailf xxxFile | grep --line-buffered --color=auto xxxKeyWord
 ```

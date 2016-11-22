@@ -5,7 +5,7 @@
 # docker
 
 ```
- 
+
 docker pull redis:3.2.4
 
 docker stop my-redis
@@ -56,12 +56,12 @@ Redis Sentinel的作用: 使用一主多从模式保证高可用性。
     make
     make PREFIX=/data0/soft/redis/redis-3.0.3 install
 
-    [root@localhost ~]# adduser -r -m  -d /data/software/redis redis 
+    [root@localhost ~]# adduser -r -m  -d /data/software/redis redis
     [root@localhost ~]# passwd -l redis
-    
+
     [root@localhost ~]# mkdir /data/store/redis
     [root@localhost ~]# chown -R redis:redis /data/store/redis
-    
+
     [root@localhost ~]# mkdir /data/outputs/log/redis
     [root@localhost ~]# chown -R redis:redis /data/outputs/log/redis
 
@@ -121,12 +121,12 @@ TODO 上下合并
 1. 创建系统用户redis，及所需的目录
 
     ```bash
-    adduser -r -m  -d /data/software/redis redis 
+    adduser -r -m  -d /data/software/redis redis
     passwd -l redis
-    
+
     mkdir /data/store/redis
     chown -R redis:redis /data/store/redis
-    
+
     mkdir /data/outputs/log/redis
     chown -R redis:redis /data/outputs/log/redis
 
@@ -295,7 +295,7 @@ TODO 上下合并
     After=network.target
 
     [Service]
-    Type=forking                                                                                                                                                                                                       
+    Type=forking
     ExecStart=/usr/local/bin/redis-server /home/redis/redis.conf
     ExecStop=/bin/kill -15 $MAINPID
     PIDFile=/home/redis/redis.pid

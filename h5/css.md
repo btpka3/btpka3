@@ -58,8 +58,8 @@ iPad 2 / 4.3.3    - Mobile Safari 5.02
 iPad 2 / 5.0      - Mobile Safari 5.1
 iPad 3 / 5.1      - Mobile Safari 5.1
 iPad 4 / 6.0      - Mobile Safari 6.0
- 
- 
+
+
 ```
 
 
@@ -194,7 +194,7 @@ DPI = 对角线的像素数 / 屏幕英寸数
     * b : 选择器中类选择器，属性选择器，伪类选择器（不保护含 :not(X) 伪类）的数量
     * c : 选择器包元素名称选择器，伪元素的数量
     * 忽略通配符选择器
-    
+
 示例
 
 ```css
@@ -282,12 +282,12 @@ md-list.md-dense md-list-item > md-icon:first-child:not(.md-avatar-icon) {
 
 # 伪元素
 
-``` 
+```
 element::after {}
 element::before {}
 element::first-letter {}
 element::first-line {}
-element::selection {} 
+element::selection {}
 ```
 
 # 进度条/spin

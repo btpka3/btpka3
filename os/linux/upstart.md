@@ -35,7 +35,7 @@ man 3 fnmatch
 
 inotify
 
-man exec 
+man exec
 
 /etc/init/
     *.conf       只读，无需可执行权限
@@ -95,7 +95,7 @@ UPSTART_EVENTS 环境变量包含了启动该任务的事件列表。如果任�
 ```
 env KEY=VLAUE
     定义环境变量
-    
+
 export KEY
     将环境变量暴露在该任务的 starting(7), started(7), stopping(7), stopped(7) 事件中。
 
@@ -108,12 +108,12 @@ export KEY
 task
     指明该任务是一个 task。
 
-respawn 
+respawn
     指明该任务如果意外终止，则应当自动重新启动。
 
 respawn limit COUNT INTERVAL
     如果因意外终止而多次以指定的间隔重新启动达到指定次数。则会停止而不再重新启动。
-    
+
 normal exit STATUS|SIGNAL
     额外指明某些状态码、事件也任务是正常的，而不必重新启动。
 
@@ -136,7 +136,7 @@ normal exit STATUS|SIGNAL
 ## mysql.conf
 
 ```groovy
-# MySQL Service                                                                                                                                                                                              
+# MySQL Service
 
 description     "MySQL Server"
 author          "Mario Limonciello <superm1@ubuntu.com>"

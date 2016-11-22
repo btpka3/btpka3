@@ -69,7 +69,7 @@ Usage: /etc/init.d/ntpd {start|stop|status|restart|try-restart|force-reload}
 # centos 7 安装 ntp
 
 ```
-yum install ntp ntpdate 
+yum install ntp ntpdate
 systemctl is-enabled ntpd
 systemctl enable ntpd
 systemctl status ntpd

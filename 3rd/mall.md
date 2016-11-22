@@ -34,7 +34,7 @@ User Agent                  DNS Server                                   CDN's p
  |                            |                                             | 4. found A: x.x.x.x
  |                            |                                             |    found A: y.y.y.y
  |                            |         5. base on client ip, return one ip |
- |                            | <------------------------------------------ | 
+ |                            | <------------------------------------------ |
  |          6. return cdn ip  |                                             |
  | <------------------------- |                                             |
 ```

@@ -107,7 +107,7 @@
     1. `#d2`     选中了________
     1. `div`     选中了________
     1. `.c1.c2`  选中了________
-    1. `.c1 .c3` 选中了________ 
+    1. `.c1 .c3` 选中了________
     1. `.c2>[c2]`    选中了________
 
     ```
@@ -226,7 +226,7 @@
         function User(a) {
             var age = 24;
             this.age = a;
-            
+
             this.print1 = function(){
                 console.log(age);
             };
@@ -252,7 +252,7 @@
 
 
 1. 下面JavaScript中依次打印什么内容？
-    
+
     ```
     <html>
     <script>
@@ -272,7 +272,7 @@
 
 1. 下列那些http头与可以用于缓存控制？
 
-   1. Date   
+   1. Date
    1. Cache-Control
    1. Last-Modified
    1. Etag

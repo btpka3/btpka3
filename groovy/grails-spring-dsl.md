@@ -31,7 +31,7 @@ beans = {
         importBeans("classpath*:spring/*Beans.groovy")   // ResourcePatternResolver#CLASSPATH_ALL_URL_PREFIX
     }
     ```
-    
+
 * 修改 scripts/_Events.groovy，使得分割后的文件放置到 classpath下，run-app不会出错
 
     ```groovy
@@ -54,7 +54,7 @@ beans = {
     ```
     grails.project.work.dir = "target/work"             // Optional
     grails.war.resources = { stagingDir, args ->        // target/work/stage/WEB-INF/classes/spring
-        copy(verbose: true, todir: "${stagingDir}/WEB-INF/classes/spring") {    
+        copy(verbose: true, todir: "${stagingDir}/WEB-INF/classes/spring") {
             fileset(dir: "grails-app/conf/spring") {
                 include(name: "*Beans.groovy")
                 exclude(name: "resources.groovy")

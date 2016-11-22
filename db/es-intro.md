@@ -290,7 +290,7 @@ lucene javadoc : [Query](http://lucene.apache.org/core/4_2_0/core/index.html?org
 
 
 # query/filter
-一般来说，如果只是存在性（yes/no）查询、精确值查询。 
+一般来说，如果只是存在性（yes/no）查询、精确值查询。
 filter后的结果可以被缓存，而且不需要太多内存。
 
 |type|description|
@@ -322,4 +322,3 @@ filter后的结果可以被缓存，而且不需要太多内存。
 |term||
 |terms||
 |type||
- 

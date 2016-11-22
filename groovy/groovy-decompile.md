@@ -31,7 +31,7 @@ class Test {
 ```java
 /*
  * Decompiled with CFR 0_87.
- * 
+ *
  * Could not load the following classes:
  *  groovy.lang.GroovyObject
  *  groovy.lang.MetaClass

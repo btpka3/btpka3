@@ -18,7 +18,7 @@
     ```
 
 1. 在session2中查看MASTER的状态，并记录 `File` 和 `Position` 的值
- 
+
     ```bash
     mysql -p -e "SHOW MASTER STATUS" > start_status.txt
     ```
@@ -40,7 +40,7 @@
 
     ```bash
     tar cf /tmp/db.tar ./data
-    # date ; tar cf mysql.tar ./mysql ; date 
+    # date ; tar cf mysql.tar ./mysql ; date
     ```
 
 1. 配合相应的时机，在session1中释放所有读锁
@@ -57,7 +57,7 @@
 
 
 1. master配置 : `vi my.cnf`，如果尚未配置，则修改后需要重启。
-    
+
     ```groovy
     [mysqld]
     log-bin=mysql-bin
@@ -71,9 +71,9 @@
     [mysqld]
     server-id=2
     relay-log=relay-log
-    replicate-do-db=db_name                  # 可选 
+    replicate-do-db=db_name                  # 可选
     replicate-ignore-db=db_name              # 可选
-    replicate-do-table=db_name.tbl_name      # 可选 
+    replicate-do-table=db_name.tbl_name      # 可选
     replicate-ignore-table=db_name.tbl_name  # 可选
     # 注意：master-xxx参数从5.5开始被移除了，从5.6开始如果还有该参数，会启动报错。这些参数只能通过 CHANGE MASTER TO 命令完成,比如：在命令行中执行 -- change master to master_host='192.168.101.86', master_user='s82', master_password='nalanala', master_log_file='mysql-bin.000159', master_log_pos=0;
     ```

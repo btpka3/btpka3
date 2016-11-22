@@ -23,7 +23,7 @@
 
 ```
 # 1. 在prod12, prod13上部署 qh-wap-api, 均监听 1200 端口
-# 2. 在购买创/建负载均衡示例, 假设IP是为 100.98.237.78 
+# 2. 在购买创/建负载均衡示例, 假设IP是为 100.98.237.78
 # 3. 阿里云 管理控制台 - 产品与服务 - 负载均衡 :
 #    3.1 服务器: 添加prod12, prod13
 #    3.2 监听: 虚拟服务器组: qh-admin 为 [prod12:1200, prod13:1200]
@@ -64,13 +64,13 @@ export DOCKER_CERT_PATH="/Users/zll/.acs/certs/my-c"
 # FIXME: how to create remote machine
 docker-machine create --url=tcp://master1g5.cs-cn-hangzhou.aliyun.com:13796 \
     qh-aliyun
-    
-    
+
+
 
 
 
 # 路由规则
-172.18.1.0/24     -> docker 主机1         
+172.18.1.0/24     -> docker 主机1
 0.0.0.0/0         -> 网关
 192.168.1.0/24    : 内部网络
 100.64.0.0/10     : 公网IP网络？
@@ -115,9 +115,9 @@ docker.kingsilk.net     ip为SLB的公网IP
 ```
 # 容器 + 公网SLB
 curl -v http://docker.kingsilk.net
-    -> SLB的公网IP 
+    -> SLB的公网IP
         (在阿里云的域名服务中设置相应的A记录)
-    -> SLB 80 => ECS主机的9080 
+    -> SLB 80 => ECS主机的9080
         (已默认提供, 由docker容器 acsrouting 容器提供)
     -> acsrouting 根据域名,将请求转发到特定的 docker容器上
        (在阿里云管理控制台/产品与服务/容器服务/服务/某个服务的"变更配置": Web路由规则中配置域名)
@@ -146,7 +146,7 @@ curl -v http://nat.kingsilk.net
        (已默认提供, 由docker容器 acsrouting 容器提供)
     -> acsrouting 根据域名,将请求转发到特定的 docker容器上
        (在阿里云管理控制台/产品与服务/容器服务/服务/某个服务的"变更配置": Web路由规则中配置域名)
-       
+
 年费用:
 * 小型NAT网关 = 12元/天 * 365天 = 4380 元/年
 * 20M2IP宽带包 = 68.16/天 * 365天 = 24878.4 元/年
@@ -159,7 +159,7 @@ SUM = 4380 + 24878.4 + 12117.6 = 41376 元/年
 
 # 容器 + 专有网络 + 自建DNAT/SNAT
 
-FIXME: 
+FIXME:
 1. websocket?
 2. http2?
 3. 容器集群内手动指定只在部分节点上发布服务?
@@ -175,7 +175,7 @@ The specified ExternalIp is already used in SnatTable
 * 网络管理
     * 创建专有网络VPC, 假设为 192.168.0.0/16
         不选用经典
-    
+
     可选网段有: 192.168.0.0/16, 172.16.0.0/12, 10.0.0.0/8
     假设为192.168.0.0/16
 
@@ -193,19 +193,19 @@ The specified ExternalIp is already used in SnatTable
     经典网络不能自定义IP, 无法在ESC主机上通过搭建NAT, 故无法让无公网IP的ESC主机直接访问外网。
     但可以在有外网IP的ESC主机上SSH隧道, 让无公网IP的ESC主机上设置代理达到上网的目的, 繁琐。
 
-    此外负载均衡服务, 只能映射到不同IP的固定端口上, 我们可能在一台ESC上跑多个想暴露在 
+    此外负载均衡服务, 只能映射到不同IP的固定端口上, 我们可能在一台ESC上跑多个想暴露在
     80 端口上的服务(通过URL 转发), 这就要求 docker 服务使用独立的IP地址。经典网络中做不到。
-   
-* 为何要 NAT 网关, 而不用自建SNAT? 
+
+* 为何要 NAT 网关, 而不用自建SNAT?
 
     如何自建SNAT 可以参考[这里](https://help.aliyun.com/document_detail/27738.html), 需要修改iptables配置。
-    
+
     《[自建SNAT网关平滑迁移到NAT网关](https://help.aliyun.com/document_detail/43261.html)》
-    
+
     SNAT网关比自建SNAT有更好的可用性和性能。
     NAT 网关最便宜也得需要 12*365=4380元/年, 还不包含宽带包的费用。
-    
-    NAT网关可以随时变更IP地址和宽带大小,只能按固定带宽购买。 
+
+    NAT网关可以随时变更IP地址和宽带大小,只能按固定带宽购买。
     EIP 可以按照固定带宽或流量去购买,但绑定到一个ESC上的。ESC上需要手动设置软件路由器(ipfilter等)。
     而有EIP的ESC主机则不灵活, 需要先再购买一个
    1.37 *24*365

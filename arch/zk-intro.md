@@ -64,12 +64,12 @@ cd zookeeper-3.4.6
 2. 如果没有字子节点，则exit
 3. 如果 p 是BarriersL中的唯一处理节点，delete(n) 并 exit
 4. 如果 p 是BarriersL中最小的处理节点，则等待最高的处理进程
-5. 否则：delete(n)，且等待最小的处理节点 
+5. 否则：delete(n)，且等待最小的处理节点
 6. goto 1.
 
 ## Queues
-ZK支持创建序列节点。最终创建的节点格式为 `/path/to/queue/node/prefix-xxx` 
-后面的xxx是自增唯一的序列号。如果要实现有优先级的队列，可以定义为 
+ZK支持创建序列节点。最终创建的节点格式为 `/path/to/queue/node/prefix-xxx`
+后面的xxx是自增唯一的序列号。如果要实现有优先级的队列，可以定义为
 `/path/to/queue/node/prefix-yy-xxx`，其中yy是优先级，值越小越优先。
 
 从queue中取值的进程，只需要从最小节点中取值即可。
@@ -79,7 +79,7 @@ ZK支持创建序列节点。最终创建的节点格式为 `/path/to/queue/node
 
 ### 进入同步
 
-1. 已顺序和临时的方式创建节点： "/lock/node/lock-" 
+1. 已顺序和临时的方式创建节点： "/lock/node/lock-"
 2. 从lockNode中获取所有子节点，无需监测lockNode。
 3. 如果第一步创建的节点是最小节点，则说明当前client持有该锁，并结束。
 4. client监测比第一步创建节点前面的节点的存在性。

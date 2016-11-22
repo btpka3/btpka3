@@ -4,10 +4,10 @@
 
 ## 分区
 
-```bash 
+```bash
             大小（MB）   挂载点     类型            格式化
 LVM 卷组
-  Vg_h01        476436    
+  Vg_h01        476436
     Lv_root      51200      /          ext4            yes
     Lv_home     419236      /home      ext4            yes
     Lv_swap        6000                swap            yes
@@ -67,7 +67,7 @@ export VISUAL=vim                 # crontab -e 使用的编辑器
 #export LANG=en_US.UTF-8
 ```
 
- 
+
 
 # EPEL
 
@@ -94,7 +94,7 @@ rpm -ivh http://dl.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm
 locale # show current settings
 # LC_COLLATE : 定义该环境的排序和比较规则
 # LC_CTYPE : 用于字符分类和字符串处理(单字节？多字节？字符编码？)
-# LC_MONETARY : 货币格式 
+# LC_MONETARY : 货币格式
 # LC_NUMERIC : 非货币的数字显示格式
 # LC_TIME : 时间和日期格式
 # LC_MESSAGES : 提示信息的语言
@@ -166,7 +166,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
         IPV4_FAILURE_FATAL=yes
         IPV6INIT=no                                 # 不使用 IPv6
         NAME="System em1"                           # 该配置的名称
-        UUID=1dad842d-1912-ef5a-a43a-bc238fb267e7   # 
+        UUID=1dad842d-1912-ef5a-a43a-bc238fb267e7   #
         HWADDR=BC:30:5B:E9:7F:D8                    # 硬件IP地址
         USERCTL=no                                  # 非root用户不能修改配置
         ```
@@ -237,7 +237,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
     ```bash
     # 追加以下一行
     # 格式：内网IP地址 主机名，可防止RMI连接 127.0.0.1出错
-    000.000.000.000 h01                     
+    000.000.000.000 h01
     ```
 
 1.  检查网络的启动级别和启动状态
@@ -245,7 +245,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
     ```bash
     [root@h01 ~]# chkconfig --list network
     network         0:off   1:off   2:on    3:on    4:on    5:on    6:off
-    
+
     [root@h01~]# service network status
     Configured devices:
     lo eth0
@@ -253,7 +253,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
     lo eth0
     ```
 
-1.  使用代理（若无请跳过） 
+1.  使用代理（若无请跳过）
 
 
 
@@ -330,7 +330,7 @@ Linux localhost.localdomain 2.6.32-279.el6.x86_64 #1 SMP Fri Jun 22 12:19:21 UTC
 
 ```
 
- 
+
 # CentOS 基础设定
 
 ## 修改主机名，以及对主机名的本地解析
@@ -385,11 +385,11 @@ sysctl -w net.ipv6.conf.all.disable_ipv6=1
 sysctl -w net.ipv6.conf.default.disable_ipv6=1
 
 
-# 临时2 
+# 临时2
 echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
 echo 1 > /proc/sys/net/ipv6/conf/default/disable_ipv6
 
-# 持久 vi /etc/sysctl.conf 
+# 持久 vi /etc/sysctl.conf
 net.ipv6.conf.all.disable_ipv6 = 1
 net.ipv6.conf.default.disable_ipv6 = 1
 ```

@@ -46,7 +46,7 @@ ERROR : WebCrypto is only supported over secure origins. See http://crbug.com/37
 * [microsoft-edge - testdrive](https://developer.microsoft.com/en-us/microsoft-edge/testdrive/)
 * 《[浅谈移动前端的最佳实践](http://www.cnblogs.com/yexiaochai/p/4219523.html)》
 * [前端开发仓库](http://code.ciaoca.com/)
-* bootstrap 
+* bootstrap
     * http://wrapbootstrap.com
 * 《[HTML5 本地裁剪图片并上传至服务器](http://segmentfault.com/a/1190000000754560)》
 * [Jcrop](http://deepliquid.com/content/Jcrop.html)，[演示](http://code.ciaoca.com/jquery/jcrop/demo/index.html)
@@ -64,11 +64,11 @@ ERROR : WebCrypto is only supported over secure origins. See http://crbug.com/37
     * [Creative Link Effects](http://tympanus.net/Development/CreativeLinkEffects/)
 * button
     * [Creative Button Styles](http://tympanus.net/Development/CreativeButtons/)
-* list 
+* list
     * [listamatic](http://css.maxdesign.com.au/listamatic/index.htm)
 * icon
     * [Icon Hover Effects](http://tympanus.net/Development/IconHoverEffects/)
-* Modal Window 
+* Modal Window
     * [Nifty Modal Window Effects](http://tympanus.net/Development/ModalWindowEffects/)
 * 上传/图片修改
     * [WebUploader](http://fex.baidu.com/webuploader/)
@@ -91,10 +91,10 @@ ERROR : WebCrypto is only supported over secure origins. See http://crbug.com/37
 |number| +0, -0, NaN 为 false，其他为true|
 |string| 长度为0则为false，其他为true|
 |object|null为false，其他为true|
- 
+
 
 ## 参考
-* 墨刀在用什么？ [here](https://modao.cc/posts/3344?page=1) 
+* 墨刀在用什么？ [here](https://modao.cc/posts/3344?page=1)
 
     在前端，我们用 spine.js、react.js、react-native、electron、webpack、cordova、nightmare.js、pm2、koa.js。而且在墨刀你有机会成为一名全栈开发者，你可以设计数据库，配置 nginx，写 ruby on rails。甚至可以参与设计。
 * H5 游戏引擎有哪些？

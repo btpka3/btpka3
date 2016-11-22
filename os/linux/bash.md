@@ -2,7 +2,7 @@
 
 ```
 # 查找出不匹配 "xxx" 和 "yyy" 的内容
-grep -v "xxx\|yyy" 
+grep -v "xxx\|yyy"
 ```
 
 
@@ -13,7 +13,7 @@ grep -v "xxx\|yyy"
 Mac OSX 上没有 free 命令,类似的可以使用 vm_stat 命令。
 
 ```
-[root@localhost ~]$ free 
+[root@localhost ~]$ free
              total       used       free        shared    buffers   cached
 Mem:     total_mem   used_mem    free_mem   shared_mem    buffer     cache
 -/+ buffers/cache:  real_used   real_free
@@ -76,7 +76,7 @@ arr=( "aaa" "bbb" "xxx" )
 
 # 显示数组长度
 echo ${#arr[@]}         # 3
-echo ${#arr[*]}         # 3 
+echo ${#arr[*]}         # 3
 
 # 显示整个数组
 echo ${arr[@]}          # aaa bbb xxx
@@ -130,8 +130,8 @@ expr 1 + 2 # 3, 注意，需要使用空格分隔
 . /etc/rc.d/init.d/functions
 (( 0 && 1 )) # simulate an error exit code
 rc=$?
-[[ $errCode -ne 0 ]] && { 
-   failure 
+[[ $errCode -ne 0 ]] && {
+   failure
    exit 1
 }
 
@@ -148,10 +148,10 @@ for (( COUNTER=0; COUNTER<=10; COUNTER+=2 )); do
     echo $COUNTER
 done
 
-for i in {0..10..2} 
+for i in {0..10..2}
 do
   echo $i
-done 
+done
 
 a=10
 for i in `eval echo {0..$a..2}`; do echo $i; done
@@ -185,11 +185,11 @@ chmod +s /usr/sbin/fuser    # 如果想要非root用户也可以执行该命令�
 escSedRegKey(){
   # POSIX basic regular expression metacharacter : . [ ] ^ $ ( ) \ * { }
   # POSIX extended regular expression metacharacter : ? + |
-  # sed special character: / ( usually as delimiter) & 
+  # sed special character: / ( usually as delimiter) &
   echo "$1" | sed -r -e 's/\\/\\\\/g' -e 's/\./\\./g' -e 's/\[/\\[/g' -e 's/\]/\\]/g' -e 's/\^/\\^/g' -e 's/\$/\\$/g' -e 's/\(/\\(/g' -e 's/\)/\\)/g' -e 's/\*/\\*/g' -e 's/\{/\\{/g' -e 's/\}/\\}/g' -e 's/\?/\\?/g' -e 's/\+/\\+/g' -e 's/\|/\\|/g' -e 's/\//\\&/g' -e 's/&/\\\&/g'
 }
 escSedRegVal(){
-  # sed special character: / ( usually as delimiter) & 
+  # sed special character: / ( usually as delimiter) &
   echo "$1" | sed -r -e 's/\\/\\\\/g' -e 's/\//\\&/g' -e 's/&/\\\&/g'
 }
 
@@ -239,14 +239,14 @@ echo -e $str | sed -n '2,3p'  # 打印第2~3行
 echo -e $str | sed -n '$p'    # 打印第最后一行
 
 tail -f xxxFile
-tailf xxxFile | grep --line-buffered --color=auto xxxKeyWord 
+tailf xxxFile | grep --line-buffered --color=auto xxxKeyWord
 ```
 
 ## date
 设置时间
 
 ```bash
-date -s "20150130 10:45:00"   
+date -s "20150130 10:45:00"
 ```
 循环打印当前时间
 
@@ -309,7 +309,7 @@ ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
   tar -tzf file.tar.gz
   tar -tjf file.tar.bz2
 ```
-### unzip 
+### unzip
 #### list all
 ```bash
   unzip file.zip -d outputDir
@@ -323,7 +323,7 @@ ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
 ```
 #### list specific file/dir
 ```bash
-  unzip file.zip entry/path/to/dir/* 
+  unzip file.zip entry/path/to/dir/*
   unzip file.zip entry/path/to/file
   unzip -p file.zip entry/path/to/file > newFile
 ```
@@ -339,7 +339,7 @@ ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
   # 从Linux数据库文件中查找匹配的文件，速度快，但不及时
   #（新建的文件无法立即找到，系统文件数据库一星期个更新一次）
   # 可以通过 updatedb 命令更新系统文件数据库
-  whereis fileName 
+  whereis fileName
   locate fileName
   locate $PWD/*.sqd        # 列出当前目录及子目录下所有以 sqd 为后缀的文件
 
@@ -458,7 +458,7 @@ drwxr-xr-x  2 zll  wheel  68 Sep 26 10:21 a
 drwxr-xr-x  2 zll  wheel  68 Sep 26 10:22 x
 
 # 按照特定字段排序
-zll@mac-pro 333$ ll | sort -n -r -k 5 
+zll@mac-pro 333$ ll | sort -n -r -k 5
 drwxr-xr-x  2 zll  wheel  68 Sep 26 10:22 x
 drwxr-xr-x  2 zll  wheel  68 Sep 26 10:21 a
 -rw-r--r--  1 zll  wheel   8 Sep 26 10:21 b.txt
@@ -491,7 +491,7 @@ Cmnd_Alias        CMDS = /path/to/your/script
 ```
 
 
-# backup 
+# backup
 
 ```bash
 #!/bin/bash

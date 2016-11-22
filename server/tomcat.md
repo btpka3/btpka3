@@ -13,7 +13,7 @@
 下面以应用为nala-admin、运行用户为lizi为例，说明一下配置过程。
 
 
-# 下载 tomcat 
+# 下载 tomcat
 
 版本号： 6.0.41 。
 
@@ -30,7 +30,7 @@ tar zxvf apache-tomcat-6.0.41.tar.gz .
 
 # 配置
 
-1. 删除自带的应用 
+1. 删除自带的应用
 
     ```bash
     rm -fr $CATALINA_HOME/webapps/*
@@ -147,7 +147,7 @@ chkconfig --level 345 nala-admin on
 
 . /etc/profile.d/test12.sh
 
-export today=`date %Y%m%d%H%M%S`                            
+export today=`date %Y%m%d%H%M%S`
 
 export CATALINA_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
 export CATALINA_PID=${CATALINA_HOME}/tomcat.pid
@@ -182,7 +182,7 @@ After=network.target
 [Service]
 Type=forking
 PIDFile=/data0/app/qh-wap/apache-tomcat-8.0.23/tomcat.pid
-                                                                                                                                                                                                          
+
 User=qh
 ExecStartPre=
 ExecStart=/data0/app/qh-wap/apache-tomcat-8.0.23/bin/catalina.sh start
@@ -199,7 +199,7 @@ LimitNPROC=64000
 WantedBy=multi-user.target
 ```
 
-最后执行 
+最后执行
 
 ```
 systemctl daemon-reload; systemctl restart qh-wap; systemctl status qh-wap
@@ -220,7 +220,7 @@ chmod u+x deploy.sh
 ## 脚本内容：
 
 ```bash
-#!/bin/bash                                                                                      
+#!/bin/bash
 DIR=/data/app/lizi
 CATALINA_HOME=$DIR/apache-tomcat-7.0.54
 WAR_NAME=ROOT

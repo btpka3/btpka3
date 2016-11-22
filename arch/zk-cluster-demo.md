@@ -51,7 +51,7 @@
     ```
 
 
-1. 依次启动zk节点 
+1. 依次启动zk节点
 
     ```bash
     cd $ZK_HOME
@@ -65,7 +65,7 @@
     export ZOO_LOG4J_PROP="DEBUG, CONSOLE, ROLLINGFILE"
     export ZOO_LOG_DIR="data/2/logging"
     ./bin/zkServer.sh start zoo2.cfg
-    
+
     # 启动节点3
     export ZOO_LOG4J_PROP="DEBUG, CONSOLE, ROLLINGFILE"
     export ZOO_LOG_DIR="data/3/logging"

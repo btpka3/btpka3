@@ -142,7 +142,7 @@ Percentage of the requests served within a certain time (ms)
 # apr_pollset_poll: The timeout specified has expired (70007)
 ab 命令启用 `-k` 参数，使用keep-alive。
 
-## server端修改 
+## server端修改
 
 ```
 vi /etc/sysctl.conf
@@ -151,12 +151,12 @@ vi /etc/sysctl.conf
 配置如下
 
 ```
-net.ipv4.netfilter.ip_conntrack_max = 3276800  
-net.ipv4.tcp_tw_recycle = 0  
-net.ipv4.tcp_tw_reuse = 0  
-net.ipv4.tcp_orphan_retries = 1  
-net.ipv4.tcp_fin_timeout = 25  
-net.ipv4.tcp_max_orphans = 8192  
+net.ipv4.netfilter.ip_conntrack_max = 3276800
+net.ipv4.tcp_tw_recycle = 0
+net.ipv4.tcp_tw_reuse = 0
+net.ipv4.tcp_orphan_retries = 1
+net.ipv4.tcp_fin_timeout = 25
+net.ipv4.tcp_max_orphans = 8192
 net.ipv4.ip_local_port_range = 32768    61000
 ```
 使立即生效

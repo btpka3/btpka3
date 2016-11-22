@@ -177,7 +177,7 @@
     reqMsg.schema = "xxx";
     reqMsg.param = "a\"b中国c"
     HttpOutputMessage outMsg = new MockHttpOutputMessage()
-    
+
     HttpMessageConverter httpMsgConverter = new FormHttpMessageConverter()
     httpMsgConverter.setCharset(Charset.forName("UTF-8"))        // 明确指明使用 UTF-8 进行进行URLEncoding
     httpMsgConverter.write(reqMsg, MediaType.APPLICATION_FORM_URLENCODED, outMsg)
@@ -335,7 +335,7 @@
     ```groovy
     // 应当：1. 发送GET请求，并获取字符串结果（无需处理请求头、响应头）
     URI url = ...
-    String respStr = restTemplate.getForObject(url, String)   
+    String respStr = restTemplate.getForObject(url, String)
 
     // 应当：2. 发送GET请求，并获取字符串结果（无需处理请求头、但需要处理响应头）
     URI url = ...

@@ -30,7 +30,7 @@
         * [Grails](groovy/grails.md)
         * [Spring DSL](groovy/grails-spring-dsl.md)
         * [反例](groovy/grails-counter-example.md)
-    
+
     * [Maven](java/maven.md)
         * [Nexus](java/nexus.md)
     * 其他类库
@@ -40,7 +40,6 @@
         * [font](h5/font.md)
         * [Sass](h5/sass.md)
     * [JavaScript](js/js.md)
-        * [jQuery](http://jquery.com/)
         * [AngularJs](js/angularjs.md)
         * [Node.js](js/nodejs.md)
         * [jshint](js/jshint.md)
@@ -65,10 +64,10 @@
     * [Jenkins](qa/jenkins.md)
     * [Jmeter](jmeter)
     * sysbench
-        * [sysbench 进行 cpu 测试](qa/sysbench-cpu)
-        * [sysbench 进行磁盘测试](qa/sysbench-fileio)
-        * [sysbench 进行 MySql 压力测试](qa/sysbench-mysql)
-        * [apache benchmark](qa/ab)
+        * [sysbench 进行 cpu 测试](qa/sysbench-cpu.md)
+        * [sysbench 进行磁盘测试](qa/sysbench-fileio.md)
+        * [sysbench 进行 MySql 压力测试](qa/sysbench-mysql.md)
+        * [apache benchmark](qa/ab.md)
         * [禅道](qa/zentao.md)
         * [SonarQube](qa/sonarqube.md)
 * 网络
@@ -94,15 +93,15 @@
     * [Bash](os/linux/bash.md)
     * [Vim](os/linux/vim.md)
     * [Upstart](os/linux/upstart.md)
-    
+
 * 数据库
     * [PostGreSql](db/postgresql.md)
     * [Redis](db/redis.md)
     * [MySql](db/mysql.md)
-        * [MySql 安装](db/mysql-install)
-        * [MySql 调优](db/mysql-tuning)
-        * [MySql 主从复制](db/mysql-replication)
-        * [MySql 读写分离](db/mysql-rw-splitting)
+        * [MySql 安装](db/mysql-install.md)
+        * [MySql 调优](db/mysql-tuning.md)
+        * [MySql 主从复制](db/mysql-replication.md)
+        * [MySql 读写分离](db/mysql-rw-splitting.md)
 * 服务
     * [ntp](server/ntp.md)
     * [jetty](server/jetty.md)
@@ -130,9 +129,9 @@
             * [Cassandra 安装](db/cassandra-install.md)
             * [Cassandra cql](db/cassandra-cql.md)
             * [Cassandra cql示例](db/cassandra-cql-demo.md)
-* 手机APP开发 
+* 手机APP开发
     * [Hybrid App](app/hybird-app.md)
-    
+
 * 虚拟化
     * [docker](vm/docker.md)
     * [VirtualBox](vm/VirtualBox.md)
@@ -140,7 +139,7 @@
 * 架构
     * [CDN](arch/cdn.md)
     * [cluster](arch/cluster.md)
-    * [单点登录 CAS](java/cas-intro)
+    * [单点登录 CAS](java/cas-intro.md)
 * IDE
     * [Eclipse](ide/eclipse.md)
     * [IDEA Intellij](ide/idea-intellij.md)
@@ -154,5 +153,5 @@
     * [thunderbird](office/thunderbird.md)
     * [vba](office/vba.md)
     * [法律法规](office/law.md)
-    
+
 

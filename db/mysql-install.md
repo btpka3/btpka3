@@ -11,7 +11,7 @@
 
 ```bash
 # 查询是否已经安装了mysql的相关RPM包
-rpm -qa | grep -i mysql   
+rpm -qa | grep -i mysql
 
 # 查看相关安装后的文件
 updatedb
@@ -125,7 +125,7 @@ no-auto-rehash                                      # 禁用自动提示（命�
 
 ```bash
 # 查看分区信息，根据大小制订合理的数据目录
-df -h 
+df -h
 
 # 初始化数据目录（默认是 /var/lib/mysql）
 mysql_install_db --user=mysql --datadir=/data/mysql
@@ -137,7 +137,7 @@ ib_logfile1
 mysql
 performance_schema
 ```
- 
+
 
 
 

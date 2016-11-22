@@ -54,7 +54,7 @@ openssl rsa -in ~/.ssh/id_rsa -outform pem > ~/.ssh/id_rsa.pem
 
 
 
-## KeyTool 和 OpenSSL 相互转换 
+## KeyTool 和 OpenSSL 相互转换
 参考：
 
 * [OpenSSL](https://www.openssl.org/docs/man1.1.0/apps/)
@@ -85,19 +85,19 @@ REM X.509)
     ```
     [ req ]
     distinguished_name = root_ca_distinguished_name
-    
+
     [ root_ca_distinguished_name ]
     commonName = hostname
-    
+
     [ root_ca_extensions ]
     basicConstraints = CA:true
     keyUsage = keyCertSign, cRLSign
-    
+
     [ client_ca_extensions ]
     basicConstraints = CA:false
     keyUsage = digitalSignature
     extendedKeyUsage = 1.3.6.1.5.5.7.3.2
-    
+
     [ server_ca_extensions ]
     basicConstraints = CA:false
     keyUsage = keyEncipherment
@@ -120,17 +120,17 @@ REM X.509)
         -out whhit.pem.cer \
         -keyout whhit.pem.key \
         -nodes
-        
+
         #-passout pass:123456
     ```
 
 1. 生成一个新的私钥
-  
+
     ```bash
     openssl genrsa \
         -out server.pem.key \
         2048
-        
+
         #-passout pass:123456 \
     ```
 
@@ -142,7 +142,7 @@ REM X.509)
         -key server.pem.key \
         -out server.pem.csr \
         -subj "/CN=btpka3.me/OU=WeRun Club/O=whhit/L=Weihai/C=CN"
-    
+
         # -passin pass:123456 \
     # 可以使用 "-nodes" 选项使得在创建私钥时加密
     ```
@@ -160,7 +160,7 @@ REM X.509)
         -extfile openssl.cnf \
         -extensions server_ca_extensions \
         -out server.pem.cer
-    
+
     # 或者
     openssl x509 \
         -req \
@@ -170,7 +170,7 @@ REM X.509)
         -extfile openssl.cnf \
         -extensions server_ca_extensions \
         -out server.pem.cer
-        
+
         # -passin pass:123456 \
     # 上述命令也可以使用 ca 子命令替换
     ```
@@ -185,7 +185,7 @@ REM X.509)
         -out server.p12 \
         -passout pass:123456 \
         -name server
-        
+
         #-passin pass:123456 \
     ```
 
@@ -214,19 +214,19 @@ REM X.509)
         -in whhit.pem.key \
         -passin pass:123456 \
         -out whhit.pem.clear.key
-        
+
     # PEM -> DER
     openssl x509 \
         -in whhit.pem.cer \
         -out whhit.der.cer \
         -outform DER
-        
+
     # 显示证书信息
     openssl x509 \
         -in whhit.pem.cer \
         -text
-     
-    # 检验证书 
+
+    # 检验证书
     openssl verify \
         -verbose \
         -CAfile whhit.pem.cer \
@@ -236,9 +236,9 @@ REM X.509)
     # 如果链接成功，通常可以输入 "GET /" 进行检测。
     openssl s_client \
         -ssl3 \
-        -connect 127.0.0.1:5671 
+        -connect 127.0.0.1:5671
     ```
-    
+
 ## KeyTools -> OpenSSL
 
 1. 生成一个含自签名 CA 证书的 JKS 类型的 KeyStore
@@ -254,7 +254,7 @@ REM X.509)
         -keypass 456789 \
         -keystore sos.jks \
         -storepass 123456
-        
+
      keytool -list -keystore sos.jks
      ```
 1. 从 KeyStore 中导出证书
@@ -365,7 +365,7 @@ keytool -genkeypair -alias mykey2 -keyalg RSA -keysize 1024 -sigalg SHA1withRSA 
 -dname "CN=*.localhost.me, OU=R & D department, O=\\"ABC Tech Co., Ltd\\", L=Weihai, S=Shandong, C=CN" ^
 -validity 365 -keypass 123456 -keystore tomcat.keystore -storepass 123456
 ```
-    注意：其中CN是域名。-keypass 和 -storepass tomcat貌似是要求一致的。  
+    注意：其中CN是域名。-keypass 和 -storepass tomcat貌似是要求一致的。
     2. 针对IP地址
 ```
 keytool -genkeypair -alias mykey2 -keyalg RSA -keysize 1024 -sigalg SHA1withRSA ^
@@ -373,7 +373,7 @@ keytool -genkeypair -alias mykey2 -keyalg RSA -keysize 1024 -sigalg SHA1withRSA 
 -ext SAN=IP:10.1.18.123 ^
 -validity 365 -keypass 123456 -keystore tomcat.keystore -storepass 123456
 ```
-    注意：`-ext` 选项是 [JDK 7](http://docs.oracle.com/javase/7/docs/technotes/tools/solaris/keytool.html) 中新增选项  
+    注意：`-ext` 选项是 [JDK 7](http://docs.oracle.com/javase/7/docs/technotes/tools/solaris/keytool.html) 中新增选项
     其中CN也应该为IP地址。
 3.  导出证书
 ```
@@ -481,14 +481,14 @@ jarsigner -verify \
 ```
 
 说明:
-微信开发者中心登记的app的签名其实是证书的 md5值 (小写,无冒号间隔) : 
+微信开发者中心登记的app的签名其实是证书的 md5值 (小写,无冒号间隔) :
 
 ```
 # 方法1: 通过keytool 查看 Certificate fingerprints: 提示中的 MD5 值:
-keytool -list -v -keystore sos.jks 
+keytool -list -v -keystore sos.jks
 
 # 方法2: 通过keytool 查看 APK 压缩包中 META-INF目录下 RSA 文件
-keytool -printcert -file path/to/xxx.apk/META-INF/PLATFORM.RSA 
+keytool -printcert -file path/to/xxx.apk/META-INF/PLATFORM.RSA
 ```
 
 

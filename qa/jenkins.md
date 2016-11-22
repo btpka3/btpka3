@@ -76,15 +76,15 @@ server {
   server_name ci.test.me;
   server_tokens off;
   root /notExisted;
-  
+
   client_max_body_size 20m;
-  ignore_invalid_headers off;   # 否则会 : 405 not a valid crumb was include in the request    
+  ignore_invalid_headers off;   # 否则会 : 405 not a valid crumb was include in the request
 
   access_log  /var/log/nginx/jenkins_access.log;
   error_log   /var/log/nginx/jenkins_error.log;
 
   location / {
-        proxy_pass              http://jenkins;                                                                         
+        proxy_pass              http://jenkins;
         proxy_set_header        Host            $host;   # ???  $http_host;
         proxy_set_header        X-Real-IP       $remote_addr;
         proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -106,21 +106,31 @@ server {
    可以使一个job在运行前或运行后调用另外一个job。示例：
 
 ```bash
-# job1. 更新SVN  
+# job1. 更新SVN
 
 # job2. 打包并使用SSH部署：
 mvn -f ../../job1/workspace/pom.xml clean package
 
 # job3. 运行sonar：
-mvn -f ../../job1/workspace/pom.xml -Dsonar.jdbc.username=xxx -Dsonar.jdbc.password=xxx clean compile sonar:sonar
+mvn -f ../../job1/workspace/pom.xml \
+    -Dsonar.jdbc.username=xxx \
+    -Dsonar.jdbc.password=xxx \
+    clean \
+    compile \
+    sonar:sonar
 
 # job4. 发布快照：
-mvn -f ../../job1/workspace/pom.xml -Dmaven.test.skip=true -am --projects subModule1/subModule11,submodel2 clean deploy
+mvn -f ../../job1/workspace/pom.xml \
+    -Dmaven.test.skip=true \
+    -am \
+    --projects subModule1/subModule11,submodel2 \
+    clean \
+    deploy
 ```
 
 * Jenkins Subversion Plug-in
 * Jenkins Translation Assistance plugin
-* LDAP Plugin  
+* LDAP Plugin
   Jenkins 1.480  之后就包含在发布版本中了。下面示例如何使用使用域账户登录
 
 ```

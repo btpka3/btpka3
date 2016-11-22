@@ -71,7 +71,7 @@ photorec
 ## exfat
 
 ```
-# ubuntu 
+# ubuntu
 sudo apt-get install exfat-utils exfat-fuse
 
 # centos

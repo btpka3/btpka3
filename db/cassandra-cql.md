@@ -81,10 +81,10 @@ UPDATE users
 UPDATE users SET emails = {} WHERE user_id = 'frodo';
 DELETE emails FROM users WHERE user_id = 'frodo';
 
-``` 
+```
 
 
-## list 
+## list
 获取后的结果是插入时的顺序。
 
 ```sql
@@ -120,14 +120,14 @@ ALTER TABLE users ADD todo map<timestamp, text>;
 
 -- 更新值
 UPDATE users
-   SET todo = { 
+   SET todo = {
            '2012-9-24'       : 'enter mordor',
-           '2012-10-2 12:00' : 'throw ring into mount doom' 
+           '2012-10-2 12:00' : 'throw ring into mount doom'
        }
  WHERE user_id = 'frodo';
 
 INSERT INTO users (todo)
-     VALUES ({ 
+     VALUES ({
                 '2013-9-22 12:01'  : 'birthday wishes to Bilbo',
                 '2013-10-1 18:00' : 'Check into Inn of Prancing Pony'
             });

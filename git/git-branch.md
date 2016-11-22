@@ -2,8 +2,8 @@
 格式： major.minor.build
 * major : 主版本号
 * minor : 子版本号
-* build : 补丁版本号。  
-    major或minor变更后第一次发布时，该值为0。  
+* build : 补丁版本号。
+    major或minor变更后第一次发布时，该值为0。
     major和minor均无变化时，若有新bug需要修正时，该值+1。
 参考: [semver](http://semver.org/lang/zh-CN/)
 
@@ -59,7 +59,7 @@ git commit -m "xxx"
 # 提交到远程仓库
 gitk
 git pull --all                       # 如果在commit之后才 pull --all , 如果与远程存在冲突，在 git status 查看时，会有 需要merge 的文件
-gitk                                 # 
+gitk                                 #
 git status                           # 查看是否需要merge的文件
 # 1. git自动地 merge， 此时 git status 会显示没有需要 merge 的文件，自动生成 平行四边形
 # 2. git无法自动 merge， 此时 git status 会显示有需要手动 merge 的文件 ： 下面是手动 merge 的步骤

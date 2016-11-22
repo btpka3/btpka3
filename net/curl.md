@@ -13,6 +13,6 @@ curl -s -D - www.baidu.com -o /dev/null
 # 使用socks代理
 
 ```
-ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort     
+ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort
 curl --socks5 localhost:9999 https://www.baidu.com/
 ```

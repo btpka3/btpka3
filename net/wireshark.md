@@ -3,7 +3,7 @@
 ```
 sudo apt-get install wireshark
 cp /usr/share/applications/wireshark.desktop ~/Desktop/
-sudo dpkg-reconfigure wireshark-common 
+sudo dpkg-reconfigure wireshark-common
 sudo usermod -a -G wireshark $USER
 # sudo reboot
 gnome-session-quit --logout --no-prompt
@@ -25,11 +25,11 @@ sudo chmod 4711 `which dumpcap`
 ```
 syntax:
     [not] primitive [and|or [not] primitive ...]
-primitive = 
+primitive =
     [src|dst] host <host>
     ether [src|dst] host <ehost>
     gateway host <host>
-    [src|dst] net <net> [{mask <mask>}|{len <len>}] 
+    [src|dst] net <net> [{mask <mask>}|{len <len>}]
     [tcp|udp] [src|dst] port <port>
     less|greater <length>
     ip|ether proto <protocol>
@@ -37,7 +37,7 @@ primitive =
     <expr> relop <expr>
 ```
 
-示例    
+示例
 
 ```
 host 192.168.115.12 and port 9091

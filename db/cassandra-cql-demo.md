@@ -27,7 +27,7 @@ SELECT * FROM system.schema_keyspaces WHERE keyspace_name = 'test';
 ```sql
 -- 重建表
 drop table if exists xxx;
-create table if not exists xxx ( 
+create table if not exists xxx (
     id text,
     sid text,
     name text,

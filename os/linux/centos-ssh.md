@@ -22,7 +22,7 @@ ssh-keygen -t rsa -C "hi@test.me" -N 'xxxPass' -f ~/.ssh/id_rsa
 # 加入信任的ssh 公钥
 
 ```bash
-vi ~/.ssh/authorized_keys 
+vi ~/.ssh/authorized_keys
 # 将 id_rsa.pub 中的内容追加进来
 
 ```

@@ -26,7 +26,7 @@ sysbench --test=fileio --num-threads=8 --file-total-size=3G --file-test-mode=rnd
 |zll's pc  |3.8934Mb/sec  |   249.18 req/sec |1.0622Mb/sec  |   67.98 req/sec |1.7472Mb/sec  |  111.82 req/sec |
 |sever ssd |4.6985Gb/sec  |307921.13 req/sec |244.37Mb/sec  |15639.80 req/sec |540.66Mb/sec  |34602.23 req/sec |
 |server    |3.5748Gb/sec  |234278.68 req/sec |12.246Mb/sec  |  783.75 req/sec |23.766Mb/sec  | 1521.04 req/sec |
-|Aliyun   | 3.5868Gb/sec | 235062.80 req/sec  |6.7517Mb/sec|432.11 req/sec|9.1607Mb/sec| 586.29 req/sec 
+|Aliyun   | 3.5868Gb/sec | 235062.80 req/sec  |6.7517Mb/sec|432.11 req/sec|9.1607Mb/sec| 586.29 req/sec
 
 
 
@@ -37,7 +37,7 @@ sysbench --test=fileio --num-threads=8 --file-total-size=3G --file-test-mode=rnd
 
 cpu: Intel(R) Core(TM) i3-3240 CPU @ 3.40GHz * 4
 
-硬盘 ： ATA WDC WD10EZEX-08M 1TB 7200 RPM 
+硬盘 ： ATA WDC WD10EZEX-08M 1TB 7200 RPM
 
 ```
 sysbench 0.4.12:  multi-threaded system evaluation benchmark

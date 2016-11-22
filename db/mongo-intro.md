@@ -17,7 +17,7 @@
 
     PS: 尚未正式发布的 2.8 版本增强了默认存储引擎——MMAPv1，使其允许 [collection/表 级别](http://docs.mongodb.org/v2.8/release-notes/2.8/)的锁。并且新增了 WiredTiger 引擎，后者提供 document/行记录 级别的锁和压缩。 敬请期待吧！
 
-## 客户端 
+## 客户端
 第三方提供的 GUI 客户端 [Robomongo](http://robomongo.org/)
 
 
@@ -45,7 +45,7 @@ rs.conf()                               // 查看 Replica Set 的配置
 rs.status()                             // 查看 Replica Set 的当前状态
 ```
 
-### 普通登录 
+### 普通登录
 
 ```js
 mongo --host s82                         // 连接到远程数据库，如果主机名不是标准的域名格式，必须使用 `--host`
@@ -146,7 +146,7 @@ YAML版配置文件示例：
 
 ```yaml
 # @see http://docs.mongodb.org/manual/reference/configuration-options
-# setParameter @ses http://docs.mongodb.org/manual/reference/parameters/ 
+# setParameter @ses http://docs.mongodb.org/manual/reference/parameters/
 # YAML format
 
 systemLog:
@@ -222,10 +222,10 @@ storage:
         maxFilesPerDB: 8
     smallFiles: false
     syncPeriodSecs: 60
-    repairPath: 
+    repairPath:
     journal:
         enabled: true
-        debugFlags: 
+        debugFlags:
         commitIntervalMs: 100
 
 replication:
@@ -242,7 +242,7 @@ sharding:
     chunkSize: 64                               # mongos-only
 
 auditLog:
-    destination: 
+    destination:
     format:
     path:
     filter:

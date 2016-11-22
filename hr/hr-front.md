@@ -13,7 +13,7 @@
         <meta charset="UTF-8">
         <title>div#d1.width=?</title>
         <style>
-    
+
             #d1 {
                 margin: 10px;
                 padding: 11px;
@@ -21,7 +21,7 @@
                 outline: 5px dotted #555500;
                 display: inline-block;
             }
-    
+
             #d2 {
                 box-sizing: content-box;
                 margin: 1px;
@@ -54,29 +54,29 @@
                 position: absolute;
                 top: 20px;
                 left: 10px;
-    
+
                 margin: 10px;
                 border: 1px solid red;
                 padding: 10px;
                 outline: 2px dotted #555500;
-    
+
                 width: 200px;
                 height: 200px;
             }
-    
+
             #d2 {
                 position: absolute;
                 top: 40px;
                 left: 30px;
-    
+
                 margin: 20px;
                 border: 1px solid #880000;
                 padding: 10px;
                 outline: 2px dotted #555500;
-    
+
                 width: 50px;
                 height: 50px;
-    
+
             }
         </style>
     </head>
@@ -190,7 +190,7 @@
         console.log(typeof false);
         console.log(typeof []);
         console.log(typeof {});
-        
+
         var a = null || undefined || false || 0 || "" || [] || {} || true;
         console.log(a);
     </script>
@@ -207,7 +207,7 @@
         function User(a) {
             var age = 24;
             this.age = a;
-            
+
             this.print1 = function(){
                 console.log(age);
             };
@@ -236,7 +236,7 @@
 1. 平常都使用哪些开发工具？调试工具？
 1. 请讲解一些 XSS。
 1. 有没有配置过 Apache/Nginx? 你常用的配置项有哪些？是否熟悉 Linux 服务器管理？
-1. 是否熟悉 Node.js？ 
+1. 是否熟悉 Node.js？
 1. 使用过哪些源代码管理工具？是否熟悉 git？
 1. 什么是 Native Aapp？什么是 Hybrid app ? 请介绍一下你了解或用过的工具、框架。
 1. 什么是 DOM，什么是 BOM？

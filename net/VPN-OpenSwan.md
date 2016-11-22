@@ -74,7 +74,7 @@ ipsec auto --up test-l2tp-vpn
 网络列表：
 * 子网1：A类：10.0.0.0-10.255.255.255
 * 子网0：C类：192.168.0.0-192.168.255.255（模拟公网）
-* 子网2：B类：172.16.0.0-172.31.255.255 
+* 子网2：B类：172.16.0.0-172.31.255.255
 
 示意图：（确保下列网络没有与本地真实网络ip段相冲突的）
 ```
@@ -90,7 +90,7 @@ ipsec auto --up test-l2tp-vpn
     * 启用adapter2，类型：internal network；
     * pc11、pc21需要启用adapter3，类型：internal network。
 * 启动各个虚拟主机后，删除`/etc/sysconfig/network-scripts/ifcfg-eth*`
-* 在虚拟主机中执行 `ip a`，并记下列出的MAC信息，并与第二步记下的MAC做匹配，并新建相应的 `/etc/sysconfig/network-scripts/ifcfg-eth*`   
+* 在虚拟主机中执行 `ip a`，并记下列出的MAC信息，并与第二步记下的MAC做匹配，并新建相应的 `/etc/sysconfig/network-scripts/ifcfg-eth*`
     以pc11的第二个网卡为例，ifcfg-eth1配置示例如下：
     ```
 DEVICE=eth1

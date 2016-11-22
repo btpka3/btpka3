@@ -16,7 +16,7 @@ diff <( ssh-keygen -y -e -f .ssh/id_rsa ) <( ssh-keygen -y -e -f .ssh/id_rsa.pub
 ssh-keygen -lf ~/.ssh/id_rsa
 ssh-keygen -lf ~/.ssh/id_rsa.pub -E md5
 
-# test 
+# test
 ssh -vT git@github.com
 ```
 
@@ -29,7 +29,7 @@ ssh -vT git@github.com
 
 
 
-# 使用多个密钥 
+# 使用多个密钥
 
 ```
 # 该命令会生成 ~/.ssh/id_rsa.github 和 ~/.ssh/id_rsa.github.pub
@@ -123,7 +123,7 @@ ssh -D ${localSocketProxyPort} user@remoteSShServer
 
 ```bash
 # 在SSH client端执行 （如果想前台执行，则不要加 -f）
-ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort             
+ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort
 ```
 
 需求示例：线上环境同一种web服务有集群，我需要调试特定某个节点上的服务。 关于 xxx_proxy 环境变量设置请参考[这里](https://wiki.archlinux.org/index.php/Proxy_settings)

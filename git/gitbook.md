@@ -26,7 +26,7 @@ gitbook build
 ├── README.md           // 必须: 前言、简介
 ├── SUMMARY.md          // 必须: ToC 目录
 ├── GLOSSARY.md         // 可选: 术语表
-├── chapter-1/      
+├── chapter-1/
 |   ├── README.md       // 每个章节特定的说明文档
 |   └── something.md
 └── chapter-2/
@@ -50,7 +50,7 @@ gitbook install
 
 常用插件
 
-* [mathjax](https://plugins.gitbook.com/plugin/mathjax) 
+* [mathjax](https://plugins.gitbook.com/plugin/mathjax)
 
 $$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$
 \\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\\)
@@ -86,7 +86,7 @@ gitbook epub ./ ./mybook.epub
 npm install --save prism-themes
 ```
 
-修改 book.json 
+修改 book.json
 
 ```json
 {
@@ -100,6 +100,13 @@ npm install --save prism-themes
 }
 ```
 
+# 默认插件
+
+* [lunr](https://github.com/GitbookIO/plugin-lunr)
+* [theme-default](https://github.com/GitbookIO/theme-default)
+* [fontsettings](https://plugins.gitbook.com/plugin/fontsettings)
+* [livereload](https://plugins.gitbook.com/plugin/livereload)
+* [sharing](https://plugins.gitbook.com/plugin/sharing)
 
 # 主题
 

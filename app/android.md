@@ -20,8 +20,8 @@ export PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH
 ## 创建 AVD
 
 ```
-#  设置 Android SDK Manager 使用国内镜像 
-andorid 
+#  设置 Android SDK Manager 使用国内镜像
+andorid
     -> 主界面
     -> 点击菜单 "Tools"
     -> 点击菜单项 "Options..."，弹出窗口： "Android SDK Manager - Settings" :
@@ -33,12 +33,12 @@ andorid
     -> 点击菜单项 "Reload"
 
     # （可选），选中 所需的各种 API版本 并下载安装
- 
+
     -> 点击菜单 "Tools"
     -> 点击菜单项 "Manage AVDs"，弹出窗口: "Android Virtual Device (AVD) Manager" :
         -> 点击 "Create" 按钮
         -> AVD Name         : 随意输入，比如 "test1"
-        -> Device           : 比如 "Nexus One (3.7", 480 x 800: hdpi)" 
+        -> Device           : 比如 "Nexus One (3.7", 480 x 800: hdpi)"
         -> Taget            : 比如 "Android 4.4.2 - API Level 19"
         -> CPU/ABI          : 通常为 "Intel Atom (x86)"
         -> Keyboard         : 勾选中 "Hardware keyboard present"
@@ -47,7 +47,7 @@ andorid
         -> Back Camera      : "None"
         -> Memory Options   : RAM : 1024M, VM Heap: 32M
         -> Internal Sotrage : 2048M
-        -> SD Card          : 2048M 
+        -> SD Card          : 2048M
         -> Emulation Options: 选中 "Use Host GPU"
 
    # 重要：安装 Extra/Intel x86 Enumlator Accelerator(HAXM installer)
@@ -127,7 +127,7 @@ Activity
     onStop()
     onDestroy()
 
-    
+
     Activity栈 后进先出LIFO
 Service
 Broadcast Receiver

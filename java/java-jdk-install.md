@@ -8,7 +8,7 @@
 [root@locahost ~] cd /data/tmp
 [root@locahost ~] ./jdk-6u45-linux-x64.bin                      # 会解压出一个名称为 "jdk1.6.0_45" 的目录
 [root@locahost ~] mv jdk1.6.0_45 /data/software/           # 移动到规约要求的目录下。
-    ``` 
+    ```
 1. 设置全局环境变量 `vi /etc/profile.d/test12.sh`
 
     ```bash
@@ -19,7 +19,7 @@
         export _PATH=1
         export PATH=$JAVA_HOME/bin:$PATH
     fi
-    ``` 
+    ```
 1. 重新登录root用户后确认
 
     ```bash
@@ -27,13 +27,13 @@
     java version "1.6.0_45"
     Java(TM) SE Runtime Environment (build 1.6.0_45-b06)
     Java HotSpot(TM) 64-Bit Server VM (build 20.45-b01, mixed mode)
-    
+
     [root@locahost ~] ln -s -T $JAVA_HOME/bin/java /usr/bin/java  # 如果是用RPM的bin包安装的，则跳过此步骤。
-    ``` 
+    ```
 
 ## 压缩包安装
 
- 
+
 
 ```bash
 sudo mkdir /usr/local/java
@@ -48,4 +48,3 @@ export PATH=$JAVA_HOME/bin:$PATH
 java -version
 ```
 
- 

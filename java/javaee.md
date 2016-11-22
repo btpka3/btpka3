@@ -62,14 +62,14 @@ public FilterRegistrationBean registration(MyFilter filter) {
 * `ASYNC`: 比如:
 
     ```
-    AsyncContext actx = request.startAsync();  
-    actx.setTimeout(30*1000);  
-    actx.start(new YourExecutor(actx));  
+    AsyncContext actx = request.startAsync();
+    actx.setTimeout(30*1000);
+    actx.start(new YourExecutor(actx));
     ```
 
-* `ERROR`:  当发生404，500等错误时，进行错误处理时。 
-* `FORWARD`: 比如:  `GenericServlet#getServletContext().getRequestDispatcher(String).forward(req,resp)` 
-* `INCLUDE`: 比如: `GenericServlet#getServletContext().getRequestDispatcher(String).include(req,resp)` 
+* `ERROR`:  当发生404，500等错误时，进行错误处理时。
+* `FORWARD`: 比如:  `GenericServlet#getServletContext().getRequestDispatcher(String).forward(req,resp)`
+* `INCLUDE`: 比如: `GenericServlet#getServletContext().getRequestDispatcher(String).include(req,resp)`
 * `REQUEST`: ??? 用户正常请求时，第一个接收请求的servlet就是该类型。
 
 理解上述类型很重要，会影响filter的配置。
@@ -125,7 +125,7 @@ public FilterRegistrationBean registration(MyFilter filter) {
 
 
 ### JavaEE 1.4
-maven 
+maven
 ```xml
 <dependency>
   <groupId>javax.servlet</groupId>
@@ -154,12 +154,12 @@ maven
   <artifactId>servlet-api</artifactId>
   <version>2.5</version>
   <scope>provided</scope>
-</dependency>       
+</dependency>
 ```
 web.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app 
+<web-app
     xmlns="http://java.sun.com/xml/ns/javaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
@@ -188,7 +188,7 @@ web.xml
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
     version="3.0">
- 
+
 </web-app>
 ```
 
@@ -215,7 +215,7 @@ web.xml
 
 1.2 for maven
 来自于 Servlet 2.5 / JSP 2.1
-适用于 Servlet 2.4 / JSP 2.0、 Servlet 2.5 / JSP 2.1 
+适用于 Servlet 2.4 / JSP 2.0、 Servlet 2.5 / JSP 2.1
 <source>
 <dependency>
   <groupId>javax.servlet</groupId>
@@ -225,8 +225,8 @@ web.xml
 </source>
 
 1.2.1 for maven
-来自于 Servlet 3.0 / JSP 2.2 
-适用于 Servlet 2.5 / JSP 2.1、Servlet 2.4 / JSP 2.0 、 Servlet 3.0 / JSP 2.2 
+来自于 Servlet 3.0 / JSP 2.2
+适用于 Servlet 2.5 / JSP 2.1、Servlet 2.4 / JSP 2.0 、 Servlet 3.0 / JSP 2.2
 ```xml
 <dependency>
   <groupId>javax.servlet.jsp.jstl</groupId>

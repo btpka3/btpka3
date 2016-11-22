@@ -7,7 +7,7 @@
 1. 调用 grails-app/init 目录下 `Application.groovy` 的 `main()` 方法
 1. 调用 `GrailsApp#createApplicationContext()`，并通过反射，设置使用 `OptimizedAutowireCapableBeanFactory` 作为Sping上下文的 beanFactory
 1. 通过 GrailsApp 调用 `AbstractApplicationContext#refresh()`：
-    1. 调用 `GrailsApplicationPostProcessor#postProcessBeanDefinitionRegistry()` ： 
+    1. 调用 `GrailsApplicationPostProcessor#postProcessBeanDefinitionRegistry()` ：
         1. 通过 GrailsPluginManager 调用Grails插件（比如 SpringSecurityCoreGrailsPlugin）的 `doWithSpring` 设置。
         1. 依次加载 `classpath:spring/resources.groovy`, `classpath:spring/resources.xml`
         1. 调用 `Application.groovy` 中的 `doWithSpring` 。
@@ -24,7 +24,7 @@
         1. 调用 Grails 应用(`Application.groovy`)的 `doWithDynamicMethods`, `doWithApplicationContext`, `onStartup`
         1. 执行 `grails-app/init/BootStrap.groovy` 中的回调方法。
 
- 
+
 
 
 ##  使 IEDA 下载源代码
@@ -117,7 +117,7 @@ controller 中默认的事务是readonly，readonly事务的FlushMode是Manual�
 
     ```groovy
     // 相当于grails命令行参数 -Dserver.port=30018
-    if (!System.getProperty("server.port")) {  
+    if (!System.getProperty("server.port")) {
         System.setProperty("server.port", "30010")
     }
 
@@ -146,7 +146,7 @@ grails run-app
 
 
 # groovy-jdk vs. api vs. gapi
-see [this](http://stackoverflow.com/a/6525784): 
+see [this](http://stackoverflow.com/a/6525784):
 
 1. api 是在所有Java文件上运行Javadoc之后的结果
 1. gapi 是在所有Java文件和Groovy文件上运行groovydoc之后的结果。（最初只是groovy文件，但是现在则包含两者）
@@ -198,7 +198,7 @@ Grails读取配置文件是Groovy文件。使用的 [ConfigSlurper](http://groov
 
 
 # GORM
-## Database Mapping 
+## Database Mapping
 [HibernateMappingBuilder](http://grails.org/doc/1.3.7/api/index.html?org/codehaus/groovy/grails/orm/hibernate/cfg/HibernateMappingBuilder.html)、
 [Mapping](http://grails.org/doc/1.3.7/api/index.html?org/codehaus/groovy/grails/orm/hibernate/cfg/Mapping.html)
 
@@ -215,7 +215,7 @@ Grails读取配置文件是Groovy文件。使用的 [ConfigSlurper](http://groov
 ```groovy
 
 // A recursive XML demo
-import groovy.xml.MarkupBuilder 
+import groovy.xml.MarkupBuilder
 
 def builder = new MarkupBuilder();
 
@@ -279,7 +279,7 @@ dataSource {
 
        ```ini
        app.grails.version=2.4.0
-       ``` 
+       ```
     * 将所有的插件依赖移至 BuildConfig.groovy 中
 
        ```groovy
@@ -546,7 +546,7 @@ mvn archetype:generate -DarchetypeGroupId=org.grails -DarchetypeArtifactId=grail
 		<pluginManagement />
 
 		<plugins>
-			<!-- Disables the Maven surefire plugin for Grails applications, as we 
+			<!-- Disables the Maven surefire plugin for Grails applications, as we
 				have our own test runner -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

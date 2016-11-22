@@ -84,7 +84,7 @@ cat /etc/rabbitmq/enabled_plugins
         {versions,              ['tlsv1.2', 'tlsv1.1']}
     ]},
     {rabbit,        [
-        {loopback_users,        []},  
+        {loopback_users,        []},
         {ssl_listeners,         [5671]},
         {ssl_options,           [
             {cacertfile,            "/var/lib/rabbitmq/myca.pem.cer"},
@@ -237,7 +237,7 @@ vi /etc/hosts
 # 先启动 s83
 [root@s83 ~]# su - rabbitmq
 [rabbitmq@s83 ~]$ rabbitmq-server -detached                                          # 以 rabbitmq 用户启动
-[rabbitmq@s83 ~]$ scp /home/rabbitmq/.erlang.cookie rabbitmq@s85:/home/rabbitmq/     # 使集群用的cookie相同  
+[rabbitmq@s83 ~]$ scp /home/rabbitmq/.erlang.cookie rabbitmq@s85:/home/rabbitmq/     # 使集群用的cookie相同
 
 # 再启动 s85
 [root@s85 ~]# su - rabbitmq
@@ -246,7 +246,7 @@ vi /etc/hosts
 [rabbitmq@s85 ~]$ rabbitmqctl join_cluster rabbit@s83                               # 加入、创建集群
 [rabbitmq@s85 ~]$ rabbitmqctl start_app
 
-rabbitmqctl cluster_status                                # 分别确认集群状态  
+rabbitmqctl cluster_status                                # 分别确认集群状态
 
 rabbitmqctl set_policy ha-all "^" '{"ha-mode":"all"}'     # 设置HA模式：所有消息都会两个节点上copy
 rabbitmqctl set_policy TTL ".*" '{"message-ttl":60000}'   # 设置消息过期时间：60秒
@@ -268,7 +268,7 @@ rabbimqctl change_password lizi {newpassword}              # 为lizi用户修改
 
 
 
- 
+
 
 
 修改 `/etc/hosts`
@@ -285,7 +285,7 @@ rabbimqctl change_password lizi {newpassword}              # 为lizi用户修改
 开启相关插件. [Management](http://www.rabbitmq.com/management.html)、
 [federation](http://www.rabbitmq.com/federation.html)
 
- 
+
 设置所有资源都使用HA模式
 
 ```
@@ -302,7 +302,7 @@ rabbitmq-server -detached
 
 # 2. 在到任一集群节点上确认
 su - rabbitmq
-rabbitmqctl cluster_status 
+rabbitmqctl cluster_status
 ```
 
 
@@ -509,22 +509,22 @@ stream {
 ```
 upstream mqtt_1883 {
     server mq:1883;
-}   
+}
 upstream mqtts_8883 {
     server mq:8883;
 }
 
-# 完全 tcp 转发   
+# 完全 tcp 转发
 server {
     listen 11883;
     proxy_connect_timeout       20s;
-    proxy_timeout               5m; 
+    proxy_timeout               5m;
     proxy_pass                  mqtt_1883;
 }
 server {
     listen 18883;
     proxy_connect_timeout       20s;
-    proxy_timeout               5m; 
+    proxy_timeout               5m;
     proxy_pass                  mqtts_8883;
 }
 
@@ -538,7 +538,7 @@ server {
     #ssl_ciphers                HIGH:!aNULL:!MD5;
     #ssl_prefer_server_ciphers  on;
     proxy_connect_timeout       20s;
-    proxy_timeout               5m; 
+    proxy_timeout               5m;
     proxy_pass                  mqtt_1883;
 }
 ```

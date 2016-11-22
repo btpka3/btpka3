@@ -1,5 +1,5 @@
 MSB - 最高有效位
-LSB - 
+LSB -
 
 little endian
 big endian

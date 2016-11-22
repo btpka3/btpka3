@@ -1,6 +1,6 @@
 
 
-# CURL 示例 
+# CURL 示例
 
 ## 查看集群状态
 
@@ -39,7 +39,7 @@ curl -XPUT "http://localhost:9200/lizi/_mapping/item?pretty" -d '{
         "analyzer": "standard"
     },
     "properties":{
-        
+
         "title" : {
             "type":"string",
             "index": "analyzed",
@@ -63,7 +63,7 @@ curl -XPUT "http://localhost:9200/lizi/_mapping/item?pretty" -d '{
         }
     }
 }'
-``` 
+```
 
 ## 批量创建文档
 
@@ -102,7 +102,7 @@ curl -XGET 'http://localhost:9200/lizi/item/_search?pretty' -d '
         "match" : { "_all" : "双白" }
     }
 }'
-``` 
+```
 
 ### 数值型范围过滤
 
@@ -118,7 +118,7 @@ curl -XGET 'http://localhost:9200/lizi/item/_search?pretty' -d '
                 "range": { "price": { "gte": 1200 }}
             }
         }
-    } 
+    }
 }'
 ```
 
@@ -191,7 +191,7 @@ first-es-java/src/main/java/me/test/EsTest.java
   </dependencies>
 </project>
 ```
- 
+
 ## EsTest.java
 
 ```java

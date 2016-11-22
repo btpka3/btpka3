@@ -36,10 +36,10 @@ sudo /usr/libexec/locate.updatedb
 ```
 
 ## 常用快捷键
- 
+
 ```
-Command + <-                    : Home 键          
-Command + ->                    : End  键          
+Command + <-                    : Home 键
+Command + ->                    : End  键
 Command + tab                   : 在不同应用之间循环切换窗口
 Command + `                     : 在同一个应用之间循环切换窗口
 
@@ -70,7 +70,7 @@ defaults write com.apple.Finder AppleShowAllFiles FALSE;killall Finder
 Command+Shift+Period
 
 # 在 bash 中使用 Finder 打开指定的路径
-open /tmp 
+open /tmp
 ```
 
 
@@ -83,14 +83,14 @@ networksetup -setairportpower airport on       # 开启wifi
 sudo ifconfig en4 down                         # 关闭有线网卡
 sudo ifconfig en4 up
 lsof -n -i :8080                               # 获取哪些进程在使用（监听/访问）8080端口
- 
+
 
 ## 安装 PCRE
 
 ```
 http://www.pcre.org/
 tar zxvf pcre-8.38.tar.bz2
-cd 
+cd
 less INSTALL
 ./configure
 make
@@ -115,7 +115,7 @@ make check
     openssl version     # OpenSSL 0.9.8zh 14 Jan 2016
     which OpenSSL         # /usr/bin/openssl
 
-    # 安装最新版本 
+    # 安装最新版本
     brew install openssl
 
     # 以下命令不再起作用了，只能修改编译器的参数了
@@ -152,7 +152,7 @@ make check
     user zll staff;
     ```
 
-* 配置launchd配置文件 
+* 配置launchd配置文件
 
 新建文件 `/Library/LaunchDaemons/tengine.plist`
 
@@ -187,8 +187,8 @@ make check
     sudo launchctl start     tengine
     sudo launchctl stop     tengine
     sudo launchctl list      tengine
-    
-    
+
+
     /System/Library和/Library和~/Library目录的区别?
     /System/Library     Apple自己开发的软件。
     /Library             系统管理员存放的第三方软件。
@@ -226,7 +226,7 @@ make check
 </plist>
 ```
 
- 
+
 
 苹果电脑中通过 LaunchCtl 管理服务。常用命令有
 
@@ -249,9 +249,9 @@ launchctl list
 1. 苹果电脑上进行以下操作：
 
     ```
-    System Preferences 
-        -> Sharing 
-            -> 选中 `File Sharing`  
+    System Preferences
+        -> Sharing
+            -> 选中 `File Sharing`
             -> 点击 "Options" 按钮，确保 SMB 共享选项开启
         -> User & Groups
             -> 点击左下角的"锁"的图标，输入你的密码并解锁修改权限
@@ -269,7 +269,7 @@ launchctl list
 
 1. Mac OS X -> Finder -> Go -> Connect to Server ()
 
-⌘、⌥、⇧、⌃、⎋ 
+⌘、⌥、⇧、⌃、⎋
 
 ## Android
 sdk 下载
@@ -285,7 +285,7 @@ http://sdk.android-studio.org/
 
 ```
 brew search node
-brew install homebrew/versions/node4-lts 
+brew install homebrew/versions/node4-lts
 ```
 
 ### 从nodejs官网下载pkg进行安装
@@ -299,7 +299,7 @@ pkgutil --only-files --files org.nodejs.node.pkg | tr '\n' '\0' | xargs -n 1 -0 
 pkgutil --only-dirs  --files org.nodejs.node.pkg | tail -r | tr '\n' '\0' | xargs -n 1 -0 sudo rmdir
 ```
 
- 
+
 
 
 ## Terminal
@@ -308,10 +308,10 @@ pkgutil --only-dirs  --files org.nodejs.node.pkg | tail -r | tr '\n' '\0' | xarg
 
 
 Preferences
-    Gerneral 
+    Gerneral
         -> On startup, open : New window with profile: Pro
     Profiles
-        -> Pro -> 'Advanced' 标签页 -> International 
+        -> Pro -> 'Advanced' 标签页 -> International
             : "Text encoding" 选择为 "Unicodd (UTF-8)"
             : 取消选中 'Set locale environment variables on startup'
             : 选中 "Unicode East Asian Ambiguous characters are wide"
@@ -320,7 +320,7 @@ vi ~/.bash_profile
 export LC_CTYPE=en_US.UTF-8
 
 # 正常显示中文
-vi ~/.inputrc 
+vi ~/.inputrc
 set meta-flag on
 set input-meta on
 set output-meta on
@@ -341,10 +341,10 @@ Ctrl + R  反向查找历史命令
 Ctrl + W  从光标当前位置，向后删除一个词
 
 Fn + Shift + <-     Home
-Fn + Shift + ->     End 
+Fn + Shift + ->     End
 
 Command + Shift + double-click  :  select a path or a URL
-Command + click-and-drag        : 选择不连续的文字    
+Command + click-and-drag        : 选择不连续的文字
 Alt + click-and-drag            : 矩形区域选择
 ```
 
@@ -354,14 +354,14 @@ Alt + click-and-drag            : 矩形区域选择
 
 《[Steps to get your adapter working if you just upgraded to Mac OS 10.11 El Capitan.](http://inkandfeet.com/how-to-use-a-generic-usb-20-10100m-ethernet-adaptor-rd9700-on-mac-os-1011-el-capitan)》
  重启, <kbd>Command + R</kdb> 进入恢复模式, 并命令行运行 `csrutil disable`
-  
+
 
 ## Android
 
 (Android File Transfer)[https://www.android.com/filetransfer/]
 
 ```
-myApp/platforms/android/project.properties 
+myApp/platforms/android/project.properties
 myApp/platforms/android/CordovaLib/project.properties
 ```
 
@@ -369,7 +369,7 @@ myApp/platforms/android/CordovaLib/project.properties
 ## xcode
 
 ```
-Preference 
+Preference
     -> "Text Editing" 标签页
         "Editing" 标签页 :
             Show :
@@ -377,7 +377,7 @@ Preference
                 选中 "Code folding ribbon"
         "indentation" 标签页 :
             Line wrapping:
-                取消选中 "Wrap lines to editor width" 
+                取消选中 "Wrap lines to editor width"
 
 # 快捷键
 # http://bbs.itheima.com/thread-111004-1-1.html

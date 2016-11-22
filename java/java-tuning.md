@@ -20,7 +20,7 @@ export CATALINA_OPTS=" \
     -XX:+HeapDumpOnOutOfMemoryError \
     -XX:HeapDumpPath=${CATALINA_HOME}/logs/start.at.$today.dump.hprof \
     -XX:+UseConcMarkSweepGC \
-    -XX:+PrintGCDateStamps \                                  
+    -XX:+PrintGCDateStamps \
     -XX:+PrintGCDetails \
     -Xloggc:${CATALINA_HOME}/logs/start.at.$today.gc.log \
 "
@@ -46,9 +46,9 @@ export CATALINA_OPTS=" \
 1. 新建 policy 文件 : jstatd.all.policy
 
     ```groovy
-    grant codebase "file:${java.home}/../lib/tools.jar" {  
-       permission java.security.AllPermission;  
-    };  
+    grant codebase "file:${java.home}/../lib/tools.jar" {
+       permission java.security.AllPermission;
+    };
     ```
 1. 确保/etc/hosts 中主机名对应的是其他主机可以访问到的IP地址
 
@@ -68,7 +68,7 @@ export CATALINA_OPTS=" \
 
 
 
-HPROF or jhat 
+HPROF or jhat
 http://publib.boulder.ibm.com/infocenter/realtime/v2r0/index.jsp?topic=%2Fcom.ibm.rt.doc.20%2Frealtime%2Fdiagnose_oom.html
 
 
@@ -82,7 +82,7 @@ jstack <pid>
 Java 线程 CPU 100% 对应方法
 
 1. 通过 `top` 或者 `jps -mlv` 找到所需的 Java 进程的 pid1。
-1. 通过 `top -p pid1 -H` 观则得到最占 CPU 的线程的 pid2。. 
+1. 通过 `top -p pid1 -H` 观则得到最占 CPU 的线程的 pid2。.
 1. `jstack pid1 > cpu.log`
 1. `vi cpu.log` 并用 pid2 查找所需的线程堆栈，然后分析代码。
 
@@ -115,7 +115,7 @@ The -F option can be used when the target process is not responding
 ```
 
 ##jconsole
-一个java GUI监视工具，可以以图表化的形式显示各种数据。并可通过远程连接监视远程的服务器VM。 
+一个java GUI监视工具，可以以图表化的形式显示各种数据。并可通过远程连接监视远程的服务器VM。
 
 ## [jstat](http://docs.oracle.com/javase/6/docs/technotes/tools/share/jstat.html)
 可以用来监视VM内存内的各种堆和非堆的大小及其内存使用量
@@ -146,16 +146,16 @@ zll@zll-pc:bin$ jstat -options
 ```
 ### 示例
 ```bash
-zll@zll-pc:bin$ jstat  -gcutil 22679 
-  S0     S1     E      O      P     YGC     YGCT    FGC    FGCT     GCT   
+zll@zll-pc:bin$ jstat  -gcutil 22679
+  S0     S1     E      O      P     YGC     YGCT    FGC    FGCT     GCT
   0.00  99.17  75.12  68.32  57.97     21    1.099     2    1.253    2.352
 ```
 
-### -class 
+### -class
 Class加载状况统计
 ```bash
 zll@zll-pc:bin$ jstat -class 18904
-Loaded  Bytes  Unloaded  Bytes     Time   
+Loaded  Bytes  Unloaded  Bytes     Time
   5784 11346.6        0     0.0       9.37
 
 Loaded             # 载入的Class的数量
@@ -183,24 +183,24 @@ FailedMethod       # 最后一次编译失败的类和方法
 垃圾回收堆的统计
 ```bash
 zll@zll-pc:bin$ jstat -gc 18904
- S0C    S1C    S0U    S1U      EC       EU        OC         OU       PC     PU    YGC     YGCT    FGC    FGCT     GCT   
+ S0C    S1C    S0U    S1U      EC       EU        OC         OU       PC     PU    YGC     YGCT    FGC    FGCT     GCT
 8192.0 11264.0 8006.2  0.0   458752.0 117275.1  62976.0    42636.1   35840.0 35716.6     18    0.483   0      0.000    0.483
 
-S0C                # 
-S1C    
-S0U    
-S1U      
-EC       
-EU        
-OC         
-OU       
-PC     
-PU    
-YGC     
-YGCT    
-FGC    
-FGCT     
-GCT 
+S0C                #
+S1C
+S0U
+S1U
+EC
+EU
+OC
+OU
+PC
+PU
+YGC
+YGCT
+FGC
+FGCT
+GCT
 ```
 
 
@@ -259,7 +259,7 @@ java -Djavax.net.ssl.trustStore=/path/to/your.keystore\
 ## 内存分类
 * HEAP ： 存储对象、数组，又称为共享内存——多个线程共享该内存。
 * NON-HEAP
-    * Method Area : 
+    * Method Area :
         * 存储每个类的结构（比如：运行时常量、静态变量）、
         * method和构造函数的代码。
         * 运行时常量池（Runtime Constant Pool），每个class、interface都有。

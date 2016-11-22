@@ -50,7 +50,7 @@ if [ -f $DIR/upload/$APP*.war ]; then
     rm -fr $CATALINA_HOME/webapps/*
     cp $DIR/upload/$APP*.war $CATALINA_HOME/webapps/${WAR_NAME}.war
 
-    /etc/init.d/$APP start                                                                                                             
+    /etc/init.d/$APP start
 fi
 ```
 
@@ -73,7 +73,7 @@ rm -fr  webapps/*                 # 删除自带应用
 
 # 配置
 
-1. 删除自带的应用 
+1. 删除自带的应用
 
     ```bash
     rm -fr $CATALINA_HOME/webapps/*
@@ -102,7 +102,7 @@ rm -fr  webapps/*                 # 删除自带应用
         </Server>
         ```
 
- 
+
 ## init.d 脚本
 
 vi /etc/init.d/my-app
@@ -249,7 +249,7 @@ commons-pool-1.5.5.jar
 
     ``` xml
     <?xml version="1.0" encoding="UTF-8"?>
-    <Context antiResourceLocking="false" privileged="true" useHttpOnly="true" 
+    <Context antiResourceLocking="false" privileged="true" useHttpOnly="true"
                   docBase="/data/app/tcgroup-sso-web/tcgroup-sso-web">
     </Context>
     ```
@@ -262,7 +262,7 @@ commons-pool-1.5.5.jar
 
     ``` xml
     <?xml version="1.0" encoding="UTF-8"?>
-    <Context antiResourceLocking="false" privileged="true" useHttpOnly="true" 
+    <Context antiResourceLocking="false" privileged="true" useHttpOnly="true"
                   docBase="/data/app/tcgroup-sso-home/tcgroup-sso-home">
     </Context>
     ```
@@ -284,7 +284,7 @@ CMD /> %JAVA_HOME%\bin\keytool -genkeypair -alias mykey -keyalg RSA -keysize 102
 ```
 <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
                maxThreads="150" scheme="https" secure="true"
-               clientAuth="false" sslProtocol="TLS" 
+               clientAuth="false" sslProtocol="TLS"
                keystoreFile="C:/.keystore"
                keystorePass="123456"></Connector>
 ```

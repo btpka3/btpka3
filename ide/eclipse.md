@@ -7,12 +7,12 @@
 > Eclipse 4.5, upon which STS and GGTS are based, is the first Eclipse
 > release where GTK3 is the default for the SWT widget library.
 > There are some issues with this still:
-> 
+>
 > STS New Dashboard doesn't work under GTK3 because it uses JavaFX
 > which is not currently compatible with GTK3. Instead the old dashboard
 > will open.
 > The Eclipse editor may be slow to respond (Eclipse Bug 434898).
-> 
+>
 > You may also experience other UI rendering glitches. If you exprience any of these problems you can avoid > them by forcing SWT to
 > switch back to using GTK2. Just set the environment variable "SWT_GTK3=0" before launching STS or GGTS.
 
@@ -34,27 +34,27 @@ Icon=/usr/local/sts/sts-3.7.2.RELEASE/icon.xpm
 * [MoonRise UI Theme](https://github.com/guari/eclipse-ui-theme)
 * ??? [eclipse-ui-themes](https://github.com/rogerdudler/eclipse-ui-themes)
 * [Eclipse Color Themes](http://eclipsecolorthemes.org/)
-* [AnyEdit](http://andrei.gmxhome.de/anyedit/)  
-update site：http://andrei.gmxhome.de/eclipse -> Eclipse 3.5 - 4.2 plugins -> AnyEditTools  
-配置：STS : Preferences -> General/Editors/AnyEdit Tools 
+* [AnyEdit](http://andrei.gmxhome.de/anyedit/)
+update site：http://andrei.gmxhome.de/eclipse -> Eclipse 3.5 - 4.2 plugins -> AnyEditTools
+配置：STS : Preferences -> General/Editors/AnyEdit Tools
 * [Properties Editor](http://propedit.sourceforge.jp/index_en.html)
 update site： http://propedit.sourceforge.jp/eclipse/updates/
-* [SVN](http://www.eclipse.org/subversive/installation-instructions.php)  
+* [SVN](http://www.eclipse.org/subversive/installation-instructions.php)
 请参照 `Option 2 - Use a Subversive Update Site`
-* [Sonar](http://docs.codehaus.org/display/SONAR/Installing+SonarQube+in+Eclipse)  
-最新版Update site: http://dist.sonar-ide.codehaus.org/eclipse/  
-历史版本更新站点目录: http://dist.sonar-ide.codehaus.org/eclipse-archives/  
+* [Sonar](http://docs.codehaus.org/display/SONAR/Installing+SonarQube+in+Eclipse)
+最新版Update site: http://dist.sonar-ide.codehaus.org/eclipse/
+历史版本更新站点目录: http://dist.sonar-ide.codehaus.org/eclipse-archives/
 注意：需要根据使用的SonarQuebe服务器的版本而选定Eclipse插件的版本
-* [CheckStyle](http://eclipse-cs.sourceforge.net/)  
+* [CheckStyle](http://eclipse-cs.sourceforge.net/)
 建议使用Sonar插件替代。
-* [Findbugs](http://findbugs.sourceforge.net/manual/eclipse.html)  
-建议使用Sonar插件替代。  
+* [Findbugs](http://findbugs.sourceforge.net/manual/eclipse.html)
+建议使用Sonar插件替代。
 update site： http://findbugs.cs.umd.edu/eclipse
-* [PMD](http://pmd.sourceforge.net/)  
-建议使用Sonar插件替代。  
+* [PMD](http://pmd.sourceforge.net/)
+建议使用Sonar插件替代。
 * [ERMaster](http://ermaster.sourceforge.net/)
 * [AmaterasUML](http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasUML)
-* [AmeterasERD](http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasERD)  
+* [AmeterasERD](http://amateras.sourceforge.jp/cgi-bin/fswiki_en/wiki.cgi?page=AmaterasERD)
 需要先安装 AmaterasUML
 * [GitHub Flavored Markdown viewer plugin for Eclipse](https://marketplace.eclipse.org/content/github-flavored-markdown-viewer-plugin-eclipse)
 
@@ -124,7 +124,7 @@ Java->Editor->Content Assist->Favorites
         #sudo mount -t ramfs -o size=256M ramfs /media/ramdisk/
         sudo mount -t ramfs none /media/ramdisk/
         sudo vi /etc/fstab
-        none  /mnt/ramdisk    ramfs   defaults,gid=1000,uid=1000      0   0 
+        none  /mnt/ramdisk    ramfs   defaults,gid=1000,uid=1000      0   0
         ```
     * [Windows](http://www.softperfect.com/products/ramdisk/)
 * 不要打开过多的工程/关闭不相关的工程
@@ -146,15 +146,15 @@ Java->Editor->Content Assist->Favorites
 ###Win7下eclipse3.7中文字体过小
 原因：由于Eclipse 3.7 用的字体是 Consolas，显示中文的时候默认太小了。
 * 解决方法一：使用[Ubuntu Mono](http://font.ubuntu.com/)字体，建议字号设置为小四。
-* 解决方法二：把字体设置为Courier New  
-    打开Elcipse，点击菜单栏上的“Windows”——点击“Preferences”——点击“Genneral”——点击“Appearance”——点击“Colors and Font”——在右侧框展开“Basic”文件夹--双击“Text Font”——在弹出窗选择“Courier New”——点击按钮“确定”——点击按钮“OK”，完成。  
+* 解决方法二：把字体设置为Courier New
+    打开Elcipse，点击菜单栏上的“Windows”——点击“Preferences”——点击“Genneral”——点击“Appearance”——点击“Colors and Font”——在右侧框展开“Basic”文件夹--双击“Text Font”——在弹出窗选择“Courier New”——点击按钮“确定”——点击按钮“OK”，完成。
 
     提醒：这里可能找不到“Courier New”，点击字体选择框左下角的“显示更多字体”链接来打开设置字体的控制面板，找到“Courier New”，右键选择“显示”即可激活该字体）
 
 * 解决方法三：使用混合字体代替Consolas字体
     1. 下载[Consolas和微软雅黑混合字体](http://files.cnblogs.com/icelyb24/YaHei.Consolas.1.12.rar)
     2. 解压之后，把YaHei.Consolas.1.12.ttfw文件复制到C:\Windows\Fonts目录下，完成字体的安装
-    3. 打开Elcipse，点击菜单栏上的“Windows”——点击“Preferences”——点击“Genneral”——点击“Appearance”——点击“Colors and Font”——在右侧框展开“Basic”文件夹--双击“Text Font”——在弹出窗选择“YaHei.Consolas”——点击按钮“确定”——点击按钮“OK”，完成。  
+    3. 打开Elcipse，点击菜单栏上的“Windows”——点击“Preferences”——点击“Genneral”——点击“Appearance”——点击“Colors and Font”——在右侧框展开“Basic”文件夹--双击“Text Font”——在弹出窗选择“YaHei.Consolas”——点击按钮“确定”——点击按钮“OK”，完成。
     一个不足：键盘上Esc键下面的那个字符和单引号只有宽度上的区别，而没有字形上的区别。
 
 

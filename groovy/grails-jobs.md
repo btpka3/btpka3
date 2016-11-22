@@ -5,7 +5,7 @@
 ```groovy
 class XxxJob {
 
-    static triggers = {                                                             
+    static triggers = {
         cron name: 'xxxJobTrigger', startDelay: 60 * 1000, cronExpression: '0 0 */1 * * ?'
     }
     def description = "Xxx任务"
@@ -29,7 +29,7 @@ class XxxJob {
 }
 ```
 
-# 自测 
+# 自测
 
 TestController.groovy
 

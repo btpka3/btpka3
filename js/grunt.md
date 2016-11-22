@@ -19,9 +19,9 @@
     ```
     vi /usr/local/nodejs/node-v0.12.1-linux-x64/lib/node_modules/npm_lazy/config.js
     ```
-    
+
     常见修改内容有：
-    
+
     ```
     logToConsole: false,
     logToFile: true,
@@ -30,7 +30,7 @@
     ```
 
 
-* 为 centos7 增加 systemd 配置文件 
+* 为 centos7 增加 systemd 配置文件
 
     ```
     vi /usr/lib/systemd/system/npm_lazy.service
@@ -56,7 +56,7 @@
     ```
 
     启动，并设置使其开机自启动
-    
+
     ```
     systemctl start npm_lazy
     systemctl status npm_lazy
@@ -66,16 +66,16 @@
 * 在使用 npm 的机器上，配置使用该缓存
 
     * 通过命令
-    
+
         ```
         npm config set registry http://test-npm.xxx.com/
         ```
     * 或者手动 `vi ~/.npmrc`  (也可以是项目根目录中的 .npmrc 文件)， 内容如下：
-    
+
         ```
         registry=http://test-npm.xxx.com/
         ```
-        
+
 * 修改dns配置，或者hosts文件，使域名 `test-npm.xxx.com` 指向相应的IP地址
 
 * 修噶 nginx 配置，增加反向代理
@@ -87,8 +87,8 @@
 
     server {
       listen        80;
-      server_name   test-npm.xxx.com; 
-      server_tokens off; 
+      server_name   test-npm.xxx.com;
+      server_tokens off;
       #root          /NonExistPath;
 
       access_log    logs/test-npm_access.log;
@@ -130,7 +130,7 @@ npm install grunt-contrib-requirejs --save-dev
 npm install bootstrap --save
 ```
 
- 
+
 
 
 	

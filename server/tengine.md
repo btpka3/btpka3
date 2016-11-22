@@ -13,15 +13,15 @@
     ```bash
     yum install openssl openssl-devel
     # 或者
-    sudo apt-get install build-essential linux-kernel-headers openssl libssl-dev libpcre3 libpcre3-dev gcc zlib1g-dev 
+    sudo apt-get install build-essential linux-kernel-headers openssl libssl-dev libpcre3 libpcre3-dev gcc zlib1g-dev
     ```
 
 1. 下载、编译并安装
-    
+
     ```bash
     useradd nginx
     mkdir /usr/local/tengine/tengine-2.1.0
-    
+
     cd /tmp
     wget http://tengine.taobao.org/download/tengine-2.1.0.tar.gz
     tar zxvf tengine-2.1.0.tar.gz
@@ -48,9 +48,9 @@
     chown -R nginx:nginx logs
     ```
 1. 线上生产环境还要启用一下gzip，可以直接修改 nginx.conf
-  
+
     ```groovy
-    gzip  on; 
+    gzip  on;
     gzip_types  text/plain
                 text/css
                 text/js
@@ -93,7 +93,7 @@
 
 1.  启用、启动
 
-    ```    
+    ```
     systemctl enable tengine
     systemctl start tengine
     systemctl status tengine
@@ -120,30 +120,30 @@
     # tengine
 
     description "tengine http daemon"
-     
+
     start on (filesystem and net-device-up IFACE=lo)
     stop on runlevel [!2345]
-     
+
     env DAEMON=/usr/local/tengine/tengine-2.1.0/sbin/nginx
     env PID=/usr/local/tengine/tengine-2.1.0/logs/nginx.pid
-     
+
     expect fork
     respawn
     respawn limit 10 5
     #oom never
-     
+
     pre-start script
             $DAEMON -t
-            if [ $? -ne 0 ] 
+            if [ $? -ne 0 ]
                     then exit $?
             fi
     end script
-     
+
     exec $DAEMON
     ```
 
 1. 启动
- 
+
     ```
     sudo service tengine status
     sudo service tengine start

@@ -24,12 +24,12 @@ Atlas的主要功能（这里主要进行前两点的配置说明）：
 
 | 类型        | 服务器地址         | 版本  |
 | ------------- |:-------------:| -----:|
-|mysql主库|192.168.101.86|mysql  Ver 14.14 Distrib 5.5.40, for debian-linux-gnu (x86_64) using readline 6.2| 
+|mysql主库|192.168.101.86|mysql  Ver 14.14 Distrib 5.5.40, for debian-linux-gnu (x86_64) using readline 6.2|
 |mysql从库|192.168.101.82|mysql  Ver 14.14 Distrib 5.6.20, for Linux (x86_64) using  EditLine wrapper|
 |atlas服务器|192.168.101.83|Atlas-2.2.1.el6.x86_64.rpm，注意续安装mysql客户端进行测试|
 slave在master的复制用户为s82。
 master和slave的访问用户为naladb。
-     
+
 
 ## [数据库主从复制](http://git.lizi.com/pd/pd-env/wikis/mysql-replication)
 

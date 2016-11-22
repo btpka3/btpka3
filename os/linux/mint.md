@@ -1,7 +1,7 @@
 # 快捷键
 
 ```
-menu 
+menu
   -> Preferences
   -> Keyboard
   -> Shortcuts

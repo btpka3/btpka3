@@ -83,10 +83,10 @@ USE demodb;
 
     ```sql
     -- 示例一
-    ALTER KEYSPACE system_auth 
+    ALTER KEYSPACE system_auth
             WITH REPLICATION = {'class' : 'NetworkTopologyStrategy', 'dc1' : 3, 'dc2' : 2};
     -- 示例二
-    ALTER KEYSPACE eval_keyspace 
+    ALTER KEYSPACE eval_keyspace
             WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
     ```
 2. 然后需要在每个受影响的节点上执行 `nodetool repair`

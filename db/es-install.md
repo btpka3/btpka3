@@ -1,4 +1,4 @@
-# docker 
+# docker
 
 ```
 # docker cp my-es:/usr/share/elasticsearch/config /Users/zll/tmp/es-conf
@@ -15,7 +15,7 @@ docker start my-es
 
 docker exec -it my-es bash
 
-vi /Users/zll/tmp/es-conf/elasticsearch.yml 
+vi /Users/zll/tmp/es-conf/elasticsearch.yml
 cluster.name: "my-es"
 node.name: "local"
 index.number_of_shards: 1
@@ -58,7 +58,7 @@ systemctl start elasticsearch
 systemctl status elasticsearch
 ```
 
-### 配置方式一 
+### 配置方式一
 通过环境变量进行配置。
 
 1. 不要修改 `/etc/elasticsearch/elasticsearch.yml`（其初始内容为空）
@@ -148,7 +148,7 @@ service elasticsearch start
 ```
 curl 'localhost:9200/_cat/health?v'
 curl 'localhost:9200/_cat/indices?v'
-curl -XPUT 'localhost:9200/testIndex?pretty'  # 创建测试索引，之后再用上述两个命令检查状态 
+curl -XPUT 'localhost:9200/testIndex?pretty'  # 创建测试索引，之后再用上述两个命令检查状态
 ```
 
 
@@ -179,7 +179,7 @@ curl -XPUT 'localhost:9200/testIndex?pretty'  # 创建测试索引，之后再�
 ###  解压ZIP文件
 解压文件elasticsearch-analysis-ik-master.zip，进入下载目录，执行命令：
 ```java
-    unzip elasticsearch-analysis-ik-master.zip  
+    unzip elasticsearch-analysis-ik-master.zip
 ```
 
 ###  复制ik
@@ -188,8 +188,8 @@ curl -XPUT 'localhost:9200/testIndex?pretty'  # 创建测试索引，之后再�
 ###  打包
 因为是源代码，此处需要使用maven打包，进入解压文件夹中，执行命令：
 ```java
-    mvn clean package  
-``` 
+    mvn clean package
+```
 ### 复制jar
 * 在ES安装目录（/usr/share/elasticsearch）下新建文件夹plugins,以后的插件都放在这个文件夹下;
 * 在plugins下新建ik的文件夹analysis-ik;
@@ -198,22 +198,22 @@ curl -XPUT 'localhost:9200/testIndex?pretty'  # 创建测试索引，之后再�
 ### 修改elasticsearch.yml配置
 在elasticsearch.yml的最后添加
 ```java
-    index:  
-      analysis:                     
-        analyzer:        
-          ik:  
-              alias: [ik_analyzer]  
-              type: org.elasticsearch.index.analysis.IkAnalyzerProvider  
-          ik_max_word:  
-              type: ik  
-              use_smart: false  
-          ik_smart:  
-              type: ik  
-              use_smart: true  
+    index:
+      analysis:
+        analyzer:
+          ik:
+              alias: [ik_analyzer]
+              type: org.elasticsearch.index.analysis.IkAnalyzerProvider
+          ik_max_word:
+              type: ik
+              use_smart: false
+          ik_smart:
+              type: ik
+              use_smart: true
 ```
 或者
 ```java
-index.analysis.analyzer.ik.type : "ik"  
+index.analysis.analyzer.ik.type : "ik"
 ```
 
 ### 重启ES
@@ -225,7 +225,7 @@ sudo service elasticsearch status
 ### 验证
 执行
 ```java
-    curl -XPOST  "http://localhost:9200/${index}/_analyze?analyzer=ik&pretty=true&text=我是中国人"  
+    curl -XPOST  "http://localhost:9200/${index}/_analyze?analyzer=ik&pretty=true&text=我是中国人"
 ```
 验证结果是否正确。
 注意：必须先创建索引，才能验证。

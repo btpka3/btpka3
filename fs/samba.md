@@ -7,9 +7,9 @@
 1. （可选）简化主机名，统一工作组，
 
     ```
-    "我的电脑" 右键 
-         -> 高级系统设置 
-         -> "计算机名" 标签页 
+    "我的电脑" 右键
+         -> 高级系统设置
+         -> "计算机名" 标签页
          -> 点击 "更改" 按钮
              : 简化主机名
              : 统一工作组为 `WORKGROUP`
@@ -17,21 +17,21 @@
     ```
 
 1. 开启 Guest 账户，并留空 Guest 密码。
-   
+
     ```
-    "我的电脑" 右键 -> 管理 -> 计算机管理（本地）-> 系统工具 -> 本地用户和组 
+    "我的电脑" 右键 -> 管理 -> 计算机管理（本地）-> 系统工具 -> 本地用户和组
          -> 用户 -> 双击 Guest 账户： 右键 属性， 取消 "账户已禁用"
     ```
 
-1. 修改组策略 `Win+R` 运行 `gpedit.msc` 
-  
+1. 修改组策略 `Win+R` 运行 `gpedit.msc`
+
     ```
     \本地计算机\计算机配置\windows 设置\安全设置\本地策略
-        \用户权限分配 
+        \用户权限分配
             拒绝从网络上访问这台计算机 -> 删除其中的 guest 账户
-        \安全选项 
+        \安全选项
             网络访问：本地账户的共享和安全模型 -> 选为 “仅来宾 - 对本地用户进行身份验证，其身份为来宾”
-    ``` 
+    ```
 
 
 ## centos
@@ -54,7 +54,7 @@ NetBIOS Message Block (NMB )
     ```bash
     chkconfig --list smb                     # 查看smb默认运行级别
     chkconfig --list nmb                     # 查看nmb默认运行级别
-    chkconfig --level 345 smb on       # 设置smb默认运行级别 
+    chkconfig --level 345 smb on       # 设置smb默认运行级别
     chkconfig --level 345 nmb on       # 设置smb默认运行级别
     ```
 
@@ -83,7 +83,7 @@ NetBIOS Message Block (NMB )
 
     ```bash
     # xxxUserName用户仅仅用来远程samba登录，不需要本地登录。
-    [root@localhost ~]# adduser -M xxxUserName  
+    [root@localhost ~]# adduser -M xxxUserName
     # 为xxxUserName用户设置samba登录时的密码（注意：该密码不同于账户本地登录操作系统的密码）
     # samba默认的密码文件是 /var/lib/samba/private/passdb.tdb
     [root@localhost ~]# smbpasswd -a xxxUserName
@@ -159,7 +159,7 @@ NetBIOS Message Block (NMB )
     ```
 
 
-## ubuntu 
+## ubuntu
 
 ### 安装
 
@@ -183,15 +183,15 @@ sudo apt-get install samba
     chown -R nobody:nogroup /data0/samba/tmp
     ```
 
-1. 配置 
+1. 配置
 
     ```groovy
     [tmp]
     path=/data0/samba/tmp
     browseable = yes
     writeable = yes
-    guest ok = yes 
-    guest only = yes 
+    guest ok = yes
+    guest only = yes
     ```
 
 
@@ -200,7 +200,7 @@ sudo apt-get install samba
 smb.conf
 
 ```
-[global]                                                                                                                                                                                                  
+[global]
     workgroup = WORKGROUP
     server string = %h server (Samba, test13)
     dns proxy = no

@@ -22,7 +22,7 @@ cordova plugin add cordova-plugin-splashscreen --save
 cordova platform save
 cordova plugin save
 
-# 
+#
 cordova prepare
 ```
 
@@ -59,7 +59,7 @@ cordova platform install android
         1. qh-app/platforms/android/cordova/lib/plugin-build.gradle         -> qh-app/platforms/android/build.gradle
         1. 读取 qh-app/platforms/android/project.properties
         1. 生成 qh-app/platforms/android/settings.gradle
-        1. 替换 qh-app/platforms/android/build.gradle 中的  
+        1. 替换 qh-app/platforms/android/build.gradle 中的
         1. dependencies : "// SUB-PROJECT DEPENDENCIES START"  和 "// SUB-PROJECT DEPENDENCIES END" 之间的内容
         1. apply from   : "// PLUGIN GRADLE EXTENSIONS START"  和 "// PLUGIN GRADLE EXTENSIONS END" 之间的内容
 
@@ -85,7 +85,7 @@ cordova platform install ios
     `~/cordova/lib/npm_cache/cordova-ios/4.2.0` 目录下。
 
 
-    运行相应的 Api.js ： ~/.cordova/lib/npm_cache/cordova-ios/4.2.0/package/bin/templates/scripts/cordova/Api.js 
+    运行相应的 Api.js ： ~/.cordova/lib/npm_cache/cordova-ios/4.2.0/package/bin/templates/scripts/cordova/Api.js
         Api.createPlatform
         Api.updatePlatform
 
@@ -95,7 +95,7 @@ cordova prepare ios
     $PROJECT_ROOT/platforms/android/cordova/Api.js
     $PROJECT_ROOT/platforms/ios/cordova/Api.js
 
-cordoca HOOK 所暴露的 
+cordoca HOOK 所暴露的
     context 类型为 ordova-lib/src/hooks/Context.js
     ctx.cordova == require('cordova-lib').cordova
 ```
@@ -110,12 +110,12 @@ cordova platform install ios
     cordova-lib/src/platforms/platformsConfig.json
     cordova-lib/src/cordova/metadata/*_parse
 
-  
+
     通过 cordova-fetch ，调用 npm 安装相应的包（比如 cordova-ios）安装到
     `~/cordova/lib/npm_cache/cordova-ios/4.2.0` 目录下。
 
 
-    运行相应的 Api.js ： ~/.cordova/lib/npm_cache/cordova-ios/4.2.0/package/bin/templates/scripts/cordova/Api.js 
+    运行相应的 Api.js ： ~/.cordova/lib/npm_cache/cordova-ios/4.2.0/package/bin/templates/scripts/cordova/Api.js
         Api.createPlatform
         Api.updatePlatform
 
@@ -125,7 +125,7 @@ cordova prepare ios
     $PROJECT_ROOT/platforms/android/cordova/Api.js
     $PROJECT_ROOT/platforms/ios/cordova/Api.js
 
-cordoca HOOK 所暴露的 
+cordoca HOOK 所暴露的
     context 类型为 ordova-lib/src/hooks/Context.js
     ctx.cordova == require('cordova-lib').cordova
 ```
@@ -244,7 +244,7 @@ var plistFile = path.join(projectRoot, "platforms/ios", appName, appName + '-Inf
 var infoPlist = plist.parse(fs.readFileSync(plistFile, 'utf8'));
 infoPlist['CFBundleIdentifier'] = newId;
 var info_contents = plist.build(infoPlist);
-fs.writeFileSync(plistFile, info_contents, 'utf-8');        
+fs.writeFileSync(plistFile, info_contents, 'utf-8');
 
 // 获取 PlatformApi
 var cordovaLib = ctx.requireCordovaModule('cordova-lib');

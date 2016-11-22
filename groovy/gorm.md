@@ -22,7 +22,7 @@ class Xxx {
 ```
 class Face {
     static hasOne = [nose:Nose]
-    static constraints = { nose unique: true } 
+    static constraints = { nose unique: true }
 }
 class Nose {
     Face face
@@ -31,14 +31,14 @@ class Nose {
 ```
 
 
-## 
+##
 
 ## GORM 一对多、多对多
 
 * 说明 && 建议
     * `belongsTo` 仅仅影响级联删除，不应用记录之间的 一对多、多对多 关系映射。
     * 在一对多时，最好使用 reverse 的方式：在子记录上给出parent的引用，而不要在父记录上包含子记录的list/set
-    * 在一对多时，明确使用 `static mappedBy = [manyPropInParentRec:'fieldInChildRec']` 
+    * 在一对多时，明确使用 `static mappedBy = [manyPropInParentRec:'fieldInChildRec']`
     * 在一对多时，不要使用 `parentRec.addToXxx(childRec)` ，使用 `childRec.parent = xxx` 来取代。
     * 在多对多时，需要 `static mappedBy = [manyPropInParentRec: null]`， 从而在父记录中保存属性 list/set（可以明确指明类型 List/Set/OrderedSet），而子记录中有没有、有多少个 父记录类型的引用就没关系了。
 
@@ -82,9 +82,9 @@ class Nose {
     报错：
 
     ```
-    Caused by: org.codehaus.groovy.grails.exceptions.GrailsDomainException: 
-    Property [list] in class [class com.jujn.domain.domain.Zzz] is a bidirectional one-to-many with two possible properties on the inverse side. 
-    Either name one of the properties on other side of the relationship [zzz] or use the 'mappedBy' static to define the property that the relationship is mapped with. 
+    Caused by: org.codehaus.groovy.grails.exceptions.GrailsDomainException:
+    Property [list] in class [class com.jujn.domain.domain.Zzz] is a bidirectional one-to-many with two possible properties on the inverse side.
+    Either name one of the properties on other side of the relationship [zzz] or use the 'mappedBy' static to define the property that the relationship is mapped with.
     Example: static mappedBy = [list:'myprop']
     ```
 
@@ -96,14 +96,14 @@ class Nose {
         static mappedBy = [list : 'p2']
         String id
         Zzz p1
-        Zzz p2    
+        Zzz p2
         Zzz p3
     }
     ```
 
     结果，父记录没有list属性，子记录的p2有值, p1和p3没有值
 
- 
+
 
 
 # 查询出部分列
@@ -166,7 +166,7 @@ HibernateCriteriaBuilder [javadoc](http://grails.github.io/grails-data-mapping/c
 
 
 ```
-Xxx.createCriteria().list { /* ... */ } 
+Xxx.createCriteria().list { /* ... */ }
 // 等价于
 new HibernateCriteriaBuilder(Xxx.class, sessionFactory).list { /* ... */ }
 ```
@@ -231,7 +231,7 @@ def result = A.withCriteria{
     or {
         isNull('bb.c')
         eq('cc.isDeleted', true)
-    } 
+    }
 }
 ```
 

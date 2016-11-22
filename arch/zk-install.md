@@ -9,7 +9,7 @@
 /data/
 /datalog/
 
-# docker cp my-zk:/conf/ 
+# docker cp my-zk:/conf/
 
 docker pull zookeeper:3.4.9
 docker stop my-zk
@@ -43,10 +43,10 @@ syncLimit=2
 1. 创建系统用户zookeeper，及所需的目录
 
     ```bash
-    adduser -r -m  -d /data/software/zookeeper zookeeper 
+    adduser -r -m  -d /data/software/zookeeper zookeeper
     passwd -l zookeeper
     ```
-   
+
 1. 下载并解压
 
     ```
@@ -98,7 +98,7 @@ syncLimit=2
     # 设置日志日志目录
     ZOO_LOG_DIR=/data/software/zookeeper/zookeeper-3.4.6/server.1/logging
     # 新增：明确写明PID文件的路径。zookeeper用户必须对要求目录有写权限。
-    ZOOPIDFILE=/data/software/zookeeper/zookeeper-3.4.6/server.1/zookeeper_server.pid    
+    ZOOPIDFILE=/data/software/zookeeper/zookeeper-3.4.6/server.1/zookeeper_server.pid
     ```
 1. `vi ${ZK_HOME}/bin/zkServer.sh`
 
@@ -195,7 +195,7 @@ syncLimit=2
     ExecStart=/usr/local/zookeeper/zookeeper-3.4.6/bin/zkServer.sh start
     ExecStop=/bin/kill -15 $MAINPID
     WorkingDirectory=/usr/local/zookeeper/zookeeper-3.4.6
-    PIDFile=/data/software/zookeeper/zookeeper-3.4.6/server.1/zookeeper_server.pid 
+    PIDFile=/data/software/zookeeper/zookeeper-3.4.6/server.1/zookeeper_server.pid
     Restart=always
     User=zookeeper
     LimitNOFILE=65535

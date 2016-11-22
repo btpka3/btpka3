@@ -19,7 +19,7 @@
     WantedBy=multi-user.target
     ```
 1. 启动 xx-net
-   
+
     ```
     systemctl daemon-reload
     systemctl enable xx-net
@@ -52,26 +52,26 @@
     ip=192.168.0.13
     port = 8086
     ```
-1. Chrome 浏览器中安装插件 
+1. Chrome 浏览器中安装插件
     1. 安装 `XX-Net-3.1.19/SwitchyOmega/SwitchyOmega.crx`
     1. 导入配置文件 `XX-Net-3.1.19/SwitchyOmega/SwitchyOmega.bak`
     1. 导入 代理服务器生成的CA证书 `XX-Net-3.1.19/data/gae_proxy/CA.crt`
 
 1. 访问国外网站是使用 XX-Net 代理.
 
- 
+
 
 1. 苹果电脑上设置
 
     ```
-    Finder -> Applications -> Utilities -> Keychain Access 
+    Finder -> Applications -> Utilities -> Keychain Access
         -> File -> Import Items -> 选择XX-Net生成的 crt 证书文件
-        -> 左侧上方菜单中 选中 "login" 
+        -> 左侧上方菜单中 选中 "login"
         -> 左侧下方菜单中 选中 "Certificates"
         -> 右侧选中 "GoAgent XX-Net"
            -> 鼠标右键 -> Get Info
            -> 展开 "Trust"，修改为 "Always Trust"
-    
+
     Chrome 浏览器中安装 XX-Net 安装包中的 "SwitchyOmega.crx" 插件，并恢复备份。
     ```
 
@@ -89,7 +89,7 @@
 ### GoAgent
 
 ```
-sudo yum install pyOpenSSL  
+sudo yum install pyOpenSSL
 sudo apt-get install python-openssl
 ```
 
@@ -99,7 +99,7 @@ sudo apt-get install python-openssl
 1. 运行 `${GO_AGENT_HOME}/server/uploader.py`, 并根据提示输入 app ID，输入Email（谷歌账户）、密码，把 服务端代码 上传到 GAE。
 1. 修改 `${GO_AGENT_HOME}/local/proxy.ini`， 将自己注册的 app id 添加到 `[gae]` 下的 appid 中。
 1. 重启 proxy.sh : `sudo ./proxy.sh restart`
-    
+
 1. linux下运行的，可以查看日志 `/var/log/goagent.log` 确认为何连接不上。
 
     1. 如果是 IP 地址连接超时，请参考 [Goagent 最新可用IP](http://www.ruooo.com/VPS/704.html)， 或者使用 [GoGo Tester](https://github.com/azzvx/gogotester/tree/2.3/GoGo%20Tester/bin/Release) 检测可用 IP 地址。

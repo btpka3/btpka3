@@ -17,7 +17,7 @@
 ## 二进制安装
 
 打开 nodejs 官网的[下载页](https://nodejs.org/download/), 下载二进制安装包
- 
+
 
 ```
 sudo mkdir /usr/local/nodejs
@@ -78,7 +78,7 @@ node hi.js
 <del>使用 [nvm](https://github.com/joyent/node/wiki/installing-node.js-via-package-manager#enterprise-linux-and-fedora)</del>
 
 ```
-su - 
+su -
 curl -sL https://deb.nodesource.com/setup | sudo bash -
 su -
 nvm install v0.10.34

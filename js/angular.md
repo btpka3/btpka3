@@ -94,7 +94,7 @@ angular.module('xxx', [])
   };
 
   return {
-    restrict: 'AE',   // A : attribute, E : element, C : class 
+    restrict: 'AE',   // A : attribute, E : element, C : class
     transclude: true,
     require: [
       '^myPanel',    // require controller in parent
@@ -105,7 +105,7 @@ angular.module('xxx', [])
       aaa:      "@aaa",      // use data data-binding from the parent scope
       bbb:      '=bbb',      // bind a model
       customer: '=',         // same as '=customer'
-      close:    '&onClose'   //  reference a fucntion   
+      close:    '&onClose'   //  reference a fucntion
     },
 
     //template: 'Name: {{customer.name}} Address: {{customer.address}}'

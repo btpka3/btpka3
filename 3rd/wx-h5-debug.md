@@ -25,9 +25,9 @@ smb://192.168.0.12/public/wechat_web_devtools_0.7.0_x64.exe
 开发时我们还可以使用 alert，线上错误就没办法了，再说总alert也很烦。
 
 ## 参考
- 
+
 * 《[微信webview调试方法](http://bbs.mb.qq.com/thread-243399-1-1.html?pid=313743&fid=93)》
- 
+
     下面这个步骤将允许你在电脑的 chromium 浏览器 ：
     1. 即时查看你在微信中渲染的html的 dom （会额外插入两个辅助用的 iframe）
     1. 选中不同 dom 的节点，微信中渲染的html上相应的块高亮显示。
@@ -96,14 +96,14 @@ PS：华为的手机默认没有显示 `开发人员选项`，需要： 手机�
 1. 通过 `lsusb` 命令获取所有的 usb 设备
 
     ```
-    Bus 002 Device 002: ID 8087:8000 Intel Corp. 
+    Bus 002 Device 002: ID 8087:8000 Intel Corp.
     Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-    Bus 001 Device 002: ID 8087:8008 Intel Corp. 
+    Bus 001 Device 002: ID 8087:8008 Intel Corp.
     Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
     Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
-    Bus 003 Device 003: ID 0101:0007  
+    Bus 003 Device 003: ID 0101:0007
     Bus 003 Device 018: ID 12d1:1052 Huawei Technologies Co., Ltd.      # 该行的 `12d1:1052` 就是手机的 USB ID
-    Bus 003 Device 004: ID 258a:0003  
+    Bus 003 Device 004: ID 258a:0003
     Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
     ```
 
@@ -119,7 +119,7 @@ PS：华为的手机默认没有显示 `开发人员选项`，需要： 手机�
     #示例
     SUBSYSTEM=="usb",SYSFS{idVendor}=="0bb4",MODE="0666"
     SUBSYSTEM=="usb",ATTR{idVendor}=="0bb4",ATTR{idProduct}=="0c02",SYMLINK+="android_adb"
-    ``` 
+    ```
 
 1. 修改 adb_usb.ini
 

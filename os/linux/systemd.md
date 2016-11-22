@@ -101,7 +101,7 @@ man systemd.swap
 man systemd.resource-control
 ```
 
-## 文件格式 
+## 文件格式
 
 ```
 [Unit]

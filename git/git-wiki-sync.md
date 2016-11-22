@@ -24,7 +24,7 @@ git pull --rebase gitlab master
 git pull --rebase origin master
 
 git push origin master:master
-git push -f gitlab master:master   
+git push -f gitlab master:master
 ```
 
 为了方便脚本自动执行，最好使用 SSH Key完成认证，而无需密码。需要修改 ssh 的配置 `vi ~/.ssh/config`
@@ -67,7 +67,7 @@ echo `$TIME` Done.
 ```
 # crontab -e
 # m h  dom mon dow   command
-0 */1  * * * /home/zll/work/git-repo/oschina/sync-wiki.sh 2>&1 >> /home/zll/work/git-repo/oschina/sync-wiki.log 
+0 */1  * * * /home/zll/work/git-repo/oschina/sync-wiki.sh 2>&1 >> /home/zll/work/git-repo/oschina/sync-wiki.log
 ```
 
 

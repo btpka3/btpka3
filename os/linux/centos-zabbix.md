@@ -8,7 +8,7 @@ Zabbix分为普通发布版和长期支持版（LST），所以安装的时候�
     ```bash
      # centos 5
     rpm -ivh http://repo.zabbix.com/zabbix/2.2/rhel/5/x86_64/zabbix-release-2.2-1.el5.noarch.rpm
-     
+
      # centos 6
     rpm -ivh http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/zabbix-release-2.2-1.el6.noarch.rpm
 
@@ -69,9 +69,9 @@ zabbix 提供了两种前端：zabbix-web-mysql 和 zabbix-web-pgsql。但是，
     # 后续会通过浏览器在这里生成配置文件：zabbix.conf.php
     chown -R apache:apache /data/software/zabbix/zabbix-2.2.7/frontends/php/conf
     ```
-    
+
     zabbix.conf.php 示例
-    
+
     ```php
     <?php
     // Zabbix GUI configuration file
@@ -82,14 +82,14 @@ zabbix 提供了两种前端：zabbix-web-mysql 和 zabbix-web-pgsql。但是，
     $DB['PORT']     = '0';
     $DB['DATABASE'] = 'zabbix';
     $DB['USER']     = 'root';
-    $DB['PASSWORD'] = ''; 
+    $DB['PASSWORD'] = '';
 
     // SCHEMA is relevant only for IBM_DB2 database
-    $DB['SCHEMA'] = ''; 
+    $DB['SCHEMA'] = '';
 
     $ZBX_SERVER      = 'localhost';
-    $ZBX_SERVER_PORT = '9010';                                                                                                                                                                                   
-    $ZBX_SERVER_NAME = ''; 
+    $ZBX_SERVER_PORT = '9010';
+    $ZBX_SERVER_NAME = '';
 
     $IMAGE_FORMAT_DEFAULT = IMAGE_FORMAT_PNG;
     ?>
@@ -98,13 +98,13 @@ zabbix 提供了两种前端：zabbix-web-mysql 和 zabbix-web-pgsql。但是，
 1. 修改Nginx中的配置 /etc/nginx/conf.d/zabbix.conf
 
     ```groovy
-    server {                                                                                                                                                                                                     
+    server {
         listen *:80;
         server_name zabbix.lizi.com;
         server_tokens off;
         root /data/software/zabbix/zabbix-2.2.7/frontends/php/;
         index  index.html index.htm  index.php;
-      
+
         client_max_body_size 20m;
         ignore_invalid_headers off;
 
@@ -116,7 +116,7 @@ zabbix 提供了两种前端：zabbix-web-mysql 和 zabbix-web-pgsql。但是，
             fastcgi_index  index.php;
             fastcgi_param  SCRIPT_FILENAME  /data/software/zabbix/zabbix-2.2.7/frontends/php/$fastcgi_script_name;
             include        fastcgi_params;
-        }   
+        }
     }
     ```
 

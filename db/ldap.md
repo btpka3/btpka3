@@ -6,7 +6,7 @@ RDN是 attribute=value 形式的属性值，通常是UTF-8字符串。
 
 attribute | Alias                   | shema        | objectClass         | notes
 ----------|-------------------------|--------------|---------------------|-----------------
-c         | countryName             | core.schema | country              | ISO 3166:两位国家编码 
+c         | countryName             | core.schema | country              | ISO 3166:两位国家编码
 cn        | commonName              | core.schema | person etc.          |
 dc        | domainComponent         | core.schema | dcObject             | 域名的任意部分
 mail      | rfc822Mailbox           | core.schema | inetOrgPerson        |
@@ -22,13 +22,13 @@ uid       | userid                  | core.schema | account etc.         | 用�
 CN=Karen Berge,CN=admin,DC=corp,DC=Fabrikam,DC=COM
 ```
 
-* 保留字符  
+* 保留字符
 如果确实需要在DN中使用保留字符，则需要使用反斜杠进行转义。
 
 保留字符 | 描述                       | 十六进制值
 --------|---------------------------|---------
-        | 字符串开头的空格、'#'       | 
-        | 字符串结尾的空格            | 
+        | 字符串开头的空格、'#'       |
+        | 字符串结尾的空格            |
 ,       | 逗号                       | 0x2C
 +       | 加号                       | 0x2B
 "       | 双引号                     | 0x22
@@ -53,7 +53,7 @@ LDAP://HostName[:PortNumber][/DistinguishedName]
 ```
 LDAP://server01/CN=Jeff Smith,CN=users,DC=fabrikam,DC=com
 ```
- 
+
 # LDIF
 [LDIF](http://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format)（LDAP Data Interchange Format）是一种普通文本形式的数据交换格式。用以展示LDAP信息或表示更新请求。
 
@@ -82,15 +82,15 @@ Root # aka "base","suffix"
 * 不同的objectClass可能有不同的[可选、必选attribute](http://www.zytrax.com/books/ldap/ape/index.html#objectclasses)
 * objectClass可以继承
 
-# referral 
+# referral
 LDAP在设计时就支持代理部分内容的维护。LDAP没有固定如何如何处理referral。LDAP服务器通常会不会像DNS服务器那样自动查询referral节点上的内容，而是给客户端一个referral，让客户端去直连。但LDAP服务器的实现也可能提供chaining机制自动完成代理。
 
 # schema
 [schema](http://directory.apache.org/apacheds/basic-ug/2.3-introducing-schema.html)是一个打包单元。定义一下内容：
 * attributeType
-* objectClass 
+* objectClass
 * syntax
-* matchingRule 
+* matchingRule
 
 # LDAP 术语
 参考[这里](http://www.zytrax.com/books/ldap/apd/)

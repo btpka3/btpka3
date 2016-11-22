@@ -13,7 +13,7 @@ sudo apt-get update
 sudo apt-get purge nvidia*                    # 移除旧的的显卡驱动
 
 # 安装新的驱动。最好通过 start-> Preferences -> Aditional Drivers 选择安装
-sudo apt-get install nvidia-349   
+sudo apt-get install nvidia-349
 ```
 
 # 版本
@@ -45,7 +45,7 @@ aptitude versions <package>
 dpkg-query -L <package_name>
 
 # 列出所有已经安装的软件包
-dpkg-query -l 
+dpkg-query -l
 
 # 查找指定的文件属于哪一个package
 sudo apt-get install apt-file
@@ -59,11 +59,11 @@ sudo apt-get remove xxx
 sudo add-apt-repository --remove ppa:whatever/ppa
 
 
-apt-mark showhold 
+apt-mark showhold
 sudo apt-mark unhold <package name>
 ```
 
-## apt-get socks5 proxy 
+## apt-get socks5 proxy
 
 ```
 http://pkgs.org
@@ -115,7 +115,7 @@ sudo vim /etc/hosts
 sudo apt-get install ttf-wqy-microhei   #文泉驿-微米黑
 sudo apt-get install ttf-wqy-zenhei     #文泉驿-正黑
 sudo apt-get install xfonts-wqy         #文泉驿-点阵宋体
-sudo apt-get install fonts-wqy-microhei fonts-wqy-zenhei 
+sudo apt-get install fonts-wqy-microhei fonts-wqy-zenhei
 # sudo mkfontscale
 # sudo mkfontdir
 # sudo fc-cache -fv
@@ -133,7 +133,7 @@ im-config  # or im-switch
 
 
 # 以下三种输入法选择其一就可以了。
-sudo apt-get install fcitx-googlepinyin 
+sudo apt-get install fcitx-googlepinyin
 sudo apt-get install fcitx-sunpinyin
 # 搜狗输入法 for linux http://pinyin.sogou.com/linux/
 
@@ -159,7 +159,7 @@ fcitx-config-gtk
 
 ```bash
 sudo apt-cache search gedit
-sudo apt-get install gedit 
+sudo apt-get install gedit
 sudo apt-get install gedit-plugins
 
 # gmate https://github.com/gmate/gmate
@@ -181,7 +181,7 @@ Edit -> Preferences :
         -> 选中 'Highlight current line'
         -> 选中 'Highlight matching brackets'
     Editor
-        -> Tab width 设置为 4 
+        -> Tab width 设置为 4
         -> 选中 'Insert spaces instead tabs'
         -> 选中 'Enable automatic indentation'
         -> 取消选中 'Create a backup copy of files before saving'
@@ -194,7 +194,7 @@ Edit -> Preferences :
 
 ```
 # Atom by Github
-sudo add-apt-repository ppa:webupd8team/atom 
+sudo add-apt-repository ppa:webupd8team/atom
 sudo apt-get update
 sudo apt-get install atom
 
@@ -227,10 +227,10 @@ sudo apt-get install komodo-edit
 ```bash
 
 gnome-terminal : Edit : Profiles : New : xxx : 并设置默认为该 profile
-: General 
+: General
    : 取消选中 Use the system fixed width font，并选择使用 Monospace 14 / ubuntu mono 14
    : 选中 Use custom default terminal size ： 120x30
-: Title and Command 
+: Title and Command
    : 选中 Run command  as login shell
    // : 选中 Run a cunstom command instead of my shell，并输入 `env TERM=xterm-color /bin/bash`
 
@@ -350,7 +350,7 @@ sudo apt-get install    \
     libmpg123-0         \
     libasound2-plugins  \
     ttf-wqy-microhei
- 
+
 sudo apt-get install libgtk2.0-0:i386
 sudo apt-get install ia32-libs
 sudo apt-get install lib32ncurses5
@@ -405,7 +405,7 @@ $ sudo vi /etc/lightdm/lightdm.conf
 ```bash
 $ vi ~/.config/openbox/lubuntu-rc.xml
 
-    <keybind key="W-r">                
+    <keybind key="W-r">
       <action name="Execute">
         <!-- <command>lxsession-default launcher_manager</command> -->
         <command>lxpanelctl run</command>
@@ -429,29 +429,29 @@ $ vi ~/.config/openbox/lubuntu-rc.xml
     </keybind>
 
     <!-- 打开控制台-->
-    <keybind key="W-t">                                                         
+    <keybind key="W-t">
       <action name="Execute">
         <command>gnome-terminal</command>
       </action>
     </keybind>
- 
+
     <!-- Lubuntu 锁屏-->
     <keybind key="W-l">
       <action name="Execute">
-        <!-- <command>xscreensaver-command -lock</command>--> 
+        <!-- <command>xscreensaver-command -lock</command>-->
         <command>dm-tool lock</command>
       </action>
     </keybind>
 
-    <!-- 注释掉以下代码，防止意外logout-->  
-<!-- 
+    <!-- 注释掉以下代码，防止意外logout-->
+<!--
     <keybind key="C-A-Delete">
       <action name="Execute">
         <command>lxsession-default tasks</command>
       </action>
     </keybind>
 -->
-    <keybind key="W-t">                                                         
+    <keybind key="W-t">
       <action name="Execute">
         <command>gnome-terminal</command>
       </action>
@@ -493,7 +493,7 @@ echo "/usr/bin/numlockx on" | sudo tee -a /etc/xdg/lxsession/Lubuntu/autostart
 
 sudo vi /etc/X11/xinit/xinitrc
 # 追加一下几行
-/usr/bin/numlockx on 
+/usr/bin/numlockx on
 
 # ???
 sudo vi /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf
@@ -508,7 +508,7 @@ greeter-setup-script=/usr/bin/numlockx on
 
 
 ```bash
-sudo apt-get install flashplugin-installer 
+sudo apt-get install flashplugin-installer
 
 #sudo apt-get install pepperflashplugin-nonfree
 #sudo update-pepperflashplugin-nonfree --install
@@ -558,7 +558,7 @@ auto eth0
 iface     eth0 inet static
 address   192.168.115.222
 gateway   192.168.115.1
-netmask   255.255.255.0 
+netmask   255.255.255.0
 dns-nameservers 8.8.8.8 8.8.4.4
 # ??? DNS貌似也可以配置在 /etc/resolvconf/resolv.conf.d/base
 ```
@@ -591,7 +591,7 @@ cat /etc/resolv.conf
 
 #  补充
 # 可以检测dns有没有在没有记录的时候提供替代地址，比如 189so 网址导航服务
-dig @8.8.8.8 www.not-exist-domain.com 
+dig @8.8.8.8 www.not-exist-domain.com
 
 ```
 
@@ -605,11 +605,11 @@ dig @8.8.8.8 www.not-exist-domain.com
 ```bash
 # done.
 xrandr -q | grep " connected"
-xrandr --output LVDS1 --brightness 0.5 
+xrandr --output LVDS1 --brightness 0.5
 #xrandr --output VGA1 --brightness 0.9
-#xbacklight -inc XX 
+#xbacklight -inc XX
 
-sudo vi /etc/default/grub 
+sudo vi /etc/default/grub
 # GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
 # OK...............
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_osi="
@@ -619,7 +619,7 @@ sudo update-grub
 ```
 
 # recovery mode
-grub 编辑 
+grub 编辑
 
 ```
 linux ... ro recovery nomodeset
@@ -685,7 +685,7 @@ sudo vi /etc/nginx/sites-available/default
     location ~ \.php$ {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
     #   # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
-    #   
+    #
     #   # With php5-cgi alone:
     #   fastcgi_pass 127.0.0.1:9000;
     #   # With php5-fpm:

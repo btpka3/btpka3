@@ -22,7 +22,7 @@ public class Main {
         MongoCredential credential = MongoCredential.createCredential("username", "database", "password".toCharArray());
         ServerAddress serverAddress = new ServerAddress("localhost", 27017);
         MongoClient mongoClient = new MongoClient(serverAddress, Arrays.asList(credential));
-        
+
         DB db = mongoClient.getDB("xxx");
         DBCollection collection = db.getCollection("aaa");
 

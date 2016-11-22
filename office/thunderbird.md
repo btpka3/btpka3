@@ -14,22 +14,22 @@ sudo apt-get  install thunderbird
 ## 配置qq企业邮箱
 
 ```
-启动thunderbird后，点击右上角的 三条杠 的图标 
-    : Preferences 
-    : Account Settings 
-    : 点击左侧底部 Account Actions 
-        : Add Mail Account 
+启动thunderbird后，点击右上角的 三条杠 的图标
+    : Preferences
+    : Account Settings
+    : 点击左侧底部 Account Actions
+        : Add Mail Account
             : 按提示收入邮箱地址和密码，continue
-            : 点击 manual config 
-                : incoming 选择 IMAP协议，服务器输入 imap.exmail.qq.com ，SSL选择 "SSL/TLS"; 
-                : outgoing服务器收入 smtp.exmail.qq.com，SSL选择 "SSL/TLS"; 
+            : 点击 manual config
+                : incoming 选择 IMAP协议，服务器输入 imap.exmail.qq.com ，SSL选择 "SSL/TLS";
+                : outgoing服务器收入 smtp.exmail.qq.com，SSL选择 "SSL/TLS";
                 : Username的两个输入框均输入完整的邮箱地址（比如：zhangll@xxx.com）;
                 : 点击 Re-test确认配置
                 : done
     : 点击刚刚新建的邮箱账户
         : 右侧 Signature Text， 选中 Use Html。可以设置发送邮件的签名。
           可以通过Firefox登录qq企业邮箱，新建邮件，但无需发送，选中签名并右键 View Selection source 查看、复制、粘贴即可
-        : 选中 Copies & Folders 
+        : 选中 Copies & Folders
             : 选中 Place a copy in : Other "Sent Messages on zhangll@xxx.com"
               # (请忽略该设置) "Sent" Folder on Local Folders （否则由于qq企业邮箱的问题，远程没有Sent目录）
               # (请忽略该设置) 可选——选中 Bcc these email address: 收入自己的邮箱全路径。（这样，就可以保证自己所发送的邮件都有远程备份）
@@ -66,7 +66,7 @@ System->Preferences->Default Applications for LXSession : Autostart 标签页：
 有时候，某一类邮件过多时（比如来自禅道），想从所有邮件中挑选出来，单独存放到一个目录下时，可以使用。
 
 1. 新建目录
-   
+
     在ThunderBird左侧的邮箱账户上右键->New Folder->输入目录的名称，比如 "zentao"
 
 1. 创建过滤器并运行一次

@@ -6,7 +6,7 @@
 ## 总内存计算公式
 
 ```
-total_possible_used_memory 
+total_possible_used_memory
     = server_buffers + total_per_thread_buffers
     = server_buffers + per_thread_buffers * max_connections
     =   (     tmp_table_size                    # (16M)临时表在内存中的大小。影响 group by 性能
@@ -15,7 +15,7 @@ total_possible_used_memory
             + innodb_buffer_pool_size           # (128M)InnoDB : 数据和索引缓存大小
             + innodb_additional_mem_pool_size   # (8M)InnoDB : 用于存储数据字典和内部结构的内存大小
             + innodb_log_buffer_size            # (8M)InnoDB : 用于把二进制日志写入磁盘的内存大小
-        ) + ( 
+        ) + (
               sort_buffer_size                  # (256K)排序时的缓存大小，影响 order by 性能
             + read_rnd_buffer_size              # (256K)无法完成内存排序时，会通过临时文件排序，设置读取排序后的row IDs的缓存大小，order by 性能
             + read_buffer_size                  # (128K)顺序读取表所有记录时的缓存大小
@@ -36,7 +36,7 @@ select  (
                 + @@innodb_buffer_pool_size
                 + @@innodb_additional_mem_pool_size
                 + @@innodb_log_buffer_size
-            ) + ( 
+            ) + (
                   @@sort_buffer_size
                 + @@read_rnd_buffer_size
                 + @@read_buffer_size
@@ -79,7 +79,7 @@ performance_schema = 1                      # 启用 performance_schema
 sort_buffer_size = 2M                       # 排序时的缓存大小，影响 order by 性能
 read_rnd_buffer_size = 2M                   # 无法完成内存排序时，会通过临时文件排序，设置读取排序后的row IDs的缓存大小，order by 性能
 read_buffer_size = 2M                       # 顺序读取表所有记录时的缓存大小
-thread_cache_size = 24                      # 
+thread_cache_size = 24                      #
 join_buffer_size = 4M                       # 记录集关联时的缓存大小
 
 tmp_table_size = 32M                        # 临时表在内存中的大小。影响 group by 性能
@@ -107,7 +107,7 @@ character-set-client-handshake = TRUE       # 如果客户端有设置字符集�
 general-log = 0                             # 不记录普通日志
 log-error = /var/log/mysql/error.log        # 错误日志
 slow-query-log = 1                          # 记录慢查询
-slow_query_log_file = /var/run/mysqld/mysqld-slow.log   # 慢查询日志 
+slow_query_log_file = /var/run/mysqld/mysqld-slow.log   # 慢查询日志
 long_query_time = 3                         # 执行时间超过该时间的查询都是慢查询。单位：秒
 
 # MyISAM
@@ -115,8 +115,8 @@ key_buffer_size = 2G                        # MyISAM : 索引缓存大小
 myisam_sort_buffer_size = 128M              # MyISAM : 修改表、或创建索引时的缓存大小
 myisam-recover-options = BACKUP
 
-# InnoDB  
-innodb_file_format = barracuda              
+# InnoDB
+innodb_file_format = barracuda
 innodb_compression_level = 6                ##
 
 innodb_buffer_pool_size = 5G                # InnoDB : 数据和索引缓存大小
@@ -180,12 +180,12 @@ mysqld --no-defaults --verbose --help > my.default.cnf
 mysqld --verbose --help > my.cur.cnf
 
 # 3. 差分结果并做笔记
-diff my.default.cnf my.cur.cnf 
+diff my.default.cnf my.cur.cnf
 vi -d my.default.cnf my.cur.cnf
 ```
 
 ## 数据库环境
- 
+
 |          |test.86|prod.80|
 |----------|----|----|
 |CPU       |AMD Athlon(tm) II X2 245 Processor * 2 | Intel(R) Xeon(R) CPU E5-2620 v2 @ 2.10GHz * 24|
@@ -202,7 +202,7 @@ vi -d my.default.cnf my.cur.cnf
 |back-log                |80                                  |         |250|
 |character-set-server    |latin1                              |utf8mb4  |utf8mb4|
 |collation-server        |latin1_swedish_ci                   |utf8mb4_unicode_ci |utf8mb4_unicode_ci|
-|datadir                 |/var/lib/mysql/                     |          |/data0/mysql/| 
+|datadir                 |/var/lib/mysql/                     |          |/data0/mysql/|
 |expire-logs-days        |0                                   |3 |7|
 |general-log-file        |/var/lib/mysql/lizi80.log           ||/data0/mysql/lizi80.log|
 |host-cache-size         |279                                 ||653|
@@ -238,13 +238,13 @@ vi -d my.default.cnf my.cur.cnf
 |skip-name-resolve       |FALSE                               |TRUE|TRUE|
 |slow-query-log          |FALSE                               |TRUE|TRUE|
 |slow-query-log-file     |/var/lib/mysql/${hostname}-slow.log |/var/log/mysql/mysql-slow.log|/var/run/mysqld/mysqld-slow.log|
-|socket                  |/var/lib/mysql/mysql.sock           ||/data0/mysql/mysql.sock| 
+|socket                  |/var/lib/mysql/mysql.sock           ||/data0/mysql/mysql.sock|
 |sort-buffer-size        |256K                                |512K|2M|
 |sql-mode                |                                    |NO_ENGINE_SUBSTITUTION             |NO_ENGINE_SUBSTITUTION |
 |symbolic-links          |TRUE                                |FALSE|FALSE|
 |table-definition-cache  |1400                                ||2000|
-|table-cache             |400                                 |10240|-| 
-|table-open-cache        |400, 2000                           |10240|10240| 
+|table-cache             |400                                 |10240|-|
+|table-open-cache        |400, 2000                           |10240|10240|
 |thread-cache-size       |0, 9                                |8|24|
 |thread-stack            |256K                                |512K|512K|
 |tmp-table-size          |16M                                 ||32M|

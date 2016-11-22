@@ -9,7 +9,7 @@ daocloud.io
 ```
 docker pull registry.mirrors.aliyuncs.com/library/java
 ```
- 
+
 
 《[docker使用阿里云Docker镜像库加速](http://blog.csdn.net/bwlab/article/details/50542261)》
 
@@ -30,9 +30,9 @@ docker info                             # 查看系统(docker)层面信息
 
 # ----------------------- image
 docker search <image>                   # 在docker index中搜索image
-docker images                           # 查看本机images 
-docker images -a                        # 查看所有images 
-docker pull <image>                     # 从docker registry server 中下拉image 
+docker images                           # 查看本机images
+docker images -a                        # 查看所有images
+docker pull <image>                     # 从docker registry server 中下拉image
 docker push <image|repository>          # 推送一个image或repository到registry
 docker push <image|repository>:TAG      # 同上,但指定一个tag
 docker inspect <image|container>        # 查看image或container的底层信息
@@ -52,9 +52,9 @@ docker run -i -t \
         -h yourNewHostName \
         -p <host_port:contain_port> \
         -v /host/path:/container/path:ro \
-        <image> \ 
-        /bin/bash 
-# 也可以通过数据卷的方式,来复用之前容器中文件映射的配置。 
+        <image> \
+        /bin/bash
+# 也可以通过数据卷的方式,来复用之前容器中文件映射的配置。
 docker run -i -t \
         --volumes-from yourPreContainer \
         <image> \
@@ -62,11 +62,11 @@ docker run -i -t \
 
 # ----------------------- container
 docker create <image>
-docker start/stop/restart/kill <container>   
+docker start/stop/restart/kill <container>
                                         # 开启/停止/重启/Kill container
 docker start -i <container>             # 启动一个container并进入交互模式
 
-docker attach <container>               # attach一个运行中的container, 
+docker attach <container>               # attach一个运行中的container,
                                         # 只能看到正在运行的程序的输出,如果有输入的话,可以交互
 docker exec -it <container> bash        # 在一个container 中执行一个命令, 常常用来bash操作
 
@@ -77,7 +77,7 @@ docker stats                            # 对容器内存进行监控
 docker ps -l                            # 显示最后一次创建的container，包括未运行的
 docker ps -a                            # 显示所有的container，包括未运行的
 docker logs <container>                 # 查看container的日志，也就是执行命令的一些输出
-docker rm <container...>                # 删除一个或多个container 
+docker rm <container...>                # 删除一个或多个container
 docker rm `docker ps -a -q`             # 删除所有的container
 docker ps -a -q | xargs docker rm       # 删除所有的container
 
@@ -95,7 +95,7 @@ docker port <container> <container port>    # 查看本地哪个端口映射到c
 
 
 # ----------------------- network
-# 默认有 host和birdge 网络驱动, 
+# 默认有 host和birdge 网络驱动,
 docker network ls
 docker network inspect bridge
 ```
@@ -108,7 +108,7 @@ docker network inspect bridge
 1. 没有 docker0 bridge
 1. 无法ping到容器，消息也无法从容器返回到host
 1. 无法做到每个容器一个IP地址
- 
+
 
 
 
@@ -133,7 +133,7 @@ docker run -d -p 80:80 --name webserver nginx
 
 ```
 # 默认有三个网络
-docker network ls 
+docker network ls
 docker network inspect bridge
 ```
 
@@ -248,7 +248,7 @@ docker run -itd \
         -v /tmp/docker-test/conf.d:/etc/nginx/conf.d:ro \
         -v /tmp/docker-test/my-html:/usr/share/nginx/my-html \
         nginx
-        
+
 # 模拟修改docker内文件
 
 docker exec -it my-nginx bash
@@ -263,13 +263,13 @@ exit
 1. 本机浏览器访问 `http://localhost/` 可以访问:
 
     1. 并看到自定义的 nginx 主页: "hello docker"
-    1. 通过相应工具可以看到有名称为 "X-DOCKER-TEST" http reponse header. 
-1. 本机浏览器访问 `http://localhost/docs/` 可以访问 tomcat 的文档, 
+    1. 通过相应工具可以看到有名称为 "X-DOCKER-TEST" http reponse header.
+1. 本机浏览器访问 `http://localhost/docs/` 可以访问 tomcat 的文档,
     说明 nginx 反向代理 tomcat 成功。
-1. 
+1.
 
 ### 附件: 文件内容
- 
+
 * index.html
 
     ```
@@ -281,31 +281,31 @@ exit
     ```groovy
     user  nginx;
     worker_processes  1;
-    
+
     error_log  /var/log/nginx/error.log warn;
     pid        /var/run/nginx.pid;
-    
+
     events {
         worker_connections  1024;
     }
-    
+
     http {
         include       /etc/nginx/mime.types;
         default_type  application/octet-stream;
-    
+
         log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
                           '$status $body_bytes_sent "$http_referer" '
                           '"$http_user_agent" "$http_x_forwarded_for"';
-    
+
         access_log  /var/log/nginx/access.log  main;
-    
+
         sendfile        on;
         #tcp_nopush     on;
-    
+
         keepalive_timeout  65;
-    
+
         #gzip  on;
-    
+
         include /etc/nginx/conf.d/*.conf;
         add_header              X-DOCKER-TEST   Hi~; # 追加内容
     }
@@ -318,18 +318,18 @@ exit
     server {
         listen       80;
         server_name  localhost;
-    
+
         location / {
             root   /usr/share/nginx/my-html;       # 修改内容
             index  index.html index.htm;
         }
-    
+
         error_page   500 502 503 504  /50x.html;
         location = /50x.html {
             root   /usr/share/nginx/html;
         }
-        
-        location ~ /docs { 
+
+        location ~ /docs {
             proxy_pass              http://192.168.0.40:8080;
             proxy_set_header        Host            $host;   # ???  $http_host;
             proxy_set_header        X-Real-IP       $remote_addr;
@@ -344,7 +344,7 @@ exit
 
 ### 如何设置共享目录?
 
-* 命令行: 需要VM已经停止。 
+* 命令行: 需要VM已经停止。
 
     ```
     VBoxManage sharedfolder add <machine name/id> --name <mount_name> \
@@ -358,15 +358,15 @@ exit
 * 《[Docker集群管理之Docker Machine](http://www.csdn.net/article/2015-08-11/2825438)》
 
 ```
-docker-machine create --driver virtualbox default 
+docker-machine create --driver virtualbox default
                                     # 新建一个 machine
 
-# 上述命令会下载 boot2docker.iso 并存放在 
+# 上述命令会下载 boot2docker.iso 并存放在
 # ??? : ~/.boot2docker/
 # ??? : ~/.docker/machine/cache/boot2docker.iso
 
 docker-machine rm default           # 删除一个 machine
- 
+
 docker-machine env default          # 打印要使用指定 machine 做为当前环境所需的命令
 eval $(docker-machine env node1)    # 使用指定 machine 做为当前环境
 docker-machine ls                   # 列出所创建的 machine, 加星号的是当前使用的环境
@@ -395,12 +395,12 @@ docker-machine config
 用以管理Docker集群. 将一群docker节点当做一个来操作。
 
 
- 
+
 
 ```
 # 使用阿里云的 docker 加速
- 
-docker-machine create -d virtualbox local       # 创建节点 local        
+
+docker-machine create -d virtualbox local       # 创建节点 local
 eval "$(docker-machine env local)"              # 使用节点 local
 docker run swarm create                         # 在 local 节点上运行 swarm, 并创建集群。
                                                 # 最后会打印集群 token : feb57580075676ccd7d17d0c5452e6be
@@ -420,8 +420,8 @@ docker-machine create \
         swarm-agent-00
 
 docker swarm init
- 
- 
+
+
 ---
 在host主机中(MacOS)里有 :
 vboxnet0 : 192.168.99.1/24
@@ -453,7 +453,7 @@ docker -H :4000 info        # Role: replica
 
 # @node0: 加入集群
 docker run -d swarm join --advertise=192.168.99.220:2375 consul://192.168.99.200:8500
-    
+
 # @node1: 加入集群
 docker run -d swarm join --advertise=192.168.99.221:2375 consul://192.168.99.200:8500
 
@@ -508,13 +508,13 @@ services:
 docker-machine create -d virtualbox \
   --virtualbox-memory "2500" \
   --virtualbox-disk-size "5000" node2
-  
+
 eval $(docker-machine env node1)
 
 docker run --rm -it \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --name ucp docker/ucp install -i \
-  --swarm-port 3376 
+  --swarm-port 3376
   --host-address $(docker-machine ip node1)
 
 # 创建节点2, 并加入先前安装的ucp。 注意:没有License的情况下,无法加入的。
@@ -526,9 +526,9 @@ docker run --rm -it \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --name ucp docker/ucp join -i \
   --host-address $(docker-machine ip node2)
-  
-# 最后提示访问的网址, 比如: 
-https://192.168.99.100:443 
+
+# 最后提示访问的网址, 比如:
+https://192.168.99.100:443
 ```
 
 ### DTR - Docker Trusted Registry

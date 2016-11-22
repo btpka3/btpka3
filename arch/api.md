@@ -6,7 +6,7 @@
 
 ## 认证
 OAuth
- 
+
 ## 防止 replay attack
 ## 保证数据完整性
 
@@ -18,7 +18,7 @@ OAuth
 ## 统计、监控
 
 ## 参考
-[github api](https://developer.github.com/v3) 
+[github api](https://developer.github.com/v3)
 
 
 

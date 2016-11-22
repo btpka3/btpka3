@@ -16,7 +16,7 @@
    nexus-webapp-context-path=/           # 默认值是 /nexus
    ```
 1. 将 nexus 作为 init.d 服务
-  
+
     ```
     cp ${NEXUS_HOME}/bin/nexus /etc/init.d/
     vi /etc/init.d/nexus
@@ -26,10 +26,10 @@
     ```bash
     # NEXUS_HOME=".."                   # 注释掉此行
     . /etc/profile.d/xxx.sh             # 在文件开头追加此行
-    RUN_AS_USER=nexus                   # 修改此值为最开始创建的用户   
+    RUN_AS_USER=nexus                   # 修改此值为最开始创建的用户
     ```
 1. 现在可以通过 `service nexus start` 启动了，访问URL为 `http://localhost:20010/`
-1. 为了使用自定义域名 `mvn.lizi.com` 访问，需要为Nginx增加以下配置项： 
+1. 为了使用自定义域名 `mvn.lizi.com` 访问，需要为Nginx增加以下配置项：
 
     ```
     upstream nexus {
@@ -41,14 +41,14 @@
       server_name mvn.lizi.com;
       server_tokens off;
       root /notExisted;
-      
+
       client_max_body_size 20m;
       ignore_invalid_headers off;
 
       access_log  /var/log/nginx/nexus_access.log;
       error_log   /var/log/nginx/nexus_error.log;
 
-      location / { 
+      location / {
             proxy_pass                  http://nexus;
             proxy_set_header            Host            $host;   # ???  $http_host;
             proxy_set_header            X-Real-IP       $remote_addr;
@@ -75,9 +75,9 @@
             选中  Force Base URL
 
      Administration -> Scheduled Tasks:
-        Add, 
+        Add,
             name = download-indexes-central
-            type = Download indexes, 
+            type = Download indexes,
             Repository/Group = Central (Repo)
             执行时间为每天凌晨1点
         同样添加 grails-plugins 每天凌晨1点下载索引

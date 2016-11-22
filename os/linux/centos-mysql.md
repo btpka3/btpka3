@@ -39,7 +39,7 @@ MySQL Daemon failed to start.
 Starting mysqld:                                           [FAILED]
 ```
 
-而 `/data0/mysql` 是数据目录的权限， `/data0/mysql/mysql.err` 是错误日志的绝对路径。 
+而 `/data0/mysql` 是数据目录的权限， `/data0/mysql/mysql.err` 是错误日志的绝对路径。
 
 查看数据目录的权限：
 
@@ -144,7 +144,7 @@ java.sql.SQLException: Incorrect string value: '\xF0\x9F\x98\x98' for column 'co
 查看编码
 
 ```sql
--- 检查服务器的版本 >=  5.5.3 
+-- 检查服务器的版本 >=  5.5.3
 status
 SHOW VARIABLES LIKE "%version%";
 
@@ -188,9 +188,9 @@ ALTER TABLE account_detail CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unic
 -- 查看索引列表
 show index from naladb.comment;
 -- 查看索引定义DDL
-mysqldump -d -u nalab2cdb -p mydb comment 
+mysqldump -d -u nalab2cdb -p mydb comment
 -- 重建索引（比如utf8mb4编码的varchar(255)是1020字节，用来建立索引会超过1000个字节）
-alter table comment drop key FK38A5EE5F330F7244; 
+alter table comment drop key FK38A5EE5F330F7244;
 alter table comment add key FK38A5EE5F330F7244 (user_id(250));
 ```
 
@@ -213,9 +213,9 @@ init_connect='SET NAMES utf8mb4'
 # 导出CSV文件
 
 ```
-select x, y, z from t order by x, y, z desc 
-into outfile '/tmp/xxx_20140903.csv' 
-FIELDS ENCLOSED BY '"' ESCAPED BY '"' TERMINATED BY ',' 
+select x, y, z from t order by x, y, z desc
+into outfile '/tmp/xxx_20140903.csv'
+FIELDS ENCLOSED BY '"' ESCAPED BY '"' TERMINATED BY ','
 
 # 注意：导出文件需要grant file 权限。
 ```
@@ -245,7 +245,7 @@ netstat -an | grep :3306 | wc -l
 
 ```bash
 # 备份整个数据库
-mysqldump -h 192.168.1.101 -d -u myUser -p mydb 
+mysqldump -h 192.168.1.101 -d -u myUser -p mydb
 
 # 单个表
 mysqldump -h 192.168.1.101 -d -u myUser -p mydb myTable
@@ -255,7 +255,7 @@ mysqldump -h 192.168.1.101 -d -u myUser -p mydb myTable
 
 ```bash
 # 备份整个数据库
-mysqldump -h 192.168.1.101 -u myUser -p --no-create-db --no-create-info --skip-triggers mydb 
+mysqldump -h 192.168.1.101 -u myUser -p --no-create-db --no-create-info --skip-triggers mydb
 
 # 单个表
 mysqldump -h 192.168.1.101 -u myUser -p --no-create-db --no-create-info --skip-triggers mydb myTable
@@ -274,13 +274,13 @@ mysqldump -h 192.168.1.101 -u myUser -p --no-create-db --no-create-info --skip-t
 SELECT TABLE_NAME, TABLE_ROWS FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'naladb' order by TABLE_ROWS desc;
 
 
-select 
-    TABLE_NAME, 
-    COLUMN_NAME, 
-    CONSTRAINT_NAME, 
-    REFERENCED_TABLE_NAME, 
-    REFERENCED_COLUMN_NAME 
-from 
+select
+    TABLE_NAME,
+    COLUMN_NAME,
+    CONSTRAINT_NAME,
+    REFERENCED_TABLE_NAME,
+    REFERENCED_COLUMN_NAME
+from
     INFORMATION_SCHEMA.KEY_COLUMN_USAGE
 where
   REFERENCED_TABLE_NAME = '<table>';

@@ -32,17 +32,17 @@
 * design patten summary
 * avoid JVM memory leak
 * SQL preformance
-* <del>AOP: singleton or prototype advice</del>  
+* <del>AOP: singleton or prototype advice</del>
    Srping `<aop:advisor/>`不支持设置scope，只能是Singleton。
 * Jsp Tag : output page scope var with custom var name.
-* Jetty Cluster 
+* Jetty Cluster
 * DDD: CQRS
 * MySql cluster
 * servlet 3.0 aysnc
 * Spring 4 WebSocket
 * Spring Remoting HttpInvoker
-* grails quartz plugin - study, add enable singleJob 
-* Central configuration 
+* grails quartz plugin - study, add enable singleJob
+* Central configuration
 * Apache Mahout 推荐引擎
 * [HMM - Hidden Markov model](http://en.wikipedia.org/wiki/Hidden_Markov_model)
 * [HBuilder](http://www.dcloud.io/)

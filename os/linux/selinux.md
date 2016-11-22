@@ -33,7 +33,7 @@ yum install policycoreutils-python
 
 ```bash
 # 持久设置，重启生效
-vi /etc/selinux/config 
+vi /etc/selinux/config
 
 # 临时启用，重启失效
 setenforce 1

@@ -1,13 +1,13 @@
 
 
 #swagger
- 
-[swagger](http://swagger.io) 定了一个类似 WSDL (描述 基于SOAP/XML格式的 
-WebService 语言)的API [描述语法](https://openapis.org), 但是其主要用来描述 RESTFul 风格的 API, 
+
+[swagger](http://swagger.io) 定了一个类似 WSDL (描述 基于SOAP/XML格式的
+WebService 语言)的API [描述语法](https://openapis.org), 但是其主要用来描述 RESTFul 风格的 API,
 响应通常是JSON,而非XML。如果请求是POST, 请求内容通常是是 `application/x-www-form-urlencode` 格式。
 
 而作为API实现者,通常只需要在代码仓库中按照格式编写一个API描述文档。
-比如 [YAML格式](http://petstore.swagger.io/v2/swagger.yaml) 
+比如 [YAML格式](http://petstore.swagger.io/v2/swagger.yaml)
 或 [JSON格式](http://petstore.swagger.io/v2/swagger.json)
 
 该API描述文档可以使用 swagger-editor 进行编辑和简单的测试。如果仅仅是查看,

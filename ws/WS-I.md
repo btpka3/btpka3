@@ -2,7 +2,7 @@
 C# 调用Java服务？
 1. Apache CXF 对Contract First 这种Web Service开发模式支持不够好，如果使用Code First，有诸多不便
 2. Spring WS 推荐使用Contract Fist（实际上应该是Data Contract First——即先编辑XSD文件，在根据XSD文件和类型的命名约定生成WSDL），但是经测试，如果没有牵涉到认证、加密的话，C#和Java是可以相互调用的，否则，还是有问题，尚未能找到相互调用的方法（各个WS实现对WI-Profile支持仍然不够一致哇~）
-3. 退而求其次，使用自定义数据格式和认证加密方式能否实现？ 
+3. 退而求其次，使用自定义数据格式和认证加密方式能否实现？
   a) 使用JSON作为通信的数据格式，技术调查已经OK，参考下面华丽的分割线下面的部分。
   b) 认证&&安全方案：使用单向HTTPS+HTTP Basic认证，技术已调查清楚。可以实现认证和一部分安全性。而且目前在项目中使用Spring-Security框架也支持HTTP Basic认证。
 
@@ -28,7 +28,7 @@ TODO：使用CAS？
       (TODO : 是否可以使用 CMD\> xsd /classes xxx.xsd )
       即可生成所需Model类
 2.2 Java端
-      运行命令 ： xjc xxx.xsd 
+      运行命令 ： xjc xxx.xsd
       该命令是JDK 1.6中自带就有的，或者使用 jaxb2-maven-plugin
       http://mojo.codehaus.org/jaxb2-maven-plugin/xjc-mojo.html
 
@@ -37,6 +37,6 @@ TODO：使用CAS？
       使用 System.Runtime.Serialization.Json.DataContractJsonSerializer
 3.2 Java端
       使用 Spring MVC +  Marshaller/Unmarshaller
-      
+
       System.Net.HttpWebRequest
 ```

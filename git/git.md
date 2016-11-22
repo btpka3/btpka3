@@ -20,13 +20,13 @@ git config --global credential.helper wincred
 # Linux
 git config --global credential.helper 'cache --timeout=3600'   # 保存在内存中
 # 保存在磁盘上, 默认查找 ~/.git-credentials  $XDG_CONFIG_HOME/git/credentials
-git config credential.helper 'store --file=<path>'             
+git config credential.helper 'store --file=<path>'
 ```
 # 配置
 
 ```bash
 # 用户级的配置文件路径
-~/.gitconfig 
+~/.gitconfig
 # 配置用户身份
 git config --global user.name "zhangll"
 git config --global user.email zhangll@lizi.com
@@ -240,7 +240,7 @@ git reset --hard <sha1-commit-id>
 
 # rebase
 假如有新修改提交到本地了。在push前进行pull的时候，
-git自动合并并创建了一个新的commit，其注释为 "Merge branch 'xxx' of git@xxxx/path/to/xxx.git into xxx"。此时，大家应当立即运行 
+git自动合并并创建了一个新的commit，其注释为 "Merge branch 'xxx' of git@xxxx/path/to/xxx.git into xxx"。此时，大家应当立即运行
 
 ```bash
 gitk  # 此时有比较复杂的路线图
@@ -279,7 +279,7 @@ git checkout <sha1-commit-id> path/to/file
 git ls-remote git@git.test.me:/path/to/git/repo
 git archive --remote=git@git.test.me:/path/to/git/repo refs/heads/test path/to/file  --format zip -o /tmp/a.zip
 cd /tmp/
-unzip /tmp/a.zip 
+unzip /tmp/a.zip
 cp path/to/file /path/to/dest
 ```
 
@@ -290,7 +290,7 @@ cp path/to/file /path/to/dest
 ssh git@git.test.me "cd /path/to/git/repo && git log -n 3 test -- path/to/file"
 git archive --remote=git@git.test.me:/path/to/git/repo d787416b0aec88747075ef0f5909bc4f863aa26e path/to/file  --format zip -o /tmp/a.zip
 cd /tmp/
-unzip /tmp/a.zip 
+unzip /tmp/a.zip
 cp path/to/file /path/to/dest
 ```
 
@@ -308,7 +308,7 @@ cp path/to/file /path/to/dest
 .classpath
 .settings/
 .project
-.idea/                                                                                                                  
+.idea/
 .DS_Store
 *.iml
 *.ipr
@@ -341,7 +341,7 @@ git commit -c ORIG_HEAD             # 使用原来的commit消息，并提交
 
 ## 本地已经commit，也已经push到远程，但其他开发人员尚未拉取
 ```bash
-git push -f                         # 本地修改之后，强制提交 
+git push -f                         # 本地修改之后，强制提交
 ```
 
 ## 本地已经commit，也已经push到远程，但其他开发人员已经拉取，且进行了多次提交

@@ -83,7 +83,7 @@ document.write(document.location.href.substring(document.location.href.indexOf("
 与前两种的区别是：前两种最终会将风险代码写在生成HTML中，而这一种是服务器端返回的HTML本身并不包含风险代码，但是其中的JavaScript脚本在动态修改DOM时，未对输出值做充分的安全检查。
 
 
-注入点 
+注入点
 
 1. 客户端：来自用户输入，却未作安全检查。
 
@@ -111,13 +111,13 @@ document.write(document.location.href.substring(document.location.href.indexOf("
 
 
 1. RULE #1 - 插入HTML内容时要先转义。HTML特殊字符转义有：
-    
+
     ```
      & --> &amp
-     < --> &lt; 
-     > --> &gt; 
-     " --> &quot; 
-     ' --> &#x27; 
+     < --> &lt;
+     > --> &gt;
+     " --> &quot;
+     ' --> &#x27;
      / --> &#x2F; 这里包含了斜杠，因为它在结束一个标签时有用
     ```
 

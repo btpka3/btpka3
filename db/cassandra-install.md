@@ -18,7 +18,7 @@ http://www.datastax.com/documentation/cassandra/2.1/cassandra/initialize/initial
 `vi /etc/yum.repos.d/datastax.repo`，内容如下：
 
 ```
-[datastax] 
+[datastax]
 name = DataStax Repo for Apache Cassandra
 baseurl = http://rpm.datastax.com/community
 enabled = 1
@@ -95,7 +95,7 @@ cql介绍请参考[这里](http://cassandra.apache.org/doc/cql3/CQL.html)
     ```yaml
     # 修改 authorizer ：  AllowAllAuthorizer -> CassandraAuthorizer
     authorizer: CassandraAuthorizer
-    
+
     # 修改 permissions_validity_in_ms 的值为一个合理值
     ```
 1. 增加 system_auth keyspace的复制因子（默认为1）
@@ -103,4 +103,3 @@ cql介绍请参考[这里](http://cassandra.apache.org/doc/cql3/CQL.html)
 
 
 
- 

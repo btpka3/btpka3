@@ -35,7 +35,7 @@ controller: ['$http', "$httpParamSerializerJQLike", function ($http, $stateParam
         },
         transformRequest: $httpParamSerializerJQLike
     }).then(function (resp) {
-        // 
+        //
     });
 }]
 ```

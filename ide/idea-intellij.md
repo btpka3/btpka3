@@ -1,7 +1,7 @@
 # 15
 
 ```
->> License server 
+>> License server
 http://idea.lanyus.com
 或者
 http://www.iteblog.com/idea/key.php
@@ -48,13 +48,13 @@ sudo apt-get install ttf-wqy-microhei
 vi $IDEA_HOME/bin/idea64.vmoptions
 -Dawt.useSystemAAFontSettings=lcd
 -Dsun.java2d.xrender=true
--Dswing.aatext=true 
+-Dswing.aatext=true
 -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel
 
 #
 
 Settings -> Appearance -> Override default fonts by ... : WenQuanYi Micro Hei Mono 13px
-Settings -> Editor 
+Settings -> Editor
     -> Use anti-aliased font
     -> Colors & Fonts -> Font.  : WenQuanYi Micro Hei Mono 14px
 
@@ -68,17 +68,17 @@ or  YaHei Consolas Hybrid 15px
 
 # 常用设置
 
-从菜单栏打开 File -> Settings : 
+从菜单栏打开 File -> Settings :
 
 ```
 Appearance && Behavior
     Appearance :
         1. Theme 下拉选择为 "Darcula"
-    Keymap : 
+    Keymap :
         1. Keymaps 下拉选择为 "Eclipse"
 Editor :
     General :
-        Appearance : 
+        Appearance :
             1. 选中 "Show line numbers"
             1. 选中 "Show whitespaces"
 Keymap : 复制一份 Eclipse 版的快捷键配置，搜索 close 并
@@ -96,17 +96,17 @@ Keymap : 复制一份 Eclipse 版的快捷键配置，搜索 close 并
 在nginx/tengin 中加入如下配置文件
 
 ```
-server {                                                                                                                
+server {
     listen 192.168.0.60:63342;
     server_name 192.168.0.60;
     server_tokens off;
     root /notExisted;
-    location / { 
+    location / {
         proxy_pass              http://localhost:63342;
         proxy_set_header        Host            $host;
         proxy_set_header        X-Real-IP       $remote_addr;
         proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header        X-Forwarded-Proto $scheme;
-    }   
+    }
 }
 ```

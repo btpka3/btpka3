@@ -14,17 +14,17 @@
 1. 长文本字段
 1. 增删操作频繁的表，应尽量减少索引数量
 
-索引失效的操作 ： 
+索引失效的操作 ：
 
-1. NOT, 
+1. NOT,
 1. !=
 1. IS NULL
 1. IS NOT NULL
 1. 非前匹配的LIKE
 
 
-? mysql查询每次只能使用一个索引  
-复合索引：  建立(A,B,C)复合索引，相当于同时创建了(A)、(A,B)、(A,B,C)三个索引  
+? mysql查询每次只能使用一个索引
+复合索引：  建立(A,B,C)复合索引，相当于同时创建了(A)、(A,B)、(A,B,C)三个索引
 索引不会包含有NULL值的列,  因此：复合索引的每一列应均不为null
 
 ## preformace
@@ -68,7 +68,7 @@ A1:
 ```sql
 select t1.name
   from (select name, sum(score) as totalScore from a group by name) as t1
- where t1.totalScore = (select max(t2.totalScore) from 
+ where t1.totalScore = (select max(t2.totalScore) from
        (select name, sum(score) as totalScore from a group by name) as t2)
 ```
 A2:
@@ -83,15 +83,15 @@ A2:
 ```sql
 
 CREATE TABLE A (
-   id_a varchar(10) PRIMARY KEY, 
-   col1 varchar(10), 
+   id_a varchar(10) PRIMARY KEY,
+   col1 varchar(10),
    col2 varchar(10)
-) 
+)
 CREATE TABLE B (
-   id_b varchar(10) PRIMARY KEY, 
-   col1 varchar(10), 
+   id_b varchar(10) PRIMARY KEY,
+   col1 varchar(10),
    col2 varchar(10)
-) 
+)
 
 insert into a values ('a1', '1', '1');
 insert into a values ('a2', '2', '2');
@@ -107,7 +107,7 @@ select b.id_b AS id, b.col1 AS col1, b.col2 AS col2, 'B' AS src from B b where n
 
 -- result
 /*
- id | col1 | col2 | src 
+ id | col1 | col2 | src
 ----+------+------+-----
  b3 | 3    | 3    | B
  a1 | 1    | 1    | A

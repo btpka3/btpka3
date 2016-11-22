@@ -23,7 +23,7 @@ License     : GPLv2
 Description : Git is a fast, scalable, distributed revision control system with an
             : unusually rich command set that provides both high-level operations
             : and full access to internals.
-            : 
+            :
             : The git rpm installs the core tools with minimal dependencies.  To
             : install all git packages, including tools for integrating with other
             : SCMs, install the git-all meta-package.
@@ -53,7 +53,7 @@ yum install docbook2X                                      # 需要 EPEL
 ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
 
 yum install libicu-devel
-yum install patch 
+yum install patch
 yum install gcc-c++
 yum install cmake
 yum install postgresql94-devel
@@ -92,7 +92,7 @@ rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 rpm -qa gpg*
 gpg-pubkey-0608b895-4bd22942
 
-[root@localhost ~]# rpm -ivh http://mirrors.yun-idc.com/epel/6/i386/epel-release-6-8.noarch.rpm 
+[root@localhost ~]# rpm -ivh http://mirrors.yun-idc.com/epel/6/i386/epel-release-6-8.noarch.rpm
 ```
 ## add PUIAS Computational repository
 
@@ -115,13 +115,13 @@ yum repolist
 ```bash
 yum -y update
 yum -y groupinstall 'Development Tools'
-yum -y install readline readline-devel ncurses-devel gdbm-devel glibc-devel tcl-devel openssl-devel curl-devel expat-devel db4-devel byacc sqlite-devel libyaml libyaml-devel libffi libffi-devel libxml2 libxml2-devel libxslt libxslt-devel libicu libicu-devel system-config-firewall-tui redis sudo wget crontabs logwatch logrotate perl-Time-HiRes 
+yum -y install readline readline-devel ncurses-devel gdbm-devel glibc-devel tcl-devel openssl-devel curl-devel expat-devel db4-devel byacc sqlite-devel libyaml libyaml-devel libffi libffi-devel libxml2 libxml2-devel libxslt libxslt-devel libicu libicu-devel system-config-firewall-tui redis sudo wget crontabs logwatch logrotate perl-Time-HiRes
 
 # 如果通过yum安装ruby的话
 yum install ruby-devel
 
 yum install nodejs
-``` 
+```
 
 ## 使用源码安装ruby
 
@@ -139,7 +139,7 @@ make install                                          # 安装，默认安装到
 ruby --version
 
 gem install bundler --no-ri --no-rdoc    # 安装 bundler, 可以先参考后续使用Taobao的gem源
-gem install charlock_holmes -v '0.6.9.4'     # root 安装 
+gem install charlock_holmes -v '0.6.9.4'     # root 安装
 gem install rugged -v '0.21.2'                      # root 安装
 ```
 
@@ -238,7 +238,7 @@ vi /etc/init.d/gitlab
 PATH_PATCH="PATH=$(su $USER -s /bin/bash -l -c "cd \"$APP_PATH\"; echo \"\$PATH\"") && export PATH && "
 
 ```
- 
+
 
 ## LDAP login
 
@@ -349,7 +349,7 @@ git branch -a               # 列出所有的branch，带*号的是工作环境�
 参考[这里](https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/update/upgrader.md)
 
 备份
-  
+
 ```
 su - git
 cd /home/git/gitlab
@@ -365,17 +365,17 @@ cp Gemfile /tmp/
 vi /home/git/gitlab/lib/gitlab/upgrader.rb  修改当前版的 更新脚本代码
 
     def update_commands
-      {   
+      {
         "Stash changed files" => %W(git stash),
         "Get latest code" => %W(git fetch),
         "Switch to new version" => %W(git checkout v#{latest_version}),
-        "using taobao ruby soruce " => %W(cp /tmp/Gemfile .),   # 插入该行，在获取最新代码后，替换掉Gemfile，使用taobao的ruby源。 
+        "using taobao ruby soruce " => %W(cp /tmp/Gemfile .),   # 插入该行，在获取最新代码后，替换掉Gemfile，使用taobao的ruby源。
         "Install gems" => %W(bundle),
         "Migrate DB" => %W(bundle exec rake db:migrate),
         "Recompile assets" => %W(bundle exec rake assets:clean assets:precompile),
         "Clear cache" => %W(bundle exec rake cache:clear)
-      }   
-    end 
+      }
+    end
 ```
 
 # 修改css
@@ -409,7 +409,7 @@ vi /home/git/gitlab/app/assets/stylesheets/generic/forms.scss  # Edit in fullscr
       max-width: 90%;                      -- 增加该行
       margin: 0 auto;
       border: 1px solid grey;              -- 增加该行
-    }   
+    }
   }
 
 sudo -u git -H bundle exec rake assets:clean assets:precompile cache:clear RAILS_ENV=production
@@ -446,7 +446,7 @@ cp config/initializers/smtp_settings.rb.sample config/initializers/smtp_settings
 vi config/initializers/smtp_settings.rb
 ```
 
- 
+
 # 强制 rebase
 参考:
 
@@ -475,7 +475,7 @@ vi config/initializers/smtp_settings.rb
     $old_value = ARGV[1]
     $new_value = ARGV[2]
     $repo_path = Dir.pwd
-     
+
     def checkParentCount
         lastCommitParentCount = `git cat-file commit #{$new_value} |sed -n -r -e '/^parent [a-z0-9]{40}$/p'|wc -l`
         if lastCommitParentCount.to_i > 1

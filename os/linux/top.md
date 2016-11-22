@@ -2,7 +2,7 @@
 
 linux 监控命令
 
-# CPU 
+# CPU
 
 * dstat
 * top

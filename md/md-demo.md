@@ -24,7 +24,7 @@
 ## 方式二
 输入代码：
 
-    
+
     ```
     代码块前需要空一个空行
     如果要嵌套到List中，代码块内容需要都缩进4*N个空格。
@@ -51,10 +51,10 @@ no indent code block
 # echo hello world
 需要将 ```bash  和 ``` 缩进4个空格。
     ```
-    indent * 1 paragraph (ending with two space)  
+    indent * 1 paragraph (ending with two space)
     indent * 1 paragraph
     1. level2-1
-        indent * 1 paragraph (ending with two space)  
+        indent * 1 paragraph (ending with two space)
         indent * 1 paragraph
 
         ```bash

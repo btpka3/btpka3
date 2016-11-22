@@ -27,10 +27,10 @@
         access_log  logs/ddns.kingsilk.xyz.access.log;
         error_log   logs/ddns.kingsilk.xyz.error.log;
 
-        location ~ /qh/mall/local/ { 
+        location ~ /qh/mall/local/ {
             set $p 9999;
             if ($host ~ "p(\d*)\.ddns\.kingsilk\.xyz" ) {
-                set $p $1; 
+                set $p $1;
             }
             proxy_pass              http://kingsilk.imwork.net:$p;
             proxy_set_header        Host            $host;   # ???  $http_host;
@@ -40,7 +40,7 @@
         }
     }
     ```
- 
+
 5. 在你的主机上启动 你的服务，确保 `http://localhost:16030` 访问没问题
 6. 测试 `http://kingsilk.imwork.net:16030` 访问没有问题
 7. 测试 `http://p16030.ddns.kingsilk.xyz` 访问没有问题
@@ -58,7 +58,7 @@
         def index() {
             render "OK " + System.currentTimeMillis()
         }
-     
+
         def appID = "xxxxx"
         def appsecret = "xxxxxxxx"
         def token = "yyyyy"

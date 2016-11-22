@@ -29,7 +29,7 @@ xxxProj/.jshintignore                               # jsHint忽略路径的配�
 xxxProj/.jshintrc                                   # jsHint基础配置
 ```
 
-### xxxProj/.jshintrc 
+### xxxProj/.jshintrc
 
 ```json
 {

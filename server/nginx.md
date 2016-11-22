@@ -9,7 +9,7 @@ docker run -d --name my-nginx nginx:1.10.2
 docker cp my-nginx:/etc/nginx/nginx.conf ~/tmp/my-nginx/conf/nginx.conf
 docker cp my-nginx:/etc/nginx/conf.d ~/tmp/my-nginx/conf/
 docker stop my-nginx
-docker rm my-nginx 
+docker rm my-nginx
 
 docker run \
     --name my-nginx \
@@ -35,7 +35,7 @@ pam : see [here](http://www.doublecloud.org/2014/01/nginx-with-pam-authenticatio
 
 ```
 worker_processes      auto;
-worker_rlimit_nofile  100000; 
+worker_rlimit_nofile  100000;
 
 
 
@@ -99,37 +99,37 @@ http {
 [root@locahost ~]# /usr/sbin/nginx -h
 [root@locahost ~]# /usr/sbin/nginx -V
 nginx version: nginx/1.4.7
-built by gcc 4.4.7 20120313 (Red Hat 4.4.7-3) (GCC) 
+built by gcc 4.4.7 20120313 (Red Hat 4.4.7-3) (GCC)
 TLS SNI support enabled
-configure arguments: 
-    --prefix=/etc/nginx 
-    --sbin-path=/usr/sbin/nginx 
-    --conf-path=/etc/nginx/nginx.conf 
-    --error-log-path=/var/log/nginx/error.log 
-    --http-log-path=/var/log/nginx/access.log 
-    --pid-path=/var/run/nginx.pid 
-    --lock-path=/var/run/nginx.lock 
-    --http-client-body-temp-path=/var/cache/nginx/client_temp 
-    --http-proxy-temp-path=/var/cache/nginx/proxy_temp 
-    --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp 
-    --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp 
-    --http-scgi-temp-path=/var/cache/nginx/scgi_temp 
-    --user=nginx 
-    --group=nginx 
-    --with-http_ssl_module 
-    --with-http_realip_module 
-    --with-http_addition_module 
-    --with-http_sub_module 
-    --with-http_dav_module 
-    --with-http_flv_module 
-    --with-http_mp4_module 
-    --with-http_gunzip_module 
-    --with-http_gzip_static_module 
-    --with-http_random_index_module 
-    --with-http_secure_link_module 
-    --with-http_stub_status_module 
-    --with-mail --with-mail_ssl_module 
-    --with-file-aio --with-ipv6 
+configure arguments:
+    --prefix=/etc/nginx
+    --sbin-path=/usr/sbin/nginx
+    --conf-path=/etc/nginx/nginx.conf
+    --error-log-path=/var/log/nginx/error.log
+    --http-log-path=/var/log/nginx/access.log
+    --pid-path=/var/run/nginx.pid
+    --lock-path=/var/run/nginx.lock
+    --http-client-body-temp-path=/var/cache/nginx/client_temp
+    --http-proxy-temp-path=/var/cache/nginx/proxy_temp
+    --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp
+    --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp
+    --http-scgi-temp-path=/var/cache/nginx/scgi_temp
+    --user=nginx
+    --group=nginx
+    --with-http_ssl_module
+    --with-http_realip_module
+    --with-http_addition_module
+    --with-http_sub_module
+    --with-http_dav_module
+    --with-http_flv_module
+    --with-http_mp4_module
+    --with-http_gunzip_module
+    --with-http_gzip_static_module
+    --with-http_random_index_module
+    --with-http_secure_link_module
+    --with-http_stub_status_module
+    --with-mail --with-mail_ssl_module
+    --with-file-aio --with-ipv6
     --with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic'
 
 ```
@@ -137,9 +137,9 @@ configure arguments:
 
 
 ## stickiness 反向代理
-[ngx_http_upstream_module](http://nginx.org/en/docs/http/ngx_http_upstream_module.html)  
-3rd [nginx-upstream-jvm-route](https://code.google.com/p/nginx-upstream-jvm-route/)  
-3rd [nginx-sticky-module](https://code.google.com/p/nginx-sticky-module)  
+[ngx_http_upstream_module](http://nginx.org/en/docs/http/ngx_http_upstream_module.html)
+3rd [nginx-upstream-jvm-route](https://code.google.com/p/nginx-upstream-jvm-route/)
+3rd [nginx-sticky-module](https://code.google.com/p/nginx-sticky-module)
 
 
 关于反向代理 Jetty 的 [X-Forwarded-For](http://eclipse.org/jetty/documentation/current/configuring-connectors.html#jetty-connectors-http-configuration) 的配置。
@@ -184,9 +184,9 @@ strings /lib64/libssl.so.10 | grep "^OpenSSL "
 ```
 
 ### 被代理的服务器健康检测
-[proxy_next_upstream](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html)  
-[fastcgi_next_upstream](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_next_upstream)  
-[healthcheck_nginx_upstreams](https://github.com/cep21/healthcheck_nginx_upstreams)  
+[proxy_next_upstream](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html)
+[fastcgi_next_upstream](http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_next_upstream)
+[healthcheck_nginx_upstreams](https://github.com/cep21/healthcheck_nginx_upstreams)
 3rd [nginx_upstream_check_module](https://github.com/yaoweibin/nginx_upstream_check_module)
 
 
@@ -223,7 +223,7 @@ server {
 2. 安装
 
     ```bash
-    [root@locahost ~]# yum list nginx 
+    [root@locahost ~]# yum list nginx
     [root@locahost ~]# yum install nginx
     [root@locahost ~]# chkconfig --list nginx
     [root@locahost ~]# chkconfig --level 345 nginx on
@@ -315,7 +315,7 @@ server {
           log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
                                  '$status $body_bytes_sent "$http_referer" '
                              '"$http_user_agent" "$http_x_forwarded_for" $upstream_addr';           # 追加 $upstream_addr 以方便追踪转给了哪一个后台服务。
-                                                                                                                                                                                          
+
 
     ```
 1.  为sso配置。该示例与[tomcat 虚拟主机](centos-tomcat)的配置相呼应
@@ -329,25 +329,25 @@ server {
         server                          10.1.10.213:8080  weight=1 max_fails=1 fail_timeout=60s;
         server                          10.1.10.214:8080  weight=1 max_fails=1 fail_timeout=60s;
     }
-    
+
     server {
-        listen                          80; 
+        listen                          80;
         server_name                     ssolocal.eyar.com;
         access_log                      /data/outputs/log/nginx/sso.access.log     main;
         error_log                       /data/outputs/log/nginx/sso.error.log      notice;
-    
+
         location /admin {
             proxy_next_upstream         http_500 http_502 http_503 http_504 timeout error invalid_header;
             proxy_pass                  http://sso;
             proxy_set_header            Host ssolocal.eyar.com;           #如果tomcat使用虚拟主机的话，则需要加上该行。
-        }   
-    
-        location / { 
+        }
+
+        location / {
             proxy_next_upstream         http_500 http_502 http_503 http_504 timeout error invalid_header;
             proxy_pass                  http://sso;
-            proxy_set_header            Host ssolocal.eyar.com;                                                                                                                                                        
-        }   
-    
+            proxy_set_header            Host ssolocal.eyar.com;
+        }
+
     }
     ```
 
@@ -376,7 +376,7 @@ server{
 
     server_name kingsilk.net;
     ssl_certificate     conf.d/kingsilk.net_213467004770525.pem;
-    ssl_certificate_key conf.d/kingsilk.net_213467004770525.key;   
+    ssl_certificate_key conf.d/kingsilk.net_213467004770525.key;
 ```
 
 # Health Check
@@ -389,7 +389,7 @@ server{
 ### proxy_pass 带路径
 
 ```groovy
-location /aaa/bbb { 
+location /aaa/bbb {
     proxy_pass              http://qh-wap/xxx/yyy/;
     proxy_set_header        Host            $host;
     proxy_set_header        X-Real-IP       $remote_addr;
@@ -403,7 +403,7 @@ location /aaa/bbb {
 ### proxy_pass 不带路径
 
 ```groovy
-location /xxx/yyy { 
+location /xxx/yyy {
     proxy_pass              http://qh-wap;
     proxy_set_header        Host            $host;
     proxy_set_header        X-Real-IP       $remote_addr;
@@ -419,7 +419,7 @@ location /xxx/yyy {
 ```
 location ~ ^/api(.*)$ {
     proxy_pass                  http://wap-zll$1;
-}  
+}
 ```
 效果：访问 `/api/test/index` 实际是代理访问了 `/test/index`。
 但是，注意：此时返回的HTML的URL路径普遍都有问题。
@@ -427,7 +427,7 @@ location ~ ^/api(.*)$ {
 
 ## 子域名跳转
  使得外部访问 http://www.test.me/ask/xxx 时都跳转到 http://ask.test.me/xxx 。
- 但是内部app都只有一个，故内部访问 http://ask.test.me/xxx 时，还是在访问 http://www.test.me/ask/xxx 
+ 但是内部app都只有一个，故内部访问 http://ask.test.me/xxx 时，还是在访问 http://www.test.me/ask/xxx
 
 ```groovy
 upstream myTomcat {
@@ -443,9 +443,9 @@ server {
 
     if ($http_host =  www.test.me) {
         rewrite ^/ask(.*)$ http://ask.test.me$1 permanent;
-    }   
+    }
 
-    location / { 
+    location / {
 
         if ($http_host =  ask.test.me) {
             rewrite ^(.*)$ /ask$1 break;
@@ -453,7 +453,7 @@ server {
         proxy_next_upstream http_500 http_502 http_503 http_504 timeout error invalid_header;
         proxy_pass                http://myTomcat;
         proxy_set_header  X-Real-IP  $remote_addr;
-    }   
+    }
 }
 ```
 
@@ -466,7 +466,7 @@ server {
 server {
   listen *:80;
   server_name wiki.kingsilk.xyz;
-  rewrite ^(.*)$  http://git.kingsilk.xyz$1 permanent;                                                                  
+  rewrite ^(.*)$  http://git.kingsilk.xyz$1 permanent;
 }
 ```
 
@@ -477,7 +477,7 @@ server {
   location = / {
     add_header Cache-Control no-cache;
     return 302 $scheme://kingsilk.net/qh/mall/;
-  } 
+  }
 }
 ```
 
@@ -507,9 +507,9 @@ service nginx reload
 
 # 测试
 vi info.php
-<?php  
-phpinfo();  
-?> 
+<?php
+phpinfo();
+?>
 ```
 
 修改/etc/php.ini
@@ -565,22 +565,22 @@ stream {
 ```
 upstream mqtt_1883 {
     server mq:1883;
-}   
+}
 upstream mqtts_8883 {
     server mq:8883;
 }
 
-# 完全 tcp 转发   
+# 完全 tcp 转发
 server {
     listen 11883;
     proxy_connect_timeout       20s;
-    proxy_timeout               5m; 
+    proxy_timeout               5m;
     proxy_pass                  mqtt_1883;
 }
 server {
     listen 18883;
     proxy_connect_timeout       20s;
-    proxy_timeout               5m; 
+    proxy_timeout               5m;
     proxy_pass                  mqtts_8883;
 }
 
@@ -594,7 +594,7 @@ server {
     #ssl_ciphers                HIGH:!aNULL:!MD5;
     #ssl_prefer_server_ciphers  on;
     proxy_connect_timeout       20s;
-    proxy_timeout               5m; 
+    proxy_timeout               5m;
     proxy_pass                  mqtt_1883;
 }
 ```

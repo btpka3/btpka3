@@ -80,15 +80,15 @@ drop function has_trade_lastyear;
 delimiter //
 CREATE FUNCTION has_trade_lastyear(
     userId varchar(255)
-) RETURNS BOOLEAN 
+) RETURNS BOOLEAN
  READS SQL DATA
 SQL SECURITY DEFINER
 BEGIN
     DECLARE e boolean;
-    select count(*) from naladb.trade  
-     where buyer_id = userId 
-       and date_created between '2012-10-01' and '2014-03-01' 
-       and total_price > 14000 and  status IN (4,14,15) 
+    select count(*) from naladb.trade
+     where buyer_id = userId
+       and date_created between '2012-10-01' and '2014-03-01'
+       and total_price > 14000 and  status IN (4,14,15)
       INTO e;
     return (e>0);
 END//
@@ -184,7 +184,7 @@ ALTER TABLE t ENGINE = MYISAM;
     ```
 
 1. 在session2中查看MASTER的状态，并记录 `File` 和 `Position` 的值
- 
+
     ```bash
     mysql -p -e "SHOW MASTER STATUS" > start_status.txt
     ```
@@ -206,7 +206,7 @@ ALTER TABLE t ENGINE = MYISAM;
 
     ```bash
     tar cf /tmp/db.tar ./data
-    # date ; tar cf mysql.tar ./mysql ; date 
+    # date ; tar cf mysql.tar ./mysql ; date
     ```
 
 1. 配合相应的时机，在session1中释放所有读锁
@@ -223,7 +223,7 @@ ALTER TABLE t ENGINE = MYISAM;
 
 
 1. master配置 : `vi my.cnf`，如果尚未配置，则修改后需要重启。
-    
+
     ```groovy
     [mysqld]
     log-bin=mysql-bin
@@ -237,9 +237,9 @@ ALTER TABLE t ENGINE = MYISAM;
     [mysqld]
     server-id=2
     relay-log=relay-log
-    replicate-do-db=db_name                  # 可选 
+    replicate-do-db=db_name                  # 可选
     replicate-ignore-db=db_name              # 可选
-    replicate-do-table=db_name.tbl_name      # 可选 
+    replicate-do-table=db_name.tbl_name      # 可选
     replicate-ignore-table=db_name.tbl_name  # 可选
     # 注意：master-xxx参数从5.5开始被移除了，从5.6开始如果还有该参数，会启动报错。这些参数只能通过 CHANGE MASTER TO 命令完成。
     ```
@@ -396,7 +396,7 @@ MySQL的游标方式读取大数据量是有一些限制的：
 FIXME: 仅仅MySQL会有这样的问题？
 
 
- 
+
 
 #查看MyISAM表的记录数
 
@@ -412,7 +412,7 @@ select table_name, engine, table_rows from INFORMATION_SCHEMA.tables where table
 ```
 sudo dpkg -i /PATH/platform-and-version-specific-package-name.deb
 sudo apt-get update
-# 
+#
 sudo apt-get install mysql-workbench-community
 ```
 
