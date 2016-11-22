@@ -104,3 +104,7 @@ npm install --save prism-themes
 # 主题
 
 [theme-default](https://github.com/GitbookIO/theme-default) 是默认主题。
+
+# 字体
+
+[fontsettings](https://plugins.gitbook.com/plugin/fontsettings)

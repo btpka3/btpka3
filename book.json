@@ -6,6 +6,7 @@
   "plugins": [
     "-highlight",
     "prism",
+    "prism-themes",
     "mathjax-full",
     "splitter"
   ],
@@ -14,6 +15,11 @@
       "css": [
         "prism-themes/themes/prism-duotone-dark.css"
       ]
+    },
+    "fontsettings": {
+      "theme": "night",
+      "family": "sans",
+      "size": 1
     }
   }
 }
