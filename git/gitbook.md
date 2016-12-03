@@ -115,3 +115,35 @@ npm install --save prism-themes
 # 字体
 
 [fontsettings](https://plugins.gitbook.com/plugin/fontsettings)
+
+
+# travis-ci 构建
+
+1. 生成一个 github [Personal access tokens](https://github.com/settings/tokens)
+
+1. 在 gitbook 中对单个 repo 进行配置，追加环境变量
+   `https://travis-ci.org/<me>/<myrepo>/settings`
+
+    ```
+    GITHUB_API_KEY=<token>
+    ```
+   并确保没有启用 "Display value in build log"
+1. 修改 `.travis.yml` :
+
+    ```
+    after_success: |
+        if [ -n "$GITHUB_API_KEY" ]; then
+            cd "$TRAVIS_BUILD_DIR"
+            # This generates a `web` directory containing the website.
+            make web
+            cd web
+            git init
+            git checkout -b gh-pages
+            git add .
+            git -c user.name='travis' -c user.email='travis' commit -m init
+            # Make sure to make the output quiet, or else the API token will leak!
+            # This works because the API key can replace your password.
+            git push -f -q https://<me>:$GITHUB_API_KEY@github.com/<me>/<myrepo>-gh-pages gh-pages &2>/dev/null
+            cd "$TRAVIS_BUILD_DIR"
+        fi
+    ```

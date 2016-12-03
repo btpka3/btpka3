@@ -78,7 +78,7 @@ gulp.task('default', cb => {
     runSequence(
         "check.prepare",
         "check.report",
-        ()=> {
+        () => {
             cb(); // 指示该任务已经执行完毕
         });
 
@@ -87,7 +87,7 @@ gulp.task('default', cb => {
 
 gulp.task("check.prepare", cb => {
     return vfs.src(checkSrc)
-        .pipe(map((file, _cb)=> {
+        .pipe(map((file, _cb) => {
             // XXX: 如果使用3.x版本的gulp, 将会 Vinyl.isVinyl(file)===false。
             // 所以, 直接使用新版本的 vinyl-fs
             regMdFile(file.stem, file.relative);
@@ -120,6 +120,13 @@ gulp.task("check.report", cb => {
             gutil.log(`文件名唯一性检查 : ${chalk.yellow(key)} => ${chalk.red(filsMaps[key])}`);
         }
     });
-    gutil.log(`文件名唯一性检查 : ${chalk.green('结束')} : ${count > 0 ? chalk.red('失败') : chalk.yellow('成功')} `);
-    cb();
+
+    if (count === 0) {
+        gutil.log(`文件名唯一性检查 : ${chalk.green('结束')} : ${chalk.yellow('成功')} `);
+        cb();
+    } else {
+        gutil.log(`文件名唯一性检查 : ${chalk.green('结束')} : ${chalk.red('失败')} `);
+        cb("error");
+    }
+
 });
