@@ -14,6 +14,22 @@
 
 # 安装
 
+## NVM 安装
+
+[nvm](https://github.com/creationix/nvm) 可以方便的切换多个版本的 nodejs
+
+```
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
+# 然后关闭、并重新打开命令行窗口
+nvm -version
+# 检查安装了哪些版本
+nvm ls
+# 安装最新 LTS 版本 nodejs
+nvm install --lts
+# 使用当前版本作为默认版本
+nvm alias default node
+```
+
 ## 二进制安装
 
 打开 nodejs 官网的[下载页](https://nodejs.org/download/), 下载二进制安装包

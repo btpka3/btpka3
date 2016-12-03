@@ -26,6 +26,8 @@
 
 ```bash
 sudo chown -R $USER /usr/local
+
+echo source .bashrc >> ~/.bashr_profile
 ```
 
 ## 修改主机名

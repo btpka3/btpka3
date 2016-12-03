@@ -425,6 +425,23 @@ location ~ ^/api(.*)$ {
 但是，注意：此时返回的HTML的URL路径普遍都有问题。
 
 
+## 负载均衡算法
+
+
+|derective|nginx version |Only in nginx plus? |tengine version|memo|
+|---------|--------------|----------------|----|
+|hash      |1.7.2+         |||
+|ip_hash   |               |||
+|least_conn|1.3.1+, 1.2.2+ ||最小连接数|
+|least_time|1.7.10+        |Yes|最小平均响应时间|
+|sticky    |1.5.7          |Yes||
+
+
+
+参考：ngx_http_upstream_module](http://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash)
+
+
+
 ## 子域名跳转
  使得外部访问 http://www.test.me/ask/xxx 时都跳转到 http://ask.test.me/xxx 。
  但是内部app都只有一个，故内部访问 http://ask.test.me/xxx 时，还是在访问 http://www.test.me/ask/xxx

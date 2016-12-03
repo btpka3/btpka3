@@ -1,5 +1,6 @@
 # 免费的https证书
-* [WoSign](http://freessl.wosign.com/freessl)
+* [~~WoSign~~](http://freessl.wosign.com/freessl) ——因操作不规范已经被要求整改，
+火狐等浏览器也将 [移除](http://mozilla.com.cn/forum.php?mod=viewthread&tid=373719) 其相关证书。
 * [Let's Encrypt](https://letsencrypt.org/)  就是时间短了点,需要3个月renew一下.
 * [startssl.com](https://www.startssl.com/)
 问: 各大https证书厂商推的 普通, DV, OV, EV 证书差别在何处?
@@ -68,7 +69,7 @@ REM X.509)
 * [RDN, Relative Distinguished Names](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol)
 
 
-||||
+|name|desc|memo|
 |---|---|---|
 |CN| CommonName||
 |OU| OrganizationalUnit||
@@ -351,28 +352,36 @@ Include conf/extra/httpd-ssl.conf
 示例环境：Windows + JDK 1.6 + Tomcat 6
 
 1.  修改 C:\Windows\System32\drivers\etc\hosts，追加以下设置：
+
     ```
-127.0.0.1       cas.localhost.me
-127.0.0.1       app.localhost.me
-127.0.0.1       stateless.localhost.me
+    127.0.0.1       cas.localhost.me
+    127.0.0.1       app.localhost.me
+    127.0.0.1       stateless.localhost.me
     ```
-    注意：经测试发现WildCard证书无法对 `*.localhost` 起作用。而 `*.localhost.me` 也无法对 `a.b.localhost.me` 起作用，参见[这里](http://security.stackexchange.com/a/26050)。
+    注意：经测试发现WildCard证书无法对 `*.localhost` 起作用。而 `*.localhost.me` 
+    也无法对 `a.b.localhost.me` 起作用，参见[这里](http://security.stackexchange.com/a/26050)。
 
 2.  生成自签名的数字证书
     1. 针对子域名
-```
-keytool -genkeypair -alias mykey2 -keyalg RSA -keysize 1024 -sigalg SHA1withRSA ^
--dname "CN=*.localhost.me, OU=R & D department, O=\\"ABC Tech Co., Ltd\\", L=Weihai, S=Shandong, C=CN" ^
--validity 365 -keypass 123456 -keystore tomcat.keystore -storepass 123456
-```
+
+        ```
+        keytool -genkeypair -alias mykey2 -keyalg RSA \
+            -keysize 1024 \
+            -sigalg SHA1withRSA \
+            -dname "CN=*.localhost.me, OU=R & D department, O=\\"ABC Tech Co., Ltd\\", L=Weihai, S=Shandong, C=CN" \
+            -validity 365 \
+            -keypass 123456 \
+            -keystore tomcat.keystore -storepass 123456
+        ```
     注意：其中CN是域名。-keypass 和 -storepass tomcat貌似是要求一致的。
     2. 针对IP地址
-```
-keytool -genkeypair -alias mykey2 -keyalg RSA -keysize 1024 -sigalg SHA1withRSA ^
--dname "CN=10.1.18.123, OU=R & D department, O=\\"ABC Tech Co., Ltd\\", L=Weihai, S=Shandong, C=CN" ^
--ext SAN=IP:10.1.18.123 ^
--validity 365 -keypass 123456 -keystore tomcat.keystore -storepass 123456
-```
+
+        ```
+        keytool -genkeypair -alias mykey2 -keyalg RSA -keysize 1024 -sigalg SHA1withRSA ^
+        -dname "CN=10.1.18.123, OU=R & D department, O=\\"ABC Tech Co., Ltd\\", L=Weihai, S=Shandong, C=CN" ^
+        -ext SAN=IP:10.1.18.123 ^
+        -validity 365 -keypass 123456 -keystore tomcat.keystore -storepass 123456
+        ```
     注意：`-ext` 选项是 [JDK 7](http://docs.oracle.com/javase/7/docs/technotes/tools/solaris/keytool.html) 中新增选项
     其中CN也应该为IP地址。
 3.  导出证书
@@ -407,8 +416,13 @@ https://stateless.localhost.me:8443/
 
 
 ## keytool 合并两个keystore
-```
-keytool -importkeystore -srckeystore src.keystore -srcstorepass 123456 -destkeystore dest.keystore -deststorepass 123456
+
+```bash
+keytool -importkeystore \
+    -srckeystore src.keystore \
+    -srcstorepass 123456 \
+    -destkeystore dest.keystore \
+    -deststorepass 123456
 ```
 
 ## 使用PUTTYgen 生成SSH密钥
