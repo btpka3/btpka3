@@ -4,5 +4,6 @@
 本文档的文字总结的源码位于 [btpka3 @ github](https://github.com/btpka3/btpka3) 上，
 本文档的在线浏览地址位于 [btpka3 @ gitbook](https://btpka3.gitbooks.io/btpka3/content/)。
 
+[![Travis](https://img.shields.io/travis/btpka3/btpka3.svg)](https://travis-ci.org/btpka3/btpka3)
 
 
