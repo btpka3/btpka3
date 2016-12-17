@@ -168,6 +168,27 @@
     user.addToOrders(new Order())
     ```
 
+# URI
+`UriComponentsBuilder.fromUri(URI)` 不会对URL上的参数进行解码。因此可能会出错而造成连续编码
+
+```groovy
+// 反例
+URI u1 = new URI("http://a.com/path?query=aaa%20bbb")
+URI u2 = UriComponentsBuilder.fromUri(u1)
+        .build()
+        .toUri()
+println "u1 = " + u1    // "http://a.com/path?query=aaa%20bbb"
+println "u2 = " + u2    // "http://a.com/path?query=aaa%2520bbb"
+
+// 应当
+URI u1 = new URI("http://a.com/path?query=aaa%20bbb")
+URI u2 = UriComponentsBuilder.fromUri(u1)
+        .replaceQuery(u1.getQuery())  // XXX : 使用解码后的 queryStr 重新替换
+        .build()
+        .toUri()
+println "u1 = " + u1    // "http://a.com/path?query=aaa%20bbb"
+println "u2 = " + u2    // "http://a.com/path?query=aaa%20bbb"
+```
 
 # 关于 application/x-www-form-urlencoded
 
@@ -184,13 +205,25 @@
     httpMsgConverter.write(reqMsg, MediaType.APPLICATION_FORM_URLENCODED, outMsg)
     return outMsg.getBodyAsString()
     ```
-1. String -> MultiValueMap
+1. query String -> MultiValueMap
 
     ```
+    // 已编码时，先使用 URI#getQuery() 进行 UTF-8 解码。但无法指定解码用的字符集
+    def decodedQuery = new URI("?p1=111&p1=112&p2=22%2033").getQuery(); 
+
+    // 未编码时
+    def decodedQuery = "a=a1&a=a2&b=bbb"
+    
+    // 返回的就是已经解码后的 map 了
     MultiValueMap reqMsg = UriComponentsBuilder.newInstance()
-            .query("a=a1&a=a2&b=bbb")
+            .query(decodedQuery)
             .build()
             .getQueryParams()
+
+    // 注意： 
+    // 1. JDK 自带的 URLEncoder 是针对 application/x-www-form-urlencoded，
+    //    会将空格先变成加号的。
+    //    如果仅仅是对URL进行 Percent-Encoding，可以使用 spring 的 UriUtils 
     ```
 
 

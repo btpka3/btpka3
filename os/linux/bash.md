@@ -242,6 +242,19 @@ tail -f xxxFile
 tailf xxxFile | grep --line-buffered --color=auto xxxKeyWord
 ```
 
+## 文本处理
+
+```
+# append 多行到特定文件
+cat <<EOF | sudo tee -a /etc/hosts
+127.0.0.1 aaa
+127.0.0.1 bbb
+127.0.0.1 ccc
+EOF
+
+
+```
+
 ## date
 设置时间
 
