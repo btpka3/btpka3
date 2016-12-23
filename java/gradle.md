@@ -27,21 +27,37 @@ gradle tasks --all
 build.gradle
 
 ```
-# gradle -PmainClass=Boo execute
+################################### JavaExec
+# gradle -PmainClass=Boo -Dexec.args="arg1 arg2 arg3" execute
 task execute(type:JavaExec) {
    main = mainClass
    classpath = sourceSets.main.runtimeClasspath
+   args System.getProperty("exec.args").split()
 }
 
-// gradle -DmainClass=me.test.Example bootRun
-springBoot {
-    mainClass = System.properties['mainClass']
-}
-
-// gradle -DmainClass=me.test.Example execute
+// gradle -DmainClass=me.test.Example -Dexec.args="arg1 arg2 arg3" execute
 task execute(type:JavaExec) {
     main = System.getProperty('mainClass')
     classpath = sourceSets.main.runtimeClasspath
+    args System.getProperty("exec.args").split()
+}
+
+################################### application plugin
+# gradle run -Dexec.args="arg1 arg2 arg3"
+mainClassName =  System.properties['mainClass']
+run {    
+    /* Can pass all the properties: */
+    systemProperties System.getProperties()
+
+    /* Need to split the space-delimited value in the exec.args */
+    args System.getProperty("exec.args").split()    
+}
+
+################################### spring-boot plugin
+// gradle bootRun -DmainClass=me.test.Example -Dexec.args="arg1 arg2 arg3"
+springBoot {
+    mainClass = System.properties['mainClass']
+    args System.getProperty("exec.args").split() 
 }
 ```
 

@@ -37,8 +37,26 @@ sudo vi idea.sh                    // 在最开始加入  `. /etc/profile.d/xxx.
 
 |key |description|
 |------|-----|
-|<kbd>Fn + Cmd + ←</kdb>|回到编辑器第一行|
-|<kbd>Fn + Cmd + →</kdb>|回到编辑器最后一行|
+|<kbd>Cmd + ←</kdb>|光标移动到行首|
+|<kbd>Cmd + →</kdb>|光标移动到行尾|
+|<kbd>Cmd + Shift + ↑</kdb>|选中区域向上移动|
+|<kbd>Cmd + Shift + ↓</kdb>|选中区域向下移动|
+|<kbd>Cmd + /</kdb>|注释代码|
+|<kbd>Cmd + [</kdb>|导航：向后|
+|<kbd>Cmd + ]</kdb>|导航：向前|
+|<kbd>Cmd + Backspace</kdb>|删除当前行|
+|<kbd>Cmd + D</kdb>|复制当前行|
+|<kbd>Cmd + Shift + Backspace</kdb>|导航：回到最后一次修改处|
+|<kbd>Cmd + Fn + ←</kdb>|回到编辑器第一行|
+|<kbd>Cmd + Fn + →</kdb>|回到编辑器最后一行|
+|<kbd>Cmd + P</kdb>|显示参数|
+|<kbd>Cmd + Shift + E</kdb>|显示最近修改的文件|
+|<kbd>Cmd + Shift + V</kdb>|显示最近5次粘贴的内容|
+|<kbd>Cmd + Option + L</kdb>|格式化代码|
+|<kbd>Cmd + Option + L</kdb>|格式化代码|
+|<kbd>Ctrl + Option + O</kdb>|格式化 import|
+
+
 # ubuntu 下中文字体
 
 ```bash

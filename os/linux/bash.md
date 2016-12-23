@@ -290,6 +290,14 @@ funcResult=$(myFunc zhang3)
 ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
 ```
 
+## ps
+
+```
+ps -ax          # 打印所有进程
+ps -aux         # 显示内存、cpu使用信息
+ps -u  zhang3   # 显示用户 zhang3 所有的进程
+```
+
 ## 压缩包
 ### zip
 ```bash
