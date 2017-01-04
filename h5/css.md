@@ -169,14 +169,33 @@ DPI = 对角线的像素数 / 屏幕英寸数
 
 
 
+# tools
+
+* [styleguide](http://styleguide.devbproto.com/styleguide/#3)
 
 
+# layout
+* [flexboxgrid](https://github.com/kristoferjoseph/flexboxgrid)
+* [grd](https://1000ch.github.io/grd/)
 
 # animation
 
 * [Animated Buttons](http://tympanus.net/Tutorials/AnimatedButtons/index6.html)
 * [Original Hover Effects](http://tympanus.net/Tutorials/OriginalHoverEffects/index10.html)
+* [css SPINNERS](https://boguz.github.io/Spinners/)
+* [WAIT! Animate](http://waitanimate.wstone.io/#/)
 
+
+# 图片
+
+* [Imagehover.css](http://imagehover.io/)
+* [HUE.css](https://evankarageorgos.github.io/hue/grid.html)
+* [CSSCO](http://www.cssco.co/)
+
+
+# 颜色
+
+* [brand-colors](http://brand-colors.com/)
 
 # 笔记
 *  ？？？ `display:table-cell` 无法 float?

@@ -200,7 +200,8 @@ yum install postgresql93 postgresql93-devel postgresql93-libs
 ```
 
 ```bash
-vi /home/git/gitlab/config/gitlab.yml
+#vi /home/git/gitlab/config/gitlab.yml
+vi /home/git/gitlab/database.yml
 # 并修改其中数据库连接信息
 ```
 

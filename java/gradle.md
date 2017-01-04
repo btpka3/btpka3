@@ -65,7 +65,7 @@ springBoot {
 
 ```
 gradle init --type groovy-library
-gradle wrapper --gradle-version 3.1
+gradle wrapper --gradle-version 3.2.1
 ```
 
 ## init script

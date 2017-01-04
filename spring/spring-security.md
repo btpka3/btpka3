@@ -161,3 +161,81 @@ public class MyController {
 ```
 
 2. 无需使用自定义枚举类来实现GrantedAuthority，枚举会有版本问题。直接使用SimpleGrantedAuthority就好。
+
+
+
+## ACL
+
+```sql
+-- http://docs.spring.io/spring-security/site/docs/4.2.0.RELEASE/reference/htmlsingle/#domain-acls
+
+-- Sid : 
+/*
+ * Sid
+ *    PrincipalSid : Authentication.getPrincipal() -> ID
+ *    GrantedAuthoritySid: GrantedAuthority(代表一个权限) -> ID
+ */
+CREATE TABLE acl_sid (
+	id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	principal BOOLEAN NOT NULL,
+	sid VARCHAR(100) NOT NULL,
+	UNIQUE KEY unique_acl_sid (sid, principal)
+) ENGINE=InnoDB;
+
+
+-- Java class -> ID，以方便其他表高效引用（非高效：通过字符串引用）
+CREATE TABLE acl_class (
+	id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	class VARCHAR(100) NOT NULL,
+	UNIQUE KEY uk_acl_class (class)
+) ENGINE=InnoDB;
+
+-- Java 中每个实例化的 Object -> ID 
+CREATE TABLE acl_object_identity (
+	id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	object_id_class BIGINT UNSIGNED NOT NULL,
+	object_id_identity BIGINT NOT NULL,
+	parent_object BIGINT UNSIGNED,
+	owner_sid BIGINT UNSIGNED,                -- 当前对象属于哪个人
+	entries_inheriting BOOLEAN NOT NULL,      -- 是否继承
+	UNIQUE KEY uk_acl_object_identity (object_id_class, object_id_identity),
+	CONSTRAINT fk_acl_object_identity_parent FOREIGN KEY (parent_object) REFERENCES acl_object_identity (id),
+	CONSTRAINT fk_acl_object_identity_class FOREIGN KEY (object_id_class) REFERENCES acl_class (id),
+	CONSTRAINT fk_acl_object_identity_owner FOREIGN KEY (owner_sid) REFERENCES acl_sid (id)
+) ENGINE=InnoDB;
+
+-- 授权关系表： acl_object_identity:sid(被授权人) 
+CREATE TABLE acl_entry (
+	id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	acl_object_identity BIGINT UNSIGNED NOT NULL,   -- 被授权的对象
+	ace_order INTEGER NOT NULL,                     -- 顺序
+	sid BIGINT UNSIGNED NOT NULL,                   -- 被授权人
+	mask INTEGER UNSIGNED NOT NULL,                 -- 被授予的权限
+	granting BOOLEAN NOT NULL,                      -- 是否授予了
+	audit_success BOOLEAN NOT NULL,                 -- 貌似对权限判断并没卵用，仅仅用以审计
+	audit_failure BOOLEAN NOT NULL,                 -- 貌似对权限判断并没卵用，仅仅用以审计
+	UNIQUE KEY unique_acl_entry (acl_object_identity, ace_order),
+	CONSTRAINT fk_acl_entry_object FOREIGN KEY (acl_object_identity) REFERENCES acl_object_identity (id),
+	CONSTRAINT fk_acl_entry_acl FOREIGN KEY (sid) REFERENCES acl_sid (id)
+) ENGINE=InnoDB;
+```
+
+
+
+```
+acl_sid
+acl_class
+acl_object_identity
+acl_entry {
+    id  自动生成
+    acl_object_identity :
+    sid
+    grantedPermissions: [mask, ...]
+    blockedPermissions: [mask, ...]
+    audit_success: []
+    
+    
+    UNIQUE KEY (acl_object_identity, sid)
+}
+
+```

@@ -44,6 +44,8 @@ sudo vi idea.sh                    // 在最开始加入  `. /etc/profile.d/xxx.
 |<kbd>Cmd + /</kdb>|注释代码|
 |<kbd>Cmd + [</kdb>|导航：向后|
 |<kbd>Cmd + ]</kdb>|导航：向前|
+|<kbd>Cmd + Shift + [</kdb>|导航：前一个 Tab|
+|<kbd>Cmd + Shift + ]</kdb>|导航：后一个 Tab|
 |<kbd>Cmd + Backspace</kdb>|删除当前行|
 |<kbd>Cmd + D</kdb>|复制当前行|
 |<kbd>Cmd + Shift + Backspace</kdb>|导航：回到最后一次修改处|
