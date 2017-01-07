@@ -31,6 +31,41 @@
 ```
 
 
+### Page
+1. 每个 Page 都提供 `a`,`p` 两个数据，前者为全局数据，后者为当前网页数据。
+1. 当前页面的的数据 `p` == `a.page['page/path'']`
+1. 数据中不能有 function
+1. 数据不能有循环引用
+
+
+### 自定义组件
+
+单例组件: 该组件一个小程序内只有一种展示样式和处理方式。可以多个页面都使用。一般通过 `<include />` 引入。
+多例组件: 单个页面内都可能出现多个示例，展示方式和处理方式均有可能相互不同。一般通过 `<import />` 引入。
+
+1. 建议:组件都放在同一个目录下，名称唯一
+1. WXML
+    * 使用自定义tag名，或class名，确保唯一。
+    * 每个模块的 wxml 不定义模板，可以直接 include
+    * 通过工具将所有模块的 wxml汇总生成一个 tpl.wxml。 
+     格式为: `<template name="path/xxx"><include src="path/xxx.wxml"/></template>` 
+    * 通过 `<include src="path/xxx.xml"/>` 直接引用单例组件
+    * 通过 `<template for="path/xxx"/>` 使用多例组件
+
+1. WXSS
+    * 使用 scss/less 预定义各种 mixin 备用。（因为微信小程序不支持 CSS 组合选择器）
+    * 通过工具将所有 scss/less 文件编译并生成一个 lib.wxss 文件
+    * app.wxss 中 @import lib.wxss, 默认使用单例组件样式
+    * 通过在各个Page的 wxss 文件中重写css，重写多例组件样式
+    
+1. JS
+    * template 中的 button 通过`bindtap="{{dataProp}}"` 的方式来间接引用handler，
+    * 使用: 
+        * 在 Page 中通过 Object.assign(dest, ...src) 的方式将单例组件的事件处理函数
+        * 注意: Page 中的事件处理函数只能定义在顶层。
+        
+
+```
 
 ### 使用图标字体
 

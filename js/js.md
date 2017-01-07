@@ -3,6 +3,15 @@
 
 ERROR : WebCrypto is only supported over secure origins. See http://crbug.com/373032
 
+
+# 移动端市场占有率
+
+* [IOS 各个版本的使用比例](https://developer.apple.com/support/app-store/)
+* [Android 各个版本的使用比例](https://developer.android.com/about/dashboards/index.html)
+* [百度统计 - 浏览器市场份额](http://tongji.baidu.com/data/browser)
+
+
+
 # 性能优化建议
 
 参考 [1](http://coenraets.org/keypoint/phonegap-performance/)
