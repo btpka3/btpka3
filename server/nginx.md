@@ -4,10 +4,11 @@
 mkdkir -p ~/tmp/my-nginx/conf/conf.d
 
 
-docker pull nginx:1.10.2
-docker run -d --name my-nginx nginx:1.10.2
+docker pull nginx:1.11.8
+docker run -d --name my-nginx nginx:1.11.8
 docker cp my-nginx:/etc/nginx/nginx.conf ~/tmp/my-nginx/conf/nginx.conf
 docker cp my-nginx:/etc/nginx/conf.d ~/tmp/my-nginx/conf/
+docker cp my-nginx:/usr/share/nginx/html ~/tmp/my-nginx/
 docker stop my-nginx
 docker rm my-nginx
 
@@ -18,7 +19,10 @@ docker run \
     -p 443:443 \
     -v ~/tmp/my-nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
     -v ~/tmp/my-nginx/conf/conf.d:/etc/nginx/conf.d:ro \
-    nginx:1.10.2
+    -v ~/tmp/my-nginx/html/:/usr/share/nginx/html:ro \
+    --link mq:mq \
+    nginx:1.11.8
+   
 
 docker exec -it my-nginx bash
 ```
@@ -36,8 +40,6 @@ pam : see [here](http://www.doublecloud.org/2014/01/nginx-with-pam-authenticatio
 ```
 worker_processes      auto;
 worker_rlimit_nofile  100000;
-
-
 
 events {
     use                   epoll;
@@ -132,8 +134,17 @@ configure arguments:
     --with-file-aio --with-ipv6
     --with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic'
 
+# 如果是空格连在一起的，可以使用下面这个命令，以方便查看
+nginx -V 2>&1|tr " " "\n"
 ```
 
+
+## http2
+
+
+```bash
+nginx -V 2>&1|tr " " "\n"|grep
+```
 
 
 ## stickiness 反向代理
@@ -428,22 +439,21 @@ location ~ ^/api(.*)$ {
 ## 负载均衡算法
 
 
-|derective|nginx version |Only in nginx plus? |tengine version|memo|
-|---------|--------------|----------------|----|
-|hash      |1.7.2+         |||
-|ip_hash   |               |||
-|least_conn|1.3.1+, 1.2.2+ ||最小连接数|
-|least_time|1.7.10+        |Yes|最小平均响应时间|
-|sticky    |1.5.7          |Yes||
-
-
+|derective              |nginx version  |Only in nginx plus?|tengine version    |memo   |
+|-----------------------|---------------|-------------------|-------------------|-------|
+|hash                   |1.7.2+         |                   |                   |       |
+|ip_hash                |               |                   |                   |       |
+|least_conn             |1.3.1+, 1.2.2+ |                   |                   |最小连接数|
+|least_time             |1.7.10+        |Yes                |                   |最小平均响应时间|
+|sticky                 |1.5.7          |Yes                |                   |       |
+|queue                  |1.5.12         |Yes                |
 
 参考：ngx_http_upstream_module](http://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash)
 
 
 
 ## 子域名跳转
- 使得外部访问 http://www.test.me/ask/xxx 时都跳转到 http://ask.test.me/xxx 。
+ 使得外部访问 `http://www.test.me/ask/xxx` 时都跳转到 `http://ask.test.me/xxx` 。
  但是内部app都只有一个，故内部访问 http://ask.test.me/xxx 时，还是在访问 http://www.test.me/ask/xxx
 
 ```nginx
@@ -473,9 +483,6 @@ server {
     }
 }
 ```
-
-
-
 
 ## 全部域名跳转
 

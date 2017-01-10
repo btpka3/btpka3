@@ -73,7 +73,16 @@ cat /etc/rabbitmq/enabled_plugins
 # http://localhost:15672
 
 
-
+# nginx
+docker run \
+    --name my-nginx \
+    -d \
+    --link mq:mq \
+    -p 80:80 \
+    -p 443:443 \
+    -v ~/tmp/my-nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
+    -v ~/tmp/my-nginx/conf/conf.d:/etc/nginx/conf.d:ro \
+    nginx:1.11.8 
 ```
 
 ## TLS

@@ -536,3 +536,13 @@ https://192.168.99.100:443
 
 
 
+## docker hub
+
+[Configure automated builds on Docker Hub](https://docs.docker.com/docker-hub/builds/)
+
+```bash
+docker push
+docker search
+docker login
+docker push
+```
