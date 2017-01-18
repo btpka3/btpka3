@@ -19,3 +19,10 @@
 * UI 工具
     * [isux资讯](https://isux.tencent.com/)
     * [isux](http://www.isux.us/)  将静态效果图串联起来。
+    
+* 图片占位符
+    * [placehold.it](http://www.placehold.it/)
+    * [lorempixel.com](http://lorempixel.com/)
+
+* JS CDN
+    * [unpkg.com](https://unpkg.com/)

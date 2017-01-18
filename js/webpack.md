@@ -28,6 +28,7 @@ webpack-dev-server \
 
 ## 参考
 
+* [Webpack + Angular的组件化实践](https://segmentfault.com/a/1190000003915443)
 * 《[Migrating to Webpack 2](http://javascriptplayground.com/blog/2016/10/moving-to-webpack-2/)》
 * [webpack 1.x doc](https://webpack.github.io/docs/)
 * [example/multiple-entry-points](https://github.com/webpack/webpack/tree/master/examples/multiple-entry-points)

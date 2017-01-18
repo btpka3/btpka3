@@ -105,6 +105,9 @@ nvm install v0.10.34
 
 ```
 npm ls      # 显示当前的依赖树
+
+npm install -g available-versions
+releases angular    # 查看 angular 发布的所有版本
 ```
 
 ## 使用国内淘宝的镜像
@@ -114,6 +117,7 @@ npm ls      # 显示当前的依赖树
     ```
     npm config set registry https://registry.npm.taobao.org
     npm info underscore
+    npm config list
     ```
 
 * 通过命令行参数

@@ -413,3 +413,27 @@ git push -f gitlab master:master
 
 echo `$TIME` Done.
 ```
+
+
+## pull request, merge request
+
+```bash
+# 1. 开发人员fork一个要修改的分支(比如 "master")，修改、测试、并推送到远程（比如：远程分支 "zll-123")
+# 2. 要合并的人员进行以下操作：
+
+# 2.0 先获取最新
+git pull --all
+
+# 2.1 先获取最新，并检出经过修改的分支
+git fetch origin
+git checkout -b zll-123 origin/zll-123
+
+# 2.2 再检出要合并到的目标分支，
+git checkout master
+git merge --no-ff zll-123
+
+# 2.3 进行代码审查和测试
+
+# 2.4 推送的远程
+git push origin master
+```

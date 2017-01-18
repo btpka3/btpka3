@@ -1,7 +1,31 @@
 
-# provider vs. factory vs. service
 
-1.  provider 是唯一可以通过  `app.config()` 方法，在使用前进行全局配置的。定义的函数是一个构造函数，该类实现了一个 `$get` 方法。
+## 模块的依赖初始化
+
+```txt
+# app -> app.layout -> app.main
+
+angular.module('app.common').config()
+angular.module('app.layout').config()
+angular.module('app.layout').run()
+angular.module('app').config()
+angular.module('app.common').run()
+angular.module('app').run()
+
+
+# http://stackoverflow.com/questions/20663076/angularjs-app-run-documentation
+
+1. app.config()
+2. app.run()
+3. directive's compile functions (if they are found in the dom)
+4. app.controller()
+5. directive's link functions (again, if found)
+```
+
+## provider vs. factory vs. service
+
+1.  provider 是唯一可以通过  `app.config()` 方法，在使用前进行全局配置的。
+    定义的函数是一个构造函数，该类实现了一个 `$get` 方法。
 
     ```js
     myApp.provider('xxxProvider', function XxxProvider() {
@@ -40,7 +64,7 @@
 
 
 1. factory 定义一个工厂方法，直接传入依赖后调用，通常需要明确指明一个 `return` 语句。
-该工厂方法也仅仅会被调用一次，并缓存结果，供后续依赖注入使用。因此都是单例（singleton）。
+   该工厂方法也仅仅会被调用一次，并缓存结果，供后续依赖注入使用。因此都是单例（singleton）。
 
 
     ```js
@@ -57,7 +81,8 @@
     });
     ```
 
-1. service 返回的是一个 `function`。但无论依赖注入多少次，只有第一次时会 new 一次，之后都返回同一个实例。换句话说 service 在 angular 中都是单例 （singleton）。
+1. service 返回的是一个 `function`。但无论依赖注入多少次，只有第一次时会 new 一次，
+   之后都返回同一个实例。换句话说 service 在 angular 中都是单例 （singleton）。
 
     ```js
     app.service('myService', function() {
