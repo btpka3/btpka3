@@ -22,6 +22,27 @@ org.gradle.daemon=true
 gradle tasks --all
 ```
 
+## download source
+
+
+```groovy
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+idea {
+    module {
+        downloadJavadoc = false
+        downloadSources = true
+    }
+}
+eclipse {
+    classpath {
+        downloadSources = true
+    }
+}
+// 注意：不要启用 `mavenLocal()` 仓库
+```
+
+
 ## run main
 
 build.gradle

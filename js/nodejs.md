@@ -137,3 +137,21 @@ releases angular    # 查看 angular 发布的所有版本
 ```
 npm install -g npm-check-updates
 ```
+
+
+# run script
+
+* package.json
+
+    ```json
+    {
+      "scripts": {
+        "webpack": "node $NODE_DEBUG_OPTION ./node_modules/.bin/webpack"
+      }
+    }
+    ```
+* bash
+
+    ```bash
+    npm run webpack -- --env.prod
+    ```

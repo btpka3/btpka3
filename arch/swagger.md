@@ -61,3 +61,8 @@ npm start
 如果今后采用 swagger, 则：
 1. api的javadoc中可以不用具体参数等细节
 2. 原有markdown格式的文件都不需要了，可以逐步迁移为YAML文件。
+
+
+# FIMXE
+
+[如何分割?](http://azimi.me/2015/07/16/split-swagger-into-smaller-files.html)

@@ -130,3 +130,8 @@ server {
     }
 }
 ```
+## 7788
+
+1. 工程中选择输出目录（比如 target，build，dist 等），右键选择 `Mark Directory As` -> `Excluded`
+   或者到 `Preferences | Project | Directories` 中排除指定的目录。
+   

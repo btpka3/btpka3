@@ -396,3 +396,13 @@ mongodump   --host=192.168.0.12             \
             --db test                       \
             --out .
 ```
+
+# CURD
+
+```
+// https://docs.mongodb.com/manual/reference/method/db.collection.insert/
+db.ss.insert({name:"zhang3",age:18});
+
+db.ss.find();
+
+```

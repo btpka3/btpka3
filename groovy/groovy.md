@@ -102,3 +102,25 @@ class GMain {
 }
 
 ```
+
+
+
+### 自定义 AST 
+
+参考： 
+[Developing AST transformations](http://groovy-lang.org/metaprogramming.html#developing-ast-xforms)
+
+#### 全局 transformation 
+当代码编译时记性，参与全局变换的，需要在相应的jar包中 
+`META-INF/services/org.codehaus.groovy.transform.ASTTransformation`
+ 进行配置。实现类必须实现 org.codehaus.groovy.transform.ASTTransformation 接口并提供无参数构造函数。
+ 
+#### 本地 transformation
+必须在 [org.codehaus.groovy.control.CompilePhase](http://docs.groovy-lang.org/2.4.8/html/gapi/index.html?org/codehaus/groovy/control/CompilePhase.html) 
+中定义的9个阶段完成
+
+
+
+
+ 
+ 
