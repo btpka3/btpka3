@@ -23,9 +23,35 @@ ssh -vT git@github.com
 之后可以把 `～/.ssh/id_rsa.pub` 中的内容追加到 远程ssh服务器用户的 `~/.ssh/authorized_keys` 中。（注意：线上环境不要配置为使用ssh登录）
 
 
+# sshd 安全性
 
+`vi /etc/ssh/sshd_config`
 
+```ini
+X11Forwarding no  #
+PermitEmptyPasswords no     # 禁止空密码
+MaxStartups  10             # 最多保持多少个未认证的连接，防止SSH拒绝服务
+PermitRootLogin no          # 禁止root登录，否则很容易被用来暴力猜解
 
+```
+
+# ssh 登录慢
+
+```bash
+# ------- for client
+vi /etc/ssh/ssh_config
+Host *
+    GSSAPIAuthentication no
+    AddressFamily inet
+
+# ------- for server
+vi /etc/ssh/sshd_config
+# 修改为：
+#GSSAPIAuthentication yes
+GSSAPIAuthentication no
+#UseDNS yes
+UseDNS no
+```
 
 
 
@@ -104,7 +130,7 @@ ssh -D ${localSocketProxyPort} user@remoteSShServer
 
 ## 场景举例
 
-|        |  A@dev         |  B@prod       | C@prod       |
+|        |  `A@dev`       |  `B@prod`     | `C@prod`     |
 |--------|----------------|---------------|--------------|
 |Inet IP |-               |122.225.11.207 |              |
 |Lan IP  |192.168.101.222 |192.168.71.207 |192.168.71.80 |
@@ -112,10 +138,10 @@ ssh -D ${localSocketProxyPort} user@remoteSShServer
 
 * dev 为公司的开发环境，通过ADSL上网，没有固定公网IP
 * prod 为公司的线上环境，有固定的公网IP。
-* A@dev 只可以通过公网IP 122.225.11.207 SSH到 B@prod
-* B@prod 和 C@prod位于同一个内网，可以相互ssh到，但都无法访问到 A@dev
-* C@prod 安装有MySql服务，端口是3306
-* A@dev 安装有Redis服务，端口是6379
+* `A@dev` 只可以通过公网IP 122.225.22.222 SSH到 `B@prod`
+* `B@prod` 和 `C@prod` 位于同一个内网，可以相互ssh到，但都无法访问到 `A@dev`
+* `C@prod` 安装有MySql服务，端口是3306
+* `A@dev` 安装有Redis服务，端口是6379
 
 
 ## SSH 动态端口转发
@@ -162,7 +188,7 @@ PS：不同应用的socks代理设置的方式不同，需要自行阅读相关�
 ssh sshUser@sshHost -C -f -N -g -L [localBindIP:]localBindPort:remoteServiceIP:remoteServicePort
 ```
 
-需求示例：需要从A@dev上直接访问 C@prod 的MySql服务
+需求示例：需要从`A@dev`上直接访问 `C@prod` 的MySql服务
 
 
 1. 开启端口转发

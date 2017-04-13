@@ -88,7 +88,7 @@
     * [CentOS](os/linux/centos-base-setup.md)
         * [limits](os/linux/centos-limits.md)
         * [top](os/linux/top.md)
-        * [yum](os/linux/yum.md)
+        * [yum](os/linux/centos-yum.md)
     * [Ubuntu](os/linux/ubuntu.md)
     * [Bash](os/linux/bash.md)
     * [Vim](os/linux/vim.md)
