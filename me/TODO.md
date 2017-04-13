@@ -47,6 +47,8 @@
 * [HMM - Hidden Markov model](http://en.wikipedia.org/wiki/Hidden_Markov_model)
 * [HBuilder](http://www.dcloud.io/)
 * [Clouda+](http://clouda.baidu.com/portal)
+* 自建融合支付
+* 自建融合短信网关（云片网，阿里大于）
 
 # FIXME
 * 云安全？[1](http://article.liepin.com/ask/qa130273)

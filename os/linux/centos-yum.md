@@ -46,3 +46,23 @@ yum --downloadonly --downloaddir=/tmp/cache --enablerepo=remi --skip-broken inst
 yum --disablerepo=* --skip-broken install \*.rpm
 
 ```
+
+
+# 光盘安装
+
+```bash
+# 挂载光驱
+mkdir /media/cdrom 
+mount /dev/cdrom /media/cdrom
+
+#cd /etc/yum.repos.d 
+#cp CentOS-Base.repo CentOS-Base.repo.bak
+#vi CentOS-Media.repo  # 进行以下修改
+#gpgcheck=0
+#enabled=1 
+
+# 禁用默认启用的几个仓库，并启用光盘源
+yum --disalberepo=base,updates,extras\
+--enablerepo=c7-media \
+install firewalld
+```

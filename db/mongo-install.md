@@ -25,6 +25,13 @@ docker run -d \
 
 docker exec -it my-mongo bash
 
+db.help()
+db.<collection>.help()
+show dbs
+use <db>
+show collections
+show users
+
 ```
 
 ## ubuntu
@@ -233,16 +240,18 @@ security:
     use admin
     db.createUser( {
         user: "siteUserAdmin",
-        pwd: "<password>",
+        pwd: "siteUserAdmin",
         roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
     });
     db.createUser( {
         user: "siteRootAdmin",
-        pwd: "<password>",
+        pwd: "siteRootAdmin",
         roles: [ { role: "root", db: "admin" } ]
     });
 
-    db.auth("siteRootAdmin", "<password>");      // 认证
+    db.auth("siteRootAdmin", "siteRootAdmin");      // 认证
+ 
+    show users;
     db.getUsers();                               // 获取当前数据库中的用户
 
     // 对当前数据库中的用户 "siteRootAdmin"，授予不同数据库的不同权限

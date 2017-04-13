@@ -488,3 +488,15 @@ vi config/initializers/smtp_settings.rb
     checkParentCount
     ```
 
+
+# 无法登录，gitlab没有把公钥添加到
+
+参考: gitlab [issues 8629](https://github.com/gitlabhq/gitlabhq/issues/8629)。
+临时解决办法：
+ 
+``` 
+# 1. 在 gitlab 安装目录运行保持运行
+bundle exec sidekiq -q post_receive -q mailer -q system_hook -q project_web_hook -q gitlab_shell -q common -q default -e production
+
+# 2. 在此同时，通过gitlab的web界面，把你的公钥再重新添加一次。
+```

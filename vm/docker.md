@@ -546,3 +546,52 @@ docker search
 docker login
 docker push
 ```
+
+
+## 容器编排管理
+* 自己管理 Docker Daemon
+* Swarm
+* kubernets
+* Mesos
+
+## 网络方案
+* host 模式
+* bridge 模式
+* Docker overlay 网络
+* Flannel 网络
+* Weave 网络
+* Calico 网络
+* macvlan/ipvlan 网络
+
+
+## 如何管理容器的日志
+* docker logs 采集
+* syslog 采集
+* ELK 采集
+* 采集到阿里云日志服务
+
+
+## 会选择什么操作系统作为容器的宿主机？
+
+* Ubuntu
+* CentOS
+* CoreOS
+* RedHat
+* Windows
+
+## 考虑如何管理Docker镜像
+* 使用Docker Hub
+* 搭建私有Docker Registry
+* 使用阿里云Docker Registry服务
+* 使用国内其他Docker Regsitry服务
+
+
+## 容器技术相关的安全挑战?
+* 考虑Docker容器中secret的管理
+* 考虑Docker Engine相关的安全配置、证书，及定期更新
+* 考虑容器镜像的安全和可信
+* 考虑如何修复镜像中操作系统和应用的安全缺陷
+* 考虑如何对运行期的Docker容器进行扫描
+* 考虑对组织的不同成员授予Docker集群的不同操作权限
+
+

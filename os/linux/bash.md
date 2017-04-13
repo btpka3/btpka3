@@ -356,6 +356,11 @@ ps -u  zhang3   # 显示用户 zhang3 所有的进程
   # 遍历磁盘，按指定规则查找文件
   find / -name xxx 2>/dev/null
   find / -name "*xxx*" | xargs ls -l
+  # 查找 "md" 结尾的文件，并且路径不包含 "node_modules"、"_book"
+  find . -type f \
+      -not -path "*/node_modules*" \
+      -and  -not -path "*/_book/*" \
+      -and -name "*.md"
 
   # 从Linux数据库文件中查找匹配的文件，速度快，但不及时
   #（新建的文件无法立即找到，系统文件数据库一星期个更新一次）

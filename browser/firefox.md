@@ -5,3 +5,8 @@
 about:config -> security.mixed_content.block_active_content : false
 
 PS : chromium 浏览器中允许混合内容：在URL地址栏最后，点击盾牌按钮，点击 "allow unsafe javascript"
+
+
+## 常用插件
+
+* [ColorZilla](https://addons.mozilla.org/zh-CN/firefox/addon/colorzilla/) 提取颜色

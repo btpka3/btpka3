@@ -93,6 +93,8 @@ ifconfig
 [查看这里](https://www.virtualbox.org/wiki/Linux_Downloads)
 
 ## 网络连接
+
+
 1.  网络地址转换（NAT）
 
     Guest系统访问网络资源均通过Host系统，只能单向访问。Host系统及其他外部系统均无法访问Guest系统。
@@ -108,6 +110,15 @@ ifconfig
 4.  仅主机（Host Only）适配器
 
     ??? 前面几种功能在这里若合理配置均可实现。
+
+|                   | NAT   | Bridged Adapter   | Internal  | Host-only Adapter |
+|-------------------|-------|-------------------|-----------|-------------------|
+| vm -> host        | Y     | Y                 |           | Y, 需额外设置       |
+| host -> vm        |       | Y                 |           | Y, 需额外设置       |
+| vm -> other host  | Y     | Y                 |           | Y, 需额外设置       |
+| other host -> vm  |       | Y                 |           | Y, 需额外设置       |
+| vm -> vm          |       | Y                 | Y,需同网络  | Y                 |
+
 
 ## 共享本地硬盘
 

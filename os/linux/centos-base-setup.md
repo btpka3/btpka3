@@ -142,10 +142,10 @@ vi /etc/sysconfig/i18n   # 永久修改环境
     ip addr                              # 查看IP地址
     ip link                              # 查看网络连接
     dhclient -v -r eth0                  # 释放DHCP获取的IP地址，重新获取
+    systemctl restart network.service    # 重启网络
 
     yum install NetworkManager-tui
     nmtui edit enp0s3
-    systemctl restart network.service
     ```
 
 1.  通过 修改文件 设置IP地址

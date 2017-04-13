@@ -14,7 +14,10 @@ def map1 = [
 ]
 ```
 
+## 注解中无法使用常量
 
+see groovy issue [2178](https://issues.apache.org/jira/browse/GROOVY-3278).
+只能先在Java中定义常量，再在groovy中引用。
 
 
 ## 添加新方法

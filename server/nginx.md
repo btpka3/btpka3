@@ -2,6 +2,8 @@
 
 ```
 mkdkir -p ~/tmp/my-nginx/conf/conf.d
+mkdkir -p ~/tmp/my-nginx/logs
+mkdkir -p ~/tmp/my-nginx/html
 
 
 docker pull nginx:1.11.8
@@ -20,6 +22,7 @@ docker run \
     -v ~/tmp/my-nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
     -v ~/tmp/my-nginx/conf/conf.d:/etc/nginx/conf.d:ro \
     -v ~/tmp/my-nginx/html/:/usr/share/nginx/html:ro \
+    -v ~/tmp/my-nginx/logs/:/etc/nginx/logs:rw \
     --link mq:mq \
     nginx:1.11.8
    
