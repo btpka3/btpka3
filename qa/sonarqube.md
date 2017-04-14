@@ -27,13 +27,13 @@ Idea 中安装 [SonarLint](http://www.sonarlint.org/intellij/index.html) 插件,
 1. 解压
 
     ```bash
-    [root@localhost ~] mkdir /data/software/sonarQube
-    [root@localhost ~] unzip /data/tmp/sonar-3.7.4.zip -d /data/software/sonarQube/
+    mkdir /data/software/sonarQube
+    unzip /data/tmp/sonar-3.7.4.zip -d /data/software/sonarQube/
     ```
 1. 修改配置文件
 
     ```bash
-    [root@localhost ~] vi /data/software/sonarQube/sonar-3.7.4/conf/sonar.properties
+    vi /data/software/sonarQube/sonar-3.7.4/conf/sonar.properties
       sonar.web.port:                           19020
       sonar.jdbc.username:                  sonar
       sonar.jdbc.password:                   mypassword
@@ -42,20 +42,20 @@ Idea 中安装 [SonarLint](http://www.sonarlint.org/intellij/index.html) 插件,
 1. 追加init.d脚本
 
     ```bash
-    [root@localhost ~] vi /etc/init.d/sonar
+    vi /etc/init.d/sonar
       #!/bin/bash
       # chkconfig: 345 20 80
       /data/software/sonarQube/sonar-3.7.4/bin/linux-x86-64/sonar.sh "$@"
-    [root@localhost ~] chmod u+x /etc/init.d/sonar
-    [root@localhost ~] chkconfig --add sonar
-    [root@localhost ~] chkconfig --list sonar
-    [root@localhost ~] service sonar                               # 确认脚本是否成功
-    [root@localhost ~] service sonar start
+    chmod u+x /etc/init.d/sonar
+    chkconfig --add sonar
+    chkconfig --list sonar
+    service sonar                               # 确认脚本是否成功
+    service sonar start
     ```
 1. 启动。注意：需要先停止旧版本的SonarQube（如果有的话。）
 
     ```bash
-    [root@localhost ~] service sonar start
+    service sonar start
     ```
 1. 升级。
     1. 复制 OLD_SONARQUBE_HOME/extensions/plugins 到新的目录中

@@ -1,6 +1,4 @@
-
-
-[CentOS 7 firewall](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Security_Guide/sec-Using_Firewalls.html)
+ 
 
 常用命令：
 iptables, ip6tables
@@ -72,4 +70,10 @@ iptables -t filter -A INPUT -s 172.16.0.0/16 -p udp --dport 53 -j DROP
 |`--sport 80`   | Y       | Y       |         |指定源端口|
 |`--tcp-flags`  | Y       |         |         |检查tcp的标志位：要坚持的、 必须为1的。比如 `--tcpflags syn,ack,fin,rst syn`|
 |`--icmp-type`  |         |         | Y       |echo-request : 请求回显(一般用8 来表示)，echo-reply: 响应的数据包(一般用0来表示) |
+
+# 参考
+
+* [How To Set Up a Firewall Using FirewallD on CentOS 7](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-using-firewalld-on-centos-7)
+* [CentOS 7 firewall](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Security_Guide/sec-Using_Firewalls.html)
+
 
