@@ -27,7 +27,9 @@ ln -s '/usr/lib/systemd/system/graphical.target' '/etc/systemd/system/default.ta
 ## 常用命令
 
 ```
-systemctl --failed                            # 检查启动失败的服务
+less /var/log/messages                          # 查看详细错误日志
+journalctl                                      # 查看日志
+systemctl --failed                              # 检查启动失败的服务
 systemctl status network.service
 
 systemctl enable name.service

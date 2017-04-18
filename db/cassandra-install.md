@@ -1,4 +1,55 @@
 
+
+
+
+
+# docker
+
+```
+cd ~
+mkdir -p ~/tmp/my-cassandra
+mkdir -p ~/tmp/my-cassandra/data
+mkdir -p ~/tmp/my-cassandra/commitlog
+mkdir -p ~/tmp/my-cassandra/saved_caches
+ 
+docker pull cassandra:3.10
+
+
+# http://cassandra.apache.org/doc/latest/faq/index.html#what-ports
+docker run -d \
+        --name my-cassandra \
+        -p 7000:7000 \
+        -p 7001:7001 \
+        -p 7199:7199 \
+        -p 9042:9042 \
+        -p 9160:9160 \
+        cassandra:3.10
+
+# 从docker镜像中复制默认的配置文件
+docker cp my-cassandra:/etc/cassandra/ /Users/zll/tmp/my-cassandra
+
+docker stop my-cassandra
+docker rm my-cassandra
+docker run -d \
+        --name my-cassandra \
+        -p 7000:7000 \
+        -p 7001:7001 \
+        -p 7199:7199 \
+        -p 9042:9042 \
+        -p 9160:9160 \
+        -v "/Users/zll/tmp/my-cassandra/cassandra":/etc/cassandra:ro \
+        -v "/Users/zll/tmp/my-cassandra/data":/var/lib/cassandra/data:rw \
+        -v "/Users/zll/tmp/my-cassandra/commitlog":/var/lib/cassandra/commitlog:rw \
+        -v "/Users/zll/tmp/my-cassandra/saved_caches":/var/lib/cassandra/saved_caches:rw \
+        cassandra:3.10
+
+docker start my-cassandra
+ 
+docker exec -it my-cassandra bash
+
+```
+
+
 GUI客户端工具 [DBeaver](http://dbeaver.jkiss.org/)
 
 http://www.datastax.com/documentation/cassandra/2.1/cassandra/initialize/initializeSingleDS.html

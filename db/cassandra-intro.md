@@ -27,7 +27,7 @@ Cassandra是 NoSQL 中一个后起之秀，比如
 1. Cassandra 2.1 版本有很有用的功能——能在collection上建立索引。但其提供的 cassandra-driver-core 2.1 版却不提供 `contains`, `contains key`等查询API，只能手写CQL。
 1. spring-data-cassandra 虽然提供了cassandraTemplate, cqlTemplate，和POJO的映射，依赖于 cassandra-driver-core 2.0, 无法支持 cassandra 2.1。 且其 Repository 概念也仅仅提供了基础的功能，尚不支持自定义声名式的interface。
 1. cassandra的Grails GORM插件，也是基于spring-data-cassandra。且基于其 1.0.0M1 版本和 Cassandra 2.0.11 一直没能搭建起一个可用的demo，报错 "InvalidQueryException: Unknown identifier version"。
-1. 排序列只能是primary key中的 clustering collumn，因此对排序支持不好。排序严重依赖于主键设计，却又没有修改主键的方法，只能重新建表。
+1. 排序列只能是primary key中的 clustering column，因此对排序支持不好。排序严重依赖于主键设计，却又没有修改主键的方法，只能重新建表。
 
 
 
