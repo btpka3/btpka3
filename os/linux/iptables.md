@@ -180,3 +180,5 @@ iptables -t filter -A INPUT -s 172.16.0.0/16 -p udp --dport 53 -j DROP
 
 * `man iptables`
 * `man iptables-extensions`
+* [netfilter](http://netfilter.org/)
+* [ iptables DNAT 与 SNAT 详解 ](http://jafy00.blog.51cto.com/2594646/651856)

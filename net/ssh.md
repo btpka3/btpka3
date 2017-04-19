@@ -152,7 +152,8 @@ ssh -D ${localSocketProxyPort} user@remoteSShServer
 ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort
 ```
 
-需求示例：线上环境同一种web服务有集群，我需要调试特定某个节点上的服务。 关于 xxx_proxy 环境变量设置请参考[这里](https://wiki.archlinux.org/index.php/Proxy_settings)
+需求示例：线上环境同一种web服务有集群，我需要调试特定某个节点上的服务。
+关于 xxx_proxy 环境变量设置请参考[这里](https://wiki.archlinux.org/index.php/Proxy_settings)
 
 1. 启动代理转发
 
@@ -161,10 +162,18 @@ ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort
     ssh root@122.225.11.207 -C -f -N -g -D 9999
 
     # 如果D@dev无法上网，但可以连接到A@dev，则可以在D@dev上通过该代理上网
+    # man wget
     export http_proxy=socks5://prod11.kingsilk.net:9999
-    export HTTPS_PROXY=socks5://prod11.kingsilk.net:9999
-    export ALL_PROXY=socks5://prod11.kingsilk.net:9999           # man curl
+    export https_proxy=$http_proxy
+    export ftp_proxy=$http_proxy
     export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+ 
+    # man curl
+    export http_proxy=socks5://prod11.kingsilk.net:9999
+    export HTTPS_PROXY=${http_proxy}
+    export FTP_PROXY=${http_proxy}
+    export ALL_PROXY=${http_proxy}
+    export NO_PROXY=$no_proxy
     curl -x socks5://localhost:9999  http://www.baidu.com
     ```
 1. 在 chrome 浏览器中 安装 SwitchySharp 插件，新建 Proxy Profiles：

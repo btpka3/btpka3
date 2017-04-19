@@ -37,7 +37,7 @@ docker run -d \
         -p 7199:7199 \
         -p 9042:9042 \
         -p 9160:9160 \
-        -v "/Users/zll/tmp/my-cassandra/cassandra":/etc/cassandra:ro \
+        -v "/Users/zll/tmp/my-cassandra/cassandra":/etc/cassandra:rw \
         -v "/Users/zll/tmp/my-cassandra/data":/var/lib/cassandra/data:rw \
         -v "/Users/zll/tmp/my-cassandra/commitlog":/var/lib/cassandra/commitlog:rw \
         -v "/Users/zll/tmp/my-cassandra/saved_caches":/var/lib/cassandra/saved_caches:rw \

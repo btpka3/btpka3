@@ -31,18 +31,21 @@ mvn --version
 
 ```
 gpg2 --version
-gpg2 --gen-key              # 生成密钥对儿
+gpg2 --gen-key              # 生成密钥对儿。比如真实姓名 btpka3, 电子邮箱 btpka3@163.com
 gpg2 --list-keys            # 列出公钥
 gpg2 --list-secret-keys     # 列出密钥
 
 gpg2 -ab xxx.txt            # 对指定的文件进行签名
 gpg2 --verify xxx.txt.asc   # 对指定文件的签名进行校验
 
+                            # 查询发布过哪些公钥
+gpg2 --keyserver hkp://pool.sks-keyservers.net --search-keys btpka3
+
                             # 发布公钥
-gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys C6EED57A
+gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys 1B2987CE0E7D4B2205F4323A3E1DC5C16350AE07
 
                             # 其他人员载入你的公钥
-gpg2 --keyserver hkp://pool.sks-keyservers.net --recv-keys C6EED57A
+gpg2 --keyserver hkp://pool.sks-keyservers.net --recv-keys 1B2987CE0E7D4B2205F4323A3E1DC5C16350AE07
 
 
 gpg2 --edit-key A6BAB25C    # 编辑公钥

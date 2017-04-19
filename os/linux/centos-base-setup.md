@@ -22,11 +22,18 @@ LVM 卷组
 ## 7788
 
 ```
-yum install net-tools               # centos 7 最小化安装找不到 ifconfig 命令
-yum install openssh-clients
+yum install epel-release
+yum update && yum upgrade  
+# yum -y update && yum -y upgrade
+ 
+yum install net-tools               # centos 7 最小化安装找不到 ifconfig, netstat
+yum install nmap                    # nmap
 yum install wget
-yum install man
 yum install telnet                  # Ctrl+] 之后，quit 可以结束telnet
+
+yum install openssh-clients
+yum install man
+
 yum install unzip
 yum install gcc
 yum groupinstall "Development Tools"
@@ -38,6 +45,9 @@ yum install psmisc                  # pstree 命令
 systemctl disable NetworkManager
 systemctl stop NetworkManager
 # systemctl enable NetworkManager-wait-online.service
+
+yum install rkhunter
+rkhunter --check
 ```
 
 ## 修改主机名
@@ -134,6 +144,30 @@ vi /etc/sysconfig/i18n   # 永久修改环境
     HOSTNAME=h01
     ```
 
+1. DNS 
+
+    参考 ： 
+    [8.2. Interface Configuration Files](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/3/html/Reference_Guide/s1-networkscripts-interfaces.html)
+    [2](https://ma.ttias.be/centos-7-networkmanager-keeps-overwriting-etcresolv-conf/)
+    
+    ```bash
+    # 1. NetworkManager 重启会重写 /etc/resolv.conf, 
+    #   其中的内容来自于 /etc/sysconfig/network-scripts/ifcfg-*
+    #   因此可以通过该文件配置
+    
+    # 2. 如果不想 /etc/resolv.conf 被重写，可以
+    # 2.1 禁用 NetworkManager
+    systemctl disable NetworkManager.service
+    systemctl stop NetworkManager.service
+    
+    # 2.2 不让 NetworkManager 修改 DNS 设置
+    vi /etc/NetworkManager/NetworkManager.conf
+    [main]
+    dns=none
+ 
+    # 3. 注意： 如果某个网卡使用的 dhcp，且配置为 PEERDNS="yes"
+    #    则 /etc/resolv.conf 仍会被重写，只不过是被 /usr/sbin/dhclient-script 重写
+    ```
 
 
 1. centos 7 通过命令修改 IP 地址
@@ -154,7 +188,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
 
         ```bash
         DEVICE="eth0"                               # 设备名称
-        NM_CONTROLLED="no"                          # ? 若为yes，会报错
+        NM_CONTROLLED="no"                          # 是否被 NetworkManager 控制
         ONBOOT=yes                                  # 是否启动时就启用
         TYPE=Ethernet                               # 网卡类型
         BOOTPROTO=none                              # 分配IP地址的协议，这里是静态
@@ -179,7 +213,7 @@ vi /etc/sysconfig/i18n   # 永久修改环境
         TYPE="Ethernet"
         BOOTPROTO="static"
         DEFROUTE="yes"
-        PEERDNS="yes"
+        PEERDNS="yes"                       # 是否修改 /etc/resolv.conf, 会被 /usr/sbin/dhclient-script 修改
         PEERROUTES="yes"
         IPV4_FAILURE_FATAL="no"
         IPV6INIT="yes"

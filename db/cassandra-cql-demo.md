@@ -49,9 +49,9 @@ describe table xxx;
 
 -- 说明
 -- partition key       = id (主键中的第一个）
--- clustering collumns = sid (主键中的非第一列）
--- indexed collumns    = name, tags, addrs, extra
--- common collumns     = memo
+-- clustering columns = sid (主键中的非第一列）
+-- indexed columns    = name, tags, addrs, extra
+-- common columns     = memo
 ```
 
 
@@ -95,16 +95,16 @@ select * from xxx;
 -- select : where  (OK) : partition key 单独作为 where 条件
 select * from xxx where id = '1';
 
--- select : where  (WARN) :  clustering collumns 不可单独作为 where 条件，除非 ALLOW FILTERING
+-- select : where  (WARN) :  clustering columns 不可单独作为 where 条件，除非 ALLOW FILTERING
 select * from xxx where sid = 'sid1';
 
--- select : where  (OK) : indexed collumns (值)可以单独作为 where 条件。
+-- select : where  (OK) : indexed columns (值)可以单独作为 where 条件。
 select * from xxx where name = 'name1';
 select * from xxx where tags contains 'tag3';
 select * from xxx where addrs contains 'addr3';
 select * from xxx where extra contains 'value3';
 
--- select : where  (ERROR) : indexed collumns (Map的key) 不能作为 where 条件。
+-- select : where  (ERROR) : indexed columns (Map的key) 不能作为 where 条件。
 select * from xxx where extra contains key 'key3';
 
 -- select : where  (ERROR) : 普通数据列不能作为 where 条件。
@@ -114,14 +114,21 @@ select * from xxx where memo = 'memo1';
 ### 列的分类组合做 where 条件
 
 ```sql
--- select : where  (OK) : clustering collumns 可以和 partition key 一起作为 where 条件。
+-- select : where  (OK) : clustering columns 可以和 partition key 一起作为 where 条件。
 select * from xxx where id = '1' and sid = 'sid1';
+select * from xxx where id = '1' and sid = 'sid1' ORDER BY sid;
 
--- select : where  (OK) : clustering collumns 可以和 indexed collumns (值)一起作为 where 条件。
-select * from xxx where sid = 'sid1' and name = 'name1';
+-- select : where  (OK) : clustering columns 可以和 indexed columns (值)一起作为 where 条件。
+select * from xxx where id = '1' and sid = 'sid1' and name = 'name1';
+
+-- ERROR: ORDER BY with 2ndary indexes is not supported.
+select * from xxx where id = '1' and sid = 'sid1' and name = 'name1' ORDER BY name;
+
+-- ERROR: 需要ALLOW FILTERING
 select * from xxx where sid = 'sid1' and tags contains 'tag3';
 select * from xxx where sid = 'sid1' and addrs contains 'addr3';
 select * from xxx where sid = 'sid1' and extra contains 'value3';
+
 ```
 
 ## 更新
