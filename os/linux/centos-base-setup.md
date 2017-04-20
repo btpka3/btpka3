@@ -385,6 +385,18 @@ Linux localhost.localdomain 2.6.32-279.el6.x86_64 #1 SMP Fri Jun 22 12:19:21 UTC
 LANG="en_US.UTF-8"
 ```
 
+## 时区 timezone
+
+```bash
+ls /usr/share/zoneinfo  # 列出可用时区
+
+ll /etc/localtime       # 查看当前时区
+lrwxrwxrwx. 1 root root 35 Apr 18 17:51 /etc/localtime -> ../usr/share/zoneinfo/Asia/Shanghai
+
+# 重新设置时区
+ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+```
+
 
 
 # 防火墙

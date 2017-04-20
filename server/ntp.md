@@ -47,7 +47,7 @@ SYNC_HWCLOCK=yes
 remote           上级ntp服务器的主机名
 refid            上级ntp服务器的IP地址
 st               startnum阶层
-t				
+t
 when             多少时间前曾同步过
 poll             同步间隔
 reach            已经向上级ntp服务器要求更新的次数
@@ -74,4 +74,6 @@ systemctl is-enabled ntpd
 systemctl enable ntpd
 systemctl status ntpd
 systemctl start ntpd
+
+man ntp.conf
 ```

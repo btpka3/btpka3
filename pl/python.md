@@ -1,5 +1,19 @@
 
 
+```bash
+pip3 install --upgrade virtualenv
+
+cd /path/to/your/project
+virtualenv --system-site-packages .
+source ./bin/activate  
+
+
+pip3 install --upgrade tensorflow
+ 
+
+deactivate          # 退出当前工作环境
+```
+
 ```
 sudo apt-get install libpython-all-dev
 # python
