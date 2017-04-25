@@ -15,3 +15,22 @@ sudo mv /etc/fonts/conf.d/65-droid-sans-fonts.conf /etc/fonts/conf.d/65-droid-sa
 chromium-browser --enable-logging --v=1 --disable-extensions  https://zh.wikipedia.org/
 tailf ~/.config/chromium/chrome_debug.log
 ```
+
+
+# 手机 浏览器 WebView 远程调试
+
+1. chrome remote debug时打开inspect时出现一片空白
+
+因为chrome inspect需要翻墙加载以下我网站上的资源：
+
+
+https://chrome-devtools-frontend.appspot.com
+https://chrometophone.appspot.com
+
+
+编辑hosts文件，添加：
+
+61.91.161.217    chrome-devtools-frontend.appspot.com
+61.91.161.217    chrometophone.appspot.com
+
+即可

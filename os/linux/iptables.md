@@ -6,6 +6,8 @@
 `iptables`，`ip6tables`是一个管理 pacakge 过滤和 NAT 的工具。
 用以建立、维护、检查 Linux Kernel 中 IPv4 和 IPv6 包过滤规则。
 
+其配置文件为 "/etc/sysconfig/iptables"
+
 * table
 
     Linux Kernel 中定义的的表。可包含多个 chain （预定义的、或自定义的）

@@ -306,6 +306,13 @@ cipher AES-256-CBC          # 需要与服务器端配置保持一致
     # traceroute 检查路由路径
     ```
 
+# FIXME
+
+* openvpn client 端路由表中 `0.0.0.0/1` 即 `0.0.0.0/0.0.0.1` 是什么含义？
+    按照 RFC 3330 (reserved networks) 和 RFC 1700 (assigned numbers)，
+    0.0.0/8 (0.0.0.0 - 0.255.255.255) 的含义是 "this network"。
+    该网络下的任何一个IP地址都不是一个合法的主机IP地址，但却是合法的 来源地址。
+
 # 参考
 
 * [openVpn](https://openvpn.net/)

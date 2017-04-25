@@ -13,6 +13,8 @@ firwall-config(GUI)          -> firewalld(daemon & service) -> iptables(command)
 firwall-cmd                  -> firewalld(daemon & service) -> iptables(command)  -> kernel(netfilter)
 ```
 
+其配置文件为 `/etc/firewalld/` 目录下的 XML 文件。
+
 # firewalld 相关概念
 
 * Zone 
