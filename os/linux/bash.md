@@ -281,6 +281,14 @@ myFunc(){
   exit 1
 }
 funcResult=$(myFunc zhang3)
+
+# -- 迭代参数
+aaa(){
+    for i in "$@"; do 
+        echo === $i
+    done
+}
+aaa a1 "a 2" a3
 ```
 
 ## xargs

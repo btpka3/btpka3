@@ -1,10 +1,37 @@
 
+# sonartype nexus
+
+## Wget 下载最新快照
+
+请看该 [API](https://repository.sonatype.org/nexus-restlet1x-plugin/default/docs/path__artifact_maven_redirect.html)
+
+
+```bash
+v="0.1.0-SNAPSHOT"
+
+# 下载 pom 文件
+wget -O "qh-common-domain-${v}.pom" "http://mvn.kingsilk.xyz/service/local/artifact/maven/redirect\
+?r=public\
+&g=net.kingsilk\
+&a=qh-common-domain\
+&v=$v\
+&e=pom"
+
+# 下载 jar 包
+wget -O "qh-common-domain-${v}.jar" "http://mvn.kingsilk.xyz/service/local/artifact/maven/redirect\
+?r=public\
+&g=net.kingsilk\
+&a=qh-common-domain\
+&v=$v"
+```
+
+
 ## 下载站
 http://jenv.mvnsearch.org/
 
 《[开源中国 Maven 镜像库关闭访问](http://www.oschina.net/news/75946/maven-oschina-closed)》
 
-国内替代品 http://maven.aliyun.com/nexus/#welcome
+国内替代品 http://maven.aliyun.com/r/#welcome
 
 ## 安装
 

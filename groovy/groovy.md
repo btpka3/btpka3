@@ -117,6 +117,7 @@ class GMain {
 当代码编译时记性，参与全局变换的，需要在相应的jar包中 
 `META-INF/services/org.codehaus.groovy.transform.ASTTransformation`
  进行配置。实现类必须实现 org.codehaus.groovy.transform.ASTTransformation 接口并提供无参数构造函数。
+ 可以通过 ASTTransformationCustomizer 配置，可以避免将 自定义筛选用的 annotation 类放到单独的一个jar包中。
  
 #### 本地 transformation
 必须在 [org.codehaus.groovy.control.CompilePhase](http://docs.groovy-lang.org/2.4.8/html/gapi/index.html?org/codehaus/groovy/control/CompilePhase.html) 
@@ -124,6 +125,33 @@ class GMain {
 
 
 
+#### AST 类型检查
 
- 
- 
+请参考 [这里](http://groovy-lang.org/dsls.html#section-delegatesto)
+
+ `Closure#rehydrate()`、`@DelegatesTo`
+
+Gradle 中相关的静态类型检查请参考
+
+1. `gradle-api-3.4.1.jar!/META-INF/services/org.gradle.initialization.GradleApiSpecProvider`
+1. org.gradle.initialization.DefaultGradleApiSpecProvider
+1. DefaultServiceLocator
+1. GradleApiSpecProvider
+
+1. GradleApiSpecAggregator 通过 DefaultServiceLocator 
+
+```txt
+GlobalScopeServices#createClassLoaderRegistry()
+-> new DefaultClassLoaderRegistry()
+-> GradleApiSpecAggregator#aggregate()
+-> DefaultServiceLocator#implementationsOf() // 从 `META-INF/services/` 找出实现了 GradleApiSpecProvider 的服务类，
+                                             // 目前只有一个 ——  DefaultGradleApiSpecProvider
+-> DefaultGradleApiSpecProvider
+```
+
+### Type checking extensions
+
+see [here](http://docs.groovy-lang.org/latest/html/documentation/type-checking-extensions.html)
+
+
+1. org.codehaus.groovy.transform.stc.GroovyTypeCheckingExtensionSupport

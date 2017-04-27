@@ -75,6 +75,124 @@ artifacts {
 }
 ```
 
+## 添加任务到 build
+```groovy
+task hello() {
+}
+
+rootProject.tasks.getByName('build').dependsOn hello
+```
+
+## tar
+
+```groovy
+/*
+// INPUT
+./build/a/a1.txt
+./build/a/a2.txt
+./build/b/b1.txt
+./build/b/b2.txt
+// OUTPUT
+qh-agency-wap-front-1.1.0-SNAPSHOT-btpka3.tgz
+/aaa/a1.txt
+/bbb/a1.txt
+*/
+task myTar(type: Tar) {
+    classifier = "btpka3"
+    compression = Compression.GZIP
+    archiveName = "${baseName}-${version}-${classifier}.${extension}"
+    destinationDir = file("build/tmp")
+    duplicatesStrategy = DuplicatesStrategy.WARN
+
+    from("build/a") {
+        exclude("a2.txt")
+        into("aaa")
+
+    }
+
+    from("build/b") {
+        exclude("b2.txt")
+        into("bbb")
+    }
+
+    eachFile { FileCopyDetails fcd ->
+        println "-----" + fcd.path
+        //fcd.exclude()
+    }
+}
+```
+
+## upload 
+
+```groovy
+apply plugin: 'distribution'
+distributions {
+    //test12 {
+    //    baseName = project.name
+    //}
+    main {  // prod
+        baseName = project.name
+    }
+}
+
+task buildProd() {
+    group "build"
+
+    doLast {
+        ConfigurableFileTree ft = fileTree('src/main/dist')
+        ft.exclude(".gitkeep")
+        ft.visit { FileVisitDetails fvd ->
+            delete fvd.file
+        }
+        project.exec {
+            commandLine "${npm}", "run", "webpack", "--", "--env.env=prod", "--env.out=src/main/dist"
+        }
+    }
+}
+tasks.distTar.dependsOn buildProd
+tasks.distTar.compression = Compression.GZIP
+
+tasks.distZip.dependsOn buildProd
+
+//
+//task listDistributions() {
+//
+//    DefaultDistributionContainer c = project.extensions.getByName("distributions")
+//    c.forEach { Distribution d ->
+//        println """
+//===================== listDistributions :  ${d}
+//name        : ${d.name}
+//baseName    : ${d.baseName}
+//"""
+//    }
+//
+//}
+//
+//task listArtifacts() {
+//    Configuration c = project.configurations.getByName("archives")
+//    c.getArtifacts().forEach { PublishArtifact a ->
+//        println """
+//===================== listArtifacts :  ${a}
+//name        : ${a.name}
+//type        : ${a.type}
+//extension   : ${a.extension}
+//classifier  : ${a.classifier}
+//"""
+//    }
+//}
+```
+
+## exec
+
+```groovy
+def stdout = new ByteArrayOutputStream()
+project.exec {
+    standardOutput = stdout
+    commandLine "echo","111","222"
+}
+println "-----------------------" + stdout
+```
+
 ## download source
 
 
