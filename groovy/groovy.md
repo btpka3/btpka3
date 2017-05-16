@@ -14,6 +14,33 @@ def map1 = [
 ]
 ```
 
+## Design patterns in Groovy
+
+see [here](http://www.groovy-lang.org/design-patterns.html#_pimp_my_library_pattern)
+
+
+# DSL
+
+1. 空格用来分隔方法调用，如果没有参数，则需要明确加上 `()`
+
+    ```groovy
+    // equivalent to: turn(left).then(right)
+    turn left then right
+ 
+    // equivalent to: select(all).unique().from(names)
+    select all unique() from names
+    ```
+1. 逗号用来分隔单个方法调用时的参数列表
+
+    ```groovy
+    // equivalent to: paint(wall).with(red, green).and(yellow)
+    paint wall with red, green and yellow
+ 
+    // with named parameters too
+    // equivalent to: check(that: margarita).tastes(good)
+    check that: margarita tastes good
+    ```
+
 ## 注解中无法使用常量
 
 see groovy issue [2178](https://issues.apache.org/jira/browse/GROOVY-3278).

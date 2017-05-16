@@ -29,6 +29,26 @@ sudo chown -R $USER /usr/local
 
 echo source \~/.bashrc >> ~/.bashr_profile
 ```
+## bash_profile
+
+```bash
+export LS_OPTIONS='--color=auto' # 如果没有指定，则自动选择颜色
+export CLICOLOR='Yes' #是否输出颜色
+export LSCOLORS='Exfxcxdxbxegedabagacad' #指定颜色
+export PS1='\[\033[01;33m\]\u@\h\[\033[01;31m\] \W\$\[\033[00m\] '
+export LC_CTYPE=en_US.UTF-8
+
+alias ll='ls -l'
+alias tailf='tail -f'
+export JMETER_HOME=/Users/zll/software/apache-jmeter-3.1
+export PATH=$JMETER_HOME/bin:$PATH
+
+#echo ================ ~/.bash_profile
+source ~/.bashrc
+
+export JAVA_HOME=$(/usr/libexec/java_home)
+```
+
 
 ## 修改主机名
 

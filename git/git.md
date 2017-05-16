@@ -38,6 +38,7 @@ git config --global color.ui auto                 # git命令下会使用红色�
 git config --global branch.autosetuprebase always # 在 "git pull" 时，总会自动rebase
 git config --global credential.helper cache       # 在 clone `https` 类型的URL时，可减少用户名密码输入次数
 git config --global core.quotepath false          # 在提交中文名称的文件时，不转义为 \350\256\256\346\200\273\347\273\223.xlsx
+git config --global core.ignorecase false         # 文件名区分大小写 
 git config --list
 ```
 

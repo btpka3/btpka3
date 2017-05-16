@@ -3,6 +3,10 @@
 
 
 
+
+
+
+
 ```
 wget https://downloads.gradle.org/distributions/gradle-2.11-bin.zip
 sudo mkdir /usr/local/grale/
@@ -20,7 +24,232 @@ org.gradle.daemon=true
 
 # 列出所有task
 gradle tasks --all
+
+# 禁用 daemon
+./gradlew -Dorg.gradle.daemon=false build
+
+# 远程调试 gradle 插件
+./gradlew --stop
+export GRADLE_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
+./gradlew -Dorg.gradle.daemon=false build
 ```
+
+
+## Project
+
+
+```
+## Script
+groovy.lang.Script
+org.gradle.groovy.scripts.BasicScript
+    getProperty()
+        // 先从当前 script binding 对象中获取
+        // 再从当前 script 中获取
+        // 最后从 DynamicObject——ProjectInternal 上获取
+        //   -> ExtensibleDynamicObject#getProperty() 依次代理下面对象上的属性、方法: (其中 this == extensibleDynamicObject)
+        //         1. this.extraPropertiesDynamicObject                = new ExtraPropertiesDynamicObjectAdapter(DefaultProject.class, this.convention.getExtraProperties());
+        //                                                            -> "ext" 属性映射到 ExtraPropertiesExtension 实例
+        //         2. this.beforeConvention                            = new BeanDynamicObject(buildScript)
+        //         3. this.convention.getExtensionsAsDynamicObject()   = this.convention == new DefaultConvention(defaultProject.services.get(Instantiator.class))
+        //                                                           new DefaultConvention.ExtensionsDynamicObject()#getProperty()
+        //                                                                1.  先 查找插件提供的 extension 2. 再 查找插件提供的 convention 属性
+                    // BuildScopeServiceRegistryFactory
+                    // GradleScopeServices
+                    //      #add(GradleInternal)
+                    //      #addProvider(new TaskExecutionServices());
+                    // DefaultServiceRegistry#getServiceProvider()
+                    // BuildScopeServices
+        //                                                                  DefaultTaskContainer
+        //         4. this.parent                                      = ??? 
+
+        //          this. dynamicDelegate =new BeanDynamicObject(defaultProject, DefaultProject.class)
+
+        // this.afterConvention = defaultProject.taskContainer.getTasksAsDynamicObject()
+        
+    invokeMethod()
+        // 再从当前 script 中获取
+        // 最后从 DynamicObject——ProjectInternal 上获取
+        
+new ExtensibleDynamicObject(this,            Project.class, (Instantiator)this.services.get(Instantiator.class));
+                            Object delegate, Class<?> publicType, Instantiator instantiator
+
+this(delegate, (AbstractDynamicObject)createDynamicObject(delegate, publicType), (Convention)(new DefaultConvention(instantiator)));
+public ExtensibleDynamicObject(Object delegate, AbstractDynamicObject dynamicDelegate, Convention convention) {
+        this.dynamicDelegate = dynamicDelegate;
+        this.convention = convention;
+        this.extraPropertiesDynamicObject = new ExtraPropertiesDynamicObjectAdapter(delegate.getClass(), convention.getExtraProperties());
+        this.updateDelegates();
+    }
+
+
+org.gradle.groovy.scripts.DefaultScript     
+   定义了 mkdir， file，fileTree 等方法，
+   但是这些方法都是代理了 fileOperations —— ProjectInternal 上的对应方法。
+
+* org.gradle.api.internal.project.ProjectScript
+    getScriptTarget() == ProjectInternal
+
+* org.gradle.api.Project
+* org.gradle.api.internal.project.ProjectFactory
+* org.gradle.api.internal.project.DefaultProject
+
+// DefaultScript#buildscript(Closure)
+buildscript {
+
+}
+
+// DefaultProject#dependencies(Closure)
+// -> DependencyHandler DefaultProject#getDependencies() 
+// -> 对 DependencyHandler 应用 Closure
+dependencies {  
+
+    // DefaultDependencyHandler#invokeMethod()
+    // -> DefaultDependencyHandler#configurationContainer.findByName(name)
+    // -> DefaultDependencyHandler#doAdd(Configuration, dependencyNotation, Closure)
+    compile ""  
+}
+
+// Project#task(Map<String, ?> args, String name, Closure configureClosure);
+task myTar(type:Tar){
+    baseName = "xxx"
+    doLast {
+    }
+}
+
+
+# 创建 task
+task aaa(){
+}
+
+//  创建时，传递就options 为hashMap == [name:"aaaa"]
+"main@1" prio=5 tid=0x1 nid=NA runnable
+  java.lang.Thread.State: RUNNABLE
+	  at org.gradle.api.internal.tasks.DefaultTaskContainer.create(DefaultTaskContainer.java:71)
+	  at org.gradle.api.internal.tasks.DefaultTaskContainer.create(DefaultTaskContainer.java:115)
+	  at org.gradle.api.internal.project.DefaultProject.task(DefaultProject.java:999)
+	  at sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-1)
+	  at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	  at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	  at java.lang.reflect.Method.invoke(Method.java:498)
+	  at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:93)
+	  at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:325)
+	  at org.gradle.internal.metaobject.BeanDynamicObject$MetaClassAdapter.invokeMethod(BeanDynamicObject.java:464)
+	  at org.gradle.internal.metaobject.BeanDynamicObject.invokeMethod(BeanDynamicObject.java:176)
+	  at org.gradle.internal.metaobject.CompositeDynamicObject.invokeMethod(CompositeDynamicObject.java:96)
+	  at org.gradle.internal.metaobject.MixInClosurePropertiesAsMethodsDynamicObject.invokeMethod(MixInClosurePropertiesAsMethodsDynamicObject.java:30)
+	  at org.gradle.groovy.scripts.BasicScript.invokeMethod(BasicScript.java:111)
+	  at org.gradle.groovy.scripts.BasicScript.methodMissing(BasicScript.java:120)
+	  at sun.reflect.GeneratedMethodAccessor19.invoke(Unknown Source:-1)
+	  at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	  at java.lang.reflect.Method.invoke(Method.java:498)
+	  at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:93)
+	  at groovy.lang.MetaClassImpl.invokeMissingMethod(MetaClassImpl.java:941)
+	  at groovy.lang.MetaClassImpl.invokePropertyOrMissing(MetaClassImpl.java:1264)
+	  at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1217)
+	  at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1024)
+	  at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:69)
+	  at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:52)
+	  at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:154)
+	  at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:174)
+	  at build_5fzjd1yckxdq669oxhfdfdcqp.run(/Users/zll/work/git-repo/kingsilk/qh-agency/qh-agency-wap-front/build.gradle:62)
+	  at org.gradle.groovy.scripts.internal.DefaultScriptRunnerFactory$ScriptRunnerImpl.run(DefaultScriptRunnerFactory.java:90)
+	  at org.gradle.configuration.DefaultScriptPluginFactory$ScriptPluginImpl$2.run(DefaultScriptPluginFactory.java:176)
+	  at org.gradle.configuration.ProjectScriptTarget.addConfiguration(ProjectScriptTarget.java:77)
+	  at org.gradle.configuration.DefaultScriptPluginFactory$ScriptPluginImpl.apply(DefaultScriptPluginFactory.java:181)
+	  at org.gradle.configuration.project.BuildScriptProcessor.execute(BuildScriptProcessor.java:39)
+	  at org.gradle.configuration.project.BuildScriptProcessor.execute(BuildScriptProcessor.java:26)
+	  at org.gradle.configuration.project.ConfigureActionsProjectEvaluator.evaluate(ConfigureActionsProjectEvaluator.java:34)
+	  at org.gradle.configuration.project.LifecycleProjectEvaluator.doConfigure(LifecycleProjectEvaluator.java:70)
+	  at org.gradle.configuration.project.LifecycleProjectEvaluator.access$000(LifecycleProjectEvaluator.java:33)
+	  at org.gradle.configuration.project.LifecycleProjectEvaluator$1.execute(LifecycleProjectEvaluator.java:53)
+	  at org.gradle.configuration.project.LifecycleProjectEvaluator$1.execute(LifecycleProjectEvaluator.java:50)
+	  at org.gradle.internal.Transformers$4.transform(Transformers.java:169)
+	  at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:106)
+	  at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:61)
+	  at org.gradle.configuration.project.LifecycleProjectEvaluator.evaluate(LifecycleProjectEvaluator.java:50)
+	  at org.gradle.api.internal.project.DefaultProject.evaluate(DefaultProject.java:599)
+	  at org.gradle.api.internal.project.DefaultProject.evaluate(DefaultProject.java:125)
+	  at org.gradle.execution.TaskPathProjectEvaluator.configure(TaskPathProjectEvaluator.java:35)
+	  at org.gradle.execution.TaskPathProjectEvaluator.configureHierarchy(TaskPathProjectEvaluator.java:62)
+	  at org.gradle.configuration.DefaultBuildConfigurer.configure(DefaultBuildConfigurer.java:38)
+	  at org.gradle.initialization.DefaultGradleLauncher$ConfigureBuildAction.execute(DefaultGradleLauncher.java:233)
+	  at org.gradle.initialization.DefaultGradleLauncher$ConfigureBuildAction.execute(DefaultGradleLauncher.java:230)
+	  at org.gradle.internal.Transformers$4.transform(Transformers.java:169)
+	  at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:106)
+	  at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:56)
+	  at org.gradle.initialization.DefaultGradleLauncher.doBuildStages(DefaultGradleLauncher.java:160)
+	  at org.gradle.initialization.DefaultGradleLauncher.doBuild(DefaultGradleLauncher.java:119)
+	  at org.gradle.initialization.DefaultGradleLauncher.run(DefaultGradleLauncher.java:102)
+	  at org.gradle.launcher.exec.GradleBuildController.run(GradleBuildController.java:71)
+	  at org.gradle.tooling.internal.provider.ExecuteBuildActionRunner.run(ExecuteBuildActionRunner.java:28)
+	  at org.gradle.launcher.exec.ChainingBuildActionRunner.run(ChainingBuildActionRunner.java:35)
+	  at org.gradle.launcher.exec.InProcessBuildActionExecuter.execute(InProcessBuildActionExecuter.java:41)
+	  at org.gradle.launcher.exec.InProcessBuildActionExecuter.execute(InProcessBuildActionExecuter.java:26)
+	  at org.gradle.tooling.internal.provider.ContinuousBuildActionExecuter.execute(ContinuousBuildActionExecuter.java:75)
+	  at org.gradle.tooling.internal.provider.ContinuousBuildActionExecuter.execute(ContinuousBuildActionExecuter.java:49)
+	  at org.gradle.tooling.internal.provider.ServicesSetupBuildActionExecuter.execute(ServicesSetupBuildActionExecuter.java:49)
+	  at org.gradle.tooling.internal.provider.ServicesSetupBuildActionExecuter.execute(ServicesSetupBuildActionExecuter.java:31)
+	  at org.gradle.launcher.cli.RunBuildAction.run(RunBuildAction.java:51)
+	  at org.gradle.internal.Actions$RunnableActionAdapter.execute(Actions.java:173)
+	  at org.gradle.launcher.cli.CommandLineActionFactory$ParseAndBuildAction.execute(CommandLineActionFactory.java:244)
+	  at org.gradle.launcher.cli.CommandLineActionFactory$ParseAndBuildAction.execute(CommandLineActionFactory.java:217)
+	  at org.gradle.launcher.cli.JavaRuntimeValidationAction.execute(JavaRuntimeValidationAction.java:33)
+	  at org.gradle.launcher.cli.JavaRuntimeValidationAction.execute(JavaRuntimeValidationAction.java:24)
+	  at org.gradle.launcher.cli.ExceptionReportingAction.execute(ExceptionReportingAction.java:33)
+	  at org.gradle.launcher.cli.ExceptionReportingAction.execute(ExceptionReportingAction.java:22)
+	  at org.gradle.launcher.cli.CommandLineActionFactory$WithLogging.execute(CommandLineActionFactory.java:210)
+	  at org.gradle.launcher.cli.CommandLineActionFactory$WithLogging.execute(CommandLineActionFactory.java:174)
+	  at org.gradle.launcher.Main.doAction(Main.java:33)
+	  at org.gradle.launcher.bootstrap.EntryPoint.run(EntryPoint.java:45)
+	  at sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-1)
+	  at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	  at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	  at java.lang.reflect.Method.invoke(Method.java:498)
+	  at org.gradle.launcher.bootstrap.ProcessBootstrap.runNoExit(ProcessBootstrap.java:60)
+	  at org.gradle.launcher.bootstrap.ProcessBootstrap.run(ProcessBootstrap.java:37)
+	  at org.gradle.launcher.GradleMain.main(GradleMain.java:23)
+	  at sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-1)
+	  at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	  at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	  at java.lang.reflect.Method.invoke(Method.java:498)
+	  at org.gradle.wrapper.BootstrapMainStarter.start(BootstrapMainStarter.java:30)
+	  at org.gradle.wrapper.WrapperExecutor.execute(WrapperExecutor.java:129)
+	  at org.gradle.wrapper.GradleWrapperMain.main(GradleWrapperMain.java:61)
+```
+
+## task dsl
+
+通过 groovy 官方关于DSL的示例，根本没有找到直接将标识符当成字符串处理的的例子。
+
+```txt
+// 实际发现调用的是 TaskContainer#create() 方法，且下面的  aaaa 是以 字符串类型的 "aaaa" 作为参数传入的。
+task aaaa(type:Tar){
+  println "Hello"
+}
+
+通过在 
+    `groovy.lang.Script`、
+    `org.gradle.groovy.scripts.BasicScript`、
+    `org.gradle.api.internal.plugins.DefaultConvention.ExtensionsDynamicObject`
+的 
+    `getProperty()`、 
+    `invokeMethod()`
+等方法上打条件断点，均未发现有以 "aaaa" 作为名称调用的。
+而且从调用堆栈上看，该是从自动生成的Script类就直接调用 task 方法的。
+思来想去，就只能是先 AST 修改调用方法了。比如上面的task方法可能被 AST 修改为：
+
+task (type:Tar, "aaaa"){
+    println "Hello"
+}
+
+根据猜猜，在 gradle 的github仓库里，通过源代码查找，终于证实了我的想法。
+具体请参考：
+org.gradle.groovy.scripts.internal.TaskDefinitionScriptTransformer
+https://github.com/gradle/gradle/blob/v3.4.1/subprojects/core/src/main/java/org/gradle/groovy/scripts/internal/TaskDefinitionScriptTransformer.java
+
+该类是由 BuildScriptTransformer 注册调用的。
+```
+
 
 ## 上传到 maven 仓库
 
@@ -150,9 +379,11 @@ task buildProd() {
     }
 }
 tasks.distTar.dependsOn buildProd
+tasks.distTar.classifier = "prod"
 tasks.distTar.compression = Compression.GZIP
 
 tasks.distZip.dependsOn buildProd
+tasks.distZip.classifier = "prod"
 
 //
 //task listDistributions() {
