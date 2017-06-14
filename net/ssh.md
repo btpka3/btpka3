@@ -35,6 +35,41 @@ PermitRootLogin no          # 禁止root登录，否则很容易被用来暴力�
 
 ```
 
+# 代理服务器
+
+## 假设环境
+
+gateway.kingsilk.net 有公网IP，并打算在该主机上搭建 代理 服务器。
+internal.kingsilk.net 无法访问公网，打算通过代理服务器配置访问公网上其他 ssh 服务（比如 git clone）
+
+1. 在 internal 主机上分别创建自己的ssh key （这里均是root用户的）
+
+    ```bash
+    # root@internal
+    ssh-keygen -t rsa -C "root@internal.kingsilk.net"
+    ```
+
+1. 在 gateway 主机上创建代理用的用户 proxy, 并授权 root@internal 的 ssh key
+
+    ```bash
+    yum install nc
+
+    # proxy@gateway
+    vi ~/.ssh/authorized_keys  # 将 `/root/.ssh/id_rsa.pub`@internal 的 内容 追加进去
+    ```
+1. 在 internal 主机上配置 git 的代理 `vi /root/.ssh/config`
+
+    ```text
+    Host gitlab.com
+        User                git 
+        ProxyCommand        ssh proxy@gateway.kingsilk.net /usr/bin/nc %h %p
+        IdentityFile        ~/.ssh/id_rsa
+    ```
+1. 验证：
+    ```bash
+    git clone git@gitlab.com:kingsilk/xxx.git /data0/xxx
+    ```
+
 # ssh 登录慢
 
 ```bash
@@ -66,6 +101,7 @@ cat ~/.ssh/id_rsa.github.pub
 
 
 # 设置与github通讯时，使用刚刚生成的ssh key
+man ssh_config
 vi ~/.ssh/config    # 内容见后
 
 # 在github上创建仓库
@@ -238,7 +274,17 @@ ssh sshUser>@sshHost -C -f -N -g -R [bindIpOnSshClient:]sshBindPortOnSshClient:b
     telnet 192.168.71.207 16379
     key *                            # redis 命令 : 列出所有key
     ```
+1. 完整示例脚本
 
+    ```bash
+    set password xxx
+    spawn ssh ddns@pub-prod11.kingsilk.net -C -N -g -R \
+        localhost:14300:localhost:80 \
+        -o ExitOnForwardFailure=yes \
+        -o ServerAliveInterval=60
+    expect "password" {send "$password\r"}
+    interact 
+    ```
 
 # TODO SSH VPN
 

@@ -19,6 +19,7 @@ docker run \
     -d \
     -p 80:80 \
     -p 443:443 \
+    -v /Users/zll:/Users/zll:ro \
     -v ~/tmp/my-nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
     -v ~/tmp/my-nginx/conf/conf.d:/etc/nginx/conf.d:ro \
     -v ~/tmp/my-nginx/html/:/usr/share/nginx/html:ro \
@@ -141,6 +142,16 @@ configure arguments:
 nginx -V 2>&1|tr " " "\n"
 ```
 
+
+## HSTS - 严格传输安全
+[HTTP Strict Transport Security](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security)
+
+1. 只有 通过 https 协议设置才有效，http 无效。
+
+
+```conf
+add_header Strict-Transport-Security "max-age=63072000; includeSubdomains; preload";
+```
 
 ## http2
 
@@ -486,6 +497,27 @@ server {
     }
 }
 ```
+
+## rewrite
+
+```nginx
+
+location ~ ^/a$ {       
+    if ($arg_q = b ) {
+        rewrite ^(.*)$ /bbb.html;
+        #break;
+    }
+    if ($arg_q = '' ) {  # 访问 /a 时，等于直接访问 /aaa.html . FIXME 不能处理 forward
+        rewrite ^(.*)$ /aaa.html;
+    }
+}
+
+location /bbb.html {
+    alias /usr/share/nginx/html/b/bbb.html;
+}
+
+```
+
 
 ## 全部域名跳转
 

@@ -1,8 +1,13 @@
 
-《[Docker 入门实战](http://yuedu.baidu.com/ebook/d817967416fc700abb68fca1?fr=aladdin&key=docker&f=read###)》
+
+# 参考
+* [installation](https://docs.docker.com/engine/installation/)
+* [Start containers automatically](https://docs.docker.com/engine/admin/host_integration/)
+* 《[Docker 入门实战](http://yuedu.baidu.com/ebook/d817967416fc700abb68fca1?fr=aladdin&key=docker&f=read###)》
+* 《[阿里云开发者平台](https://dev.aliyun.com/search.html)》
+* 《[docker使用阿里云Docker镜像库加速](http://blog.csdn.net/bwlab/article/details/50542261)》
 
 MacOS上，image的存储位置在 `~/Library/Containers/com.docker.docker/Data/`
-《[阿里云开发者平台](https://dev.aliyun.com/search.html)》
 
 daocloud.io
 
@@ -11,7 +16,6 @@ docker pull registry.mirrors.aliyuncs.com/library/java
 ```
 
 
-《[docker使用阿里云Docker镜像库加速](http://blog.csdn.net/bwlab/article/details/50542261)》
 
 # Docker Toolbox
 
@@ -546,7 +550,7 @@ docker search
 docker login
 docker push
 ```
-
+ 
 
 ## 容器编排管理
 * 自己管理 Docker Daemon
@@ -594,4 +598,28 @@ docker push
 * 考虑如何对运行期的Docker容器进行扫描
 * 考虑对组织的不同成员授予Docker集群的不同操作权限
 
+
+## centos 
+
+```
+docker run -i -t  \
+    --name my-centos \
+    -d \
+    centos \
+    /bin/bash
+docker exec -it my-centos bash
+```
+
+
+## ubuntu
+
+```bash
+docker rm my-ubuntu
+docker run -i -t \
+    --name my-ubuntu \
+    -d \
+    ubuntu:16.04 \
+    /bin/bash
+docker exec -it my-ubuntu bash
+```
 

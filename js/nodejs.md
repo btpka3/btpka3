@@ -21,7 +21,17 @@
 ```
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
 # 然后关闭、并重新打开命令行窗口
-nvm -version
+nvm --version
+
+
+# 更新 nvm 版本
+(
+  cd "$NVM_DIR"
+  git fetch origin
+  git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" origin`
+) && . "$NVM_DIR/nvm.sh"
+
+
 # 检查安装了哪些版本
 nvm ls
 # 安装最新 LTS 版本 nodejs

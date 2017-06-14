@@ -307,12 +307,26 @@ ps -u  zhang3   # 显示用户 zhang3 所有的进程
 ```
 
 ## 压缩包
+
+### split
+
+```bash
+# 分割
+split -a 2 -b 10m file.tar.gz  newFilePrefix.
+
+# 合并
+cat newFilePrefix.* > singleFile 
+``` 
+
 ### zip
 ```bash
   zip -r file.zip file1 file2 ...
   tar -cvf file.tar file1 file2 ...
   tar -czvf file.tar.gz file1 file2 ...
   tar -cjvf file.tar.bz2 file1 file2 ...
+
+  # 分割
+  tar -czvf - logs/ |split -b 1m - logs.tar.gz.
 ```
 ### add
 ```bash
@@ -349,6 +363,9 @@ ps -u  zhang3   # 显示用户 zhang3 所有的进程
   tar -xJvf file.tar.xz   -C outputdir # outputDir 必须先创建
 
   rar x xxx.rar /path/to/extract
+
+  # 解压分割的多个文件
+  cat newFilePrefix.* | tar -xzvf -C outputDir
 ```
 #### list specific file/dir
 ```bash
@@ -473,6 +490,16 @@ echo ----------------------------------------------------- `$TIME` 同步结束
 ```bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo $DIR
+```
+
+## 下载
+
+```bash
+# 下载指定的文件
+wget -O outputFileName.zip http://www.baidu.com/xxx
+
+# 下载指定的文件(不显示进度条)
+wget -q -O outputFileName.zip http://www.baidu.com/xxx
 ```
 
 ## awk

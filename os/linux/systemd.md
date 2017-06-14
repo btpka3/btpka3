@@ -139,3 +139,48 @@ WantedBy=
 Also=
 DefaultInstance=
 ```
+
+# @ 符号
+
+参考 : [1](https://superuser.com/questions/393423/the-symbol-and-systemctl-and-vsftpd)
+
+
+1. `vi /etc/systemd/system/echo@.service`
+
+    ```
+    [Unit]
+    Description=Echo '%I'
+
+    [Service]
+    Type=oneshot
+    ExecStart=/bin/echo %i
+    StandardOutput=syslog
+    ```
+
+2. 运行1
+
+    ```bash
+    systemctl start echo@foo.service
+    journalctl -n10    # 可以看到 echo 输出 "foo"
+    ```
+
+3. 运行1
+
+    ```bash
+    systemctl start echo@bar.service
+    journalctl -n10    # 可以看到 echo 输出 "bar"
+    ```
+
+  /etc/systemd/system/*
+       /run/systemd/system/*
+       /usr/lib/systemd/system/*
+       ...
+
+       $XDG_CONFIG_HOME/systemd/user/*
+       $HOME/.config/systemd/user/*
+       /etc/systemd/user/*
+       $XDG_RUNTIME_DIR/systemd/user/*
+       /run/systemd/user/*
+       $XDG_DATA_HOME/systemd/user/*
+       $HOME/.local/share/systemd/user/*
+       /usr/lib/systemd/user/*

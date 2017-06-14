@@ -270,6 +270,10 @@ println "u2 = " + u2    // "http://a.com/path?query=aaa%20bbb"
 1. Map -> JSON -> String
 
     ```groovy
+    // 0. 使用 groovy.json.JsonOutput
+    def json = JsonOutput.toJson([name: 'John Doe', age: 42])
+    assert json == '{"name":"John Doe","age":42}'
+
     // 1. 使用Map+JsonBuilder。
     def jsonMap = [
             attr1 : 1,

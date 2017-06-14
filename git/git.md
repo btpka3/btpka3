@@ -10,6 +10,9 @@
 # Mac
 git credential-osxkeychain
 brew install git
+brew install git-lfs
+brew install gitk
+
 git config --global credential.helper osxkeychain
 
 git credential-osxkeychain erase
@@ -22,6 +25,24 @@ git config --global credential.helper 'cache --timeout=3600'   # 保存在内存
 # 保存在磁盘上, 默认查找 ~/.git-credentials  $XDG_CONFIG_HOME/git/credentials
 git config credential.helper 'store --file=<path>'
 ```
+
+
+# git lfs
+[git-lfs](brew install git-lfs) 
+
+```bash
+brew install git-lfs
+
+git lfs install
+cd xxx.git
+git lfs track "*.psd"
+git add .gitattributes
+git add *.psd
+git commit -m "log msg"
+git push
+
+```
+
 # 配置
 
 ```bash
@@ -40,6 +61,9 @@ git config --global credential.helper cache       # 在 clone `https` 类型的U
 git config --global core.quotepath false          # 在提交中文名称的文件时，不转义为 \350\256\256\346\200\273\347\273\223.xlsx
 git config --global core.ignorecase false         # 文件名区分大小写 
 git config --list
+
+
+git config --global http.proxy 'socks5://127.0.0.1:9999'
 ```
 
 ```bash
@@ -49,6 +73,65 @@ git commit  -m "commit msg"    # 提交修改
 git push                       # 推送到远程
 ```
 
+# 代理
+
+[参考](https://cms-sw.github.io/tutorial-proxy.html)
+
+## git 协议
+需要配置 ssh 的相关代理配置
+
+```bash
+# ~/.ssh/config  @ internal 
+Host github.com
+    User                    git
+    ProxyCommand            ssh gateway.host nc %h %p
+```
+
+## 镜像
+
+```bash
+git clone --mirror git@gitlab.com:kingsilk/qh-env.wiki.git
+cd qh-env.wiki.git
+git remote update
+```
+
+## http, https 协议
+
+```bash
+# @gateway  开启 socks5 代理
+/usr/bin/ssh proxy@gateway.kingsilk.net \
+    -C -N -g -D gateway.kingsilk.net:9999 \
+    -o ExitOnForwardFailure=yes \
+    -o ServerAliveInterval=60
+
+# @internal 配置 git 使用代理
+git config --global http.proxy socks5://gateway.kingsilk.net:9999
+```
+## git 协议
+
+参考: [1](https://www.emilsit.net/blog/archives/how-to-use-the-git-protocol-through-a-http-connect-proxy/)、
+[2](https://gist.github.com/sit/49288)、
+[git-proxy@cms-sw/cms-git-tools](https://github.com/cms-sw/cms-git-tools/blob/master/git-proxy)
+
+
+
+```bash
+# @gateway  开启 socks5 代理
+/usr/bin/ssh proxy@gateway.kingsilk.net \
+    -C -N -g -D gateway.kingsilk.net:9999 \
+    -o ExitOnForwardFailure=yes \
+    -o ServerAliveInterval=60
+
+
+vi /data0/git-proxy
+#!/bin/bash
+nc -x gateway.kingsilk.net:9999 $1 $2
+
+chmod +x /data0/git-proxy
+
+git config --global core.gitproxy "/data0/git-proxy"
+git config --global socks.proxy "localhost:1080"
+```
 
 
 
@@ -188,17 +271,34 @@ git remote show origin
 git branch -v
 （分别叫做 stashing 和 commit amending）
 
-# 合并分支(将branch2合并到branch1)
-git checkout branch1
-git merge branch2
-
 # 如果有有合并冲突的文件，需要手动合并后，再使用以下命令就OK了
 git add merged-by-hand-file
 git commit
 
-# 删除分支
-git branch -d branch-name
+# 将本地分支推送到远程其他分支
+git push <REMOTENAME> <LOCALBRANCHNAME>:<REMOTEBRANCHNAME> 
+git push origin master:1.0.x
 
+# 删除分支(本地)
+git branch -d branch-name
+# 删除分支(远程)
+git push origin --delete <branch_name>
+
+###  合并分支
+#          A---B---C 2.0.x
+#         /
+#    D---E---F---G master
+
+git checkout 2.0.x
+git rebase master
+#git rebase master 2.0.x
+
+#                  A'--B'--C' 2.0.x
+#                 /
+#    D---E---F---G master
+
+git checkout master
+git merge 2.0.x         # 这种情形是可以 fast-forwad 的
 ```
 
 # 远程分支
@@ -437,4 +537,38 @@ git merge --no-ff zll-123
 
 # 2.4 推送的远程
 git push origin master
+```
+
+
+## change remote
+
+```bash
+APP=xhs
+
+cd ${APP}
+git status .
+git branch -av
+git remote -v
+git remote rm origin
+git remote add origin git@gitlab.com:kingsilk/${APP}.git
+git fetch
+git branch --set-upstream-to=origin/master master
+git remote -v
+git pull
+cd ..
+```
+
+
+## transfer
+
+```bash
+cd /tmp
+git clone root@192.168.0.12:/home/git/repositories/kingsilk/env.wiki.git
+cd env.wiki
+git remote show
+git remote rm origin
+git remote add origin git@gitlab.com:kingsilk/qh-env.wiki.git
+git push -u origin --all
+git push -u origin --tags
+cd ..
 ```

@@ -250,6 +250,65 @@ https://github.com/gradle/gradle/blob/v3.4.1/subprojects/core/src/main/java/org/
 该类是由 BuildScriptTransformer 注册调用的。
 ```
 
+## 使用手动编写的 pom.xml 的内容
+
+```
+apply plugin: 'maven-publish'
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifacts.clear()
+            
+            // 方式1： 完全使用手写的 pom.xml
+            pom.withXml(){
+                asString().setLength(0)
+                asString().append(file('pom.xml').text.replaceAll(~/\$\{aaa\}/, "123456"))
+            }
+//            // 修改
+//            pom.withXml {
+//                asNode().children().last() + {
+//
+//                    def d = delegate
+//
+//                    d.dependencyManagement {
+//                        d.dependencies {
+//                            parent.subprojects.sort { "$it.name" }.each { p ->
+//                                if (p != project) {
+//                                    d.dependency {
+//                                        d.groupId(p.group)
+//                                        d.artifactId(p.name)
+//                                        d.version(p.version)
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//                // 修改
+//                pom.withXml {
+//                    asNode().appendNode('description',
+//                            'A demonstration of maven POM customization')
+//                }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username "admin"
+                password "admin123"
+            }
+            if (project.version.endsWith('-SNAPSHOT')) {
+                url "http://mvn.kingsilk.xyz/content/repositories/snapshots/"
+            } else {
+                url "http://mvn.kingsilk.xyz/content/repositories/releases/"
+            }
+        }
+    }
+}
+```
 
 ## 上传到 maven 仓库
 

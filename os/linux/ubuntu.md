@@ -116,9 +116,13 @@ sudo apt-get install ttf-wqy-microhei   #文泉驿-微米黑
 sudo apt-get install ttf-wqy-zenhei     #文泉驿-正黑
 sudo apt-get install xfonts-wqy         #文泉驿-点阵宋体
 sudo apt-get install fonts-wqy-microhei fonts-wqy-zenhei
-# sudo mkfontscale
-# sudo mkfontdir
-# sudo fc-cache -fv
+
+# 直接复制字体文件的，参考如下步骤
+sudo cp xxxFonts /usr/share/fonts/
+sudo mkfontscale
+sudo mkfontdir
+sudo fc-cache -fv
+fc-list | sort      # 列出系统字体
 ```
 
 # 输入法
