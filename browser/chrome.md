@@ -88,7 +88,7 @@ chrome \
     #DEBIAN_FRONTEND=noninteractive apt-get install -y ttf-mscorefonts-installer
     #https://askubuntu.com/questions/829247/cannot-install-the-package-ttf-mscorefonts-installer
     #https://gist.github.com/melvincabatuan/26f3ac4ace4be3a8b48d85a1b3250982
-    wget http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb
+    wget -O /tmp/ttf-mscorefonts-installer_3.6_all.deb http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb 
     dpkg -i ttf-mscorefonts-installer_3.6_all.deb
     dpkg-query -L ttf-mscorefonts-installer
  

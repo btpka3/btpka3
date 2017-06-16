@@ -410,6 +410,21 @@ task myTar(type: Tar) {
 }
 ```
 
+## npm
+
+参考：[1](http://depressiverobot.com/2016/02/05/intellij-path.html)
+
+```bash
+# FIXME 发现 gradle 在 idea IntelliJ 中 不能找到 node， npm 等命令 
+
+sudo launchctl config user path /usr/bin:/bin:/usr/sbin:/sbin
+
+# 以下命令虽然可以，但需要重启，只能以当前环境变量为基准，之后一直不变，仍然不够灵活
+sudo launchctl config user path $PATH
+
+# 修改 
+```
+
 ## upload 
 
 ```groovy

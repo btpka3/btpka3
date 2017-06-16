@@ -89,10 +89,12 @@ systemctl reload name.service
 
 ## 参考
 
-```
+```bash
+man systemctl
+man systemd-system.conf
 man systemd.directives
 man systemd.special
-man system.unit
+man systemd.unit
 man systemd.service
 man systemd.exec
 man systemd.slice
@@ -101,6 +103,27 @@ man systemd.socket
 man systemd.mount
 man systemd.swap
 man systemd.resource-control
+
+man journalctl
+```
+
+
+配置文件路径
+
+```text
+/etc/systemd/system/*
+/run/systemd/system/*
+/usr/lib/systemd/system/*
+...
+
+$XDG_CONFIG_HOME/systemd/user/*
+$HOME/.config/systemd/user/*
+/etc/systemd/user/*
+$XDG_RUNTIME_DIR/systemd/user/*
+/run/systemd/user/*
+$XDG_DATA_HOME/systemd/user/*
+$HOME/.local/share/systemd/user/*
+/usr/lib/systemd/user/*
 ```
 
 ## 文件格式
@@ -169,18 +192,8 @@ DefaultInstance=
     ```bash
     systemctl start echo@bar.service
     journalctl -n10    # 可以看到 echo 输出 "bar"
+ 
+    man systemd.unit
+    man systemd-system.conf
     ```
 
-  /etc/systemd/system/*
-       /run/systemd/system/*
-       /usr/lib/systemd/system/*
-       ...
-
-       $XDG_CONFIG_HOME/systemd/user/*
-       $HOME/.config/systemd/user/*
-       /etc/systemd/user/*
-       $XDG_RUNTIME_DIR/systemd/user/*
-       /run/systemd/user/*
-       $XDG_DATA_HOME/systemd/user/*
-       $HOME/.local/share/systemd/user/*
-       /usr/lib/systemd/user/*

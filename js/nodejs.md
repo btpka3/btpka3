@@ -19,6 +19,11 @@
 [nvm](https://github.com/creationix/nvm) 可以方便的切换多个版本的 nodejs
 
 ```
+# 为所有人
+mkdir -p /usr/local/nvm
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | NVM_DIR=/usr/local/nvm bash
+
+# 只为自己
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
 # 然后关闭、并重新打开命令行窗口
 nvm --version
@@ -34,10 +39,20 @@ nvm --version
 
 # 检查安装了哪些版本
 nvm ls
+
+# 检查有哪些版本可以使用
+nvm ls-remote
+
 # 安装最新 LTS 版本 nodejs
 nvm install --lts
 # 使用当前版本作为默认版本
 nvm alias default node
+
+# 删除 nvm
+rm -rf ~/.nvm
+rm -rf ~/.npm
+rm -rf ~/.bower
+
 ```
 
 ## 二进制安装

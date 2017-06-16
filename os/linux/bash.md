@@ -488,8 +488,27 @@ echo ----------------------------------------------------- `$TIME` 同步结束
 ## 当前目录
 
 ```bash
+# 仅仅适用于 bash，如果可能，请切换 sh 为 bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo $DIR
+
+# 因为 docker 环境中，更多的是使用 sh，而非 bash，所以参考以下
+# 参考 ： https://stackoverflow.com/a/1638397/533317
+# bash, sh, ksh:
+#!/bin/bash 
+# Absolute path to this script, e.g. /home/user/bin/foo.sh
+SCRIPT=$(readlink -f "$0")
+# Absolute path this script is in, thus /home/user/bin
+SCRIPTPATH=$(dirname "$SCRIPT")
+echo $SCRIPTPATH
+
+# tcsh, csh:
+#!/bin/tcsh
+# Absolute path to this script, e.g. /home/user/bin/foo.csh
+set SCRIPT=`readlink -f "$0"`
+# Absolute path this script is in, thus /home/user/bin
+set SCRIPTPATH=`dirname "$SCRIPT"`
+echo $SCRIPTPATH
 ```
 
 ## 下载

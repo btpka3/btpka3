@@ -15,6 +15,35 @@ daocloud.io
 docker pull registry.mirrors.aliyuncs.com/library/java
 ```
 
+## 安装 docker 4 linux
+ 
+* [Get Docker for CentOS](https://docs.docker.com/engine/installation/linux/centos/)
+
+
+ 
+```bash
+ll /etc/yum.repos.d/
+
+yum remove docker \
+        docker-common \
+        container-selinux \
+        docker-selinux \
+        docker-engine
+
+yum install -y yum-utils device-mapper-persistent-data lvm2
+
+yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+    
+yum-config-manager --disable docker-ce-edge
+
+yum makecache fast
+yum list docker-ce.x86_64  --showduplicates |sort -r
+
+yum install docker-ce
+yum install docker-ce-<VERSION>
+```
 
 
 # Docker Toolbox
@@ -22,6 +51,31 @@ docker pull registry.mirrors.aliyuncs.com/library/java
 Docker Toolbox 主要用于为老旧的Mac, Windows系统提供支持,并使其能运行docker。
 但有了 "Docker for Mac" 之后,就不需要 Docker Toolbox 了。
 
+
+# alpine/busybox
+
+```bash
+# 参考： https://serverfault.com/questions/104125/busybox-how-to-list-process-priority
+ps -o pid,ppid,pgid,nice,user,group,tty,vsz,etime,time,comm,args
+
+# 判断bash 是否存在，如不不存在则安装
+command -v bash >/dev/null || apk add --no-cache bash
+
+
+
+apk add --no-cache shadow # 提供 usermod 命令
+
+
+# 参考： https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Overview
+apk update          # 更新索引到本地
+apk search -v xxx   # 搜索指定的 package
+apk add xxx         # 下载并安装指定的 package
+apk del xxx         # 卸载指定的 package
+apk info            # 列出所有已经安装的 package
+apk info xxx        # 查看指定 package 的信息
+apk -v cache clean  # 清楚缓存
+
+```
 
 
 ## 常用命令
@@ -185,11 +239,19 @@ touch .dockerignore
 # 2. 构建
 docker build -t btpka3/my-img:1.0 .
 
+
 # 3. 检查本地的images
 docker images
 
 # 4. 运行
 docker run -d btpka3/my-img:1.0
+
+# 5. 创建最新版的链接 
+docker tag a69f3f5e1a31 btpka3/my-img:latest
+
+# 6. 发布
+docker login --username=yourhubusername --email=youremail@provider.com
+docker push btpka3/my-img
 ```
 
 
@@ -427,7 +489,7 @@ docker swarm init
 
 
 ---
-在host主机中(MacOS)里有 :
+# 在host主机中(MacOS)里有 :
 vboxnet0 : 192.168.99.1/24
 
 
