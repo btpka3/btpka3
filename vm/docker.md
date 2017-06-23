@@ -271,6 +271,21 @@ docker-machine ls
 docker-machine ssh YOUR_VM_NAME
 ```
 
+## Compose
+
+用以定义和运行多个 docker 容器的应用。
+
+
+### docker-compose.yml
+语法参考 [这里](https://docs.docker.com/compose/compose-file/)
+
+```bash
+docker-compose build
+```
+
+ 
+
+
 ## 创建自定义 image
 
 参考 [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)

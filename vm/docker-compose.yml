@@ -1,0 +1,202 @@
+version: '3'
+
+services:
+  redis:
+    image: redis
+    isolation: default
+    labels:
+      com.example.description: "This label will appear on the web service"
+    build:
+      context: ./dir
+      args:
+        buildno: 1
+    cap_add:
+        - ALL
+
+    cap_drop:
+        - NET_ADMIN
+        - SYS_ADMIN
+
+    command: bundle exec thin -p 3000
+    cgroup_parent: m-executor-abcd
+    container_name: my-web-container
+    deploy:
+      mode: replicated      # `global` 或 `replicated`
+      replicas: 6
+      placement:
+        constraints:
+          - node.role == manager
+          - engine.labels.operatingsystem == ubuntu 14.04
+      update_config:
+        parallelism: 2
+        delay: 10s
+      resources:
+        limits:
+          cpus: '0.001'
+          memory: 50M
+        reservations:
+          cpus: '0.0001'
+          memory: 20M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      labels:
+        com.example.description: "This label will appear on the web service"
+    devices:
+      - "/dev/ttyUSB0:/dev/ttyUSB0"
+    depends_on:
+      - db
+      - xx
+    dns:
+      - 8.8.8.8
+      - 9.9.9.9
+    dns_search:
+      - dc1.example.com
+      - dc2.example.com
+    tmpfs:
+      - /run
+      - /tmp
+    entrypoint:
+      - php
+      - -d
+      - zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20100525/xdebug.so
+      - -d
+      - memory_limit=-1
+      - vendor/bin/phpunit
+    env_file:
+      - ./common.env
+      - ./apps/web.env
+      - /opt/secrets.env
+    environment:
+      RACK_ENV: development
+      SHOW: 'true'
+      SESSION_SECRET:
+    expose:
+      - "3000"
+      - "8000"
+    external_links:
+      - redis_1
+      - project_db_1:mysql
+      - project_db_1:postgresql
+    external_links:
+      - redis_1
+      - project_db_1:mysql
+      - project_db_1:postgresql
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+    links:
+      - db
+      - db:database
+      - redis
+    logging:
+      driver: syslog    # `json-file`,`syslog`,`none`
+      options:
+        syslog-address: "tcp://192.168.0.42:123"    # 当 driver = syslog
+        max-size: "200k"                            # 当 driver = json-file
+        max-file: "10"                              # 当 driver = json-file
+    network_mode: bridge  # bridge,host,none,service:[service name],container:[container name/id]
+    networks:
+      app_net:
+        aliases:
+          - alias2
+        ipv4_address: 172.16.238.10
+        ipv6_address: 2001:3984:3989::10
+      other-network:
+        ipv4_address: 172.16.238.10
+    pid: "host"
+    ports:
+      - "3000"
+      - "3000-3005"
+      - "8000:8000"
+      - "9090-9091:8080-8081"
+      - "49100:22"
+      - "127.0.0.1:8001:8001"
+      - "127.0.0.1:5000-5010:5000-5010"
+      - "6060:6060/udp"
+    ports:
+      - target: 80
+        published: 8080
+        protocol: tcp
+        mode: host
+    secrets:          # 短模式
+      - my_secret
+      - my_other_secret
+    secrets:
+      - source: my_secret
+        target: redis_secret
+        uid: '103'
+        gid: '103'
+        mode: 0440
+    security_opt:
+      - label:user:USER
+      - label:role:ROLE
+    stop_grace_period: 1m30s
+    stop_signal: SIGUSR1
+    sysctls:
+      net.core.somaxconn: 1024
+      net.ipv4.tcp_syncookies: 0
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    userns_mode: "host"
+    volumes:    # 短模式
+      # Just specify a path and let the Engine create a volume
+      - /var/lib/mysql
+
+      # Specify an absolute path mapping
+      - /opt/data:/var/lib/mysql
+
+      # Path on the host, relative to the Compose file
+      - ./cache:/tmp/cache
+
+      # User-relative path
+      - ~/configs:/etc/configs/:ro
+
+      # Named volume
+      - datavolume:/var/lib/mysql
+    volumes:    # 长模式
+      - type: volume
+        source: mydata
+        target: /data
+        volume:
+          nocopy: true
+      - type: bind
+        source: ./static
+        target: /opt/app/static
+    restart: no   # no/always/on-failure/unless-stopped
+    user: postgresql
+    working_dir: /code
+    domainname: foo.com
+    hostname: foo
+    ipc: host
+    mac_address: 02:42:ac:11:65:43
+    privileged: true
+    read_only: true
+    shm_size: 64M
+    stdin_open: true
+    tty: true
+
+networks:
+  app_net:
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
+        - subnet: 2001:3984:3989::/64
+secrets:
+  my_secret:
+    file: ./my_secret.txt
+  my_other_secret:
+    external: true
+
+volumes:
+  data-volume:
