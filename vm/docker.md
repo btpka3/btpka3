@@ -45,6 +45,49 @@ yum install docker-ce
 yum install docker-ce-<VERSION>
 ```
 
+# 使用 阿里云 的镜像进行加速
+
+参考 [这里](https://cr.console.aliyun.com/#/accelerator)
+
+```bash
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://cbnwh58y.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+
+# Network
+
+```bash
+docker network create \
+    --gateway 192.168.0.1 \
+    --subnet 192.168.0.0/24 \
+    yourNetworkName
+
+
+docker network inspect yourNetworkName
+docker network rm yourNetworkName
+
+
+# 测试：同时开两个命令行窗口，各自执行以下一条语句
+docker run -it --rm --network=yourNetworkName  --network-alias=zll-u alpine:3.5
+docker run -it --rm --network=yourNetworkName  --network-alias=zll-x alpine:3.5
+
+# 分别在两个窗口中执行以下命令
+cat /etc/resolv.conf
+cat /etc/hosts
+ip addr
+ping zll-u
+ping zll-x
+
+# 注意：在创建 docker 容器的时候，可以不用 -p ，可以使用 `Dockerfile EXPOSE` + `docker run --publish`
+# 从而无需关联 host 主机的端口
+```
 
 # Docker Toolbox
 
@@ -75,6 +118,9 @@ apk info            # 列出所有已经安装的 package
 apk info xxx        # 查看指定 package 的信息
 apk -v cache clean  # 清楚缓存
 
+
+# 常用工具
+apk add drill       # 替代 nslookup/dig
 ```
 
 
@@ -464,6 +510,21 @@ docker-machine config
 
 
 ```bash
+# 在当前节点上创建一个集群
+docker swarm init
+
+# 向当前集群中增加 worker 
+docker swarm join \
+    --token SWMTKN-1-078a329khi3905k1txkpcre46wr2jxir4foijp6pwdbw7doatd-3die5pjyzuioqda4ck47f9wvn \
+    192.168.65.2:2377
+
+# 向当前集群中增加 manager
+docker swarm join-token manager
+
+
+
+
+#------------------------
 # 使用阿里云的 docker 加速
 
 docker-machine create -d virtualbox local       # 创建节点 local

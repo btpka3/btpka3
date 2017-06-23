@@ -37,11 +37,11 @@ yum provides /path/to/your/file
 # 使用代理
 
 
-* 通过修改配置文件： `\vi /etc/yum.conf`
+* 通过修改配置文件： `vi /etc/yum.conf`
 
     ```conf
     [main]
-    proxy=socket5://172.17.0.1:9999 
+    proxy=socks5://172.17.0.1:9999 
     proxy_username=yum-user 
     proxy_password=qwerty
     ```

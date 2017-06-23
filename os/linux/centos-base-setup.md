@@ -407,6 +407,8 @@ sestatus             # 查看selinux
 getenforce          # 查看selinux
 setenforce 0       # 临时关闭 selinux
 vi /etc/selinux/config   # SELINUX=enforcing  -> disabled : 关闭
+sed -i s/SELINUX=enforcing/SELINUX=disabled/g /etc/selinux/config
+
 
 service iptables stop
 service ip6tables stop

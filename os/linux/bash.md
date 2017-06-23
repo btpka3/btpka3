@@ -632,7 +632,8 @@ ncat -l 2000 -k -c 'xargs -n1 echo'
 ```
 
 
-# 大文件中查找并截取上下文
+# sed
+## 大文件中查找并截取上下文
 
 ```
 # 查找，显示行号，限定最多显示几条
@@ -640,4 +641,44 @@ grep -n -m 10 xxx /path/to/largeFile
 
 # 提取特定行之间的内容
 sed -n -e '80000,10000p' ~/qh/qh-wap/logs/default.log > stackoverflow.log
+```
+
+## 查找并修改配置文件
+
+```bash
+# man sshd_config
+enableSshdGatewayPorts(){
+    file="$1"
+
+    # append if not configured
+    EXISTED=`grep -E '^[[:space:]]*GatewayPorts[[:space:]]*(yes|no|clientspecified)[[:space:]]*#*.*$' /tmp/a | wc -l`
+    [[ $EXISTED -eq 0 ]] &&  {
+        echo GatewayPorts yes >> $file
+        return 0
+    }
+
+    # update if configured
+    [[ $C -ge 1 ]] || {
+        sed -i -r "s/^[[:space:]]*GatewayPorts[[:space:]]*(no|clientspecified)[[:space:]]*#*.*$/GatewayPorts yes/g" $file
+        return 0
+    }
+}
+
+cat > /tmp/a <<EOF
+xxx
+#GatewayPorts no
+        GatewayPorts   clientspecified   #xxx
+yyy
+EOF
+enableSshdGatewayPorts /tmp/a # /etc/ssh/sshd_config
+cat /tmp/a
+
+cat > /tmp/a <<EOF
+xxx
+#GatewayPorts no
+yyy
+EOF
+
+enableSshdGatewayPorts /tmp/a # /etc/ssh/sshd_config
+cat /tmp/a
 ```

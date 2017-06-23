@@ -266,6 +266,12 @@ ssh sshUser>@sshHost -C -f -N -g -R [bindIpOnSshClient:]sshBindPortOnSshClient:b
     ```bash
     # 在 A@dev 上执行
     ssh root@122.225.11.207 -C -N -g -R 192.168.71.207:16379:localhost:6379  -o ExitOnForwardFailure=yes
+ 
+    # 默认是绑定在远程ssh 服务器的 loopback(127.0.0.1) IP地址上。可以通过 
+    #      "-R  :16379:localhost:6379"
+    #      "-R *:16379:localhost:6379"
+    # 的方式来绑定所有IP。但需要 ssh 服务器设置 GatewayPorts 为 yes 配置，详情请参考 man sshd_config
+    # vi /etc/ssh/sshd_config
     ```
 
 1. 访问Redis服务

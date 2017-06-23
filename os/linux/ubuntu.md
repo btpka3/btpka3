@@ -226,6 +226,127 @@ sudo apt-get install komodo-edit
 ```
 
 
+
+# PS1
+
+
+```text
+| value |desp|
+|-------|----------------------------------------------------------------------------------|
+|`\a`   |ASCII 响铃字符（也可以键入 \007）                                                     |
+|`\d`   |"Wed Sep 06" 格式的日期                                                             |
+|`\e`   |ASCII 转义字符（也可以键入 \033）                                                    |
+|`\h`   |主机名的第一部分（如 "mybox"）                                                       |
+|`\H`   |主机的全称（如 "mybox.mydomain.com"）                                               |
+|`\j`   |在此shell中通过按 ^Z 挂起的进程数                                                    |
+|`\l`   |此 shell 的终端设备名（如 "ttyp4"）                                                 |
+|`\n`   |换行符                                                                            |
+|`\r`   |回车符                                                                            |
+|`\s`   |shell 的名称（如 "bash"）                                                         |
+|`\t`   |24 小时制时间（如 "23:01:01"）                                                      |
+|`\T`   |12 小时制时间（如 "11:01:01"）                                                      |
+|`\@`   |带有 am/pm 的 12 小时制时间                                                         |
+|`\u`   |用户名                                                                            |
+|`\v`   |bash 的版本（如 2.04）                                                               |
+|`\V`   |Bash 版本（包括补丁级别）                                                             |
+|`\w`   |当前工作目录（如 "/home/drobbins"）                                                  |
+|`\W`   |当前工作目录的“基名 (basename)”（如 "drobbins"）                                      |
+|`\!`   |当前命令在历史缓冲区中的位置                                                           |
+|`\#`   |命令编号（只要您键入内容，它就会在每次提示时累加）                                        |
+|`\$`   |如果您不是超级用户 (root)，则插入一个 "$"；如果您是超级用户，则显示一个 "#"                |
+|`\xxx` |插入一个用三位数 xxx（用零代替未使用的数字，如 "\007"）表示的 ASCII 字符                  |
+|`\\`   |反斜杠                                                                             |
+|`\[`   |这个序列应该出现在不移动光标的字符序列（如颜色转义序列）之前。它使 bash 能够正确计算自动换行。 |
+|`\]`   |这个序列应该出现在非打印字符序列之后。                                                  |
+
+配色方案：
+    bash中有其自己的配色方案，格式如下：
+        " \[\e[F;B;Cm\]"
+
+   其中，\[与\]是保证其内的非打印字符不占用行上的任何空间，这样就能使自动换行后的颜色设置正常工作了；
+
+    \e[与m之间的内容表示设置颜色，F是前景色，B是背景色，C是代码多个颜色用分号隔开,但F、B、C顺序可
+
+变，这是因为他们的数值不冲突。
+
+    特殊的颜色设置格式：
+
+      "\e[0m"、"\e[m"都是通知终端将颜色（前景、背景、加粗）设置重置为默认。
+
+    前景       背景          颜色
+    ---------------------------------------
+    30            40            黑色
+    31            41            紅色
+    32            42            绿色
+    33            43            黄色
+    34            44            蓝色
+    35            45            紫红色
+    36            46            青蓝色
+    37            47            白色
+
+    代码        意义
+    -------------------------
+    0             OFF
+    1             加粗
+    4             underline
+    5             闪烁
+    7             反白显示
+    8             不可见
+
+https://wiki.archlinux.org/index.php/Bash/Prompt_customization#Bash_escape_sequences
+https://en.wikipedia.org/wiki/ANSI_escape_code
+
+infocmp
+man terminfo
+man tput
+export PS1="\[\e]0;\u@\h: \W\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ "
+export PS1="[\u@\h \W]\$ "
+
+export PS1="\[\033[1;38;5;226m\]\u\[\033[0m\]\[\033[1;38;5;93m\]@\[\033[0m\]\[\033[1;38;5;226m\]\h\[\033[0m\] \[\033[1;38;5;196m\]\W\[\033[0m\]\$ "
+
+
+GREEN="\[$(tput setaf 130)\]"
+RESET="\[$(tput sgr0)\]"
+
+export PS1="${GREEN}my prompt${RESET}> "
+
+
+echo -e "\e[38;5;130m█"
+echo -e "\e[46m█"
+
+
+for C in {0..255}; do
+    tput setab $C
+    echo -n "$C "
+done
+tput sgr0
+echo
+
+
+for C in {0..255}; do
+    tput setaf $C
+    echo -n "$C "
+done
+tput sgr0
+echo
+
+ \E[4#1m
+  
+echo -e "\E[4#1m█"
+echo -e "\033[4159m█"
+
+
+export PS1=
+
+echo -e "   \033[38;5;165m█ "
+
+echo -en "   \033[38;5;164m█ "
+echo -e "   \033[38;5;164m█ "
+echo -e "   \033[38;5;0x10m█ "
+
+for (( i = 30; i <= 37; i++ ));  do echo -e "\e[0;"$i"m  $i : Hi stackoverflow";  done
+```                                                               
+                                                                             
 # gnome-terminal
 
 ```bash
@@ -245,6 +366,11 @@ export TERM=xterm-color
 # 使命令行提示符只显示父目录，而非整个路径
 vi ~/.bashrc
 查找 PS1 并将其中最后的 \w 替换为 \W
+
+
+export PS1=" \[\e[F;B;Cm\]\h "
+
+
 修改ll别名
 alias ll='ls -lF'
 ```
