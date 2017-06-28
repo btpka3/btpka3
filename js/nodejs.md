@@ -135,6 +135,31 @@ npm install -g available-versions
 releases angular    # 查看 angular 发布的所有版本
 ```
 
+## 私有 registry
+
+```bash
+
+# 安装 sonartype nexus 3, 并在 管理/Security/Realms 中激活 npm Bearer Token Realm
+# 以下命令会 在 `~/.npmrc` 中 配置 "registry = http://localhost:8081/repository/npm-all/"
+npm config set registry http://localhost:8081/repository/npm-all/
+
+# 检查
+npm --loglevel info install grunt
+
+# 登录
+# 以下命令会 在 `~/.npmrc` 中 配置 
+# "//localhost:8081/repository/my-npm/:_authToken=56c295ca-560a-3de0-b974-d92fb5b37976"
+npm login --registry=http://localhost:8081/repository/my-npm/
+
+# 发布
+npm publish --registry http://localhost:8081/repository/npm-internal/
+
+# 或者 先修改 packakage.json 追加以下配置后，再 `npm publish`
+"publishConfig" : {
+  "registry" : "http://localhost:8081/repository/npm-internal/"
+},
+```
+
 ## 使用国内淘宝的镜像
 
 * 通过 config 命令

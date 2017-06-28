@@ -61,33 +61,6 @@ sudo systemctl restart docker
 ```
 
 
-# Network
-
-```bash
-docker network create \
-    --gateway 192.168.0.1 \
-    --subnet 192.168.0.0/24 \
-    yourNetworkName
-
-
-docker network inspect yourNetworkName
-docker network rm yourNetworkName
-
-
-# 测试：同时开两个命令行窗口，各自执行以下一条语句
-docker run -it --rm --network=yourNetworkName  --network-alias=zll-u alpine:3.5
-docker run -it --rm --network=yourNetworkName  --network-alias=zll-x alpine:3.5
-
-# 分别在两个窗口中执行以下命令
-cat /etc/resolv.conf
-cat /etc/hosts
-ip addr
-ping zll-u
-ping zll-x
-
-# 注意：在创建 docker 容器的时候，可以不用 -p ，可以使用 `Dockerfile EXPOSE` + `docker run --publish`
-# 从而无需关联 host 主机的端口
-```
 
 # Docker Toolbox
 
@@ -271,9 +244,96 @@ docker-machine ls
 docker-machine ssh YOUR_VM_NAME
 ```
 
+## docker CLI
+
+
+
+
+### docker system
+
+管理Docker的命令
+
+```bash
+
+docker system df            # 显示docker 磁盘使用情况，支持详细信息选项 
+docker system events        # 从服务器获取Docker的实时事件信息，支持对事件进行过滤，指定时间戳，格式化等
+docker system info          # 显示系统级别的信息，支持格式化
+docker system prune         # 支持删除系统中没有使用的数据，包括：
+                            #   - 处于停止状态的容器
+                            #   - 所有没有被使用的数据卷
+                            #   - 所有没有被使用的网络
+                            #   - 所有标示为“dangling”状态的镜像
+```
+
+
+### docker plugin
+管理Docker插件的命令，目前插件命令仅支持数据卷驱动，未来插件会提供容器集群网络，IP地址管理和分配，数据件驱动等功能
+
+```bash
+docker plugin create        # 从一个rootfs文件系统和配置文件中创建一个插件，
+                            # 插件数据目录参数必须指明一个包含了 config.json 配置文件和 rootfs 文件系统的目录
+docker plugin disable       # 禁用一个插件
+docker plugin enable        # 启用一个插件
+docker plugin inspect       # 查看插件中的详细信息
+docker plugin install       # 安装一个插件，可以从镜像中心(registry)拉取插件，并进行安装
+docker plugin ls            # 列出本地保存的所有插件
+docker plugin push          # 将插件推送到镜像中心(registry)进行保存
+docker plugin rm            # 删除插件
+docker plugin set           # 修改插件的设置
+docker plugin upgrade       # 升级已经存在的插件
+```
+
+### docker secret
+集中式管理Docker 容器需要使用的敏感信息，包括密码，证书等,敏感信息不会保存在镜像中。
+compose模版也可以不需要显式填写密码等敏感信息，只需要引用密码对象的名称。
+实现的方式是通过把密码等敏感信息以文件的方式挂载到容器的/run/secrets/目录内，
+使用该特性的镜像需要支持通过文件读取的方式来使用敏感信息的能力。
+
+```bash
+docker secret create        # 创建一个密码对象
+docker secret inspect       # 查看一个密码对象的信息
+docker secret ls            # 列出所有的密码对象
+docker secret rm            # 删除一个或者多个密码对象
+```
+
+
+
+
+### docker stack
+
+```bash
+docker stack deploy         # 部署一个Compose模板到Docker集群中作为一个stack，相当于之前的 `docker-compose up`
+docker stack ls             # 列出目前的所有stack
+docker stack ps             # 展示一个stack中对应的容器，相当于之前的 `docker-compose ps`
+docker stack rm             # 删除一个stack以及它包含的服务和容器
+docker stack services       # 展示stack下面对应的服务
+```
+
 ## Compose
 
 用以定义和运行多个 docker 容器的应用。
+
+参考：
+1.  《[Docker 1.13 编排能力进化](https://yq.aliyun.com/articles/55973)》 
+1.  《[Docker 1.13 新特性 —— Docker系统相关](https://yq.aliyun.com/articles/71036)》
+1.  《[Docker 1.13 新特性 —— Docker服务编排相关](https://yq.aliyun.com/articles/71039)》
+1.  《[Docker 1.13 新特性 —— 网络相关](https://yq.aliyun.com/articles/70986)》
+
+Docker Compose vs. Docker CLI
+
+|                   |Docker Compose                 |Docker 1.13+|
+|-------------------|-------------------------------|--------------|
+|start service      |`docker-compose up -d`         |`docker stack deploy --compose-file=docker-compose.yml`|
+|scale service      |`docker-compose scale xxx=n`   |`docker service scale xxx=n`|
+|stop service       |`docker-compose down`          |`docker stack rm`  |
+|cross host machine | No                            |Yes                |
+|ignored directives |`deploy`                       |`build`            |
+
+总结： 
+* docker compose ：作为单机测试，演示环境使用，可以从源码build成容器；
+* docker stack   ： 适合 服务器部署使用，且只支持从镜像部署
+
+
 
 
 ### docker-compose.yml
@@ -517,95 +577,6 @@ docker-machine config
 ```
 
 
-## Docker Swarm
-
-用以管理Docker集群. 将一群docker节点当做一个来操作。
-
-
-
-
-```bash
-# 在当前节点上创建一个集群
-docker swarm init
-
-# 向当前集群中增加 worker 
-docker swarm join \
-    --token SWMTKN-1-078a329khi3905k1txkpcre46wr2jxir4foijp6pwdbw7doatd-3die5pjyzuioqda4ck47f9wvn \
-    192.168.65.2:2377
-
-# 向当前集群中增加 manager
-docker swarm join-token manager
-
-
-
-
-#------------------------
-# 使用阿里云的 docker 加速
-
-docker-machine create -d virtualbox local       # 创建节点 local
-eval "$(docker-machine env local)"              # 使用节点 local
-docker run swarm create                         # 在 local 节点上运行 swarm, 并创建集群。
-                                                # 最后会打印集群 token : feb57580075676ccd7d17d0c5452e6be
-
-docker-machine create \
-        -d virtualbox \
-        --swarm \
-        --swarm-master \
-        --swarm-discovery token://feb57580075676ccd7d17d0c5452e6be \
-        swarm-master
-
-docker-machine create \
-        -d virtualbox \
-###        --engine-opt "--registry-mirror=https://pee6w651.mirror.aliyuncs.com" \
-        --swarm \
-        --swarm-discovery token://feb57580075676ccd7d17d0c5452e6be \
-        swarm-agent-00
-
-docker swarm init
-
-
----
-# 在host主机中(MacOS)里有 :
-vboxnet0 : 192.168.99.1/24
-
-
-docker-machine create -d virtualbox consul0         # 192.168.99.200
-docker-machine create -d virtualbox manager0        # 192.168.99.210
-docker-machine create -d virtualbox manager1        # 192.168.99.211
-docker-machine create -d virtualbox node0           # 192.168.99.220
-docker-machine create -d virtualbox node1           # 192.168.99.221
-
-# 为了方便, 一次ssh到vm上, 按照上述明确指明IP地址 (默认登录的用户是 docker, 而非root)
-# docker start manager0
-docker-machine ssh manager0
-sudo ifconfig eth1 192.168.99.210 netmask 255.255.255.0
-
-# @consul0: 创建 consul 发现服务
-docker run -d -p 8500:8500 --name=consul progrium/consul -server -bootstrap
-
-# @manager0: 创建 swarm 集群 (因为首先创建,所以是Primary管理节点)
-docker run -d -p 4000:4000 swarm manage -H :4000 --replication \
-    --advertise 192.168.99.210:4000 consul://192.168.99.200:8500
-docker -H :4000 info        # Role: primary
-
-# @manager1: 创建 swarm 集群 (因为首先创建,所以是Primary管理节点)
-docker run -d -p 4000:4000 swarm manage -H :4000 --replication \
-    --advertise 192.168.99.211:4000 consul://192.168.99.200:8500
-docker -H :4000 info        # Role: replica
-
-# @node0: 加入集群
-docker run -d swarm join --advertise=192.168.99.220:2375 consul://192.168.99.200:8500
-
-# @node1: 加入集群
-docker run -d swarm join --advertise=192.168.99.221:2375 consul://192.168.99.200:8500
-
-docker swarm join
-docker swarm join-token
-docker swarm update
-docker swarm leave
-
-
-```
 
 ## Docker Compose
 

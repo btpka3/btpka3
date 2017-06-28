@@ -1,5 +1,7 @@
 version: '3'
 
+# https://docs.docker.com/compose/compose-file/
+
 services:
   redis:
     image: redis
@@ -20,24 +22,25 @@ services:
     command: bundle exec thin -p 3000
     cgroup_parent: m-executor-abcd
     container_name: my-web-container
-    deploy:
-      mode: replicated      # `global` 或 `replicated`
-      replicas: 6
-      placement:
+    deploy:                 # v3
+      mode: replicated      # `replicated`（默认）  或 `global`
+      replicas: 6           # 定义 replicated 模式的服务的复本数量
+      placement:            # 定义服务容器的部署放置约束条件
         constraints:
           - node.role == manager
           - engine.labels.operatingsystem == ubuntu 14.04
-      update_config:
+      update_config:        # 定义服务的更新方式
         parallelism: 2
         delay: 10s
       resources:
         limits:
           cpus: '0.001'
           memory: 50M
+          #cpu_shares, cpu_quota, cpuset, mem_limit, memswap_limit
         reservations:
           cpus: '0.0001'
           memory: 20M
-      restart_policy:
+      restart_policy:       # 定义服务的重启条件
         condition: on-failure
         delay: 5s
         max_attempts: 3
@@ -73,7 +76,7 @@ services:
       RACK_ENV: development
       SHOW: 'true'
       SESSION_SECRET:
-    expose:
+    expose:             # ???
       - "3000"
       - "8000"
     external_links:
@@ -89,7 +92,7 @@ services:
       interval: 1m30s
       timeout: 10s
       retries: 3
-    links:
+    links:              # ???
       - db
       - db:database
       - redis
@@ -170,18 +173,19 @@ services:
       - type: bind
         source: ./static
         target: /opt/app/static
-    restart: no   # no/always/on-failure/unless-stopped
-    user: postgresql
-    working_dir: /code
-    domainname: foo.com
-    hostname: foo
-    ipc: host
-    mac_address: 02:42:ac:11:65:43
-    privileged: true
-    read_only: true
-    shm_size: 64M
-    stdin_open: true
-    tty: true
+
+#    restart: no   # no/always/on-failure/unless-stopped
+#    user: postgresql
+#    working_dir: /code
+#    domainname: foo.com
+#    hostname: foo
+#    ipc: host
+#    mac_address: 02:42:ac:11:65:43
+#    privileged: true
+#    read_only: true
+#    shm_size: 64M
+#    stdin_open: true
+#    tty: true
 
 networks:
   app_net:
