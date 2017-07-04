@@ -7,6 +7,19 @@ curl --verbose -X POST --header "Cookie: JSESSIONID=136zm5iif8o2e8tcelqk9nd6e"  
 ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort
 curl --socks5 localhost:9999 https://www.baidu.com/
 
+export http_proxy=http://prod11.kingsilk.net:81/
+export https_proxy=http://prod11.kingsilk.net:81/
+curl -v https://www.baidu.com/
+
+
+export http_proxy=http://localhost:81/
+curl -v https://www.baidu.com/
+
+export https_proxy=https://localhost:1443/
+export https_proxy=socks://192.168.0.12:19999
+curl -v https://www.baidu.com/
+
+
 # 只显示 http 头
 curl -s -D - www.baidu.com -o /dev/null
 
@@ -22,4 +35,3 @@ curl https://www.baidu.com \
     -d k2=v2 \
     --trace-ascii /dev/stdout 
 ```
- 

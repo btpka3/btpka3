@@ -53,7 +53,13 @@ docker-machine create                   \
 # 在当前节点上创建一个集群
 #docker-machine ssh manager1
 eval $(docker-machine env manager1) 
-docker network create --driver overlay my-network
+docker network create --driver overlay my-network  
+docker network inspect my-network   # Subnet=10.0.0.0/24, Gateway=10.0.0.1
+docker-machine ssh manager1 ip addr
+docker-machine ssh worker1  ip addr
+docker-machine ssh worker2  ip addr
+
+
 docker swarm init --advertise-addr 192.168.0.181
 # 如果忘记刚刚命令显示的让 worker 加入的命令行提示，可以通过一下语句重新显示
 docker swarm join-token worker
@@ -65,6 +71,7 @@ eval $(docker-machine env worker1)
 docker swarm join \
     --token SWMTKN-1-5ib1fc2dsxc89bta06qs3wgt7ei6b4l1xf38dvb07c4s9y108h-dd2tzlcqngcohxtpfa910mf91 \
     192.168.0.181:2377
+docker network ls           # 会自动创建 my-network network。与 swarm manager 中的一致。
 
 # 向当前集群中增加 worker2
 eval $(docker-machine env worker2)

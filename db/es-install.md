@@ -1,6 +1,7 @@
 # docker
 
 ```
+# docker run -itd --name my-es -p 9200:9200 -p 9300:9300 elasticsearch:2.4.5-alpine
 # docker cp my-es:/usr/share/elasticsearch/config /Users/zll/tmp/es-conf
 docker stop my-es
 docker rm my-es
@@ -10,7 +11,7 @@ docker run -itd \
         -p 9300:9300 \
         -v "/Users/zll/tmp/es-conf/":/usr/share/elasticsearch/config/ \
         -v /Users/zll/tmp/es-data/:/usr/share/elasticsearch/data/:rw \
-        elasticsearch:2.4.1
+        elasticsearch:2.4.5-alpine
 docker start my-es
 
 docker exec -it my-es bash
@@ -23,7 +24,6 @@ index.number_of_replicas: 0
 ```
 
 # yum 安装
-
 
 yum/apt安装参考[这里](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup-repositories.html)。
 并确保JDK版本， Java 8 update 20 or later, or Java 7 update 55 or later。
@@ -229,4 +229,3 @@ sudo service elasticsearch status
 ```
 验证结果是否正确。
 注意：必须先创建索引，才能验证。
-		

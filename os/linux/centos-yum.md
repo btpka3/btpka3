@@ -54,6 +54,22 @@ yum provides /path/to/your/file
     export no_proxy="127.0.0.1,localhost"
     ```
 
+# 锁定版本
+
+```bash
+yum -y install yum-versionlock
+# yum -y install yum-plugin-versionlock
+
+yum versionlock add nginx
+yum versionlock list
+yum versionlock delete nginx
+yum versionlock clear
+
+yum check-update
+yum check-update nginx
+yum --showduplicates list nginx
+```
+
 # 不使用依赖包安装
 
 

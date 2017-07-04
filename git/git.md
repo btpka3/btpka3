@@ -84,7 +84,8 @@ git push                       # 推送到远程
 # ~/.ssh/config  @ internal 
 Host github.com
     User                    git
-    ProxyCommand            ssh gateway.host nc %h %p
+    ProxyCommand            ssh user@gateway.host /usr/bin/nc %h %p
+    IdentityFile             ~/.ssh/id_rsa.gitlab
 ```
 
 ## 镜像
@@ -106,6 +107,7 @@ git remote update
 
 # @internal 配置 git 使用代理
 git config --global http.proxy socks5://gateway.kingsilk.net:9999
+#git config core.gitproxy  socks5://prod11.kingsilk.net:9999
 ```
 ## git 协议
 

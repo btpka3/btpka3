@@ -15,6 +15,23 @@ daocloud.io
 docker pull registry.mirrors.aliyuncs.com/library/java
 ```
 
+# HTTP/HTTPS 代理服务
+
+```bash
+
+# https://stackoverflow.com/questions/23111631/cannot-download-docker-images-behind-a-proxy
+mkdir -p /etc/systemd/system/docker.service.d
+cat > /etc/systemd/system/docker.service.d/http-proxy.conf <<EOF
+[Service]
+Environment="all_proxy=socks5://prod11.kingsilk.net:9999"
+Environment="NO_PROXY=localhost,127.0.0.1,registry-internal.cn-hangzhou.aliyuncs.com,registry-vpc.cn-hangzhou.aliyuncs.com,prod11.kingsilk.net,prod12.kingsilk.ent,prod13.kingsilk.net,prod14.kingsilk.net"
+EOF
+
+systemctl daemon-reload
+systemctl restart docker
+docker run -it --rm alpine:3.5
+```
+
 ## 安装 docker 4 linux
  
 * [Get Docker for CentOS](https://docs.docker.com/engine/installation/linux/centos/)
