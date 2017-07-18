@@ -3,14 +3,14 @@ Web程序进行重要更新操作的URL保护不当，只要用户已经认证�
 
 1. 某个允许“一个月内免登录”的A博客系统赠送积分，在用户已经登录的前提下，使用以下URL的GET请求进行积分赠送：
 
-    ```
-    http://blog.a.com/curUser/score?transto=zhang3&amp;amount=100
+    ```text
+    http://blog.a.com/curUser/score?transto=zhang3&amount=100
     ```
 
 1. 恶意用户B发现了这个漏洞，并对某个知名的博文发表以下评论（注意：该博文可能是在A博客系统上，也可能位于其他任何Web系统上）：
 
     ```html
-    <img style="height:0px; width:0px;" src="http://blog.a.com/curUser/score?transto=b&amp;amount=100" />
+    <img style="display:none;" src="http://blog.a.com/curUser/score?transto=b&amount=100" />
     楼主的帖子实在是写得太好了。文笔流畅,修辞得体,深得魏晋诸朝遗风,....
     ```
 1. 结果：如果受害者C访问了该帖子，并且C是A博客系统的使用者，且已经登录，则会触发该积分赠送操作。当然，如果不跨站攻击的成功率更高一些。

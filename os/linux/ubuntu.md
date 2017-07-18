@@ -56,6 +56,7 @@ apt-file search /path/to/file
 # 如果通过 dpkg 或 apt-get 安装时，依赖未满足，可以使用该命令删除
 sudo apt-get remove xxx
 
+ll /etc/apt/sources.list.d
 sudo add-apt-repository --remove ppa:whatever/ppa
 
 
@@ -135,6 +136,9 @@ sudo apt-get install fcitx
 #sudo apt-get install gnome-language-selector
 im-config  # or im-switch
 
+# 如果 候选字面板是黑色的，可能是缺失“QTQuick” module
+sudo apt-get install qtdeclarative5-qtquick2-plugin
+
 
 # 以下三种输入法选择其一就可以了。
 sudo apt-get install fcitx-googlepinyin
@@ -162,14 +166,24 @@ fcitx-config-gtk
 ## 安装
 
 ```bash
-sudo apt-cache search gedit
-sudo apt-get install gedit
-sudo apt-get install gedit-plugins
+sudo add-apt-repository ppa:webupd8team/atom
+sudo apt-get updateatom
+sudo apt-get instaom 
+
+# Visual Studio Code 
+sudo add-apt-repository -y "deb https://packages.microsoft.com/repos/vscode stable main"
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB3E94ADBE1229CF
+sudo apt update
+sudo apt -y install code
+
+#sudo apt-cache search gedit
+#sudo apt-get install gedit
+#sudo apt-get install gedit-plugins
 
 # gmate https://github.com/gmate/gmate
-sudo apt-add-repository ppa:ubuntu-on-rails/ppa
-sudo apt-get update
-sudo apt-get install gedit-gmate
+#sudo apt-add-repository ppa:ubuntu-on-rails/ppa
+#sudo apt-get update
+#sudo apt-get install gedit-gmate
 
 # 移除旧的 文本编辑器 leafpad
 sudo apt-get remove leafpad

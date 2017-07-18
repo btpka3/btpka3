@@ -69,6 +69,12 @@ postgres-# SELECT * FROM INFORMATION_SCHEMA.TABLES; # 显示表的详细信息
 
 postgres-# SELECT * FROM PG_USER; # 列出所有用户
 postgres-# SELECT * FROM PG_SHADOW;
+
+# 删除所有表
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO public;
 ```
 
 ## LOB
