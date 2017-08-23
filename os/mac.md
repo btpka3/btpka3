@@ -57,6 +57,15 @@ sudo scutil –-set HostName new_hostname
 sudo /usr/libexec/locate.updatedb
 ```
 
+## IOS H5 调试
+
+```bash
+# 在苹果电脑上打开 ios 模拟器，Command+Shift+H 到主屏幕，再在 Settings / Safari / Advanced / 开启 Web Inspector.
+# 在苹果电脑上电脑版 Safari， 菜单 Safari / Preferences... / Advanced / 选中 "Show Develop menu bar"
+# 在 ios 模拟器上打开要调试的 H5 网址
+# 在 电脑版 Safari， 菜单 Develop / Simulator / 选择对应要调试的 H5 页面。
+```
+
 ## 常用快捷键
 
 ```

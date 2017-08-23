@@ -1,11 +1,95 @@
-## df
+## du
+disk usage
 
-
+```bash
+# 先查看挂载情况
+df -h 
+# 再通过 du 来统计目录使用情况
+du -h -d 1 \
+    --exclude=/dev \
+    --exclude=/run \
+    --exclude=/sys/fs/cgroup \
+    --exclude=/proc \
+    --exclude=/data0 \
+    --exclude=/var/lib/docker/devicemapper \
+    --exclude=/var/lib/docker/containers \
+    /
 ```
+
+## df
+disk free
+
+```bash
 df -lhT              # 查看分区的文件系统类型、大小、挂载点
 sudo lsblk -o name,mountpoint,label,size,uuid
 
 df -i -h             # 查看 inode 使用状况
+
+# 查找那个目录文件最多
+
+
+/var
+proc
+
+#FILES=/usr/*
+#FILES=/var/*
+FILES="
+/boot
+/dev
+/etc
+/home
+/lost+found
+/media
+/mnt
+/opt
+/proc
+/root
+/run
+/srv
+/sys
+/tmp
+/usr
+"
+ 
+
+for f in $FILES ; do
+    echo $f `find $f -xdev -type f|wc -l`
+done | sort -g -k2 | column -t
+
+
+# 通过类似命令，一点点排除，最终发现 /var/lib/docker/devicemapper/mnt 目录下面有 602897 个文件
+
+/dev         0
+/lost+found  0
+/media       0
+/mnt         0
+/opt         0
+/srv         0
+/tmp         3
+/home        6
+/root        23
+/run         299
+/boot        326
+/etc         1851
+/sys         11440
+/usr         81147
+/proc        148542
+
+
+
+ls /var/lib/docker/devicemapper | wc -l
+
+
+find /var/lib/docker/devicemapper -xdev -type f|wc -l
+
+/var/lib/docker
+
+
+
+find /var/lib/docker/devicemapper -xdev -type f|wc -l
+
+
+ 
 ```
 
 

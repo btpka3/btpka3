@@ -197,3 +197,17 @@ DefaultInstance=
     man systemd-system.conf
     ```
 
+
+# foo.service.d 目录
+
+`man systemd.unit` 如果有一个systemcl 的配置文件 `foo.service`， 则可能会有一个 `foo.service.d/` 目录。
+该目录下所有 `*.conf` 会在加载 `foo.service` 之后读取。
+
+
+
+```text
+/usr/lib/systemd/system/docker.service
+/etc/systemd/system/docker.service.d/10-machine.conf
+/etc/systemd/system/docker.service.d/http-proxy.conf
+```
+

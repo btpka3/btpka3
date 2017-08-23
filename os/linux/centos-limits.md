@@ -60,6 +60,9 @@ sudo vi /etc/sysctl.conf
 fs.inotify.max_user_watches=8192000
 ```
 
+
+
+
 ### 修改用户限制
 
 ```bash
@@ -138,6 +141,31 @@ PrivateTmp=true
 WantedBy=multi-user.target
 ```
 
+
+## 修改信号量设置
+
+see [Setting Semaphore Parameters](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/sect-Oracle_9i_and_10g_Tuning_Guide-Setting_Semaphores-Setting_Semaphore_Parameters.html)
+
+
+```bash
+# 检查当前值
+cat /proc/sys/kernel/sem
+250	32000	32	128
+
+# 检查当前值
+ipcs -ls
+
+# 查看 cookie
+ipcs
+
+
+# （临时）修改信号量
+echo 250 32000 100 128 > /proc/sys/kernel/sem
+sysctl -w kernel.sem="250 32000 100 128"
+
+# （持久）修改信号量
+echo "kernel.sem=250 32000 100 128" >> /etc/sysctl.conf
+```
 
 
 

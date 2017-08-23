@@ -15,6 +15,23 @@ daocloud.io
 docker pull registry.mirrors.aliyuncs.com/library/java
 ```
 
+# without sudo
+
+
+see [here](https://askubuntu.com/questions/477551/how-can-i-use-docker-without-sudo)
+
+```bash
+# 创建 `docker` 用户组
+sudo groupadd docker
+
+# 将当前用户加入到 `docker` 用户组
+#sudo gpasswd -a $USER docker    
+sudo usermod -aG docker $USER
+
+# test (可能需要重新登录或重启服务器)
+docker run hello-world
+```
+
 # HTTP/HTTPS 代理服务
 
 ```bash
@@ -62,15 +79,45 @@ yum install docker-ce
 yum install docker-ce-<VERSION>
 ```
 
+# 镜像存储目录
+docker 默认会把镜像等保存在 /var/lib/docker 目录下，
+而阿里云环境的系统盘只有20G。因此不适合直接使用系统盘
+
+而 /etc/docker/daemon.json 的具体配置项需要参考 
+[dockerd 17.06](https://docs.docker.com/engine/reference/commandline/dockerd/) 
+[dockerd 17.03](https://docs.docker.com/v17.03/engine/reference/commandline/dockerd/)
+命令：
+
+版本早于 17.06-ce
+
+```text
+[Service]
+ExecStart=
+ExecStart=/usr/bin/docker daemon -H fd:// --graph="/mnt"
+```
+版本晚于 17.06-ce
+
+```text
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -H fd:// --data-root="/mnt"
+```
+
+
 # 使用 阿里云 的镜像进行加速
 
 参考 [这里](https://cr.console.aliyun.com/#/accelerator)
 
 ```bash
+
+after 17.06-ce 
+
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
-  "registry-mirrors": ["https://cbnwh58y.mirror.aliyuncs.com"]
+   "graph": "/data0/store/soft/docker",
+   "storage-driver": "devicemapper",
+   "registry-mirrors": ["https://cbnwh58y.mirror.aliyuncs.com"]
 }
 EOF
 sudo systemctl daemon-reload
@@ -85,35 +132,6 @@ Docker Toolbox 主要用于为老旧的Mac, Windows系统提供支持,并使其�
 但有了 "Docker for Mac" 之后,就不需要 Docker Toolbox 了。
 
 
-# alpine/busybox
-
-```bash
-# 参考： https://serverfault.com/questions/104125/busybox-how-to-list-process-priority
-ps -o pid,ppid,pgid,nice,user,group,tty,vsz,etime,time,comm,args
-
-# 判断bash 是否存在，如不不存在则安装
-command -v bash >/dev/null || apk add --no-cache bash
-
-
-
-apk add --no-cache shadow # 提供 usermod 命令
-
-
-# 参考： https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Overview
-apk update          # 更新索引到本地
-apk search -v xxx   # 搜索指定的 package
-apk add xxx         # 下载并安装指定的 package
-apk del xxx         # 卸载指定的 package
-apk info            # 列出所有已经安装的 package
-apk info xxx        # 查看指定 package 的信息
-apk -v cache clean  # 清楚缓存
-
-
-# 常用工具
-apk add drill       # 替代 nslookup/dig
-```
-
-
 ## 常用命令
 
 ```
@@ -125,7 +143,9 @@ docker info                             # 查看系统(docker)层面信息
 # ----------------------- image
 docker search <image>                   # 在docker index中搜索image
 docker images                           # 查看本机images
+docker image list                       # 查看本机images
 docker images -a                        # 查看所有images
+docker image prune                      # 删除未使用的image
 docker pull <image>                     # 从docker registry server 中下拉image
 docker push <image|repository>          # 推送一个image或repository到registry
 docker push <image|repository>:TAG      # 同上,但指定一个tag
@@ -168,6 +188,7 @@ docker exec -it <container> bash        # 在一个container 中执行一个命�
 # ----------------------- 运行状态
 docker ps                               # 默认显示正在运行中的container
 docker stats                            # 对容器内存进行监控
+docker stats --format "table {{.Container}}\t{{.Name}}\t{{.PIDs}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.MemPerc}}\t{{.NetIO}}\t{{.BlockIO}}"
 docker ps -l                            # 显示最后一次创建的container，包括未运行的
 docker ps -a                            # 显示所有的container，包括未运行的
 docker logs <container>                 # 查看container的日志，也就是执行命令的一些输出
@@ -749,3 +770,28 @@ docker run -i -t \
 docker exec -it my-ubuntu bash
 ```
 
+
+## 7788
+* docker Can't set cookie dm_task_set_cookie failed
+
+    see [here](https://github.com/moby/moby/issues/33603)
+    and [Setting Semaphore Parameters](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/sect-Oracle_9i_and_10g_Tuning_Guide-Setting_Semaphores-Setting_Semaphore_Parameters.html)
+   
+    ```bash
+    # 检查 device mapper 情况
+    dmsetup ls
+
+    # 检查 cookie 的使用情况，可以根据特征 grep,wc -l 一下，统计下数量
+    ipcs
+    dmsetup udevcookies
+    ipcs -ls
+    
+    # 检查信号量相关设置
+    cat /proc/sys/kernel/sem
+    250 32000  32  128
+    
+    # （临时）修改 max number of arrays (128) 为更大的值 
+    echo 250 32000  32  1024 > /proc/sys/kernel/sem
+    # （持久）
+    echo "kernel.sem=250 32000 100 1024" >> /etc/sysctl.conf  
+    ```

@@ -1,5 +1,5 @@
 
-```
+```bash
 curl --verbose --header 'Host: www.example.com' 'http://10.1.1.36:8000/the_url_to_test'
 curl --verbose -X POST --header "Cookie: JSESSIONID=136zm5iif8o2e8tcelqk9nd6e"  http://www.lizi.com:30010/j_spring_security_logout
 
@@ -34,4 +34,26 @@ curl https://www.baidu.com \
     -d k1=v1 \
     -d k2=v2 \
     --trace-ascii /dev/stdout 
+    
+    
+# POST JSON
+curl -X POST \
+    -H "Content-Type: application/json" \
+    -d '{"username":"xyz","password":"xyz"}' \
+    http://localhost:3000/api/login
+
+# POST XML
+curl -X POST \
+    -H "Content-Type: application/xml" \
+    -d '<run><log encoding="hexBinary">4142430A</log><result>0</result><duration>2000</duration></run>' \
+    http://user:pass@myhost/hudson/job/_jobName_/postBuildResult
+
+    
+# 下载 *.tag.gz 并解压
+TAG=v0.1.15
+curl -fSL https://github.com/vozlt/nginx-module-vts/archive/${TAG}.tar.gz | tar -zx
+
+
+# 最简单的一个 ECHO 服务器
+ncat -l 2000 -k -c 'xargs -n1 echo'
 ```

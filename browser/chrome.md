@@ -394,3 +394,26 @@ docker run --name my-chrome \
 * [Getting Started with Headless Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome)
 * [justinribeiro/chrome-headless](https://hub.docker.com/r/justinribeiro/chrome-headless/)
 
+
+
+## net::ERR_CERT_DATABASE_CHANGED 
+
+升级macOS之后，访问https网站经常不定期出现『ERR_NETWORK_CHANGED』和『ERR_CERT_DATABASE_CHANGED』的报错，无法正常加载网页。
+其实这个报错，是支付宝安全控件引起的。
+
+
+
+
+```bash
+# 第一种办法：停用支付宝的安全控件
+sudo launchctl remove com.alipay.DispatcherService
+
+# 第二种办法：彻底删除（手动卸载）支付宝安全控件
+sudo rm -rf /Library/Application\ Support/Alipay && \
+sudo rm -rf /Library/LaunchDaemons/com.alipay.DispatcherService.plist && \
+sudo rm -rf ~/Library/LaunchAgents/com.alipay.adaptor.plist && \
+sudo rm -rf ~/Library/LaunchAgents/com.alipay.refresher.plist && \
+sudo rm -rf ~/Library/Internet\ Plug-Ins/aliedit.plugin && \
+sudo rm -rf ~/Library/Internet\ Plug-Ins/npalicdo.plugin
+```
+

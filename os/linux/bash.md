@@ -298,6 +298,16 @@ aaa a1 "a 2" a3
 ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
 ```
 
+## ls
+
+```bash
+# 按照最后访问时间的先后顺序显示
+ll -h --time=atime --full-time -rt core*
+    # mtime : 最后修改时间（仅限文件内容）
+    # ctime : 最后修改时间（含文件内容和其他元信息——比如权限等）
+    # atime : 最后读取时间
+```
+
 ## ps
 
 ```
@@ -511,16 +521,6 @@ set SCRIPTPATH=`dirname "$SCRIPT"`
 echo $SCRIPTPATH
 ```
 
-## 下载
-
-```bash
-# 下载指定的文件
-wget -O outputFileName.zip http://www.baidu.com/xxx
-
-# 下载指定的文件(不显示进度条)
-wget -q -O outputFileName.zip http://www.baidu.com/xxx
-```
-
 ## awk
 
 
@@ -641,6 +641,9 @@ grep -n -m 10 xxx /path/to/largeFile
 
 # 提取特定行之间的内容
 sed -n -e '80000,10000p' ~/qh/qh-wap/logs/default.log > stackoverflow.log
+
+# 替换空格
+echo 'a b  c' |sed -r 's/ +/_/g' -
 ```
 
 ## 查找并修改配置文件

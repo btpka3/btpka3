@@ -50,11 +50,25 @@
         如果静态常量num的类型改为Integer，重复上述步骤，又会怎样？
     -->
 
-1. `List<Integer> intList` , 请写出代码删除其中的奇数。
-1. 编写代码，打印出 小于 n 的 斐波那契数列 ： 1、1、2、3、5、8、13、21、34 ...
-1. 有一万条 字符串，要找出前10条出现次数最多的，该如何解决？
-1. 有10亿个无序整数，已知无法全部放到内存中，现在需要从中找出最大的10个数，该如何解决？
-1. 数据库中的商品图文（Html）需要java程序批量：更新从HTML中找到所有class中包含"cdnImg"的img标签，
+1. Java编程：请写出代码删除其中的奇数。
+
+    ```java
+    public class Test05 {
+       public static void clearOdd(List<Integer> intList){
+           // TODO
+       }
+       public static void main(String[] args) {
+           List<Integer> intList = Arrays.asList(100,3,24,11,7);
+           clearOdd(intList);
+           System.out.println(intList);
+       }
+    }
+    ```
+
+1. Java编程：打印出 小于 n 的 斐波那契数列 ： 1、1、2、3、5、8、13、21、34 ...
+1. Java编程思路：有一万条 字符串，要找出前10条出现次数最多的，该如何解决？
+1. Java编程思路：有10亿个无序整数，已知无法全部放到内存中，现在需要从中找出最大的10个数，该如何解决？
+1. Java编程思路：数据库中的商品图文（Html）需要java程序批量：更新从HTML中找到所有class中包含"cdnImg"的img标签，
    并将其src属性中的域名全部替换为 img.a.com，该处理需要在服务器端用Java处理，该如何进行？
    请阐明思路，以及该思路的优点（比如：速度，内存消耗，CPU消耗，可维护性等）。
 
@@ -87,6 +101,6 @@
     }
     ```
 1. 结合您的既有经验，给出利用熟悉的框架从接到请求到返回响应的完整流程。
-    该流程中，哪些部分是sigleton的，哪些是是prototype的？
+    该流程中，哪些部分是singleton的，哪些是是prototype的？
     出错的异常处理流程是？
 1. 需要架设一个高可靠、高并发的电商网站，暂不考虑服务器限制，您想如何架构？

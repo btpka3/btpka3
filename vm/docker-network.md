@@ -35,6 +35,19 @@ traceroute kingsilk.net  # 如果 宿主机是 Windows/MacOS, 则无法显示任
 ```
 
 
+### 内嵌的DNS服务器
+
+在自定义网络中（含bridge类型）才可以使用
+
+```bash
+docker network ls
+docker network create --driver bridge qh-net
+docker run -it --rm --network=qh-net alpine:3.5
+
+apk add --no-cache drill
+drill kingsilk.net @127.0.0.11
+```
+
 ## gateway
 
 

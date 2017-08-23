@@ -38,6 +38,57 @@ pam : see [here](http://www.doublecloud.org/2014/01/nginx-with-pam-authenticatio
 
 * 《[NGINX引入线程池 性能提升9倍](https://yq.aliyun.com/articles/26635?&utm_campaign=sys&utm_medium=market&utm_source=edm_email&msctype=email&mscmsgid=117816050400209379&)》
 
+# 状态统计
+
+* [ngx_http_stub_status_module](http://nginx.org/en/docs/http/ngx_http_stub_status_module.html) 
+
+    只提供了基础统计信息，比如：
+    
+    ```text
+    # 活跃的连接数
+    Active connections: 291
+  
+    # 服务器已接受的连接数
+    # 服务器已处理的连接数
+    # 服务器已处理的请求
+    server accepts handled requests
+    16630948 16630948 31070465
+    
+    # Nginx 正在读取请求头的连接数
+    # Nginx 正在读取请求体、处理请求并发送响应给客户端的连接数
+    # 当前活动的长连接数
+    Reading: 6 Writing: 179 Waiting: 106  
+    ```
+    
+    示例配置：
+    
+    ```conf
+    location /nginx_status {
+        stub_status on;
+        access_log off;
+        allow SOME.IP.ADD.RESS;
+        deny all;
+    }
+    ```
+* [ngx_http_status_module](http://nginx.org/en/docs/http/ngx_http_status_module.html)
+
+    貌似比较强大，但是收费。
+
+* [nginx-module-vts](https://github.com/vozlt/nginx-module-vts)
+
+
+* [ngx_req_status](https://github.com/zls0424/ngx_req_status)
+
+    只是纯文本显示。可以统计URL。
+* [nginx-lua-stats](https://github.com/yandex-sysmon/nginx-lua-stats)
+
+
+
+# nginx-module-vts
+
+
+
+
 # 基础配置
 
 
@@ -103,7 +154,7 @@ http {
 
 ```bash
 [root@locahost ~]# /usr/sbin/nginx -h
-[root@locahost ~]# /usr/sbin/nginx -V
+[root@locahost ~]# /usr/sbin/nginx -V 2>&1 | grep arguments |sed  -r 's/ +/\n/g' - | sed -n '/^--/p' | sort
 nginx version: nginx/1.4.7
 built by gcc 4.4.7 20120313 (Red Hat 4.4.7-3) (GCC)
 TLS SNI support enabled

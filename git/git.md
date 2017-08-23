@@ -43,6 +43,13 @@ git push
 
 ```
 
+# git archive
+
+
+```bash
+git archive --format=tar --remote=https://github.com/vozlt/nginx-module-vts.git HEAD | tar xf -
+```
+
 # 配置
 
 ```bash
