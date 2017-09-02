@@ -77,7 +77,14 @@ export VISUAL=vim                 # crontab -e 使用的编辑器
 #export LANG=en_US.UTF-8
 ```
 
+# 时区
 
+```bash
+
+timedatectl list-timezones                  # 列出可用时区
+timedatectl set-timezone "Asia/Shanghai"    # 设置时区
+timedatectl status                          # 检查
+```
 
 # EPEL
 

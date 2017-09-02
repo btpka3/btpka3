@@ -23,6 +23,68 @@ ssh -vT git@github.com
 之后可以把 `～/.ssh/id_rsa.pub` 中的内容追加到 远程ssh服务器用户的 `~/.ssh/authorized_keys` 中。（注意：线上环境不要配置为使用ssh登录）
 
 
+# 攻击
+
+```bash
+# 防止记录 bash 历史
+rm ~/.bash_history
+ln -s /dev/null  ~/.bash_history
+```
+
+# 日志
+
+```bash
+# 查看现在谁在登录
+who
+
+# 查看 bash 历史
+less -N ~/.bash_history
+# 确保该文件只能只能被追加
+chattr +a /home/bob/.bash_history
+
+# 查看免密登录
+less -N ~/.ssh/authorized_keys 
+
+# ssh 登录日志
+less -N /var/log/secure
+cat /var/log/secure | grep "Accepted password for"       # 密码登录的
+cat /var/log/secure | grep "Accepted publickey for"      # 秘钥登录的
+
+# 检查端口
+nmap -sT wazitang.cn
+
+# 查看所有系统消息
+less -N /var/log/messages
+
+# 查看服务日志
+journalctl  --no-pager --no-tail -n 1000 -u docker.serviceq
+journalctl --since "2017-09-01 09:30:00" -u docker.service | grep "Action="
+
+# 查看用户
+cat /etc/passwd|grep -v nologin
+
+# 查看用户组
+getent group <groupname>
+cat /etc/group
+
+# 列出 primary group 是指定用户组的用户
+cut -d: -f1,4 /etc/passwd | grep $(getent group <groupname> | cut -d: -f3) | cut -d: -f1
+
+# 列出 secondary group 是指定用户组的用户
+getent group <groupname> | cut -d: -f4 |  tr ',' '\n'
+
+# 检查sudo权限
+# centos 中 `wheel` group 有 sudo 权限
+visudo
+
+# 验证文件完整性
+rpm  -Va  
+
+# 显示进程
+pidof sshd
+
+```
+
 # sshd 安全性
 
 `vi /etc/ssh/sshd_config`

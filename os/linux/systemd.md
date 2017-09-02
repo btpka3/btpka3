@@ -211,3 +211,39 @@ DefaultInstance=
 /etc/systemd/system/docker.service.d/http-proxy.conf
 ```
 
+
+# journalctl
+
+```bash
+# Displaying Logs from the Current Boot
+journalctl -b
+
+
+# 显示所有 boot 信息
+mkdir -p /var/log/journal
+
+vi /etc/systemd/journald.conf
+[Journal]
+Storage=persistent
+
+journalctl --list-boots
+
+journalctl -x \
+    --since "2017-08-31 00:00:00" \
+    --until "2017-08-31 06:00:00" \
+    --no-tail \
+    -u docker.service
+    
+journalctl -u docker.service |grep "Action="
+```
+
+
+# machinectl
+
+```bash
+
+machinectl list
+machinectl list-images
+machinectl statu xxx
+
+```

@@ -16,46 +16,6 @@
 openssl rsa -in ~/.ssh/id_rsa -outform pem > ~/.ssh/id_rsa.pem
 ```
 
-# Let's Encrypt
-所有相关资料均请参考 [Let's Encrypt](https://letsencrypt.org/) 官网。
-
-下面流程是假设 环境是CentOS 7 和Nginx/Tengine, 并使用 [Certbot](https://certbot.eff.org/#centosrhel7-nginx)
-
-1. 等到客户访问流量最少的时间段，比如凌晨，如有可能的话，请提前通知客户。
-1. 登录域名服务商的管理后台
-    1. 记录并备份要新建/renew(更新)https证书的域名的原有配置。
-    1. 修改要 新建/renew(更新)https证书的域名（不管是A记录，还是CNAME记录，使之最终查询到的IP为你管理服务器的公网IP）
-1. 登录到服务器，
-
-    1. 初次安装（仅一次）
-
-        ```
-        yum install epel-release
-        yum install certbot
-        ```
-    1. 停止 nginx/tengine
-
-        ```
-        systemctl stop tengine
-        ```
-    1. 创建证书
-
-        ```
-        certbot certonly
-        # 选择第二种 "2 Automatically use a temporary webserver (standalone)"
-        # 输入要创建的证书的域名，用逗号或空格分隔。
-        ```
-
-    1. 更新证书
-
-        ```
-        certbot renew --dry-run
-        # 选择第二种 "2 Automatically use a temporary webserver (standalone)"
-        # 输入要创建的证书的域名，用逗号或空格分隔。
-        ```
-
-
-
 
 
 
