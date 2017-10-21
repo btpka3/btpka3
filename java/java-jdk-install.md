@@ -1,4 +1,39 @@
 # Linux 下安装
+
+## open jdk
+
+```bash
+# CentOs
+yum install java-1.8.0-openjdk-devel
+which -a java
+export JAVA_HOE=/usr/lib/jvm/java-1.8.0
+
+
+# Ubuntu
+sudo add-apt-repository ppa:openjdk-r/ppa
+sudo apt-get update 
+sudo apt-get install openjdk-8-jdk
+sudo update-alternatives --config java
+```
+
+## sdkman 安装
+
+```
+sdk list java
+sdk install java 8u144-oracle
+
+# MacOs 删除
+/usr/libexec/java_home  # 查看当前JAVA_HOME
+sudo rm -rf /Library/Java/JavaVirtualMachines/jdk<version>.jdk
+sudo rm -rf /Library/PreferencePanes/JavaControlPanel.prefPane
+sudo rm -rf /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin
+sudo rm -rf /Library/LaunchAgents/com.oracle.java.Java-Updater.plist
+sudo rm -rf /Library/PrivilegedHelperTools/com.oracle.java.JavaUpdateHelper
+sudo rm -rf /Library/LaunchDaemons/com.oracle.java.Helper-Tool.plist
+sudo rm -rf /Library/Preferences/com.oracle.java.Helper-Tool.plist
+
+```
+
 ## 二进制包安装
 
 1. 从[oracle官网](http://www.oracle.com/technetwork/java/javase/downloads/index.html)下载所需的JDK二进制安装包，并保存到 `/data/tmp/` 目录下。

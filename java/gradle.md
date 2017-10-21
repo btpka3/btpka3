@@ -35,6 +35,45 @@ export GRADLE_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,add
 ```
 
 
+## publish
+
+```gradle
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            pom.withXml {
+
+                ((groovy.util.Node) asNode()).children().first() + {
+                    setResolveStrategy(Closure.DELEGATE_FIRST)
+                    parent {
+                        groupId 'org.springframework.boot'
+                        artifactId 'spring-boot-starter-parent'
+                        version "${springBootVersion}"
+                    }
+                    description 'A demonstration of maven POM customization'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username "admin"
+                password "admin123"
+            }
+            if (project.version.endsWith('-SNAPSHOT')) {
+                url "http://mvn.kingsilk.xyz/content/repositories/snapshots/"
+            } else {
+                url "http://mvn.kingsilk.xyz/content/repositories/releases/"
+            }
+        }
+    }
+}
+```
+
 ## Project
 
 

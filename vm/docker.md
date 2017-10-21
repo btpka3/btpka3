@@ -381,6 +381,13 @@ Docker Compose vs. Docker CLI
 docker-compose build
 ```
 
+### 清理
+
+```bash
+
+docker container prune
+
+```
  
 
 

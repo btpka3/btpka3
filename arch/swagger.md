@@ -66,3 +66,30 @@ npm start
 # FIMXE
 
 [如何分割?](http://azimi.me/2015/07/16/split-swagger-into-smaller-files.html)
+
+
+# swagger-codegen
+
+```bash
+# mac / linux install
+brew install swagger-codegen
+
+# 查看帮助
+swagger-codegen help
+
+swagger-codegen help generate
+
+# 查看特定语言的配置项
+swagger-codegen config-help -l javascript-closure-angular
+
+
+swagger-codegen generate \
+    -i http://petstore.swagger.io/v2/swagger.json \
+    -l javascript-closure-angular \
+    -DappName=zll \
+    -c config.json
+
+
+-DuseEs6=true
+```
+

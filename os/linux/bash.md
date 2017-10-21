@@ -308,6 +308,14 @@ ll -h --time=atime --full-time -rt core*
     # atime : 最后读取时间
 ```
 
+## pipe
+
+```bash
+ping baidu.com \
+    | while read pong; do echo "$(date): $pong"; done \
+    | while read txt; do echo "txt : $txt"; done
+```
+
 ## ps
 
 ```

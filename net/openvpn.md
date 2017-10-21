@@ -65,7 +65,15 @@
 # OpenVPN 服务器
 
 
+## 墙
+
+OpenVPN 的默认配合是会被墙的。因为会被嗅探到 握手信息。需要配置 上  obfsproxy, over SSH 或者 over stunnel。
+see [this](https://vpnreviewer.com/vpn-protocols-that-work-in-china)
+
+
 ## 安装 OpenVPN
+
+
 ```bash
 # 禁用 SELinux
 

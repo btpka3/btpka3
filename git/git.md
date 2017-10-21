@@ -198,7 +198,7 @@ git remote add origin git@10.1.18.153:zhangliangliang/test.git
 git remote set-url origin git@new-host:new-url
 git remote show
 git remote rm origin
-git push -u origin master
+git push -u origin master:master  # 第一个master是本地分支，第二个master是远程分支
 
 # 重命名
 git remote rename origin xx

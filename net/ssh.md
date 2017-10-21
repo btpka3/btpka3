@@ -82,7 +82,6 @@ rpm  -Va
 
 # 显示进程
 pidof sshd
-
 ```
 
 # sshd 安全性
@@ -95,6 +94,35 @@ PermitEmptyPasswords no     # 禁止空密码
 MaxStartups  10             # 最多保持多少个未认证的连接，防止SSH拒绝服务
 PermitRootLogin no          # 禁止root登录，否则很容易被用来暴力猜解
 
+```
+
+# ssh-agent
+
+```bash
+# 假设有以下三台主机
+#   192.168.0.12
+#   192.168.0.13
+#   192.168.0.14
+# 其中 12 可以免密码登录 13，14。但 14 不能免密码登录 13。
+
+# @12
+eval `ssh-agent -s`         # 执行相应的环境变量
+ssh-add                     # 默认添加 ~/.ssh/id_rsa 私钥
+
+ssh -A root@192.168.0.14    # 远程免密从 12 登录到 14，并设置 `-A` 允许认证转发
+# @14
+ssh -A root@192.168.0.13    # 此时就可以密码登录13了。（借用12的身份）
+                            # 如果没有 `-A` 参数，则在 13 上登录其他机器，就只能用13自己的私钥了。
+
+# 以下是 14 借用 12的私钥登录到 13上时，13 上的登录日志 `tailf /var/log/secure`
+Sep 21 17:00:28 test13 sshd[6584]: Accepted publickey for root from 192.168.0.14 port 55188 ssh2: RSA 69:95:e5:da:d1:a0:58:41:07:c7:ed:d4:74:0f:1d:fd
+Sep 21 17:00:28 test13 sshd[6584]: pam_unix(sshd:session): session opened for user root by (uid=0)
+
+# 以下是 12 直接登录 13 上时，13 上的登录日志 `tailf /var/log/secure`
+Sep 21 17:01:11 test13 sshd[6773]: Accepted publickey for root from 192.168.0.12 port 56972 ssh2: RSA 69:95:e5:da:d1:a0:58:41:07:c7:ed:d4:74:0f:1d:fd
+Sep 21 17:01:11 test13 sshd[6773]: pam_unix(sshd:session): session opened for user root by (uid=0)
+
+# 可以看到 登录用的公钥/私钥是同一个，但是来源IP不同。
 ```
 
 # 代理服务器
@@ -131,6 +159,53 @@ internal.kingsilk.net 无法访问公网，打算通过代理服务器配置访�
     ```bash
     git clone git@gitlab.com:kingsilk/xxx.git /data0/xxx
     ```
+
+# authorized_keys
+
+
+
+
+```txt
+
+# 使用特定 key 登录后，执行自定义 command
+# `command="/home/git/zll.sh key-2",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty ssh-rsa AAAA...iD4BkV2V6N btpka3@163.com`
+#!/bin/bash
+env  >> /tmp/zll
+exit 1
+
+# `git clone git@192.168.0.12:/home/aaa` 时 自定义 command 的环境变量
+DG_SESSION_ID=4410
+SHELL=/bin/bash
+SSH_CLIENT=192.168.0.41 59178 22
+USER=git
+PATH=/usr/local/bin:/usr/bin
+MAIL=/var/mail/git
+_=/usr/bin/env
+PWD=/home/git
+HOME=/home/git/
+SHLVL=2
+SSH_ORIGINAL_COMMAND=git-upload-pack '/home/aaa'
+LOGNAME=git
+SSH_CONNECTION=192.168.0.41 59178 192.168.0.12 22
+XDG_RUNTIME_DIR=/run/user/996
+
+# `ssh -A git@192.168.0.12 echo aaa` 时 自定义 command 的环境变量
+XDG_SESSION_ID=4412
+SHELL=/bin/bash
+SSH_CLIENT=192.168.0.41 60209 22
+USER=git
+PATH=/usr/local/bin:/usr/bin
+MAIL=/var/mail/git
+_=/usr/bin/env
+PWD=/home/git
+HOME=/home/git/
+SHLVL=2
+SSH_ORIGINAL_COMMAND=echo aaa
+LOGNAME=git
+SSH_CONNECTION=192.168.0.41 60209 192.168.0.12 22  # ssh-agent 秘钥认证代理
+XDG_RUNTIME_DIR=/run/user/996
+```
+
 
 # ssh 登录慢
 

@@ -14,6 +14,31 @@ def map1 = [
 ]
 ```
 
+## groovysh
+
+```java
+// groovysh 使用 untyped 类型。而使用 def 或 明确类型的 变量，将不会暴露到 shell 环境中。
+// 可以通过以下方式改变
+:set interpreterMode
+
+// 列出所有本机IP地址。
+Enumeration e = NetworkInterface.getNetworkInterfaces();
+while(e.hasMoreElements())
+{
+    NetworkInterface n = (NetworkInterface) e.nextElement();
+    Enumeration ee = n.getInetAddresses();
+    while (ee.hasMoreElements())
+    {
+        InetAddress i = (InetAddress) ee.nextElement();
+        if(i.isAnyLocalAddress() || i.isLoopbackAddress() || i.isMulticastAddress() || i.getAddress().length != 4){
+            continue;
+        }
+        System.out.println(i.getHostAddress());
+    }
+}
+
+```
+
 ## Design patterns in Groovy
 
 see [here](http://www.groovy-lang.org/design-patterns.html#_pimp_my_library_pattern)

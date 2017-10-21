@@ -30,3 +30,20 @@
 
 1. 使用 [icomoon](https://icomoon.io/) 在线管理图标字体。并导出单个svg图片使用。
 2. ~~使用 [fontforge](http://fontforge.github.io/) 提取单个svg文件~~。
+
+
+# 等宽字体
+- noto 字体
+- ubuntu mono 
+- 文泉驿正黑
+- Inconsolata
+- Pragmata Pro
+- Source Code Pro
+- [Inziu Iosevka](https://be5invis.github.io/Iosevka/inziu.html)
+
+```text
+abcdefghijklmnopqrstuvwxyz 0123456789 (){}[]
+ABCDEFGHIJKLMNOPQRSTUVWXYZ +-*/= .,;:!? #&$%@|^
+中华人民共和国
+11223344556677
+```

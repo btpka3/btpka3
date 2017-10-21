@@ -32,6 +32,9 @@ echo source \~/.bashrc >> ~/.bashr_profile
 ## bash_profile
 
 ```bash
+# vi /etc/profile
+# vi ~/.bash_profile
+# vi ~/.bashrc
 export LS_OPTIONS='--color=auto' # 如果没有指定，则自动选择颜色
 export CLICOLOR='Yes' #是否输出颜色
 export LSCOLORS='Exfxcxdxbxegedabagacad' #指定颜色

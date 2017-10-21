@@ -134,4 +134,21 @@ server {
 
 1. 工程中选择输出目录（比如 target，build，dist 等），右键选择 `Mark Directory As` -> `Excluded`
    或者到 `Preferences | Project | Directories` 中排除指定的目录。
-   
+
+
+## jetbrains license server
+
+use docker [woailuoli993/jblse](https://hub.docker.com/r/woailuoli993/jblse/).
+
+
+```bash
+docker create                           \
+    --name qh-idea                      \
+    --restart unless-stopped            \
+    -p 20701:20701                      \
+    woailuoli993/jblse
+    
+docker start qh-idea
+
+# 认证服务器： http://127.0.0.1:20701
+```
