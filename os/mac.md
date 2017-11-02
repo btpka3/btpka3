@@ -67,6 +67,8 @@ sudo /usr/libexec/locate.updatedb
 # 在苹果电脑上电脑版 Safari， 菜单 Safari / Preferences... / Advanced / 选中 "Show Develop menu bar"
 # 在 ios 模拟器上打开要调试的 H5 网址
 # 在 电脑版 Safari， 菜单 Develop / Simulator / 选择对应要调试的 H5 页面。
+
+
 ```
 
 ## 常用快捷键

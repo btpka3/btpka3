@@ -13,3 +13,14 @@ target=android-21
 ionic build android
 ionic emulate --target=test2 android
 ```
+
+
+#
+
+```bash
+ionic start --no-cordova my-ionic3 blank
+cd my-ionic3
+ionic cordova platform ls
+ionic cordova platform add browser
+ionic cordova build --platform browser --target cordova
+```

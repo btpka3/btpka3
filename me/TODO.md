@@ -4,9 +4,9 @@
 * mobile app with ~~ionic and angular~~ cordova and angular material
 * 图片仓库（cdn）
 * 另外一个 iconfont
-* 提供　手机号／电子邮箱　注册账户的一览
+* 提供 手机号／电子邮箱　注册账户的一览
 * 恶意使用指定的手机号去注册第三方的网站账户
-* 利用　Bower 创建前端资源CDN管理程序
+* 利用 Bower 创建前端资源CDN管理程序
 * OAuth sample
 * Spring Security # Domain Object Security (ACLs) sample
 * Spring Security + CAS for Ajax login status test
@@ -49,6 +49,11 @@
 * [Clouda+](http://clouda.baidu.com/portal)
 * 自建融合支付
 * 自建融合短信网关（云片网，阿里大于）
+* OAuth0 中国版
+* socks5 代理服务器+浏览器插件
+* 微信、QQ报名 
+* 短信验证码安全监测
+* 手机号注册过哪些网站？
 
 # FIXME
 * 云安全？[1](http://article.liepin.com/ask/qa130273)
