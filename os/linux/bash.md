@@ -421,23 +421,31 @@ cat newFilePrefix.* > singleFile
 
 ```
 
+### rsync
+
+```bash
+# copy all files from src to dist
+rsync -avzh /path/to/src/dir /path/to/dist/dir
+rsync -avzh user@host:/path/to/src/dir /path/to/dist/dir
+```
+
 ### File Content Search
 
 ```bash
 grep -r -n --include "*.java" systemProperties
 ```
 
-
-
-
 # crontab
 
-默认用户文件路径
-
 ```
+# 默认用户文件路径
 /var/spool/cron/$USER_NAME
 /var/spool/cron/crontabs/$USER_NAME
 /
+
+# 通过命令行追加定时任务
+line="* * * * * /path/to/command"
+(crontab -u userhere -l; echo "$line" ) | crontab -u userhere -
 ```
 
 # PostgreSql backup cron job

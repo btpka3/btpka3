@@ -54,6 +54,9 @@
 * 微信、QQ报名 
 * 短信验证码安全监测
 * 手机号注册过哪些网站？
+* let's encrypt -dns challenge + aliyun dns api
+* nginx traffic monitor SPA 
+
 
 # FIXME
 * 云安全？[1](http://article.liepin.com/ask/qa130273)

@@ -23,18 +23,27 @@ curl -v https://www.baidu.com/
 # 只显示 http 头
 curl -s -D - www.baidu.com -o /dev/null
 
+# 以 GET 请求 配合 -d 处理URL参数 
+curl -v -X GET -G \
+    --data-urlencode a=aa中 \
+    -d b=bb国 \
+    "https://www.baidu.com/?x=xx#/yyy?c=cc"
+
 # 查看post请求中body的数据 : --trace-ascii /dev/stdout
 # 以 multipart/form-data 形式post提交数据
 curl https://www.baidu.com \
     -F k1=v1 \
     -F k2=v2 \
     --trace-ascii /dev/stdout 
+
 # 以 application/x-www-form-urlencoded 形式post提交数据
 curl https://www.baidu.com \
     -d k1=v1 \
     -d k2=v2 \
     --trace-ascii /dev/stdout 
-    
+
+
+
     
 # POST JSON
 curl -X POST \

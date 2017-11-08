@@ -213,4 +213,35 @@ The specified ExternalIp is already used in SnatTable
 
 
 
-
+# DNS
+## 参考
+- 阿里云-域名
+    - [服务简介](https://help.aliyun.com/document_detail/61257.html)
+    - [API - 提交修改DNS任务 SaveTaskForModifyingDomainDns](https://help.aliyun.com/document_detail/58478.html)
+- 阿里云-云解析
+    - [产品概述](https://help.aliyun.com/document_detail/29699.html)
+    - [API - 添加解析记录](https://help.aliyun.com/document_detail/29772.html)
+        
+        ```bash
+        curl                  \
+              -v              \
+              -X GET -G       \
+              --data-urlencode Format=JSON \
+              --data-urlencode Version=2015-01-09 \
+              --data-urlencode AccessKeyId=XXX \
+              --data-urlencode Signature=XXX \
+              --data-urlencode SignatureMethod=HMAC-SHA1 \
+              --data-urlencode Timestamp=2015-01-09T12:00:00Z \
+              --data-urlencode SignatureVersion=1.0 \
+              --data-urlencode SignatureNonce=XXX \
+              \
+              --data-urlencode Action=AddDomainRecord \
+              --data-urlencode DomainName=test.me \
+              --data-urlencode RR=test13 \
+              --data-urlencode Type=TXT \
+              --data-urlencode Value=xxx \
+              --data-urlencode TTL=600 \
+              --data-urlencode Priority=1 \
+              \
+              https://alidns.aliyuncs.com
+        ```
