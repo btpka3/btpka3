@@ -1,3 +1,10 @@
+## vps provider
+
+- [vultr](vultr.com)
+- [list1](http://www.vpser.net/ten-dollars-vps)
+- [digitalocean](https://www.digitalocean.com/)
+
+
 ## client
 [ref0](https://github.com/xelerance/Openswan/wiki/L2tp-ipsec-configuration-using-openswan-and-xl2tpd)
 [ref1](https://wiki.archlinux.org/index.php/L2TP/IPsec_VPN_client_setup)

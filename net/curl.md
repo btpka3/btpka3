@@ -28,6 +28,9 @@ curl -v -X GET -G \
     --data-urlencode a=aa中 \
     -d b=bb国 \
     "https://www.baidu.com/?x=xx#/yyy?c=cc"
+    
+# http basic 认证
+curl -v -u username:password https://www.baidu.com/
 
 # 查看post请求中body的数据 : --trace-ascii /dev/stdout
 # 以 multipart/form-data 形式post提交数据

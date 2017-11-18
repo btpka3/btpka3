@@ -737,6 +737,8 @@ cat /etc/resolv.conf
 # 可以检测dns有没有在没有记录的时候提供替代地址，比如 189so 网址导航服务
 dig @8.8.8.8 www.not-exist-domain.com
 
+dig @8.8.8.8 www.google.com +dnssec
+
 ```
 
 # wine

@@ -22,11 +22,12 @@
 而 git/markdown 伴随着 github 也逐渐大紫大红起来，于是，偶的代码/博客又从google code 上迁移到了 [github](https://github.com/btpka3/btpka3.github.com) 上。
 并将代码使用 git 管理，而文字性总结通过 markdown+git 管理起来。
 
-但鉴于国外的 github 在国内访问不是很稳定，尤其是对 markdown 写的总结可能需要临时频繁修改，龟速是无法忍受的。而 oschina 也在 gitlab 的基础上衍生出了一套国内的 git 托管，于是，代码还留在 github 上，而markdown总结则迁移到了这里。
+但鉴于国外的 github 在国内访问不是很稳定(github在国内被屏蔽过一段时间的)，尤其是对 markdown 写的总结可能需要临时频繁修改，龟速是无法忍受的。而 oschina 也在 gitlab 的基础上衍生出了一套国内的 git 托管，于是，代码还留在 github 上，而markdown总结则迁移到了这里。
+当时把总结迁移到了 git@OSC 上，但随着后面 github 的稳定，国内访问github 的屏蔽又放开，就又迁了回来。
 
------------------------------------------
+
+<!--
 鉴于github使用的部分资源在国内访问不稳定，打算将在github上的wiki迁移到这里。
-
 ```
 git clone --bare  https://github.com/btpka3/btpka3.github.com.wiki.git
 cd btpka3.github.com.wiki.git
@@ -39,10 +40,11 @@ git add Home.markdown
 git commit -m "recover home page for wiki"
 git push
 ```
-
 本地编辑wiki [参考](http://git.oschina.net/xieyajie/XDUI/wikis/git_access)
 使用[gollum](https://github.com/gollum/gollum)
 -----------------------------------------
+-->
+
 
 
 

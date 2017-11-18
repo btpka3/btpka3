@@ -5,7 +5,16 @@ Bind， DNS server
 
 # 参考
 
-* [How To Configure BIND as a Private Network DNS Server on CentOS 7 ](https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-private-network-dns-server-on-centos-7#prerequisites)
+- [bind9](https://www.isc.org/downloads/)
+- [Bind9安装设置指南](http://wiki.ubuntu.org.cn/Bind9%E5%AE%89%E8%A3%85%E8%AE%BE%E7%BD%AE%E6%8C%87%E5%8D%97)
+- [How To Configure BIND as a Private Network DNS Server on CentOS 7 ](https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-private-network-dns-server-on-centos-7#prerequisites)
+- [Domain Name System Security Extensions](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions)
+- [DNSSEC-Tools](https://www.dnssec-tools.org/wiki/index.php?title=Installing_DNSSEC-Tools)
+- [RFC 7858 -  Specification for DNS over Transport Layer Security (TLS)](https://tools.ietf.org/html/rfc7858)
+- [trust-dns](https://github.com/bluejekyll/trust-dns)
+- [bind10](https://www.isc.org/downloads/platform/), 已经停止维护
+- [Features/BIND10](http://fedoraproject.org/wiki/Features/BIND10)
+
 
 
 # 安装 master 主服务器
@@ -229,3 +238,8 @@ dig +trace baidu.com @localhost
     
 ## Client
 配置新主机使用dns服务器
+
+
+## docker
+
+
