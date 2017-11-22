@@ -3,6 +3,9 @@
 ```
 # 查找出不匹配 "xxx" 和 "yyy" 的内容
 grep -v "xxx\|yyy"
+find /data0/work/git-repo/github/btpka3/btpka3.github.com -type d \
+    | grep -v 'node_modules\|bower_components\|jspm_packages\|target\|/.git\|/.gradle\|/build\|/.idea\|/site-packages' \
+    | less 
 ```
 
 
