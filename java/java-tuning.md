@@ -143,33 +143,21 @@ java -Djavax.net.ssl.trustStore=/path/to/your.keystore\
 - [Java HotSpot Garbage Collection](http://www.oracle.com/technetwork/java/javase/tech/index-jsp-140228.html)
     - [Memory Management in the Java HotSpotTM Virtual Machine](http://www.oracle.com/technetwork/java/javase/tech/memorymanagement-whitepaper-1-150020.pdf)
     - [Garbage Collection Tuning](http://www.oracle.com/technetwork/java/javase/gc-tuning-6-140523.html)
+    - [gc tuning](http://www.oracle.com/technetwork/java/gc-tuning-5-138395.html)
+    - [Garbage First](http://www.oracle.com/technetwork/java/javase/tech/g1-intro-jsp-135488.html)
+    - [Getting Started with the G1 Garbage Collector](http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/index.html)
 - [jdk 9](https://docs.oracle.com/javase/9/index.html)
 - [jdk 1.7 - java](http://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html)
-- [Getting Started with the G1 Garbage Collector](http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/index.html)
 - [JVM Options](http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html)
-- [gc tuning](http://www.oracle.com/technetwork/java/gc-tuning-5-138395.html)
-- [Garbage First](http://www.oracle.com/technetwork/java/javase/tech/g1-intro-jsp-135488.html)
 - [CFR - another java decompiler](http://www.benf.org/other/cfr/)
 - [presenting the permanent generation](https://blogs.oracle.com/jonthecollector/entry/presenting_the_permanent_generation)
 - [代码优化](http://kb.cnblogs.com/page/510538/)
 
-```text
-┏━┳━┓
-┃  ┃  ┃
-┣━╋━┫
-┃  ┃  ┃
-┗━┻━┛
-┌┬┐
-├┼┤
-└┴┘ 
+![JVM 关键组件](http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/gcslides/Slide2.png)
 
-┏━━━━━━━━━━┓
-┃  Eden              ┃
-┣━━━━━┳━━━━┫ Young Generation
-┃  From    ┃ To     ┃
-┣━━━━━┻━━━━┫------------------
-┃  Old               ┃ Old   Generation 
-┗━━━━━━━━━━┛
+```text
+Young Generation = Eden + Survivor * 2 。 // Suvivor named 'From', 'To'
+Old Generation 
 
 - Young Generation 满了？From 中已经有数据了。触发 young generation collection /minor collection
     - From 中要保留的对象足够老？
@@ -254,8 +242,10 @@ java -Djavax.net.ssl.trustStore=/path/to/your.keystore\
     
     对于 Old generation : 大多能够与应用代码平行执行。
     
-    - initial mark 阶段： stop-the-world, 单线程执行，标记出应用代码可直接接触到的对象。
-    - concurrent mark 阶段：与应用代码并发执行，单线程执行，递归标记出所有存活对象。
+    - initial mark 阶段： stop-the-world, 单线程执行，标记出应用代码可直接接触到的对象
+      (Young generation 中可到达的对象)。
+    - concurrent mark 阶段：与应用代码并行执行，单线程执行，递归标记出所有存活对象
+     （根据对象树，遍历 Old generation 中的对象）。
       注意：此时应用在执行，initial mark 阶段的存活对象，有可能不再存活（floating garbage）；
       也有可能向 old generation 新申请对象入住。  
     - remark 阶段：stop-the-world, 并发执行。重新标记，防止新加入的存活对象。
@@ -269,8 +259,37 @@ java -Djavax.net.ssl.trustStore=/path/to/your.keystore\
     可以通过 `–XX:CMSInitiatingOccupancyFraction=n` 指定 old generation 占用百分比来触发GC，该值默认是 68.
     
     最后：为了应对内存碎片，该垃圾回收器会追踪常用对象尺寸，预估未来需求，必要时分割和合并空余内存块。
-    
 
+- Garbage-First (G1) collector
+ 
+    JDK 1.7.4 之后支持。特性为：
+    
+    - 与 CMS collector 一样，可以与 应用代码平行运行
+    - 可以 对齐空闲内存，但无需全局暂停
+    - GC 频次会更多
+    - 不必大量牺牲吞吐率
+    - 不需要太大的 Java Heap
+    
+    相对于 CMS，G1的亮点是因为有了空闲内存 compacting, 所以不会有 内存碎片的问题。
+    
+    之前的垃圾回收器是将固定内存分为如下区域，每个 generation 都是连续的内存块。
+    
+    ![HEAP](http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/HeapStructure.png)
+    
+    而 G1 则是分散的。
+    ![G1 内存](http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide9.png)
+    
+    G1 并不是实时的垃圾回收器。如果配置不合理，仍然有可能会触发 Full GC (stop-the-world, 单线程)
+
+    RSets（Remembered Sets）：一个 region 对应一个 RSet，用来追踪该区域内对象的引用。 
+    CSets（Collection Sets）：是一个要被 GC 的 region 的集合。 这些 region 类型不限（可能是 Eden, survivor, and/or old generation）。
+    
+    如果已经在用  CMS 或 ParallelOldGC 垃圾回收器时，有以下现象的话，适合切换至 G1 ：
+    
+    - Full GC 耗时太长，或太频繁
+    - 新对象创建频率、数量变化很大。
+    - 出现意料之外的长时间GC，或全局暂停（超过 0.5s 甚至1s以上） 
+    
 ## 内存管理
 是按照内存池进行管理。可能属于heap或non-heap。
 
@@ -292,20 +311,81 @@ java -Djavax.net.ssl.trustStore=/path/to/your.keystore\
 # JVM 参数
 
 ```text
+
+-Xmn256m        # 设置 young generation 的初始和最大大小。如果使用 G1 垃圾回收器，则不要设置。
+-Xms256m        # 设置 heap 的初始大小
+-Xmx2G          # 设置 heap 的最大大小
+-Xnoclassgc     # 禁止针对 class 的 gc
+-Xprof          # 
+-Xrs            # 
+-Xshare:mode    # 设置 class data sharing (CDS) 模式 : auto/on/off
+-XshowSettings  #
+-XshowSettings:category     # all/locale/properties/vm
+-Xss1m          # 线程栈大小
+-Xverify:mode   # remote/all/none
+
+--add-reads module=target-module(,target-module)*
+--add-exports module/package=target-module(,target-module)*
+--add-opens module/package=target-module(,target-module)*
+--illegal-access=parameter  # permit/warn/debug/deny
+--limit-modules module[,module...]
+--patch-module module=file(;file)*
+--disable-@files
+
+
+-XX:+CheckEndorsedAndExtDirs
+-XX:-CompactStrings # 关闭字符串压缩。默认是开启压缩的，全部是 ASCII 的字符串会使用单字节内存存储。减少 50% 内存
+-XX:CompilerDirectivesFile=file
+-XX:CompilerDirectivesPrint
+-XX:ConcGCThreads=n     # ParallelGCThreads 的线程数量
+-XX:+DisableAttachMechanism     # 禁止工具（jcmd,jstack,jmap,jinfo）连接上来。默认是允许的。
+-XX:+FailOverToOldVerifier
+
+
+-XX:LargePageSizeInBytes=4m     # heap使用的 page 的size
+-XX:MaxDirectMemorySize=size    # java.nio 可以使用的最大内存
+-XX:-MaxFDLimit                 # 禁止设置可打开文件的 soft limit 为 hard limit。默认是允许的。
+-XX:NativeMemoryTracking=mode   # off/summary/detail
+-XX:ObjectAlignmentInBytes=alignment    # 
+-XX:OnOutOfMemoryError=string 
+-XX:+PerfDataSaveToFile
+-XX:+PrintCommandLineFlags      #
+-XX:+PreserveFramePointer
+-XX:+PrintNMTStatistics
+-XX:+RelaxAccessControlCheck
+-XX:+ResourceManagement
+-XX:ResourceManagementSampleInterval=value in milliseconds
+-XX:SharedArchiveFile=path
+-XX:SharedArchiveConfigFile=shared_config_file
+-XX:SharedClassListFile=file_name
+-XX:+ShowMessageBoxOnError
+-XX:StartFlightRecording=parameter=value
+-XX:ThreadStackSize=size
+
+-XX:+DisableExplicitGC
+
+
+
 –XX:+UseSerialGC
 –XX:+UseParallelGC
 –XX:+UseParallelOldGC
-    -XX:MaxGCPauseMillis=n      # 指示垃圾回收器的全局暂停时间应当不超过该 毫秒数。没有默认值。
+    -XX:MaxGCPauseMillis=200    # 指示垃圾回收器的全局暂停时间应当不超过该 毫秒数。
     –XX:ParallelGCThreads=n     # 垃圾回收器线程数，默认为 CPU 核心数量
     -XX:GCTimeRatio=99          # 垃圾回收所花费时长， 计算公式为 1/(1+n)。 默认的99表达为GC时间不超过 1% 的 CPU 时间。
 –XX:+UseConcMarkSweepGC
-    –XX:+CMSIncrementalMode     # 默认： 'Disabled'。 
-    –XX:+CMSIncrementalPacing   # 默认： 'Disabled'。 
-    -XX:CMSIncrementalDutyCycle=n       #
-    -XX:CMSIncrementalDutyCycleMin=n    #
-    -XX:CMSIncrementalSafetyFactor=n    #
-    -XX:CMSExpAvgFactor=n               #  
-    –XX:ParallelGCThreads=n             # 
+    –XX:+CMSIncrementalMode                 # 默认： 'Disabled'。 
+    –XX:+CMSIncrementalPacing               # 默认： 'Disabled'。 
+    -XX:CMSIncrementalDutyCycle=n           #
+    -XX:CMSIncrementalDutyCycleMin=n        #
+    -XX:CMSIncrementalSafetyFactor=n        #
+    -XX:CMSIncrementalOffset=n              #         
+    -XX:CMSExpAvgFactor=n                   #  
+    –XX:ParallelGCThreads=n                 # 
+    –XX:CMSInitiatingOccupancyFraction=68   #
+-XX:+UseG1GC
+    -XX:G1HeapRegionSize=size       # 1M~32M
+    -XX:InitiatingHeapOccupancyPercent=45
+
 –XX:+PrintGCDetails     # 打印每次 GC 的详情
 –XX:+PrintGCTimeStamps  # 打印每次 GC 的的时间戳
 -server

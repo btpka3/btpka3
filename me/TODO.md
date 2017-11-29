@@ -56,6 +56,15 @@
 * 手机号注册过哪些网站？
 * let's encrypt -dns challenge + aliyun dns api
 * nginx traffic monitor SPA 
+* study
+    - JStorm
+    - [apache flink](https://flink.apache.org/)
+    - akka
+    - spark
+    - rocketmq
+    - hbase
+    - 实时计算
+    - 流式处理
 
 
 # FIXME
