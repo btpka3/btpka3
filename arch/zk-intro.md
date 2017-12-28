@@ -5,7 +5,10 @@
 ZooKeeper是一种类似于目录树结构的共享层级命名空间提供该功能的。但不同于目录树的是：每个节点都可以存放数据和创建子节点。
 ZooKeeper通常以集群的方式对外提供服务，集群节点间通过选举出Leader，并经Leader完成所有节点间的数据同步。
 
-《[服务发现：Zookeeper vs etcd vs Consul](http://blog.csdn.net/zdy0_2004/article/details/48463805)》
+- 《[服务发现：Zookeeper vs etcd vs Consul](http://blog.csdn.net/zdy0_2004/article/details/48463805)》
+- [ZooKeeper Programmer's Guide](https://zookeeper.apache.org/doc/trunk/zookeeperProgrammers.pdf)
+- [ZooKeeper Commands: The Four Letter Words](http://zookeeper.apache.org/doc/r3.3.1/zookeeperAdmin.html#sc_zkCommands)
+- [ZooKeeper系列之六：ZooKeeper四字命令](http://blog.csdn.net/shenlan211314/article/details/6187029)
 
 # 简单尝试
 
@@ -27,8 +30,50 @@ cd zookeeper-3.4.6
     quit                        # 退出
 
 ./bin/zkServer.sh stop          # 启动ZooKeeper服务器
-
 ```
+
+# 节点属性
+
+在通过 `zkCli.sh get /path` 返回的信息，各个字段含义如下：
+
+|attr           |desc|
+|---------------|---|
+|zxid           |ZooKeeper Transaction Id, 有顺序的，全局唯一|
+|cZxid          |节点创建时的 zxid|
+|ctime          |节点创建时的时间戳|
+|mZxid          |节点最后一次更新时的 zxid|
+|mtime          |节点最后一次更新时的时间戳|
+|pZxid          |其子节点最后一次修改的 zxid|
+|cversion       |其子节点的更新次数|
+|dataVersion    |节点数据的更新次数|
+|aclVersion     |节点ACL(授权信息)的更新次数|
+|ephemeralOwner |如果该节点为ephemeral节点, ephemeralOwner值表示与该节点绑定的session id|
+|dataLength     |节点数据的字节数|
+|numChildren    |子节点个数|
+
+# zookeeper 四字母命令
+ 
+```bash
+echo conf | nc localhost 2181
+echo cons | nc localhost 2181
+echo wchs | nc localhost 2181
+1 connections watching 15 paths
+Total watches:15
+```
+
+|cmd    |desp |
+|-------|----|
+|conf   |输出相关服务配置的详细信息|
+|cons   |列出连接/会话等信息（接受 / 发送”的包数量、会话 id 、操作延迟、最后的操作执行等）|
+|dump   |列出未经处理的会话和临时节点|
+|envi   |输出关于服务环境的详细信息（区别于 conf 命令）|
+|reqs   |列出未经处理的请求|
+|ruok   |测试服务是否处于正确状态。若正常应返回 "imok"|
+|stat   |输出关于性能和连接的客户端的列表|
+|wchs   |列出服务器 watch 的统计信息|
+|wchc   |列出服务器 watch 的详细信息。按 session 分组显示|
+|wchp   |列出服务器 watch 的详细信息。按 path 分组显示|
+
 
 
 # ZooKeeper Recipes

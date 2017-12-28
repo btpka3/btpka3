@@ -10,12 +10,12 @@
 
 ###  exchange
 
-|exchange type  |Default pre-declared names|memo|
-|---------------|-------------------|-----|
-|Direct         | "" (default), `amq.direct` |使用 routing key |
-|Fanout         | `amq.fanout`               |不用 routing key? |
-|Topic          | `amq.topic`                |使用 routing key |
-|Headers        | `amq.match`, `amq.headers` |不用 routing key |
+|exchange type  |Default pre-declared names     |memo               |
+|---------------|-------------------------------|-----------------|
+|Direct         | "" (default), `amq.direct`    |使用 routing key |
+|Fanout         | `amq.fanout`                  |不用 routing key? |
+|Topic          | `amq.topic`                   |使用 routing key |
+|Headers        | `amq.match`, `amq.headers`    |不用 routing key |
 
 除了类型，其他属性：
 

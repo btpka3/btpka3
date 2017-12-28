@@ -311,6 +311,8 @@ Old Generation
 # JVM 参数
 
 ```text
+-XX:+PrintFlagsFinal -XX:+PrintFlagsInitial -version  # 打印出相 -XX 参数
+
 
 -Xmn256m        # 设置 young generation 的初始和最大大小。如果使用 G1 垃圾回收器，则不要设置。
 -Xms256m        # 设置 heap 的初始大小

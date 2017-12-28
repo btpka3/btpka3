@@ -165,3 +165,41 @@ net.ipv4.ip_local_port_range = 32768    61000
 sysctl -p /etc/sysctl.conf
 ```
 
+
+# POST 提交
+
+```bash
+# 先通过 CURL 等方式确认测试对象
+curl \
+    -v \
+    -X POST \
+    -d username=aaa \
+    -d password=bbb \
+    https://kingsilk.net/oauth2/rs/api/s/login/pwd
+#    --trace-ascii /dev/stdout \
+ 
+cat > postFile <<EOF
+username=aaa&password=bbb
+EOF
+
+vi postFile
+:set binary noeol    # 去掉行尾换行符
+:wq
+
+# 先只执行一个请求，已验证是否是 http 200 的结果
+ab \
+    -v 4 \
+    -T application/x-www-form-urlencoded \
+    -p postFile \
+    -c 1 \
+    -n 1 \
+    https://kingsilk.net/oauth2/rs/api/s/login/pwd
+
+# 确认OK后，增加并发数，进行压力测试
+ab \
+    -p postFile \
+    -T application/x-www-form-urlencoded \
+    -c 100 \
+    -n 2000 \
+    https://kingsilk.net/oauth2/rs/api/s/login/pwd
+```

@@ -107,6 +107,18 @@ firewall-cmd --set-log-denied       # 在 INPUT、 FORWARD、 OUTPUT
 firewall-cmd --get-default-zone         # "public"
 firewall-cmd --set-default-zone=home
 
+# 查看 public zone 的默认配置
+cat /etc/firewalld/zones/public.xml
+
+vi /usr/lib/firewalld/services/es1.xml
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>elasticsearch 1</short>
+  <description>ElasticSearch 1</description>
+  <port protocol="tcp" port="9200-9299"/>
+  <port protocol="tcp" port="9300-9399"/>
+</service>
+
 # 检查各个网卡分别在哪个 zone
 firewall-cmd --get-active-zones
 

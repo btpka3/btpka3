@@ -436,6 +436,12 @@ rsync -avzh user@host:/path/to/src/dir /path/to/dist/dir
 
 ```bash
 grep -r -n --include "*.java" systemProperties
+
+THE_CLASSPATH=
+for i in `ls ./lib/*.jar`
+do
+  THE_CLASSPATH=${THE_CLASSPATH}:${i}
+done
 ```
 
 # crontab

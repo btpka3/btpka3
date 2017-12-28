@@ -57,14 +57,18 @@
 * let's encrypt -dns challenge + aliyun dns api
 * nginx traffic monitor SPA 
 * study
-    - JStorm
-    - [apache flink](https://flink.apache.org/)
-    - akka
-    - spark
-    - rocketmq
+    - [Apache Flink](https://flink.apache.org/)
+    - [JStorm](http://www.jstorm.io/index_cn.html)
+    - [Apache Storm](http://storm.apache.org/)
+    - [Apache Spark](http://spark.apache.org/)
+    - [Apache RocketMQ](http://rocketmq.apache.org/)
+    - [Apache Kafka](http://kafka.apache.org/)
+    - [akka](https://akka.io/)
     - hbase
     - 实时计算
     - 流式处理
+* spring-cloud-zookeeper 中针对 config 对 zookeeper 进行前后端配置。
+  并按照 spring-boot 加载的顺序进行合并展示。
 
 
 # FIXME

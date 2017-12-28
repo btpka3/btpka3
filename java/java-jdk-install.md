@@ -19,8 +19,11 @@ sudo update-alternatives --config java
 ## sdkman 安装
 
 ```
+# https://support.apple.com/kb/DL1572?viewlocale=en_US&locale=en_US
+
 sdk list java
 sdk install java 8u144-oracle
+sdk install java 6u65-apple   # eclipse 等程序要用 jdk6 运行
 
 # MacOs 删除
 /usr/libexec/java_home  # 查看当前JAVA_HOME
