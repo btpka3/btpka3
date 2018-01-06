@@ -37,7 +37,7 @@ VirtualBox: File -> Preferences -> Input -> uncheck "Auto Capture Keyboard"
 1. 安装必须的组件
 
     ```
-    sudo apt-get install build-essential linux-headers-`uname -r` dkms
+    sudo apt-get install build-essential linux-headers-`uname -r` dkms virtualbox-guest-dkms
     ```
 1. 安装 guest additions
 
