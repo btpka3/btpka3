@@ -128,7 +128,7 @@ dockerd    # 检查控制台日志
 
 sudo blkid
 sudo vi /etc/fstab
-UUID=8cfbc371-dbd0-4966-ac40-4daa76be3636 /data0/store/soft/docker     btrfs  defaults  0 0
+/data0/store/soft/myDocker.btrfs /data0/store/soft/docker    auto  loop  0 0
 ```
 
 # 使用 阿里云 的镜像进行加速
