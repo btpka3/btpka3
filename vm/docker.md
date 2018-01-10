@@ -103,6 +103,33 @@ ExecStart=
 ExecStart=/usr/bin/dockerd -H fd:// --data-root="/mnt"
 ```
 
+# btrfs
+
+```bash
+sudo cat /proc/filesystems | grep btrfs
+sudo apt-get install btrfs-tools
+sudo cat /proc/filesystems | grep btrfs
+
+# 创建容量为 10G 的文件
+dd if=/dev/zero of=/data0/store/soft/myDocker.btrfs bs=10M count=1024
+sudo losetup /dev/loop7 /data0/store/soft/myDocker.btrfs
+sudo mkfs.btrfs -f /dev/loop7
+sudo mount -t btrfs /dev/loop7 /data0/store/soft/docker
+
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+   "data-root": "/data0/store/soft/docker",
+   "storage-driver": "btrfs",
+   "registry-mirrors": ["https://cbnwh58y.mirror.aliyuncs.com"]
+}
+EOF
+
+dockerd    # 检查控制台日志
+
+sudo blkid
+sudo vi /etc/fstab
+UUID=8cfbc371-dbd0-4966-ac40-4daa76be3636 /data0/store/soft/docker     btrfs  defaults  0 0
+```
 
 # 使用 阿里云 的镜像进行加速
 
@@ -113,9 +140,11 @@ ExecStart=/usr/bin/dockerd -H fd:// --data-root="/mnt"
 after 17.06-ce 
 
 sudo mkdir -p /etc/docker
+
+# 注意： Ubuntu下应该使用 btrfs
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
-   "graph": "/data0/store/soft/docker",
+   "data-root": "/data0/store/soft/docker",
    "storage-driver": "devicemapper",
    "registry-mirrors": ["https://cbnwh58y.mirror.aliyuncs.com"]
 }
