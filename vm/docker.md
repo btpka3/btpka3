@@ -32,6 +32,18 @@ sudo usermod -aG docker $USER
 docker run hello-world
 ```
 
+# warning
+
+```bash
+dockerd                  # 日志有如下警告
+WARNING: Your kernel does not support cgroup swap limit. 
+WARNING: Yourkernel does not support swap limit capabilities. 
+Limitation discarded.
+
+sudo vi /etc/default/grub
+GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
+```
+
 # HTTP/HTTPS 代理服务
 
 ```bash
