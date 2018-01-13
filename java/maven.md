@@ -210,12 +210,13 @@ mvn -Dmaven.test.skip=true -am --projects my/module1,my/module2 compile
       <password>123456</password>
     </server>
   </servers>
-  <mirrors>
+ 
+      <mirrors>
     <mirror>
-      <mirrorOf>*</mirrorOf>
-      <name>remote-repos</name>
-      <url>http://10.1.18.74:8097/artifactory/remote-repos</url>
-      <id>remote-repos</id>
+      <mirrorOf>central</mirrorOf>
+      <name>mirror-central</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+      <id>mirror-central</id>
     </mirror>
   </mirrors>
 
@@ -224,8 +225,34 @@ mvn -Dmaven.test.skip=true -am --projects my/module1,my/module2 compile
       <id>downloadSources</id>
       <properties>
         <downloadSources>true</downloadSources>
-        <downloadJavadocs>true</downloadJavadocs>
+        <downloadJavadocs>false</downloadJavadocs>
       </properties>
+      <repositories>
+        <repository>
+          <id>aliyun</id>
+          <name>aliyun</name>
+          <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+              <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>aliyun</id>
+          <name>aliyun</name>
+          <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>                                                                                                                                                                                      
+        </pluginRepository>
+      </pluginRepositories>
     </profile>
   </profiles>
 
