@@ -56,7 +56,7 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 ## 修改主机名
 
 ```bash
-sudo scutil –-set HostName new_hostname
+sudo scutil --set HostName new_hostname
 sudo /usr/libexec/locate.updatedb
 ```
 
