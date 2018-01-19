@@ -1,0 +1,206 @@
+#cloud-config
+
+# 注意： coreos-cloudinit 开发已经不活跃，已经被 [Ignition](https://github.com/coreos/ignition) 取代
+# https://coreos.com/os/docs/latest/cloud-config.html
+
+coreos:
+
+  fleet:
+    public-ip: "$public_ipv4"
+    metadata: "region=us-west"
+    agent_ttl:  30s
+    engine_reconcile_interval: 2
+    etcd_cafile:    ""
+    etcd_certfile:  ""
+    etcd_keyfile:   ""
+    etcd_key_prefix: ""
+    etcd_request_timeout: 1.0
+    etcd_servers:
+      - http://127.0.0.1:4001
+      - http://127.0.0.1:2379
+    etcd_username:    root
+    etcd_password:    coreos
+    verbosity:  0
+
+  flannel:
+    etcd_endpoints: ""
+    etcd_cafile: ""
+    etcd_certfile: ""
+    etcd_keyfile: ""
+    etcd_prefix: ""
+    etcd_username: ""
+    etcd_password: ""
+    ip_masq: ""
+    subnet_file: ""
+    interface: ""
+    public_ip: ""
+
+  # 该部分配置已经不推荐使用了
+  etcd2:
+
+    # Member Flags
+    name: "default"
+    data-dir: "${name}.etcd"
+    wal-dir: ""
+    snapshot-count: 10000
+    heartbeat-interval: 100
+    election-timeout: 1000
+    listen-peer-urls: http://localhost:2380,http://localhost:7001
+    listen-client-urls: http://localhost:2379,http://localhost:4001
+    max-snapshots: 5
+    max-wals: 5
+    cors: none
+
+    # Clustering Flags
+    initial-advertise-peer-urls: http://localhost:2380,http://localhost:7001
+    initial-cluster: default=http://localhost:2380,default=http://localhost:7001
+    initial-cluster-state: new
+    initial-cluster-token: etcd-cluster
+    advertise-client-urls: http://localhost:2379,http://localhost:4001
+    discovery: none
+    discovery-srv: none
+    discovery-fallback: proxy
+    discovery-proxy: none
+    strict-reconfig-check: false
+
+    # Proxy Flags
+    proxy: off
+    proxy-failure-wait: 5000
+    proxy-refresh-interval: 30000
+    proxy-dial-timeout: 1000
+    proxy-write-timeout: 5000
+    proxy-read-timeout: 0
+
+    # Security Flags
+    cert-file: none
+    key-file: none
+    client-cert-auth: false
+    trusted-ca-file: none
+    peer-ca-file: none
+    peer-cert-file: none
+    peer-key-file: none
+    peer-client-cert-auth: false
+    peer-trusted-ca-file: none
+
+    # Logging Flags
+    debug: false
+    log-package-levels: none
+
+    # Unsafe Flags
+    force-new-cluster: false
+
+    # Experimental Flags
+    experimental-v3demo: false
+
+    # Profiling flags
+    enable-pprof: false
+
+  locksmith:
+    endpoint: ""
+    etcd_cafile: ""
+    etcd_certfile: ""
+    etcd_keyfile: ""
+    group: ""
+    window_start: ""
+    window_length: ""
+    etcd_username: ""
+    etcd_password: ""
+
+  update:
+    group: stable
+    server: ""
+    reboot-strategy:  best-effort
+
+  units:
+    - name: "docker-redis.service"
+      runtime: true
+      enable: true
+      command: "start"
+      mask: false
+      drop-ins:
+        - name: 50-insecure-registry.conf
+          content: |
+            [Unit]
+            Description=Redis container
+            Author=Me
+            After=docker.service
+
+            [Service]
+            Restart=always
+            ExecStart=/usr/bin/docker start -a redis_server
+            ExecStop=/usr/bin/docker stop -t 2 redis_server
+      content: |
+        [Unit]
+        Description=Redis container
+        Author=Me
+        After=docker.service
+
+        [Service]
+        Restart=always
+        ExecStart=/usr/bin/docker start -a redis_server
+        ExecStop=/usr/bin/docker stop -t 2 redis_server
+
+hostname: core-01
+
+
+users:
+  - name: zhang3
+    gecos: ""
+    passwd: $6$5s2u6/jR$un0AvWnqilcgaNB3Mkxd5yYv6mTlWfOoCYHZmfi3LDKVltj.E8XNKEcwWm...
+    homedir: "/home/<name>"
+    no-create-home: false
+    primary-group: ""
+    groups:
+      - sudo
+      - docker
+    no-user-group: false
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0g+ZTxC7weoIJLUafOgrm+h...
+    system: false
+    no-log-init: false
+    shell: /bin/bash
+
+    # 尚未实现的
+    #inactive:
+    #lock-passwd: false
+    #sudo: false
+    #selinux-user: ""
+    #ssh-import-id: ""
+
+
+write_files:
+  - path: "/etc/resolv.conf"
+    permissions: "0644"
+    owner: "root"
+    content: |
+      nameserver 8.8.8.8
+  - path: "/etc/motd"
+    permissions: "0644"
+    owner: "root"
+    content: |
+      Good news, everyone!
+  - path: "/tmp/like_this"
+    permissions: "0644"
+    owner: "root"
+    encoding: "gzip"
+    content: !!binary |
+      H4sIAKgdh1QAAwtITM5WyK1USMqvUCjPLMlQSMssS1VIya9KzVPIySwszS9SyCpNLwYARQFQ5CcAAAA=
+  - path: "/tmp/or_like_this"
+    permissions: "0644"
+    owner: "root"
+    encoding: "gzip+base64"
+    content: |
+      H4sIAKgdh1QAAwtITM5WyK1USMqvUCjPLMlQSMssS1VIya9KzVPIySwszS9SyCpNLwYARQFQ5CcAAAA=
+  - path: "/tmp/todolist"
+    permissions: "0644"
+    owner: "root"
+    encoding: "base64"
+    content: |
+      UGFjayBteSBib3ggd2l0aCBmaXZlIGRvemVuIGxpcXVvciBqdWdz
+
+
+manage_etc_hosts: localhost
+
+
+ssh_authorized_keys:
+  - ssh-rsa 121313dqx1e123e12… user@my_mac

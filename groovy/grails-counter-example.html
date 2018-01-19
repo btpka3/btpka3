@@ -1,0 +1,2783 @@
+
+<!DOCTYPE HTML>
+<html lang="zh" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>反例 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="btpka3@163.com">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-vs.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../java/maven.html" />
+    
+    
+    <link rel="prev" href="grails-spring-dsl.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../me/intro.html">
+            
+                <a href="../me/intro.html">
+            
+                    
+                    自我介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    Markdown
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../md/md-intro.html">
+            
+                <a href="../md/md-intro.html">
+            
+                    
+                    Markdown 简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../md/md-demo.html">
+            
+                <a href="../md/md-demo.html">
+            
+                    
+                    Markdown 示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../md/md-syntax-demo.html">
+            
+                <a href="../md/md-syntax-demo.html">
+            
+                    
+                    Markdown 语法示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    Git
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../git/git.html">
+            
+                <a href="../git/git.html">
+            
+                    
+                    Git总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../git/git-branch.html">
+            
+                <a href="../git/git-branch.html">
+            
+                    
+                    版本号控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../git/git-wiki-sync.html">
+            
+                <a href="../git/git-wiki-sync.html">
+            
+                    
+                    Git wiki 同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../git/gitlab.html">
+            
+                <a href="../git/gitlab.html">
+            
+                    
+                    gitlab
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../git/gitbook.html">
+            
+                <a href="../git/gitbook.html">
+            
+                    
+                    gitbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="groovy.html">
+            
+                <a href="groovy.html">
+            
+                    
+                    Groovy
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" >
+            
+                <span>
+            
+                    
+                    Java
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="../java/java-jdk-install.html">
+            
+                <a href="../java/java-jdk-install.html">
+            
+                    
+                    JDK安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="../java/java-tuning.html">
+            
+                <a href="../java/java-tuning.html">
+            
+                    
+                    Java调优总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="../java/java-jsr.html">
+            
+                <a href="../java/java-jsr.html">
+            
+                    
+                    Java JSR 规范
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.4" data-path="../java/java-tips.html">
+            
+                <a href="../java/java-tips.html">
+            
+                    
+                    Java tips
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.5" data-path="../java/javaee.html">
+            
+                <a href="../java/javaee.html">
+            
+                    
+                    JavaEE
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" >
+            
+                <span>
+            
+                    
+                    Spring
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="../spring/spring-framework.html">
+            
+                <a href="../spring/spring-framework.html">
+            
+                    
+                    Spring Framework
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="../spring/spring-security.html">
+            
+                <a href="../spring/spring-security.html">
+            
+                    
+                    Spring Security
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.2.1" data-path="../spring/spring-security-oauth2.html">
+            
+                <a href="../spring/spring-security-oauth2.html">
+            
+                    
+                    OAuth
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="../spring/spring-boot.html">
+            
+                <a href="../spring/spring-boot.html">
+            
+                    
+                    Spring Boot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="../spring/spring-session.html">
+            
+                <a href="../spring/spring-session.html">
+            
+                    
+                    Spring Session
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.5" data-path="../spring/spring-cloud.html">
+            
+                <a href="../spring/spring-cloud.html">
+            
+                    
+                    Spring Cloud
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="groovy.html">
+            
+                <a href="groovy.html">
+            
+                    
+                    Groovy
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.3.1" data-path="groovy-decompile.html">
+            
+                <a href="groovy-decompile.html">
+            
+                    
+                    groovy 反编译
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.2" data-path="grails.html">
+            
+                <a href="grails.html">
+            
+                    
+                    Grails
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.3" data-path="grails-spring-dsl.html">
+            
+                <a href="grails-spring-dsl.html">
+            
+                    
+                    Spring DSL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5.3.4" data-path="grails-counter-example.html">
+            
+                <a href="grails-counter-example.html">
+            
+                    
+                    反例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../java/maven.html">
+            
+                <a href="../java/maven.html">
+            
+                    
+                    Maven
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.4.1" data-path="../java/nexus.html">
+            
+                <a href="../java/nexus.html">
+            
+                    
+                    Nexus
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" >
+            
+                <span>
+            
+                    
+                    其他类库
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.5.1" data-path="../java/joda-time.html">
+            
+                <a href="../java/joda-time.html">
+            
+                    
+                    Joda-Time
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    前端开发
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../h5/css.html">
+            
+                <a href="../h5/css.html">
+            
+                    
+                    CSS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1.1" data-path="../h5/font.html">
+            
+                <a href="../h5/font.html">
+            
+                    
+                    font
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.2" data-path="../h5/sass.html">
+            
+                <a href="../h5/sass.html">
+            
+                    
+                    Sass
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../js/js.html">
+            
+                <a href="../js/js.html">
+            
+                    
+                    JavaScript
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="../js/angularjs.html">
+            
+                <a href="../js/angularjs.html">
+            
+                    
+                    AngularJs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="../js/nodejs.html">
+            
+                <a href="../js/nodejs.html">
+            
+                    
+                    Node.js
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="../js/jshint.html">
+            
+                <a href="../js/jshint.html">
+            
+                    
+                    jshint
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.4" data-path="../js/gulp.html">
+            
+                <a href="../js/gulp.html">
+            
+                    
+                    Gulp
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.5" data-path="../js/grunt.html">
+            
+                <a href="../js/grunt.html">
+            
+                    
+                    Grunt
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../js/ts.html">
+            
+                <a href="../js/ts.html">
+            
+                    
+                    TypeScript
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../h5/ux.html">
+            
+                <a href="../h5/ux.html">
+            
+                    
+                    UX
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" >
+            
+                <span>
+            
+                    
+                    浏览器
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.5.1" data-path="../browser/firefox.html">
+            
+                <a href="../browser/firefox.html">
+            
+                    
+                    Firefox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5.2" data-path="../browser/chromium.html">
+            
+                <a href="../browser/chromium.html">
+            
+                    
+                    Chromium
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                    其他编程语言
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../pl/scala.html">
+            
+                <a href="../pl/scala.html">
+            
+                    
+                    scala
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../pl/python.html">
+            
+                <a href="../pl/python.html">
+            
+                    
+                    python
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../pl/ruby.html">
+            
+                <a href="../pl/ruby.html">
+            
+                    
+                    ruby
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" >
+            
+                <span>
+            
+                    
+                    安全相关
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../sec/sec-csrf.html">
+            
+                <a href="../sec/sec-csrf.html">
+            
+                    
+                    CSRF
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../sec/sec-clickjacking.html">
+            
+                <a href="../sec/sec-clickjacking.html">
+            
+                    
+                    Clickjacking
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../sec/sec-xss.html">
+            
+                <a href="../sec/sec-xss.html">
+            
+                    
+                    XSS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../sec/sec-7788.html">
+            
+                <a href="../sec/sec-7788.html">
+            
+                    
+                    7788
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" >
+            
+                <span>
+            
+                    
+                    质量保证
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../qa/jenkins.html">
+            
+                <a href="../qa/jenkins.html">
+            
+                    
+                    Jenkins
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../jmeter">
+            
+                <span>
+            
+                    
+                    Jmeter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" >
+            
+                <span>
+            
+                    
+                    sysbench
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.3.1" data-path="../qa/sysbench-cpu.html">
+            
+                <a href="../qa/sysbench-cpu.html">
+            
+                    
+                    sysbench 进行 cpu 测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3.2" data-path="../qa/sysbench-fileio.html">
+            
+                <a href="../qa/sysbench-fileio.html">
+            
+                    
+                    sysbench 进行磁盘测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3.3" data-path="../qa/sysbench-mysql.html">
+            
+                <a href="../qa/sysbench-mysql.html">
+            
+                    
+                    sysbench 进行 MySql 压力测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3.4" data-path="../qa/ab.html">
+            
+                <a href="../qa/ab.html">
+            
+                    
+                    apache benchmark
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3.5" data-path="../qa/zentao.html">
+            
+                <a href="../qa/zentao.html">
+            
+                    
+                    禅道
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3.6" data-path="../qa/sonarqube.html">
+            
+                <a href="../qa/sonarqube.html">
+            
+                    
+                    SonarQube
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" >
+            
+                <span>
+            
+                    
+                    网络
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../net/wireshark.html">
+            
+                <a href="../net/wireshark.html">
+            
+                    
+                    wireshark
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../net/ntp.md">
+            
+                <span>
+            
+                    
+                    ntp
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../net/haproxy.md">
+            
+                <span>
+            
+                    
+                    haproxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="../net/cdx.html">
+            
+                <a href="../net/cdx.html">
+            
+                    
+                    昌德讯电话
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="../net/curl.html">
+            
+                <a href="../net/curl.html">
+            
+                    
+                    curl
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="../net/dns.html">
+            
+                <a href="../net/dns.html">
+            
+                    
+                    DNS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="../net/https.html">
+            
+                <a href="../net/https.html">
+            
+                    
+                    https
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8" data-path="../net/ssh.html">
+            
+                <a href="../net/ssh.html">
+            
+                    
+                    ssh
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9" data-path="../net/goagent.html">
+            
+                <a href="../net/goagent.html">
+            
+                    
+                    GoAgent
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" >
+            
+                <span>
+            
+                    
+                    文件系统
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../fs/fdisk.html">
+            
+                <a href="../fs/fdisk.html">
+            
+                    
+                    fdisk
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../fs/samba.html">
+            
+                <a href="../fs/samba.html">
+            
+                    
+                    samba
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../fs/nfs.html">
+            
+                <a href="../fs/nfs.html">
+            
+                    
+                    nfs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" >
+            
+                <span>
+            
+                    
+                    操作系统
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../os/linux/centos-base-setup.html">
+            
+                <a href="../os/linux/centos-base-setup.html">
+            
+                    
+                    CentOS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1.1" data-path="../os/linux/centos-limits.html">
+            
+                <a href="../os/linux/centos-limits.html">
+            
+                    
+                    limits
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.1.2" data-path="../os/linux/top.html">
+            
+                <a href="../os/linux/top.html">
+            
+                    
+                    top
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.1.3" data-path="../os/linux/centos-yum.html">
+            
+                <a href="../os/linux/centos-yum.html">
+            
+                    
+                    yum
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.1.4" data-path="../os/linux/firewalld.html">
+            
+                <a href="../os/linux/firewalld.html">
+            
+                    
+                    firewalld
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.1.5" data-path="../os/linux/iptables.html">
+            
+                <a href="../os/linux/iptables.html">
+            
+                    
+                    iptables
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.1.6" data-path="../net/openvpn.html">
+            
+                <a href="../net/openvpn.html">
+            
+                    
+                    OpenVpn
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../os/linux/ubuntu.html">
+            
+                <a href="../os/linux/ubuntu.html">
+            
+                    
+                    Ubuntu
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="../os/linux/bash.html">
+            
+                <a href="../os/linux/bash.html">
+            
+                    
+                    Bash
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="../os/linux/vim.html">
+            
+                <a href="../os/linux/vim.html">
+            
+                    
+                    Vim
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="../os/linux/upstart.html">
+            
+                <a href="../os/linux/upstart.html">
+            
+                    
+                    Upstart
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" >
+            
+                <span>
+            
+                    
+                    数据库
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../db/postgresql.html">
+            
+                <a href="../db/postgresql.html">
+            
+                    
+                    PostGreSql
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.2" data-path="../db/redis.html">
+            
+                <a href="../db/redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3" data-path="../db/mysql.html">
+            
+                <a href="../db/mysql.html">
+            
+                    
+                    MySql
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.3.1" data-path="../db/mysql-install.html">
+            
+                <a href="../db/mysql-install.html">
+            
+                    
+                    MySql 安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3.2" data-path="../db/mysql-tuning.html">
+            
+                <a href="../db/mysql-tuning.html">
+            
+                    
+                    MySql 调优
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3.3" data-path="../db/mysql-replication.html">
+            
+                <a href="../db/mysql-replication.html">
+            
+                    
+                    MySql 主从复制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3.4" data-path="../db/mysql-rw-splitting.html">
+            
+                <a href="../db/mysql-rw-splitting.html">
+            
+                    
+                    MySql 读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" >
+            
+                <span>
+            
+                    
+                    服务
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../server/ntp.html">
+            
+                <a href="../server/ntp.html">
+            
+                    
+                    ntp
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="../server/jetty.html">
+            
+                <a href="../server/jetty.html">
+            
+                    
+                    jetty
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="../server/tomcat.html">
+            
+                <a href="../server/tomcat.html">
+            
+                    
+                    Tomcat
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="../server/rabbitmq.html">
+            
+                <a href="../server/rabbitmq.html">
+            
+                    
+                    RabbitMq
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="../server/nginx.html">
+            
+                <a href="../server/nginx.html">
+            
+                    
+                    nginx
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="../server/tengine.html">
+            
+                <a href="../server/tengine.html">
+            
+                    
+                    tengine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7" >
+            
+                <span>
+            
+                    
+                    ZooKeeper
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.7.1" data-path="../db/zk-intro.md">
+            
+                <span>
+            
+                    
+                    ZooKeeper简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7.2" data-path="../db/zk-install.md">
+            
+                <span>
+            
+                    
+                    ZooKeeper安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7.3" data-path="../db/zk-cluster-demo.md">
+            
+                <span>
+            
+                    
+                    ZooKeeper单机集群配置示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8" >
+            
+                <span>
+            
+                    
+                    ElasticSearch
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.8.1" data-path="../db/es-intro.html">
+            
+                <a href="../db/es-intro.html">
+            
+                    
+                    ElasticSearch简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8.2" data-path="../db/es-install.html">
+            
+                <a href="../db/es-install.html">
+            
+                    
+                    ElasticSearch安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8.3" data-path="../db/es-search.html">
+            
+                <a href="../db/es-search.html">
+            
+                    
+                    ElasticSearch示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8.4" data-path="../db/es-pinyin.html">
+            
+                <a href="../db/es-pinyin.html">
+            
+                    
+                    ElasticSearch拼音/自动完成
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9" >
+            
+                <span>
+            
+                    
+                    MongoDB
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.9.1" data-path="../db/mongo-intro.html">
+            
+                <a href="../db/mongo-intro.html">
+            
+                    
+                    mongoDB 简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9.2" data-path="../db/mongo-install.html">
+            
+                <a href="../db/mongo-install.html">
+            
+                    
+                    mongoDB 安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9.3" data-path="../db/mongo.html">
+            
+                <a href="../db/mongo.html">
+            
+                    
+                    mongoDB 使用总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9.4" data-path="../db/mongo-java-demo.html">
+            
+                <a href="../db/mongo-java-demo.html">
+            
+                    
+                    MongoDB java示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9.5" data-path="../db/robomongo.html">
+            
+                <a href="../db/robomongo.html">
+            
+                    
+                    Robomongo
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.10" >
+            
+                <span>
+            
+                    
+                    Cassandra  —— 暂时放弃使用
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" >
+            
+                <span>
+            
+                    
+                    手机APP开发
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../app/hybird-app.html">
+            
+                <a href="../app/hybird-app.html">
+            
+                    
+                    Hybrid App
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" >
+            
+                <span>
+            
+                    
+                    虚拟化
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="../vm/docker.html">
+            
+                <a href="../vm/docker.html">
+            
+                    
+                    docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="../vm/VirtualBox.html">
+            
+                <a href="../vm/VirtualBox.html">
+            
+                    
+                    VirtualBox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="../vm/vmware.html">
+            
+                <a href="../vm/vmware.html">
+            
+                    
+                    vmware
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" >
+            
+                <span>
+            
+                    
+                    架构
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.1" data-path="../arch/cdn.html">
+            
+                <a href="../arch/cdn.html">
+            
+                    
+                    CDN
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.2" data-path="../arch/cluster.html">
+            
+                <a href="../arch/cluster.html">
+            
+                    
+                    cluster
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3" data-path="../java/cas-intro.md">
+            
+                <span>
+            
+                    
+                    单点登录 CAS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" >
+            
+                <span>
+            
+                    
+                    IDE
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.18.1" data-path="../ide/eclipse.html">
+            
+                <a href="../ide/eclipse.html">
+            
+                    
+                    Eclipse
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.2" data-path="../ide/idea-intellij.html">
+            
+                <a href="../ide/idea-intellij.html">
+            
+                    
+                    IDEA Intellij
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.3" data-path="../ide/sublime.html">
+            
+                <a href="../ide/sublime.html">
+            
+                    
+                    Sublime
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" >
+            
+                <span>
+            
+                    
+                    第三方服务
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.19.1" data-path="../3rd/weather.html">
+            
+                <a href="../3rd/weather.html">
+            
+                    
+                    气象数据开放平台
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.2" >
+            
+                <span>
+            
+                    
+                    微信
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.19.2.1" data-path="../3rd/wx-h5-debug.html">
+            
+                <a href="../3rd/wx-h5-debug.html">
+            
+                    
+                    调试微信打开的 html5 页面
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.2.2" data-path="../3rd/wx-nginx.html">
+            
+                <a href="../3rd/wx-nginx.html">
+            
+                    
+                    微信Nginx配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" >
+            
+                <span>
+            
+                    
+                    办公
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.20.1" data-path="../office/thunderbird.html">
+            
+                <a href="../office/thunderbird.html">
+            
+                    
+                    thunderbird
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.2" data-path="../office/vba.html">
+            
+                <a href="../office/vba.html">
+            
+                    
+                    vba
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.3" data-path="../office/law.html">
+            
+                <a href="../office/law.html">
+            
+                    
+                    法律法规
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >反例</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <p>&#x8BE5;wiki&#x5C06;&#x8FFD;&#x52A0;&#x4E00;&#x4E9B;&#x5E38;&#x89C1;&#x53D8;&#x6210;&#x9519;&#x8BEF;&#x3002;</p>
+<h1 id="&#x5173;&#x4E8E;&#x65E5;&#x5FD7;">&#x5173;&#x4E8E;&#x65E5;&#x5FD7;</h1>
+<ol>
+<li><p>&#x5982;&#x679C;&#x6709;&#x5927;&#x8BA1;&#x7B97;&#x91CF;&#x3001;&#x5185;&#x5B58;&#x6D88;&#x8017;&#x7684;&#x4FE1;&#x606F;&#x9700;&#x8981;&#x5411;&#x3001;&#x4E14;&#x53EA;&#x5411;&#x65E5;&#x5FD7;&#x4E2D;&#x8F93;&#x51FA;&#xFF0C;&#x9700;&#x8981;&#x6761;&#x4EF6;&#x8F93;&#x51FA;&#x3002;</p>
+<pre class="language-"><code class="lang-groovy"> <span class="token comment" spellcheck="true">// &#x53CD;&#x4F8B;</span>
+ <span class="token keyword">def</span> xxx<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span>                    <span class="token comment" spellcheck="true">// &#x5047;&#x8BBE;&#x8BE5;&#x53D8;&#x91CF;&#x4EC5;&#x4EC5;&#x5728;&#x5728;&#x65E5;&#x5FD7;&#x4E2D;&#x8F93;&#x51FA;&#xFF0C;&#x5176;&#x4ED6;&#x5730;&#x65B9;&#x4E0D;&#x4F7F;&#x7528;</span>
+ yyyList<span class="token operator">.</span>each<span class="token punctuation">{</span>xxx<span class="token operator">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">&quot;...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">}</span>  <span class="token comment" spellcheck="true">// &#x5927;&#x91CF;&#x6D88;&#x8017;&#x5185;&#x5B58;&#xFF0C;&#x6D88;&#x8017;CPU</span>
+ log<span class="token operator">.</span><span class="token function">debug</span><span class="token punctuation">(</span>yyyList<span class="token punctuation">)</span>            <span class="token comment" spellcheck="true">// &#x6709;&#x53EF;&#x80FD;&#x5728;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x56E0;&#x4E3A;&#x7981;&#x7528;debug&#x7EA7;&#x522B;&#xFF0C;&#x9020;&#x6210;&#x4E0A;&#x8FF0;&#x64CD;&#x4F5C;&#x5B8C;&#x5168;&#x65E0;&#x7528;</span>
+
+ <span class="token comment" spellcheck="true">// &#x5E94;&#x5F53;</span>
+ <span class="token keyword">if</span><span class="token punctuation">(</span>log<span class="token operator">.</span><span class="token function">isDebugEnabled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>     <span class="token comment" spellcheck="true">// &#x5148;&#x5224;&#x65AD;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;</span>
+     <span class="token keyword">def</span> xxx<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span>
+     yyyList<span class="token operator">.</span>each<span class="token punctuation">{</span>xxx<span class="token operator">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">&quot;...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+     log<span class="token operator">.</span><span class="token function">debug</span><span class="token punctuation">(</span>yyyList<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li><p>&#x5411;&#x65E5;&#x5FD7;&#x4E2D;&#x8F93;&#x51FA;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x3002;</p>
+<pre class="language-"><code class="lang-groovy"> <span class="token comment" spellcheck="true">// &#x53CD;&#x4F8B;</span>
+ <span class="token keyword">try</span> <span class="token punctuation">{</span>
+     <span class="token comment" spellcheck="true">// ...</span>
+ <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">XxxException</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+     <span class="token comment" spellcheck="true">// ...</span>
+     log<span class="token operator">.</span><span class="token function">error</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>                         <span class="token comment" spellcheck="true">// &#x4F1A;&#x4EC5;&#x4EC5;&#x6253;&#x5370;&#x51FA;&#x9519;&#x8BEF;&#x6D88;&#x606F;&#xFF0C;&#x800C;&#x7F3A;&#x5C11;&#x5806;&#x6808;&#x4FE1;&#x606F;</span>
+     log<span class="token operator">.</span><span class="token function">error</span><span class="token punctuation">(</span>e<span class="token operator">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>            <span class="token comment" spellcheck="true">// &#x4F1A;&#x4EC5;&#x4EC5;&#x6253;&#x5370;&#x51FA;&#x9519;&#x8BEF;&#x6D88;&#x606F;&#xFF0C;&#x800C;&#x7F3A;&#x5C11;&#x5806;&#x6808;&#x4FE1;&#x606F;</span>
+     log<span class="token operator">.</span><span class="token function">error</span><span class="token punctuation">(</span>e<span class="token operator">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>       <span class="token comment" spellcheck="true">// &#x4F1A;&#x6253;&#x5370;&#x51FA;&#x5806;&#x6808;&#x4FE1;&#x606F;&#x5230;&#x63A7;&#x5236;&#x53F0;&#xFF0C;&#x4F46;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x4EC5;&#x4EC5;&#x662F;&#x4E00;&#x4E2A;&#x7A7A;&#x884C;&#x3002;&#x7EBF;&#x4E0A;&#x73AF;&#x5883;&#x56E0;&#x4E3A;&#x4E0D;&#x5F00;&#x542F;&#x63A7;&#x5236;&#x53F0;&#x800C;&#x4F1A;&#x4E22;&#x5931;&#x5806;&#x6808;&#x4FE1;&#x606F;</span>
+     log<span class="token operator">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">&quot;...&quot;</span> <span class="token operator">+</span> e<span class="token operator">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">// &#x4F1A;&#x4EC5;&#x4EC5;&#x6253;&#x5370;&#x51FA;&#x9519;&#x8BEF;&#x6D88;&#x606F;&#xFF0C;&#x800C;&#x7F3A;&#x5C11;&#x5806;&#x6808;&#x4FE1;&#x606F;</span>
+ <span class="token punctuation">}</span>
+
+ <span class="token comment" spellcheck="true">// &#x5E94;&#x5F53;</span>
+ <span class="token keyword">try</span> <span class="token punctuation">{</span>
+     <span class="token comment" spellcheck="true">// ...</span>
+ <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">XxxException</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+     <span class="token comment" spellcheck="true">// ...</span>
+     log<span class="token operator">.</span><span class="token function">error</span><span class="token punctuation">(</span>e<span class="token operator">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+     log<span class="token operator">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">&quot;...&quot;</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+</code></pre>
+</li>
+</ol>
+<h1 id="&#x5173;&#x4E8E;gsp">&#x5173;&#x4E8E;GSP</h1>
+<ol>
+<li><p>&#x9488;&#x5BF9;&#x7AD9;&#x5185;&#x8FDE;&#x63A5;&#xFF0C;&#x4E0D;&#x8981;&#x786C;&#x7F16;&#x7801;&#x5199;&#x94FE;&#x63A5;&#x5730;&#x5740;&#xFF0C;&#x54EA;&#x6015;&#x6839;&#x636E;SEO&#x5EFA;&#x8BAE;&#x4E5F;&#x5199;&#x5B8C;&#x6574;&#x7684;URL&#x5730;&#x5740;&#xFF0C;&#x5E94;&#x4F7F;&#x7528;<code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">g:</span>createLink</span><span class="token punctuation">&gt;</span></span></code>&#x3001;<code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">g:</span>resource</span><span class="token punctuation">/&gt;</span></span></code>&#x3002;</p>
+<pre class="language-"><code class="lang-html"> // &#x53CD;&#x4F8B;
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>/xxx/yyy<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>http://www.lizi.com/product-458695865.html<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>/js/xxx.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+
+ // &#x5E94;&#x5F53;
+ // &#x5148;&#x5728; Config.groovy &#x4E2D;&#x8BBE;&#x7F6E; grails.serverURL&#xFF0C;&#x518D;&#x4FEE;&#x6539;GSP&#x6587;&#x4EF6;
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>${createLink(controller:<span class="token punctuation">&apos;</span>item<span class="token punctuation">&apos;</span>, action:<span class="token punctuation">&apos;</span>show<span class="token punctuation">&apos;</span>, params:[k1:v1,k2:v2], absolute:true)}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>${resource(dir: <span class="token punctuation">&apos;</span>js<span class="token punctuation">&apos;</span>, file: <span class="token punctuation">&apos;</span>xxx.js<span class="token punctuation">&apos;</span>, absolute:true)}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+</li>
+<li>render&#x4E4B;&#x540E;&#x4E0D;&#x5E94;&#x8BE5;&#x6709;&#x4EFB;&#x4F55;&#x5176;&#x4ED6;&#x8BED;&#x53E5;&#x3002;&#x5982;&#x679C;&#x5728; <code>if...else...</code> &#x6216;&#x8005; &#x5FAA;&#x73AF;&#x7B49;&#x5206;&#x652F;&#x4E2D;&#x51FA;&#x73B0;&#x4E86; render &#x8BED;&#x53E5;&#xFF0C;&#x5219;&#x4E4B;&#x540E;&#x4E00;&#x5B9A;&#x8981;&#x6709;&#x4E2A;return&#x8BED;&#x53E5;&#x3002;</li>
+</ol>
+<h1 id="&#x5173;&#x4E8E;gorm">&#x5173;&#x4E8E;GORM</h1>
+<ol>
+<li><p>&#x9700;&#x8981;&#x90E8;&#x5206;&#x67E5;&#x8BE2;&#x65F6;&#xFF0C;&#x4E00;&#x5B9A;&#x8981;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x5408;&#x7406;&#x7684;&#x6700;&#x5927;&#x8BB0;&#x5F55;&#x6570;&#x3002;</p>
+<pre class="language-"><code class="lang-groovy"> <span class="token comment" spellcheck="true">// &#x53CD;&#x4F8B;</span>
+ <span class="token keyword">def</span> list <span class="token operator">=</span> Item<span class="token operator">.</span><span class="token function">createCriteria</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">.</span><span class="token function">list</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>           <span class="token comment" spellcheck="true">// &#x6CA1;&#x6709;&#x8BBE;&#x7F6E;&#x8FD4;&#x56DE;&#x7684;&#x6700;&#x5927;&#x8BB0;&#x5F55;&#x6570; max</span>
+     <span class="token string">&quot;in&quot;</span><span class="token punctuation">(</span><span class="token string">&apos;status&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>ItemStatusEnum<span class="token operator">.</span>SHANGJIA<span class="token punctuation">,</span> ItemStatusEnum<span class="token operator">.</span>ESHORT<span class="token punctuation">]</span><span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+ <span class="token comment" spellcheck="true">// &#x76F4;&#x63A5;&#x4F7F;&#x7528;Controller&#x7684;params Map&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x6CA1;&#x6709;max&#x53C2;&#x6570;&#xFF0C;&#x4E5F;&#x53EF;&#x80FD;&#x6709;&#x989D;&#x5916;&#x53C2;&#x6570;&#x64CD;&#x4F5C;&#x51FA;&#x9519;</span>
+ <span class="token keyword">def</span> list <span class="token operator">=</span> Item<span class="token operator">.</span><span class="token function">createCriteria</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">.</span><span class="token function">list</span><span class="token punctuation">(</span>params<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token string">&quot;in&quot;</span><span class="token punctuation">(</span><span class="token string">&apos;status&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>ItemStatusEnum<span class="token operator">.</span>SHANGJIA<span class="token punctuation">,</span> ItemStatusEnum<span class="token operator">.</span>ESHORT<span class="token punctuation">]</span><span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+
+ <span class="token comment" spellcheck="true">// &#x5E94;&#x5F53;</span>
+ <span class="token keyword">def</span> list <span class="token operator">=</span> Item<span class="token operator">.</span><span class="token function">createCriteria</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">.</span><span class="token function">list</span><span class="token punctuation">(</span>max<span class="token punctuation">:</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>              <span class="token comment" spellcheck="true">// &#x660E;&#x786E;&#x6307;&#x660E;max&#x503C;&#xFF0C;&#x6216;&#x68C0;&#x67E5;&#x540E;&#x7ED9;&#x4E88;&#x4E2A;&#x5408;&#x7406;&#x503C;</span>
+     <span class="token string">&quot;in&quot;</span><span class="token punctuation">(</span><span class="token string">&apos;status&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>ItemStatusEnum<span class="token operator">.</span>SHANGJIA<span class="token punctuation">,</span> ItemStatusEnum<span class="token operator">.</span>ESHORT<span class="token punctuation">]</span><span class="token punctuation">)</span>
+     <span class="token function">maxResults</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>                                           <span class="token comment" spellcheck="true">// &#x540C;max&#x53C2;&#x6570;</span>
+ <span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li><p>&#x9700;&#x8981;&#x904D;&#x5386;&#x5168;&#x90E8;&#x3001;&#x6216;&#x8005;&#x5927;&#x91CF;&#xFF08;&#x6BD4;&#x5982;&#x8D85;&#x8FC7;100&#x6761;&#xFF09;&#x8BB0;&#x5F55;&#x65F6;&#xFF0C;&#x4E0D;&#x8981;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x6240;&#x6709;&#x8BB0;&#x5F55;&#x96C6;&#xFF0C;&#x800C;&#x662F;&#x9700;&#x8981;&#x4ECE;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x8BFB;&#x53D6;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#xFF0C;&#x5904;&#x7406;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#xFF0C;&#x4E4B;&#x540E;&#x518D;&#x8BFB;&#x53D6;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#xFF0C;&#x5982;&#x6B64;&#x53CD;&#x590D;&#x3002;</p>
+<pre class="language-"><code class="lang-groovy"> <span class="token comment" spellcheck="true">// &#x53CD;&#x4F8B;</span>
+ <span class="token keyword">def</span> list <span class="token operator">=</span> CmsPageView<span class="token operator">.</span><span class="token function">executeQuery</span><span class="token punctuation">(</span><span class="token string">&quot;...&quot;</span><span class="token punctuation">)</span>
+ <span class="token keyword">def</span> list <span class="token operator">=</span> CmsPageView<span class="token operator">.</span>createCriteria<span class="token operator">.</span>list <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/* ...*/</span><span class="token punctuation">}</span>
+
+ <span class="token comment" spellcheck="true">// &#x5E94;&#x5F53; &#xFF1A; createCriteria &#x793A;&#x4F8B;</span>
+ <span class="token keyword">def</span> results <span class="token operator">=</span> CmsPage<span class="token operator">.</span><span class="token function">createCriteria</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">.</span><span class="token function">scroll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token function">fetchSize</span><span class="token punctuation">(</span>Integer<span class="token operator">.</span>MIN_VALUE<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// &#x6BCF;&#x6B21;&#x9884;&#x8BFB;&#x53D6;&#x591A;&#x5C11;&#x6761;&#x8BB0;&#x5F55;&#xFF0C;&#x4F46;&#x7531;&#x4E8E;MySql&#x5B9E;&#x73B0;&#x7684;&#x7279;&#x6B8A;&#x6027;&#xFF0C;&#x53EA;&#x80FD;&#x8BBE;&#x7F6E;&#x4E3A;&#x8BE5;&#x503C;&#x540E;&#x624D;&#x80FD;&#x4E00;&#x6761;&#x4E00;&#x6761;&#x7684;&#x8BFB;&#x53D6;</span>
+     <span class="token function">maxResults</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span>             <span class="token comment" spellcheck="true">// &#x5982;&#x679C;&#x53EA;&#x662F;&#x90E8;&#x5206;&#x8BB0;&#x5F55;&#x7684;&#x8BDD;&#xFF0C;&#x53EF;&#x4EE5;&#x9650;&#x5B9A;&#x8BB0;&#x5F55;&#x6570;</span>
+     <span class="token function">readOnly</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>               <span class="token comment" spellcheck="true">// &#x5982;&#x679C;&#x53EA;&#x8BFB;&#x7684;&#x8BDD;</span>
+     <span class="token comment" spellcheck="true">// ...</span>
+ <span class="token punctuation">}</span>
+ <span class="token keyword">while</span><span class="token punctuation">(</span>results<span class="token operator">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+     CmsPage cmsPage <span class="token operator">=</span> results<span class="token operator">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+     <span class="token comment" spellcheck="true">// ...</span>
+ <span class="token punctuation">}</span>
+
+ <span class="token comment" spellcheck="true">// &#x5E94;&#x5F53; &#xFF1A; HQL &#x793A;&#x4F8B;</span>
+ <span class="token comment" spellcheck="true">//&#xFF08;&#x901A;&#x5E38;&#x7528;&#x5728;createCriteria&#x65E0;&#x6CD5;&#x5904;&#x7406;&#x7684;&#x60C5;&#x5F62;&#xFF0C;&#x6BD4;&#x5982; having &#x64CD;&#x4F5C;&#xFF09;</span>
+ CmsPageView<span class="token operator">.</span>withSession <span class="token punctuation">{</span>Session session<span class="token operator">-&gt;</span>
+     <span class="token keyword">def</span> results <span class="token operator">=</span> session<span class="token operator">.</span><span class="token function">createQuery</span><span class="token punctuation">(</span><span class="token string">&quot;&quot;</span> <span class="token operator">+</span>
+                 <span class="token string">&quot;select date, cmspage.id &quot;</span> <span class="token operator">+</span>
+                 <span class="token string">&quot;from CmsPageView &quot;</span> <span class="token operator">+</span>
+                 <span class="token string">&quot;group by date, cmspage.id &quot;</span> <span class="token operator">+</span>
+                 <span class="token string">&quot;having count(*)&gt;1 &quot;</span> <span class="token operator">+</span>
+                 <span class="token string">&quot;order by date asc, cmspage.id asc&quot;</span><span class="token punctuation">)</span>
+                 <span class="token operator">.</span><span class="token function">setFetchSize</span><span class="token punctuation">(</span>Integer<span class="token operator">.</span>MIN_VALUE<span class="token punctuation">)</span>         <span class="token comment" spellcheck="true">// MySql &#x7279;&#x6B8A;</span>
+                 <span class="token operator">.</span><span class="token function">scroll</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+     <span class="token keyword">while</span> <span class="token punctuation">(</span>results<span class="token operator">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token keyword">def</span> row <span class="token operator">=</span> results<span class="token operator">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+         <span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token operator">.</span><span class="token function">asList</span><span class="token punctuation">(</span>row<span class="token punctuation">)</span><span class="token punctuation">)</span>
+     <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span>
+
+ <span class="token comment" spellcheck="true">// &#x5E94;&#x5F53; &#xFF1A; SQL &#x793A;&#x4F8B;</span>
+ <span class="token comment" spellcheck="true">//&#xFF08;&#x901A;&#x5E38;&#x7528;&#x5728;createCriteria&#x65E0;&#x6CD5;&#x5904;&#x7406;&#x7684;&#x60C5;&#x5F62;&#xFF0C;&#x6BD4;&#x5982; having &#x64CD;&#x4F5C;&#xFF09;</span>
+ CmsPageView<span class="token operator">.</span>withSession <span class="token punctuation">{</span>Session session<span class="token operator">-&gt;</span>
+
+     <span class="token keyword">def</span> sql <span class="token operator">=</span> <span class="token string">&quot;&quot;&quot;
+   select date, cmspage_id
+     from cms_page_view
+    where date_created &gt; ?
+ group by date, cmspage_id
+   having count(*) &gt; 1
+ order by date asc, cmspage_id asc
+ &quot;&quot;&quot;</span>
+     <span class="token keyword">def</span> sqlParams <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+     <span class="token keyword">def</span> query <span class="token operator">=</span> session<span class="token operator">.</span><span class="token function">createSQLQuery</span><span class="token punctuation">(</span>sql<span class="token punctuation">)</span>
+     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> sqlParams<span class="token operator">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>           <span class="token comment" spellcheck="true">// &#x8BBE;&#x7F6E;&#x53C2;&#x6570;</span>
+         query<span class="token operator">.</span><span class="token function">setParameter</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> sqlParams<span class="token operator">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+     <span class="token punctuation">}</span>
+
+     <span class="token keyword">def</span> results <span class="token operator">=</span> query
+             <span class="token operator">.</span><span class="token function">setFetchSize</span><span class="token punctuation">(</span>Integer<span class="token operator">.</span>MIN_VALUE<span class="token punctuation">)</span>             <span class="token comment" spellcheck="true">// MySql&#x7279;&#x6B8A;</span>
+             <span class="token operator">.</span><span class="token function">scroll</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+     <span class="token keyword">while</span> <span class="token punctuation">(</span>results<span class="token operator">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token keyword">def</span> row <span class="token operator">=</span> results<span class="token operator">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+         <span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token operator">.</span><span class="token function">asList</span><span class="token punctuation">(</span>row<span class="token punctuation">)</span><span class="token punctuation">)</span>
+     <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span>
+</code></pre>
+<p> &#x6CE8;&#x610F;&#xFF1A;MySQL&#x6709;&#x7279;&#x6B8A;&#x6027;&#xFF0C;&#x7528;scroll&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x6709;&#x4E00;&#x4E9B;&#x7EA6;&#x675F;&#xFF1A;</p>
+<ul>
+<li>&#x5FC5;&#x987B;&#x8BBE;&#x7F6E;fetchSize=Integer.MIN_VALUE&#xFF0C;&#x5426;&#x5219;&#x4ECD;&#x4F1A;&#x4E00;&#x6B21;&#x6027;&#x628A;&#x6240;&#x6709;&#x8BB0;&#x5F55;&#x96C6;&#x52A0;&#x8F7D;&#x5230;&#x5185;&#x5B58;&#x4E2D;&#x7684;&#x3002;</li>
+<li><p>&#x6CA1;&#x6709;&#x904D;&#x5386;&#x5B8C;&#x7ED3;&#x679C;&#x96C6;&#x65F6;&#xFF0C;&#x5728;&#x5F53;&#x524D;jdbc connection&#x4E0A;&#x65E0;&#x6CD5;&#x8FDB;&#x884C;&#x4EFB;&#x4F55;sql&#x64CD;&#x4F5C;&#x3002;&#xFF08;&#x6BD4;&#x5982;&#xFF0C;Hibrenate&#x7684;&#x5173;&#x8054;&#x5BF9;&#x8C61;&#x7684;&#x5EF6;&#x8FDF;&#x8BFB;&#x53D6;&#xFF09;</p>
+<p>&#x5982;&#x679C;&#x4E0D;&#x80FD;&#x6EE1;&#x8DB3;&#x4E0A;&#x8FF0;&#x7EA6;&#x675F;&#xFF0C;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x65E5;&#x671F;&#xFF0C;&#x6216;&#x8005;SQL&#x7684;offset+limit&#x5FAA;&#x73AF;&#x5730;&#x3001;&#x5C0F;&#x6279;&#x91CF;&#x7684;&#x8FDB;&#x884C;&#x5904;&#x7406;&#xFF08;&#x8BE5;&#x5C0F;&#x6279;&#x91CF;&#x6570;&#x636E;&#x4F1A;&#x4E00;&#x6B21;&#x6027;&#x5168;&#x90E8;&#x8BFB;&#x53D6;&#x5230;&#x5185;&#x5B58;&#x4E2D;&#xFF09;</p>
+</li>
+</ul>
+</li>
+<li><p>&#x6E05;&#x7A7A;&#x4E00;&#x5BF9;&#x591A;</p>
+<p> &#x5047;&#x8BBE; user hasMany Order, &#x5E76;&#x4E14;&#x662F;&#x5728;&#x591A;&#x7684;&#x4E00;&#x4FA7;&#xFF08;order&#xFF09;&#x4E2D;&#x8FFD;&#x52A0;user&#x5B57;&#x6BB5;&#x505A;&#x5173;&#x8054;</p>
+<pre class="language-"><code> // &#x6E05;&#x7A7A;
+ user.orders.each { order -&gt;
+     order.delete()
+ }
+ user.orders.clear()  // &#x4E00;&#x5B9A;&#x8981;&#x6709;&#x6B64;&#x53E5;
+
+ // &#x6DFB;&#x52A0;
+ user.addToOrders(new Order())
+</code></pre></li>
+</ol>
+<h1 id="uri">URI</h1>
+<p><code>UriComponentsBuilder.fromUri(URI)</code> &#x4E0D;&#x4F1A;&#x5BF9;URL&#x4E0A;&#x7684;&#x53C2;&#x6570;&#x8FDB;&#x884C;&#x89E3;&#x7801;&#x3002;&#x56E0;&#x6B64;&#x53EF;&#x80FD;&#x4F1A;&#x51FA;&#x9519;&#x800C;&#x9020;&#x6210;&#x8FDE;&#x7EED;&#x7F16;&#x7801;</p>
+<pre class="language-"><code class="lang-groovy"><span class="token comment" spellcheck="true">// &#x53CD;&#x4F8B;</span>
+URI u1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">URI</span><span class="token punctuation">(</span><span class="token string">&quot;http://a.com/path?query=aaa%20bbb&quot;</span><span class="token punctuation">)</span>
+URI u2 <span class="token operator">=</span> UriComponentsBuilder<span class="token operator">.</span><span class="token function">fromUri</span><span class="token punctuation">(</span>u1<span class="token punctuation">)</span>
+        <span class="token operator">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token operator">.</span><span class="token function">toUri</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+println <span class="token string">&quot;u1 = &quot;</span> <span class="token operator">+</span> u1    <span class="token comment" spellcheck="true">// &quot;http://a.com/path?query=aaa%20bbb&quot;</span>
+println <span class="token string">&quot;u2 = &quot;</span> <span class="token operator">+</span> u2    <span class="token comment" spellcheck="true">// &quot;http://a.com/path?query=aaa%2520bbb&quot;</span>
+
+<span class="token comment" spellcheck="true">// &#x5E94;&#x5F53;</span>
+URI u1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">URI</span><span class="token punctuation">(</span><span class="token string">&quot;http://a.com/path?query=aaa%20bbb&quot;</span><span class="token punctuation">)</span>
+URI u2 <span class="token operator">=</span> UriComponentsBuilder<span class="token operator">.</span><span class="token function">fromUri</span><span class="token punctuation">(</span>u1<span class="token punctuation">)</span>
+        <span class="token operator">.</span><span class="token function">replaceQuery</span><span class="token punctuation">(</span>u1<span class="token operator">.</span><span class="token function">getQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// XXX : &#x4F7F;&#x7528;&#x89E3;&#x7801;&#x540E;&#x7684; queryStr &#x91CD;&#x65B0;&#x66FF;&#x6362;</span>
+        <span class="token operator">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token operator">.</span><span class="token function">toUri</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+println <span class="token string">&quot;u1 = &quot;</span> <span class="token operator">+</span> u1    <span class="token comment" spellcheck="true">// &quot;http://a.com/path?query=aaa%20bbb&quot;</span>
+println <span class="token string">&quot;u2 = &quot;</span> <span class="token operator">+</span> u2    <span class="token comment" spellcheck="true">// &quot;http://a.com/path?query=aaa%20bbb&quot;</span>
+</code></pre>
+<h1 id="&#x5173;&#x4E8E;-applicationx-www-form-urlencoded">&#x5173;&#x4E8E; application/x-www-form-urlencoded</h1>
+<ol>
+<li><p>MultiValueMap -&gt; String</p>
+<pre class="language-"><code class="lang-groovy"> MultiValueMap reqMsg <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedMultiValueMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ reqMsg<span class="token operator">.</span>schema <span class="token operator">=</span> <span class="token string">&quot;xxx&quot;</span><span class="token punctuation">;</span>
+ reqMsg<span class="token operator">.</span>param <span class="token operator">=</span> <span class="token string">&quot;a\&quot;b&#x4E2D;&#x56FD;c&quot;</span>
+ HttpOutputMessage outMsg <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MockHttpOutputMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+ HttpMessageConverter httpMsgConverter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FormHttpMessageConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ httpMsgConverter<span class="token operator">.</span><span class="token function">setCharset</span><span class="token punctuation">(</span>Charset<span class="token operator">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">&quot;UTF-8&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true">// &#x660E;&#x786E;&#x6307;&#x660E;&#x4F7F;&#x7528; UTF-8 &#x8FDB;&#x884C;&#x8FDB;&#x884C;URLEncoding</span>
+ httpMsgConverter<span class="token operator">.</span><span class="token function">write</span><span class="token punctuation">(</span>reqMsg<span class="token punctuation">,</span> MediaType<span class="token operator">.</span>APPLICATION_FORM_URLENCODED<span class="token punctuation">,</span> outMsg<span class="token punctuation">)</span>
+ <span class="token keyword">return</span> outMsg<span class="token operator">.</span><span class="token function">getBodyAsString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+<li><p>query String -&gt; MultiValueMap</p>
+<pre class="language-"><code> // &#x5DF2;&#x7F16;&#x7801;&#x65F6;&#xFF0C;&#x5148;&#x4F7F;&#x7528; URI#getQuery() &#x8FDB;&#x884C; UTF-8 &#x89E3;&#x7801;&#x3002;&#x4F46;&#x65E0;&#x6CD5;&#x6307;&#x5B9A;&#x89E3;&#x7801;&#x7528;&#x7684;&#x5B57;&#x7B26;&#x96C6;
+ def decodedQuery = new URI(&quot;?p1=111&amp;p1=112&amp;p2=22%2033&quot;).getQuery(); 
+
+ // &#x672A;&#x7F16;&#x7801;&#x65F6;
+ def decodedQuery = &quot;a=a1&amp;a=a2&amp;b=bbb&quot;
+
+ // &#x8FD4;&#x56DE;&#x7684;&#x5C31;&#x662F;&#x5DF2;&#x7ECF;&#x89E3;&#x7801;&#x540E;&#x7684; map &#x4E86;
+ MultiValueMap reqMsg = UriComponentsBuilder.newInstance()
+         .query(decodedQuery)
+         .build()
+         .getQueryParams()
+
+ // &#x6CE8;&#x610F;&#xFF1A; 
+ // 1. JDK &#x81EA;&#x5E26;&#x7684; URLEncoder &#x662F;&#x9488;&#x5BF9; application/x-www-form-urlencoded&#xFF0C;
+ //    &#x4F1A;&#x5C06;&#x7A7A;&#x683C;&#x5148;&#x53D8;&#x6210;&#x52A0;&#x53F7;&#x7684;&#x3002;
+ //    &#x5982;&#x679C;&#x4EC5;&#x4EC5;&#x662F;&#x5BF9;URL&#x8FDB;&#x884C; Percent-Encoding&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; spring &#x7684; UriUtils
+</code></pre></li>
+</ol>
+<h1 id="&#x5173;&#x4E8E;-applicationxml">&#x5173;&#x4E8E; application/xml</h1>
+<ol>
+<li><p>XML -&gt; String</p>
+<pre class="language-"><code class="lang-groovy"> <span class="token keyword">def</span> writer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token keyword">def</span> xml <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MarkupBuilder</span><span class="token punctuation">(</span>writer<span class="token punctuation">)</span>
+ xml<span class="token operator">.</span>mkp<span class="token operator">.</span><span class="token function">xmlDeclaration</span><span class="token punctuation">(</span>version<span class="token punctuation">:</span> <span class="token string">&apos;1.0&apos;</span><span class="token punctuation">,</span> encoding<span class="token punctuation">:</span> <span class="token string">&quot;UTF-8&quot;</span><span class="token punctuation">)</span>
+ xml<span class="token operator">.</span><span class="token function">rootNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token function">node1</span><span class="token punctuation">(</span>a<span class="token punctuation">:</span> <span class="token string">&quot;a&quot;</span><span class="token punctuation">)</span>
+     <span class="token number">2</span><span class="token operator">.</span>times <span class="token punctuation">{</span>
+         <span class="token function">node2</span><span class="token punctuation">(</span>attr1<span class="token punctuation">:</span> <span class="token string">&apos;value1&apos;</span><span class="token punctuation">,</span> attr2<span class="token punctuation">:</span> <span class="token string">&quot;value2&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+             <span class="token function">emptyNode</span><span class="token punctuation">(</span>attr3<span class="token punctuation">:</span> <span class="token string">&quot;value3&quot;</span><span class="token punctuation">)</span>
+         <span class="token punctuation">}</span>
+     <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span>
+ String xmlStr <span class="token operator">=</span> writer<span class="token operator">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token function">render</span><span class="token punctuation">(</span>contentType<span class="token punctuation">:</span> <span class="token string">&quot;application/xml&quot;</span><span class="token punctuation">,</span> text<span class="token punctuation">:</span> xmlStr<span class="token punctuation">)</span>
+</code></pre>
+</li>
+<li><p>String -&gt; XML</p>
+<pre class="language-"><code class="lang-groovy"> <span class="token comment" spellcheck="true">// 1. &#x4F7F;&#x7528;XmlParser</span>
+ String xmlStr <span class="token operator">=</span> <span class="token punctuation">...</span>
+ <span class="token keyword">def</span> rootNode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">XmlParser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">.</span><span class="token function">parseText</span><span class="token punctuation">(</span>xmlStr<span class="token punctuation">)</span>
+ <span class="token keyword">def</span> node2Count <span class="token operator">=</span> rootNode<span class="token operator">.</span>node2<span class="token operator">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token keyword">def</span> attrValue <span class="token operator">=</span> rootNode<span class="token operator">.</span>node2<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">.</span><span class="token string">&apos;@attr1&apos;</span>
+
+ <span class="token comment" spellcheck="true">// 2. &#x4F7F;&#x7528; grails.converters.XML</span>
+ String xmlStr <span class="token operator">=</span> <span class="token punctuation">...</span>
+ <span class="token keyword">def</span> xmlObj <span class="token operator">=</span> XML<span class="token operator">.</span><span class="token function">parse</span><span class="token punctuation">(</span>xmlStr<span class="token punctuation">)</span>
+
+ <span class="token comment" spellcheck="true">// 3. &#x4F7F;&#x7528; grails.converters.XML</span>
+ GPathResult xml <span class="token operator">=</span> request<span class="token operator">.</span>XML
+ <span class="token keyword">new</span> <span class="token class-name">XmlUtil</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">.</span><span class="token function">serialize</span><span class="token punctuation">(</span>xml<span class="token punctuation">,</span> System<span class="token operator">.</span>out<span class="token punctuation">)</span>
+</code></pre>
+</li>
+</ol>
+<h1 id="&#x5173;&#x4E8E;-applicationjson">&#x5173;&#x4E8E; application/json</h1>
+<ol>
+<li><p>Map -&gt; JSON -&gt; String</p>
+<pre class="language-"><code class="lang-groovy"> <span class="token comment" spellcheck="true">// 0. &#x4F7F;&#x7528; groovy.json.JsonOutput</span>
+ <span class="token keyword">def</span> json <span class="token operator">=</span> JsonOutput<span class="token operator">.</span><span class="token function">toJson</span><span class="token punctuation">(</span><span class="token punctuation">[</span>name<span class="token punctuation">:</span> <span class="token string">&apos;John Doe&apos;</span><span class="token punctuation">,</span> age<span class="token punctuation">:</span> <span class="token number">42</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+ <span class="token keyword">assert</span> json <span class="token operator">==</span> <span class="token string">&apos;{&quot;name&quot;:&quot;John Doe&quot;,&quot;age&quot;:42}&apos;</span>
+
+ <span class="token comment" spellcheck="true">// 1. &#x4F7F;&#x7528;Map+JsonBuilder&#x3002;</span>
+ <span class="token keyword">def</span> jsonMap <span class="token operator">=</span> <span class="token punctuation">[</span>
+         attr1 <span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+         attr2 <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">&quot;2&quot;</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span>
+ <span class="token punctuation">]</span>
+ jsonMap<span class="token operator">.</span>attr3 <span class="token operator">=</span> <span class="token string">&quot;3&quot;</span>
+ jsonMap<span class="token operator">.</span>attr4 <span class="token operator">=</span> <span class="token punctuation">[</span>
+         attr41 <span class="token punctuation">:</span> <span class="token number">41</span><span class="token punctuation">,</span>
+         attr42 <span class="token punctuation">:</span> <span class="token string">&quot;42&quot;</span>
+ <span class="token punctuation">]</span>
+ <span class="token keyword">def</span> jsonStr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JsonBuilder</span><span class="token punctuation">(</span>jsonMap<span class="token punctuation">)</span><span class="token operator">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+ <span class="token comment" spellcheck="true">// 2. &#x4F7F;&#x7528;JsonBuilder</span>
+ <span class="token comment" spellcheck="true">// &#x6CE8;&#x610F;&#xFF1A;&#x8BE5;&#x65B9;&#x6CD5;&#x8F93;&#x51FA;&#x7684;JSON&#x4E2D;&#x7684;&#x7279;&#x6B8A;&#x5B57;&#x7B26;&#x3001;&#x6C49;&#x5B57;&#x7B49;&#x90FD;&#x4F1A;&#x8FDB;&#x884C;unicode&#x8F6C;&#x4E49;&#xFF0C;&#x6BD4;&#x5982; &quot;&#x4E2D;&#x6587;&quot; -&gt; &quot;\u4E2D\u6587&quot;</span>
+ <span class="token comment" spellcheck="true">//      &#x5FAE;&#x4FE1;&#x76F8;&#x5173;&#x7684;API&#x4F1A;&#x62A5;&#x9519;&#xFF0C;&#x8BF7;&#x53C2;&#x8003;&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x76F4;&#x63A5;&#x4F7F;&#x7528;Jackson2</span>
+ <span class="token keyword">def</span> builder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JsonBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ builder <span class="token punctuation">{</span>
+     person <span class="token punctuation">{</span>
+         firstName <span class="token string">&apos;Guillame&apos;</span>
+         <span class="token function">address</span><span class="token punctuation">(</span>
+                 city<span class="token punctuation">:</span> <span class="token string">&apos;Paris&apos;</span><span class="token punctuation">,</span>
+                 country<span class="token punctuation">:</span> <span class="token string">&apos;aaa&lt;&gt;&quot;\&apos;&amp;&#x4E2D;&#x6587;bbb&apos;</span><span class="token punctuation">,</span>
+                 zip<span class="token punctuation">:</span> <span class="token number">12345</span><span class="token punctuation">,</span>
+         <span class="token punctuation">)</span>
+     <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span>
+ <span class="token keyword">def</span> jsonStr <span class="token operator">=</span> builder<span class="token operator">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+ <span class="token comment" spellcheck="true">// 3. &#x76F4;&#x63A5;&#x4F7F;&#x7528; Jaskson2 : map -&gt; json string</span>
+ <span class="token comment" spellcheck="true">// &#x8BE5;&#x65B9;&#x5F0F;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;&#x6CA1;&#x6709;&#x8FDB;&#x884C;unicode&#x8F6C;&#x4E49;&#x7684;&#x3002;&#x4F46;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;</span>
+ <span class="token comment" spellcheck="true">// &#x6CE8;&#x610F;&#xFF1A;&#x7531;&#x4E8E;JsonBuilder&#x5185;&#x90E8;&#x4E5F;&#x662F;&#x5148;&#x6784;&#x5EFA;map&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x53EF;&#x4EE5;&#x5B83;&#x7684;DSL&#x6765;&#x7B80;&#x5316;map&#x7684;&#x751F;&#x6210;&#xFF0C;&#x6700;&#x540E;&#x4F7F;&#x7528; builder.getContent() &#x83B7;&#x53D6; map&#x3002;</span>
+ <span class="token keyword">def</span> builder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JsonBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ builder <span class="token punctuation">{</span>
+     country<span class="token punctuation">:</span> <span class="token string">&apos;aaa&lt;&gt;&quot;\&apos;&amp;&#x4E2D;&#x6587;bbb&apos;</span>
+ <span class="token punctuation">}</span>
+ <span class="token keyword">def</span> jsonStr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectMapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">.</span><span class="token function">writeValueAsString</span><span class="token punctuation">(</span>builder<span class="token operator">.</span><span class="token function">getContent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// builder.getContent() &#x662F; map&#x7C7B;&#x578B;</span>
+
+ <span class="token comment" spellcheck="true">// 4. &#x5728;Action&#x4E2D;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;</span>
+ <span class="token keyword">def</span> map <span class="token operator">=</span> <span class="token punctuation">...</span>
+ render <span class="token punctuation">(</span>map <span class="token keyword">as</span> JSON<span class="token punctuation">)</span>
+</code></pre>
+</li>
+<li><p>String -&gt; JSON</p>
+<pre class="language-"><code class="lang-groovy"> <span class="token comment" spellcheck="true">// 1. &#x4F7F;&#x7528;JsonSlurper</span>
+ <span class="token keyword">def</span> jsonStr <span class="token operator">=</span>  <span class="token string">&quot;...&quot;</span>
+ <span class="token keyword">def</span> jsonResult <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JsonSlurper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">.</span><span class="token function">parseText</span><span class="token punctuation">(</span>jsonStr<span class="token punctuation">)</span>
+ <span class="token keyword">def</span> value <span class="token operator">=</span> jsonResult<span class="token operator">.</span>attr1<span class="token operator">.</span>attr11
+
+ <span class="token comment" spellcheck="true">// 2. &#x4F7F;&#x7528; grails.converters.JSON</span>
+ <span class="token keyword">def</span> jsonStr <span class="token operator">=</span>  <span class="token string">&quot;...&quot;</span>
+ <span class="token keyword">def</span> jsonObject <span class="token operator">=</span> JSON<span class="token operator">.</span><span class="token function">parse</span><span class="token punctuation">(</span>jsonStr<span class="token punctuation">)</span>
+</code></pre>
+</li>
+</ol>
+<h1 id="&#x5173;&#x4E8E;http&#x8BF7;&#x6C42;">&#x5173;&#x4E8E;HTTP&#x8BF7;&#x6C42;</h1>
+<p>&quot;application/x-www-form-urlencoded&quot; &#x7684;&#x5B9A;&#x4E49;&#x5728;<a href="http://www.w3.org/TR/html401/interact/forms.html#didx-applicationx-www-form-urlencoded" target="_blank">&#x8FD9;&#x91CC;</a>&#x3002;</p>
+<pre class="language-"><code class="lang-groovy"><span class="token comment" spellcheck="true">// &#x53CD;&#x4F8B;</span>
+<span class="token comment" spellcheck="true">// 1. &#x624B;&#x52A8;&#x5B57;&#x7B26;&#x4E32;&#x62FC;&#x63A5;&#x3002;&#x8BE5;&#x65B9;&#x5F0F;&#x5E38;&#x5E38;&#x4F1A;&#x5FFD;&#x7565;URL&#x7279;&#x6B8A;&#x5B57;&#x7B26;&#x548C;&#x4E2D;&#x6587;&#x7684;&#x8F6C;&#x4E49;&#x3002;</span>
+<span class="token comment" spellcheck="true">// 2. &#x4E0D;&#x63A8;&#x8350;&#xFF1A;&#x4F7F;&#x7528;&#x5404;&#x79CD;&#x81EA;&#x5DF1;&#x7F16;&#x5199;&#x7684;&#x5DE5;&#x5177;&#x7C7B;&#x2014;&#x2014;&#x9664;&#x975E;&#x6709;&#x4EC0;&#x4E48;&#x7279;&#x6B8A;&#x539F;&#x56E0;&#x3002;</span>
+<span class="token comment" spellcheck="true">// 3. &#x4E0D;&#x63A8;&#x8350;&#xFF1A;&#x4F7F;&#x7528;JDK&#x81EA;&#x5E26;&#x7684;URLConnection&#x6216;Apache HttpClient&#x7B49;API&#xFF0C;&#x56E0;&#x4E3A;&#x63A5;&#x53E3;&#x8FC7;&#x4E8E;&#x4F4E;&#x7EA7;&#x3002;</span>
+<span class="token comment" spellcheck="true">// 4. FIXME ??? &#x4E0D;&#x63A8;&#x8350;&#xFF1A;&#x4F7F;&#x7528;Grails REST Plugin&#x3001;Groovy HTTPBuilder</span>
+<span class="token comment" spellcheck="true">// 5. &#x63A8;&#x8350;&#xFF1A;&#x7EDF;&#x4E00;&#x4F7F;&#x7528;Spring&#x63D0;&#x4F9B;&#x7684;RestTemplate&#x3002;&#x539F;&#x56E0;&#xFF1A;</span>
+<span class="token comment" spellcheck="true">//    * Java&#x5F00;&#x53D1;&#x548C;Grails&#x5F00;&#x53D1;&#x5747;&#x53EF;&#x7528;</span>
+<span class="token comment" spellcheck="true">//    * API&#x4E5F;&#x5F88;&#x65B9;&#x4FBF;&#x3001;&#x7B80;&#x6D01;</span>
+<span class="token comment" spellcheck="true">//    * &#x53EF;&#x7EC6;&#x9897;&#x7C92;&#x5EA6;&#x914D;&#x7F6E;&#xFF08;&#x6BD4;&#x5982;&#x4E2D;&#x6587;&#x7F16;&#x7801;&#x7B49;&#xFF09;</span>
+</code></pre>
+<ol>
+<li><p>&#x62FC;&#x63A5;&#x5E26;&#x6709;&#x53C2;&#x6570;&#x7684;URL</p>
+<pre class="language-"><code class="lang-groovy"> <span class="token comment" spellcheck="true">// &#x5E94;&#x5F53;</span>
+ String url <span class="token operator">=</span> <span class="token string">&quot;http://localhost:8080/lizi-tmp/{controller}/{action}.{format}?a=a1&amp;b=b1&quot;</span>
+ <span class="token keyword">def</span> map <span class="token operator">=</span> <span class="token punctuation">[</span>
+         controller<span class="token punctuation">:</span> <span class="token string">&quot;test&quot;</span><span class="token punctuation">,</span>
+         action    <span class="token punctuation">:</span> <span class="token string">&quot;hi&quot;</span><span class="token punctuation">,</span>
+         format    <span class="token punctuation">:</span> <span class="token string">&quot;json&quot;</span>
+ <span class="token punctuation">]</span>
+ URI uri <span class="token operator">=</span> UriComponentsBuilder
+         <span class="token operator">.</span><span class="token function">fromHttpUrl</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>                    <span class="token comment" spellcheck="true">// &#x5148;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x6A21;&#x677F;&#x521B;&#x5EFA;UriComponentsBuilder</span>
+         <span class="token operator">.</span><span class="token function">host</span><span class="token punctuation">(</span><span class="token string">&quot;127.0.0.1&quot;</span><span class="token punctuation">)</span>                   <span class="token comment" spellcheck="true">// &#x8BBE;&#x7F6E;/&#x66FF;&#x6362;&#x5176;&#x4E2D;&#x7684;host</span>
+         <span class="token operator">.</span><span class="token function">queryParam</span><span class="token punctuation">(</span><span class="token string">&quot;a&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;a2&quot;</span><span class="token punctuation">)</span>               <span class="token comment" spellcheck="true">// &#x65B0;&#x589E;URL&#x53C2;&#x6570;&#x3002;&#x6CE8;&#x610F;&#xFF1A;&#x5982;&#x679C;&#x5DF2;&#x6709;&#x8BE5;&#x53C2;&#x6570;&#xFF0C;&#x4F1A;&#x7EE7;&#x7EED;&#x6DFB;&#x52A0;&#xFF0C;&#x5B9E;&#x9645;&#x53D8;&#x6210;&#x6570;&#x7EC4;&#x3002;</span>
+         <span class="token operator">.</span><span class="token function">replaceQueryParam</span><span class="token punctuation">(</span><span class="token string">&quot;b&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;b2&quot;</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true">// &#x66FF;&#x6362;URL&#x53C2;&#x6570;&#x3002;&#x53EF;&#x4EE5;&#x591A;&#x4E2A;&#x503C;</span>
+         <span class="token operator">.</span><span class="token function">queryParam</span><span class="token punctuation">(</span><span class="token string">&quot;c&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;c1&#x4E2D;&quot;</span><span class="token punctuation">)</span>             <span class="token comment" spellcheck="true">// &#x65B0;&#x589E;URL&#x53C2;&#x6570;</span>
+         <span class="token operator">.</span><span class="token function">queryParam</span><span class="token punctuation">(</span><span class="token string">&quot;_{format}&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;{format}&quot;</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// &#x65B0;&#x589E;URL&#x53C2;&#x6570;&#xFF0C;&#x6CE8;&#x610F;&#xFF1A;builder&#x4E2D;&#x7684;&#x503C;&#x548C;&#x53C2;&#x6570;&#x90FD;&#x5141;&#x8BB8;&#x4F7F;&#x7528;&#x53D8;&#x91CF;</span>
+         <span class="token operator">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span>                             <span class="token comment" spellcheck="true">// -&gt; UriComponents &#x3002;&#x6B64;&#x65F6;&#xFF0C;&#x5C1A;&#x672A;&#x8FDB;&#x884C;URL&#x7F16;&#x7801;</span>
+         <span class="token operator">.</span><span class="token function">expand</span><span class="token punctuation">(</span>map<span class="token punctuation">)</span>                         <span class="token comment" spellcheck="true">// &#x66FF;&#x6362;&#x53D8;&#x91CF;</span>
+         <span class="token operator">.</span><span class="token function">encode</span><span class="token punctuation">(</span><span class="token string">&quot;UTF-8&quot;</span><span class="token punctuation">)</span>                     <span class="token comment" spellcheck="true">// &#x8FDB;&#x884C;URL&#x7F16;&#x7801;</span>
+         <span class="token operator">.</span><span class="token function">toUri</span><span class="token punctuation">(</span><span class="token punctuation">)</span>                             <span class="token comment" spellcheck="true">// -&gt; URI</span>
+ println uri  <span class="token comment" spellcheck="true">// http://127.0.0.1:8080/lizi-tmp/test/hi.json?a=a1&amp;a=a2&amp;b=b2&amp;c=c1%E4%B8%AD&amp;_json=json</span>
+</code></pre>
+</li>
+<li><p>&#x53D1;&#x9001;GET&#x8BF7;&#x6C42;</p>
+<pre class="language-"><code class="lang-groovy"><span class="token comment" spellcheck="true">// &#x5E94;&#x5F53;&#xFF1A;1. &#x53D1;&#x9001;GET&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x83B7;&#x53D6;&#x5B57;&#x7B26;&#x4E32;&#x7ED3;&#x679C;&#xFF08;&#x65E0;&#x9700;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#x5934;&#x3001;&#x54CD;&#x5E94;&#x5934;&#xFF09;</span>
+URI url <span class="token operator">=</span> <span class="token punctuation">...</span>
+String respStr <span class="token operator">=</span> restTemplate<span class="token operator">.</span><span class="token function">getForObject</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> String<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// &#x5E94;&#x5F53;&#xFF1A;2. &#x53D1;&#x9001;GET&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x83B7;&#x53D6;&#x5B57;&#x7B26;&#x4E32;&#x7ED3;&#x679C;&#xFF08;&#x65E0;&#x9700;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#x5934;&#x3001;&#x4F46;&#x9700;&#x8981;&#x5904;&#x7406;&#x54CD;&#x5E94;&#x5934;&#xFF09;</span>
+URI url <span class="token operator">=</span> <span class="token punctuation">...</span>
+ResponseEntity respEntity <span class="token operator">=</span> restTemplate<span class="token operator">.</span><span class="token function">getForEntity</span><span class="token punctuation">(</span>uri<span class="token punctuation">,</span> String<span class="token punctuation">)</span>
+String respStr <span class="token operator">=</span> respEntity<span class="token operator">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// &#x5E94;&#x5F53;&#xFF1A;3. &#x53D1;&#x9001;GET&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x83B7;&#x53D6;&#x5B57;&#x7B26;&#x4E32;&#x7ED3;&#x679C;&#xFF08;&#x9700;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#x5934;&#xFF09;</span>
+HttpHeaders headers <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HttpHeaders</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+headers<span class="token operator">.</span><span class="token function">setAccept</span><span class="token punctuation">(</span>Arrays<span class="token operator">.</span><span class="token function">asList</span><span class="token punctuation">(</span>MediaType<span class="token operator">.</span>APPLICATION_JSON<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+HttpEntity<span class="token operator">&lt;</span>Void<span class="token operator">&gt;</span> reqEntity <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HttpEntity</span><span class="token operator">&lt;</span>Void<span class="token operator">&gt;</span><span class="token punctuation">(</span>null<span class="token punctuation">,</span> headers<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ResponseEntity respEntity <span class="token operator">=</span> restTemplate<span class="token operator">.</span><span class="token function">exchange</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> HttpMethod<span class="token operator">.</span>GET<span class="token punctuation">,</span> reqEntity<span class="token punctuation">,</span> String<span class="token operator">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+String respStr <span class="token operator">=</span> respEntity<span class="token operator">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+</ol>
+<ol>
+<li><p>&#x53D1;&#x9001;POST&#x8BF7;&#x6C42;</p>
+<pre class="language-"><code class="lang-groovy"><span class="token comment" spellcheck="true">// &#x5E94;&#x5F53;&#xFF1A;1. &#x53D1;&#x9001;POST&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x83B7;&#x53D6;&#x5B57;&#x7B26;&#x4E32;&#x7ED3;&#x679C;&#xFF08;&#x65E0;&#x9700;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#x5934;&#x3001;&#x54CD;&#x5E94;&#x5934;&#xFF09;</span>
+<span class="token comment" spellcheck="true">// &#x8BF7;&#x6C42;body&#x7F16;&#x7801;&#x4E3A;&#xFF1A;&quot;application/x-www-form-urlencoded&quot;&#xFF0C;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528;UTF-8&#x8FDB;&#x884C;URL encoding</span>
+URI url <span class="token operator">=</span> <span class="token punctuation">...</span>
+MultiValueMap reqMsg <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedMultiValueMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+reqMsg<span class="token operator">.</span>key1 <span class="token operator">=</span> <span class="token string">&quot;value1&quot;</span>
+reqMsg<span class="token operator">.</span>key2 <span class="token operator">=</span> <span class="token string">&quot;value2&quot;</span>
+String respStr <span class="token operator">=</span> restTemplate<span class="token operator">.</span><span class="token function">postForObject</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> reqMsg<span class="token punctuation">,</span> String<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// &#x5E94;&#x5F53;&#xFF1A;2. &#x53D1;&#x9001;POST&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x83B7;&#x53D6;&#x5B57;&#x7B26;&#x4E32;&#x7ED3;&#x679C;&#xFF08;&#x65E0;&#x9700;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#x5934;&#x3001;&#x4F46;&#x9700;&#x8981;&#x5904;&#x7406;&#x54CD;&#x5E94;&#x5934;&#xFF09;</span>
+URI url <span class="token operator">=</span> <span class="token punctuation">...</span>
+MultiValueMap reqMsg <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedMultiValueMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ResponseEntity respEntity <span class="token operator">=</span> restTemplate<span class="token operator">.</span><span class="token function">postForEntity</span><span class="token punctuation">(</span>uri<span class="token punctuation">,</span> reqMsg<span class="token punctuation">,</span> String<span class="token punctuation">)</span>
+String respStr <span class="token operator">=</span> respEntity<span class="token operator">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// &#x5E94;&#x5F53;&#xFF1A;3. &#x53D1;&#x9001;POST&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x83B7;&#x53D6;&#x5B57;&#x7B26;&#x4E32;&#x7ED3;&#x679C;&#xFF08;&#x9700;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#x5934;&#xFF09;</span>
+URI url <span class="token operator">=</span> <span class="token punctuation">...</span>
+MultiValueMap reqMsg <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedMultiValueMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+HttpHeaders headers <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HttpHeaders</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+headers<span class="token operator">.</span><span class="token function">setAccept</span><span class="token punctuation">(</span>Arrays<span class="token operator">.</span><span class="token function">asList</span><span class="token punctuation">(</span>MediaType<span class="token operator">.</span>APPLICATION_JSON<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+HttpEntity<span class="token operator">&lt;</span>MultiValueMap<span class="token operator">&gt;</span> reqEntity <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HttpEntity</span><span class="token operator">&lt;</span>MultiValueMap<span class="token operator">&gt;</span><span class="token punctuation">(</span>reqMsg<span class="token punctuation">,</span> headers<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ResponseEntity respEntity <span class="token operator">=</span> restTemplate<span class="token operator">.</span><span class="token function">exchange</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> HttpMethod<span class="token operator">.</span>POST<span class="token punctuation">,</span> reqEntity<span class="token punctuation">,</span> String<span class="token operator">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+String respStr <span class="token operator">=</span> respEntity<span class="token operator">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// &#x5E94;&#x5F53;&#xFF1A;4.</span>
+<span class="token comment" spellcheck="true">// &#x5982;&#x679C;&#x9700;&#x8981;&#x53D1;&#x9001;XML&#xFF0C;&#x6216;JSON&#x683C;&#x5F0F;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x8BF7;&#x4F7F;&#x7528;String&#x7C7B;&#x578B;&#x7684;reqMsg</span>
+<span class="token comment" spellcheck="true">// &#x5982;&#x679C;&#x9700;&#x8981;&#x53D1;&#x9001;&#x7279;&#x5B9A;&#x7F16;&#x7801;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x8BF7;&#x4F7F;&#x7528;byte[]&#x7C7B;&#x578B;&#x7684;reqMsg</span>
+<span class="token comment" spellcheck="true">// &#x5982;&#x679C;&#x9700;&#x8981;&#x53D1;&#x9001;&#x63D0;&#x5B9A;URL encoding&#x7F16;&#x7801;&#x7684; &quot;application/x-www-form-urlencoded&quot;&#xFF0C; &#x6BD4;&#x5982;&#xFF1A; &quot;GBK&quot;&#xFF0C;&#x8BF7;&#x53C2;&#x8003;&#x4EE5;&#x4E0B;&#x793A;&#x4F8B;&#x3002;</span>
+<span class="token comment" spellcheck="true">//    &#x4F46;&#x662F;&#xFF0C;&#x9700;&#x8981;&#x624B;&#x52A8;&#x8BBE;&#x7F6E;Content-Type&#x8BF7;&#x6C42;&#x5934;&#x3002;</span>
+String reqMsg <span class="token operator">=</span> UriComponentsBuilder    <span class="token comment" spellcheck="true">// String&#x7C7B;&#x578B;&#x9ED8;&#x8BA4;&#x7531; StringHttpMessageConverter &#x6309;&#x7167; &quot;ISO-8859-1&quot; &#x7F16;&#x7801;&#x53D1;&#x9001;</span>
+        <span class="token operator">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span>                  <span class="token comment" spellcheck="true">// &#x4F46;&#x5728;&#x540E;&#x9762;&#x8C03;&#x7528; encode() &#x4E4B;&#x540E;&#x5C31;&#x5168;&#x90E8;&#x4E3A;&#x57FA;&#x672C;ASCII&#x7801;&#xFF0C;&#x6545;&#x65E0;&#x9700;&#x62C5;&#x5FC3;&#x3002;</span>
+        <span class="token operator">.</span><span class="token function">queryParam</span><span class="token punctuation">(</span><span class="token string">&quot;a&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;a1&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;a2&quot;</span><span class="token punctuation">)</span>
+        <span class="token operator">.</span><span class="token function">queryParam</span><span class="token punctuation">(</span><span class="token string">&quot;c&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;c1 &#x4E2D;&quot;</span><span class="token punctuation">)</span>
+        <span class="token operator">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token operator">.</span><span class="token function">encode</span><span class="token punctuation">(</span><span class="token string">&quot;GBK&quot;</span><span class="token punctuation">)</span>
+        <span class="token operator">.</span>query                          <span class="token comment" spellcheck="true">// a=a1&amp;a=a2&amp;c=c1%20%E4%B8%AD</span>
+</code></pre>
+</li>
+</ol>
+<h1 id="&#x5173;&#x4E8E;-async">&#x5173;&#x4E8E; Async</h1>
+<p>Grails &#x5728;Controller&#x4E2D; Async &#x8C03;&#x7528;&#xFF0C;&#x5FC5;&#x987B;&#x963B;&#x585E;&#x8BF7;&#x6C42;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x51FA;&#x9519;&#x3002;&#x5982;&#x679C;&#x4E0D;&#x60F3;&#x963B;&#x585E;&#xFF0C;&#x8BF7;&#xFF1A;</p>
+<ol>
+<li>&#x8BF7;&#x4E0D;&#x8981;&#x5230;&#x7528; Promise#onError&#x3001;Promise#onError#onComplete &#x7B49;&#x65B9;&#x6CD5;&#x4F20;&#x9012;&#x5728;Controller&#x4E2D;&#x6784;&#x9020;&#x7684; Closure&#x3002;&#x6216;&#x8005;&#x5E72;&#x8106;&#x4E0D;&#x8981;&#x8C03;&#x7528;&#x3002;</li>
+<li>&#x5219;&#x8003;&#x8651;&#x4F7F;&#x7528;&#x7C7B;&#x4F3C;&#x4E8E;JDK&#x4E2D;&#x7684;Executor&#x4E4B;&#x7C7B;&#x7684;&#x6846;&#x67B6;&#x3002;</li>
+</ol>
+<pre class="language-"><code class="lang-groovy"><span class="token keyword">class</span> <span class="token class-name">TestZllController</span> <span class="token punctuation">{</span>
+    <span class="token keyword">def</span> <span class="token function">async</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Promise p <span class="token operator">=</span> Promises<span class="token operator">.</span>task <span class="token punctuation">{</span>
+            Thread<span class="token operator">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+           <span class="token keyword">return</span> <span class="token string">&quot;1111&quot;</span>
+        <span class="token punctuation">}</span>
+        p<span class="token operator">.</span>onError <span class="token punctuation">{</span> Throwable err <span class="token operator">-&gt;</span>
+            println <span class="token string">&quot;11111111111111111111 An error occured ${err.message}&quot;</span>
+        <span class="token punctuation">}</span>
+        p<span class="token operator">.</span>onComplete <span class="token punctuation">{</span> result <span class="token operator">-&gt;</span>
+            println <span class="token string">&quot;22222222222222222222 Promise returned $result&quot;</span>
+        <span class="token punctuation">}</span>
+        println <span class="token string">&quot;33333333333&quot;</span> <span class="token comment" spellcheck="true">// + p.get()</span>
+        <span class="token function">render</span><span class="token punctuation">(</span><span class="token string">&quot;@@@&quot;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x9519;&#x8BEF;&#x5806;&#x6808;</p>
+<pre class="language-"><code>2015-09-14 18:01:53,610 [ERROR][Actor Thread 9] org.grails.async.factory.gpars.LoggingPoolFactory - Async execution error: null
+java.lang.NullPointerException
+    at org.apache.catalina.connector.Request.notifyAttributeAssigned(Request.java:1498)
+    at org.apache.catalina.connector.Request.setAttribute(Request.java:1488)
+    at org.apache.catalina.connector.RequestFacade.setAttribute(RequestFacade.java:539)
+    at javax.servlet.ServletRequestWrapper.setAttribute(ServletRequestWrapper.java:246)
+    at javax.servlet.ServletRequestWrapper.setAttribute(ServletRequestWrapper.java:246)
+    at javax.servlet.ServletRequestWrapper.setAttribute(ServletRequestWrapper.java:246)
+    at org.codehaus.groovy.grails.web.util.WebUtils.storeGrailsWebRequest(WebUtils.java:431)
+    at org.codehaus.groovy.grails.plugins.web.async.WebRequestPromsiseDecorator$_decorate_closure1.doCall(WebRequestPromiseDecoratorLookupStrategy.groovy:55)
+    at org.codehaus.groovy.grails.plugins.web.async.WebRequestPromsiseDecorator$_decorate_closure1.call(WebRequestPromiseDecoratorLookupStrategy.groovy)
+    at org.grails.async.factory.gpars.GparsPromise$_onError_closure2.doCall(GparsPromise.groovy:72)
+    at org.grails.async.factory.gpars.GparsPromise$_onError_closure2.call(GparsPromise.groovy)
+    at groovyx.gpars.dataflow.DataCallback$1.run(DataCallback.java:62)
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+    at java.lang.Thread.run(Thread.java:745)
+</code></pre><h1 id="service-&#x5185;&#x8BBF;&#x95EE;-request&#xFF0C;-session">Service &#x5185;&#x8BBF;&#x95EE; request&#xFF0C; session</h1>
+<pre class="language-"><code class="lang-groovy">GrailsWebRequest grailsReq <span class="token operator">=</span> WebUtils<span class="token operator">.</span><span class="token function">retrieveGrailsWebRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+HttpServletRequest httpReq <span class="token operator">=</span> grailsReq<span class="token operator">.</span><span class="token function">getCurrentRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+HttpSession httpSession <span class="token operator">=</span> grailsReq<span class="token operator">.</span><span class="token function">getSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+RequestAttributes req <span class="token operator">=</span> RequestContextHolder<span class="token operator">.</span><span class="token function">currentRequestAttributes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h1 id="&#x5173;&#x4E8E;grails&#x5F02;&#x6B65;&#x7F16;&#x7A0B;-task">&#x5173;&#x4E8E;Grails&#x5F02;&#x6B65;&#x7F16;&#x7A0B; task</h1>
+<p>Grails &#x7684;&#x5F02;&#x6B65;&#x7F16;&#x7A0B; task &#x5728;&#x5F53;&#x524D;&#x8BF7;&#x6C42;&#x8FD4;&#x56DE;response&#x524D;&#xFF0C;&#x5FC5;&#x987B;&#x5168;&#x90E8;&#x6267;&#x884C;&#x5B8C;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x5F15;&#x53D1;&#x591A;&#x7EBF;&#x7A0B;&#x95EE;&#x9898;&#xFF08;&#x6BD4;&#x5982;&#xFF0C;&#x4E8B;&#x52A1;&#xFF0C;cookie&#x3001;session&#x7B49;&#x95EE;&#x9898;&#xFF09;&#x3002;
+&#x56E0;&#x4E3A; grails task&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x5F15;&#x7528;&#x4E86; HttpServletRequest&#x3002;</p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="grails-spring-dsl.html" class="navigation navigation-prev " aria-label="Previous page: Spring DSL">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../java/maven.html" class="navigation navigation-next " aria-label="Next page: Maven">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"反例","level":"1.5.3.4","depth":3,"next":{"title":"Maven","level":"1.5.4","depth":2,"path":"java/maven.md","ref":"java/maven.md","articles":[{"title":"Nexus","level":"1.5.4.1","depth":3,"path":"java/nexus.md","ref":"java/nexus.md","articles":[]}]},"previous":{"title":"Spring DSL","level":"1.5.3.3","depth":3,"path":"groovy/grails-spring-dsl.md","ref":"groovy/grails-spring-dsl.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-search","-highlight","prism","prism-themes","mathjax-full","splitter"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-vs.css"]},"fontsettings":{"theme":"white","family":"sans","size":1},"prism-themes":{},"mathjax-full":{},"splitter":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"btpka3@163.com","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh","gitbook":">=3.0.0"},"file":{"path":"groovy/grails-counter-example.md","mtime":"2018-01-19T02:09:58.889Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-01-19T02:12:46.470Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-mathjax-full/config.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mathjax-full/mathjax.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

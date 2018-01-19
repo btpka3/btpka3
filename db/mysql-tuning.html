@@ -1,0 +1,2836 @@
+
+<!DOCTYPE HTML>
+<html lang="zh" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>MySql 调优 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="btpka3@163.com">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-vs.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="mysql-replication.html" />
+    
+    
+    <link rel="prev" href="mysql-install.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../me/intro.html">
+            
+                <a href="../me/intro.html">
+            
+                    
+                    自我介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    Markdown
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../md/md-intro.html">
+            
+                <a href="../md/md-intro.html">
+            
+                    
+                    Markdown 简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../md/md-demo.html">
+            
+                <a href="../md/md-demo.html">
+            
+                    
+                    Markdown 示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../md/md-syntax-demo.html">
+            
+                <a href="../md/md-syntax-demo.html">
+            
+                    
+                    Markdown 语法示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    Git
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../git/git.html">
+            
+                <a href="../git/git.html">
+            
+                    
+                    Git总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../git/git-branch.html">
+            
+                <a href="../git/git-branch.html">
+            
+                    
+                    版本号控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../git/git-wiki-sync.html">
+            
+                <a href="../git/git-wiki-sync.html">
+            
+                    
+                    Git wiki 同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../git/gitlab.html">
+            
+                <a href="../git/gitlab.html">
+            
+                    
+                    gitlab
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../git/gitbook.html">
+            
+                <a href="../git/gitbook.html">
+            
+                    
+                    gitbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../groovy/groovy.html">
+            
+                <a href="../groovy/groovy.html">
+            
+                    
+                    Groovy
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" >
+            
+                <span>
+            
+                    
+                    Java
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="../java/java-jdk-install.html">
+            
+                <a href="../java/java-jdk-install.html">
+            
+                    
+                    JDK安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="../java/java-tuning.html">
+            
+                <a href="../java/java-tuning.html">
+            
+                    
+                    Java调优总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="../java/java-jsr.html">
+            
+                <a href="../java/java-jsr.html">
+            
+                    
+                    Java JSR 规范
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.4" data-path="../java/java-tips.html">
+            
+                <a href="../java/java-tips.html">
+            
+                    
+                    Java tips
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.5" data-path="../java/javaee.html">
+            
+                <a href="../java/javaee.html">
+            
+                    
+                    JavaEE
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" >
+            
+                <span>
+            
+                    
+                    Spring
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="../spring/spring-framework.html">
+            
+                <a href="../spring/spring-framework.html">
+            
+                    
+                    Spring Framework
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="../spring/spring-security.html">
+            
+                <a href="../spring/spring-security.html">
+            
+                    
+                    Spring Security
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.2.1" data-path="../spring/spring-security-oauth2.html">
+            
+                <a href="../spring/spring-security-oauth2.html">
+            
+                    
+                    OAuth
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="../spring/spring-boot.html">
+            
+                <a href="../spring/spring-boot.html">
+            
+                    
+                    Spring Boot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="../spring/spring-session.html">
+            
+                <a href="../spring/spring-session.html">
+            
+                    
+                    Spring Session
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.5" data-path="../spring/spring-cloud.html">
+            
+                <a href="../spring/spring-cloud.html">
+            
+                    
+                    Spring Cloud
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../groovy/groovy.html">
+            
+                <a href="../groovy/groovy.html">
+            
+                    
+                    Groovy
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.3.1" data-path="../groovy/groovy-decompile.html">
+            
+                <a href="../groovy/groovy-decompile.html">
+            
+                    
+                    groovy 反编译
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.2" data-path="../groovy/grails.html">
+            
+                <a href="../groovy/grails.html">
+            
+                    
+                    Grails
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.3" data-path="../groovy/grails-spring-dsl.html">
+            
+                <a href="../groovy/grails-spring-dsl.html">
+            
+                    
+                    Spring DSL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.4" data-path="../groovy/grails-counter-example.html">
+            
+                <a href="../groovy/grails-counter-example.html">
+            
+                    
+                    反例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../java/maven.html">
+            
+                <a href="../java/maven.html">
+            
+                    
+                    Maven
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.4.1" data-path="../java/nexus.html">
+            
+                <a href="../java/nexus.html">
+            
+                    
+                    Nexus
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" >
+            
+                <span>
+            
+                    
+                    其他类库
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.5.1" data-path="../java/joda-time.html">
+            
+                <a href="../java/joda-time.html">
+            
+                    
+                    Joda-Time
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    前端开发
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../h5/css.html">
+            
+                <a href="../h5/css.html">
+            
+                    
+                    CSS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1.1" data-path="../h5/font.html">
+            
+                <a href="../h5/font.html">
+            
+                    
+                    font
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.2" data-path="../h5/sass.html">
+            
+                <a href="../h5/sass.html">
+            
+                    
+                    Sass
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../js/js.html">
+            
+                <a href="../js/js.html">
+            
+                    
+                    JavaScript
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="../js/angularjs.html">
+            
+                <a href="../js/angularjs.html">
+            
+                    
+                    AngularJs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="../js/nodejs.html">
+            
+                <a href="../js/nodejs.html">
+            
+                    
+                    Node.js
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="../js/jshint.html">
+            
+                <a href="../js/jshint.html">
+            
+                    
+                    jshint
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.4" data-path="../js/gulp.html">
+            
+                <a href="../js/gulp.html">
+            
+                    
+                    Gulp
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.5" data-path="../js/grunt.html">
+            
+                <a href="../js/grunt.html">
+            
+                    
+                    Grunt
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../js/ts.html">
+            
+                <a href="../js/ts.html">
+            
+                    
+                    TypeScript
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../h5/ux.html">
+            
+                <a href="../h5/ux.html">
+            
+                    
+                    UX
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" >
+            
+                <span>
+            
+                    
+                    浏览器
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.5.1" data-path="../browser/firefox.html">
+            
+                <a href="../browser/firefox.html">
+            
+                    
+                    Firefox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5.2" data-path="../browser/chromium.html">
+            
+                <a href="../browser/chromium.html">
+            
+                    
+                    Chromium
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                    其他编程语言
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../pl/scala.html">
+            
+                <a href="../pl/scala.html">
+            
+                    
+                    scala
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../pl/python.html">
+            
+                <a href="../pl/python.html">
+            
+                    
+                    python
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../pl/ruby.html">
+            
+                <a href="../pl/ruby.html">
+            
+                    
+                    ruby
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" >
+            
+                <span>
+            
+                    
+                    安全相关
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../sec/sec-csrf.html">
+            
+                <a href="../sec/sec-csrf.html">
+            
+                    
+                    CSRF
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../sec/sec-clickjacking.html">
+            
+                <a href="../sec/sec-clickjacking.html">
+            
+                    
+                    Clickjacking
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../sec/sec-xss.html">
+            
+                <a href="../sec/sec-xss.html">
+            
+                    
+                    XSS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../sec/sec-7788.html">
+            
+                <a href="../sec/sec-7788.html">
+            
+                    
+                    7788
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" >
+            
+                <span>
+            
+                    
+                    质量保证
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../qa/jenkins.html">
+            
+                <a href="../qa/jenkins.html">
+            
+                    
+                    Jenkins
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../jmeter">
+            
+                <span>
+            
+                    
+                    Jmeter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" >
+            
+                <span>
+            
+                    
+                    sysbench
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.3.1" data-path="../qa/sysbench-cpu.html">
+            
+                <a href="../qa/sysbench-cpu.html">
+            
+                    
+                    sysbench 进行 cpu 测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3.2" data-path="../qa/sysbench-fileio.html">
+            
+                <a href="../qa/sysbench-fileio.html">
+            
+                    
+                    sysbench 进行磁盘测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3.3" data-path="../qa/sysbench-mysql.html">
+            
+                <a href="../qa/sysbench-mysql.html">
+            
+                    
+                    sysbench 进行 MySql 压力测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3.4" data-path="../qa/ab.html">
+            
+                <a href="../qa/ab.html">
+            
+                    
+                    apache benchmark
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3.5" data-path="../qa/zentao.html">
+            
+                <a href="../qa/zentao.html">
+            
+                    
+                    禅道
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3.6" data-path="../qa/sonarqube.html">
+            
+                <a href="../qa/sonarqube.html">
+            
+                    
+                    SonarQube
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" >
+            
+                <span>
+            
+                    
+                    网络
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../net/wireshark.html">
+            
+                <a href="../net/wireshark.html">
+            
+                    
+                    wireshark
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../net/ntp.md">
+            
+                <span>
+            
+                    
+                    ntp
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../net/haproxy.md">
+            
+                <span>
+            
+                    
+                    haproxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="../net/cdx.html">
+            
+                <a href="../net/cdx.html">
+            
+                    
+                    昌德讯电话
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="../net/curl.html">
+            
+                <a href="../net/curl.html">
+            
+                    
+                    curl
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="../net/dns.html">
+            
+                <a href="../net/dns.html">
+            
+                    
+                    DNS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="../net/https.html">
+            
+                <a href="../net/https.html">
+            
+                    
+                    https
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8" data-path="../net/ssh.html">
+            
+                <a href="../net/ssh.html">
+            
+                    
+                    ssh
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9" data-path="../net/goagent.html">
+            
+                <a href="../net/goagent.html">
+            
+                    
+                    GoAgent
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" >
+            
+                <span>
+            
+                    
+                    文件系统
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../fs/fdisk.html">
+            
+                <a href="../fs/fdisk.html">
+            
+                    
+                    fdisk
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../fs/samba.html">
+            
+                <a href="../fs/samba.html">
+            
+                    
+                    samba
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../fs/nfs.html">
+            
+                <a href="../fs/nfs.html">
+            
+                    
+                    nfs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" >
+            
+                <span>
+            
+                    
+                    操作系统
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../os/linux/centos-base-setup.html">
+            
+                <a href="../os/linux/centos-base-setup.html">
+            
+                    
+                    CentOS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1.1" data-path="../os/linux/centos-limits.html">
+            
+                <a href="../os/linux/centos-limits.html">
+            
+                    
+                    limits
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.1.2" data-path="../os/linux/top.html">
+            
+                <a href="../os/linux/top.html">
+            
+                    
+                    top
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.1.3" data-path="../os/linux/centos-yum.html">
+            
+                <a href="../os/linux/centos-yum.html">
+            
+                    
+                    yum
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.1.4" data-path="../os/linux/firewalld.html">
+            
+                <a href="../os/linux/firewalld.html">
+            
+                    
+                    firewalld
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.1.5" data-path="../os/linux/iptables.html">
+            
+                <a href="../os/linux/iptables.html">
+            
+                    
+                    iptables
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.1.6" data-path="../net/openvpn.html">
+            
+                <a href="../net/openvpn.html">
+            
+                    
+                    OpenVpn
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../os/linux/ubuntu.html">
+            
+                <a href="../os/linux/ubuntu.html">
+            
+                    
+                    Ubuntu
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="../os/linux/bash.html">
+            
+                <a href="../os/linux/bash.html">
+            
+                    
+                    Bash
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="../os/linux/vim.html">
+            
+                <a href="../os/linux/vim.html">
+            
+                    
+                    Vim
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="../os/linux/upstart.html">
+            
+                <a href="../os/linux/upstart.html">
+            
+                    
+                    Upstart
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" >
+            
+                <span>
+            
+                    
+                    数据库
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="postgresql.html">
+            
+                <a href="postgresql.html">
+            
+                    
+                    PostGreSql
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.2" data-path="redis.html">
+            
+                <a href="redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3" data-path="mysql.html">
+            
+                <a href="mysql.html">
+            
+                    
+                    MySql
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.3.1" data-path="mysql-install.html">
+            
+                <a href="mysql-install.html">
+            
+                    
+                    MySql 安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.13.3.2" data-path="mysql-tuning.html">
+            
+                <a href="mysql-tuning.html">
+            
+                    
+                    MySql 调优
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3.3" data-path="mysql-replication.html">
+            
+                <a href="mysql-replication.html">
+            
+                    
+                    MySql 主从复制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3.4" data-path="mysql-rw-splitting.html">
+            
+                <a href="mysql-rw-splitting.html">
+            
+                    
+                    MySql 读写分离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" >
+            
+                <span>
+            
+                    
+                    服务
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../server/ntp.html">
+            
+                <a href="../server/ntp.html">
+            
+                    
+                    ntp
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="../server/jetty.html">
+            
+                <a href="../server/jetty.html">
+            
+                    
+                    jetty
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="../server/tomcat.html">
+            
+                <a href="../server/tomcat.html">
+            
+                    
+                    Tomcat
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="../server/rabbitmq.html">
+            
+                <a href="../server/rabbitmq.html">
+            
+                    
+                    RabbitMq
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="../server/nginx.html">
+            
+                <a href="../server/nginx.html">
+            
+                    
+                    nginx
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="../server/tengine.html">
+            
+                <a href="../server/tengine.html">
+            
+                    
+                    tengine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7" >
+            
+                <span>
+            
+                    
+                    ZooKeeper
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.7.1" data-path="zk-intro.md">
+            
+                <span>
+            
+                    
+                    ZooKeeper简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7.2" data-path="zk-install.md">
+            
+                <span>
+            
+                    
+                    ZooKeeper安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7.3" data-path="zk-cluster-demo.md">
+            
+                <span>
+            
+                    
+                    ZooKeeper单机集群配置示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8" >
+            
+                <span>
+            
+                    
+                    ElasticSearch
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.8.1" data-path="es-intro.html">
+            
+                <a href="es-intro.html">
+            
+                    
+                    ElasticSearch简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8.2" data-path="es-install.html">
+            
+                <a href="es-install.html">
+            
+                    
+                    ElasticSearch安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8.3" data-path="es-search.html">
+            
+                <a href="es-search.html">
+            
+                    
+                    ElasticSearch示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8.4" data-path="es-pinyin.html">
+            
+                <a href="es-pinyin.html">
+            
+                    
+                    ElasticSearch拼音/自动完成
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9" >
+            
+                <span>
+            
+                    
+                    MongoDB
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.9.1" data-path="mongo-intro.html">
+            
+                <a href="mongo-intro.html">
+            
+                    
+                    mongoDB 简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9.2" data-path="mongo-install.html">
+            
+                <a href="mongo-install.html">
+            
+                    
+                    mongoDB 安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9.3" data-path="mongo.html">
+            
+                <a href="mongo.html">
+            
+                    
+                    mongoDB 使用总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9.4" data-path="mongo-java-demo.html">
+            
+                <a href="mongo-java-demo.html">
+            
+                    
+                    MongoDB java示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9.5" data-path="robomongo.html">
+            
+                <a href="robomongo.html">
+            
+                    
+                    Robomongo
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.10" >
+            
+                <span>
+            
+                    
+                    Cassandra  —— 暂时放弃使用
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" >
+            
+                <span>
+            
+                    
+                    手机APP开发
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../app/hybird-app.html">
+            
+                <a href="../app/hybird-app.html">
+            
+                    
+                    Hybrid App
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" >
+            
+                <span>
+            
+                    
+                    虚拟化
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="../vm/docker.html">
+            
+                <a href="../vm/docker.html">
+            
+                    
+                    docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="../vm/VirtualBox.html">
+            
+                <a href="../vm/VirtualBox.html">
+            
+                    
+                    VirtualBox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="../vm/vmware.html">
+            
+                <a href="../vm/vmware.html">
+            
+                    
+                    vmware
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" >
+            
+                <span>
+            
+                    
+                    架构
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.1" data-path="../arch/cdn.html">
+            
+                <a href="../arch/cdn.html">
+            
+                    
+                    CDN
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.2" data-path="../arch/cluster.html">
+            
+                <a href="../arch/cluster.html">
+            
+                    
+                    cluster
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3" data-path="../java/cas-intro.md">
+            
+                <span>
+            
+                    
+                    单点登录 CAS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" >
+            
+                <span>
+            
+                    
+                    IDE
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.18.1" data-path="../ide/eclipse.html">
+            
+                <a href="../ide/eclipse.html">
+            
+                    
+                    Eclipse
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.2" data-path="../ide/idea-intellij.html">
+            
+                <a href="../ide/idea-intellij.html">
+            
+                    
+                    IDEA Intellij
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.3" data-path="../ide/sublime.html">
+            
+                <a href="../ide/sublime.html">
+            
+                    
+                    Sublime
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" >
+            
+                <span>
+            
+                    
+                    第三方服务
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.19.1" data-path="../3rd/weather.html">
+            
+                <a href="../3rd/weather.html">
+            
+                    
+                    气象数据开放平台
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.2" >
+            
+                <span>
+            
+                    
+                    微信
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.19.2.1" data-path="../3rd/wx-h5-debug.html">
+            
+                <a href="../3rd/wx-h5-debug.html">
+            
+                    
+                    调试微信打开的 html5 页面
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.2.2" data-path="../3rd/wx-nginx.html">
+            
+                <a href="../3rd/wx-nginx.html">
+            
+                    
+                    微信Nginx配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" >
+            
+                <span>
+            
+                    
+                    办公
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.20.1" data-path="../office/thunderbird.html">
+            
+                <a href="../office/thunderbird.html">
+            
+                    
+                    thunderbird
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.2" data-path="../office/vba.html">
+            
+                <a href="../office/vba.html">
+            
+                    
+                    vba
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.3" data-path="../office/law.html">
+            
+                <a href="../office/law.html">
+            
+                    
+                    法律法规
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >MySql 调优</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x5185;&#x5B58;&#x89C4;&#x5212;">&#x5185;&#x5B58;&#x89C4;&#x5212;</h1>
+<h2 id="&#x603B;&#x5185;&#x5B58;&#x8BA1;&#x7B97;&#x516C;&#x5F0F;">&#x603B;&#x5185;&#x5B58;&#x8BA1;&#x7B97;&#x516C;&#x5F0F;</h2>
+<pre class="language-"><code>total_possible_used_memory
+    = server_buffers + total_per_thread_buffers
+    = server_buffers + per_thread_buffers * max_connections
+    =   (     tmp_table_size                    # (16M)&#x4E34;&#x65F6;&#x8868;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#x7684;&#x5927;&#x5C0F;&#x3002;&#x5F71;&#x54CD; group by &#x6027;&#x80FD;
+            + query_cache_size                  # (0)&#x67E5;&#x8BE2;&#x7F13;&#x5B58;&#x5927;&#x5C0F;
+            + key_buffer_size                   # (8M)MyISAM : &#x7D22;&#x5F15;&#x7F13;&#x5B58;&#x5927;&#x5C0F;
+            + innodb_buffer_pool_size           # (128M)InnoDB : &#x6570;&#x636E;&#x548C;&#x7D22;&#x5F15;&#x7F13;&#x5B58;&#x5927;&#x5C0F;
+            + innodb_additional_mem_pool_size   # (8M)InnoDB : &#x7528;&#x4E8E;&#x5B58;&#x50A8;&#x6570;&#x636E;&#x5B57;&#x5178;&#x548C;&#x5185;&#x90E8;&#x7ED3;&#x6784;&#x7684;&#x5185;&#x5B58;&#x5927;&#x5C0F;
+            + innodb_log_buffer_size            # (8M)InnoDB : &#x7528;&#x4E8E;&#x628A;&#x4E8C;&#x8FDB;&#x5236;&#x65E5;&#x5FD7;&#x5199;&#x5165;&#x78C1;&#x76D8;&#x7684;&#x5185;&#x5B58;&#x5927;&#x5C0F;
+        ) + (
+              sort_buffer_size                  # (256K)&#x6392;&#x5E8F;&#x65F6;&#x7684;&#x7F13;&#x5B58;&#x5927;&#x5C0F;&#xFF0C;&#x5F71;&#x54CD; order by &#x6027;&#x80FD;
+            + read_rnd_buffer_size              # (256K)&#x65E0;&#x6CD5;&#x5B8C;&#x6210;&#x5185;&#x5B58;&#x6392;&#x5E8F;&#x65F6;&#xFF0C;&#x4F1A;&#x901A;&#x8FC7;&#x4E34;&#x65F6;&#x6587;&#x4EF6;&#x6392;&#x5E8F;&#xFF0C;&#x8BBE;&#x7F6E;&#x8BFB;&#x53D6;&#x6392;&#x5E8F;&#x540E;&#x7684;row IDs&#x7684;&#x7F13;&#x5B58;&#x5927;&#x5C0F;&#xFF0C;order by &#x6027;&#x80FD;
+            + read_buffer_size                  # (128K)&#x987A;&#x5E8F;&#x8BFB;&#x53D6;&#x8868;&#x6240;&#x6709;&#x8BB0;&#x5F55;&#x65F6;&#x7684;&#x7F13;&#x5B58;&#x5927;&#x5C0F;
+            + thread_stack                      # (256K)&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x7684;&#x5806;&#x6808;&#x5927;&#x5C0F;
+            + join_buffer_size                  # (256K)&#x8BB0;&#x5F55;&#x96C6;&#x5173;&#x8054;&#x65F6;&#x7684;&#x7F13;&#x5B58;&#x5927;&#x5C0F;
+            + binlog_cache_size                 # (32K)&#x4E8C;&#x8FDB;&#x5236;&#x65E5;&#x5FD7;&#x7F13;&#x5B58;&#x5927;&#x5C0F;&#x3002;&#x5982;&#x679C;&#x542F;&#x7528;bin-log&#xFF0C;&#x4E14;&#x6709;&#x652F;&#x6301;&#x4E8B;&#x52A1;&#x7684;&#x5B58;&#x50A8;&#x5F15;&#x64CE;&#xFF0C;&#x624D;&#x4F1A;allocate&#x3002;
+        ) * max_connections                     # &#x5982;&#x679C;&#x8981;&#x770B;&#x5B9E;&#x9645;&#x7528;&#x5230;&#x7684;&#x6700;&#x5927;&#x5185;&#x5B58;&#xFF0C;&#x53EF;&#x4EE5;&#x66FF;&#x6362;&#x4E3A; Max_used_connections &#x7684;&#x503C;&#x8FDB;&#x884C;&#x8BA1;&#x7B97;&#x3002;
+</code></pre><p>&#x8BA1;&#x7B97;&#x9884;&#x8BA1;&#x603B;&#x5185;&#x5B58;SQL&#x8BED;&#x53E5;</p>
+<pre class="language-"><code class="lang-sql"><span class="token keyword">select</span>  <span class="token punctuation">(</span>
+            <span class="token punctuation">(</span>     @<span class="token variable">@tmp_table_size</span>
+                <span class="token operator">+</span> @<span class="token variable">@query_cache_size</span>
+                <span class="token operator">+</span> @<span class="token variable">@key_buffer_size</span>
+                <span class="token operator">+</span> @<span class="token variable">@innodb_buffer_pool_size</span>
+                <span class="token operator">+</span> @<span class="token variable">@innodb_additional_mem_pool_size</span>
+                <span class="token operator">+</span> @<span class="token variable">@innodb_log_buffer_size</span>
+            <span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span>
+                  @<span class="token variable">@sort_buffer_size</span>
+                <span class="token operator">+</span> @<span class="token variable">@read_rnd_buffer_size</span>
+                <span class="token operator">+</span> @<span class="token variable">@read_buffer_size</span>
+                <span class="token operator">+</span> @<span class="token variable">@thread_stack</span>
+                <span class="token operator">+</span> @<span class="token variable">@join_buffer_size</span>
+                <span class="token operator">+</span> @<span class="token variable">@binlog_cache_size</span>
+            <span class="token punctuation">)</span> <span class="token operator">*</span> @<span class="token variable">@max_connections</span>
+        <span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span> <span class="token punctuation">)</span>
+        <span class="token keyword">AS</span> total_possible_used_memory <span class="token punctuation">;</span>
+</code></pre>
+<p>&#x5728;&#x7EBF;<a href="http://www.mysqlcalculator.com/" target="_blank">JS&#x8BA1;&#x7B97;</a></p>
+<h1 id="mycnf&#x793A;&#x4F8B;">my.cnf&#x793A;&#x4F8B;</h1>
+<p>&#x4E0B;&#x5217;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;<code>##</code> &#x5F00;&#x5934;&#x7684;&#x884C;&#x662F;&#x4ECE; MySQL 5.6 &#x4E4B;&#x540E;&#x624D;&#x6709;&#x7684;&#x3002;</p>
+<pre class="language-"><code class="lang-ini"># &#x6CE8;1&#xFF1A;&#x9009;&#x9879;&#x4E2D;&#x7684;&#x51CF;&#x53F7;(dash)&#x3001;&#x4E0B;&#x5212;&#x7EBF;(underscore)&#x53EF;&#x4EE5;&#x76F8;&#x4E92;&#x66FF;&#x6362;&#x3002;
+# &#x6CE8;2&#xFF1A;&#x7CFB;&#x7EDF;&#x53D8;&#x91CF;&#x548C;&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;&#x5747;&#x53EF;&#x5728; &#x547D;&#x4EE4;&#x884C;&#x6216;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x8BBE;&#x5B9A;&#x3002;
+# &#x6CE8;3&#xFF1A;&#x6570;&#x503C;&#x578B;&#x7684;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; &apos;K&apos;,&apos;M&apos;,&apos;G&apos; &#x4F5C;&#x4E3A;&#x5355;&#x4F4D;&#xFF0C;&#x4E0D;&#x533A;&#x5206;&#x5927;&#x5C0F;&#x5199;&#x3002;
+# &#x6CE8;4&#xFF1A;&#x5BF9;&#x4E8E;boolean&#x578B;&#x7684;&#x9009;&#x9879;&#xFF0C;&#x524D;&#x7F00; &apos;--disable&apos;&#xFF0C;&apos;--skip&apos; &#x4E0E;&#x540E;&#x7F00; &apos;<span class="token attr-value"><span class="token punctuation">=</span>0&apos; &#x542B;&#x4E49;&#x76F8;&#x540C;&#x3002;</span>
+#     &#x4ECE;MySQL 5.5.10&#x8D77;&#xFF0C;&#x9664;&#x4E86;0,1&#x4E4B;&#x5916;&#xFF0C;&apos;ON&apos;,&apos;TRUE&apos;,&apos;OFF&apos;,&apos;FALSE&apos;&#x90FD;&#x53EF;&#x88AB;&#x5F53;&#x4F5C;boolean&#x503C;&#xFF0C;&#x4E0D;&#x533A;&#x5206;&#x5927;&#x5C0F;&#x5199;&#x3002;
+
+<span class="token selector">[mysqld]</span>
+<span class="token constant">port</span> <span class="token attr-value"><span class="token punctuation">=</span> 3306                                 # &#x76D1;&#x542C;&#x7AEF;&#x53E3;</span>
+<span class="token constant">datadir</span> <span class="token attr-value"><span class="token punctuation">=</span> /data0/mysql                      # &#x6570;&#x636E;&#x5E93;&#x76EE;&#x5F55;</span>
+<span class="token constant">socket</span> <span class="token attr-value"><span class="token punctuation">=</span> /data0/mysql/mysql.sock            # socket&#x6587;&#x4EF6;</span>
+<span class="token constant">user</span> <span class="token attr-value"><span class="token punctuation">=</span> mysql                                # &#x4EE5;&#x54EA;&#x4E2A;OS&#x7528;&#x6237;&#x7684;&#x8EAB;&#x4EFD;&#x8FD0;&#x884C;</span>
+<span class="token constant">symbolic-links</span> <span class="token attr-value"><span class="token punctuation">=</span> 0                          # &#x7981;&#x6B62;&#x7B26;&#x53F7;&#x94FE;&#x63A5;</span>
+<span class="token constant">external-locking</span> <span class="token attr-value"><span class="token punctuation">=</span> 0                        # &#x7981;&#x6B62;&#x5916;&#x90E8;&#x52A0;&#x9501;</span>
+skip-name-resolve                           # &#x4E0D;&#x5BF9;ip&#x5730;&#x5740;&#x53CD;&#x5411;&#x89E3;&#x6790;&#x4E3A;&#x4E3B;&#x673A;&#x540D;&#x3002;&#x5BF9;&#x7528;&#x6237;&#x767B;&#x5F55;&#x6388;&#x6743;&#x5F71;&#x54CD;&#x2014;&#x2014;&#x53EA;&#x80FD;&#x4F7F;&#x7528;IP&#x5730;&#x5740;
+<span class="token constant">max_connections</span> <span class="token attr-value"><span class="token punctuation">=</span> 1000                      # &#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x6700;&#x5927;&#x8FDE;&#x63A5;&#x6570;&#x3002;</span>
+<span class="token constant">default-storage-engine</span> <span class="token attr-value"><span class="token punctuation">=</span> InnoDB             # &#x4FEE;&#x6539;&#x9ED8;&#x8BA4;&#x5B58;&#x50A8;&#x5F15;&#x64CE;</span>
+<span class="token constant">max_allowed_packet</span> <span class="token attr-value"><span class="token punctuation">=</span> 32M                    # &#x5BA2;&#x6237;&#x7AEF;&#x901A;&#x8BAF;&#x65F6;&#xFF0C;&#x5141;&#x8BB8;&#x7684;&#x6700;&#x5927;&#x6570;&#x636E;&#x5305;&#x5927;&#x5C0F;</span>
+<span class="token constant">table_open_cache</span> <span class="token attr-value"><span class="token punctuation">=</span> 10240                    # &#x5141;&#x8BB8;&#x6253;&#x5F00;&#x8868;&#x7684;&#x6700;&#x5927;&#x6570;&#x91CF;</span>
+<span class="token constant">sql-mode</span> <span class="token attr-value"><span class="token punctuation">=</span> NO_ENGINE_SUBSTITUTION</span>
+<span class="token constant">performance_schema</span> <span class="token attr-value"><span class="token punctuation">=</span> 1                      # &#x542F;&#x7528; performance_schema</span>
+
+<span class="token constant">sort_buffer_size</span> <span class="token attr-value"><span class="token punctuation">=</span> 2M                       # &#x6392;&#x5E8F;&#x65F6;&#x7684;&#x7F13;&#x5B58;&#x5927;&#x5C0F;&#xFF0C;&#x5F71;&#x54CD; order by &#x6027;&#x80FD;</span>
+<span class="token constant">read_rnd_buffer_size</span> <span class="token attr-value"><span class="token punctuation">=</span> 2M                   # &#x65E0;&#x6CD5;&#x5B8C;&#x6210;&#x5185;&#x5B58;&#x6392;&#x5E8F;&#x65F6;&#xFF0C;&#x4F1A;&#x901A;&#x8FC7;&#x4E34;&#x65F6;&#x6587;&#x4EF6;&#x6392;&#x5E8F;&#xFF0C;&#x8BBE;&#x7F6E;&#x8BFB;&#x53D6;&#x6392;&#x5E8F;&#x540E;&#x7684;row IDs&#x7684;&#x7F13;&#x5B58;&#x5927;&#x5C0F;&#xFF0C;order by &#x6027;&#x80FD;</span>
+<span class="token constant">read_buffer_size</span> <span class="token attr-value"><span class="token punctuation">=</span> 2M                       # &#x987A;&#x5E8F;&#x8BFB;&#x53D6;&#x8868;&#x6240;&#x6709;&#x8BB0;&#x5F55;&#x65F6;&#x7684;&#x7F13;&#x5B58;&#x5927;&#x5C0F;</span>
+<span class="token constant">thread_cache_size</span> <span class="token attr-value"><span class="token punctuation">=</span> 24                      #</span>
+<span class="token constant">join_buffer_size</span> <span class="token attr-value"><span class="token punctuation">=</span> 4M                       # &#x8BB0;&#x5F55;&#x96C6;&#x5173;&#x8054;&#x65F6;&#x7684;&#x7F13;&#x5B58;&#x5927;&#x5C0F;</span>
+
+<span class="token constant">tmp_table_size</span> <span class="token attr-value"><span class="token punctuation">=</span> 32M                        # &#x4E34;&#x65F6;&#x8868;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#x7684;&#x5927;&#x5C0F;&#x3002;&#x5F71;&#x54CD; group by &#x6027;&#x80FD;</span>
+<span class="token constant">thread_stack</span> <span class="token attr-value"><span class="token punctuation">=</span> 512K</span>
+
+# query cache
+<span class="token constant">query_cache_type</span> <span class="token attr-value"><span class="token punctuation">=</span> 1                        # &#x542F;&#x7528; query cache</span>
+<span class="token constant">query_cache_size</span> <span class="token attr-value"><span class="token punctuation">=</span> 4G                       # &#x67E5;&#x8BE2;&#x7F13;&#x5B58;&#x5927;&#x5C0F;</span>
+<span class="token constant">query_cache_limit</span> <span class="token attr-value"><span class="token punctuation">=</span> 4M                      # &#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x8D85;&#x8FC7;&#x8BE5;&#x5927;&#x5C0F;&#xFF0C;&#x5C06;&#x4E0D;&#x88AB;&#x7F13;&#x5B58;</span>
+
+# binary log
+<span class="token constant">log-bin</span> <span class="token attr-value"><span class="token punctuation">=</span> mysql-bin                         # &#x4E8C;&#x8FDB;&#x5236;&#x65E5;&#x5FD7;&#x7684;&#x4E3B;&#x6587;&#x4EF6;&#x540D;</span>
+<span class="token constant">binlog-do-db</span> <span class="token attr-value"><span class="token punctuation">=</span> naladb                       # &#x4E8C;&#x8FDB;&#x5236;&#x65E5;&#x5FD7;&#x53EA;&#x8BB0;&#x5F55;naladb&#x6570;&#x636E;&#x5E93;&#x7684;&#x66F4;&#x6539;</span>
+<span class="token constant">max_binlog_size</span> <span class="token attr-value"><span class="token punctuation">=</span> 1G                        # &#x4E8C;&#x8FDB;&#x5236;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x5927;&#x5C0F;</span>
+<span class="token constant">binlog_cache_size</span> <span class="token attr-value"><span class="token punctuation">=</span> 32K                     # &#x4E8C;&#x8FDB;&#x5236;&#x65E5;&#x5FD7;&#x7F13;&#x5B58;&#x5927;&#x5C0F;&#x3002;&#x5982;&#x679C;&#x542F;&#x7528;bin-log&#xFF0C;&#x4E14;&#x6709;&#x652F;&#x6301;&#x4E8B;&#x52A1;&#x7684;&#x5B58;&#x50A8;&#x5F15;&#x64CE;&#xFF0C;&#x624D;&#x4F1A;allocate&#x3002;</span>
+<span class="token constant">expire_logs_days</span> <span class="token attr-value"><span class="token punctuation">=</span> 7                        # &#x65E7;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x65E5;&#x5FD7;&#x8D85;&#x8FC7;7&#x5929;&#x5C31;&#x4F1A;&#x88AB;&#x5220;&#x9664;</span>
+<span class="token constant">server-id</span> <span class="token attr-value"><span class="token punctuation">=</span> 80                              # &#x670D;&#x52A1;&#x5668;ID&#xFF0C;&#x7528;&#x4E8E;&#x4E3B;&#x4ECE;&#x590D;&#x5236;</span>
+
+# character set
+<span class="token constant">character-set-server</span> <span class="token attr-value"><span class="token punctuation">=</span> utf8mb4              # &#x670D;&#x52A1;&#x5668;&#x7AEF;&#x5B58;&#x50A8;&#x65F6;&#xFF0C;&#x4F7F;&#x7528;&#x7684;&#x5B57;&#x7B26;&#x96C6;</span>
+<span class="token constant">collation-server</span> <span class="token attr-value"><span class="token punctuation">=</span> utf8mb4_unicode_ci       # &#x670D;&#x52A1;&#x5668;&#x7AEF;&#x6392;&#x5E8F;&#x65F6;&#xFF0C;&#x4F7F;&#x7528;&#x7684;&#x6392;&#x5E8F;&#x65B9;&#x6CD5;</span>
+<span class="token constant">character-set-client-handshake</span> <span class="token attr-value"><span class="token punctuation">=</span> TRUE       # &#x5982;&#x679C;&#x5BA2;&#x6237;&#x7AEF;&#x6709;&#x8BBE;&#x7F6E;&#x5B57;&#x7B26;&#x96C6;&#x4FE1;&#x606F;&#xFF0C;&#x5C31;&#x5BA2;&#x6237;&#x7AEF;&#x5B57;&#x7B26;&#x96C6;&#x4FE1;&#x606F;</span>
+
+# log
+<span class="token constant">general-log</span> <span class="token attr-value"><span class="token punctuation">=</span> 0                             # &#x4E0D;&#x8BB0;&#x5F55;&#x666E;&#x901A;&#x65E5;&#x5FD7;</span>
+<span class="token constant">log-error</span> <span class="token attr-value"><span class="token punctuation">=</span> /var/log/mysql/error.log        # &#x9519;&#x8BEF;&#x65E5;&#x5FD7;</span>
+<span class="token constant">slow-query-log</span> <span class="token attr-value"><span class="token punctuation">=</span> 1                          # &#x8BB0;&#x5F55;&#x6162;&#x67E5;&#x8BE2;</span>
+<span class="token constant">slow_query_log_file</span> <span class="token attr-value"><span class="token punctuation">=</span> /var/run/mysqld/mysqld-slow.log   # &#x6162;&#x67E5;&#x8BE2;&#x65E5;&#x5FD7;</span>
+<span class="token constant">long_query_time</span> <span class="token attr-value"><span class="token punctuation">=</span> 3                         # &#x6267;&#x884C;&#x65F6;&#x95F4;&#x8D85;&#x8FC7;&#x8BE5;&#x65F6;&#x95F4;&#x7684;&#x67E5;&#x8BE2;&#x90FD;&#x662F;&#x6162;&#x67E5;&#x8BE2;&#x3002;&#x5355;&#x4F4D;&#xFF1A;&#x79D2;</span>
+
+# MyISAM
+<span class="token constant">key_buffer_size</span> <span class="token attr-value"><span class="token punctuation">=</span> 2G                        # MyISAM : &#x7D22;&#x5F15;&#x7F13;&#x5B58;&#x5927;&#x5C0F;</span>
+<span class="token constant">myisam_sort_buffer_size</span> <span class="token attr-value"><span class="token punctuation">=</span> 128M              # MyISAM : &#x4FEE;&#x6539;&#x8868;&#x3001;&#x6216;&#x521B;&#x5EFA;&#x7D22;&#x5F15;&#x65F6;&#x7684;&#x7F13;&#x5B58;&#x5927;&#x5C0F;</span>
+<span class="token constant">myisam-recover-options</span> <span class="token attr-value"><span class="token punctuation">=</span> BACKUP</span>
+
+# InnoDB
+<span class="token constant">innodb_file_format</span> <span class="token attr-value"><span class="token punctuation">=</span> barracuda</span>
+<span class="token constant">innodb_compression_level</span> <span class="token attr-value"><span class="token punctuation">=</span> 6                ##</span>
+
+<span class="token constant">innodb_buffer_pool_size</span> <span class="token attr-value"><span class="token punctuation">=</span> 5G                # InnoDB : &#x6570;&#x636E;&#x548C;&#x7D22;&#x5F15;&#x7F13;&#x5B58;&#x5927;&#x5C0F;</span>
+<span class="token constant">innodb_buffer_pool_instances</span> <span class="token attr-value"><span class="token punctuation">=</span> 5            # &#x5C06; innodb_buffer_pool_size &#x5212;&#x5206;&#x7684;&#x533A;&#x57DF;&#x6570;&#xFF0C;&#x4EE5;&#x63D0;&#x9AD8;&#x5E76;&#x53D1;&#xFF0C;&#x5C3D;&#x91CF;&#x4F7F;&#x6BCF;&#x4E2A;&#x533A;&#x57DF;&#x90FD;&#x81F3;&#x5C11;1G</span>
+<span class="token constant">innodb_additional_mem_pool_size</span> <span class="token attr-value"><span class="token punctuation">=</span> 8M        # InnoDB : &#x7528;&#x4E8E;&#x5B58;&#x50A8;&#x6570;&#x636E;&#x5B57;&#x5178;&#x548C;&#x5185;&#x90E8;&#x7ED3;&#x6784;&#x7684;&#x5185;&#x5B58;&#x5927;&#x5C0F;</span>
+
+<span class="token constant">innodb_use_native_aio</span> <span class="token attr-value"><span class="token punctuation">=</span> 1                   # &#x4EC5;&#x5BF9;Linux&#x7CFB;&#x7EDF;&#x6709;&#x6548;&#xFF0C;&#x4E14;&#x9ED8;&#x8BA4;&#x5C31;&#x5DF2;&#x7ECF;&#x5F00;&#x542F;</span>
+<span class="token constant">innodb_file_per_table</span> <span class="token attr-value"><span class="token punctuation">=</span> 1                   # &#x65B0;&#x5EFA;&#x6216;&#x8005;alter table&#x4F1A;&#x4F7F;&#x76F8;&#x5173;&#x8868;&#x7684;&#x6570;&#x636E;&#x3001;&#x7D22;&#x5F15;&#x4ECE;&#x7CFB;&#x7EDF;&#x8868;&#x7A7A;&#x95F4;&#x4E2D;&#x79FB;&#x9664;&#xFF0C;&#x5E76;&#x5B58;&#x50A8;&#x4E3A;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684; *.idb &#x6587;&#x4EF6;</span>
+
+<span class="token constant">innodb_log_file_size</span> <span class="token attr-value"><span class="token punctuation">=</span> 48M                  # InnoDB : &#x4E8C;&#x8FDB;&#x5236;&#x65E5;&#x5FD7;&#x5355;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#x5927;&#x5C0F;</span>
+<span class="token constant">innodb_log_files_in_group</span> <span class="token attr-value"><span class="token punctuation">=</span> 2               # InnoDB : &#x4E8C;&#x8FDB;&#x5236;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x6570;&#x91CF;</span>
+<span class="token constant">innodb_log_buffer_size</span> <span class="token attr-value"><span class="token punctuation">=</span> 8M                 # InnoDB : &#x7528;&#x4E8E;&#x628A;&#x4E8C;&#x8FDB;&#x5236;&#x65E5;&#x5FD7;&#x5199;&#x5165;&#x78C1;&#x76D8;&#x7684;&#x5185;&#x5B58;&#x5927;&#x5C0F;</span>
+<span class="token constant">innodb_doublewrite</span> <span class="token attr-value"><span class="token punctuation">=</span> 1                      # InnoDB : &#x5C06;&#x6570;&#x636E;&#x5199;&#x5165;&#x4E24;&#x6B21;</span>
+
+<span class="token constant">innodb_flush_log_at_trx_commit</span> <span class="token attr-value"><span class="token punctuation">=</span> 1          # &#x5B8C;&#x5168;&#x517C;&#x5BB9;ACID&#x3002;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#x65F6;&#xFF0C;&#x603B;&#x662F;&#x5199;&#x5165;log_buffer&#xFF0C;&#x5E76;&#x4E14;&#x5C06;&#x5176;flush&#x5230;&#x786C;&#x76D8;&#x4E0A;&#x3002;</span>
+<span class="token constant">sync_binlog</span> <span class="token attr-value"><span class="token punctuation">=</span> 0                             # &#x662F;&#x5426;&#x4F7F;&#x7528;&#x7279;&#x522B;&#x7684;&#x4EE3;&#x7801;&#x786E;&#x4FDD;binlog&#x540C;&#x6B65;&#x5230;&#x78C1;&#x76D8;&#xFF0C;&#x5426;&#x5219;&#x4F9D;&#x8D56;&#x4E8E;OS</span>
+
+
+<span class="token constant">innodb_thread_concurrency</span> <span class="token attr-value"><span class="token punctuation">=</span> 24</span>
+<span class="token constant">innodb_write_io_threads</span> <span class="token attr-value"><span class="token punctuation">=</span> 24</span>
+<span class="token constant">innodb_read_io_threads</span> <span class="token attr-value"><span class="token punctuation">=</span> 24</span>
+<span class="token constant">innodb_io_capacity</span> <span class="token attr-value"><span class="token punctuation">=</span> 1000                   # &#x4E0E;&#x78C1;&#x76D8;&#x6027;&#x80FD;(IOPS)&#x6709;&#x5173;&#x7CFB;</span>
+<span class="token constant">innodb_adaptive_flushing</span> <span class="token attr-value"><span class="token punctuation">=</span> 1</span>
+<span class="token constant">innodb_flush_method</span> <span class="token attr-value"><span class="token punctuation">=</span> O_DIRECT              ##</span>
+<span class="token constant">innodb_lru_scan_depth</span><span class="token attr-value"><span class="token punctuation">=</span>1024                  ##</span>
+</code></pre>
+<h1 id="&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x8C03;&#x6574;">&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x8C03;&#x6574;</h1>
+<p>&#x56E0;&#x4E3A;&#x4F9D;&#x9760;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x8BB0;&#x5F55;&#x4FEE;&#x6539;&#x5DEE;&#x522B;&#xFF0C;&#x5BF9;&#x4E8E;&#x540E;&#x7EED;&#x4EBA;&#x5458;&#x63A5;&#x624B;&#x7EF4;&#x62A4;&#x8FD8;&#x662F;&#x6709;&#x70B9;&#x9EBB;&#x70E6;&#x7684;&#xFF1A;</p>
+<ul>
+<li>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x53EF;&#x4EE5;&#x968F;&#x610F;&#x8C03;&#x6574;&#x987A;&#x5E8F;&#xFF0C;&#x8FFD;&#x52A0;&#x6CE8;&#x91CA;</li>
+<li>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x53EF;&#x80FD;&#x4E0D;&#x5C11;&#x660E;&#x786E;&#x5199;&#x660E;&#x7684;&#x9009;&#x9879;&#xFF0C;&#x5176;&#x503C;&#x5C31;&#x662F;&#x9ED8;&#x8BA4;&#x503C;</li>
+<li>&#x9009;&#x9879;&#x7684;&#x4E0B;&#x5212;&#x7EBF;&#x548C;&#x51CF;&#x53F7;&#x53EF;&#x76F8;&#x4E92;&#x66FF;&#x6362;</li>
+<li>&#x6570;&#x503C;&#x9009;&#x9879;&#x7684;K,M,G&#x7B49;&#x5355;&#x4F4D;&#x4E5F;&#x4E0D;&#x533A;&#x5206;&#x5927;&#x5C0F;&#x5199;</li>
+<li>boolean&#x9009;&#x9879;&#x7684;&#x8868;&#x8FBE;&#x65B9;&#x5F0F;&#x6709;&#x591A;&#x79CD;&#xFF0C;&#x4E5F;&#x4E0D;&#x533A;&#x5206;&#x5927;&#x5C0F;&#x5199;</li>
+</ul>
+<p>&#x56E0;&#x6B64;&#xFF0C;&#x4E0D;&#x65B9;&#x4FBF;&#x5DEE;&#x5206;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x5C31;&#x7EDF;&#x4E00;&#x5728;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x65F6;&#xFF0C;&#x901A;&#x8FC7; <code>mysqld --verbose --help</code> &#x7684;&#x7ED3;&#x679C;&#x4F5C;&#x4E3A;&#x5DEE;&#x5206;&#x4F9D;&#x636E;&#x3002;
+&#x4F46;&#x662F;&#x9700;&#x8981;&#x6CE8;&#x610F;&#xFF0C;&#x8BE5;&#x7ED3;&#x679C;&#x4E2D;&#xFF0C;&#x6709;&#x90E8;&#x5206;&#x9009;&#x9879;&#x5176;&#x5B9E;&#x662F;&#x7531;&#x540C;&#x4E00;&#x4E2A;&#x9009;&#x9879;&#x914D;&#x7F6E;&#x7684;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4E0D;&#x60F3;&#x91CD;&#x542F;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x9664;&#x4E86;&#x8981;&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4EE5;&#x5916;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x901A;&#x8FC7; <code>SET</code> &#x547D;&#x4EE4;&#x8BBE;&#x7F6E;&#x3002;  MySQL &#x8FD0;&#x884C;&#x65F6;&#x7684;&#x53D8;&#x91CF;&#x503C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>mysqladmin variables</code> &#x7ED9;&#x51FA;&#x3002;</p>
+<h2 id="&#x8BB0;&#x5F55;&#x65B9;&#x6CD5;&#xFF1A;">&#x8BB0;&#x5F55;&#x65B9;&#x6CD5;&#xFF1A;</h2>
+<pre class="language-"><code># 0. &#x786E;&#x8BA4;&#x8BFB;&#x53D6;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5217;&#x8868;
+mysqld --verbose --help | less
+    # &#x7B2C;13&#x3001;14&#x884C;&#x4F1A;&#x7ED9;&#x51FA;&#x8BFB;&#x53D6;&#x987A;&#x5E8F;&#xFF0C;5.5.40-0ubuntu0.12.04.1-log &#x7684;&#x5982;&#x4E0B;&#x6240;&#x793A;
+    /etc/my.cnf /etc/mysql/my.cnf /usr/etc/my.cnf ~/.my.cnf
+ll /etc/my.cnf /etc/mysql/my.cnf /usr/etc/my.cnf ~/.my.cnf 2&gt;/dev/null
+
+# 1. &#x5BFC;&#x51FA;&#x9ED8;&#x8BA4;&#x7A0B;&#x5E8F;&#x81EA;&#x5E26;&#x7684;&#x9ED8;&#x8BA4;&#x9009;&#x9879;&#x503C;
+mysqld --no-defaults --verbose --help &gt; my.default.cnf
+
+# 2. &#x5BFC;&#x51FA;&#x5F53;&#x524D;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E0B;&#x7684;&#x9009;&#x9879;&#x503C;
+mysqld --verbose --help &gt; my.cur.cnf
+
+# 3. &#x5DEE;&#x5206;&#x7ED3;&#x679C;&#x5E76;&#x505A;&#x7B14;&#x8BB0;
+diff my.default.cnf my.cur.cnf
+vi -d my.default.cnf my.cur.cnf
+</code></pre><h2 id="&#x6570;&#x636E;&#x5E93;&#x73AF;&#x5883;">&#x6570;&#x636E;&#x5E93;&#x73AF;&#x5883;</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>test.86</th>
+<th>prod.80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>AMD Athlon(tm) II X2 245 Processor * 2</td>
+<td>Intel(R) Xeon(R) CPU E5-2620 v2 @ 2.10GHz * 24</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>4G</td>
+<td>32G</td>
+</tr>
+<tr>
+<td>DISK IOPS</td>
+<td>135.78</td>
+<td>1521.04</td>
+</tr>
+<tr>
+<td>OS</td>
+<td>Ubuntu 12.04.4 LTS</td>
+<td>CentOS release 6.5 (Final)</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>5.5.40-0ubuntu0.12.04.1-log for debian-linux-gnu on x86_64 ((Ubuntu))</td>
+<td>mysqld  Ver 5.6.20 for Linux on x86_64 (MySQL Community Server (GPL))</td>
+</tr>
+</tbody>
+</table>
+<h2 id="&#x5DEE;&#x522B;">&#x5DEE;&#x522B;</h2>
+<table>
+<thead>
+<tr>
+<th>mysqld --verbose --help</th>
+<th>default</th>
+<th>test.86</th>
+<th>prod.80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>back-log</td>
+<td>80</td>
+<td></td>
+<td>250</td>
+</tr>
+<tr>
+<td>character-set-server</td>
+<td>latin1</td>
+<td>utf8mb4</td>
+<td>utf8mb4</td>
+</tr>
+<tr>
+<td>collation-server</td>
+<td>latin1_swedish_ci</td>
+<td>utf8mb4_unicode_ci</td>
+<td>utf8mb4_unicode_ci</td>
+</tr>
+<tr>
+<td>datadir</td>
+<td>/var/lib/mysql/</td>
+<td></td>
+<td>/data0/mysql/</td>
+</tr>
+<tr>
+<td>expire-logs-days</td>
+<td>0</td>
+<td>3</td>
+<td>7</td>
+</tr>
+<tr>
+<td>general-log-file</td>
+<td>/var/lib/mysql/lizi80.log</td>
+<td></td>
+<td>/data0/mysql/lizi80.log</td>
+</tr>
+<tr>
+<td>host-cache-size</td>
+<td>279</td>
+<td></td>
+<td>653</td>
+</tr>
+<tr>
+<td>innodb-buffer-pool-instances</td>
+<td>0</td>
+<td></td>
+<td>5</td>
+</tr>
+<tr>
+<td>innodb-buffer-pool-size</td>
+<td>128M</td>
+<td>512M</td>
+<td>5G</td>
+</tr>
+<tr>
+<td>innodb-file-format</td>
+<td>Antelope</td>
+<td>barracuda</td>
+<td>barracuda</td>
+</tr>
+<tr>
+<td>innodb-flush-method</td>
+<td>(No default value)</td>
+<td></td>
+<td>O_DIRECT</td>
+</tr>
+<tr>
+<td>innodb-file-per-table</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td>innodb-io-capacity</td>
+<td>200</td>
+<td></td>
+<td>1000</td>
+</tr>
+<tr>
+<td>innodb-log-file-size</td>
+<td>48M</td>
+<td></td>
+<td>48M</td>
+</tr>
+<tr>
+<td>innodb-read-io-threads</td>
+<td>4</td>
+<td></td>
+<td>24</td>
+</tr>
+<tr>
+<td>innodb-thread-concurrency</td>
+<td>0</td>
+<td></td>
+<td>24</td>
+</tr>
+<tr>
+<td>innodb-write-io-threads</td>
+<td>4</td>
+<td></td>
+<td>24</td>
+</tr>
+<tr>
+<td>join-buffer-size</td>
+<td>128K</td>
+<td>512K</td>
+<td>4M</td>
+</tr>
+<tr>
+<td>key-buffer-size</td>
+<td>8M</td>
+<td>256M</td>
+<td>2G</td>
+</tr>
+<tr>
+<td>log-bin</td>
+<td>(No default value)</td>
+<td>mysql-bin</td>
+<td>mysql-bin</td>
+</tr>
+<tr>
+<td>log-error</td>
+<td></td>
+<td>/var/log/mysql/error.log</td>
+<td>/var/log/mysql/error.log</td>
+</tr>
+<tr>
+<td>log-slow-queries</td>
+<td>/var/lib/mysql/${hostname}-slow.log</td>
+<td>/var/log/mysql/mysql-slow.log</td>
+<td></td>
+</tr>
+<tr>
+<td>long-query-time</td>
+<td>10</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>max-allowed-packet</td>
+<td>1M</td>
+<td>16M</td>
+<td>32M</td>
+</tr>
+<tr>
+<td>max-connections</td>
+<td>151</td>
+<td>500</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>max-long-data-size</td>
+<td>1M</td>
+<td>16M</td>
+<td>-</td>
+</tr>
+<tr>
+<td>myisam-recover-options</td>
+<td>OFF</td>
+<td>BACKUP</td>
+<td>BACKUP</td>
+</tr>
+<tr>
+<td>myisam-sort-buffer-size</td>
+<td>8M</td>
+<td>128M</td>
+<td>128M</td>
+</tr>
+<tr>
+<td>performance-schema</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td>pid-file</td>
+<td>/var/lib/mysql/lizi80.pid</td>
+<td></td>
+<td>/data0/mysql/lizi80.pid</td>
+</tr>
+<tr>
+<td>query-cache-limit</td>
+<td>1M</td>
+<td>4M</td>
+<td>4M</td>
+</tr>
+<tr>
+<td>query-cache-size</td>
+<td>0, 1M</td>
+<td>16M</td>
+<td>4G</td>
+</tr>
+<tr>
+<td>query-cache-type</td>
+<td>OFF</td>
+<td></td>
+<td>ON</td>
+</tr>
+<tr>
+<td>read-buffer-size</td>
+<td>128K</td>
+<td>512K</td>
+<td>2M</td>
+</tr>
+<tr>
+<td>read-rnd-buffer-size</td>
+<td>256K</td>
+<td>512K</td>
+<td>2M</td>
+</tr>
+<tr>
+<td>server-id</td>
+<td>0</td>
+<td>86</td>
+<td>80</td>
+</tr>
+<tr>
+<td>skip-name-resolve</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td>slow-query-log</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td>slow-query-log-file</td>
+<td>/var/lib/mysql/${hostname}-slow.log</td>
+<td>/var/log/mysql/mysql-slow.log</td>
+<td>/var/run/mysqld/mysqld-slow.log</td>
+</tr>
+<tr>
+<td>socket</td>
+<td>/var/lib/mysql/mysql.sock</td>
+<td></td>
+<td>/data0/mysql/mysql.sock</td>
+</tr>
+<tr>
+<td>sort-buffer-size</td>
+<td>256K</td>
+<td>512K</td>
+<td>2M</td>
+</tr>
+<tr>
+<td>sql-mode</td>
+<td></td>
+<td>NO_ENGINE_SUBSTITUTION</td>
+<td>NO_ENGINE_SUBSTITUTION</td>
+</tr>
+<tr>
+<td>symbolic-links</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+</tr>
+<tr>
+<td>table-definition-cache</td>
+<td>1400</td>
+<td></td>
+<td>2000</td>
+</tr>
+<tr>
+<td>table-cache</td>
+<td>400</td>
+<td>10240</td>
+<td>-</td>
+</tr>
+<tr>
+<td>table-open-cache</td>
+<td>400, 2000</td>
+<td>10240</td>
+<td>10240</td>
+</tr>
+<tr>
+<td>thread-cache-size</td>
+<td>0, 9</td>
+<td>8</td>
+<td>24</td>
+</tr>
+<tr>
+<td>thread-stack</td>
+<td>256K</td>
+<td>512K</td>
+<td>512K</td>
+</tr>
+<tr>
+<td>tmp-table-size</td>
+<td>16M</td>
+<td></td>
+<td>32M</td>
+</tr>
+</tbody>
+</table>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="mysql-install.html" class="navigation navigation-prev " aria-label="Previous page: MySql 安装">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="mysql-replication.html" class="navigation navigation-next " aria-label="Next page: MySql 主从复制">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"MySql 调优","level":"1.13.3.2","depth":3,"next":{"title":"MySql 主从复制","level":"1.13.3.3","depth":3,"path":"db/mysql-replication.md","ref":"db/mysql-replication.md","articles":[]},"previous":{"title":"MySql 安装","level":"1.13.3.1","depth":3,"path":"db/mysql-install.md","ref":"db/mysql-install.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-search","-highlight","prism","prism-themes","mathjax-full","splitter"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-vs.css"]},"fontsettings":{"theme":"white","family":"sans","size":1},"prism-themes":{},"mathjax-full":{},"splitter":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"btpka3@163.com","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh","gitbook":">=3.0.0"},"file":{"path":"db/mysql-tuning.md","mtime":"2018-01-19T02:09:58.885Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-01-19T02:12:46.470Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-mathjax-full/config.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mathjax-full/mathjax.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
