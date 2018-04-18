@@ -63,6 +63,20 @@ ALTER TABLE t ENGINE = MYISAM;
 1. 如果在master-slave模式上进行备份和回滚，对应bin-log的File和Position可以通过 `SHOW slave STATUS` 获取，备份前可以 `STOP SLAVE`（而不必像在master上那样必须先锁表）。
 
 
+## 备份表结构
+
+```bash
+mysqldump \
+    -d \
+    -h localhost \
+    --user yourUserName \
+    --set-gtid-purged=OFF  \
+    --force \
+    yourDatabase 
+    
+```
+
+
 # 存储过程、函数
 
 参考 [create-procedure](http://dev.mysql.com/doc/refman/5.6/en/create-procedure.html)、

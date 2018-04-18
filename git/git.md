@@ -63,7 +63,8 @@ git config --global merge.tool vimdiff
 git config --global push.default simple           # 在 "git push" 时，会推到当前分支跟踪的远程分支（可能名称不同）
 git config --global core.filemode false           # 忽略文件仅文件权限的变更（比如 old mode 100755  new mode 100644）
 git config --global color.ui auto                 # git命令下会使用红色、绿色等来突出显示。
-git config --global branch.autosetuprebase always # 在 "git pull" 时，总会自动rebase
+#git config --global branch.autosetuprebase always # 在 "git pull" 时，总会自动 rebase
+#git config --global branch.autoSetupMerge always  # 在 "git pull" 时，总会自动 merge
 git config --global credential.helper cache       # 在 clone `https` 类型的URL时，可减少用户名密码输入次数
 git config --global core.quotepath false          # 在提交中文名称的文件时，不转义为 \350\256\256\346\200\273\347\273\223.xlsx
 git config --global core.ignorecase false         # 文件名区分大小写 
@@ -71,6 +72,7 @@ git config --list
 
 
 git config --global http.proxy 'socks5://127.0.0.1:9999'
+#git config --global --unset  branch.autosetuprebase
 ```
 
 ```bash

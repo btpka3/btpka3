@@ -161,6 +161,14 @@ for i in `eval echo {0..$a..2}`; do echo $i; done
 
 for i in `seq 0 2 10`; do echo $i; done
 
+
+
+for i in `ls *.zip`
+do
+  unzip -d ./font $i
+done
+
+
 ```
 
 ## 检查目录是否为空

@@ -25,8 +25,15 @@ sdk list java
 sdk install java 8u144-oracle
 sdk install java 6u65-apple   # eclipse 等程序要用 jdk6 运行
 
+# MacOS 切换版本
+/usr/libexec/java_home -V       # 查看所有已安装版本
+JAVA_HOME=`/usr/libexec/java_home -v 9`  # 切换当前 shell 会话的 jdk 版本为 9
+java -v 
+
+
 # MacOs 删除
-/usr/libexec/java_home  # 查看当前JAVA_HOME
+/usr/libexec/java_home          # 查看当前JAVA_HOME
+
 sudo rm -rf /Library/Java/JavaVirtualMachines/jdk<version>.jdk
 sudo rm -rf /Library/PreferencePanes/JavaControlPanel.prefPane
 sudo rm -rf /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin

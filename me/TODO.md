@@ -63,10 +63,38 @@
     - [Apache Spark](http://spark.apache.org/)
     - [Apache RocketMQ](http://rocketmq.apache.org/)
     - [Apache Kafka](http://kafka.apache.org/)
-    - [akka](https://akka.io/)
     - hbase
     - 实时计算
     - 流式处理
+    - [DalmatinerDB](https://dalmatiner.io/)
+    - [Druid](http://druid.io/)
+    - [greenplum](https://pivotal.io/pivotal-greenplum)
+    - [Hazelcast](https://hazelcast.org/)
+    - reactive
+        - [vert.x](http://vertx.io/)
+        - [akka](https://akka.io/)  
+        - RxJava
+        - Reactor
+        - [Reacting to Spring Framework 5.0](https://content.pivotal.io/blog/reacting-to-spring-framework-5-0)
+    - [Cloudopt](https://next.cloudopt.net/#/)
+    - [jooq](http://www.jooq.org/)
+    - [jBPM](https://www.jbpm.org/)
+    - https://decisions.com/company
+    - 时序数据库、监控相关
+        - [influxdb](https://github.com/influxdata/influxdb)
+        - [prometheus](https://github.com/prometheus/prometheus)
+        - [RRDtool](http://oss.oetiker.ch/rrdtool/)
+        - [Graphite](http://graphite.readthedocs.org/en/latest/)
+        - [OpenTSDB](http://opentsdb.net/)
+        - [Kdb+](http://kx.com/)
+        - [Druid](http://druid.io/)
+        - [KairosDB](http://kairosdb.github.io/)
+        - [Spatedb](https://github.com/t0nyren/spatedb)
+        - [Gorilla]()
+        - [HiTSDB](https://help.aliyun.com/product/54825.html)
+    - cache
+        - [Infinispan](http://infinispan.org/)
+    
 * spring-cloud-zookeeper 中针对 config 对 zookeeper 进行前后端配置。
   并按照 spring-boot 加载的顺序进行合并展示。
 
