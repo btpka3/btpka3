@@ -25,6 +25,34 @@ wget -O "qh-common-domain-${v}.jar" "http://mvn.kingsilk.xyz/service/local/artif
 &v=$v"
 ```
 
+## 全局 exclude
+
+```xml
+<plugins>
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-enforcer-plugin</artifactId>
+    <version>3.0.0-M1</version>
+    <executions>
+      <execution>
+        <goals>
+          <goal>enforce</goal>
+        </goals>
+        <configuration>
+          <rules>
+            <bannedDependencies>
+              <excludes>
+                <exclude>log4j:log4j</exclude>
+              </excludes>
+            </bannedDependencies>
+          </rules>
+        </configuration>
+      </execution>
+    </executions>
+  </plugin>
+</plugins>
+```
+
 
 ## 下载站
 http://jenv.mvnsearch.org/
@@ -160,15 +188,15 @@ mvn -Dmaven.test.skip=true -am --projects subModule1/leafModule1 clean install
    * 在pom.xml中使用属性的存在性来激活profile。示例:
 
    ```xml
-<profile>
-  <id>release</id>
-  <activation>
-    <property>
-      <name>p_release</name>
-    </property>
-  </activation>
-  <!-- ... -->
-</profile>
+    <profile>
+      <id>release</id>
+      <activation>
+        <property>
+          <name>p_release</name>
+        </property>
+      </activation>
+      <!-- ... -->
+    </profile>
    ```
    之后就可以使用 `mvn -Dp_release ...` 来激活该profile了。
 

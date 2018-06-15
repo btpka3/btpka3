@@ -224,7 +224,7 @@ docker start -i <container>             # 启动一个container并进入交互�
 docker attach <container>               # attach一个运行中的container,
                                         # 只能看到正在运行的程序的输出,如果有输入的话,可以交互
 docker exec -it <container> bash        # 在一个container 中执行一个命令, 常常用来bash操作
-
+docker update --restart=no my-container
 
 # ----------------------- 运行状态
 docker ps                               # 默认显示正在运行中的container

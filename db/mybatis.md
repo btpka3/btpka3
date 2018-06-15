@@ -21,3 +21,67 @@
         </settings>
     </configuration>
     ```
+
+ 
+
+- 如何获取分页时，总记录数？
+ 
+### mapper 接口支持哪种参数和返回值？
+    
+参考：
+— org.apache.ibatis.binding.MapperProxyFactory
+- org.apache.ibatis.binding.MapperProxy
+- org.apache.ibatis.binding.MapperMethod
+
+```java
+public interface XxxMapper {
+    // ------------------------------------------ insert/update/delete
+    void insert(
+        @Param("xxx") String xxx
+    );
+    Integer insert(
+        @Param("xxx") String xxx
+    );
+    Long insert(
+        @Param("xxx") String xxx
+    );
+    Boolean insert(
+        @Param("xxx") String xxx
+    );
+
+    
+    // ------------------------------------------ select
+    // 使用 ResultHandler, 大数据量时使用
+    void select (
+        @Param("xxx") String xxx, 
+        RowBounds rowBounds,
+        ResultHandler handler
+    );
+    
+    // 可以使用 RowBounds 参数
+    List<X> select(
+        @Param("xxx")String xxx, 
+        RowBounds rowBounds
+    );
+    
+    // 将查询到的多条记录，放到 map 中。
+    Map<K,V> select(
+        @Param("xxx") String xxx, 
+        RowBounds rowBounds
+    );
+    
+    // 返回游标, 大数据量时使用
+    Cursor<T> select(
+        @Param("xxx") String xxx, 
+        RowBounds rowBounds
+    );
+    
+    T select(
+        @Param("xxx") String xxx
+    );
+}
+```
+
+### TypeHandler 可以通过 resultMap 指定。那没有使用 resultMap，又是如何选择 默认的 typeHandler ?
+
+参考  org.apache.ibatis.executor.resultset.DefaultResultSetHandler#getRowValue
