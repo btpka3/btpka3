@@ -20,6 +20,10 @@ export https_proxy=socks://192.168.0.12:19999
 curl -v https://www.baidu.com/
 
 
+# echo server
+socat -v tcp-l:1234,fork exec:'/bin/echo'
+
+
 # 只显示 http 头
 curl -s -D - www.baidu.com -o /dev/null
 
@@ -42,9 +46,13 @@ curl https://www.baidu.com \
 # 以 application/x-www-form-urlencoded 形式post提交数据
 curl https://www.baidu.com \
     -d k1=v1 \
-    -d k2=v2 \
+    --data-urlencode k2='v 2' \
     --trace-ascii /dev/stdout 
 
+# 以 application/x-www-form-urlencoded 形式post提交url encode 的json数据
+curl https://www.baidu.com \
+    --data-urlencode param="`cat add.json`" \
+    --trace-ascii /dev/stdout 
 
 
     
