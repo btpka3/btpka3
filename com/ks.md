@@ -101,5 +101,7 @@
     - PS: 如果可以，可以监控 jvm 内存使用状况
 
 
+- 增加 docker 清理的定时任务，参考 [docker system prune](https://docs.docker.com/engine/reference/commandline/system_prune/#description)
+
 
 
