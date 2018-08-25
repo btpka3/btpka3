@@ -38,6 +38,22 @@ export CATALINA_OPTS=" \
 -Xnoagent -Djava.compiler=NONE -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=10014
 ```
 
+# 远程jvisualvm 
+
+```bash
+java \
+    -Djava.rmi.server.hostname=192.168.200.136 \
+    -Dcom.sun.management.jmxremote.port=18888 \
+    -Dcom.sun.management.jmxremote=true \
+    -Dcom.sun.management.jmxremote.ssl=false \
+    -Dcom.sun.managementote.ssl=false \
+    -Dcom.sun.management.jmxremote.authenticate=false 
+    ...
+
+jvisualvm  # 连接 192.168.200.136:18888
+```
+
+
 # 远程jvisualvm
 
 

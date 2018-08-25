@@ -151,4 +151,6 @@ service mysqld start
 
 ```sql
 GRANT ALL ON naladb.* TO 'nalab2cdb'@'192.168.101.%' IDENTIFIED BY 'xxx';
+GRANT ALL PRIVILEGES ON test.* TO 'root'@'localhost';
+GRANT ALL PRIVILEGES ON test.* TO 'root'@'%';
 ```

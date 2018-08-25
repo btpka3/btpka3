@@ -74,13 +74,15 @@
         - [vert.x](http://vertx.io/)
         - [akka](https://akka.io/)  
         - RxJava
-        - Reactor
+        - Reactor vs vert.x
         - [Reacting to Spring Framework 5.0](https://content.pivotal.io/blog/reacting-to-spring-framework-5-0)
     - [Cloudopt](https://next.cloudopt.net/#/)
     - [jooq](http://www.jooq.org/)
     - [jBPM](https://www.jbpm.org/)
     - https://decisions.com/company
     - 时序数据库、监控相关
+        - [Micrometer](https://micrometer.io/docs)
+        - ~~[Spring Metrics](https://docs.spring.io/spring-metrics/docs/current/public/prometheus)~~
         - [influxdb](https://github.com/influxdata/influxdb)
         - [prometheus](https://github.com/prometheus/prometheus)
         - [RRDtool](http://oss.oetiker.ch/rrdtool/)

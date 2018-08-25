@@ -65,6 +65,7 @@ S1  — Survivor space 1 区已使用空间的百分比
 E   — Eden space 区已使用空间的百分比
 O   — Old space 区已使用空间的百分比
 P   — Perm space 区已使用空间的百分比
+M   — 
 YGC — Young GC 次数
 YGCT– Young GC 耗时(单位：秒)
 FGC — Full GC 次数

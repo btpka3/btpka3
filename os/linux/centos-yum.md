@@ -9,6 +9,8 @@ yum repolist enabled
 
 # 搜索
 yum search xxx
+yum search --showduplicates xxx
+yum search --disablerepo="*" --enablerepo="epel" --showduplicates redis
 yum --enablerepo=yyy xxx
 
 # 查看详细信息
@@ -22,12 +24,24 @@ yum --showduplicates  list xxx
 
 # 安装最新版本号
 yum install mysql-community-server
+yum install --disablerepo="*" --enablerepo="epel" redis
 
 # 安装特定版本号
 yum install mysql-community-server-5.6.20
 
 # 查询谁提供了指定的文件
 yum provides /path/to/your/file
+
+# 卸载
+yum remove package
+
+# 查看 package 中有哪些文件
+yum install -y yum-utils
+repoquery -l package
+
+
+# 查看本地配置了哪些仓库
+yum repolist
 ```
 
 # 缺点

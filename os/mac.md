@@ -78,6 +78,18 @@ Command + <-                    : Home 键
 Command + ->                    : End  键
 Command + tab                   : 在不同应用之间循环切换窗口
 Command + `                     : 在同一个应用之间循环切换窗口
+CtrL + A                        : Home 键
+Ctrl + E                        : End 键             
+Ctrl + K                        : 从行首删除到光标, 并将删除的内容复制到 kill buffer
+Ctrl + Y                        : 将 kill buffer 中的内容粘贴
+Ctrl + R                        : reverse search
+Ctrl + S                        : forward search (zsh 中可用，bash中 不可用）
+Ctrl + F                        : 光标向前移动一个字符
+Ctrl + B                        : 光标向后移动一个字符
+Ctrl + W                        : 从光标向后删除一个字符
+Alt  + <-                       : 将光标向后移动一个词
+Alt  + ->                       : 将光标向前移动一个词
+
 
 Command + Control + F           : 全屏显示当前窗口
 
@@ -87,6 +99,8 @@ Fn + F11                        : 部分第三方软件下不行
 Command + Shift + 3             : 全屏截图
 Command + Shift + 4             : 选定区域截图
 Command + Shift + 4, Space      : 对特定窗体进行截图
+
+
 ```
 
 ## Finder

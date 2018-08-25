@@ -307,6 +307,9 @@ aaa a1 "a 2" a3
 ```bash
 # 批量重命名文件后缀
 ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
+
+# 批量列出压缩包内容
+find . -type f -name "*.jar" | xargs -n 1 unzip -l | less
 ```
 
 ## ls
@@ -586,6 +589,27 @@ zll@mac-pro 333$ ll | awk '{print $5}'
 8
 2
 68
+
+## 计算文件总大小
+ls -l|awk 'BEGIN{sum=0} !/^d/{sum+=$5} END{print "total size is",sum}'    
+
+
+## 行内 sum 
+echo 1 1 2 300 | awk '{sum=0;i=1; while(i<5){ sum+=$i; i++} avg=sum/4; print "avg/sum = ",avg,sum}' 
+
+ll | awk 'BEGIN {s=0} {print $5}'
+
+
+
+# 提取特定两个字段，做加法，并排序。
+cat <<EOF > /tmp/b 
+2018-08-06 15:29:00|1|aaa,A,EEE,R_101182,func1,1,0|2,19122
+2018-08-06 15:29:00|1|bbb,A,EEE,R_101182,func2,1,0|2,104802838
+2018-08-06 15:33:00|1|ccc,A,EEE,R_101182,func3,2,0|1,2893
+EOF
+
+cat /tmp/b | awk 'BEGIN{FS="|";avg=0} {split($4, a, ","); print $0 "@" a[2]/a[1]}' | sort -n -r -k 2 -t '@' |grep '@' 
+
 ```
 
 ## 免密码以root权限执行脚本
