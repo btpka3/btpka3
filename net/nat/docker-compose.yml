@@ -1,0 +1,47 @@
+version: '3'
+
+# https://docs.docker.com/compose/compose-file/
+
+services:
+  client0:
+    container_name: my-nat-client0
+    build: ./client0
+    hostname: client0
+    privileged: true
+    command: sh -c "sleep 31536000"
+    cap_add:
+        - ALL
+    networks:
+      my_nat_lan:
+        ipv4_address: 172.30.10.102
+
+  gw0:
+    container_name: my-nat-gw0
+    build: ./gw0
+    command: sh -c "sleep 31536000"
+    hostname: gw0
+    privileged: true
+    cap_add:
+        - ALL
+    networks:
+      my_nat_wan:
+        ipv4_address: 172.30.20.101
+      my_nat_lan:
+        ipv4_address: 172.30.10.101
+
+networks:
+  my_nat_lan:
+    driver: bridge
+    internal: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.10.0/24
+  my_nat_wan:
+    driver: bridge
+    #internal: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.20.0/24
+
