@@ -124,7 +124,7 @@ jmap -heap      xxxPid  # 打印 使用的垃圾回收器，heap 的配置和使
 jmap -histo     xxxPid  # 打印 各个类实例对象使用内存的柱状图（histogram）
 
 # dump出内存
-jmap -dump:format=b,file=outfile.jmap.hprof 3024
+jmap -dump:format=b,file=outfile.jmap.dump.hprof 3024
 ```
 如果报以下错误，请确认启用jmap的用户是否和目标java进程是同一个用户，否则追加参数 -F 尝试。
 

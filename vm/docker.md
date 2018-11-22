@@ -617,7 +617,7 @@ exit
 
 [一个回车键黑掉一台服务器——使用Docker时不要这么懒啊喂](http://www.jianshu.com/p/74aa4723111b)
 
-``````
+
 
 ## docker-machine
 
@@ -850,3 +850,19 @@ docker exec -it my-ubuntu bash
     # （持久）
     echo "kernel.sem=250 32000 100 1024" >> /etc/sysctl.conf  
     ```
+
+
+# kernel 模块
+
+容器与 kernel 交互是通过 系统调用的，并包含容器内的 kernel 、kernel module 代码。
+这也是为何 容器被设计为轻量、以及 portable。
+
+但是，如果 host 操作系统与 container 的相匹配。container 也是可以的。
+
+- 以 `--privileged` 模式运行
+- `-cap-add=ALL`
+- mount host `/lib/modules` 到容器内。
+
+在 windows 平台，docker toolbox 运行了一个  boot2docker， 可以 ssh 上去，并查看 `/lib/modules` 里的内容。
+
+

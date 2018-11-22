@@ -1,0 +1,76 @@
+version: '3'
+
+# https://docs.docker.com/compose/compose-file/
+
+services:
+  client0:
+    container_name: my-ssh-vpn-client0
+    build: ./client0
+    hostname: client0
+    privileged: true
+    cap_add:
+        - ALL
+        - NET_ADMIN
+        - NET_RAW
+    networks:
+      my_ssh_vpn_client_net:
+        ipv4_address: 172.30.10.101
+      my_ssh_vpn_internet:
+        ipv4_address: 172.30.20.101
+
+  server0:
+    container_name: my-ssh-vpn-server0
+    build: ./server0
+    hostname: server0
+    privileged: true
+    cap_add:
+        - ALL
+        - NET_ADMIN
+        - NET_RAW
+    expose:
+      - "22"
+    ports:
+      - "2222:22"
+    networks:
+      my_ssh_vpn_internet:
+        ipv4_address: 172.30.20.102
+      my_ssh_vpn_server_net:
+        ipv4_address: 172.30.30.101
+
+  server1:
+    container_name: my-ssh-vpn-server1
+    build: ./server1
+    hostname: server1
+    privileged: true
+    cap_add:
+        - ALL
+        - NET_ADMIN
+        - NET_RAW
+    networks:
+      my_ssh_vpn_server_net:
+        ipv4_address: 172.30.30.102
+
+networks:
+  my_ssh_vpn_client_net:
+    driver: bridge
+    #internal: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.10.0/24
+  my_ssh_vpn_internet:
+    driver: bridge
+    #internal: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.20.0/24
+  my_ssh_vpn_server_net:
+    driver: bridge
+    #internal: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.30.0/24
+  # tul 网络设计为  172.30.40.0/24
+

@@ -8,6 +8,12 @@ find /data0/work/git-repo/github/btpka3/btpka3.github.com -type d \
     | less 
 ```
 
+## zipgrep
+
+```js
+
+```
+
 
 ## free
 
@@ -215,6 +221,23 @@ echo "$target" | sed -r "s/^([[:space:]]*$ekk[[:space:]]*=).*$/\1$ekv/g"
 ```
 
 ## 字符串处理
+
+### 转义
+
+```bash
+# 输出单个双引号
+echo "\""
+
+# 输出单个单引号
+echo "'"
+
+# 输出一串单双引号
+echo '"'"'"'"'
+
+# 引号内输出 awk
+echo 'ls -l | awk -F"|" '"'"'{ if($5>10000) print $0}'"'"
+```
+
 ### substr
 
 ```bash
@@ -314,7 +337,7 @@ find . -type f -name "*.jar" | xargs -n 1 unzip -l | less
 
 ## ls
 
-```bash
+```basSecurityUtil.trimSqlh
 # 按照最后访问时间的先后顺序显示
 ll -h --time=atime --full-time -rt core*
     # mtime : 最后修改时间（仅限文件内容）
@@ -336,6 +359,8 @@ ping baidu.com \
 ps -ax          # 打印所有进程
 ps -aux         # 显示内存、cpu使用信息
 ps -u  zhang3   # 显示用户 zhang3 所有的进程
+
+ps -ww -fp $PID # 打印完整命令行参数
 ```
 
 ## 压缩包
@@ -435,13 +460,6 @@ cat newFilePrefix.* > singleFile
 
 ```
 
-### rsync
-
-```bash
-# copy all files from src to dist
-rsync -avzh /path/to/src/dir /path/to/dist/dir
-rsync -avzh user@host:/path/to/src/dir /path/to/dist/dir
-```
 
 ### File Content Search
 
@@ -581,6 +599,8 @@ drwxr-xr-x  2 zll  wheel  68 Sep 26 10:21 a
 -rw-r--r--  1 zll  wheel   4 Sep 26 10:21 a.txt
 -rw-r--r--  1 zll  wheel   2 Sep 26 10:21 c.txt
 
+cat 
+a
 # 提取特定字段。注意不可使用cut命令——不支持多个空格作为一个分隔符。
 zll@mac-pro 333$ ll | awk '{print $5}'
 
@@ -632,6 +652,8 @@ Cmnd_Alias        CMDS = /path/to/your/script
 
 ```bash
 #!/bin/bash
+
+CUR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 TIME="date +%Y-%m-%d.%H:%M:%S"
 

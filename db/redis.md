@@ -20,6 +20,9 @@ docker start my-redis
 
 docker exec -it my-redis bash
 
+config get databases
+info keyspace
+
 ```
 
 

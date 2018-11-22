@@ -1,5 +1,19 @@
 
 
+# setup
+
+```bash
+# 生成所有缺失 的 key
+ssh-keygen -A
+
+
+# SSH2 protocol 需要2个key
+ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa
+ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa
+
+ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa -b 521
+```
+
 # 生成公钥、私钥
 
 ```bash
@@ -431,8 +445,10 @@ ssh sshUser>@sshHost -C -f -N -g -R [bindIpOnSshClient:]sshBindPortOnSshClient:b
 
 # TODO SSH VPN
 
-参考[1](http://bodhizazen.net/Tutorials/VPN-Over-SSH/)、[2](https://help.ubuntu.com/community/SSH_VPN)
-[sshuttle](https://github.com/apenwarr/sshuttle)
+参考
+- [1](http://bodhizazen.net/Tutorials/VPN-Over-SSH/)
+- [2](https://help.ubuntu.com/community/SSH_VPN)
+- [sshuttle](https://github.com/apenwarr/sshuttle)
 
 
 # 超时设置

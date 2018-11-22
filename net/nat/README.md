@@ -21,7 +21,7 @@ iptables -t nat -A POSTROUTING -o eth0 -s 172.30.10.0/24 -j SNAT --to-source 172
 
 # 如果配置错误了，通过类似下面的命令删除
 # iptables -t nat -D POSTROUTING -o eth0 -s 172.30.10.0/24 -j SNAT --to-source 172.30.20.101
-``` 
+```
 
 
 # 备注

@@ -71,6 +71,7 @@
     - [greenplum](https://pivotal.io/pivotal-greenplum)
     - [Hazelcast](https://hazelcast.org/)
     - reactive
+        - [project reactor](https://projectreactor.io)
         - [vert.x](http://vertx.io/)
         - [akka](https://akka.io/)  
         - RxJava

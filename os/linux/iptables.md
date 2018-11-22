@@ -12,14 +12,13 @@
 
     Linux Kernel 中定义的的表。可包含多个 chain （预定义的、或自定义的）
     
-    
     |table      |PREROUTING |INPUT  |FORWARD|OUTPUT |POSTROUTING| memo|
     |-----------|-----------|-------|-------|-------|-----------|----|
-    |filter     |           | Y     | Y     | Y     |           ||
-    |nat        | Y         |       |       | Y     | Y         ||
-    |mangle     | Y         | Y     | Y     | Y     | Y         ||
-    |raw        | Y         |       |       | Y     |           ||
-    |security   |           | Y     | Y     | Y     |           ||
+    |raw        | Y         |       |       | Y     |           |   |
+    |mangle     | Y         | Y     | Y     | Y     | Y         |   |
+    |nat        | Y         |       |       | Y     | Y         |   |
+    |filter     |           | Y     | Y     | Y     |           |   |
+    |security   |           | Y     | Y     | Y     |           |   |
     
     * filter
     
@@ -42,8 +41,15 @@
         该表主要用于 Mandatory Access Control (MAC) 规则，比如 `SECMARK`，`CONNSECMARK` target
         MAC 又 Linux Security 模块实现（比如 SELinux）。该 `security` 在 `filter` 之后调用。
         允许在 filter 表中先启用任意的 Discretionary Access Control (DAC)，之后再启用 MAC 规则。
-          
-    
+
+    ```txt
+    0.0  RAW[PREROUTING] -> mangle[PREROUTING] -> nat[PREROUTING] -> <Routing-0>
+    1.0  mangle[FORWARD] -> filter[FORWARD]
+    1.1  mangle[INPUT] -> filter[INPUT] -> Local Process -> <Routing-1>
+         -> RAW[OUTPUT] -> mangle[OUTPUT] -> nat[OUTPUT] -> filter[OUTPUT] -> <Routing-2>
+    2.0  mangle[POSTROUTING] -> nat[POSTROUTING]
+    ```
+
 * chain 
     预定义的 chain 有 : `PREROUTING`、 `INPUT`、 `FORWARD`、 `OUTPUT`、 `POSTROUTING` 等
     
@@ -68,6 +74,8 @@
    也可以是 `ACCEPT`, `DROP` 或 `RETURN` 这几个特殊值。
 
 ```bash
+iptables-save                               # 将 iptables 中的内容 dump 出来
+
 # man iptables
 iptables --list [chain] --line-numbers      # 列出给定（或所有） chain 的规则详情（按 chain 分组显示）
 iptables --list-rules [chain]               # 列出给定（或所有） chain 的规则详情（不分组）
@@ -128,13 +136,29 @@ iptables --rename-chain old-chain new-chain # 重命名 chain
 
 
 
+## 如何 debug 规则?
 
- 
+```bash
+# TRACE
+iptables -t raw -A PREROUTING   -p tcp --destination 192.168.0.0/24 --dport 80 -j TRACE
+iptables -t raw -A OUTPUT       -p tcp --destination 192.168.0.0/24 --dport 80 -j TRACE
+
+cat /var/log/kern.log | grep 'TRACE:'
+
+# LOG
+-j LOG --log-prefix "rule description"
+# 注意：在 docker container 中， iptables 的 LOG target 是不会记录日志的, 但是可以尝试 ulogd
 
 
+```
+
+- [How to enable logging for iptables inside a Docker container?](https://stackoverflow.com/questions/39632285/how-to-enable-logging-for-iptables-inside-a-docker-container)
+https://blog.sleeplessbeastie.eu/2018/08/01/how-to-log-dropped-connections-from-iptables-firewall-using-netfilter-userspace-logging-daemon/
 
 
-```bahs
+# xx
+
+```bash
 iptables [-t table] COMMAND chain CRETIRIA -j ACTION
 
 # 查看定义规则的详细信息
@@ -183,4 +207,20 @@ iptables -t filter -A INPUT -s 172.16.0.0/16 -p udp --dport 53 -j DROP
 * `man iptables`
 * `man iptables-extensions`
 * [netfilter](http://netfilter.org/)
-* [ iptables DNAT 与 SNAT 详解 ](http://jafy00.blog.51cto.com/2594646/651856)
+* [iptables DNAT 与 iptables-save 详解 ](http://jafy00.blog.51cto.com/2594646/651856)
+* ![](http://linux-ip.net/nf/nfk-traversal.png)
+* ![](http://blog.51cto.com/attachment/201108/213457974.gif)
+* [NAT-HOWTO](https://www.netfilter.org/documentation/HOWTO/NAT-HOWTO.html)
+* [packet-filtering-HOWTO](https://www.netfilter.org/documentation/HOWTO/packet-filtering-HOWTO.html)
+* [appine-wall](https://wiki.alpinelinux.org/wiki/How-To_Alpine_Wall)
+* [linux内核将用BPF给iptables换心](https://baijiahao.baidu.com/s?id=1598167710178783742&wfr=spider&for=pc)
+* [Why is the kernel community replacing iptables with BPF?](https://cilium.io/blog/2018/04/17/why-is-the-kernel-community-replacing-iptables/)
+
+# iptables alternatives
+```txt
+ipchain -> iptables -> nftables -> bpfilter
+```
+
+- [nftables](https://netfilter.org/projects/nftables/)
+-  bpfilter
+- ipset 
