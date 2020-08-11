@@ -54,6 +54,10 @@ curl https://www.baidu.com \
     --data-urlencode param="`cat add.json`" \
     --trace-ascii /dev/stdout 
 
+# 以 二进制方式提交
+curl https://www.baidu.com \
+    --data-binary param="`cat add.json`" \
+
 
     
 # POST JSON

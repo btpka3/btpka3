@@ -21,3 +21,21 @@
 
 
 
+
+
+# 包含某个内容，且不不包含另外一个内容
+- [AND operator in regular expressions](https://stackoverflow.com/a/6187080/533317)
+- [test](https://www.regextester.com/15)
+
+```txt
+regex:
+^(?=.*a.bbb.com.*)((?!QueryMyRunningTaskNums).)*$
+
+
+# not match
+http://a.bbb.com/yy/QueryMyRunningTaskNums.json
+# match
+http://a.bbb.com/xx/deleteEventColumns.json
+```
+
+

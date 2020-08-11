@@ -11,7 +11,7 @@ export JAVA_HOE=/usr/lib/jvm/java-1.8.0
 
 # Ubuntu
 sudo add-apt-repository ppa:openjdk-r/ppa
-sudo apt-get update 
+sudo apt-get update
 sudo apt-get install openjdk-8-jdk
 sudo update-alternatives --config java
 ```
@@ -21,26 +21,19 @@ sudo update-alternatives --config java
 ```
 # https://support.apple.com/kb/DL1572?viewlocale=en_US&locale=en_US
 
+# 为 curl 设置代理
+export ALL_PROXY=socks5h://127.0.0.1:13659
+
+
+
 sdk list java
 sdk install java 8u144-oracle
 sdk install java 6u65-apple   # eclipse 等程序要用 jdk6 运行
 
-# MacOS 切换版本
-/usr/libexec/java_home -V       # 查看所有已安装版本
-JAVA_HOME=`/usr/libexec/java_home -v 9`  # 切换当前 shell 会话的 jdk 版本为 9
-java -v 
+# 安装指定版本 jdk 11, jdk 8
+sdk install java 11.0.6.hs-adpt
+sdk install java 8.0.242.hs-adpt
 
-
-# MacOs 删除
-/usr/libexec/java_home          # 查看当前JAVA_HOME
-
-sudo rm -rf /Library/Java/JavaVirtualMachines/jdk<version>.jdk
-sudo rm -rf /Library/PreferencePanes/JavaControlPanel.prefPane
-sudo rm -rf /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin
-sudo rm -rf /Library/LaunchAgents/com.oracle.java.Java-Updater.plist
-sudo rm -rf /Library/PrivilegedHelperTools/com.oracle.java.JavaUpdateHelper
-sudo rm -rf /Library/LaunchDaemons/com.oracle.java.Helper-Tool.plist
-sudo rm -rf /Library/Preferences/com.oracle.java.Helper-Tool.plist
 
 ```
 
@@ -50,9 +43,9 @@ sudo rm -rf /Library/Preferences/com.oracle.java.Helper-Tool.plist
 1. 安装
 
     ```bash
-[root@locahost ~] cd /data/tmp
-[root@locahost ~] ./jdk-6u45-linux-x64.bin                      # 会解压出一个名称为 "jdk1.6.0_45" 的目录
-[root@locahost ~] mv jdk1.6.0_45 /data/software/           # 移动到规约要求的目录下。
+    [root@locahost ~] cd /data/tmp
+    [root@locahost ~] ./jdk-6u45-linux-x64.bin                      # 会解压出一个名称为 "jdk1.6.0_45" 的目录
+    [root@locahost ~] mv jdk1.6.0_45 /data/software/           # 移动到规约要求的目录下。
     ```
 1. 设置全局环境变量 `vi /etc/profile.d/test12.sh`
 
@@ -75,6 +68,31 @@ sudo rm -rf /Library/Preferences/com.oracle.java.Helper-Tool.plist
 
     [root@locahost ~] ln -s -T $JAVA_HOME/bin/java /usr/bin/java  # 如果是用RPM的bin包安装的，则跳过此步骤。
     ```
+1. 多版本切换
+
+    ```bash
+
+    # MacOS 切换版本
+    # 查看所有已安装版本
+    /usr/libexec/java_home -V
+
+    # 切换当前 shell 会话的 jdk 版本为 9
+    JAVA_HOME=`/usr/libexec/java_home -v 9`
+    java -version
+    ```
+1. 删除
+
+    ```bash
+    /usr/libexec/java_home          # 查看当前JAVA_HOME
+
+    sudo rm -rf /Library/Java/JavaVirtualMachines/jdk<version>.jdk
+    sudo rm -rf /Library/PreferencePanes/JavaControlPanel.prefPane
+    sudo rm -rf /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin
+    sudo rm -rf /Library/LaunchAgents/com.oracle.java.Java-Updater.plist
+    sudo rm -rf /Library/PrivilegedHelperTools/com.oracle.java.JavaUpdateHelper
+    sudo rm -rf /Library/LaunchDaemons/com.oracle.java.Helper-Tool.plist
+    sudo rm -rf /Library/Preferences/com.oracle.java.Helper-Tool.plist
+    ```
 
 ## 压缩包安装
 
@@ -92,4 +110,16 @@ export PATH=$JAVA_HOME/bin:$PATH
 # 重新登录后验证
 java -version
 ```
+
+
+
+
+# jshell
+
+示例1
+```bash
+echo 'String.format("%06d", 19)' | jshell --feedback concise | sed -n '2p'
+```
+
+
 

@@ -61,7 +61,23 @@ http://jenv.mvnsearch.org/
 
 国内替代品 http://maven.aliyun.com/r/#welcome
 
-## 安装
+## 通过 sdkman 安装
+
+[sdkman](https://sdkman.io/)
+
+```bash
+# 检查 sdkman 是否已经安装
+sdk version
+# 如果没有安装，则通过以下命令安装
+curl -s "https://get.sdkman.io" | bash
+
+sdk install maven 3.6.1
+sdk list maven
+# 安装多个版本的话，使用指定该版本
+sdk use maven 3.6.1
+```
+
+## 安装2
 
 ```
 sudo mkdir /usr/local/maven
@@ -111,6 +127,63 @@ gpg2 --edit-key A6BAB25C    # 编辑公钥
 ```
 
 
+## wrapper
+
+参考 [1](https://www.baeldung.com/maven-wrapper), [2](https://github.com/takari/maven-wrapper)
+
+```bash
+mvn -N io.takari:maven:wrapper -Dmaven=3.6.1
+```
+
+
+## version 使用变量
+
+《[Maven CI Friendly Versions](https://maven.apache.org/maven-ci-friendly.html)》
+从 Maven 3.5.0-beta-1 开始，可以使用 `${revision}`, `${sha1}`, `${changelist}` 作为 version 的占位符。
+但同时还需要使用 [flatten-maven-plugin](https://www.mojohaus.org/flatten-maven-plugin/usage.html)，
+否则，deploy 之后的 pom.xml 中 的version 仍然是占位符，别的工程就无法使用该pom了，使用的时候报错.
+
+使用 flatten-maven-plugin 之后，就可以发布正确的 pom.xml。
+
+```xml
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>flatten-maven-plugin</artifactId>
+      <version>1.1.0</version>
+      <configuration>
+        <updatePomFile>true</updatePomFile>
+        <flattenMode>resolveCiFriendliesOnly</flattenMode>
+      </configuration>
+      <executions>
+        <execution>
+          <id>flatten</id>
+          <phase>process-resources</phase>
+          <goals>
+            <goal>flatten</goal>
+          </goals>
+        </execution>
+        <execution>
+          <id>flatten.clean</id>
+          <phase>clean</phase>
+          <goals>
+            <goal>clean</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+```
+
+## maven-dependency-plugin
+
+
+```bash
+# 清除本地缓存
+mvn dependency:purge-local-repository  -DsnapshotsOnly=true
+```
 
 
 
@@ -471,3 +544,11 @@ daemon.xml
 </assembly>
 ```
 
+# plugins
+
+# Dependency-Check
+[Dependency-Check](https://jeremylong.github.io/DependencyCheck/dependency-check-maven/index.html) 主要用于检查 OWASP 中的风险依赖
+
+```bash
+mvn org.owasp:dependency-check-maven:5.0.0-M3:check
+```

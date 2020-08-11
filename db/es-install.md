@@ -164,7 +164,7 @@ curl -XPUT 'localhost:9200/testIndex?pretty'  # 创建测试索引，之后再�
 
 
 # ES安装目录文件说明
-按照[这里](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup-repositories.html)安装之后，
+按照 [这里](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup-repositories.html) 安装之后，
 其es的文件目录为：
 * /etc/elasticsearch   -- 即为es的config目录，里面包括：elasticsearch.yml   logging.yml
 * /usr/share/elasticsearch -- es的安装目录
@@ -178,7 +178,7 @@ curl -XPUT 'localhost:9200/testIndex?pretty'  # 创建测试索引，之后再�
 
 ###  解压ZIP文件
 解压文件elasticsearch-analysis-ik-master.zip，进入下载目录，执行命令：
-```java
+```sh
     unzip elasticsearch-analysis-ik-master.zip
 ```
 
@@ -187,7 +187,7 @@ curl -XPUT 'localhost:9200/testIndex?pretty'  # 创建测试索引，之后再�
 
 ###  打包
 因为是源代码，此处需要使用maven打包，进入解压文件夹中，执行命令：
-```java
+```sh
     mvn clean package
 ```
 ### 复制jar
@@ -197,7 +197,7 @@ curl -XPUT 'localhost:9200/testIndex?pretty'  # 创建测试索引，之后再�
 
 ### 修改elasticsearch.yml配置
 在elasticsearch.yml的最后添加
-```java
+```yaml
     index:
       analysis:
         analyzer:
@@ -212,20 +212,29 @@ curl -XPUT 'localhost:9200/testIndex?pretty'  # 创建测试索引，之后再�
               use_smart: true
 ```
 或者
-```java
+```yaml
 index.analysis.analyzer.ik.type : "ik"
 ```
 
 ### 重启ES
-```java
+```sh
 sudo service elasticsearch restart
 sudo service elasticsearch status
 ```
 
 ### 验证
 执行
-```java
+```sh
     curl -XPOST  "http://localhost:9200/${index}/_analyze?analyzer=ik&pretty=true&text=我是中国人"
 ```
 验证结果是否正确。
 注意：必须先创建索引，才能验证。
+
+
+### 迁移工具
+
+- [hubrick/elasticsearch-migration](https://github.com/hubrick/elasticsearch-migration)
+- [elasticsearch-evolution](https://freesoft.dev/program/165997095)
+
+
+

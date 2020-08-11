@@ -5,7 +5,7 @@
 grep -v "xxx\|yyy"
 find /data0/work/git-repo/github/btpka3/btpka3.github.com -type d \
     | grep -v 'node_modules\|bower_components\|jspm_packages\|target\|/.git\|/.gradle\|/build\|/.idea\|/site-packages' \
-    | less 
+    | less
 ```
 
 ## zipgrep
@@ -232,7 +232,9 @@ echo "\""
 echo "'"
 
 # 输出一串单双引号
-echo '"'"'"'"'
+echo '"'"'"'"'      # "'"
+echo $'"\'"'        # "'"
+
 
 # 引号内输出 awk
 echo 'ls -l | awk -F"|" '"'"'{ if($5>10000) print $0}'"'"
@@ -318,7 +320,7 @@ funcResult=$(myFunc zhang3)
 
 # -- 迭代参数
 aaa(){
-    for i in "$@"; do 
+    for i in "$@"; do
         echo === $i
     done
 }
@@ -343,6 +345,9 @@ ll -h --time=atime --full-time -rt core*
     # mtime : 最后修改时间（仅限文件内容）
     # ctime : 最后修改时间（含文件内容和其他元信息——比如权限等）
     # atime : 最后读取时间
+
+# 按照文件大小
+ll -S
 ```
 
 ## pipe
@@ -372,8 +377,8 @@ ps -ww -fp $PID # 打印完整命令行参数
 split -a 2 -b 10m file.tar.gz  newFilePrefix.
 
 # 合并
-cat newFilePrefix.* > singleFile 
-``` 
+cat newFilePrefix.* > singleFile
+```
 
 ### zip
 ```bash
@@ -384,6 +389,11 @@ cat newFilePrefix.* > singleFile
 
   # 分割
   tar -czvf - logs/ |split -b 1m - logs.tar.gz.
+
+  # 只解压出其中一个文件
+  unzip -j xxx.jar "eventDict.vm" -d .
+  zip -d file.zip "to/be/deteted/in/zipfile1" "to/be/deteted/in/zipfile2"
+  zip -r file.zip file1 file2 ...
 ```
 ### add
 ```bash
@@ -398,7 +408,7 @@ cat newFilePrefix.* > singleFile
 ```
 ### delete
 ```bash
-  zip -d file.zip file1 file2 ...
+  zip -d  file.zip file1 file2 ...
   tar -f file.tar --delete file1 file2 ...
 ```
 ### list
@@ -424,12 +434,38 @@ cat newFilePrefix.* > singleFile
   # 解压分割的多个文件
   cat newFilePrefix.* | tar -xzvf -C outputDir
 ```
+#### 解压特定的文件
+
+```bash
+unzip -j "myarchive.zip" "in/archive/file.txt" -d "/path/to/unzip/to"
+```
+
 #### list specific file/dir
 ```bash
   unzip file.zip entry/path/to/dir/*
   unzip file.zip entry/path/to/file
   unzip -p file.zip entry/path/to/file > newFile
+  gunzip -d xxx.gz
 ```
+
+#### 修改 压缩包中的 entry 路径
+```bash
+zipnote -w xxx.zip << EOF
+@ path/of/old/entry
+@=path/of/new/entry
+EOF
+
+zipnote -w commons-io-2.6.jar << EOF
+@ SymQuickMenu_501.log
+@=META-INF/SymQuickMenu_501.log
+xxxx dfdfdf dff
+@ (comment above this line)
+EOF
+
+```
+
+
+
 
 ### File Search
 ```bash
@@ -456,8 +492,12 @@ cat newFilePrefix.* > singleFile
 
   # 统计当前目录下目录的数量（不含隐藏目录和当前目录本身）
   find $PWD -maxdepth 1 -type d  ! \( -path '*/\.*' -o -path $PWD \)
+```
 
-
+### split
+```bash
+# 后缀长度2，按行分割，每个文件40000行，源文件 aaa.txt ，前缀 "aaa.txt."
+split -a 2 -l 40000 aaa.txt aaa.txt.
 ```
 
 
@@ -559,7 +599,7 @@ echo $DIR
 # 因为 docker 环境中，更多的是使用 sh，而非 bash，所以参考以下
 # 参考 ： https://stackoverflow.com/a/1638397/533317
 # bash, sh, ksh:
-#!/bin/bash 
+#!/bin/bash
 # Absolute path to this script, e.g. /home/user/bin/foo.sh
 SCRIPT=$(readlink -f "$0")
 # Absolute path this script is in, thus /home/user/bin
@@ -599,7 +639,7 @@ drwxr-xr-x  2 zll  wheel  68 Sep 26 10:21 a
 -rw-r--r--  1 zll  wheel   4 Sep 26 10:21 a.txt
 -rw-r--r--  1 zll  wheel   2 Sep 26 10:21 c.txt
 
-cat 
+cat
 a
 # 提取特定字段。注意不可使用cut命令——不支持多个空格作为一个分隔符。
 zll@mac-pro 333$ ll | awk '{print $5}'
@@ -611,24 +651,24 @@ zll@mac-pro 333$ ll | awk '{print $5}'
 68
 
 ## 计算文件总大小
-ls -l|awk 'BEGIN{sum=0} !/^d/{sum+=$5} END{print "total size is",sum}'    
+ls -l|awk 'BEGIN{sum=0} !/^d/{sum+=$5} END{print "total size is",sum}'
 
 
-## 行内 sum 
-echo 1 1 2 300 | awk '{sum=0;i=1; while(i<5){ sum+=$i; i++} avg=sum/4; print "avg/sum = ",avg,sum}' 
+## 行内 sum
+echo 1 1 2 300 | awk '{sum=0;i=1; while(i<5){ sum+=$i; i++} avg=sum/4; print "avg/sum = ",avg,sum}'
 
 ll | awk 'BEGIN {s=0} {print $5}'
 
 
 
 # 提取特定两个字段，做加法，并排序。
-cat <<EOF > /tmp/b 
+cat <<EOF > /tmp/b
 2018-08-06 15:29:00|1|aaa,A,EEE,R_101182,func1,1,0|2,19122
 2018-08-06 15:29:00|1|bbb,A,EEE,R_101182,func2,1,0|2,104802838
 2018-08-06 15:33:00|1|ccc,A,EEE,R_101182,func3,2,0|1,2893
 EOF
 
-cat /tmp/b | awk 'BEGIN{FS="|";avg=0} {split($4, a, ","); print $0 "@" a[2]/a[1]}' | sort -n -r -k 2 -t '@' |grep '@' 
+cat /tmp/b | awk 'BEGIN{FS="|";avg=0} {split($4, a, ","); print $0 "@" a[2]/a[1]}' | sort -n -r -k 2 -t '@' |grep '@'
 
 ```
 
@@ -647,6 +687,23 @@ Cmnd_Alias        CMDS = /path/to/your/script
 <username>  ALL=NOPASSWD: CMDS
 ```
 
+
+# encoding
+
+```bash
+# 以16进制显示文件内容
+xxd -p file | tr -d '\n'
+
+################ base64
+# 以 base64 显示文件内容
+base64 /path/to/file
+
+# base64 解码
+echo aGVsbG8gd29ybGR+Cg== |base64 -D
+
+############### JSON
+
+```
 
 # backup
 
@@ -710,8 +767,14 @@ EOF
 ncat -l 2000 -k -c 'xargs -n1 echo'
 ```
 
+# cut
 
+```bash
+# 截取 10~20 个字节
+cut -b 10-20 xxx.txt
+```
 # sed
+
 ## 大文件中查找并截取上下文
 
 ```

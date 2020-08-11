@@ -37,10 +37,10 @@ EOF
 ```
 
 
-### 行内统计 
+### 行内统计
 
 ```bash
-cat <<EOF | 
+cat <<EOF |
 aa 11 bb
 bb
 33 ee ff 88
@@ -55,7 +55,7 @@ awk '
     while (match(s, /([[:digit:]]+)/, sArr)) {
         numberCount++ ;
         numArr[numberCount]=sArr[1];
-        
+
         s=substr(s, sArr[1, "start"]+sArr[1, "length"]);
     }
     for(i in numArr){
@@ -76,7 +76,7 @@ awk '
 [Using Bracket Expressions](https://www.gnu.org/software/gawk/manual/html_node/Bracket-Expressions.html#Bracket-Expressions)
 
 ```bash
-cat <<EOF | 
+cat <<EOF |
 中华1A18912XDFUDTTSLVP48EC人民
   1A18927UAEB74UQOOW0AUD
 22 1A18912XDFUDTTSLVP48EC 1A18912YD4KDTTN4NEHKZO ddd
@@ -91,4 +91,20 @@ awk --re-interval '
 }
 '
 ```
- 
+
+
+### 截取
+
+
+
+```bash
+
+cat <<EOF |
+2020-03-20 14:48:41,166 [http-bio-7001-exec-15] WARN  c.a.s.t.a.c.a.UserDetailServiceImpl - user not found : 111
+2020-03-20 14:50:14,165 [http-bio-7001-exec-19] WARN  c.a.s.t.a.c.a.UserDetailServiceImpl - user not found : 222
+2020-03-20 14:51:48,487 [http-bio-7001-exec-4] WARN  c.a.s.t.a.c.a.UserDetailServiceImpl - user not found : 222
+2020-03-20 14:53:22,138 [http-bio-7001-exec-61] WARN  c.a.s.t.a.c.a.UserDetailServiceImpl - user not found : 333
+EOF
+awk 'match($0, /.*user not found : (.*)/, arr) {print arr[1]}' | sort | uniq
+```
+

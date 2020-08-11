@@ -12,3 +12,17 @@ MsgBox "xxx", vbOKOnly + vbInformation, "智能Excel"
 
 ## 选择文件
 
+
+
+
+## function
+
+- IF
+- SUMIF、SUMIFS
+- COUNTIF、COUNTIFS
+- VLOOKUP
+- LOOKUP
+- INDEX+MATCH 
+- TEXT+MID
+- SUMPRODUCT+COUNTIF 
+- DATEDIF

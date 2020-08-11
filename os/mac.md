@@ -29,6 +29,15 @@ sudo chown -R $USER /usr/local
 
 echo source \~/.bashrc >> ~/.bashr_profile
 ```
+
+## 升级bash
+
+```bash
+brew install bash
+# 然后修改 Terminal 配置: shell : Startup : Run command : /usr/local/bin/bash
+# 但不要勾选 Run inside shell
+```
+
 ## bash_profile
 
 ```bash
@@ -79,7 +88,7 @@ Command + ->                    : End  键
 Command + tab                   : 在不同应用之间循环切换窗口
 Command + `                     : 在同一个应用之间循环切换窗口
 CtrL + A                        : Home 键
-Ctrl + E                        : End 键             
+Ctrl + E                        : End 键
 Ctrl + K                        : 从行首删除到光标, 并将删除的内容复制到 kill buffer
 Ctrl + Y                        : 将 kill buffer 中的内容粘贴
 Ctrl + R                        : reverse search
@@ -138,7 +147,7 @@ lsof -n -i :8080                               # 获取哪些进程在使用（�
 # netstat 无法给出 PID, 可以使用以下命令替换
 lsof -iTCP -sTCP:LISTEN -n -P|grep 8080
 
-# 列出 PID=1111 下面所有监听的端口。 `-a` = AND 
+# 列出 PID=1111 下面所有监听的端口。 `-a` = AND
 lsof -iTCP -sTCP:LISTEN -n -P -a -p 1111
 
 
@@ -338,6 +347,30 @@ http://sdk.android-studio.org/
 
 
 /Users/zll/work/nfs/12/share /data1/samba/share/share
+
+
+## homebrew
+
+通过  [homebrew](https://brew.sh/) 已经安装 来安装 maven
+
+```sh
+# 检查并安装 homebrew
+brew --version
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+# 安装 最新的 maven
+brew info maven
+brew install maven
+brew list --versions maven
+mvn --version
+```
+如果上述安装过程中报错:  `xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun`, 则执行以下命令：
+
+```sh
+sudo xcode-select --install
+sudo xcode-select -switch /
+```
+
 
 
 ## node

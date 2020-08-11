@@ -1,4 +1,10 @@
 
+## 参考
+
+- [docker swarm](https://docs.docker.com/engine/reference/commandline/swarm/)
+
+
+
 ## Docker Swarm
 
 用以管理Docker集群. 将一群docker节点当做一个来操作。
@@ -211,16 +217,4 @@ docker service update --publish-add 80 my_web
 ```
 
 
-# docker stack
 
-docker stack 是方便使用 compose 文件管理和发布应用的一个子命令。
-
-```bash
-docker stack deploy --compose-file docker-swarm-sample-compose.yml my-stack
-docker stack ls
-docker stack ps my-stack
-docker stack services my-stack
-
-docker service ls
-docker service ps my-stack_my-nginx
-```

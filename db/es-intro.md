@@ -9,8 +9,42 @@
 * ??? http://blog.csdn.net/laigood/article/details/8733292
 
 
+### 常用命令
+
+检查版本
+
+```sh
+curl "http://localhost:9200/"
+```
+
+结果
+```json
+{
+  "name" : "master-11.141.141.26-9200",
+  "cluster_name" : "c5_zb",
+  "cluster_uuid" : "xxx",
+  "version" : {
+    "number" : "6.2.3",
+    "build_hash" : "f9f17f5",
+    "build_date" : "2018-12-27T10:28:24.489530Z",
+    "build_snapshot" : true,
+    "lucene_version" : "7.2.1",
+    "minimum_wire_compatibility_version" : "5.6.0",
+    "minimum_index_compatibility_version" : "5.0.0"
+  },
+  "tagline" : "You Know, for Search"
+}
+```
 
 # index
+
+## 列表
+
+```sh
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-indices.html
+curl -XPUT 'http://localhost:9200/_cat/indices'
+#
+```
 
 ## 创建索引
 

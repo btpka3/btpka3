@@ -1,6 +1,16 @@
 
 
-# docker stack
+## 说明
+
+docker stack 是一组服务的组合，跟 docker-compose 使用的配置文件比较类似。
+方便使用 compose 文件管理和发布应用。
+
+## 参考
+
+- [docker stack](https://docs.docker.com/engine/reference/commandline/stack/)
+- [Compose file version 3 reference](https://docs.docker.com/compose/compose-file/)
+
+## docker stack
 
 ```bash
 docker stack ls
@@ -16,4 +26,17 @@ docker stack rm yourStackName
         # 删除一个 stack
 
 docker stack service yourStackName
+```
+
+
+# docker stack
+
+docker stack 是方便使用 compose 文件管理和发布应用的一个子命令。
+
+```bash
+docker stack deploy --compose-file docker-swarm-sample-compose.yml my-stack
+docker stack ls
+docker stack ps my-stack
+docker stack services my-stack
+
 ```

@@ -2,8 +2,94 @@
 [gradle](http://gradle.org/)
 
 
+# maven -> gradle
+
+```bash
+# 先通过 sdkman 安装 gradle （一次性）
+sdk install gradle 6.2.2
+
+# 项目级别：安装 gralde wrapper
+gradle wrapper --gradle-version 6.2.2 --distribution-type all
+
+# 修改 .gitignore , 确保 忽略 .gralde 目录
+```
 
 
+# SCOPE
+
+- [Maven Scopes and Gradle Configurations Explained](https://reflectoring.io/maven-scopes-gradle-configurations/#api)
+- [The Java Library Plugin](https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_configurations_graph)
+- [java pluign](https://docs.gradle.org/current/userguide/java_plugin.html#java_plugin)
+- [Automatically align Dependencies with Platforms and Gradle Module Metadata](https://blog.gradle.org/alignment-with-gradle-module-metadata)
+- [Fixing metadata with component metadata rules](https://docs.gradle.org/current/userguide/component_metadata_rules.html)
+
+
+假设我们要开发 java 库：
+- my-lib-api      : 不经常变动的 API 层（包含 interface 和相关 出参、入参定义
+- my-lib-api-http : 通过 HTTP 调用的相关实现和封装
+- my-lib-api-mq   : 通过 message queue 调用的相关实现和封装
+- my-lib-client   : 业务方直接调用，封装了对 API 的调用。
+
+
+假设我们使用 gradle 的 java-library 插件，开发二方包给 别人使用, 声明了以下依赖：
+开发 my-lib-client 时配置以下依赖：
+
+
+
+- api
+    - 当前gradle工程中，编译，运行时均可用。但第三方使用的时候，也是编译、运行时均可用
+      注意：只有当使用了 gradle java-library 插件的时候，才可以使用。
+    - 示例依赖 : `org.slf4j:slf4j-api:1.7.30`
+    - 在自身 java 工程中 等同的 Maven scope: compile
+    - 他人通过 Maven 使用 : 使用生成 的 pom.xml 中的 scope : compile
+    - 说明： 业务方将编译时也可以使用 slf4j-api 相关API
+
+- implementation
+    - 当前gradle工程中，编译，运行时均可用。但第三方使用的时候，只有运行时可用
+    - 示例依赖 : `net.logstash.logback:logstash-logback-encoder:6.3`
+    - 在自身 java 工程中 等同的 Maven scope: compile
+    - 生成 的 pom.xml 中的 scope : runtime
+    - 说明：我们的 my-lib-client 内部使用的内部的打印日志的用的， 如果业务方运行时使用 logback，
+      则可以通过配置，打印 JOSN 日志，但如果业务方不使用 logback, 而使用了 log4j ，
+      则可以使用另外的配置文件 打印普通的 日志文件
+
+- compileOnly
+    - 示例依赖 : `org.projectlombok:lombok:1.18.12`
+    - 在自身 java 工程中 等同的 Maven scope: compile , 但仅仅在编译可用
+    - 生成 的 pom.xml 中的 scope : 就没有该依赖
+    - 说明： 运行时没有依赖，也不会打包到 war 包中
+
+- annotationProcessor
+    - 编译时，要使用 annotation Processor，
+    - 示例依赖 : `org.projectlombok:lombok:1.18.12`
+    - 在自身 java 工程中 等同的 Maven scope: 无
+    - 说明： 与 `compileOnly` 不冲突，一般情况下，lombok 要同时使用 compileOnly/annotationProcessor 各声明一次。
+
+- runtimeOnly
+    - 示例依赖 : `com.aliyun.openservices:aliyun-log-logback-appender:0.1.15`
+    - 在自身 java 工程中 等同的 Maven scope: runtime
+    - 生成 的 pom.xml 中的 scope : 就没有该依赖
+    - 说明：阿里云 SLS logback appender 扩展，无需代码依赖，只需运行时 修改 logback.xml 配置文件。
+
+- testImplementation
+    - 示例依赖 : `org.mockito:mockito-core:3.3.3`
+    - 在自身 java 工程中 等同的 Maven scope: test
+    - 生成 的 pom.xml 中的 scope : test
+    - 说明：FIXME: 为何暴露到生成的 POM 中了？
+
+- testCompileOnly
+    - 作用： 仅仅 `src/test/java` 可以编译依赖，单测运行时不可用
+    - 示例依赖 : 无
+    - 在自身 java 工程中 等同的 Maven scope: 无，
+    - 生成 的 pom.xml 中的 scope : 就没有该依赖
+    - 说明：无
+
+- testRuntimeOnly
+    - 作用： 仅仅单测运行时可用
+    - 示例依赖 : 无
+    - 在自身 java 工程中 等同的 Maven scope: 无，
+    - 生成 的 pom.xml 中的 scope : 就没有该依赖
+    - 说明：无
 
 
 
@@ -99,16 +185,16 @@ org.gradle.groovy.scripts.BasicScript
                     // DefaultServiceRegistry#getServiceProvider()
                     // BuildScopeServices
         //                                                                  DefaultTaskContainer
-        //         4. this.parent                                      = ??? 
+        //         4. this.parent                                      = ???
 
         //          this. dynamicDelegate =new BeanDynamicObject(defaultProject, DefaultProject.class)
 
         // this.afterConvention = defaultProject.taskContainer.getTasksAsDynamicObject()
-        
+
     invokeMethod()
         // 再从当前 script 中获取
         // 最后从 DynamicObject——ProjectInternal 上获取
-        
+
 new ExtensibleDynamicObject(this,            Project.class, (Instantiator)this.services.get(Instantiator.class));
                             Object delegate, Class<?> publicType, Instantiator instantiator
 
@@ -121,7 +207,7 @@ public ExtensibleDynamicObject(Object delegate, AbstractDynamicObject dynamicDel
     }
 
 
-org.gradle.groovy.scripts.DefaultScript     
+org.gradle.groovy.scripts.DefaultScript
    定义了 mkdir， file，fileTree 等方法，
    但是这些方法都是代理了 fileOperations —— ProjectInternal 上的对应方法。
 
@@ -138,14 +224,14 @@ buildscript {
 }
 
 // DefaultProject#dependencies(Closure)
-// -> DependencyHandler DefaultProject#getDependencies() 
+// -> DependencyHandler DefaultProject#getDependencies()
 // -> 对 DependencyHandler 应用 Closure
-dependencies {  
+dependencies {
 
     // DefaultDependencyHandler#invokeMethod()
     // -> DefaultDependencyHandler#configurationContainer.findByName(name)
     // -> DefaultDependencyHandler#doAdd(Configuration, dependencyNotation, Closure)
-    compile ""  
+    compile ""
 }
 
 // Project#task(Map<String, ?> args, String name, Closure configureClosure);
@@ -266,12 +352,12 @@ task aaaa(type:Tar){
   println "Hello"
 }
 
-通过在 
+通过在
     `groovy.lang.Script`、
     `org.gradle.groovy.scripts.BasicScript`、
     `org.gradle.api.internal.plugins.DefaultConvention.ExtensionsDynamicObject`
-的 
-    `getProperty()`、 
+的
+    `getProperty()`、
     `invokeMethod()`
 等方法上打条件断点，均未发现有以 "aaaa" 作为名称调用的。
 而且从调用堆栈上看，该是从自动生成的Script类就直接调用 task 方法的。
@@ -299,7 +385,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             artifacts.clear()
-            
+
             // 方式1： 完全使用手写的 pom.xml
             pom.withXml(){
                 asString().setLength(0)
@@ -374,7 +460,7 @@ uploadArchives {
                 authentication(userName: "admin", password: "admin123")
             }
             snapshotRepository(url: 'http://localhost:8081/nexus/content/repositories/snapshots') {
-                authentication(userName: 'admin', password: 'admin123');  
+                authentication(userName: 'admin', password: 'admin123');
             }
              //pom.version = "1.0-SNAPSHOT"
              //pom.artifactId = "simple-project"
@@ -454,17 +540,17 @@ task myTar(type: Tar) {
 参考：[1](http://depressiverobot.com/2016/02/05/intellij-path.html)
 
 ```bash
-# FIXME 发现 gradle 在 idea IntelliJ 中 不能找到 node， npm 等命令 
+# FIXME 发现 gradle 在 idea IntelliJ 中 不能找到 node， npm 等命令
 
 sudo launchctl config user path /usr/bin:/bin:/usr/sbin:/sbin
 
 # 以下命令虽然可以，但需要重启，只能以当前环境变量为基准，之后一直不变，仍然不够灵活
 sudo launchctl config user path $PATH
 
-# 修改 
+# 修改
 ```
 
-## upload 
+## upload
 
 ```groovy
 apply plugin: 'distribution'
@@ -638,19 +724,19 @@ task execute(type:JavaExec) {
 ################################### application plugin
 # gradle run -Dexec.args="arg1 arg2 arg3"
 mainClassName =  System.properties['mainClass']
-run {    
+run {
     /* Can pass all the properties: */
     systemProperties System.getProperties()
 
     /* Need to split the space-delimited value in the exec.args */
-    args System.getProperty("exec.args").split()    
+    args System.getProperty("exec.args").split()
 }
 
 ################################### spring-boot plugin
 // gradle bootRun -DmainClass=me.test.Example -Dexec.args="arg1 arg2 arg3"
 springBoot {
     mainClass = System.properties['mainClass']
-    args System.getProperty("exec.args").split() 
+    args System.getProperty("exec.args").split()
 }
 ```
 
@@ -658,7 +744,7 @@ springBoot {
 
 ```
 gradle init --type groovy-library
-gradle wrapper --gradle-version 3.2.1
+gradle wrapper --gradle-version 6.2.2 --distribution-type all
 ```
 
 ## init script

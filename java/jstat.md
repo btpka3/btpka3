@@ -10,6 +10,8 @@
 # 查看 man 手册
 man jstat
 
+jstat -gcutil 232683 1s
+
 jstat -help
 Usage: jstat -help|-options
        jstat -<option> [-t] [-h<lines>] <vmid> [<interval> [<count>]]
@@ -60,19 +62,19 @@ jstat -gcutil 17402 1000 5
 
 
 :<<EOF
-S0  — Survivor space 0 区已使用空间的百分比
-S1  — Survivor space 1 区已使用空间的百分比
-E   — Eden space 区已使用空间的百分比
-O   — Old space 区已使用空间的百分比
-P   — Perm space 区已使用空间的百分比
-M   — 
-YGC — Young GC 次数
-YGCT– Young GC 耗时(单位：秒)
-FGC — Full GC 次数
-FGCT– Full GC 耗时(单位：秒)
-GCT — GC 总耗时(单位：秒)
+S0      — Survivor space 0 区已使用空间的百分比
+S1      — Survivor space 1 区已使用空间的百分比
+E       — Eden space 区已使用空间的百分比
+O       — Old space 区已使用空间的百分比
+P       — Perm space 区已使用空间的百分比
+M       — Meta space 区已使用空间的百分比
+CCS     -
+YGC     — Young GC 次数
+YGCT    – Young GC 耗时(单位：秒)
+FGC     — Full GC 次数
+FGCT    – Full GC 耗时(单位：秒)
+GCT     — GC 总耗时(单位：秒)
 EOF
-
 ```
 
 
@@ -122,23 +124,23 @@ jstat -gc 17402 1000 5
 14848.0 20992.0 14818.5  0.0   365568.0 162229.1  124928.0   62881.5   67840.0 66434.5 8704.0 8332.8     32    0.489   3      0.445    0.934
 
 :<<EOF
-S0C - Survivor space 0 当前容量（单位:kB)
-S1C - Survivor space 1 当前容量（单位:kB)
-S0U - Survivor space 0 已用量（单位:kB)
-S1U - Survivor space 1 已用量（单位:kB)
-EC  - Eden space 当前容量（单位:kB)
-EU  - Eden space 已用容量（单位:kB)
-OC  - old space 当前容量（单位:kB)
-OU  - old space 已用量（单位:kB)
-MC  - Metaspace 当前容量（单位:kB)
-MU  - Metaspace 已用量（单位:kB)
-CCSC- 压缩的 class space 当前容量（单位:kB)
-CCSU- 压缩的 class space 已用量（单位:kB)
-YGC - Young GC 次数
-YGCT- Young GC 耗时(单位：秒)
-FGC — Full GC 次数
-FGCT– Full GC 耗时(单位：秒)
-GCT — GC 总耗时(单位：秒)
+S0C     - Survivor space 0 当前容量（单位:kB)  : 14.5M
+S1C     - Survivor space 1 当前容量（单位:kB)  : 20.5M
+S0U     - Survivor space 0 已用量（单位:kB)    : 14.5M
+S1U     - Survivor space 1 已用量（单位:kB)    : 0M
+EC      - Eden space 当前容量（单位:kB)        : 257M
+EU      - Eden space 已用容量（单位:kB)        : 158M
+OC      - old space 当前容量（单位:kB)         : 122M    
+OU      - old space 已用量（单位:kB)           : 61M
+MC      - Metaspace 当前容量（单位:kB)         : 66M
+MU      - Metaspace 已用量（单位:kB)           : 65M
+CCSC    - 压缩的 class space 当前容量（单位:kB) : 8.5M
+CCSU    - 压缩的 class space 已用量（单位:kB)   : 8.1M
+YGC     - Young GC 次数                       : 32
+YGCT    - Young GC 耗时(单位：秒)              : 0.489秒
+FGC     — Full GC 次数                        : 3
+FGCT    – Full GC 耗时(单位：秒)               : 0.445秒
+GCT     — GC 总耗时(单位：秒)                  : 0.934秒
 EOF
 ```
 

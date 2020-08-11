@@ -25,6 +25,146 @@ export CATALINA_OPTS=" \
 "
 ```
 
+
+
+# gc.log
+https://www.jianshu.com/p/f3fd1664f1ee
+https://gceasy.io
+
+
+```log
+2019-09-25T21:02:42.694+0800: 24177.014: [GC (CMS Initial Mark) [1 CMS-initial-mark: 1154995K(3145728K)] 1154999K(5068160K), 0.0155211 secs] [Times: user=0.04 sys=0.00, real=0.02 secs]
+2019-09-25T21:02:42.694+0800:           - 时间戳
+24177.014:                              - 系统启动了多久：秒
+[
+    GC (CMS Initial Mark)                       - GC 的类型：这里所以普通的GC
+    [1 CMS-initial-mark: 1154995K(3145728K)]
+    1154999K(5068160K),
+    0.0155211 secs
+]
+[Times: user=0.04 sys=0.00, real=0.02 secs]
+
+
+
+2019-09-25T21:02:50.101+0800: 24184.420: [Full GC (Metadata GC Threshold) 2019-09-25T21:02:50.101+0800: 24184.421: [CMS: 1154695K->1150957K(3145728K), 6.0090228 secs] 1161142K->1150957K(5068160K), [Metaspace: 365946K->365946K(1396736K)], 6.0103135 secs] [Times: user=6.02 sys=0.01, real=6.01 secs]
+
+2019-09-25T21:02:50.101+0800:
+24184.420:
+[
+    Full GC (Metadata GC Threshold)
+    2019-09-25T21:02:50.101+0800:
+    24184.421:
+    [
+        CMS: 1154695K->1150957K(3145728K),
+        6.0090228 secs
+    ]
+    1161142K->1150957K(5068160K),
+    [Metaspace: 365946K->365946K(1396736K)],
+    6.0103135 secs
+]
+[Times: user=6.02 sys=0.01, real=6.01 secs]
+
+
+
+2019-09-25T21:02:50.101+0800:           - GC 发生的事件
+24184.420:                              -
+[Full GC (Metadata GC Threshold)        - GC 的类型 "Full GC"/"GC"
+2019-09-25T21:02:50.101+0800:           -
+24184.421:                              -
+[CMS: 1154695K->1150957K(3145728K),     -
+6.0090228 secs]                         -
+1161142K->1150957K(5068160K),           -
+[Metaspace: 365946K->365946K(1396736K)], 6.0103135 secs]
+[Times: user=6.02 sys=0.01, real=6.01 secs]
+
+
+
+
+
+
+
+
+2019-09-25T21:35:53.802+0800: 18.264: [GC (CMS Initial Mark) [1 CMS-initial-mark: 0K(3145728K)] 359792K(5068160K), 0.1296917 secs] [Times: user=0.39 sys=0.00, real=0.13 secs]
+2019-09-25T21:35:53.932+0800: 18.394: [CMS-concurrent-mark-start]
+2019-09-25T21:35:53.960+0800: 18.422: [CMS-concurrent-mark: 0.028/0.028 secs] [Times: user=0.05 sys=0.01, real=0.03 secs]
+2019-09-25T21:35:53.961+0800: 18.423: [CMS-concurrent-preclean-start]
+2019-09-25T21:35:53.971+0800: 18.433: [CMS-concurrent-preclean: 0.009/0.009 secs] [Times: user=0.03 sys=0.00, real=0.01 secs]
+2019-09-25T21:35:53.971+0800: 18.433: [CMS-concurrent-abortable-preclean-start]
+ CMS: abort preclean due to time 2019-09-25T21:35:59.051+0800: 23.513: [CMS-concurrent-abortable-preclean: 4.450/5.080 secs] [Times: user=17.54 sys=0.41, real=5.08 secs]
+2019-09-25T21:35:59.052+0800: 23.514: [GC (CMS Final Remark) [YG occupancy: 1595315 K (1922432 K)]2019-09-25T21:35:59.052+0800: 23.514: [Rescan (parallel) , 0.6223975 secs]2019-09-25T21:35:59.674+0800: 24.136: [weak refs processing, 0.0004851 secs]2019-09-25T21:35:59.675+0800: 24.137: [class unloading, 0.0550728 secs]2019-09-25T21:35:59.730+0800: 24.192: [scrub symbol table, 0.0230090 secs]2019-09-25T21:35:59.753+0800: 24.215: [scrub string table, 0.0019499 secs][1 CMS-remark: 0K(3145728K)] 1595315K(5068160K), 0.7074506 secs] [Times: user=2.51 sys=0.00, real=0.71 secs]
+2019-09-25T21:35:59.759+0800: 24.221: [CMS-concurrent-sweep-start]
+2019-09-25T21:35:59.759+0800: 24.221: [CMS-concurrent-sweep: 0.000/0.000 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+2019-09-25T21:35:59.759+0800: 24.221: [CMS-concurrent-reset-start]
+2019-09-25T21:35:59.865+0800: 24.327: [CMS-concurrent-reset: 0.097/0.105 secs] [Times: user=0.31 sys=0.06, real=0.10 secs]
+2019-09-25T21:36:01.561+0800: 26.023: [GC (Allocation Failure) 2019-09-25T21:36:01.561+0800: 26.023: [ParNew: 1846349K->100070K(1922432K), 0.2404085 secs] 1846349K->121628K(5068160K), 0.2405912 secs] [Times: user=0.55 sys=0.05, real=0.24 secs]
+2019-09-25T21:36:01.561+0800:
+26.023:
+[
+    GC (Allocation Failure)
+    2019-09-25T21:36:01.561+0800:
+    26.023:
+    [
+        ParNew:                                 - 垃圾回收器名称
+        1846349K->100070K(1922432K),
+        0.2404085 secs
+    ]
+    1846349K->121628K(5068160K),
+    0.2405912 secs
+]
+[Times: user=0.55 sys=0.05, real=0.24 secs]
+
+
+
+
+
+<1>
+
+2019-09-25T20:55:33.540+0800: 22334.178: [Full GC (Metadata GC Threshold) 2019-09-25T20:55:33.541+0800: 22334.179: [CMS: 1359073K->1359073K(3145728K), 5.3797478 secs] 1359075K->1359073K(5068160K), [Metaspace: 374491K->374491K(1396736K)], 5.3809142 secs] [Times: user=5.40 sys=0.00, real=5.38 secs]
+2019-09-25T20:55:33.540+0800:                   - GC 发生的时间
+22334.178:                                      - 相对系统启动的时间
+[
+    Full GC (Metadata GC Threshold)             - GC 的类型以及阶段
+                                                - Metadata GC Threshold : metaspace空间不能满足分配时触发，这个阶段不会清理软引用
+    2019-09-25T20:55:33.541+0800:
+    22334.179:
+    [
+        CMS:                                    - 垃圾回收器名称
+        1359073K->1359073K(3145728K),           - Old Generation  1.3G -> 1.3G (申请的内存 3G )
+        5.3797478 secs                          - 垃圾回收耗时
+    ]
+    1359075K->1359073K(5068160K),               - 堆内存：回收前1.30G -> 回收后1.30G(申请的内存4.83G)
+    [Metaspace: 374491K->374491K(1396736K)],    - metaspace大小: 回收前366M -> 回收后 366M (申请的内存1.33G)
+    5.3809142 secs
+]
+[Times: user=5.40 sys=0.00, real=5.38 secs]
+
+
+<2>
+2019-09-25T20:55:38.922+0800: 22339.560: [Full GC (Last ditch collection) 2019-09-25T20:55:38.922+0800: 22339.560: [CMS: 1359073K->1359073K(3145728K), 5.7560896 secs] 1359073K->1359073K(5068160K), [Metaspace: 374491K->374491K(1396736K)], 5.7572025 secs] [Times: user=5.77 sys=0.00, real=5.76 secs]
+2019-09-25T20:55:38.922+0800:
+22339.560:
+[
+    Full GC (Last ditch collection)             - GC 的类型以及阶段
+                                                - Last ditch collection : 经过Metadata GC Threshold触发的full gc
+                                                  后还是不能满足条件，这个时候会触发再一次 cause为
+                                                  Last ditch collection的full gc，这次full gc 会清理掉软引用
+    2019-09-25T20:55:38.922+0800:
+    22339.560:
+    [
+        CMS:                                    - 垃圾回收器名称
+        1359073K->1359073K(3145728K),           - Old Generation  1.3G -> 1.3G (申请的内存 3G )
+        5.7560896 secs                          - 垃圾回收耗时
+    ]
+    1359073K->1359073K(5068160K),               - 堆内存：回收前1.30G -> 回收后1.30G(申请的内存4.83G)
+    [Metaspace: 374491K->374491K(1396736K)],    - metaspace大小: 回收前366M -> 回收后 366M (申请的内存1.33G)
+    5.7572025 secs                              - 垃圾回收耗时
+]
+[Times: user=5.77 sys=0.00, real=5.76 secs]
+
+
+
+```
+
 # 远程debug
 
 ```bash
@@ -38,7 +178,7 @@ export CATALINA_OPTS=" \
 -Xnoagent -Djava.compiler=NONE -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=10014
 ```
 
-# 远程jvisualvm 
+# 远程jvisualvm
 
 ```bash
 java \
@@ -47,7 +187,7 @@ java \
     -Dcom.sun.management.jmxremote=true \
     -Dcom.sun.management.jmxremote.ssl=false \
     -Dcom.sun.managementote.ssl=false \
-    -Dcom.sun.management.jmxremote.authenticate=false 
+    -Dcom.sun.management.jmxremote.authenticate=false
     ...
 
 jvisualvm  # 连接 192.168.200.136:18888
@@ -90,16 +230,29 @@ http://publib.boulder.ibm.com/infocenter/realtime/v2r0/index.jsp?topic=%2Fcom.ib
 # jstack
 
 
+[show-busy-java-threads](https://raw.githubusercontent.com/oldratlee/useful-scripts/master/show-busy-java-threads)
 
-```bash
-jstack <pid>
-```
 Java 线程 CPU 100% 对应方法
 
-1. 通过 `top` 或者 `jps -mlv` 找到所需的 Java 进程的 pid1。
-1. 通过 `top -p pid1 -H` 观则得到最占 CPU 的线程的 pid2。.
-1. `jstack pid1 > cpu.log`
-1. `vi cpu.log` 并用 pid2 查找所需的线程堆栈，然后分析代码。
+```bash
+jstack pid
+
+# 找到所需的 Java 进程的 pid1。
+jps -mlv
+
+# 观则得到最占 CPU 的线程的 pid2。
+top -Hp pid1 -H                   # ps -Lp 15047  cu
+
+# 显示线程ID 的十六进制的值  xxx
+printf %x 212155
+
+# 导出 java 线程信息
+jstack pid1 > /tmp/cpu.log
+
+# 找出线程进行的上线文，并分析原因
+grep xxx -A 200 /tmp/cpu.log
+```
+
 
 
 
@@ -114,6 +267,7 @@ Java 线程 CPU 100% 对应方法
 ```bash
 jps -mlv
 ```
+
 
 
 ## jmap
@@ -132,6 +286,11 @@ jmap -dump:format=b,file=outfile.jmap.dump.hprof 3024
 Unable to open socket file: target process not responding or HotSpot VM not loaded
 The -F option can be used when the target process is not responding
 ```
+
+## show-busy-java-threads
+
+https://raw.githubusercontent.com/oldratlee/useful-scripts/master/show-busy-java-threads
+
 
 ## jconsole
 一个java GUI监视工具，可以以图表化的形式显示各种数据。并可通过远程连接监视远程的服务器VM。
@@ -173,7 +332,7 @@ java -Djavax.net.ssl.trustStore=/path/to/your.keystore\
 
 ```text
 Young Generation = Eden + Survivor * 2 。 // Suvivor named 'From', 'To'
-Old Generation 
+Old Generation
 
 - Young Generation 满了？From 中已经有数据了。触发 young generation collection /minor collection
     - From 中要保留的对象足够老？
@@ -202,47 +361,47 @@ Old Generation
 
 ### 分类
 
-- Serial Collector 
- 
+- Serial Collector
+
    单线程执行，stop-the-world, 对 Old generation，执行 mark-sweep-compact
    何时使用? Jvm运行在 client 模式，且对全局暂停时间不敏感。
    如果是 JDK5 且运行在 client 模式，会默认是该垃圾回收机制。
    可以通过 `-XX:+UseSerialGC` 手动启用。
 
 - Parallel Collector/throughput collector
-    
+
     多线程执行，仍然要 stop-the-world, 但是因为是多线程执行，可以大大缩小 全局冻结时间。
     可以避免在垃圾回收时，只有一个CPU在工作，其他CPU都处于空闲等待状态。
     何时使用？JVM 运行在多核CPU上，且对全局暂停时间不敏感。
     因为有可能全局暂停时间仍然会很长，也有可能会造成 old generation collection。
-    注意：该垃圾回收机制仅工作于 Yong generation. 
+    注意：该垃圾回收机制仅工作于 Yong generation.
     对于 Old generation，仍然使用 Serial Collector。
-    
+
     如果是 JDK5 且运行在 server 模式，则默认会使用该模式。
     可以通过 `-XX:+UseParallelGC` 手动启用。
-    
+
     ```text
     # Serial Collector
     ---->|            |---->
     ---->|===========>|---->
     ---->|            |---->
-  
+
     # Parallel Collector
     ---->|===>|---->
     ---->|===>|---->
     ---->|===>|---->
-    ```    
+    ```
 
 - Parallel Compacting Collector
- 
+
     同 `Parallel Collector` 的区别就是，该模式
     对于 Young generation, 其算法与 Parallel Collector 一致。
     对于 Old generation/Permanent generation : stop-the-world, 多线程执行。
-    
+
     - marking 阶段：多线程并发执行，将内存分成固定区块，标记其中要清除的对象
     - summary 阶段：单线程执行，按固定区块检查，找到一个分界点，一边是有很多存活对象的，一边是要清空的。
     - compaction 阶段：多线程执行，根据总结的信息，并发执行。
-    
+
     何时使用？运行在多核CPU上，且对全局冻结时间敏感。
     但不适用于共享虚拟机——即无法保障能独占CPU一段时间，这种情况，
     可以使用 `–XX:ParallelGCThreads=n` 来减少 GC 线程数，或选择其他垃圾回收器。
@@ -250,62 +409,62 @@ Old Generation
     可以通过 `-XX:+UseParallelOldGC` 手动启用。
 
 - Concurrent Mark-Sweep (CMS) Collector/low-latency collector
-    
+
     有时候，端到端的应用会更注重 响应时间，而非吞吐量。Young generation 的垃圾回收通常会造成较长时间的全局暂停。
     而 old generation 的垃圾回收也有可能会造成长时间全局暂停，特别是使用大 堆内存 时。
-    
+
     对于 Young generation, 其算法与 Parallel Collector 一致。
-    
+
     对于 Old generation : 大多能够与应用代码平行执行。
-    
+
     - initial mark 阶段： stop-the-world, 单线程执行，标记出应用代码可直接接触到的对象
       (Young generation 中可到达的对象)。
     - concurrent mark 阶段：与应用代码并行执行，单线程执行，递归标记出所有存活对象
      （根据对象树，遍历 Old generation 中的对象）。
       注意：此时应用在执行，initial mark 阶段的存活对象，有可能不再存活（floating garbage）；
-      也有可能向 old generation 新申请对象入住。  
+      也有可能向 old generation 新申请对象入住。
     - remark 阶段：stop-the-world, 并发执行。重新标记，防止新加入的存活对象。
       但不保证标记出所有可回收对象。
     - concurrent sweep 阶段：与应用代码并发执行，单线程执行，回收掉可回收的代码。
-    
+
     但是注意，该回收器是唯一没有 compact 的垃圾回收器，也就是说，内存会越来越碎。越来越没有连续的大块儿内存。
     该垃圾回收器需要大的 堆内存。因为在 marking 阶段，仍然要保证有空间可被用于申请内存。
     因此，该垃圾回收器并不会等到 内存满了才去执行。如果真的内存满了，就会回退到使用 stop-the-world
     mark-sweep-compact 垃圾回收的方式。
     可以通过 `–XX:CMSInitiatingOccupancyFraction=n` 指定 old generation 占用百分比来触发GC，该值默认是 68.
-    
+
     最后：为了应对内存碎片，该垃圾回收器会追踪常用对象尺寸，预估未来需求，必要时分割和合并空余内存块。
 
 - Garbage-First (G1) collector
- 
+
     JDK 1.7.4 之后支持。特性为：
-    
+
     - 与 CMS collector 一样，可以与 应用代码平行运行
     - 可以 对齐空闲内存，但无需全局暂停
     - GC 频次会更多
     - 不必大量牺牲吞吐率
     - 不需要太大的 Java Heap
-    
+
     相对于 CMS，G1的亮点是因为有了空闲内存 compacting, 所以不会有 内存碎片的问题。
-    
+
     之前的垃圾回收器是将固定内存分为如下区域，每个 generation 都是连续的内存块。
-    
+
     ![HEAP](http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/HeapStructure.png)
-    
+
     而 G1 则是分散的。
     ![G1 内存](http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide9.png)
-    
+
     G1 并不是实时的垃圾回收器。如果配置不合理，仍然有可能会触发 Full GC (stop-the-world, 单线程)
 
-    RSets（Remembered Sets）：一个 region 对应一个 RSet，用来追踪该区域内对象的引用。 
+    RSets（Remembered Sets）：一个 region 对应一个 RSet，用来追踪该区域内对象的引用。
     CSets（Collection Sets）：是一个要被 GC 的 region 的集合。 这些 region 类型不限（可能是 Eden, survivor, and/or old generation）。
-    
+
     如果已经在用  CMS 或 ParallelOldGC 垃圾回收器时，有以下现象的话，适合切换至 G1 ：
-    
+
     - Full GC 耗时太长，或太频繁
     - 新对象创建频率、数量变化很大。
-    - 出现意料之外的长时间GC，或全局暂停（超过 0.5s 甚至1s以上） 
-    
+    - 出现意料之外的长时间GC，或全局暂停（超过 0.5s 甚至1s以上）
+
 ## 内存管理
 是按照内存池进行管理。可能属于heap或non-heap。
 
@@ -322,7 +481,7 @@ Old Generation
 
 - Java heap space : 一般是配置错误，通过 `–Xmx` 增加堆内存上限
 - PermGen space ： 通过 `–XX:MaxPermSize=n` 增加内存
-- Requested array size exceeds VM limit 
+- Requested array size exceeds VM limit
 
 # JVM 参数
 
@@ -334,8 +493,8 @@ Old Generation
 -Xms256m        # 设置 heap 的初始大小
 -Xmx2G          # 设置 heap 的最大大小
 -Xnoclassgc     # 禁止针对 class 的 gc
--Xprof          # 
--Xrs            # 
+-Xprof          #
+-Xrs            #
 -Xshare:mode    # 设置 class data sharing (CDS) 模式 : auto/on/off
 -XshowSettings  #
 -XshowSettings:category     # all/locale/properties/vm
@@ -364,8 +523,8 @@ Old Generation
 -XX:MaxDirectMemorySize=size    # java.nio 可以使用的最大内存
 -XX:-MaxFDLimit                 # 禁止设置可打开文件的 soft limit 为 hard limit。默认是允许的。
 -XX:NativeMemoryTracking=mode   # off/summary/detail
--XX:ObjectAlignmentInBytes=alignment    # 
--XX:OnOutOfMemoryError=string 
+-XX:ObjectAlignmentInBytes=alignment    #
+-XX:OnOutOfMemoryError=string
 -XX:+PerfDataSaveToFile
 -XX:+PrintCommandLineFlags      #
 -XX:+PreserveFramePointer
@@ -391,14 +550,14 @@ Old Generation
     –XX:ParallelGCThreads=n     # 垃圾回收器线程数，默认为 CPU 核心数量
     -XX:GCTimeRatio=99          # 垃圾回收所花费时长， 计算公式为 1/(1+n)。 默认的99表达为GC时间不超过 1% 的 CPU 时间。
 –XX:+UseConcMarkSweepGC
-    –XX:+CMSIncrementalMode                 # 默认： 'Disabled'。 
-    –XX:+CMSIncrementalPacing               # 默认： 'Disabled'。 
+    –XX:+CMSIncrementalMode                 # 默认： 'Disabled'。
+    –XX:+CMSIncrementalPacing               # 默认： 'Disabled'。
     -XX:CMSIncrementalDutyCycle=n           #
     -XX:CMSIncrementalDutyCycleMin=n        #
     -XX:CMSIncrementalSafetyFactor=n        #
-    -XX:CMSIncrementalOffset=n              #         
-    -XX:CMSExpAvgFactor=n                   #  
-    –XX:ParallelGCThreads=n                 # 
+    -XX:CMSIncrementalOffset=n              #
+    -XX:CMSExpAvgFactor=n                   #
+    –XX:ParallelGCThreads=n                 #
     –XX:CMSInitiatingOccupancyFraction=68   #
 -XX:+UseG1GC
     -XX:G1HeapRegionSize=size       # 1M~32M
@@ -424,7 +583,7 @@ Old Generation
 
 -XX:ErrorFile=${CATALINA_HOME}/logs/hs_err_pid%p.log
 -XX:+HeapDumpOnOutOfMemoryError
--XX:HeapDumpPath=${CATALINA_HOME}/logs/start.at.$today.dump.hprof 
+-XX:HeapDumpPath=${CATALINA_HOME}/logs/start.at.$today.dump.hprof
 -XX:+PrintGCDateStamps
 -XX:+PrintGCDetails
 

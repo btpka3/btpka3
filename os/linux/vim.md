@@ -52,6 +52,12 @@ autocmd BufRead,BufNewFile my.cnf set syntax=dosini
 autocmd BufRead,BufNewFile build.gradle set syntax=groovy
 ```
 
+## 使用不同的编码重新加载文件
+
+```bash
+:e ++enc=gbk
+```
+
 ## Mac OS X 下的 plist文件着色
 
 彩色查看 `/Library/LaunchDaemons` 目录下文件
@@ -91,17 +97,72 @@ vi LargeFile.vba
 :w	                 Write buffer using unix (LF-only) line endings.
 ```
 
+删除行尾换行符
+
+```
+:set noendofline binary
+:w
+```
+
+十六进制编辑
+
+```
+:%!xxd
+```
+
+
 * 删除BOM头
 
 ```bash
 :set nobomb
 :wq
 ```
+## 查找
+
+```bash
+# see : https://blog.csdn.net/u014015972/article/details/50688837
+/+\d\+      # 查找 "+1", "+11"
+
+# https://vimhelp.org/pattern.txt.html#%2F%5C%25x
+/\%01       # 查找 ^A
+/\%02       # 查找 ^B
+```
+
+
 ## 全局替换
+- [Power of g](https://vim.fandom.com/wiki/Power_of_g)
 
 ```bash
 :%s/\t/    /g
+
+:g/^$/d         # 删除空行
+
 ```
+
+## 查找替换
+
+```bash
+:range s[ubstitute]/pattern/string/cgiI
+
+range
+    100     # 第100行
+    .       # 当前行
+    $       # 文件的最后一行
+    %       # 整个文件，与【1,$】相同
+‘t              # 标记t
+/pattern[/]     # pattern的下一个匹配行
+?pattern[?]     # pattern的上一个匹配行
+\/              # 最近一个搜索pattern的下一个匹配行
+\?              # 最近一个搜索pattern的上一个匹配行
+\&              # 最近一个替换pattern的下一个匹配行
+
+c 每次替换都要确认
+g 替换一行当中所有的匹配项（没有g只替换第一个匹配值，pingao注：注意与%区别）
+i 忽略大小写
+I 不忽略大小写
+
+```
+
 
 ## tab
 ```bash

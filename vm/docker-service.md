@@ -11,4 +11,6 @@ docker service ps                   # 列出给定服务的任务列表
 docker service rm                   # 删除一个或多个服务
 docker service scale                # 扩容或缩减一个服务的启动副本数
 docker service update               # 更新一个服务
+
+docker service ps my-stack_my-nginx
 ```

@@ -30,7 +30,7 @@ cp ~/.m2/repository/pinyin4j/pinyin4j/2.5.0/pinyin4j-2.5.0.jar /path/to/elastics
 
 # 启动 elasticsearch
 /path/to/elasticsearch-rtf/bin/elasticsearch
-
+「
 # 删除索引 (第一次不需要)
 curl -XDELETE 'http://localhost:9200/adc?pretty'
 

@@ -28,7 +28,7 @@ git config credential.helper 'store --file=<path>'
 
 
 # git lfs
-[git-lfs](brew install git-lfs) 
+[git-lfs](brew install git-lfs)
 
 ```bash
 brew install git-lfs
@@ -67,7 +67,7 @@ git config --global color.ui auto                 # git命令下会使用红色�
 #git config --global branch.autoSetupMerge always  # 在 "git pull" 时，总会自动 merge
 git config --global credential.helper cache       # 在 clone `https` 类型的URL时，可减少用户名密码输入次数
 git config --global core.quotepath false          # 在提交中文名称的文件时，不转义为 \350\256\256\346\200\273\347\273\223.xlsx
-git config --global core.ignorecase false         # 文件名区分大小写 
+git config --global core.ignorecase false         # 文件名区分大小写
 git config --list
 
 
@@ -90,7 +90,7 @@ git push                       # 推送到远程
 需要配置 ssh 的相关代理配置
 
 ```bash
-# ~/.ssh/config  @ internal 
+# ~/.ssh/config  @ internal
 Host github.com
     User                    git
     ProxyCommand            ssh user@gateway.host /usr/bin/nc %h %p
@@ -272,6 +272,12 @@ git checkout -b new-branch-name
 git branch
 # 查看远程分支
 git branch -r
+# 查看当前分支名称
+git symbolic-ref --short HEAD
+git rev-parse --abbrev-ref HEAD
+
+git branch | grep \* | cut -d ' ' -f2
+
 # 查看所有分支（本地和远程）
 git branch -av
 git show-branch
@@ -287,7 +293,7 @@ git add merged-by-hand-file
 git commit
 
 # 将本地分支推送到远程其他分支
-git push <REMOTENAME> <LOCALBRANCHNAME>:<REMOTEBRANCHNAME> 
+git push <REMOTENAME> <LOCALBRANCHNAME>:<REMOTEBRANCHNAME>
 git push origin master:1.0.x
 
 # 删除分支(本地)
@@ -310,6 +316,10 @@ git rebase master
 
 git checkout master
 git merge 2.0.x         # 这种情形是可以 fast-forwad 的
+
+# 如果只想将差异的内容检出，但不提交可以使用 --no-commit --no-ff
+git merge v1.0 --no-commit --no-ff
+
 ```
 
 # 远程分支
@@ -336,6 +346,7 @@ git push origin :remoteBranch2
 ```bash
 # 取消对文件的修改
 git reset --hard HEAD
+git reset --hard origin/master
 
 # 删除本地未索引的文件
 git clean -fdx
@@ -364,6 +375,17 @@ git reflog
 git cherry-pick 12944d8
 ```
 
+# 清理本地空间
+删除untraced 文件
+
+```bash
+git clean -fd
+```
+# 检出特定commit 的文件
+
+```bash
+git restore <commit-id> *
+```
 
 
 # 单个文件

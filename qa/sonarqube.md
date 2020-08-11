@@ -8,10 +8,16 @@
 
 Idea 中安装 [SonarLint](http://www.sonarlint.org/intellij/index.html) 插件, 但仅限开发语言——Java，Js，PHP（不包括 Groovy）
 
+# docker 安装
+参考 [1](https://hub.docker.com/_/sonarqube/) 
 
 
+```bash
+docker container create 
+```
 
-# 安装
+
+# 普通安装
 [参考1](http://docs.codehaus.org/display/SONAR/Installing)
 虽然 SonarQube自己提供了[yum源](http://sonar-pkg.sourceforge.net/)   ，但是由于其是搭建在 sourceforge.net 上的。但是由于某些原因，sourceforge.net 在国内访问很不稳定，所以，不推荐yum安装（除非翻墙）。
 

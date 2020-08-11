@@ -9,6 +9,20 @@
 
 MacOS上，image的存储位置在 `~/Library/Containers/com.docker.docker/Data/`
 
+```sh
+# https://github.com/docker/for-mac/issues/371
+zll@m 0$ ls -lh ~/Library/Containers/com.docker.docker/Data/vms/0/Docker.qcow2
+-rw-r--r--@ 1 zll  staff    13G Jun 20 17:27 /Users/zll/Library/Containers/com.docker.docker/Data/vms/0/Docker.qcow2
+
+# 删除 不再运行的 容器
+docker rm -v $(docker ps -a -q -f status=exited)
+
+# 删除不再使用的，且文件很大的image
+docker images |sort -h -k 7
+```
+
+
+
 daocloud.io
 
 ```
@@ -25,7 +39,7 @@ see [here](https://askubuntu.com/questions/477551/how-can-i-use-docker-without-s
 sudo groupadd docker
 
 # 将当前用户加入到 `docker` 用户组
-#sudo gpasswd -a $USER docker    
+#sudo gpasswd -a $USER docker
 sudo usermod -aG docker $USER
 
 # test (可能需要重新登录或重启服务器)
@@ -36,8 +50,8 @@ docker run hello-world
 
 ```bash
 dockerd                  # 日志有如下警告
-WARNING: Your kernel does not support cgroup swap limit. 
-WARNING: Yourkernel does not support swap limit capabilities. 
+WARNING: Your kernel does not support cgroup swap limit.
+WARNING: Yourkernel does not support swap limit capabilities.
 Limitation discarded.
 
 sudo vi /etc/default/grub
@@ -62,11 +76,11 @@ docker run -it --rm alpine:3.5
 ```
 
 ## 安装 docker 4 linux
- 
+
 * [Get Docker for CentOS](https://docs.docker.com/engine/installation/linux/centos/)
 
 
- 
+
 ```bash
 ll /etc/yum.repos.d/
 
@@ -81,7 +95,7 @@ yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
-    
+
 yum-config-manager --disable docker-ce-edge
 
 yum makecache fast
@@ -95,8 +109,8 @@ yum install docker-ce-<VERSION>
 docker 默认会把镜像等保存在 /var/lib/docker 目录下，
 而阿里云环境的系统盘只有20G。因此不适合直接使用系统盘
 
-而 /etc/docker/daemon.json 的具体配置项需要参考 
-[dockerd 17.06](https://docs.docker.com/engine/reference/commandline/dockerd/) 
+而 /etc/docker/daemon.json 的具体配置项需要参考
+[dockerd 17.06](https://docs.docker.com/engine/reference/commandline/dockerd/)
 [dockerd 17.03](https://docs.docker.com/v17.03/engine/reference/commandline/dockerd/)
 命令：
 
@@ -149,7 +163,7 @@ sudo vi /etc/fstab
 
 ```bash
 
-after 17.06-ce 
+after 17.06-ce
 
 sudo mkdir -p /etc/docker
 
@@ -334,7 +348,7 @@ docker-machine ssh YOUR_VM_NAME
 
 ```bash
 
-docker system df            # 显示docker 磁盘使用情况，支持详细信息选项 
+docker system df            # 显示docker 磁盘使用情况，支持详细信息选项
 docker system events        # 从服务器获取Docker的实时事件信息，支持对事件进行过滤，指定时间戳，格式化等
 docker system info          # 显示系统级别的信息，支持格式化
 docker system prune         # 支持删除系统中没有使用的数据，包括：
@@ -393,7 +407,7 @@ docker stack services       # 展示stack下面对应的服务
 用以定义和运行多个 docker 容器的应用。
 
 参考：
-1.  《[Docker 1.13 编排能力进化](https://yq.aliyun.com/articles/55973)》 
+1.  《[Docker 1.13 编排能力进化](https://yq.aliyun.com/articles/55973)》
 1.  《[Docker 1.13 新特性 —— Docker系统相关](https://yq.aliyun.com/articles/71036)》
 1.  《[Docker 1.13 新特性 —— Docker服务编排相关](https://yq.aliyun.com/articles/71039)》
 1.  《[Docker 1.13 新特性 —— 网络相关](https://yq.aliyun.com/articles/70986)》
@@ -408,7 +422,7 @@ Docker Compose vs. Docker CLI
 |cross host machine | No                            |Yes                |
 |ignored directives |`deploy`                       |`build`            |
 
-总结： 
+总结：
 * docker compose ：作为单机测试，演示环境使用，可以从源码build成容器；
 * docker stack   ： 适合 服务器部署使用，且只支持从镜像部署
 
@@ -429,7 +443,7 @@ docker-compose build
 docker container prune
 
 ```
- 
+
 
 
 ## 创建自定义 image
@@ -453,7 +467,7 @@ docker images
 # 4. 运行
 docker run -d btpka3/my-img:1.0
 
-# 5. 创建最新版的链接 
+# 5. 创建最新版的链接
 docker tag a69f3f5e1a31 btpka3/my-img:latest
 
 # 6. 发布
@@ -613,7 +627,7 @@ exit
     ```
 
 
-## 安全   
+## 安全
 
 [一个回车键黑掉一台服务器——使用Docker时不要这么懒啊喂](http://www.jianshu.com/p/74aa4723111b)
 
@@ -752,7 +766,7 @@ docker search
 docker login
 docker push
 ```
- 
+
 
 ## 容器编排管理
 * 自己管理 Docker Daemon
@@ -801,7 +815,7 @@ docker push
 * 考虑对组织的不同成员授予Docker集群的不同操作权限
 
 
-## centos 
+## centos
 
 ```
 docker run -i -t  \
@@ -831,7 +845,7 @@ docker exec -it my-ubuntu bash
 
     see [here](https://github.com/moby/moby/issues/33603)
     and [Setting Semaphore Parameters](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/sect-Oracle_9i_and_10g_Tuning_Guide-Setting_Semaphores-Setting_Semaphore_Parameters.html)
-   
+
     ```bash
     # 检查 device mapper 情况
     dmsetup ls
@@ -840,15 +854,15 @@ docker exec -it my-ubuntu bash
     ipcs
     dmsetup udevcookies
     ipcs -ls
-    
+
     # 检查信号量相关设置
     cat /proc/sys/kernel/sem
     250 32000  32  128
-    
-    # （临时）修改 max number of arrays (128) 为更大的值 
+
+    # （临时）修改 max number of arrays (128) 为更大的值
     echo 250 32000  32  1024 > /proc/sys/kernel/sem
     # （持久）
-    echo "kernel.sem=250 32000 100 1024" >> /etc/sysctl.conf  
+    echo "kernel.sem=250 32000 100 1024" >> /etc/sysctl.conf
     ```
 
 

@@ -39,6 +39,33 @@ while(e.hasMoreElements())
 
 ```
 
+解析 json
+
+```groovy
+#!/usr/bin/env groovy
+
+//import groovy.json.*;
+
+def jsonStr = new File(args[0]).getText("UTF-8");
+
+def jsonSlurper = new groovy.json.JsonSlurper();
+
+def obj = jsonSlurper.parseText(jsonStr);
+
+def filterdList = obj?.data?."xxx"?.findAll {
+    it?.metric == "yyy"
+}
+if (filterdList) {
+    def userIdList = filterdList*.tags*.userId
+    if (userIdList) {
+        println new HashSet(userIdList);
+    }
+}
+```
+
+
+
+
 ## Design patterns in Groovy
 
 see [here](http://www.groovy-lang.org/design-patterns.html#_pimp_my_library_pattern)
