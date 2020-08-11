@@ -57,7 +57,7 @@ less -N ~/.bash_history
 chattr +a /home/bob/.bash_history
 
 # 查看免密登录
-less -N ~/.ssh/authorized_keys 
+less -N ~/.ssh/authorized_keys
 
 # ssh 登录日志
 less -N /var/log/secure
@@ -92,7 +92,7 @@ getent group <groupname> | cut -d: -f4 |  tr ',' '\n'
 visudo
 
 # 验证文件完整性
-rpm  -Va  
+rpm  -Va
 
 # 显示进程
 pidof sshd
@@ -165,7 +165,7 @@ internal.kingsilk.net 无法访问公网，打算通过代理服务器配置访�
 
     ```text
     Host gitlab.com
-        User                git 
+        User                git
         ProxyCommand        ssh proxy@gateway.kingsilk.net /usr/bin/nc %h %p
         IdentityFile        ~/.ssh/id_rsa
     ```
@@ -267,70 +267,7 @@ Host kingsilk
 Hostname git.kingsilk.xyz
 IdentityFile ~/.ssh/id_rsa
 User tpx
-
-Host github
-Hostname github.com
-IdentityFile ~/.ssh/id_rsa.github
-User tpx
-```
-
-
-# windows
-1. 安装 [git for windows](https://git-scm.com/download/win)
-1. 安装 [tortoisegit](https://tortoisegit.org/)
-1. 安装 [putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) 完整版，建议放到环境变量 PATH 下。
-1. 通过 'git Bash Here' 打开名控制他，运行 ssh-genken 生成相应的公钥，私钥（默认路径同linux，但个人目录为 `/c/Users/YouName`)
-1. 运行 puttygen, Convertions -> import key : 选择刚刚生成的私钥 -> File -> Save private key : 建议保存到 `~/.ssh/id_rsa.ppk`
-1. 找一个目录，鼠标右键，git clone, 选中 'Load putty key'并选择刚刚生成的 ppk文件，即可。
-
-# 使用公钥远程登录
-
-# 使用 ~/.ssh/config 简化登录
-
-示例内容如下：
-
-```
-Host newcrm.nalashop.com
-    User git
-    Port 2222
-    IdentityFile ~/.ssh/id_rsa
-```
-
-最后记得修改权限
-
-```
-chmod 600 ~/.ssh/*
-```
-
-
-# SSH HTTP proxy
-
-```
-ssh -D ${localSocketProxyPort} user@remoteSShServer
-# 然后浏览器配置一下使用 localhost，上面的端口即可
-```
-
-# SSH 隧道
-
-[参考](https://help.ubuntu.com/community/SSH_VPN/)
-
-
-## 场景举例
-
-|        |  `A@dev`       |  `B@prod`     | `C@prod`     |
-|--------|----------------|---------------|--------------|
-|Inet IP |-               |122.225.11.207 |              |
-|Lan IP  |192.168.101.222 |192.168.71.207 |192.168.71.80 |
-|service |Redis:6379      |               |MySql:3306    |
-
-* dev 为公司的开发环境，通过ADSL上网，没有固定公网IP
-* prod 为公司的线上环境，有固定的公网IP。
-* `A@dev` 只可以通过公网IP 122.225.22.222 SSH到 `B@prod`
-* `B@prod` 和 `C@prod` 位于同一个内网，可以相互ssh到，但都无法访问到 `A@dev`
-* `C@prod` 安装有MySql服务，端口是3306
-* `A@dev` 安装有Redis服务，端口是6379
-
-
+ControlMaster
 ## SSH 动态端口转发
 可通过本地特定端口，访问远程所有服务————即代理服务器。
 
@@ -338,6 +275,17 @@ ssh -D ${localSocketProxyPort} user@remoteSShServer
 # 在SSH client端执行 （如果想前台执行，则不要加 -f）
 ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort
 ```
+
+reuse session
+
+```sh
+# vi ~/.ssh/config
+ServerAliveInterval 50
+host *
+    ControlMaster auto
+    ControlPath ~/.ssh/master-%r@%h:%p
+```
+
 
 需求示例：线上环境同一种web服务有集群，我需要调试特定某个节点上的服务。
 关于 xxx_proxy 环境变量设置请参考[这里](https://wiki.archlinux.org/index.php/Proxy_settings)
@@ -354,7 +302,7 @@ ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort
     export https_proxy=$http_proxy
     export ftp_proxy=$http_proxy
     export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
- 
+
     # man curl
     export http_proxy=socks5://prod11.kingsilk.net:9999
     export HTTPS_PROXY=${http_proxy}
@@ -417,8 +365,8 @@ ssh sshUser>@sshHost -C -f -N -g -R [bindIpOnSshClient:]sshBindPortOnSshClient:b
     ```bash
     # 在 A@dev 上执行
     ssh root@122.225.11.207 -C -N -g -R 192.168.71.207:16379:localhost:6379  -o ExitOnForwardFailure=yes
- 
-    # 默认是绑定在远程ssh 服务器的 loopback(127.0.0.1) IP地址上。可以通过 
+
+    # 默认是绑定在远程ssh 服务器的 loopback(127.0.0.1) IP地址上。可以通过
     #      "-R  :16379:localhost:6379"
     #      "-R *:16379:localhost:6379"
     # 的方式来绑定所有IP。但需要 ssh 服务器设置 GatewayPorts 为 yes 配置，详情请参考 man sshd_config
@@ -440,7 +388,7 @@ ssh sshUser>@sshHost -C -f -N -g -R [bindIpOnSshClient:]sshBindPortOnSshClient:b
         -o ExitOnForwardFailure=yes \
         -o ServerAliveInterval=60
     expect "password" {send "$password\r"}
-    interact 
+    interact
     ```
 
 # TODO SSH VPN
