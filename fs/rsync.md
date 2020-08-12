@@ -25,4 +25,5 @@ rsync -avzh user@host:/path/to/src/dir /path/to/dist/dir
 
 rsync -avzh --exclude-from=.rsyncignore . user@host:/path/to/dist/dir
 
+rsync --progress user@host:/src/dir/ dest/dir
 ```
