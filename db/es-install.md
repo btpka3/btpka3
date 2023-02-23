@@ -159,7 +159,26 @@ curl -XPUT 'localhost:9200/testIndex?pretty'  # 创建测试索引，之后再�
 * 如果错误日志中出现 `Caused by: java.io.StreamCorruptedException: unexpected end of block data`，请检查JDK版本。
 
 
+# force_merge
 
+https://www.jianshu.com/p/1c5c921346e2
+https://www.jianshu.com/p/e59a3cce5840
+```shell script
+# Step1. 在合并前需要对合并速度进行合理限制，默认是 20mb，SSD可以适当放宽到 80mb：
+PUT /_cluster/settings -d '
+{
+    "persistent" : {
+        "indices.store.throttle.max_bytes_per_sec" : "20mb"
+    }
+}'
+
+# Step2. 强制合并 API，示例表示的是最终合并为一个 segment file：
+# 对某个索引做合并
+POST /${INDEX_NAME}/_forcemerge?max_num_segments=1
+# 对某些索引做合并
+POST /${INDEX_PATTERN}/_forcemerge?max_num_segments=1
+GET _cat/thread_pool/force_merge?v&s=name
+```
 
 
 

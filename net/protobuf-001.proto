@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+/*
+  comment
+ */
+message User {
+    string name = 1;  // comment
+    bytes age = 2;
+    message EmbeddedMessage {
+        int32 int32Val = 1;
+        string stringVal = 2;
+    }
+    EmbeddedMessage embeddedExample1 = 3;
+    repeated int32 repeatedInt32Val = 4;
+    repeated string repeatedStringVal = 5;
+}

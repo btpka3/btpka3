@@ -788,6 +788,15 @@ sed -n -e '80000,10000p' ~/qh/qh-wap/logs/default.log > stackoverflow.log
 echo 'a b  c' |sed -r 's/ +/_/g' -
 ```
 
+## 换行符变量
+
+```bash
+# https://stackoverflow.com/a/3182519
+STR=$'Hello\nWorld'
+# 需要双引号
+echo "$STR"
+```
+
 ## 查找并修改配置文件
 
 ```bash
@@ -826,4 +835,13 @@ EOF
 
 enableSshdGatewayPorts /tmp/a # /etc/ssh/sshd_config
 cat /tmp/a
+```
+
+# lsof
+
+```bash
+# 列出给定PID已删除的文件描述符（FD）
+lsof -nP +L1 -p xxxPid
+# 清除给定已删除的文件
+: > "/proc/$pid/fd/$fd"
 ```

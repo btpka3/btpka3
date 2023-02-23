@@ -1,4 +1,21 @@
 
+### Filter bean 自动被注册
+
+- 参考：`org.springframework.boot.web.servlet.ServletContextInitializerBeans#addAdaptableBeans`
+- 参考: [Disable Registration of a Servlet or Filter](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-disable-registration-of-a-servlet-or-filter)
+
+解法
+```java
+@Bean
+public FilterRegistrationBean filterRegistrationBean() throws Exception {
+    FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+    filterRegistrationBean.setEnabled(false);
+    filterRegistrationBean.setFilter(authenticationTokenFilterBean());
+    return filterRegistrationBean;
+}
+```
+
+
 
 ### META-INF/spring.factories 中的类没启动
 
@@ -84,22 +101,22 @@ public class MyMetricWriter implements MetricWriter, Closeable {
 
     private static final Log logger = LogFactory.getLog(MyMetricWriter.class);
 
-    
+
     @Override
     public void increment(Delta<?> delta) {
         // record increment to log
     }
-    
+
     @Override
     public void set(Metric<?> value) {
         // record set metric to log
     }
-    
+
     @Override
     public void reset(String name) {
         // Not implemented
     }
-    
+
     @Override
     public void close() {
     /// ...

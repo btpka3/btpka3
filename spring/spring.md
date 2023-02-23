@@ -1,4 +1,16 @@
 
+# Dependency resolution process
+
+参考:
+- [4.1.x : Dependency Resolution Process](https://docs.spring.io/spring-framework/docs/4.1.x/spring-framework-reference/html/beans.html#beans-dependency-resolution)
+- [5.3.x : Dependency Resolution Process](https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/core.html#beans-dependency-resolution)
+
+流程：
+- 创建 ApplicationContext, 并初始化描述bean的配置的元信息。这些元信息来自 spring xml配置文件，java代码和注解。
+- 每个bean，其依赖表现为 属性（properties）、构造参数、静态工厂方法的参数、
+
+
+
 
 # @Transactional
 

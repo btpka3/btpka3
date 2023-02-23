@@ -9,6 +9,11 @@ logback.xml
 ```
 
 
+## conditional config
+
+- [Janino](https://janino-compiler.github.io/janino/#getting_started)
+- [PropertyWrapperForScripts](https://github.com/qos-ch/logback/blob/1.1.11/logback-core/src/main/java/ch/qos/logback/core/joran/conditional/PropertyWrapperForScripts.java)
+
 
 ## 使用 spring placeholder
 

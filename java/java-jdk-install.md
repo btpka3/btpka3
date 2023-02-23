@@ -77,6 +77,7 @@ sdk install java 8.0.242.hs-adpt
     /usr/libexec/java_home -V
 
     # 切换当前 shell 会话的 jdk 版本为 9
+    JAVA_HOME=`/usr/libexec/java_home -v 1.8`
     JAVA_HOME=`/usr/libexec/java_home -v 9`
     java -version
     ```

@@ -104,12 +104,14 @@ ps : 原有的笔试题在这里 `smb://192.168.101.80/share/java/笔试/`
 
 # Java面试/电话面试
 
+- [面试官面试技巧](https://wenku.baidu.com/view/9ee2756127d3240c8447ef99.html)
+
 这里是“双向沟通”，而非“单向面试”。
 
 * 当前状态
     * 简单自我介绍
-    * 当前心态（急迫离职还是看机会？离职原因？）
-    * 未来几年的职业规划
+    * 当前状态，为何重新求职（急迫离职还是看机会？离职原因？）
+    * 求职方向，未来几年的职业规划
     * 对新就职单位的有哪些方面的期望
 
 * 目前的经验积累(主要技术方面)：
@@ -205,3 +207,11 @@ ps : 原有的笔试题在这里 `smb://192.168.101.80/share/java/笔试/`
     javac -cp a2:b  b/B.java -d b
     java -cp a2:b B
     ```
+
+
+# 编程题库
+- [poj.org](http://poj.org/)
+- [洛谷](https://www.luogu.com.cn/)
+- [LeetCode](https://leetcode.cn/)
+- [牛客](https://www.nowcoder.com/)
+- [拼题A](https://pintia.cn/home)

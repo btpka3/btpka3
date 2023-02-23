@@ -65,6 +65,17 @@ if (filterdList) {
 
 
 
+##
+
+[more syntactic sugar and eventually calls into DefaultGroovyMethods.getAt(Collection, String).](https://docs.groovy-lang.org/latest/html/api/org/codehaus/groovy/runtime/DefaultGroovyMethods.html#getAt(java.util.Collection,java.lang.String))
+```groovy
+assert [["a":"a1"],["a":"a2"]].a == ["a1", "a2"]
+assert [String, Long, Integer] == ["a",5L,2]["class"]
+
+// 结论：如果是要获取 list 下每个元素的 属性， 则 list*.prop 与 list.prop 相同，前提：list 本身没有 prop 属性。
+// 如果是要调用方法，则只能用 list*.xxxMethod() 了
+```
+
 
 ## Design patterns in Groovy
 
@@ -78,7 +89,7 @@ see [here](http://www.groovy-lang.org/design-patterns.html#_pimp_my_library_patt
     ```groovy
     // equivalent to: turn(left).then(right)
     turn left then right
- 
+
     // equivalent to: select(all).unique().from(names)
     select all unique() from names
     ```
@@ -87,7 +98,7 @@ see [here](http://www.groovy-lang.org/design-patterns.html#_pimp_my_library_patt
     ```groovy
     // equivalent to: paint(wall).with(red, green).and(yellow)
     paint wall with red, green and yellow
- 
+
     // with named parameters too
     // equivalent to: check(that: margarita).tastes(good)
     check that: margarita tastes good
@@ -187,19 +198,19 @@ class GMain {
 
 
 
-### 自定义 AST 
+### 自定义 AST
 
-参考： 
+参考：
 [Developing AST transformations](http://groovy-lang.org/metaprogramming.html#developing-ast-xforms)
 
-#### 全局 transformation 
-当代码编译时记性，参与全局变换的，需要在相应的jar包中 
+#### 全局 transformation
+当代码编译时记性，参与全局变换的，需要在相应的jar包中
 `META-INF/services/org.codehaus.groovy.transform.ASTTransformation`
  进行配置。实现类必须实现 org.codehaus.groovy.transform.ASTTransformation 接口并提供无参数构造函数。
  可以通过 ASTTransformationCustomizer 配置，可以避免将 自定义筛选用的 annotation 类放到单独的一个jar包中。
- 
+
 #### 本地 transformation
-必须在 [org.codehaus.groovy.control.CompilePhase](http://docs.groovy-lang.org/2.4.8/html/gapi/index.html?org/codehaus/groovy/control/CompilePhase.html) 
+必须在 [org.codehaus.groovy.control.CompilePhase](http://docs.groovy-lang.org/2.4.8/html/gapi/index.html?org/codehaus/groovy/control/CompilePhase.html)
 中定义的9个阶段完成
 
 
@@ -217,7 +228,7 @@ Gradle 中相关的静态类型检查请参考
 1. DefaultServiceLocator
 1. GradleApiSpecProvider
 
-1. GradleApiSpecAggregator 通过 DefaultServiceLocator 
+1. GradleApiSpecAggregator 通过 DefaultServiceLocator
 
 ```txt
 GlobalScopeServices#createClassLoaderRegistry()

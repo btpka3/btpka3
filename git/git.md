@@ -366,13 +366,17 @@ git reset --hard <sha1-commit-id>
 git自动合并并创建了一个新的commit，其注释为 "Merge branch 'xxx' of git@xxxx/path/to/xxx.git into xxx"。此时，大家应当立即运行
 
 ```bash
+
 gitk  # 此时有比较复杂的路线图
 git rebase
 gitk  # 此时就变成单线路了
 
-# rebase之后，会将本地的多个提交合并成一个提交，原来的多个提交的历史记录可以通过以下命令找到
-git reflog
+# rebase之后，会将本地的多个提交合并成一个提交，原来的多个提交的历史记录可以通过以下命令找到，包含已删除的
+git reflog --pretty=full
 git cherry-pick 12944d8
+
+# 直接检出给定分支的文件到本地
+git restore --source 71b291db537caaacae3433e86a16f2be7fc8a26f . 
 ```
 
 # 清理本地空间
@@ -481,7 +485,7 @@ git push -f                         # 本地修改之后，强制提交
 ## 本地已经commit，也已经push到远程，但其他开发人员已经拉取，且进行了多次提交
 
 ```bash
-git rever <commit-id>               # 该方法通过在最新commit之后新建一个commit来达到回滚的效果。
+git revert <commit-id>               # 该方法通过在最新commit之后新建一个commit来达到回滚的效果。
 ```
 
 # 统计

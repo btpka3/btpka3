@@ -72,7 +72,11 @@ EOF
 
 systemctl daemon-reload
 systemctl restart docker
-docker run -it --rm alpine:3.5
+docker run -it --rm alpine:3.5 sh -c "echo hi"
+docker run -e DOCKER_HOST="unix:///var/run/docker.sock" -it --rm alpine:3.5 sh -c "echo hi"
+
+# https://github.com/docker/for-mac/issues/770
+docker run --restart always -d -v /var/run/docker.sock:/var/run/docker.sock -p 127.0.0.1:1234:1234 bobrik/socat TCP-LISTEN:1234,fork UNIX-CONNECT:/var/run/docker.sock
 ```
 
 ## 安装 docker 4 linux

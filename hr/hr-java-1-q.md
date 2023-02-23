@@ -11,7 +11,7 @@
     }
     ```
 1. 下面代码 main 函数执行后的输出结果是？
- 
+
    ```java
     public class Test00 {
         public static void main(String[] args) {
@@ -100,6 +100,7 @@
         }
     }
     ```
+
 1. 结合您的既有经验，给出利用熟悉的框架从接到请求到返回响应的完整流程。
     该流程中，哪些部分是singleton的，哪些是是prototype的？
     出错的异常处理流程是？

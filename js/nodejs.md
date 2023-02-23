@@ -123,6 +123,9 @@ su -
 curl -sL https://deb.nodesource.com/setup | sudo bash -
 su -
 nvm install v0.10.34
+
+# macOs 使用 HomeBrew 安装
+brew install node
 ```
 
 
@@ -147,7 +150,7 @@ npm config set registry http://localhost:8081/repository/npm-all/
 npm --loglevel info install grunt
 
 # 登录
-# 以下命令会 在 `~/.npmrc` 中 配置 
+# 以下命令会 在 `~/.npmrc` 中 配置
 # "//localhost:8081/repository/my-npm/:_authToken=56c295ca-560a-3de0-b974-d92fb5b37976"
 npm login --registry=http://localhost:8081/repository/my-npm/
 

@@ -119,8 +119,8 @@ REM X.509)
         -req \
         -days 3650 \
         -in server.pem.csr \
-        -CA whhit.pem.cer \
-        -CAkey whhit.pem.key \
+        -CA server.pem.cer \
+        -CAkey server.pem.key \
         -CAcreateserial \
         -extfile openssl.cnf \
         -extensions server_ca_extensions \
@@ -131,7 +131,7 @@ REM X.509)
         -req \
         -days 3650 \
         -in server.pem.csr \
-        -signkey whhit.pem.key \
+        -signkey server.pem.key \
         -extfile openssl.cnf \
         -extensions server_ca_extensions \
         -out server.pem.cer
@@ -159,12 +159,12 @@ REM X.509)
     ```bash
     keytool -importkeystore \
         -srcstoretype PKCS12 \
-        -srckeystore whhit.p12 \
+        -srckeystore server.p12 \
         -srcstorepass 123456 \
         -srcalias tomcat \
         -srckeypass 123456 \
         -deststoretype JKS \
-        -destkeystore whhit.jks \
+        -destkeystore server.jks \
         -deststorepass 123456 \
         -destalias tomcat \
         -destkeypass 123456
@@ -176,25 +176,25 @@ REM X.509)
     ```bash
     # 将加密的私钥导出为明文的私钥
     openssl rsa \
-        -in whhit.pem.key \
+        -in server.pem.key \
         -passin pass:123456 \
-        -out whhit.pem.clear.key
+        -out server.pem.clear.key
 
     # PEM -> DER
     openssl x509 \
-        -in whhit.pem.cer \
-        -out whhit.der.cer \
+        -in server.pem.cer \
+        -out server.der.cer \
         -outform DER
 
     # 显示证书信息
     openssl x509 \
-        -in whhit.pem.cer \
+        -in server.pem.cer \
         -text
 
     # 检验证书
     openssl verify \
         -verbose \
-        -CAfile whhit.pem.cer \
+        -CAfile server.pem.cer \
         zll.pem.cer
 
     # 检查使用特定版本的 SSL/TLS 协议进行链接
@@ -205,6 +205,23 @@ REM X.509)
     ```
 
 ## KeyTools -> OpenSSL
+
+
+0. 生成一个含自签名 CA 证书的 p12 类型的 KeyStore
+     ```bash
+     keytool -genkeypair \
+         -alias tomcat \
+         -keyalg RSA \
+         -keysize 2048 \
+         -sigalg SHA1withRSA \
+         -dname "CN=test.me, OU=R & D department, O=\"BJ SOS Software Tech Co., Ltd\", L=Beijing, S=Beijing, C=CN" \
+         -validity 3650 \
+         -keystore sos.p12 \
+         -storetype PKCS12 \
+         -storepass 123456
+
+      keytool -list -keystore sos.jks
+      ```
 
 1. 生成一个含自签名 CA 证书的 JKS 类型的 KeyStore
 
@@ -322,7 +339,7 @@ Include conf/extra/httpd-ssl.conf
     127.0.0.1       app.localhost.me
     127.0.0.1       stateless.localhost.me
     ```
-    注意：经测试发现WildCard证书无法对 `*.localhost` 起作用。而 `*.localhost.me` 
+    注意：经测试发现WildCard证书无法对 `*.localhost` 起作用。而 `*.localhost.me`
     也无法对 `a.b.localhost.me` 起作用，参见[这里](http://security.stackexchange.com/a/26050)。
 
 2.  生成自签名的数字证书
@@ -479,3 +496,22 @@ yum info openssl
 
 # 可以到 https://www.openssl.org/ 下载并编译安装
 ```
+
+
+# 公钥私钥格式
+X.509 ： 用于定义公钥的格式
+DER ： 用于存储 X.509  证书、PKCS8 私钥等，但其是二级制格式，无法文本编辑器打开进行Review。
+PKCS8 ： 用于定义私钥的格式
+PEM ： 是 将 DER 内容 base-64 编码
+
+
+## PKCS : Public-Key Cryptography Standards
+- [PKCS](https://baike.baidu.com/item/PKCS/1042350?fr=aladdin)
+- [PKCS #1: RSA Cryptography Specifications Version 2.2](https://datatracker.ietf.org/doc/html/rfc8017)
+- [Public-Key Cryptography Standards (PKCS) #8:Private-Key Information Syntax Specification Version 1.2](https://datatracker.ietf.org/doc/html/rfc5208)
+   PKCS#8 用以保存单个秘钥（不含公钥）
+- [PKCS #12: Personal Information Exchange Syntax v1.1](https://datatracker.ietf.org/doc/html/rfc7292)
+
+## SPKI : Simple public key infrastructure
+
+- [SPKI/SDSI Certificates](https://theworld.com/~cme/html/spki.html)

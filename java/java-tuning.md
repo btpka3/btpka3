@@ -254,12 +254,33 @@ grep xxx -A 200 /tmp/cpu.log
 ```
 
 
+# StackOverflowError
+
+发生 StackOverflowError 时，常常看不到具体的原因，因为 jvm 限制：针对一个 Exception/Error, 只显示 1024 个entry，
+为了能定位 StackOverflowError 的原因，可以临时添加以下JVM参数 `-XX:MaxJavaStackTraceDepth=1000000`, 重试后，
+再根据完整堆栈定位原因。
 
 
 # JDK
 
 ## jinfo
 可以输出并修改运行时的java 进程的opts。
+
+```bash
+# 查看某个JVM实际运行的参数值
+/opt/taobao/java/bin/jinfo -flag SoftRefLRUPolicyMSPerMB 3488
+/opt/taobao/java/bin/jinfo -flags 3488
+
+/opt/taobao/java/bin/jinfo -flag -OmitStackTraceInFastThrow 2436
+# metaspace 相关jvm参数
+# MetaspaceSize         : Metaspace 空间初始大小，如果不设置的话，默认是20.79M，这个初始大小是触发首次 Metaspace Full GC 的阈值，例如 -XX:MetaspaceSize=256M
+# MaxMetaspaceSize      : Metaspace 最大值，默认不限制大小，但是线上环境建议设置，例如 -XX:MaxMetaspaceSize=256M
+# SoftRefLRUPolicyMSPerMB
+# MinMetaspaceFreeRatio : 最小空闲比，当 Metaspace 发生 GC 后，会计算 Metaspace 的空闲比，如果空闲比(空闲空间/当前 Metaspace 大小)小于此值，就会触发 Metaspace 扩容。默认值是 40 ，也就是 40%，例如 -XX:MinMetaspaceFreeRatio=40
+# MaxMetaspaceFreeRatio : 最大空闲比，当 Metaspace 发生 GC 后，会计算 Metaspace 的空闲比，如果空闲比(空闲空间/当前 Metaspace 大小)大于此值，就会触发 Metaspace 释放空间。默认值是 70 ，也就是 70%，例如 -XX:MaxMetaspaceFreeRatio=70
+# MaxMetaspaceExpansion
+# MinMetaspaceExpansion
+```
 
 ## jps
 与unix上的ps类似，用来显示本地的java进程，可以查看本地运行着几个java程序，并显示他们的进程号。
@@ -279,6 +300,8 @@ jmap -histo     xxxPid  # 打印 各个类实例对象使用内存的柱状图�
 
 # dump出内存
 jmap -dump:format=b,file=outfile.jmap.dump.hprof 3024
+# dump出内存(先GC，指定 live 参数）
+jmap -dump:live,format=b,file=outfile.jmap.dump.hprof 3024
 ```
 如果报以下错误，请确认启用jmap的用户是否和目标java进程是同一个用户，否则追加参数 -F 尝试。
 
@@ -482,6 +505,8 @@ Old Generation
 - Java heap space : 一般是配置错误，通过 `–Xmx` 增加堆内存上限
 - PermGen space ： 通过 `–XX:MaxPermSize=n` 增加内存
 - Requested array size exceeds VM limit
+- [Understanding Metaspace and Class Space GC Log Entries](https://poonamparhar.github.io/understanding-metaspace-gc-logs/#:~:text=Metaspace%20is%20a%20native%20memory,and%20more%20classes%20are%20loaded.)
+- [JVM源码分析之Metaspace解密](http://lovestblog.cn/blog/2016/10/29/metaspace/)
 
 # JVM 参数
 
@@ -565,6 +590,7 @@ Old Generation
 
 –XX:+PrintGCDetails     # 打印每次 GC 的详情
 –XX:+PrintGCTimeStamps  # 打印每次 GC 的的时间戳
+-XX:+PrintHeapAtGC      # GC 前打印d堆使用状况
 -server
 -Xms512m
 -Xmx1024m
@@ -590,5 +616,19 @@ Old Generation
 -Dfile.encoding=UTF-8
 -Djava.net.preferIPv4Stack=true
 
+-XX:+UseStringCache         # 已废弃
+-XX:+UseCompressedStrings   # 已废弃
+-XX:+UseStringDeduplication # 相同字符串去重，适合长期存活的String对象， 需要开启 -XX:+UseG1GC
+                            # 可以开启以下参数查看 gc 日志
+                            # -XX:+PrintGCDetails -XX:+PrintStringDeduplicationStatistics
+-XX:+OptimizeStringConcat
+
 HAT
 ```
+
+
+
+- [JMH](https://github.com/openjdk/jmh)
+  - [JMH Visual Chart](http://deepoove.com/jmh-visual-chart/)
+  - https://jmh.morethan.io/
+- [Introduction to JVM Code Cache](https://www.baeldung.com/jvm-code-cache)
