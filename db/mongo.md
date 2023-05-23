@@ -1,6 +1,5 @@
 # mongodb使用总结
 
-
 [MongoDB Grails示例](https://github.com/btpka3/btpka3.github.com/tree/master/grails/my-mongo)
 
 ### 【grom】非内嵌类使用many-to-one or one-to-one等问题
@@ -8,6 +7,7 @@
 ```
    若非内嵌类，则不能使用类似belongsTo = [xx:XX] 或者 hasOne = [xx:XX] 或者 XX xx等的关联方式，需要指定使用String xxId
 ```
+
 ### 【grom】非内嵌类使用one-to-many等问题
 
 ```
@@ -46,6 +46,7 @@
     * GORM API: 根据ID列表获取相关对象列表（注意顺序需要与ID列表中的一致）
 
 参考：
+
 * [Mongo Map-Reduce](http://docs.mongodb.org/manual/core/map-reduce/)
 * [GMongo Map-Reduce demo](https://github.com/poiati/gmongo#mapreduce)
 * [GORM Mongo Map-Reduce](http://stackoverflow.com/questions/5681851/mongodb-combine-data-from-multiple-collections-into-one-how/8746805#8746805)

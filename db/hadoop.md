@@ -1,8 +1,6 @@
-
 # 参考
 
 - [hadoop](http://hadoop.apache.org/docs/r2.9.0/)
-
 
 # test
 
@@ -24,8 +22,8 @@ HADOOP_CLASSPATH=${P}/share/hadoop/yarn/test/hadoop-yarn-server-tests-2.9.0-test
     ${P}/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.9.0-tests.jar \
     minicluster \
     --help
-    
-# 运行    
+
+# 运行
 HADOOP_CLASSPATH=${P}/share/hadoop/yarn/test/hadoop-yarn-server-tests-2.9.0-tests.jar \
     bin/hadoop \
     jar \

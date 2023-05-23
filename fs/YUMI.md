@@ -1,6 +1,3 @@
-
-
-
 [YUMI](http://www.pendrivelinux.com/yumi-multiboot-usb-creator/)
 
 * [老毛桃](http://www.laomaotao.org/)

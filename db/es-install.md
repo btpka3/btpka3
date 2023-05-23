@@ -59,6 +59,7 @@ systemctl status elasticsearch
 ```
 
 ### 配置方式一
+
 通过环境变量进行配置。
 
 1. 不要修改 `/etc/elasticsearch/elasticsearch.yml`（其初始内容为空）
@@ -68,11 +69,11 @@ systemctl status elasticsearch
 
 通过配置文件进行配置
 
-1.  检查 systemd 配置文件
+1. 检查 systemd 配置文件
 
-    ```
-    cat /usr/lib/systemd/system/elasticsearch.service       # 不用修改
-    ```
+   ```
+   cat /usr/lib/systemd/system/elasticsearch.service       # 不用修改
+   ```
 
 1. `vi /etc/elasticsearch/elasticsearch.yml`
 
@@ -97,8 +98,6 @@ systemctl status elasticsearch
     curl localhost:9200/_nodes/process?pretty
     ```
 
-
-
 ## centos 6 安装
 
 ```
@@ -111,7 +110,6 @@ chkconfig --add elasticsearch
 ```
 useradd elasticsearch
 ```
-
 
 ## 修改配置文件
 
@@ -142,7 +140,6 @@ path.work : /home/elasticsearch/work
 service elasticsearch start
 ```
 
-
 ### 检查状态
 
 ```
@@ -151,18 +148,16 @@ curl 'localhost:9200/_cat/indices?v'
 curl -XPUT 'localhost:9200/testIndex?pretty'  # 创建测试索引，之后再用上述两个命令检查状态
 ```
 
-
-
 # 7788
 
 * 如果发现无法创建集群，请检查日志，确保publish_address正确。不正确就到elasticsearch.yml 中进行明确指定。
 * 如果错误日志中出现 `Caused by: java.io.StreamCorruptedException: unexpected end of block data`，请检查JDK版本。
 
-
 # force_merge
 
 https://www.jianshu.com/p/1c5c921346e2
 https://www.jianshu.com/p/e59a3cce5840
+
 ```shell script
 # Step1. 在合并前需要对合并速度进行合理限制，默认是 20mb，SSD可以适当放宽到 80mb：
 PUT /_cluster/settings -d '
@@ -180,42 +175,54 @@ POST /${INDEX_PATTERN}/_forcemerge?max_num_segments=1
 GET _cat/thread_pool/force_merge?v&s=name
 ```
 
-
-
 # ES安装目录文件说明
+
 按照 [这里](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup-repositories.html) 安装之后，
 其es的文件目录为：
-* /etc/elasticsearch   -- 即为es的config目录，里面包括：elasticsearch.yml   logging.yml
+
+* /etc/elasticsearch -- 即为es的config目录，里面包括：elasticsearch.yml logging.yml
 * /usr/share/elasticsearch -- es的安装目录
 
 这里和网上的资料不大一样！
 
 # 插件安装
+
 以大名鼎鼎的ik插件为例！
-###  下载[ik插件ZIP资源](https://github.com/medcl/elasticsearch-analysis-ik)
+
+### 下载[ik插件ZIP资源](https://github.com/medcl/elasticsearch-analysis-ik)
+
 右侧下方有一个按钮“Download ZIP"，点击下载源代码elasticsearch-analysis-ik-master.zip。
 
-###  解压ZIP文件
+### 解压ZIP文件
+
 解压文件elasticsearch-analysis-ik-master.zip，进入下载目录，执行命令：
+
 ```sh
     unzip elasticsearch-analysis-ik-master.zip
 ```
 
-###  复制ik
+### 复制ik
+
 将解压目录文件中config文件夹下的ik文件夹复制到ES的config文件夹（即：/etc/elasticsearch/）下。
 
-###  打包
+### 打包
+
 因为是源代码，此处需要使用maven打包，进入解压文件夹中，执行命令：
+
 ```sh
     mvn clean package
 ```
+
 ### 复制jar
+
 * 在ES安装目录（/usr/share/elasticsearch）下新建文件夹plugins,以后的插件都放在这个文件夹下;
 * 在plugins下新建ik的文件夹analysis-ik;
 * 将上步打包生成的zip文件（位置：/target/releases/elasticsearch-analysis-ik-1.2.9.zip）复制到analysis-ik下并将其中的jar解压出来
 
 ### 修改elasticsearch.yml配置
+
 在elasticsearch.yml的最后添加
+
 ```yaml
     index:
       analysis:
@@ -230,25 +237,30 @@ GET _cat/thread_pool/force_merge?v&s=name
               type: ik
               use_smart: true
 ```
+
 或者
+
 ```yaml
 index.analysis.analyzer.ik.type : "ik"
 ```
 
 ### 重启ES
+
 ```sh
 sudo service elasticsearch restart
 sudo service elasticsearch status
 ```
 
 ### 验证
+
 执行
+
 ```sh
     curl -XPOST  "http://localhost:9200/${index}/_analyze?analyzer=ik&pretty=true&text=我是中国人"
 ```
+
 验证结果是否正确。
 注意：必须先创建索引，才能验证。
-
 
 ### 迁移工具
 

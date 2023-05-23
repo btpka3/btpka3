@@ -25,7 +25,6 @@ info keyspace
 
 ```
 
-
 # Cluster and Sentinel
 
 每个 Redis 集群节点都要提供两个端口:
@@ -33,17 +32,16 @@ info keyspace
 * 6379: 数据端口
 * 16379: 集群端口,是数据端口号加上固定值 1000
 
-
 Redis Cluster的作用: 将超过单机存储限制的数据分片存储在多台主机上。
 Redis Sentinel的作用: 使用一主多从模式保证高可用性。
 
 设计
 
-|Host| Cluster Node, Sentinel Master Node| cluster slots | Sentinel slave node  |
-|----|-----------------------------------|---------------|----------------------|
-| 1  | A                                 |    0 -  999   | B1                   |
-| 2  | B                                 | 1000 - 1999   | C1                   |
-| 3  | C                                 | 2000 - 2999   | A1                   |
+| Host | Cluster Node, Sentinel Master Node | cluster slots | Sentinel slave node |
+|------|------------------------------------|---------------|---------------------|
+| 1    | A                                  | 0 -  999      | B1                  |
+| 2    | B                                  | 1000 - 1999   | C1                  |
+| 3    | C                                  | 2000 - 2999   | A1                  |
 
 假如 host2 宕机了, 则由 A@host1, B1@host1, C@host3 共通构成一个完整的集群。
 
@@ -69,7 +67,8 @@ Redis Sentinel的作用: 使用一主多从模式保证高可用性。
     [root@localhost ~]# chown -R redis:redis /data/outputs/log/redis
 
     ```
-1. 从[Redis官网](http://redis.io/download)下载所需的安装包，或者查看文件共享：`\\10.1.10.212\share\java\redis\`。放到 `/data/tmp/` 目录下，并解压：
+1. 从[Redis官网](http://redis.io/download)下载所需的安装包，或者查看文件共享：`\\10.1.10.212\share\java\redis\`
+   。放到 `/data/tmp/` 目录下，并解压：
 
     ```bash
     [root@localhost ~]# mkdir /data/tmp
@@ -113,11 +112,8 @@ Redis Sentinel的作用: 使用一主多从模式保证高可用性。
     [root@localhost ~]# service redis start
     ```
 
-
-
 ---------------------------------------------------------------------------
 TODO 上下合并
-
 
 # 安装
 
@@ -170,7 +166,6 @@ TODO 上下合并
     unixsocket /tmp/redis.sock
     unixsocketperm 770
     ```
-
 
 ## centos 6
 
@@ -266,7 +261,7 @@ TODO 上下合并
     esac
     exit $?
     ```
-    并修改其中的配置项 `vi /etc/init.d/redis`
+   并修改其中的配置项 `vi /etc/init.d/redis`
 
     ```bash
     exec="/data/software/redis/redis-2.8.14/src/redis-server"
@@ -274,7 +269,7 @@ TODO 上下合并
     REDIS_CONFIG="/data/software/redis/redis-2.8.14/redis.conf"
     REDIS_USER=redis
     ```
-    最后为 init.d 脚本修改权限
+   最后为 init.d 脚本修改权限
 
     ```bash
     chmod u+x /etc/init.d/redis

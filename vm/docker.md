@@ -1,6 +1,5 @@
-
-
 # 参考
+- [CNCF: Cloud Native Computing Fundation](https://www.cncf.io/)
 * [installation](https://docs.docker.com/engine/installation/)
 * [Start containers automatically](https://docs.docker.com/engine/admin/host_integration/)
 * 《[Docker 入门实战](http://yuedu.baidu.com/ebook/d817967416fc700abb68fca1?fr=aladdin&key=docker&f=read###)》
@@ -21,16 +20,7 @@ docker rm -v $(docker ps -a -q -f status=exited)
 docker images |sort -h -k 7
 ```
 
-
-
-daocloud.io
-
-```
-docker pull registry.mirrors.aliyuncs.com/library/java
-```
-
 # without sudo
-
 
 see [here](https://askubuntu.com/questions/477551/how-can-i-use-docker-without-sudo)
 
@@ -83,8 +73,6 @@ docker run --restart always -d -v /var/run/docker.sock:/var/run/docker.sock -p 1
 
 * [Get Docker for CentOS](https://docs.docker.com/engine/installation/linux/centos/)
 
-
-
 ```bash
 ll /etc/yum.repos.d/
 
@@ -110,6 +98,7 @@ yum install docker-ce-<VERSION>
 ```
 
 # 镜像存储目录
+
 docker 默认会把镜像等保存在 /var/lib/docker 目录下，
 而阿里云环境的系统盘只有20G。因此不适合直接使用系统盘
 
@@ -125,6 +114,7 @@ docker 默认会把镜像等保存在 /var/lib/docker 目录下，
 ExecStart=
 ExecStart=/usr/bin/docker daemon -H fd:// --graph="/mnt"
 ```
+
 版本晚于 17.06-ce
 
 ```text
@@ -183,13 +173,10 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-
-
 # Docker Toolbox
 
 Docker Toolbox 主要用于为老旧的Mac, Windows系统提供支持,并使其能运行docker。
 但有了 "Docker for Mac" 之后,就不需要 Docker Toolbox 了。
-
 
 ## 常用命令
 
@@ -276,15 +263,11 @@ docker network inspect bridge
 
 ## Mac
 
-
-
 ### 限制
+
 1. 没有 docker0 bridge
 1. 无法ping到容器，消息也无法从容器返回到host
 1. 无法做到每个容器一个IP地址
-
-
-
 
 ### 容器要访问Host主机上的服务
 
@@ -297,6 +280,7 @@ sudo ifconfig lo0 alias 10.200.10.1/24
 ```
 
 ### host主机要访问容器内的服务
+
 需要配置端口转发。
 
 ```
@@ -310,8 +294,6 @@ docker run -d -p 80:80 --name webserver nginx
 docker network ls
 docker network inspect bridge
 ```
-
-
 
 ## volume container
 
@@ -343,9 +325,6 @@ docker-machine ssh YOUR_VM_NAME
 
 ## docker CLI
 
-
-
-
 ### docker system
 
 管理Docker的命令
@@ -362,8 +341,8 @@ docker system prune         # 支持删除系统中没有使用的数据，包�
                             #   - 所有标示为“dangling”状态的镜像
 ```
 
-
 ### docker plugin
+
 管理Docker插件的命令，目前插件命令仅支持数据卷驱动，未来插件会提供容器集群网络，IP地址管理和分配，数据件驱动等功能
 
 ```bash
@@ -381,6 +360,7 @@ docker plugin upgrade       # 升级已经存在的插件
 ```
 
 ### docker secret
+
 集中式管理Docker 容器需要使用的敏感信息，包括密码，证书等,敏感信息不会保存在镜像中。
 compose模版也可以不需要显式填写密码等敏感信息，只需要引用密码对象的名称。
 实现的方式是通过把密码等敏感信息以文件的方式挂载到容器的/run/secrets/目录内，
@@ -392,9 +372,6 @@ docker secret inspect       # 查看一个密码对象的信息
 docker secret ls            # 列出所有的密码对象
 docker secret rm            # 删除一个或者多个密码对象
 ```
-
-
-
 
 ### docker stack
 
@@ -411,29 +388,29 @@ docker stack services       # 展示stack下面对应的服务
 用以定义和运行多个 docker 容器的应用。
 
 参考：
-1.  《[Docker 1.13 编排能力进化](https://yq.aliyun.com/articles/55973)》
-1.  《[Docker 1.13 新特性 —— Docker系统相关](https://yq.aliyun.com/articles/71036)》
-1.  《[Docker 1.13 新特性 —— Docker服务编排相关](https://yq.aliyun.com/articles/71039)》
-1.  《[Docker 1.13 新特性 —— 网络相关](https://yq.aliyun.com/articles/70986)》
+
+1. 《[Docker 1.13 编排能力进化](https://yq.aliyun.com/articles/55973)》
+1. 《[Docker 1.13 新特性 —— Docker系统相关](https://yq.aliyun.com/articles/71036)》
+1. 《[Docker 1.13 新特性 —— Docker服务编排相关](https://yq.aliyun.com/articles/71039)》
+1. 《[Docker 1.13 新特性 —— 网络相关](https://yq.aliyun.com/articles/70986)》
 
 Docker Compose vs. Docker CLI
 
-|                   |Docker Compose                 |Docker 1.13+|
-|-------------------|-------------------------------|--------------|
-|start service      |`docker-compose up -d`         |`docker stack deploy --compose-file=docker-compose.yml`|
-|scale service      |`docker-compose scale xxx=n`   |`docker service scale xxx=n`|
-|stop service       |`docker-compose down`          |`docker stack rm`  |
-|cross host machine | No                            |Yes                |
-|ignored directives |`deploy`                       |`build`            |
+|                    | Docker Compose               | Docker 1.13+                                            |
+|--------------------|------------------------------|---------------------------------------------------------|
+| start service      | `docker-compose up -d`       | `docker stack deploy --compose-file=docker-compose.yml` |
+| scale service      | `docker-compose scale xxx=n` | `docker service scale xxx=n`                            |
+| stop service       | `docker-compose down`        | `docker stack rm`                                       |
+| cross host machine | No                           | Yes                                                     |
+| ignored directives | `deploy`                     | `build`                                                 |
 
 总结：
+
 * docker compose ：作为单机测试，演示环境使用，可以从源码build成容器；
-* docker stack   ： 适合 服务器部署使用，且只支持从镜像部署
-
-
-
+* docker stack ： 适合 服务器部署使用，且只支持从镜像部署
 
 ### docker-compose.yml
+
 语法参考 [这里](https://docs.docker.com/compose/compose-file/)
 
 ```bash
@@ -447,8 +424,6 @@ docker-compose build
 docker container prune
 
 ```
-
-
 
 ## 创建自定义 image
 
@@ -479,7 +454,6 @@ docker login --username=yourhubusername --email=youremail@provider.com
 docker push btpka3/my-img
 ```
 
-
 ## 示例：ElasticSearch
 
 ```
@@ -493,7 +467,6 @@ docker run -itd \
         elasticsearch:2.4.1
 ```
 
-
 ## demo
 
 为了清楚docker整个操作流程, 该示例主要演示了经常使用的相关操作:
@@ -503,6 +476,7 @@ docker run -itd \
 * host与container之间端口映射
 
 ### 准备
+
 各个文件的内容,请参考后面的 "附件: 文件内容"。
 
 ```
@@ -556,7 +530,7 @@ exit
     1. 并看到自定义的 nginx 主页: "hello docker"
     1. 通过相应工具可以看到有名称为 "X-DOCKER-TEST" http reponse header.
 1. 本机浏览器访问 `http://localhost/docs/` 可以访问 tomcat 的文档,
-    说明 nginx 反向代理 tomcat 成功。
+   说明 nginx 反向代理 tomcat 成功。
 1.
 
 ### 附件: 文件内容
@@ -603,7 +577,7 @@ exit
     ```
 
 * default.conf
-    请修改下面中的ip地址为你自己的ip地址。
+  请修改下面中的ip地址为你自己的ip地址。
 
     ```nginx
     server {
@@ -630,15 +604,11 @@ exit
     }
     ```
 
-
 ## 安全
 
 [一个回车键黑掉一台服务器——使用Docker时不要这么懒啊喂](http://www.jianshu.com/p/74aa4723111b)
 
-
-
 ## docker-machine
-
 
 ### 如何设置共享目录?
 
@@ -649,6 +619,7 @@ exit
         --hostpath <host_dir> --automount
     ```
 * GUI: 通过 VirtualBox GUI程序设置共享目录。 Mac 下已经默认共享了 `/Users` 目录。
+
 ### 为何要用 docker-machine
 
 * 想在 Mac OS和 Windows OS上使用docker。这是在上述操作系统上使用 docker engine 的唯一途径。
@@ -687,44 +658,12 @@ docker-machine ssh default \
 docker-machine config
 ```
 
-
-
-## Docker Compose
-
-适用于:
-
-* 开发环境
-* 自动测试环境
-* 单主机上的部署
-
-
-docker-compose.yml
-
-```yaml
-version: '2'
-services:
-    web:
-        build: .
-        ports:
-            - "5000:5000"
-        volumes:
-            - .:/code
-        depends_on:
-            - redis
-    redis:
-        image: redis
-```
-
-参考
-
-* 《[Docker集群管理之Docker Compose](http://www.csdn.net/article/1970-01-01/2825554)》
-
-
 ## DDC - Docker Datacenter
+
 包含一些企业级的工具,包含 docker-engine, UCP, DTR。
 
-
 ### UCP - Universal Control Plane
+
 提供一个Web界面来统一管理所有的节点。收费的。
 
 ```
@@ -756,9 +695,88 @@ https://192.168.99.100:443
 ```
 
 ### DTR - Docker Trusted Registry
+
 需要先安装 UCP。
 
+# docker registry
 
+《[About Registry](https://docs.docker.com/registry/introduction/)》
+[containers/skopeo](https://github.com/containers/skopeo)
+
+## 软件/镜像
+
+- [Harbor](https://goharbor.io/)
+- [_/registry](https://hub.docker.com/_/registry)
+
+## 在线服务
+
+- docker : [docker.io](https://hub.docker.com/)
+- redhat : [quay.io](https://quay.io/search)
+- fedora : [fedora registry](https://registry.fedoraproject.org/)
+- k8s    : registry.k8s.io
+- github : [ghcr.io](https://github.com/features/packages)
+- google : [gcr.io](https://cloud.google.com/container-registry/)
+- Microsoft : [mcr.microsoft.com](https://mcr.microsoft.com/)
+- 阿里巴巴开源镜像站 : https://developer.aliyun.com/mirror
+
+```shell
+# docker.io
+podman login --username=btpka3 docker.io
+podman pull docker.io/library/alpine:3.17.3
+# quay.io
+podman pull quay.io/coreos/coreos-installer:release
+# registry.fedoraproject.org
+podman pull registry.fedoraproject.org/vim
+
+# 两个仓库之间进行镜像copy
+brew install skopeo
+skopeo copy docker://quay.io/buildah/stable docker://registry.internal.company.com/buildah
+```
+
+## docker in docker
+
+- [How To Run Docker in Docker Container [3 Easy Methods]](https://devopscube.com/run-docker-in-docker/)
+- [_/docker](https://hub.docker.com/_/docker)
+- [How to use Podman inside of a container](https://www.redhat.com/sysadmin/podman-inside-container)
+- [quay.io/podman/stable](https://quay.io/repository/podman/stable)
+
+DinD (Docker in Docker)
+
+```shell
+# 准备网络
+docker network create       \
+    -d bridge               \
+    --gateway 192.168.1.1   \
+    --subnet 192.168.1.0/24 \
+    dockerNet
+
+# 启动 daemon 实例
+docker run --privileged -it --rm \
+           --network dockerNet --network-alias docker \
+           -e DOCKER_TLS_CERTDIR=/certs \
+           -v some-docker-certs-ca:/certs/ca \
+           -v some-docker-certs-client:/certs/client \
+           docker:latest
+# Connect to it from a second container
+docker run -it --rm --network dockerNet \
+	-e DOCKER_TLS_CERTDIR=/certs \
+	-v some-docker-certs-client:/certs/client:ro \
+	docker:latest sh
+
+# 在第二个容器中执行以下命令
+docker version
+docker run -it --rm docker.io/library/alpine:3.17.3 date
+```
+
+PinP(Podman in Podman)
+[quay.io/podman/stable](https://quay.io/repository/podman/stable?tab=info)
+
+```shell
+#export PS1='\[\033[01;33m\]\u@\h\[\033[01;31m\] \W\$\[\033[00m\] '
+podman run --security-opt label=disable --user podman \
+  --device /dev/fuse quay.io/podman/stable \
+  podman run alpine echo hello
+```
 
 ## docker hub
 
@@ -771,29 +789,56 @@ docker login
 docker push
 ```
 
-
 ## 容器编排管理
+
 * 自己管理 Docker Daemon
 * Swarm
 * kubernets
 * Mesos
 
 ## 网络方案
-* host 模式
-* bridge 模式
-* Docker overlay 网络
-* Flannel 网络
-* Weave 网络
-* Calico 网络
-* macvlan/ipvlan 网络
+
+* bridge : 默认(NAT模式）。此模式下会给container分配独立的network namespace、设置IP，并将容器链接到 docker0 虚拟网桥，再通过
+  docker0 以及 iptables nat配置与宿主机通信。
+* host : 此时host主机与container主机的IP不再隔离，container主机直接使用host主机的网络（比如动态IP分配）
+
+```plain
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━┓      ┏━━━━━━━━━━━━━━━━━━━━━━━━━━┓  ┃
+┃  ┃docker1                   ┃      ┃docker2                   ┃  ┃
+┃  ┃eth0:172.17.0.1/16        ┃      ┃eth0:172.17.0.2/16        ┃  ┃
+┃  ┗━━━━━━━━┳━━━━━━━━━━━━━━━━━┛      ┗━━━━━━━━━┳━━━━━━━━━━━━━━━━┛  ┃
+┃           ┃                                  ┃                   ┃
+┃      ┏━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━┓             ┃
+┃      ┃  veth*                               veth*  ┃             ┃
+┃      ┃           docker0:172.17.0.0/16             ┃             ┃
+┃      ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛             ┃
+┃                              host                                ┃
+┃                       eth0:10.10.0.186/24                        ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+```
+
+* overlay : 适用于多个容器间通信。
+* none    : 完全移除网络
+* ipvlan  : 允许配置 IPv4,IPv6地址
+* macvlan : 给container分批 MAC 地址，适用于直接通信在 MAC 的物理网络的应用。
+
+```shell
+
+podman run --cap-add=NET_ADMIN,NET_RAW --name c1 --rm --network=host -it busybox:musl
+
+podman run --cap-add=NET_ADMIN,NET_RAW --name c1 --rm --network=host -it alpine sh
+apk add iputils
+ping
+```
 
 
 ## 如何管理容器的日志
+
 * docker logs 采集
 * syslog 采集
 * ELK 采集
 * 采集到阿里云日志服务
-
 
 ## 会选择什么操作系统作为容器的宿主机？
 
@@ -804,20 +849,20 @@ docker push
 * Windows
 
 ## 考虑如何管理Docker镜像
+
 * 使用Docker Hub
 * 搭建私有Docker Registry
 * 使用阿里云Docker Registry服务
 * 使用国内其他Docker Regsitry服务
 
-
 ## 容器技术相关的安全挑战?
+
 * 考虑Docker容器中secret的管理
 * 考虑Docker Engine相关的安全配置、证书，及定期更新
 * 考虑容器镜像的安全和可信
 * 考虑如何修复镜像中操作系统和应用的安全缺陷
 * 考虑如何对运行期的Docker容器进行扫描
 * 考虑对组织的不同成员授予Docker集群的不同操作权限
-
 
 ## centos
 
@@ -829,7 +874,6 @@ docker run -i -t  \
     /bin/bash
 docker exec -it my-centos bash
 ```
-
 
 ## ubuntu
 
@@ -843,12 +887,12 @@ docker run -i -t \
 docker exec -it my-ubuntu bash
 ```
 
-
 ## 7788
+
 * docker Can't set cookie dm_task_set_cookie failed
 
-    see [here](https://github.com/moby/moby/issues/33603)
-    and [Setting Semaphore Parameters](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/sect-Oracle_9i_and_10g_Tuning_Guide-Setting_Semaphores-Setting_Semaphore_Parameters.html)
+  see [here](https://github.com/moby/moby/issues/33603)
+  and [Setting Semaphore Parameters](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/sect-Oracle_9i_and_10g_Tuning_Guide-Setting_Semaphores-Setting_Semaphore_Parameters.html)
 
     ```bash
     # 检查 device mapper 情况
@@ -869,7 +913,6 @@ docker exec -it my-ubuntu bash
     echo "kernel.sem=250 32000 100 1024" >> /etc/sysctl.conf
     ```
 
-
 # kernel 模块
 
 容器与 kernel 交互是通过 系统调用的，并包含容器内的 kernel 、kernel module 代码。
@@ -881,6 +924,103 @@ docker exec -it my-ubuntu bash
 - `-cap-add=ALL`
 - mount host `/lib/modules` 到容器内。
 
-在 windows 平台，docker toolbox 运行了一个  boot2docker， 可以 ssh 上去，并查看 `/lib/modules` 里的内容。
+在 windows 平台，docker toolbox 运行了一个 boot2docker， 可以 ssh 上去，并查看 `/lib/modules` 里的内容。
+
+# ORAS: OCI Registry As Storage
+
+- [ORAS](https://oras.land/)
+    - [helm](https://v3.helm.sh/docs/topics/registries/) : 实现该协议的客户端之一
+        - [microbean/microbean-helm](https://github.com/microbean/microbean-helm) ： helm 的 java client
+- [OCI artifacts on Docker Hub](https://docs.docker.com/docker-hub/oci-artifacts/)
+
+```shell
+brew install oras
+```
+
+# image 备注
+
+- [sickcodes/docker-osx](https://hub.docker.com/r/sickcodes/docker-osx)
+- [_/microsoft-windows-servercore](https://hub.docker.com/_/microsoft-windows-servercore)
+  https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/container-base-images
+
+# java client
+
+- [docker-java/docker-java](https://github.com/docker-java/docker-java)
+    - `com.github.docker-java:docker-java-core`
+    - `com.github.docker-java:docker-java-transport-*`
+- [A Docker Guide for Java](https://www.baeldung.com/docker-java-api)
+
+# Capability
+
+docker
+run : [Runtime privilege and Linux capabilities](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities)
+
+默认开启的能力
+
+| Capability       | Desc                                                                                                                          |
+|------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| AUDIT_WRITE      | Write records to kernel auditing log.                                                                                         |
+| CHOWN            | Make arbitrary changes to file UIDs and GIDs (see chown(2)).                                                                  |
+| DAC_OVERRIDE     | Bypass file read, write, and execute permission checks.                                                                       |
+| FOWNER           | Bypass permission checks on operations that normally require the file system UID of the process to match the UID of the file. |
+| FSETID           | Don’t clear set-user-ID and set-group-ID permission bits when a file is modified.                                             |
+| KILL             | Bypass permission checks for sending signals.                                                                                 |
+| MKNOD            | Create special files using mknod(2).                                                                                          |
+| NET_BIND_SERVICE | Bind a socket to internet domain privileged ports (port numbers less than 1024).                                              |
+| NET_RAW          | Use RAW and PACKET sockets.                                                                                                   |
+| SETFCAP          | Set file capabilities.                                                                                                        |
+| SETGID           | Make arbitrary manipulations of process GIDs and supplementary GID list.                                                      |
+| SETPCAP          | Modify process capabilities.                                                                                                  |
+| SETUID           | Make arbitrary manipulations of process UIDs.                                                                                 |
+| SYS_CHROOT       | Use chroot(2), change root directory.                                                                                         |
+
+默认DROP掉的能力
+
+| Capability         | Desc                                                                                                                      |
+|--------------------|---------------------------------------------------------------------------------------------------------------------------|
+| AUDIT_CONTROL      | Enable and disable kernel auditing; change auditing filter rules; retrieve auditing status and filtering rules.           |
+| AUDIT_READ         | Allow reading the audit log via multicast netlink socket.                                                                 |
+| BLOCK_SUSPEND      | Allow preventing system suspends.                                                                                         |
+| BPF                | Allow creating BPF maps, loading BPF Type Format (BTF) data, retrieve JITed code of BPF programs, and more.               |
+| CHECKPOINT_RESTORE | Allow checkpoint/restore related operations. Introduced in kernel 5.9.                                                    |
+| DAC_READ_SEARCH    | Bypass file read permission checks and directory read and execute permission checks.                                      |
+| IPC_LOCK           | Lock memory (mlock(2), mlockall(2), mmap(2), shmctl(2)).                                                                  |
+| IPC_OWNER          | Bypass permission checks for operations on System V IPC objects.                                                          |
+| LEASE              | Establish leases on arbitrary files (see fcntl(2)).                                                                       |
+| LINUX_IMMUTABLE    | Set the FS_APPEND_FL and FS_IMMUTABLE_FL i-node flags.                                                                    |
+| MAC_ADMIN          | Allow MAC configuration or state changes. Implemented for the Smack LSM.                                                  |
+| MAC_OVERRIDE       | Override Mandatory Access Control (MAC). Implemented for the Smack Linux Security Module (LSM).                           |
+| NET_ADMIN          | Perform various network-related operations.                                                                               |
+| NET_BROADCAST      | Make socket broadcasts, and listen to multicasts.                                                                         |
+| PERFMON            | Allow system performance and observability privileged operations using perf_events, i915_perf and other kernel subsystems |
+| SYS_ADMIN          | Perform a range of system administration operations.                                                                      |
+| SYS_BOOT           | Use reboot(2) and kexec_load(2), reboot and load a new kernel for later execution.                                        |
+| SYS_MODULE         | Load and unload kernel modules.                                                                                           |
+| SYS_NICE           | Raise process nice value (nice(2), setpriority(2)) and change the nice value for arbitrary processes.                     |
+| SYS_PACCT          | Use acct(2), switch process accounting on or off.                                                                         |
+| SYS_PTRACE         | Trace arbitrary processes using ptrace(2).                                                                                |
+| SYS_RAWIO          | Perform I/O port operations (iopl(2) and ioperm(2)).                                                                      |
+| SYS_RESOURCE       | Override resource Limits.                                                                                                 |
+| SYS_TIME           | Set system clock (settimeofday(2), stime(2), adjtimex(2)); set real-time (hardware) clock.                                |
+| SYS_TTY_CONFIG     | Use vhangup(2); employ various privileged ioctl(2) operations on virtual terminals.                                       |
+| SYSLOG             | Perform privileged syslog(2) operations.                                                                                  |
+| WAKE_ALARM         | Trigger something that will wake up the system.                                                                           |
+
+# Q&A
+
+## Ping returns, "operation not permitted.
+
+A: 需要 `-cap-add NET_RAW`
+
+
+
+# Engine API
+[Docker Engine API (1.42)](https://docs.docker.com/engine/api/v1.42/)
+
+```shell
+podman run --rm -it alpine:latest sh
+podman machine inspect
+curl -v --unix-socket /Users/zll/.local/share/containers/podman/machine/qemu/podman.sock http:/v1.42/containers/json
+```
 
 

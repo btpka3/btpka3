@@ -1,0 +1,32 @@
+# https://docs.fedoraproject.org/en-US/fedora-coreos/producing-ign/
+# https://coreos.github.io/butane/config-fcos-v1_5/
+# run -ti --rm quay.io/coreos/mkpasswd --method=yescrypt
+
+variant: fcos
+version: 1.4.0
+passwd:
+    users:
+        -   name: dangqian.zll
+            password_hash: $y$j9T$IJcd0RpI6GZFvjOyOJeLZ/$PIZxahIjSvn46hBdY/luaGriSk/.Om9Bh1kKEoM.or/
+            ssh_authorized_keys:
+                - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDHRlpao/qfRCo0VPRrlGtoZ/epUQe14g38QLtxwzFhsySATmjUHbjdpzlzvLRtYuJedrIM1zs9rdhB/ciL+Zazuar7NEhhQyv98o3ygyK9tWgJkv3xFdGkQ0a4vS4D0R6O4gAZCCkGStm/drezLhxI8QfFVJEpC6DxI0pedUDcrLBZYT/dsBoC8qXviUUL2JASgsLPmNGYs1Om358WbjoXYhz24fxxTnPoswN40/wYTPN5lLM8Bg70wryx9KvkwbdWXeY1RlPNhDiNV7xZd4HWRAG5ZvO3J0/cw94w2bQEN5pWFYD0Qk59H8rkE1CZ/zpS8XhrA+N7bVSh7QS8j72r
+            groups:
+                - sudo
+                - systemd-journal
+                - docker
+                - wheel
+                - adm
+storage:
+    files:
+        -   path: /etc/zincati/config.d/51-rollout-wariness.toml
+            contents:
+                inline: |
+                    [identity]
+                    rollout_wariness = 0.001
+        -   path: /etc/zincati/config.d/55-updates-strategy.toml
+            contents:
+                inline: |
+                    [updates]
+                    strategy = "immediate"
+
+

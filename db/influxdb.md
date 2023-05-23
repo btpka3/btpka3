@@ -1,5 +1,3 @@
-
-
 # 参考
 
 - [InfluxDB Version 1.3 Documentation](https://docs.influxdata.com/influxdb/v1.3/)
@@ -59,26 +57,30 @@ docker create                                               \
 docker start my-influxdb
 
 ```
+
 # 常用命令
 
 ```sql
-# 启动数据库
+#
+启动数据库
 influxd help
 influxd config -help
 influxd run -help
 influxd
 
 # 连接到本地数据库
-influx 
+influx
 
 -- 创建数据库
-create database "db_name"
+create
+database "db_name"
 
 -- 显示所有的数据库
 show databases
 
 -- 删除数据库
-drop database "db_name"
+drop
+database "db_name"
 
 -- 切换数据库
 use db_name
@@ -96,7 +98,8 @@ SHOW FIELD KEYS FROM your_table
 insert test,host=127.0.0.1,monitor_name=test count=1
 
 -- 删除表
-drop measurement "measurement_name"
+drop
+measurement "measurement_name"
 ```
 
 # http api
@@ -107,8 +110,8 @@ curl -G 'http://localhost:8086/query?pretty=true' \
     --data-urlencode 'q=select * from collectd'
 ```
 
-
 # 注意
+
 - 开源版不再支持集群
 
 

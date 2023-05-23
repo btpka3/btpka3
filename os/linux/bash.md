@@ -222,6 +222,7 @@ echo "$target" | sed -r "s/^([[:space:]]*$ekk[[:space:]]*=).*$/\1$ekv/g"
 
 ## 字符串处理
 
+[String Manipulation in Bash](https://www.baeldung.com/linux/bash-string-manipulation)
 ### 转义
 
 ```bash
@@ -243,6 +244,14 @@ echo 'ls -l | awk -F"|" '"'"'{ if($5>10000) print $0}'"'"
 ### substr
 
 ```bash
+declare -r FILENAME="index.component.js"   # 声明一个只读变量
+echo ${FILENAME%.*}    # 通过 %  截断尾部最短匹配，输出: index.component
+echo ${"${FILENAME}"%.*}
+echo ${FILENAME%%.*}   # 通过 %% 截断尾部最长匹配，输出: index
+echo ${FILENAME#*.}    # 通过 #  截断前导最短匹配，输出：component.js
+echo ${FILENAME##*.}   # 通过 ## 截断前导最长匹配，输出：js
+
+
 str='CREATE TABLE `offercalc_fields` ('
 echo $str | grep -Po '(?<=CREATE TABLE `).+(?=`)'
 echo $str | sed -nr 's/CREATE TABLE `(.+)`.*/\1/p'
@@ -256,6 +265,13 @@ fuser 16000/tcp 2>&1 | sed -nr 's/[^[:space:]]+[[:space:]]+([[:digit:]]+)/\1/p'
 
 ### replace
 ```bash
+declare -r FILENAME="index.component.js"   # 声明一个只读变量
+echo ${FILENAME/*./index.}                 # 输出 ： index.js
+                                           # 第一个 / 表示使用替换命令，两个 / 之间的是匹配的表达式， 第二个 / 后面是要替换成的目标值
+                                           # 匹配的表达式是 *.  ， * 表示任意多个字符，按最长匹配 ，以【.】结尾，故这里匹配到 "index.component."
+
+
+
 str=my-app-2.0.2.war
 echo $str | sed -nr 's/-([0-9]+\.)+[0-9]+//p'
 ```
@@ -835,13 +851,4 @@ EOF
 
 enableSshdGatewayPorts /tmp/a # /etc/ssh/sshd_config
 cat /tmp/a
-```
-
-# lsof
-
-```bash
-# 列出给定PID已删除的文件描述符（FD）
-lsof -nP +L1 -p xxxPid
-# 清除给定已删除的文件
-: > "/proc/$pid/fd/$fd"
 ```

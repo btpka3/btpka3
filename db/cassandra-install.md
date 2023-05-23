@@ -1,8 +1,3 @@
-
-
-
-
-
 # docker
 
 ```
@@ -11,7 +6,7 @@ mkdir -p ~/tmp/my-cassandra
 mkdir -p ~/tmp/my-cassandra/data
 mkdir -p ~/tmp/my-cassandra/commitlog
 mkdir -p ~/tmp/my-cassandra/saved_caches
- 
+
 docker pull cassandra:3.10
 
 
@@ -44,11 +39,10 @@ docker run -d \
         cassandra:3.10
 
 docker start my-cassandra
- 
+
 docker exec -it my-cassandra bash
 
 ```
-
 
 GUI客户端工具 [DBeaver](http://dbeaver.jkiss.org/)
 
@@ -62,7 +56,7 @@ http://www.datastax.com/documentation/cassandra/2.1/cassandra/initialize/initial
 
 1. 已经安装了 JDK 1.7+
 1. 已经安装了 Python 2.6+
-1. 已经安装了 JNA 3.2.7+   （Java Native Access）
+1. 已经安装了 JNA 3.2.7+ （Java Native Access）
 
 ## 配置yum仓库
 
@@ -86,19 +80,18 @@ vi /etc/init.d/cassandra            # 在最开始追加以下配置文件
 
 RPM安装后的一些默认路径：
 
-|path|description|
-|---|---|
-|/etc/cassandra/conf          |CAASSANDRA_CONF |
-|/usr/share/cassandra         |CASSANDRA_HOME|
-|/var/lib/cassandra/data      |CASSANDRA_DATA |
-|/var/lib/cassandra/commitlog |CASSANDRA_COMMITLOG|
+| path                         | description         |
+|------------------------------|---------------------|
+| /etc/cassandra/conf          | CAASSANDRA_CONF     |
+| /usr/share/cassandra         | CASSANDRA_HOME      |
+| /var/lib/cassandra/data      | CASSANDRA_DATA      |
+| /var/lib/cassandra/commitlog | CASSANDRA_COMMITLOG |
 
 `vi /etc/cassandra/conf/cassandra.yaml`
 
 ```
 listen_address: 192.168.101.80
 ```
-
 
 ## 启动 (默认配置)
 
@@ -110,8 +103,8 @@ service cassandra start
 
 cql介绍请参考[这里](http://cassandra.apache.org/doc/cql3/CQL.html)
 
-
 ## 修改默认认证方式
+
 参考[这里](http://www.datastax.com/documentation/cassandra/2.1/cassandra/security/security_config_native_authenticate_t.html)。
 
 1. `vi /etc/cassandra/conf/cassandra.yaml`
@@ -139,6 +132,7 @@ cql介绍请参考[这里](http://cassandra.apache.org/doc/cql3/CQL.html)
     ```
 
 ## 修改默认授权方式
+
 参考[这里](http://www.datastax.com/documentation/cassandra/2.1/cassandra/security/secure_config_native_authorize_t.html)。
 
 1. `vi /etc/cassandra/conf/cassandra.yaml`

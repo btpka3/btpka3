@@ -572,6 +572,9 @@ daemon.xml
 
 # plugins
 
+# com.google.errorprone:error_prone_core
+errorprone : [Installation](https://errorprone.info/docs/installation)
+
 # Dependency-Check
 [Dependency-Check](https://jeremylong.github.io/DependencyCheck/dependency-check-maven/index.html) 主要用于检查 OWASP 中的风险依赖
 
@@ -659,3 +662,5 @@ java.lang.NullPointerException
     at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:406)
     at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:347)
 ```
+
+

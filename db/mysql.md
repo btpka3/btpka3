@@ -1,4 +1,3 @@
-
 # 存储引擎
 
 * MyISAM
@@ -17,31 +16,34 @@
     * 支持外键
     * 不支持全文索引
 
-
 ## 查看
 
 ```sql
 -- 查看所支持的引擎和默认值
-show engines
+show
+engines
 
 -- 查看既有表和对应的引擎
-select table_name, engine from INFORMATION_SCHEMA.TABLES where table_schema = 'myDb';
+select table_name, engine
+from INFORMATION_SCHEMA.TABLES
+where table_schema = 'myDb';
 ```
-
 
 ## 修改
 
-持久修改默认引擎： `vi  /etc/my.cnf`，重启生效：
+持久修改默认引擎： `vi /etc/my.cnf`，重启生效：
 
 ```ini
 [mysqld]
 default-storage-engine=MyISAM
 ```
+
 临时修改默认引擎，重启失效。
 
 ```sql
-SET GLOBAL storage_engine='MyISAM';
-SET SESSION storage_engine='MyISAM';
+SET
+GLOBAL storage_engine='MyISAM';
+SET SESSION storage_engine = 'MyISAM';
 ```
 
 修改既有表的引擎
@@ -50,18 +52,17 @@ SET SESSION storage_engine='MyISAM';
 ALTER TABLE t ENGINE = MYISAM;
 ```
 
-
-
-
 # 备份与恢复
+
 1. 要用bin-log。
 1. 要定期全量备份，且记录该对应bin-log的File和Position。
 1. 清除较旧的bin-log前，要确保全量备份已经包含该bin-log中的内容。
 1. 恢复时，需要：
     1. 恢复全量备份
-    1. 在增量从bin-log中从全量的位置开始，恢复到故障发前的position或日期，参考[这里](http://dev.mysql.com/doc/refman/5.6/en/point-in-time-recovery.html)。
-1. 如果在master-slave模式上进行备份和回滚，对应bin-log的File和Position可以通过 `SHOW slave STATUS` 获取，备份前可以 `STOP SLAVE`（而不必像在master上那样必须先锁表）。
-
+    1.
+    在增量从bin-log中从全量的位置开始，恢复到故障发前的position或日期，参考[这里](http://dev.mysql.com/doc/refman/5.6/en/point-in-time-recovery.html)。
+1. 如果在master-slave模式上进行备份和回滚，对应bin-log的File和Position可以通过 `SHOW slave STATUS`
+   获取，备份前可以 `STOP SLAVE`（而不必像在master上那样必须先锁表）。
 
 ## 备份表结构
 
@@ -72,48 +73,58 @@ mysqldump \
     --user yourUserName \
     --set-gtid-purged=OFF  \
     --force \
-    yourDatabase 
-    
-```
+    yourDatabase
 
+```
 
 # 存储过程、函数
 
 参考 [create-procedure](http://dev.mysql.com/doc/refman/5.6/en/create-procedure.html)、
 [stored-programs-defining](http://dev.mysql.com/doc/refman/5.6/en/stored-programs-defining.html)
 
-创建存储过程，需要 开启 [log_bin_trust_function_creators](http://dev.mysql.com/doc/refman/5.6/en/server-system-variables.html#sysvar_log_bin_trust_function_creators)、或者拥有 `SUPER` 权限。
+创建存储过程，需要
+开启 [log_bin_trust_function_creators](http://dev.mysql.com/doc/refman/5.6/en/server-system-variables.html#sysvar_log_bin_trust_function_creators)
+、或者拥有 `SUPER` 权限。
 开启了二进制日期的情况下，还需要声明称成：`DETERMINISTIC`、`NO SQL`、或者 `READS SQL DATA`。
 
 简单示例：
 
 ```sql
-use test;
+use
+test;
 
 drop function has_trade_lastyear;
-delimiter //
+delimiter
+//
 CREATE FUNCTION has_trade_lastyear(
-    userId varchar(255)
+    userId varchar (255)
 ) RETURNS BOOLEAN
- READS SQL DATA
-SQL SECURITY DEFINER
+    READS SQL DATA
+    SQL SECURITY DEFINER
 BEGIN
-    DECLARE e boolean;
-    select count(*) from naladb.trade
-     where buyer_id = userId
-       and date_created between '2012-10-01' and '2014-03-01'
-       and total_price > 14000 and  status IN (4,14,15)
-      INTO e;
-    return (e>0);
-END//
+    DECLARE
+e boolean;
+select count(*)
+from naladb.trade
+where buyer_id = userId
+  and date_created between '2012-10-01' and '2014-03-01'
+  and total_price > 14000
+  and status IN (4, 14, 15) INTO e;
+return (e > 0);
+END
+//
 delimiter ;
 
-# 使用
-select * from naladb.user where   has_trade_lastyear(id) limit 10;
+#
+使用
+select *
+from naladb.user
+where has_trade_lastyear(id) limit 10;
 ```
 
 --------------------------------------------
 TODO 分解、合并
+
 # 存储引擎
 
 * MyISAM
@@ -132,32 +143,35 @@ TODO 分解、合并
     * 支持外键
     * 不支持全文索引
 
-
 ## 查看
 
 ```sql
 
 -- 查看所支持的引擎和默认值
-show engines
+show
+engines
 
 -- 查看既有表和对应的引擎
-select table_name, engine from INFORMATION_SCHEMA.TABLES where table_schema = 'myDb';
+select table_name, engine
+from INFORMATION_SCHEMA.TABLES
+where table_schema = 'myDb';
 ```
-
 
 ## 修改
 
-持久修改默认引擎： `vi  /etc/my.cnf`，重启生效：
+持久修改默认引擎： `vi /etc/my.cnf`，重启生效：
 
 ```ini
 [mysqld]
 default-storage-engine=MyISAM
 ```
+
 临时修改默认引擎，重启失效。
 
 ```sql
-SET GLOBAL storage_engine='MyISAM';
-SET SESSION storage_engine='MyISAM';
+SET
+GLOBAL storage_engine='MyISAM';
+SET SESSION storage_engine = 'MyISAM';
 ```
 
 修改既有表的引擎
@@ -166,28 +180,26 @@ SET SESSION storage_engine='MyISAM';
 ALTER TABLE t ENGINE = MYISAM;
 ```
 
-
-
-
 # 备份与恢复
+
 1. 要用bin-log。
 1. 要定期全量备份，且记录该对应bin-log的File和Position。
 1. 清除较旧的bin-log前，要确保全量备份已经包含该bin-log中的内容。
 1. 恢复时，需要：
     1. 恢复全量备份
-    1. 在增量从bin-log中从全量的位置开始，恢复到故障发前的position或日期，参考[这里](http://dev.mysql.com/doc/refman/5.6/en/point-in-time-recovery.html)。
-1. 如果在master-slave模式上进行备份和回滚，对应bin-log的File和Position可以通过 `SHOW slave STATUS` 获取，备份前可以 `STOP SLAVE`（而不必像在master上那样必须先锁表）。
-
-
+    1.
+    在增量从bin-log中从全量的位置开始，恢复到故障发前的position或日期，参考[这里](http://dev.mysql.com/doc/refman/5.6/en/point-in-time-recovery.html)。
+1. 如果在master-slave模式上进行备份和回滚，对应bin-log的File和Position可以通过 `SHOW slave STATUS`
+   获取，备份前可以 `STOP SLAVE`（而不必像在master上那样必须先锁表）。
 
 # master-slave
+
 [replication-howto](http://dev.mysql.com/doc/refman/5.6/en/replication-howto.html)。replication可以做什么？
 
 * 读写分离。所有更新都在master上进行，slave上只进行读取操作，减轻master的压力。
 * 数据安全。全量备份数据时，可以在slave上进行，避免中断正在提供服务的master。
 * 统计分析。对大量历史数据进行统计分析时，可以在slave上进行。
 * 长距离数据分配。比如：可以在开发环境中通过slave访问到线上数据，而无需获得对master的访问权限。
-
 
 ## 查看Master状态
 
@@ -202,7 +214,6 @@ ALTER TABLE t ENGINE = MYISAM;
     ```bash
     mysql -p -e "SHOW MASTER STATUS" > start_status.txt
     ```
-
 
     示例结果：
 
@@ -229,12 +240,9 @@ ALTER TABLE t ENGINE = MYISAM;
     UNLOCK TABLES;
     ```
 
-
-
 ## 对于在master中已经有数据的主从配置步骤
 
 初始状态：master在运行，slave未运行。
-
 
 1. master配置 : `vi my.cnf`，如果尚未配置，则修改后需要重启。
 
@@ -260,7 +268,7 @@ ALTER TABLE t ENGINE = MYISAM;
 
 1. 在master上创建用于Replication的用户。
 
-   任何用户均可，需要有  REPLICATION SLAVE  权限。
+   任何用户均可，需要有 REPLICATION SLAVE 权限。
    用户名和密码需要以明文的方式存储在 master.info 中，故最好单独创建一个这样的账户，赋予最小权限。
 
    ```sql
@@ -282,7 +290,7 @@ ALTER TABLE t ENGINE = MYISAM;
     ```
 
 1. 使用 raw 文件（MyISAM）获取master快照备份，并在slave上恢复。
-(InnoDB需要停止服务器，故不建议使用该方式)
+   (InnoDB需要停止服务器，故不建议使用该方式)
 
     1. 确保以下变量在master和slave上一致。
 
@@ -312,14 +320,14 @@ ALTER TABLE t ENGINE = MYISAM;
     show slave status \G
     ```
 
-1. 如果同步出现问题，可以参考[这里](http://dev.mysql.com/doc/refman/5.0/en/replication-problems.html)进行排查。如果在 slave 上执行`show slave status \G`，且结果中 Slave_SQL_Running 为 No 时，可以。
+1. 如果同步出现问题，可以参考[这里](http://dev.mysql.com/doc/refman/5.0/en/replication-problems.html)进行排查。如果在
+   slave 上执行`show slave status \G`，且结果中 Slave_SQL_Running 为 No 时，可以。
 
     1. master: `show master status`，并记下 File 和 Position的值。
     1. slave : `stop slave`
     1. slave : `RESET SLAVE`         -- ??? 请自行斟酌是否使用
     1. slave : `CHANGE MASTER TO ...`
     1. slave : `start slave`
-
 
 # my.cnf
 
@@ -402,15 +410,11 @@ no-auto-rehash                                      # 禁用自动提示（命�
 MySQL的游标方式读取大数据量是有一些限制的：
 
 1. 当前连接没处理完数据集，是不能执行其他查询操作的．
-1. 必须把ResultSet#close()掉，否则必须会：　
-    ```
+1. 必须把ResultSet#close()掉，否则必须会： ```
     Streaming result set com.mysql.jdbc.RowDataDynamic@4447393f is still active. No statements may be issued when any streaming result sets are open and in use on a given connection. Ensure that you have called .close() on any active streaming result sets before attempting more queries.
     ```
 
 FIXME: 仅仅MySQL会有这样的问题？
-
-
-
 
 #查看MyISAM表的记录数
 
@@ -421,7 +425,8 @@ select table_name, engine, table_rows from INFORMATION_SCHEMA.tables where table
 # MySql Workbench
 
 ## ubuntu
- 安装mysql的 [apt 仓库](http://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/)
+
+安装mysql的 [apt 仓库](http://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/)
 
 ```
 sudo dpkg -i /PATH/platform-and-version-specific-package-name.deb

@@ -1,0 +1,36 @@
+- [CNCF: Cloud Native Computing Fundation](https://www.cncf.io/)
+
+
+- CNCF : Cloud Native Computing Foundation
+  - graduated
+    - argo  : CI/CD
+    - flux : CI/CD
+    - containerd : Container Runtime
+    - CoreDNS: Coordination & Service Discovery
+    - envoy : Service Proxy
+    - etcd : Coordination & Service Discovery
+    - fluentd : Logging
+    - Harbor: Container Registry
+    - HELM : Application Definition & Image Build
+    - kubernetes : Scheduling & Orchestration
+    - linkerd : service mesh
+    - Open Policy Agent :  Security & Compliance
+    - jaeger : Tracing
+    - Prometheus : Monitoring
+    - ROOK : Cloud Native Storage
+    - spiffe : Key Management
+    - spire : Key Management
+    - tuf : Security & Compliance
+    - tikv : database
+    - vitess : database
+  - incubating
+    - cilium : Cloud Native Network
+    - CubeFs : Cloud Native Storage
+    - gRPC : Remote Procedure Call
+    - falco : Security & Compliance
+    - Emissary-Ingress : API Gateway
+    - lstio : service mesh
+    - OpenMetrics : Monitoring
+    - cortex : Monitoring
+    - OpenTelemetry : tracing
+    - tranos : tracing

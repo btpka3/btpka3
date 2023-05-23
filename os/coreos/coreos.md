@@ -1,10 +1,84 @@
 # 参考
-* [coreos](https://coreos.com/os/docs/latest/)
+- [Fedora CoreOS](https://fedoraproject.org/coreos/)。
+- [CoreOS Installer](https://coreos.github.io/coreos-installer/)
+- [coreos/mkpasswd-container](https://github.com/coreos/mkpasswd-container)
+- [cloud-init](https://cloudinit.readthedocs.io/) :
+  注意：[coreos/coreos-cloudinit]()已经废弃，改为使用 Ignition 来替代。
+  而 [Fedora Packages](https://packages.fedoraproject.org/pkgs/cloud-init/cloud-init/)是由
+  [canonical/cloud-init](https://github.com/canonical/cloud-init) 提供。
+
+* ~~ [coreos](https://coreos.com/os/docs/latest/) ~~ 已经由 Fedora CoreOS 替代
 * [virtualbox](https://coreos.com/os/docs/latest/booting-on-virtualbox.html)
 * [Installing CoreOS Container Linux to disk](https://coreos.com/os/docs/latest/installing-to-disk.html)
 * [CoreOS With Nvidia CUDA GPU Drivers](http://tleyden.github.io/blog/2014/11/04/coreos-with-nvidia-cuda-gpu-drivers/)
 
-# 安装
+
+# 命令
+```shell
+# mkpasswd
+podman run -ti --rm quay.io/coreos/mkpasswd --method=yescrypt
+```
+
+# 安装-virtualbox
+[Provisioning Fedora CoreOS on VirtualBox](https://docs.fedoraproject.org/en-US/fedora-coreos/provisioning-virtualbox/)
+
+```shell
+# 准备 Ignition 配置文件
+# 手动编写 yaml格式的 `demo.bu` 文件
+
+CONF_DIR=/Users/zll/data0/work/git-repo/github/btpka3/btpka3/os/coreos
+DATA_DIR=/Users/zll/data0/store/coreos-installer/data
+STREAM="stable"
+VM_NAME=my-fcos
+IGN_PATH=${CONF_DIR}/demo.ign
+alias butane='podman run --interactive --rm quay.io/coreos/butane:release'
+alias coreos-installer="podman run --pull=always --privileged --rm \
+    -v /dev:/dev -v ${DATA_DIR}:/data -w /data \
+    quay.io/coreos/coreos-installer:release"
+
+butane --pretty --strict < ${CONF_DIR}/demo.bu > ${CONF_DIR}/demo.ign
+butane --pretty --strict < ${CONF_DIR}/remote.bu > ${CONF_DIR}/remote.ign
+
+
+mkdir -p ${DATA_DIR}
+cd $CONF_DIR
+http-server     # npm install --global http-server
+
+# 下载
+cd ${DATA_DIR}
+coreos-installer download -s "${STREAM}" -p virtualbox -f ova
+ll
+-rw-r--r--  1 zll  staff   826M May  4 15:26 fedora-coreos-38.20230414.3.0-virtualbox.x86_64.ova
+-rw-r--r--  1 zll  staff   566B May  4 15:26 fedora-coreos-38.20230414.3.0-virtualbox.x86_64.ova.sig
+
+# Importing the OVA
+VBoxManage import --vsys 0 --vmname "$VM_NAME" ./fedora-coreos-38.20230414.3.0-virtualbox.x86_64.ova
+
+# Setting the Ignition config
+VBoxManage guestproperty set "$VM_NAME" /Ignition/Config "$(cat $IGN_PATH)"
+# https://www.npmjs.com/package/http-server
+
+# Configuring networking
+VBoxManage modifyvm "$VM_NAME" --natpf1 "guestssh,tcp,,2222,,22"
+
+# 默认用户是 core, 而
+ssh dangqian.zll@localhost -p 2222
+
+# 在虚拟机中执行以下命令
+sudo rpm-ostree install \
+  golang-k8s-cri-api-devel \
+  golang-k8s-kubelet-devel \
+  kubernetes-kubeadm \
+  golang-k8s-system-validators-devel \
+  golang-k8s-kubectl-devel \
+  golang-k8s-cli-runtime-devel
+reboot
+```
+
+
+
+
+# 安装2（废弃）
 ## 作为 VirtualBox 虚拟机安装
 
 ```bash
@@ -35,18 +109,18 @@ VBoxManage modifyhd my_vm01.vdi --resize 10240
 #   启动后，ip地址会在虚拟机的登录窗口显示。
 
 # 使用 ssh key 登录
-ssh core@192.168.0.138 
+ssh core@192.168.0.138
 
 # 在 虚拟机内测试使用 docker
 docker run -it --rm alpine:3.5 ip addr
-  
+
 ```
 
 ## 安装到物理机上
 
 1. 先运行 任何一种 Linux 的 LiveCD
 1. 运行 [coreos-install 脚本](https://raw.githubusercontent.com/coreos/init/master/bin/coreos-install)
-  
+
 ## FIXME
 
 - 硬件驱动如何解决？比如显卡，网卡等?
@@ -64,7 +138,7 @@ docker run -it --rm alpine:3.5 ip addr
 ```bash
 
 
-cat /etc/motd 
+cat /etc/motd
 Container Linux by CoreOS stable (1520.8.0)
 
 cat /etc/os-release
@@ -171,24 +245,24 @@ ip addr
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
        valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host 
+    inet6 ::1/128 scope host
        valid_lft forever preferred_lft forever
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
     link/ether 56:00:01:43:94:22 brd ff:ff:ff:ff:ff:ff
     inet 45.76.198.144/23 brd 45.76.199.255 scope global dynamic eth0
        valid_lft 48731sec preferred_lft 48731sec
-    inet6 2001:19f0:7001:d13:5400:1ff:fe43:9422/64 scope global mngtmpaddr noprefixroute dynamic 
+    inet6 2001:19f0:7001:d13:5400:1ff:fe43:9422/64 scope global mngtmpaddr noprefixroute dynamic
        valid_lft 2591956sec preferred_lft 604756sec
-    inet6 fe80::5400:1ff:fe43:9422/64 scope link 
+    inet6 fe80::5400:1ff:fe43:9422/64 scope link
        valid_lft forever preferred_lft forever
 3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
     link/ether 5a:01:01:43:94:22 brd ff:ff:ff:ff:ff:ff
-    inet6 fe80::5801:1ff:fe43:9422/64 scope link 
+    inet6 fe80::5801:1ff:fe43:9422/64 scope link
        valid_lft forever preferred_lft forever
 ```
 
 
-## 升级 
+## 升级
 
 ```bash
 cat /etc/coreos/update.conf

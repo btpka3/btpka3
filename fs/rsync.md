@@ -1,5 +1,3 @@
-
-
 ```
 yum install rsync
 systemctl is-enabled rsyncd
@@ -13,8 +11,6 @@ rsync -avzP root@test11.jujncn.com:/home/git/repositories/ /data0/backup/git-rep
 ssh root@test11.jujncn.com rsync -avzP root@test11.jujncn.com:/home/git/repositories/ /data0/backup/git-repo
 
 ```
-
-
 
 ### rsync
 

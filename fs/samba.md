@@ -33,10 +33,9 @@
             网络访问：本地账户的共享和安全模型 -> 选为 “仅来宾 - 对本地用户进行身份验证，其身份为来宾”
     ```
 
-
 ## centos
 
-###  安装
+### 安装
 
 NetBIOS Message Block (NMB )
 可以通过主机名代替IP地址来访问局域网里的主机。
@@ -60,22 +59,22 @@ NetBIOS Message Block (NMB )
 
 1. （可选）设置防火墙
 
-    如果开启了防火墙的情况下，需要开启TCP 139、445端口; UDP 137、138端口。
+   如果开启了防火墙的情况下，需要开启TCP 139、445端口; UDP 137、138端口。
 
-1.  （可选）设置SELinux
+1. （可选）设置SELinux
 
-    如果开启了SELinux，则需要为每个共享目录执行以下命令。
+   如果开启了SELinux，则需要为每个共享目录执行以下命令。
 
-    ```bash
-    [root@localhost ~]# chcon -R -t samba_share_t /path/to/shared/folder
-    ```
-    或者禁用SELinux
+   ```bash
+   [root@localhost ~]# chcon -R -t samba_share_t /path/to/shared/folder
+   ```
+   或者禁用SELinux
 
-    ```bash
-    [root@localhost ~]# setenforce 0                    # 临时禁用SELinux，重启后失效
-    [root@localhost ~]# vi /etc/selinux/config        # 永久禁用SELinux
-      SELINUX=disabled
-    ```
+   ```bash
+   [root@localhost ~]# setenforce 0                    # 临时禁用SELinux，重启后失效
+   [root@localhost ~]# vi /etc/selinux/config        # 永久禁用SELinux
+     SELINUX=disabled
+   ```
 
 # 认证访问
 
@@ -158,7 +157,6 @@ NetBIOS Message Block (NMB )
     [root@localhost ~]# service nmb restart
     ```
 
-
 ## ubuntu
 
 ### 安装
@@ -166,7 +164,7 @@ NetBIOS Message Block (NMB )
 ```
 sudo apt-get install samba
 ```
-	
+
 ### 匿名访问
 
 1. 修改 `vi /etc/samba/smb.conf`
@@ -193,7 +191,6 @@ sudo apt-get install samba
     guest ok = yes
     guest only = yes
     ```
-
 
 # demo
 

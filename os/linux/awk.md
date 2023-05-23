@@ -28,6 +28,22 @@ ll | awk '{s+=$5} END{print s}'
 # 条件过滤
 ll | awk '{ if($5>10000) print $0}'
 
+echo "aaa bbb" | gawk '{
+  if(match($0, /(.*) (.*)/, arr)){
+     print arr[1] "=" arr[2]
+  }
+}'
+
+# 正则提取分组
+echo '"Common Cleaner" Id=21 BLOCKED on AAA@111 owned by "AAA Handler" Id=11' |
+gawk '
+{
+    if(match($0, /^"[^"]*" [^ ]+ \w+ on ([^ ]+) owned by "[^"]*" Id=([^ ]+)$/, arr)){
+        print arr[2] " " arr[1]
+    }
+}
+'
+
 # 作为引号中的命令
 echo 'ls -l | awk -F"|" '"'"'{ if($5>10000) print $0}'"'"
 
@@ -45,6 +61,34 @@ Item4,100
 Item5,
 Item5,444
 EOF
+
+
+# group，distinct concat
+cat << EOF |
+X1,AAA,101
+X2,AAA,102
+X2,AAA,102
+X3,CCC,301
+X4,BBB,201
+X5,BBB,202
+X6,AAA,103
+EOF
+awk -F, '{print $2, $3}' | sort | uniq |
+awk '
+{
+    if(array[$1] == "") {
+        array[$1] = $2 ;
+    } else {
+        array[$1] = array[$1] "," $2
+    }
+}
+END {
+    for( k in array ){
+     print k " " array[k]
+    }
+}
+' | sort
+
 ```
 
 
@@ -178,7 +222,7 @@ gawk -v newVersion=3.3.3  '
 ### 查找-多行
 
 ```bash
-cat <<EOF |
+CONTENT='
 "AAA Handler" Id=11 RUNNABLE
         at java.base@11.0.15.14-JDK/java.lang.ref.Reference.waitForReferencePendingList(Native Method)
         at java.base@11.0.15.14-JDK/java.lang.ref.Reference.processPendingReferences(Reference.java:241)
@@ -186,9 +230,9 @@ cat <<EOF |
         Number of locked synchronizers = 1
         - java.util.concurrent.ThreadPoolExecutor$Worker@534c8c29
 
-"Common-Cleaner" Id=21 TIMED_WAITING on java.lang.ref.ReferenceQueue$Lock@578b0d8a
+"Common-Cleaner" Id=21 BLOCKED on AAA@111 owned by "AAA Handler" Id=11
         at java.base@11.0.15.14-JDK/java.lang.Object.wait(Native Method)
-        -  waiting on java.lang.ref.ReferenceQueue$Lock@578b0d8a
+        -  waiting on AAA@111
         at java.base@11.0.15.14-JDK/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
 
 "AAA Handler" Id=12 RUNNABLE
@@ -205,9 +249,19 @@ cat <<EOF |
         Number of locked synchronizers = 1
         - java.util.concurrent.ThreadPoolExecutor$Worker@534c8c29
 
-"Common-Cleaner" Id=22 TIMED_WAITING on java.lang.ref.ReferenceQueue$Lock@578b0d8a
+"Common-Cleaner" Id=22 BLOCKED on AAA@222 owned by "AAA Handler" Id=11
         at java.base@11.0.15.14-JDK/java.lang.Object.wait(Native Method)
-        -  waiting on java.lang.ref.ReferenceQueue$Lock@578b0d8a
+        -  waiting on AAA@222
+        at java.base@11.0.15.14-JDK/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
+
+"Common-Cleaner" Id=23 BLOCKED on BBB@111 owned by "AAA Handler" Id=14
+        at java.base@11.0.15.14-JDK/java.lang.Object.wait(Native Method)
+        -  waiting on BBB@111
+        at java.base@11.0.15.14-JDK/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
+
+"Common-Cleaner" Id=24 BLOCKED on BBB@111 owned by "AAA Handler" Id=14
+        at java.base@11.0.15.14-JDK/java.lang.Object.wait(Native Method)
+        -  waiting on BBB@111
         at java.base@11.0.15.14-JDK/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
 
 "AAA Handler" Id=14 RUNNABLE
@@ -216,18 +270,163 @@ cat <<EOF |
 
         Number of locked synchronizers = 1
         - java.util.concurrent.ThreadPoolExecutor$Worker@534c8c29
-EOF
-gawk -v threadId=11 '
+'
+STACK_FILE=/tmp/stack.log.2023-02-03_23:30:40
+echo $CONTENT > $STACK_FILE
+
+cat $STACK_FILE | grep BLOCKED | awk '
+{
+    if(match($0, /^"[^"]*" [^ ]+ \w+ on ([^ ]+) owned by "[^"]*" Id=([^ ]+)$/, arr)){
+        lock     = arr[1]
+        threadId = arr[2]
+        print threadId " " lock
+    }
+}
+' | sort | uniq |
+awk '
+{
+    if(match($0, /(.*) (.*)/, arr)){
+        threadId=arr[1]
+        lock=arr[2]
+        if(array[threadId] == "") {
+            array[threadId] = lock ;
+        } else {
+            array[threadId] = array[threadId] "," lock
+        }
+    }
+}
+END {
+    for( threadId in array ){
+       print threadId " " array[threadId]
+    }
+}
+' |
+xargs -I '{}' gawk -v id_lock={} -v hostname=`hostname` -v STACK_FILE=$STACK_FILE '
+BEGIN {
+    if(match(id_lock, /(.*) (.*)/, arr)){
+        threadId=arr[1]
+        lock=arr[2]
+    }
+}
 {
    s=$0
-   print ("id=" threadId ", ")
-   regex = "(\"[^\"]*\" Id=" threadId " RUNNABLE\n[^\"]*(\n\n|$))"
-   print regex
+   regex = "(\"[^\"]*\" Id=" threadId " RUNNABLE)\n([^\"]*(\n\n|$))"
    while(match(s, regex, arr)){
-      print "====================" ;
-      print arr[1];
+      print "==================== " hostname ":" STACK_FILE;
+      print arr[1] " lock " lock;
+      print arr[2];
       s = substr(s, arr[1, "start"] + arr[1, "length"]);
    }
 }
-' RS='^$'
+' RS='^$' $STACK_FILE
+```
+
+
+```bash
+for STACK_FILE in /home/admin/logs/hsf/HSF_JStack.log.2023-02-09_10:38:31
+do
+    grep BLOCKED $STACK_FILE | awk '
+{
+    if(match($0, /^"[^"]*" [^ ]+ \w+ on ([^ ]+) owned by "[^"]*" Id=([^ ]+)$/, arr)){
+        lock     = arr[1]
+        threadId = arr[2]
+        print threadId " " lock
+    }
+}
+' | sort | uniq |
+awk '
+{
+    if(match($0, /(.*) (.*)/, arr)){
+        threadId=arr[1]
+        lock=arr[2]
+        if(array[threadId] == "") {
+            array[threadId] = lock ;
+        } else {
+            array[threadId] = array[threadId] "," lock
+        }
+    }
+}
+END {
+    for( threadId in array ){
+       print threadId " " array[threadId]
+    }
+}
+' |
+xargs -I '{}' gawk -v id_lock={} -v hostname=`hostname` -v STACK_FILE="${STACK_FILE}" '
+BEGIN {
+    if(match(id_lock, /(.*) (.*)/, arr)){
+        threadId=arr[1]
+        lock=arr[2]
+    }
+}
+{
+   s=$0
+   regex = "(\"[^\"]*\" Id=" threadId " RUNNABLE)\n([^\"]*(\n\n|$))"
+   while(match(s, regex, arr)){
+      print "==================== " hostname ":" STACK_FILE;
+      print arr[1] " lock " lock;
+      print arr[2];
+      s = substr(s, arr[1, "start"] + arr[1, "length"]);
+   }
+}
+' RS='^$' $STACK_FILE
+done
+```
+
+
+```bash
+LOG_FILE=HSF_JStack_stat_`date +%Y%m%d%H%M%S`.log
+
+pgm -b -p 20 `armory -leg mtee3.content_sync.prodhost` '
+for STACK_FILE in /home/admin/logs/hsf/HSF_JStack.log*
+do
+    grep BLOCKED $STACK_FILE | awk '"'"'
+{
+    if(match($0, /^"[^"]*" [^ ]+ \w+ on ([^ ]+) owned by "[^"]*" Id=([^ ]+)$/, arr)){
+        lock     = arr[1]
+        threadId = arr[2]
+        print threadId " " lock
+    }
+}
+'"'"' | sort | uniq |
+awk '"'"'
+{
+    if(match($0, /(.*) (.*)/, arr)){
+        threadId=arr[1]
+        lock=arr[2]
+        if(array[threadId] == "") {
+            array[threadId] = lock ;
+        } else {
+            array[threadId] = array[threadId] "," lock
+        }
+    }
+}
+END {
+    for( threadId in array ){
+       print threadId " " array[threadId]
+    }
+}
+'"'"' |
+xargs -I {} gawk -v id_lock={} -v hostname=`hostname` -v STACK_FILE="${STACK_FILE}" '"'"'
+BEGIN {
+    if(match(id_lock, /(.*) (.*)/, arr)){
+        threadId=arr[1]
+        lock=arr[2]
+    }
+}
+{
+   s=$0
+   regex = "(\"[^\"]*\" Id=" threadId " RUNNABLE)\n([^\"]*(\n\n|$))"
+   while(match(s, regex, arr)){
+      print "==================== " hostname ":" STACK_FILE;
+      print arr[1] " lock " lock;
+      print arr[2];
+      s = substr(s, arr[1, "start"] + arr[1, "length"]);
+   }
+}
+'"'"' RS='"'"'^$'"'"' $STACK_FILE
+done
+' > $LOG_FILE
+
+zip -r ${LOG_FILE}.zip $LOG_FILE
 ```

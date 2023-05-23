@@ -57,3 +57,21 @@ public class ChildService extends ParentService {
 参考：
 - org.springframework.transaction.interceptor.AbstractFallbackTransactionAttributeSource#computeTransactionAttribute
 
+
+# 扩展
+- `META-INF/spring.factories` : see [here](https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-autoconfigure/src/main/resources/META-INF/spring.factories)
+  - org.springframework.context.ApplicationListener
+  - org.springframework.context.ApplicationContextInitializer
+  - org.springframework.boot.autoconfigure.EnableAutoConfiguration
+  - org.springframework.boot.env.EnvironmentPostProcessor
+  - org.springframework.boot.actuate.autoconfigure.ManagementContextConfiguration
+  - org.springframework.boot.autoconfigure.AutoConfigurationImportListener
+  - org.springframework.boot.diagnostics.FailureAnalyzer
+  - org.springframework.boot.autoconfigure.template.TemplateAvailabilityProvider
+  - org.springframework.boot.sql.init.dependency.DatabaseInitializerDetector
+  - org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitializationDetector
+- `META-INF/spring.handlers` : spring xml 配置文件自定义 namespace 的 handler
+- `META-INF/spring.schemas`  :
+- `META-INF/spring.components` : 由 spring-context-indexer 自动生成
+- `META-INF/ra.xml` : deployment descriptor for Java EE RAR File
+- `META-INF/aop.xml` : spring 使用 AspectJ 进行 aop 的相关配置

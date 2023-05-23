@@ -1,0 +1,41 @@
+{
+  "ignition": {
+    "version": "3.3.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "groups": [
+          "sudo",
+          "systemd-journal",
+          "docker",
+          "wheel",
+          "adm"
+        ],
+        "name": "dangqian.zll",
+        "passwordHash": "$y$j9T$IJcd0RpI6GZFvjOyOJeLZ/$PIZxahIjSvn46hBdY/luaGriSk/.Om9Bh1kKEoM.or/",
+        "sshAuthorizedKeys": [
+          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDHRlpao/qfRCo0VPRrlGtoZ/epUQe14g38QLtxwzFhsySATmjUHbjdpzlzvLRtYuJedrIM1zs9rdhB/ciL+Zazuar7NEhhQyv98o3ygyK9tWgJkv3xFdGkQ0a4vS4D0R6O4gAZCCkGStm/drezLhxI8QfFVJEpC6DxI0pedUDcrLBZYT/dsBoC8qXviUUL2JASgsLPmNGYs1Om358WbjoXYhz24fxxTnPoswN40/wYTPN5lLM8Bg70wryx9KvkwbdWXeY1RlPNhDiNV7xZd4HWRAG5ZvO3J0/cw94w2bQEN5pWFYD0Qk59H8rkE1CZ/zpS8XhrA+N7bVSh7QS8j72r"
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "files": [
+      {
+        "path": "/etc/zincati/config.d/51-rollout-wariness.toml",
+        "contents": {
+          "compression": "",
+          "source": "data:,%5Bidentity%5D%0Arollout_wariness%20%3D%200.001%0A"
+        }
+      },
+      {
+        "path": "/etc/zincati/config.d/55-updates-strategy.toml",
+        "contents": {
+          "compression": "",
+          "source": "data:,%5Bupdates%5D%0Astrategy%20%3D%20%22immediate%22%0A"
+        }
+      }
+    ]
+  }
+}

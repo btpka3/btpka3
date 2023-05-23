@@ -1,5 +1,3 @@
-
-
 # CURL 示例
 
 ## 查看集群状态
@@ -18,7 +16,9 @@ curl -XDELETE "http://localhost:9200/lizi?pretty"
   "acknowledged" : true
 }
 ```
+
 ## 创建索引
+
 这里在创建索引时使用的是默认设置定
 
 ```
@@ -29,6 +29,7 @@ curl -XPUT   "http://localhost:9200/lizi?pretty"
 ```
 
 ## 明确指定maping
+
 一般无需明确指定，保持默认即可，但也可以明确制定，如下所示：
 
 ```
@@ -159,7 +160,6 @@ curl -XGET 'http://localhost:9200/lizi/item/_search?pretty' -d '
 官方文档的 [Java API](http://www.elasticsearch.org/guide/en/elasticsearch/client/java-api/current/index.html) 参考。
 第三方提供的在线 [Javadoc](http://javadoc.kyubu.de/elasticsearch/)。
 
-
 Maven工程的文件目录结构：
 
 ```
@@ -170,25 +170,26 @@ first-es-java/src/main/java/me/test/EsTest.java
 ## pom.xml
 
 ```xml
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>me.test</groupId>
-  <artifactId>first-es-java</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.elasticsearch</groupId>
-      <artifactId>elasticsearch</artifactId>
-      <version>1.4.1</version>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>1.1.2</version>
-    </dependency>
-  </dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>me.test</groupId>
+    <artifactId>first-es-java</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>1.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+    </dependencies>
 </project>
 ```
 
@@ -222,7 +223,7 @@ public class EsTest {
     private static final String index = "lizi";
     private static final String type = "item";
 
-    @SuppressWarnings({ "resource" })
+    @SuppressWarnings({"resource"})
     public static void main(String[] args) throws InterruptedException, ExecutionException {
 
         // 创建Es的Client对象
@@ -230,12 +231,12 @@ public class EsTest {
         Client client = null;
         try {
             Settings settings = ImmutableSettings.settingsBuilder()
-                    .put("client.transport.ignore_cluster_name", true)
-                    .put("client.transport.sniff", true)
-                    .build();
+                .put("client.transport.ignore_cluster_name", true)
+                .put("client.transport.sniff", true)
+                .build();
 
             client = new TransportClient(settings)
-                    .addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
+                .addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
 
             recreateIndex(client);
             doIndex(client);
@@ -272,18 +273,18 @@ public class EsTest {
         if (client.admin().indices().prepareExists(index).execute().actionGet().isExists()) {
             // 删除索引 FIXME 超时判定？结果判定？
             DeleteIndexResponse deleteIndexResponse = client.admin()
-                    .indices()
-                    .delete(new DeleteIndexRequest(index))
-                    .actionGet();
+                .indices()
+                .delete(new DeleteIndexRequest(index))
+                .actionGet();
             System.out.println("delete index : " + deleteIndexResponse);
         }
 
         // 创建索引
         CreateIndexResponse createIndexResponse = client.admin()
-                .indices()
-                .prepareCreate(index)
-                .execute()
-                .actionGet();
+            .indices()
+            .prepareCreate(index)
+            .execute()
+            .actionGet();
         System.out.println("create index : " + createIndexResponse);
 
 
@@ -306,48 +307,48 @@ public class EsTest {
 
         // 请使用上述方法或者更合理的方法创建Json字符串
         String mappingJsonStr = "" +
-                "{" +
-                "    \"properties\": {" +
-                "        \"_all\" : {" +
-                "            \"type\":\"string\"," +
-                "            \"index\": \"analyzed\"," +
-                "            \"analyzer\": \"standard\"" +
-                "        }," +
-                "        \"title\" : {" +
-                "            \"type\":\"string\"," +
-                "            \"index\": \"analyzed\"," +
-                "            \"analyzer\": \"standard\"" +
-                "        }," +
-                "        \"origin\" : {" +
-                "            \"type\":\"string\"," +
-                "            \"index\": \"analyzed\"," +
-                "            \"analyzer\": \"standard\"" +
-                "        }," +
-                "        \"description\" : {" +
-                "            \"type\":\"string\"," +
-                "            \"index\": \"analyzed\"," +
-                "            \"analyzer\": \"standard\"" +
-                "        }," +
-                "        \"sales_count\" : {" +
-                "            \"type\":\"long\"" +
-                "        }," +
-                "        \"price\" : {" +
-                "            \"type\":\"long\"" +
-                "        }" +
-                "    }" +
-                "}"
+            "{" +
+            "    \"properties\": {" +
+            "        \"_all\" : {" +
+            "            \"type\":\"string\"," +
+            "            \"index\": \"analyzed\"," +
+            "            \"analyzer\": \"standard\"" +
+            "        }," +
+            "        \"title\" : {" +
+            "            \"type\":\"string\"," +
+            "            \"index\": \"analyzed\"," +
+            "            \"analyzer\": \"standard\"" +
+            "        }," +
+            "        \"origin\" : {" +
+            "            \"type\":\"string\"," +
+            "            \"index\": \"analyzed\"," +
+            "            \"analyzer\": \"standard\"" +
+            "        }," +
+            "        \"description\" : {" +
+            "            \"type\":\"string\"," +
+            "            \"index\": \"analyzed\"," +
+            "            \"analyzer\": \"standard\"" +
+            "        }," +
+            "        \"sales_count\" : {" +
+            "            \"type\":\"long\"" +
+            "        }," +
+            "        \"price\" : {" +
+            "            \"type\":\"long\"" +
+            "        }" +
+            "    }" +
+            "}"
         PutMappingResponse putMappingResponse = esClient.admin()
-                .indices()
-                .preparePutMapping(index)
-                .setType(index)
-                .setSource(mappingJsonStr)
-                .execute()
-                .actionGet();
+            .indices()
+            .preparePutMapping(index)
+            .setType(index)
+            .setSource(mappingJsonStr)
+            .execute()
+            .actionGet();
         System.out.println("create mapping : " + putMappingResponse);
     }
 
     // 索引要搜索的文档
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private static void doIndex(final Client client) {
 
         Map s11 = new LinkedHashMap();
@@ -381,12 +382,12 @@ public class EsTest {
         // 批量索引文件
 
         BulkResponse bulkResponse = client.prepareBulk()
-                .add(client.prepareIndex(index, type).setId("11").setSource(s11).setOpType(OpType.INDEX).request())
-                .add(client.prepareIndex(index, type).setId("12").setSource(s12).setOpType(OpType.INDEX).request())
-                .add(client.prepareIndex(index, type).setId("21").setSource(s21).setOpType(OpType.INDEX).request())
-                .add(client.prepareIndex(index, type).setId("22").setSource(s22).setOpType(OpType.INDEX).request())
-                .execute()
-                .actionGet();
+            .add(client.prepareIndex(index, type).setId("11").setSource(s11).setOpType(OpType.INDEX).request())
+            .add(client.prepareIndex(index, type).setId("12").setSource(s12).setOpType(OpType.INDEX).request())
+            .add(client.prepareIndex(index, type).setId("21").setSource(s21).setOpType(OpType.INDEX).request())
+            .add(client.prepareIndex(index, type).setId("22").setSource(s22).setOpType(OpType.INDEX).request())
+            .execute()
+            .actionGet();
 
         if (bulkResponse.hasFailures()) {
             System.err.println("index docs [ERROR] : " + bulkResponse.buildFailureMessage());
@@ -400,10 +401,10 @@ public class EsTest {
     private static void searchAll(Client client) {
 
         SearchResponse response = client.prepareSearch(index)
-                .setQuery(QueryBuilders.matchAllQuery())
-                .setExplain(true)
-                .execute()
-                .actionGet();
+            .setQuery(QueryBuilders.matchAllQuery())
+            .setExplain(true)
+            .execute()
+            .actionGet();
 
         System.out.println("searchAll : " + response);
     }
@@ -412,9 +413,9 @@ public class EsTest {
     private static void searchKeyWord(Client client) {
 
         SearchResponse response = client.prepareSearch(index)
-                .setQuery(QueryBuilders.matchQuery("_all", "双白"))
-                .execute()
-                .actionGet();
+            .setQuery(QueryBuilders.matchQuery("_all", "双白"))
+            .execute()
+            .actionGet();
 
         System.out.println("searchKeyWord : " + response);
     }
@@ -423,11 +424,11 @@ public class EsTest {
     private static void searchRange(Client client) {
 
         SearchResponse response = client.prepareSearch(index)
-                .setQuery(QueryBuilders.filteredQuery(
-                        QueryBuilders.matchAllQuery(),
-                        FilterBuilders.rangeFilter("price").gte(1200)))
-                .execute()
-                .actionGet();
+            .setQuery(QueryBuilders.filteredQuery(
+                QueryBuilders.matchAllQuery(),
+                FilterBuilders.rangeFilter("price").gte(1200)))
+            .execute()
+            .actionGet();
 
         System.out.println("searchRange: " + response);
     }
@@ -436,11 +437,11 @@ public class EsTest {
     private static void searchOrdered(Client client) {
 
         SearchResponse response = client.prepareSearch(index)
-                .setQuery(QueryBuilders.matchAllQuery())
-                .addSort(SortBuilders.fieldSort("sales_count").order(SortOrder.DESC))
-                .addSort(SortBuilders.fieldSort("price"))
-                .execute()
-                .actionGet();
+            .setQuery(QueryBuilders.matchAllQuery())
+            .addSort(SortBuilders.fieldSort("sales_count").order(SortOrder.DESC))
+            .addSort(SortBuilders.fieldSort("price"))
+            .execute()
+            .actionGet();
 
         System.out.println("searchOrdered: " + response);
     }
@@ -449,11 +450,11 @@ public class EsTest {
     private static void searchHightlight(Client client) {
 
         SearchResponse response = client.prepareSearch(index)
-                .setQuery(QueryBuilders.matchQuery("_all", "双白日"))
-                .addHighlightedField("title")
-                .addHighlightedField("origin")
-                .execute()
-                .actionGet();
+            .setQuery(QueryBuilders.matchQuery("_all", "双白日"))
+            .addHighlightedField("title")
+            .addHighlightedField("origin")
+            .execute()
+            .actionGet();
 
         System.out.println("searchOrdered: " + response);
     }

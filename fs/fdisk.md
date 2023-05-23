@@ -1,9 +1,10 @@
 ## du
+
 disk usage
 
 ```bash
 # 先查看挂载情况
-df -h 
+df -h
 # 再通过 du 来统计目录使用情况
 du -h -d 1 \
     --exclude=/dev \
@@ -17,6 +18,7 @@ du -h -d 1 \
 ```
 
 ## df
+
 disk free
 
 ```bash
@@ -50,7 +52,7 @@ FILES="
 /tmp
 /usr
 "
- 
+
 
 for f in $FILES ; do
     echo $f `find $f -xdev -type f|wc -l`
@@ -85,8 +87,6 @@ find /var/lib/docker/devicemapper -xdev -type f|wc -l
 
 ```
 
-
-
 ## fdisk
 
 ```
@@ -101,7 +101,6 @@ n                           # 创建一个分区
    +500G                    #   分区大小
 w                           # 写入磁盘
 ```
-
 
 ## mkfs 创建文件系统
 
@@ -120,8 +119,6 @@ mkfs.exfat /dev/sdX1
 mkfs.ntfs /dev/sdb1
 ```
 
-
-
 ## blkid
 
 ```
@@ -135,6 +132,7 @@ UUID=c0271228-51f7-4139-a3db-120faf8bda7d  /data1  xfs  defaults  0 0
 ```
 
 ## LVM
+
 参考 [这里](http://dreamfire.blog.51cto.com/418026/1084729/)
 
 ### 创建
@@ -162,10 +160,10 @@ lvcreate -L 500M -n lvdata1 vgdata
 mkfs.ext4 /dev/vgdata/lvdata1
 
 # 挂载
-mount /dev/vgdata/lvdata1 /data1 
+mount /dev/vgdata/lvdata1 /data1
 
 # 查询 UUID
-blkid 
+blkid
 # 并修改 fstab 以便开机自动挂载
 vi fstab
 ```
@@ -219,7 +217,7 @@ pvs
 ### 删除逻辑卷
 
 ```bash
-# 
+#
 umount /data1
 vi /etc/fstab    # 去掉相应的自动挂载项
 vgremove vgdata             # 删除卷组
@@ -229,11 +227,9 @@ vgs
 lvs
 ```
 
-
-
 ## 参考
- [Win7 ISO -> U盘](http://serverfault.com/questions/6714/how-to-make-windows-7-usb-flash-install-media-from-linux)
 
+[Win7 ISO -> U盘](http://serverfault.com/questions/6714/how-to-make-windows-7-usb-flash-install-media-from-linux)
 
 ## 数据回复
 
@@ -251,9 +247,8 @@ sudo apt-get install exfat-utils exfat-fuse
 yum install exfat-utils fuse-exfat
 ```
 
-
-
 # YUMI
+
 [YUMI](http://www.pendrivelinux.com/yumi-multiboot-usb-creator/)
 
 * [老毛桃](http://www.laomaotao.org/)

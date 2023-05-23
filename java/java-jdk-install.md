@@ -112,6 +112,8 @@ export PATH=$JAVA_HOME/bin:$PATH
 java -version
 ```
 
+##
+
 
 
 
@@ -124,3 +126,8 @@ echo 'String.format("%06d", 19)' | jshell --feedback concise | sed -n '2p'
 
 
 
+# GraalVM
+- [GraalVM Community Images](https://www.graalvm.org/latest/docs/getting-started/container-images/#graalvm-community-images)
+- [GraalVM Native Image Support](https://docs.spring.io/spring-boot/docs/current/reference/html/native-image.html)
+- [Setting up GraalVM with Native Image Support](https://graalvm.github.io/native-build-tools/latest/graalvm-setup.html)
+- gradle : [Gradle plugin for GraalVM Native Image building](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html)

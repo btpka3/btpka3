@@ -1,6 +1,3 @@
-
-
-
 # 内存规划
 
 ## 总内存计算公式
@@ -29,23 +26,23 @@ total_possible_used_memory
 计算预计总内存SQL语句
 
 ```sql
-select  (
-            (     @@tmp_table_size
-                + @@query_cache_size
-                + @@key_buffer_size
-                + @@innodb_buffer_pool_size
-                + @@innodb_additional_mem_pool_size
-                + @@innodb_log_buffer_size
-            ) + (
-                  @@sort_buffer_size
-                + @@read_rnd_buffer_size
-                + @@read_buffer_size
-                + @@thread_stack
-                + @@join_buffer_size
-                + @@binlog_cache_size
-            ) * @@max_connections
-        ) / ( 1024 * 1024 * 1024 )
-        AS total_possible_used_memory ;
+select (
+               (@@tmp_table_size
+                   + @@query_cache_size
+                   + @@key_buffer_size
+                   + @@innodb_buffer_pool_size
+                   + @@innodb_additional_mem_pool_size
+                   + @@innodb_log_buffer_size
+                   ) + (
+                               @@sort_buffer_size
+                               + @@read_rnd_buffer_size
+                               + @@read_buffer_size
+                               + @@thread_stack
+                               + @@join_buffer_size
+                               + @@binlog_cache_size
+                           ) * @@max_connections
+           ) / (1024 * 1024 * 1024)
+           AS total_possible_used_memory;
 ```
 
 在线[JS计算](http://www.mysqlcalculator.com/)
@@ -156,13 +153,11 @@ innodb_lru_scan_depth=1024                  ##
 
 因此，不方便差分。
 
-
 下面就统一在使用不同配置文件时，通过 `mysqld --verbose --help` 的结果作为差分依据。
 但是需要注意，该结果中，有部分选项其实是由同一个选项配置的。
 
-如果不想重启服务器，除了要修改配置文件以外，还需要通过 `SET` 命令设置。  MySQL 运行时的变量值可以通过 `mysqladmin variables` 给出。
-
-
+如果不想重启服务器，除了要修改配置文件以外，还需要通过 `SET` 命令设置。 MySQL 运行时的变量值可以通过 `mysqladmin variables`
+给出。
 
 ## 记录方法：
 
@@ -186,68 +181,67 @@ vi -d my.default.cnf my.cur.cnf
 
 ## 数据库环境
 
-|          |test.86|prod.80|
-|----------|----|----|
-|CPU       |AMD Athlon(tm) II X2 245 Processor * 2 | Intel(R) Xeon(R) CPU E5-2620 v2 @ 2.10GHz * 24|
-|RAM       |4G                                     |32G|
-|DISK IOPS |135.78                                 |1521.04|
-|OS        |Ubuntu 12.04.4 LTS                     |CentOS release 6.5 (Final)|
-|MySQL     | 5.5.40-0ubuntu0.12.04.1-log for debian-linux-gnu on x86_64 ((Ubuntu))|mysqld  Ver 5.6.20 for Linux on x86_64 (MySQL Community Server (GPL))|
-
+|           | test.86                                                               | prod.80                                                               |
+|-----------|-----------------------------------------------------------------------|-----------------------------------------------------------------------|
+| CPU       | AMD Athlon(tm) II X2 245 Processor * 2                                | Intel(R) Xeon(R) CPU E5-2620 v2 @ 2.10GHz * 24                        |
+| RAM       | 4G                                                                    | 32G                                                                   |
+| DISK IOPS | 135.78                                                                | 1521.04                                                               |
+| OS        | Ubuntu 12.04.4 LTS                                                    | CentOS release 6.5 (Final)                                            |
+| MySQL     | 5.5.40-0ubuntu0.12.04.1-log for debian-linux-gnu on x86_64 ((Ubuntu)) | mysqld  Ver 5.6.20 for Linux on x86_64 (MySQL Community Server (GPL)) |
 
 ## 差别
 
-|mysqld --verbose --help |default                             |test.86  |prod.80 |
-|------------------------|------------------------------------|---------|---------|
-|back-log                |80                                  |         |250|
-|character-set-server    |latin1                              |utf8mb4  |utf8mb4|
-|collation-server        |latin1_swedish_ci                   |utf8mb4_unicode_ci |utf8mb4_unicode_ci|
-|datadir                 |/var/lib/mysql/                     |          |/data0/mysql/|
-|expire-logs-days        |0                                   |3 |7|
-|general-log-file        |/var/lib/mysql/lizi80.log           ||/data0/mysql/lizi80.log|
-|host-cache-size         |279                                 ||653|
-|innodb-buffer-pool-instances|0                               ||5|
-|innodb-buffer-pool-size |128M                                |512M |5G|
-|innodb-file-format      |Antelope                            |barracuda|barracuda|
-|innodb-flush-method     |(No default value)                  ||O_DIRECT|
-|innodb-file-per-table   |FALSE                               |TRUE|TRUE    |
-|innodb-io-capacity      |200                                 | |1000|
-|innodb-log-file-size    |48M                                 | |48M|
-|innodb-read-io-threads  |4                                   ||24|
-|innodb-thread-concurrency|0                                  ||24|
-|innodb-write-io-threads |4                                   ||24|
-|join-buffer-size        |128K                                |512K|4M|
-|key-buffer-size         |8M                                  |256M|2G|
-|log-bin                 |(No default value)                  |mysql-bin|mysql-bin|
-|log-error               |                                    |/var/log/mysql/error.log|/var/log/mysql/error.log|
-|log-slow-queries        |/var/lib/mysql/${hostname}-slow.log |/var/log/mysql/mysql-slow.log||
-|long-query-time         |10                                  |3|3|
-|max-allowed-packet      |1M                                  |16M|32M|
-|max-connections         |151                                 |500|1000|
-|max-long-data-size      |1M                                  |16M|-|
-|myisam-recover-options  |OFF                                 |BACKUP|BACKUP|
-|myisam-sort-buffer-size |8M                                  |128M|128M|
-|performance-schema      |FALSE                               |TRUE|TRUE|
-|pid-file                |/var/lib/mysql/lizi80.pid           ||/data0/mysql/lizi80.pid|
-|query-cache-limit       |1M                                  |4M|4M|
-|query-cache-size        |0, 1M                               |16M|4G|
-|query-cache-type        |OFF                                 ||ON|
-|read-buffer-size        |128K                                |512K|2M|
-|read-rnd-buffer-size    |256K                                |512K|2M|
-|server-id               |0                                   |86|80|
-|skip-name-resolve       |FALSE                               |TRUE|TRUE|
-|slow-query-log          |FALSE                               |TRUE|TRUE|
-|slow-query-log-file     |/var/lib/mysql/${hostname}-slow.log |/var/log/mysql/mysql-slow.log|/var/run/mysqld/mysqld-slow.log|
-|socket                  |/var/lib/mysql/mysql.sock           ||/data0/mysql/mysql.sock|
-|sort-buffer-size        |256K                                |512K|2M|
-|sql-mode                |                                    |NO_ENGINE_SUBSTITUTION             |NO_ENGINE_SUBSTITUTION |
-|symbolic-links          |TRUE                                |FALSE|FALSE|
-|table-definition-cache  |1400                                ||2000|
-|table-cache             |400                                 |10240|-|
-|table-open-cache        |400, 2000                           |10240|10240|
-|thread-cache-size       |0, 9                                |8|24|
-|thread-stack            |256K                                |512K|512K|
-|tmp-table-size          |16M                                 ||32M|
+| mysqld --verbose --help      | default                             | test.86                       | prod.80                         |
+|------------------------------|-------------------------------------|-------------------------------|---------------------------------|
+| back-log                     | 80                                  |                               | 250                             |
+| character-set-server         | latin1                              | utf8mb4                       | utf8mb4                         |
+| collation-server             | latin1_swedish_ci                   | utf8mb4_unicode_ci            | utf8mb4_unicode_ci              |
+| datadir                      | /var/lib/mysql/                     |                               | /data0/mysql/                   |
+| expire-logs-days             | 0                                   | 3                             | 7                               |
+| general-log-file             | /var/lib/mysql/lizi80.log           |                               | /data0/mysql/lizi80.log         |
+| host-cache-size              | 279                                 |                               | 653                             |
+| innodb-buffer-pool-instances | 0                                   |                               | 5                               |
+| innodb-buffer-pool-size      | 128M                                | 512M                          | 5G                              |
+| innodb-file-format           | Antelope                            | barracuda                     | barracuda                       |
+| innodb-flush-method          | (No default value)                  |                               | O_DIRECT                        |
+| innodb-file-per-table        | FALSE                               | TRUE                          | TRUE                            |
+| innodb-io-capacity           | 200                                 |                               | 1000                            |
+| innodb-log-file-size         | 48M                                 |                               | 48M                             |
+| innodb-read-io-threads       | 4                                   |                               | 24                              |
+| innodb-thread-concurrency    | 0                                   |                               | 24                              |
+| innodb-write-io-threads      | 4                                   |                               | 24                              |
+| join-buffer-size             | 128K                                | 512K                          | 4M                              |
+| key-buffer-size              | 8M                                  | 256M                          | 2G                              |
+| log-bin                      | (No default value)                  | mysql-bin                     | mysql-bin                       |
+| log-error                    |                                     | /var/log/mysql/error.log      | /var/log/mysql/error.log        |
+| log-slow-queries             | /var/lib/mysql/${hostname}-slow.log | /var/log/mysql/mysql-slow.log |                                 |
+| long-query-time              | 10                                  | 3                             | 3                               |
+| max-allowed-packet           | 1M                                  | 16M                           | 32M                             |
+| max-connections              | 151                                 | 500                           | 1000                            |
+| max-long-data-size           | 1M                                  | 16M                           | -                               |
+| myisam-recover-options       | OFF                                 | BACKUP                        | BACKUP                          |
+| myisam-sort-buffer-size      | 8M                                  | 128M                          | 128M                            |
+| performance-schema           | FALSE                               | TRUE                          | TRUE                            |
+| pid-file                     | /var/lib/mysql/lizi80.pid           |                               | /data0/mysql/lizi80.pid         |
+| query-cache-limit            | 1M                                  | 4M                            | 4M                              |
+| query-cache-size             | 0, 1M                               | 16M                           | 4G                              |
+| query-cache-type             | OFF                                 |                               | ON                              |
+| read-buffer-size             | 128K                                | 512K                          | 2M                              |
+| read-rnd-buffer-size         | 256K                                | 512K                          | 2M                              |
+| server-id                    | 0                                   | 86                            | 80                              |
+| skip-name-resolve            | FALSE                               | TRUE                          | TRUE                            |
+| slow-query-log               | FALSE                               | TRUE                          | TRUE                            |
+| slow-query-log-file          | /var/lib/mysql/${hostname}-slow.log | /var/log/mysql/mysql-slow.log | /var/run/mysqld/mysqld-slow.log |
+| socket                       | /var/lib/mysql/mysql.sock           |                               | /data0/mysql/mysql.sock         |
+| sort-buffer-size             | 256K                                | 512K                          | 2M                              |
+| sql-mode                     |                                     | NO_ENGINE_SUBSTITUTION        | NO_ENGINE_SUBSTITUTION          |
+| symbolic-links               | TRUE                                | FALSE                         | FALSE                           |
+| table-definition-cache       | 1400                                |                               | 2000                            |
+| table-cache                  | 400                                 | 10240                         | -                               |
+| table-open-cache             | 400, 2000                           | 10240                         | 10240                           |
+| thread-cache-size            | 0, 9                                | 8                             | 24                              |
+| thread-stack                 | 256K                                | 512K                          | 512K                            |
+| tmp-table-size               | 16M                                 |                               | 32M                             |
 
 
 

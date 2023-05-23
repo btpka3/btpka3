@@ -1,6 +1,5 @@
-
-
 ## 参考
+
 * [css-tricks](https://css-tricks.com/)
 * 《[10步掌握CSS定位](http://www.see-design.com.tw/i/css_position.html)》
 * 《[使用viewport元标签控制布局](https://developer.mozilla.org/zh-CN/docs/Mobile/Viewport_meta_tag)》
@@ -17,8 +16,7 @@
 
 [polymer](https://www.polymer-project.org)
 
-
-## Web Gradients 
+## Web Gradients
 
 [CSS Gradient Animator](https://www.gradient-animator.com/)
 [webgradients](https://github.com/itmeo/webgradients)
@@ -33,7 +31,6 @@
 * [material design](http://wiki.jikexueyuan.com/project/material-design/)
 * [material icons](http://btpka3.github.io/js/angular/my-ng-material/src/md-icon2.html)
 
-
 ## ios vs Safari
 
 * ios 版本比例 [1](https://developer.apple.com/support/app-store/)、[2](https://david-smith.org/iosversionstats/)
@@ -42,14 +39,13 @@
 * [IOS 版本](https://en.wikipedia.org/wiki/IOS_version_history)
 * [MacOSX 与 Safari 版本](https://en.wikipedia.org/wiki/Safari_version_history)
 
-| iPhone          |year|iOS|
-|-----------------|----|------------|
-|iPhone 4         |2010|4.0 ~ 7.1.2 |
-|iPhone 4s        |2011|5.0 ~ 8.4  |
-|iPhone 5         |2012|6.0 ~ 8.4  |
-|iPhone 5c/5s     |2013|7.0 ~ 8.4  |
-|iPhone 6/6 Plus  |2014|8.0 ~ 8.4  |
-
+| iPhone          | year | iOS         |
+|-----------------|------|-------------|
+| iPhone 4        | 2010 | 4.0 ~ 7.1.2 |
+| iPhone 4s       | 2011 | 5.0 ~ 8.4   |
+| iPhone 5        | 2012 | 6.0 ~ 8.4   |
+| iPhone 5c/5s    | 2013 | 7.0 ~ 8.4   |
+| iPhone 6/6 Plus | 2014 | 8.0 ~ 8.4   |
 
 ```
 iPhone 3GS        - Mobile Safari 4.0.5
@@ -66,39 +62,32 @@ iPad 4 / 6.0      - Mobile Safari 6.0
 
 ```
 
-
 ## 微信
 
-
-|Owner|device     |iOS    |soft    |UserAgent|
-|-----|-----------|-------|--------|---------|
-|小卉  |iphone 4s  |7.0.3  |微信    |Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_3 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B511 MicroMessenger/6.1 NetType/WIFI|
-|小卉  |iphone 4s  |7.0.3  |Safari |Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_3 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11B511 Safari/9537.53|
-|豆豆  |iphone 5s  |8.1   |微信    |Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12B411 MicroMessenger/6.3.13 NetType/WIFI Language/zh_CN|
-|豆豆 |iphone 5s   |8.1   |Safari |Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B411 Safari/600.1.4|
-|沐风  |ipone 6    |9.3.2 |微信    | Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13F69 MicroMessenger/6.3.22 NetType/WIFI Language/zh_CN|
-|沐风  |ipone 6    |9.3.2 |Safari  |Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1|
-
-
-
-
+| Owner | device    | iOS   | soft   | UserAgent                                                                                                                                                       |
+|-------|-----------|-------|--------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 小卉    | iphone 4s | 7.0.3 | 微信     | Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_3 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B511 MicroMessenger/6.1 NetType/WIFI                  |
+| 小卉    | iphone 4s | 7.0.3 | Safari | Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_3 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11B511 Safari/9537.53                       |
+| 豆豆    | iphone 5s | 8.1   | 微信     | Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12B411 MicroMessenger/6.3.13 NetType/WIFI Language/zh_CN   |
+| 豆豆    | iphone 5s | 8.1   | Safari | Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B411 Safari/600.1.4                          |
+| 沐风    | ipone 6   | 9.3.2 | 微信     | Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13F69 MicroMessenger/6.3.22 NetType/WIFI Language/zh_CN |
+| 沐风    | ipone 6   | 9.3.2 | Safari | Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1                          |
 
 ## 屏幕常见尺寸
 
-
-
-| 标屏 | 分辨率 | 宽屏| 分辨率
-|-----|-----|-----|-----
-|QVGA|320×240|WQVGA|400×240
-|VGA|640×480|WVGA|800×480
-|SVGA|800×600|WSVGA|1024×600
-|XGA|1024×768|WXGA|1280×768/1280×800/1280*960
-|SXGA|1280×1024|WXGA+|1440×900
-|SXGA+|1400×1050|WSXGA+|1680×1050
-|UXGA|1600×1200|WUXGA|1920×1200
-|QXGA|2048×1536|WQXGA|2560×1536
+| 标屏    | 分辨率       | 宽屏     | 分辨率
+|-------|-----------|--------|----------------------------
+| QVGA  | 320×240   | WQVGA  | 400×240
+| VGA   | 640×480   | WVGA   | 800×480
+| SVGA  | 800×600   | WSVGA  | 1024×600
+| XGA   | 1024×768  | WXGA   | 1280×768/1280×800/1280*960
+| SXGA  | 1280×1024 | WXGA+  | 1440×900
+| SXGA+ | 1400×1050 | WSXGA+ | 1680×1050
+| UXGA  | 1600×1200 | WUXGA  | 1920×1200
+| QXGA  | 2048×1536 | WQXGA  | 2560×1536
 
 ## 计算 DPI
+
 比如： WVGA（800×400），3.7英寸屏幕的DPI
 
 ```
@@ -112,49 +101,43 @@ DPI = 对角线的像素数 / 屏幕英寸数
 
 ## 屏幕分类
 
-|     |低密度(120)-ldpi|中密度(160)-mdpi|高密度(240)-hdpi
-|------|--------------|---------------|--------------
-|小屏幕  |QVGA(240*320)
-|正常屏幕|WQVGA400(240*400)、WQVGA432(240*432)|HVGA(320*480)| WVGA800(480*800)、WVGA854(480*854)
-|大屏幕  ||WVGA800(480*800)、WVGA854(480*854)
+|      | 低密度(120)-ldpi                       | 中密度(160)-mdpi                     | 高密度(240)-hdpi
+|------|-------------------------------------|-----------------------------------|-----------------------------------
+| 小屏幕  | QVGA(240*320)
+| 正常屏幕 | WQVGA400(240*400)、WQVGA432(240*432) | HVGA(320*480)                     | WVGA800(480*800)、WVGA854(480*854)
+| 大屏幕  |                                     | WVGA800(480*800)、WVGA854(480*854)
 
 ## 常见手机屏幕
 
-|Phone                |inch |ratio|phys w*h |phys ppi|dpr|css w*h |css ppi
-|---------------------|-----|-----|---------|--------|---|--------|-------
-|Mi 2                 |4.0" |16:9 | 720*1280|320
-|Mi 3/4               |     |16:9 |1080*1920
-|iPhone 3/3G/3GS      |3.5" |3:2  | 320* 480|163     |  1|320*480 | 96
-|iPhone 4/4S          |3.5" |3:2  | 640* 960|326     |  2|320*480 |192
-|iPhone 5/5C/5S       |4.0" |~16:9| 640*1136|326     |  2|320*568 |192
-|iPhone SE            |4.0" |~16:9| 640*1136|326
-|iPhone 6             |4.7" |~16:9| 750*1334|326     |  2|375*667 |192
-|iPhone 6/6S          |4.7" |~16:9| 750*1334|326     |  2|375*667 |192
-|iPhone 6+/6S+        |5.5" |16:9 |1080*1920|401     |  3|414*736
-|iPad 1/2             |9.7" |4:3  | 768*1024|131.96  |  1|768*1024|131.96
-|iPad 3/4/air         |9.7" |4:3  |1536*2048|263.92  |  2|768*1024|131.96
-|iPad mini            |7.9" |4:3  | 768*1024|162.03  |  1|768*1024|162.03
-|iPad mini2           |7.9" |4:3  |1536*2048|324.05  |  2|768*1024|162.03
-
-
+| Phone           | inch | ratio | phys w*h  | phys ppi | dpr | css w*h  | css ppi
+|-----------------|------|-------|-----------|----------|-----|----------|---------
+| Mi 2            | 4.0" | 16:9  | 720*1280  | 320
+| Mi 3/4          |      | 16:9  | 1080*1920
+| iPhone 3/3G/3GS | 3.5" | 3:2   | 320* 480  | 163      | 1   | 320*480  | 96
+| iPhone 4/4S     | 3.5" | 3:2   | 640* 960  | 326      | 2   | 320*480  | 192
+| iPhone 5/5C/5S  | 4.0" | ~16:9 | 640*1136  | 326      | 2   | 320*568  | 192
+| iPhone SE       | 4.0" | ~16:9 | 640*1136  | 326
+| iPhone 6        | 4.7" | ~16:9 | 750*1334  | 326      | 2   | 375*667  | 192
+| iPhone 6/6S     | 4.7" | ~16:9 | 750*1334  | 326      | 2   | 375*667  | 192
+| iPhone 6+/6S+   | 5.5" | 16:9  | 1080*1920 | 401      | 3   | 414*736
+| iPad 1/2        | 9.7" | 4:3   | 768*1024  | 131.96   | 1   | 768*1024 | 131.96
+| iPad 3/4/air    | 9.7" | 4:3   | 1536*2048 | 263.92   | 2   | 768*1024 | 131.96
+| iPad mini       | 7.9" | 4:3   | 768*1024  | 162.03   | 1   | 768*1024 | 162.03
+| iPad mini2      | 7.9" | 4:3   | 1536*2048 | 324.05   | 2   | 768*1024 | 162.03
 
 ## 常见屏幕比例
 
-|short/long     |ratio|
-|---------------|-----|
-|0.5625         |16:9 |
-|0.625          |16:10|
-|0.666666667    |3:2  |
-|0.692307692    |13:9 |
-|0.75           |4:3  |
-
-
+| short/long  | ratio |
+|-------------|-------|
+| 0.5625      | 16:9  |
+| 0.625       | 16:10 |
+| 0.666666667 | 3:2   |
+| 0.692307692 | 13:9  |
+| 0.75        | 4:3   |
 
 关键词：dpi、ppi、dppx 、dpr = Device Pixel Ratio
 
 ~
-
-
 
 # safari 远程调试：
 
@@ -170,15 +153,12 @@ DPI = 对角线的像素数 / 屏幕英寸数
 
 1. safari @ mac os: -> Develop 菜单 -> xxx's iPad -> 选择要检查的网页。
 
-
-
-
 # tools
 
 * [styleguide](http://styleguide.devbproto.com/styleguide/#3)
 
-
 # layout
+
 * [flexboxgrid](https://github.com/kristoferjoseph/flexboxgrid)
 * [grd](https://1000ch.github.io/grd/)
 
@@ -189,26 +169,24 @@ DPI = 对角线的像素数 / 屏幕英寸数
 * [css SPINNERS](https://boguz.github.io/Spinners/)
 * [WAIT! Animate](http://waitanimate.wstone.io/#/)
 
-
 # 图片
 
 * [Imagehover.css](http://imagehover.io/)
 * [HUE.css](https://evankarageorgos.github.io/hue/grid.html)
 * [CSSCO](http://www.cssco.co/)
 
-
 # 颜色
 
 * [brand-colors](http://brand-colors.com/)
 
 # 笔记
-*  ？？？ `display:table-cell` 无法 float?
-*  [`display:table` 垂直居中](http://jsfiddle.net/wZ96P/)
+
+* ？？？ `display:table-cell` 无法 float?
+* [`display:table` 垂直居中](http://jsfiddle.net/wZ96P/)
 * 《[A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)》
 * 《[Flex布局新旧混合写法详解（兼容微信）](http://www.tuicool.com/articles/Yzeu6j7)》
 * http://www.zhihu.com/question/22991944
 * www.w3.org/TR/2009/WD-css3-flexbox-20090723/
-
 
 # css 规则的优先顺序？
 
@@ -221,42 +199,77 @@ DPI = 对角线的像素数 / 屏幕英寸数
 示例
 
 ```css
-*               /* a=0 b=0 c=0 -> specificity =   0 */
-LI              /* a=0 b=0 c=1 -> specificity =   1 */
-UL LI           /* a=0 b=0 c=2 -> specificity =   2 */
-UL OL+LI        /* a=0 b=0 c=3 -> specificity =   3 */
-H1 + *[REL=up]  /* a=0 b=1 c=1 -> specificity =  11 */
-UL OL LI.red    /* a=0 b=1 c=3 -> specificity =  13 */
-LI.red.level    /* a=0 b=2 c=1 -> specificity =  21 */
-#x34y           /* a=1 b=0 c=0 -> specificity = 100 */
-#s12:not(FOO)   /* a=1 b=0 c=1 -> specificity = 101 */
-
-                /* a=0 b=3 c=3 -> specificity =  33 */
+* /* a=0 b=0 c=0 -> specificity =   0 */
+LI /* a=0 b=0 c=1 -> specificity =   1 */
+UL LI /* a=0 b=0 c=2 -> specificity =   2 */
+UL OL + LI /* a=0 b=0 c=3 -> specificity =   3 */
+H1 + *[REL=up] /* a=0 b=1 c=1 -> specificity =  11 */
+UL OL LI.red /* a=0 b=1 c=3 -> specificity =  13 */
+LI.red.level /* a=0 b=2 c=1 -> specificity =  21 */
+#x34y /* a=1 b=0 c=0 -> specificity = 100 */
+#s12:not(FOO) /* a=1 b=0 c=1 -> specificity = 101 */
+    /* a=0 b=3 c=3 -> specificity =  33 */
 md-list.md-dense md-list-item > md-icon:first-child:not(.md-avatar-icon) {
-    color:red;
+    color: red;
 }
 
-                /* a=0 b=3 c=2 -> specificity =  32 */
+/* a=0 b=3 c=2 -> specificity =  32 */
 .ks-category md-list-item > md-icon.subdir:first-child {
-    color:blue;
+    color: blue;
 }
 
-<md-list class="ks-category md-dense">
-   <md-list-item>
-      <md-icon class="subdir" >xxx<md-icon>  <!-- 问：文本 "xxx" 是红色还是蓝色？ -->
-      <md-icon class="subdir" >yyy<md-icon>
-   </md-list-item>
-</md-list>
+<
+md-list class
+
+=
+"ks-category md-dense"
+>
+
+<
+md-list-item >
+
+<
+md-icon class
+
+=
+"subdir"
+> xxx
+
+<
+md-icon >
+
+<!--
+问：文本
+
+"xxx"
+是红色还是蓝色？
+
+-->
+<
+md-icon class
+
+=
+"subdir"
+> yyy
+
+<
+md-icon >
+
+<
+/
+md-list-item >
+
+<
+/
+md-list >
 
 ```
 
-
 ## 参考
+
 * [css 3](https://www.w3.org/TR/css3-selectors/#specificity)
 * [css 2](http://www.w3.org/TR/CSS21/cascade.html#specificity)
 * [Pseudo-classes](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)
-
-
 
 # 伪类
 

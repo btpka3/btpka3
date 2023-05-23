@@ -27,12 +27,12 @@ socat -v tcp-l:1234,fork exec:'/bin/echo'
 # 只显示 http 头
 curl -s -D - www.baidu.com -o /dev/null
 
-# 以 GET 请求 配合 -d 处理URL参数 
+# 以 GET 请求 配合 -d 处理URL参数
 curl -v -X GET -G \
     --data-urlencode a=aa中 \
     -d b=bb国 \
     "https://www.baidu.com/?x=xx#/yyy?c=cc"
-    
+
 # http basic 认证
 curl -v -u username:password https://www.baidu.com/
 
@@ -41,25 +41,25 @@ curl -v -u username:password https://www.baidu.com/
 curl https://www.baidu.com \
     -F k1=v1 \
     -F k2=v2 \
-    --trace-ascii /dev/stdout 
+    --trace-ascii /dev/stdout
 
 # 以 application/x-www-form-urlencoded 形式post提交数据
 curl https://www.baidu.com \
     -d k1=v1 \
     --data-urlencode k2='v 2' \
-    --trace-ascii /dev/stdout 
+    --trace-ascii /dev/stdout
 
 # 以 application/x-www-form-urlencoded 形式post提交url encode 的json数据
 curl https://www.baidu.com \
     --data-urlencode param="`cat add.json`" \
-    --trace-ascii /dev/stdout 
+    --trace-ascii /dev/stdout
 
 # 以 二进制方式提交
 curl https://www.baidu.com \
     --data-binary param="`cat add.json`" \
 
 
-    
+
 # POST JSON
 curl -X POST \
     -H "Content-Type: application/json" \
@@ -72,7 +72,7 @@ curl -X POST \
     -d '<run><log encoding="hexBinary">4142430A</log><result>0</result><duration>2000</duration></run>' \
     http://user:pass@myhost/hudson/job/_jobName_/postBuildResult
 
-    
+
 # 下载 *.tag.gz 并解压
 TAG=v0.1.15
 curl -fSL https://github.com/vozlt/nginx-module-vts/archive/${TAG}.tar.gz | tar -zx
@@ -80,4 +80,18 @@ curl -fSL https://github.com/vozlt/nginx-module-vts/archive/${TAG}.tar.gz | tar 
 
 # 最简单的一个 ECHO 服务器
 ncat -l 2000 -k -c 'xargs -n1 echo'
+
+
+# 检查给定的网址是否支持 HTTP/2
+curl -sI http://curl.se -o/dev/null -w '%{http_version}\n'            # 1.1
+curl -sI https://curl.se -o/dev/null -w '%{http_version}\n'           # 2
+curl -sI --http3 https://curl.se -o/dev/null -w '%{http_version}\n'   # 3  (需要 curl >= 7.88.1)
+```
+
+# socket
+[Docker Engine API (1.42)](https://docs.docker.com/engine/api/v1.42/)
+
+```shell
+podman run --rm -it alpine:latest sh
+curl -v --unix-socket /Users/zll/.local/share/containers/podman/machine/qemu/podman.sock http:/v1.42/containers/json
 ```

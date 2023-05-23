@@ -1,6 +1,5 @@
-
-
 # server
+
 ## CentOS
 
 ```
@@ -24,6 +23,7 @@ less /etc/idmapd.conf
 ```
 
 # client
+
 ## ubuntu
 
 ```
@@ -33,7 +33,6 @@ sudo mount 192.168.0.12:/data1/samba/public ./public/
 
 vi /etc/auto.master
 ```
-
 
 ## Mac OS X
 

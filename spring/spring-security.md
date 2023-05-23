@@ -169,7 +169,7 @@ public class MyController {
 ```sql
 -- http://docs.spring.io/spring-security/site/docs/4.2.0.RELEASE/reference/htmlsingle/#domain-acls
 
--- Sid : 
+-- Sid :
 /*
  * Sid
  *    PrincipalSid : Authentication.getPrincipal() -> ID
@@ -190,7 +190,7 @@ CREATE TABLE acl_class (
 	UNIQUE KEY uk_acl_class (class)
 ) ENGINE=InnoDB;
 
--- Java 中每个实例化的 Object -> ID 
+-- Java 中每个实例化的 Object -> ID
 CREATE TABLE acl_object_identity (
 	id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	object_id_class BIGINT UNSIGNED NOT NULL,
@@ -204,7 +204,7 @@ CREATE TABLE acl_object_identity (
 	CONSTRAINT fk_acl_object_identity_owner FOREIGN KEY (owner_sid) REFERENCES acl_sid (id)
 ) ENGINE=InnoDB;
 
--- 授权关系表： acl_object_identity:sid(被授权人) 
+-- 授权关系表： acl_object_identity:sid(被授权人)
 CREATE TABLE acl_entry (
 	id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	acl_object_identity BIGINT UNSIGNED NOT NULL,   -- 被授权的对象
@@ -233,9 +233,15 @@ acl_entry {
     grantedPermissions: [mask, ...]
     blockedPermissions: [mask, ...]
     audit_success: []
-    
-    
+
+
     UNIQUE KEY (acl_object_identity, sid)
 }
 
 ```
+
+RBAC : Role-based Access Control
+ABAC : Attribute-Based Access Control
+[jaclp](https://github.com/Neloop/jaclp)
+XACML : [Extensible Access Control Markup Language](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=xacml)
+

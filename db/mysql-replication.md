@@ -1,13 +1,11 @@
-
-
 # master-slave
+
 [replication-howto](http://dev.mysql.com/doc/refman/5.6/en/replication-howto.html)。replication可以做什么？
 
 * 读写分离。所有更新都在master上进行，slave上只进行读取操作，减轻master的压力。
 * 数据安全。全量备份数据时，可以在slave上进行，避免中断正在提供服务的master。
 * 统计分析。对大量历史数据进行统计分析时，可以在slave上进行。
 * 长距离数据分配。比如：可以在开发环境中通过slave访问到线上数据，而无需获得对master的访问权限。
-
 
 ## 查看Master状态
 
@@ -22,7 +20,6 @@
     ```bash
     mysql -p -e "SHOW MASTER STATUS" > start_status.txt
     ```
-
 
     示例结果：
 
@@ -49,12 +46,9 @@
     UNLOCK TABLES;
     ```
 
-
-
 ## 对于在master中已经有数据的主从配置步骤
 
 初始状态：master在运行，slave未运行。
-
 
 1. master配置 : `vi my.cnf`，如果尚未配置，则修改后需要重启。
 
@@ -80,7 +74,7 @@
 
 1. 在master上创建用于Replication的用户。
 
-   任何用户均可，需要有  REPLICATION SLAVE  权限。
+   任何用户均可，需要有 REPLICATION SLAVE 权限。
    用户名和密码需要以明文的方式存储在 master.info 中，故最好单独创建一个这样的账户，赋予最小权限。
 
    ```sql
@@ -101,7 +95,7 @@
     ```
 
 1. 使用 raw 文件（MyISAM）获取master快照备份，并在slave上恢复。
-(InnoDB需要停止服务器，故不建议使用该方式)
+   (InnoDB需要停止服务器，故不建议使用该方式)
 
     1. 确保以下变量在master和slave上一致。
 
@@ -131,7 +125,8 @@
     show slave status \G
     ```
 
-1. 如果同步出现问题，可以参考[这里](http://dev.mysql.com/doc/refman/5.0/en/replication-problems.html)进行排查。如果在 slave 上执行`show slave status \G`，且结果中 Slave_SQL_Running 为 No 时，可以。
+1. 如果同步出现问题，可以参考[这里](http://dev.mysql.com/doc/refman/5.0/en/replication-problems.html)进行排查。如果在
+   slave 上执行`show slave status \G`，且结果中 Slave_SQL_Running 为 No 时，可以。
 
     1. master: `show master status`，并记下 File 和 Position的值。
     1. slave : `stop slave`

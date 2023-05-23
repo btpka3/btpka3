@@ -1,4 +1,5 @@
 ## 参考
+
 * [NoSQL性能测试白皮书](http://www.infoq.com/cn/articles/nosql-performance-test)
 * [MongoDB核心贡献者：不是MongoDB不行，而是你不懂！](http://www.csdn.net/article/2012-11-15/2811920-mongodb-quan-gong-lue)
 * [MongoDB：逐渐变得无关紧要](http://www.csdn.net/article/2015-01-14/2823551)
@@ -35,6 +36,7 @@ show users
 ```
 
 ## ubuntu
+
 see [here](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)
 
 ```bash
@@ -67,9 +69,6 @@ sudo service mongod start
 sudo service mongod stop
 ```
 
-
-
-
 ## 连接到数据库
 
 ```
@@ -77,6 +76,7 @@ mongo
 ```
 
 ## CentOS
+
 centos 安装参考[这里](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat-centos-or-fedora-linux/)
 
 ### 环境准备
@@ -87,7 +87,9 @@ echo never >/sys/kernel/mm/transparent_hugepage/defrag
 ```
 
 ### 安装 mongodb 3.0
-使用yum 安装有点冲突问题，先使用 CentOS 7 的预编译的二进制包进行解压安装，参考[这里](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-linux/)
+
+使用yum 安装有点冲突问题，先使用 CentOS 7
+的预编译的二进制包进行解压安装，参考[这里](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-linux/)
 
 1. 下载、解压
 
@@ -142,8 +144,6 @@ echo never >/sys/kernel/mm/transparent_hugepage/defrag
     WantedBy=multi-user.target
     ```
 
-
-
 ### 安装 mongodb 2.6
 
 1. 新建 yum 的仓库配置文件
@@ -151,7 +151,7 @@ echo never >/sys/kernel/mm/transparent_hugepage/defrag
     ```bash
     vi /etc/yum.repos.d/mongodb.repo
     ```
-    文件内容如下：
+   文件内容如下：
 
     ```ini
     [mongodb]
@@ -179,7 +179,7 @@ echo never >/sys/kernel/mm/transparent_hugepage/defrag
 
     vi /etc/mongod.conf                        # 修改配置文件
     ```
-    修改以下配置项：
+   修改以下配置项：
 
     ```ini
     logpath=/home/mongod/log/mongod.log        # 日志路径。（默认：/var/log/mongodb/mongod.log）
@@ -187,7 +187,6 @@ echo never >/sys/kernel/mm/transparent_hugepage/defrag
     #bind_ip=127.0.0.1                         # 注释掉该行，以便监听所有网卡
     httpinterface=true                         # 开启HTTP接口，端口为28017。注意：线上环境请不要开启（保持被注释的状态）。
     ```
-
 
 
 1. 启动并检查
@@ -250,7 +249,7 @@ security:
     });
 
     db.auth("siteRootAdmin", "siteRootAdmin");      // 认证
- 
+
     show users;
     db.getUsers();                               // 获取当前数据库中的用户
 
@@ -297,7 +296,7 @@ security:
     ```bash
     vi /etc/mongod.conf
     ```
-    修改以下配置项：
+   修改以下配置项：
 
     ```ini
     replSet=rs_lizi
@@ -328,7 +327,7 @@ security:
     ```js
     rs.conf()
     ```
-    该命令会显示 replica set 配置对象的信息，会类似显示以下信息：
+   该命令会显示 replica set 配置对象的信息，会类似显示以下信息：
 
     ```js
     {
@@ -347,6 +346,7 @@ security:
     ```js
     rs.add("s85")
     ```
+
 ## 添加仲裁者（Arbiter）
 
 1. 在上述所有对 `/etc/mongod.conf` 修改的基础上，再修改以下设置
@@ -390,9 +390,6 @@ security:
         ]
     }
     ```
-
-
-
 
 # backup
 

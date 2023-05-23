@@ -28,6 +28,9 @@
 sudo chown -R $USER /usr/local
 
 echo source \~/.bashrc >> ~/.bashr_profile
+
+# 提供ip命令
+brew install iproute2mac
 ```
 
 ## 升级bash
@@ -141,7 +144,6 @@ networksetup -setairportpower airport off      # 关闭wifi
 networksetup -setairportpower airport on       # 开启wifi
 sudo ifconfig en4 down                         # 关闭有线网卡
 sudo ifconfig en4 up
-lsof -n -i :8080                               # 获取哪些进程在使用（监听/访问）8080端口
 lsof -n -i :8080                               # 获取哪些进程在使用（监听/访问）8080端口
 
 # netstat 无法给出 PID, 可以使用以下命令替换
@@ -414,6 +416,10 @@ pkgutil --only-files --files org.nodejs.node.pkg | tr '\n' '\0' | xargs -n 1 -0 
 pkgutil --only-dirs  --files org.nodejs.node.pkg | tail -r | tr '\n' '\0' | xargs -n 1 -0 sudo rmdir
 ```
 
+## podman
+```bash
+brew install podman-desktop
+```
 
 
 

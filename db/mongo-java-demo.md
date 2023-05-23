@@ -1,6 +1,3 @@
-
-
-
 # Main.java
 
 参考 [mongo-java-driver](http://docs.mongodb.org/ecosystem/drivers/java/)
@@ -27,9 +24,9 @@ public class Main {
         DBCollection collection = db.getCollection("aaa");
 
         BasicDBObject doc = new BasicDBObject("name", "MongoDB")
-                .append("type", "database")
-                .append("count", 1)
-                .append("info", new BasicDBObject("x", 203).append("y", 102));
+            .append("type", "database")
+            .append("count", 1)
+            .append("info", new BasicDBObject("x", 203).append("y", 102));
         collection.insert(doc);
 
         System.out.println(collection.findOne());

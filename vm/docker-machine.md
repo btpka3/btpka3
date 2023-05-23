@@ -1,15 +1,23 @@
-
 # docker-machine
 
 ## 安装
+
 （略）
 
 ## 快速开始 - 本地虚拟机
 
 该演示适用于单台电脑上，通过 virtualbox 创建一个虚拟机（节点），并演示在 宿主主机（比如 MacOS）上远程操作 该虚拟机节点。
 
-
 参考 [Get started with Docker Machine and a local VM](https://docs.docker.com/machine/get-started/)
+
+docker-machine 命令已经何工入 docker command 中
+
+| docker-machine      | docker            |
+|---------------------|-------------------|
+| docker-machine init | docker swarm init |
+| docker-machine join | docker swarm join |
+
+# 已过期
 
 ```bash
 # MacOS : 列出当前主机（MacOS）管理的节点
@@ -27,9 +35,9 @@ docker-machine env default
 # MacOS : 在当前主机(MacOS)的 bash 环境中启用相关环境变量，以便明确要操作的 docker 节点
 eval "$(docker-machine env default)"
 # MacOS : 确认当前 docker 命令要操作的目标节点。
-env | grep DOCKER       
+env | grep DOCKER
 
-# default : 快速检查之前的配置，确认能否在目标 docker 节点（default 主机）上进行相应的操作。 
+# default : 快速检查之前的配置，确认能否在目标 docker 节点（default 主机）上进行相应的操作。
 docker run busybox echo hello world
 
 # MacOS : 检查 default 节点的IP地址
@@ -81,7 +89,7 @@ EOF
 # 1. 除了 docker 相关软件，更新其他已经安装的软件，比如：
 #       `sudo -E yum -y update -x docker-*`
 # 1. 为 docker daemon 生成证书
-# 1. 重启 docker daemon 
+# 1. 重启 docker daemon
 # 1. 重新设定主机名，以便匹配 machine 名称。
 docker-machine create                   \
     --driver generic                    \
@@ -89,7 +97,7 @@ docker-machine create                   \
     --generic-ssh-key ~/.ssh/id_rsa     \
     --generic-ssh-user root             \
     vm-centos-1
-    
+
 docker-machine rm vm-centos-1
 docker-machine env vm-centos-1
 eval "$(docker-machine env vm-centos-1)"

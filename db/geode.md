@@ -1,10 +1,8 @@
-
-
 ## 简介
+
 Geode自身功能比较多，首先它是一个基于JVM的NoSQL分布式数据处理平台，
 同时集中间件、缓存、消息队列、事件处理引擎、NoSQL数据库于一身的分布式内存数据处理平台。
 可用来进行完成分布式缓存、数据持久化、，分布式事物、动态扩展等功能
-
 
 ## 试运行
 
@@ -21,7 +19,7 @@ docker create                                       \
     -p 1099:1099                                    \
     -p 7070:7070                                    \
     -v /data0/store/geode:/data:rw                  \
-    apachegeode/geode                               
+    apachegeode/geode
 
 docker start my-geode
 docker exec -it my-geode sh

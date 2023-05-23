@@ -1,6 +1,4 @@
-
 [flink](https://flink.apache.org/)
-
 
 docker
 
@@ -10,10 +8,9 @@ docker run -d \
         --name my-flink \
         flink:1.9.0 \
         jobmanager
-``` 
+```
 
-
-docker-compose.yaml 
+docker-compose.yaml
 
 ```yaml
 version: "2.1"

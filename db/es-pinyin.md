@@ -9,11 +9,9 @@
 
 而搜索引擎一般索引了海量的文档，可能不可能对所有文档中的语句都处理为完整的trie。一般是先按照用户的拼音混合输入，匹配到最匹配、最热门的搜索关键词，然后再按照标准的搜索关键词进行查询。
 
-
-
 # ElasticSearch + 拼音
 
- 整理之后的步骤如下：
+整理之后的步骤如下：
 
 ```
 # clone elasticsearch-rtf，它基于elasticsearch老版本修改而来的一个比较完善的，用于演示用的demo包
@@ -145,7 +143,6 @@ FIXME：汉字的情况下，还是被拆分成了一个个拼音（最小到单
 FIXME：如何避免一个字的拼音的非开开头匹配？比如:"省"的拼音是"sheng", 搜索 "eng" 应不能匹配到 "省"。
 ```
 
-
 用以下源代码可以看到elasticsearch-analysis-pinyin的部分问题
 
 ```java
@@ -214,29 +211,25 @@ public class Test {
 }
 ```
 
-
 # 自定义实现（未完待续）
 
-elasticsearch-rtf 使用ES版本比较老，而elasticsearch-analysis-pinyin又不提供汉字拼音混合输入，不支持多音字，因此觉得有必要自己拼装一个，如有必要，可以elasticsearch-analysis-pinyin中的代码。
+elasticsearch-rtf
+使用ES版本比较老，而elasticsearch-analysis-pinyin又不提供汉字拼音混合输入，不支持多音字，因此觉得有必要自己拼装一个，如有必要，可以elasticsearch-analysis-pinyin中的代码。
 
 要求示例："杭州市" 的每个汉字可以对应分解为：
 
-|汉字|反向索引的词|
-|---|---|
-|'杭' | '', '杭', 'h', 'ha', 'han', 'hang' |
-|'州' | '', '州', 'z', 'zh', 'zho', 'zhou' |
-|'市' | '', '市', 's', 'sh', 'shi' |
+| 汉字  | 反向索引的词                            |
+|-----|-----------------------------------|
+| '杭' | '', '杭', 'h', 'ha', 'han', 'hang' |
+| '州' | '', '州', 'z', 'zh', 'zho', 'zhou' |
+| '市' | '', '市', 's', 'sh', 'shi'         |
 
 如果刨去上述每个字都为空字符串 '' 的情况，总共有 6*6*5-1=179 种情况。
-
 
 基本思路：
 
 1. 先用smartcn将中英混合字词给去切词。比如："where is 杭州市?" 切词为 "where", "杭州市"。
 2. 再对切词中的中文词转换为拼音、汉字的组合。比如："杭州市" 变换为 "杭州市","h州市","hz市","hangzhoushi","hzs","hangzhsh" 等
-
-
-
 
 ## 了解 standard analyzer
 
@@ -270,7 +263,6 @@ curl -XGET "http://localhost:9200/_analyze?analyzer=standard&pretty" -d 'hang zh
   } ]
 }
 ```
-
 
 ## 了解 edgeNGram TokenFilter
 

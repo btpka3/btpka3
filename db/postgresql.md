@@ -22,7 +22,6 @@ systemctl daemon-reload
 systemctl status postgresql-9.4
 ```
 
-
 ### 修改数据库配置文件
 
 ```
@@ -40,8 +39,6 @@ srsPgMap        postgres                autotrading
 srsPgMap        postgres                mocktrading
 
 ```
-
-
 
 ## psql
 
@@ -78,7 +75,9 @@ GRANT ALL ON SCHEMA public TO public;
 ```
 
 ## LOB
+
 ### JDBC
+
 [binary-data](http://jdbc.postgresql.org/documentation/80/binary-data.html)
 
 ```sql
@@ -160,23 +159,27 @@ CREATE TABLE imageslo (imgname text, imgoid oid);
     ```
 
 ### pg_largeobject、pg_largeobject_metadata 中的记录没有删除？
-当使用oid字段存储blob时（比如使用JPA+@Lob自动创建相关的表时），发现仅仅删除用户表中的记录，pg_largeobject、pg_largeobject_metadata中的large object还是没有删除。官方文档给出的一个方法是使用[lo](http://www.postgresql.org/docs/9.1/static/lo.html)模块并使用trigger。
+
+当使用oid字段存储blob时（比如使用JPA+@Lob自动创建相关的表时），发现仅仅删除用户表中的记录，pg_largeobject、pg_largeobject_metadata中的large
+object还是没有删除。官方文档给出的一个方法是使用[lo](http://www.postgresql.org/docs/9.1/static/lo.html)模块并使用trigger。
 FIXME：trigger影响效率，且有时会失效？应该使用定时任务处理？
 
 ### Object Permissions
+
 [9.0 release note](http://www.postgresql.org/docs/9.0/static/release-9-0.html#AEN101496)
 [grant syntax](http://www.postgresql.org/docs/9.0/static/sql-grant.html)
+
 ```sql
 GRANT { { SELECT | UPDATE } [,...] | ALL [ PRIVILEGES ] }
     ON LARGE OBJECT loid [, ...]
     TO { [ GROUP ] role_name | PUBLIC } [, ...] [ WITH GRANT OPTION ]
 ```
 
-如果不需要对largeObject进行权限控制，则可以将[lo_compat_privileges](http://www.postgresql.org/docs/9.0/interactive/runtime-config-compatible.html#GUC-LO-COMPAT-PRIVILEGES)设置为`on`（默认是`off`）。该配置项位于postgre配置文件中，可以通过`show config_file`查看配置文件路径。
-
-
+如果不需要对largeObject进行权限控制，则可以将[lo_compat_privileges](http://www.postgresql.org/docs/9.0/interactive/runtime-config-compatible.html#GUC-LO-COMPAT-PRIVILEGES)
+设置为`on`（默认是`off`）。该配置项位于postgre配置文件中，可以通过`show config_file`查看配置文件路径。
 
 查询哪些用户有多少个largeObject
+
 ```sql
 select t.lomowner as userOid, p.rolname, t.count
 from (select lomowner as lomowner, count(*) as count from pg_largeobject_metadata group by lomowner ) t,
@@ -187,6 +190,7 @@ where t.lomowner = p.oid
 ```
 
 整理largeObject
+
 ```sql
 Vacuumlo –n –v dbName
 Vacuum analyze verbose pg_largeobject;
@@ -210,4 +214,5 @@ CREATE DATABASE xxx WITH OWNER = xxx TABLESPACE = xxx ENCODING = 'UTF-8';
 ```
 
 ## ddl diff
+
 http://apgdiff.com/how_to_use_it.php

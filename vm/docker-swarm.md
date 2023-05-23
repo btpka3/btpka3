@@ -1,27 +1,21 @@
-
 ## 参考
 
 - [docker swarm](https://docs.docker.com/engine/reference/commandline/swarm/)
-
-
 
 ## Docker Swarm
 
 用以管理Docker集群. 将一群docker节点当做一个来操作。
 
-
-
 所使用的端口
 
-|Port|Desp|
-|----|-----|
-|2375|unencrypted docker socket, remote root passwordless access to the host|
-|2376|tls encrypted socket|
-|2377/tcp       |cluster management communications(仅仅针对 swarm manager)|
-|5000|docker registry service|
-|7946/tcp/udp   |communication among nodes|
-|4789/udp       |overlay network traffic|
-
+| Port         | Desp                                                                   |
+|--------------|------------------------------------------------------------------------|
+| 2375         | unencrypted docker socket, remote root passwordless access to the host |
+| 2376         | tls encrypted socket                                                   |
+| 2377/tcp     | cluster management communications(仅仅针对 swarm manager)                  |
+| 5000         | docker registry service                                                |
+| 7946/tcp/udp | communication among nodes                                              |
+| 4789/udp     | overlay network traffic                                                |
 
 ```bash
 # 先准备3台物理主机，或虚拟机，或云主机
@@ -36,14 +30,14 @@ docker-machine create                   \
     --generic-ssh-key ~/.ssh/id_rsa     \
     --generic-ssh-user root             \
     manager1
-    
+
 docker-machine create                   \
     --driver generic                    \
     --generic-ip-address 192.168.0.191  \
     --generic-ssh-key ~/.ssh/id_rsa     \
     --generic-ssh-user root             \
     worker1
-    
+
 docker-machine create                   \
     --driver generic                    \
     --generic-ip-address 192.168.0.192  \
@@ -58,8 +52,8 @@ docker-machine create                   \
 
 # 在当前节点上创建一个集群
 #docker-machine ssh manager1
-eval $(docker-machine env manager1) 
-docker network create --driver overlay my-network  
+eval $(docker-machine env manager1)
+docker network create --driver overlay my-network
 docker network inspect my-network   # Subnet=10.0.0.0/24, Gateway=10.0.0.1
 docker-machine ssh manager1 ip addr
 docker-machine ssh worker1  ip addr
@@ -72,7 +66,7 @@ docker swarm join-token worker
 # 显示作为 manager 加入的命令行提示
 docker swarm join-token manager
 
-# 向当前集群中增加 worker1 
+# 向当前集群中增加 worker1
 eval $(docker-machine env worker1)
 docker swarm join \
     --token SWMTKN-1-5ib1fc2dsxc89bta06qs3wgt7ei6b4l1xf38dvb07c4s9y108h-dd2tzlcqngcohxtpfa910mf91 \
@@ -86,7 +80,7 @@ docker swarm join \
     192.168.0.181:2377
 
 # 检查集群情况
-eval $(docker-machine env manager1) 
+eval $(docker-machine env manager1)
 docker info
 docker node ls
 docker node inspect worker1 --pretty
@@ -105,7 +99,7 @@ docker service create       \
     nginx:1.13.1-alpine
 docker service inspect my_web   # 可以看到 Ports.PublishMode 模式为 ingress 模式
 docker service ls
-docker service ps my_web        # 查看 各个docker 节点上启动的容器  
+docker service ps my_web        # 查看 各个docker 节点上启动的容器
 
 # 假设仅仅在 worker1，worker2 两个节点上运行，没有在 manager1 节点上运行
 #docker-machine ssh worker1 systemctl status firewalld
@@ -157,14 +151,14 @@ docker exec my_web.1.c47jky8j1an6hhtqd9a1yeias ping -c 3 my_web.2.hrxd2k5x8x6pwm
 
 # 验证1：经过 docker service create 时的 `--publish` 参数指定，
 # 可以在 docker 节点的宿主机上通过 8080 端口访问 docker 容器提供的服务。
-docker-machine ssh manager1 curl -v http://localhost:8080 
+docker-machine ssh manager1 curl -v http://localhost:8080
 
 # 验证2：在容器内部通过 80 端口访问服务
-eval $(docker-machine env manager1) 
-docker exec my_web.2.hrxd2k5x8x6pwm75mywa24cuv curl -v http://localhost 
+eval $(docker-machine env manager1)
+docker exec my_web.2.hrxd2k5x8x6pwm75mywa24cuv curl -v http://localhost
 
 # 检查网络情况
-eval $(docker-machine env worker1) 
+eval $(docker-machine env worker1)
 docker network ls
 NETWORK ID          NAME                DRIVER              SCOPE
 76098f600236        bridge              bridge              local
@@ -183,23 +177,23 @@ beiqsdhkffv1        my-network          overlay             swarm
     xxxUserContainerId: 172.18.0.3/16
     container : ingress-sbox=172.18.0.2/16
 * host : 配置为空
-* ingress : 
+* ingress :
     Subnet=10.255.0.0/16, Gateway=10.255.0.1
 
-    当前 docker 节点下运行的容器的 IP地址,比如 
-    xxxUserContainerId: 10.255.0.9/16 
+    当前 docker 节点下运行的容器的 IP地址,比如
+    xxxUserContainerId: 10.255.0.9/16
     container ingress-sbox=10.255.0.3/16
 
-    所有连接在该网络的docker节点的IP地址(Peers) 
+    所有连接在该网络的docker节点的IP地址(Peers)
         manager1, worker1, worker2 节点的IP地址
 
 * my-network: 自定义的一个 overlay 的网络
     Subnet=10.0.0.0/24, Gateway=10.0.0.1
 
-    当前 docker 节点下运行的容器的 IP地址,比如 
+    当前 docker 节点下运行的容器的 IP地址,比如
     xxxUserContainerId: 10.0.0.4/24
 
-    所有连接在该网络的docker节点的IP地址(Peers) 
+    所有连接在该网络的docker节点的IP地址(Peers)
         worker1, worker2 节点的IP地址
 
 # 到 docker 节点的容器内确认ip地址信息
@@ -207,13 +201,13 @@ eval $(docker-machine env worker1)
 docker exec -it my_web.2.mz4hzcjzf59mqn1s8ssg57xzx ip addr
 docker exec -it my_web.2.mz4hzcjzf59mqn1s8ssg57xzx netstat
 
- 
+
 
 
 # 更新服务
 eval $(docker-machine env manager1)
 docker service update --publish-add 80 my_web
- 
+
 ```
 
 

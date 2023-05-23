@@ -20,9 +20,8 @@ mongodump \
     --password dev2_4 \
     --db dev2_4 \
     --gzip \
-    --archive=/tmp/zll/dev2_4.`date +%Y%m%d%H%M%S`.gz 
+    --archive=/tmp/zll/dev2_4.`date +%Y%m%d%H%M%S`.gz
 ```
-
 
 # 恢复
 

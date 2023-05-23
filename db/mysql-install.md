@@ -1,5 +1,5 @@
-
 # yum 安装
+
 统一安装版本为：mysql-community-server-5.6.20
 
 注意：从 [5.5.5](http://dev.mysql.com/doc/refman/5.5/en/innodb-default-se.html) 开始，默认的存储引擎已经改为 InnoDB。
@@ -7,7 +7,6 @@
 [安装参考](http://dev.mysql.com/doc/mysql-repo-excerpt/5.6/en/linux-installation-yum-repo.html)
 
 ## 查看是否已经安装
-
 
 ```bash
 # 查询是否已经安装了mysql的相关RPM包
@@ -20,7 +19,6 @@ locate mysql | less
 # 如果需要卸载先前通过yum/rpm安装的，可以
 rpm -e xxxx
 ```
-
 
 ## 使用 MySQL的yum源进行安装
 
@@ -46,7 +44,6 @@ yum install mysql-community-server-5.6.20
 
 参考 [option-files](http://dev.mysql.com/doc/refman/5.6/en/option-files.html)。
 其中server可以配置的参数值参考[这里](http://dev.mysql.com/doc/refman/5.6/en/innodb-parameters.html)
-
 
 ```ini
 [client]                                            # 应用于所有MySQL客户端
@@ -120,7 +117,6 @@ nice = 0
 no-auto-rehash                                      # 禁用自动提示（命令行tab键），可提高速度
 ```
 
-
 ## 初始化数据目录
 
 ```bash
@@ -138,9 +134,6 @@ mysql
 performance_schema
 ```
 
-
-
-
 ## 安装后启动mysql
 
 ```bash
@@ -150,7 +143,11 @@ service mysqld start
 ## 创建用户
 
 ```sql
-GRANT ALL ON naladb.* TO 'nalab2cdb'@'192.168.101.%' IDENTIFIED BY 'xxx';
-GRANT ALL PRIVILEGES ON test.* TO 'root'@'localhost';
-GRANT ALL PRIVILEGES ON test.* TO 'root'@'%';
+GRANT
+ALL
+ON naladb.* TO 'nalab2cdb'@'192.168.101.%' IDENTIFIED BY 'xxx';
+GRANT ALL PRIVILEGES ON test.* TO
+'root'@'localhost';
+GRANT ALL PRIVILEGES ON test.* TO
+'root'@'%';
 ```
