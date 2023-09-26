@@ -93,6 +93,7 @@ ifconfig
 [查看这里](https://www.virtualbox.org/wiki/Linux_Downloads)
 
 ## 网络连接
+https://www.virtualbox.org/manual/ch06.html#network_hostonly
 
 
 1.  网络地址转换（NAT）
@@ -118,6 +119,33 @@ ifconfig
 | vm -> other host  | Y     | Y                 |           | Y, 需额外设置       |
 | other host -> vm  |       | Y                 |           | Y, 需额外设置       |
 | vm -> vm          |       | Y                 | Y,需同网络  | Y                 |
+
+
+## Host Only network
+- VirtualBox : File : Tools : Network Manager
+    新建一个 【Host-only Networks】
+    - Name        : HostNetWork
+    - Mask        : 255.255.255.0
+    - Lower Bound : 192.168.56.1
+    - Upper Bound : 192.168.56.199
+    # 注意：On Linux, macOS and Solaris Oracle VM VirtualBox will only allow IP addresses 
+    # in 192.168.56.0/21 range to be assigned to host-only adapters.
+    # [192.168.56.* ~ 192.168.63.*]
+    # 如果想用其他ip段，则需要修改文件: /etc/vbox/networks.conf 
+    # 创建完成后 ifconfig 的结果会多一个 vmenet0 的虚拟网卡
+- VirtualBox : xxx VM : Settings : Network : Adapter 1 :
+    - Atached to  : Host-only netowrk
+    - Name        : HostNetWork
+    - Adapter type: Paravirtualized Network (virtio-net) 
+    - Promiscuous Mode : Deny
+
+
+```shell
+# 宿主机 MacOS 中增加以下 route 规则，确保可以 【host -> vm】
+sudo route -n add -net 192.168.56.0/21  192.168.56.1 -ifp vmenet0
+ping 192.168.56.1
+
+```
 
 
 ## 共享本地硬盘

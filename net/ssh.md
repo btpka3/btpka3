@@ -34,7 +34,9 @@ ssh-keygen -lf ~/.ssh/id_rsa.pub -E md5
 ssh -vT git@github.com
 ```
 
-之后可以把 `～/.ssh/id_rsa.pub` 中的内容追加到 远程ssh服务器用户的 `~/.ssh/authorized_keys` 中。（注意：线上环境不要配置为使用ssh登录）
+# 免密登录
+
+把客户端的 `～/.ssh/id_rsa.pub` 中的内容追加到 远程ssh服务器用户的 `~/.ssh/authorized_keys` 中。（注意：线上环境不要配置为使用ssh登录）
 
 
 # 攻击
@@ -329,6 +331,11 @@ PS：不同应用的socks代理设置的方式不同，需要自行阅读相关�
 
 ```bash
 # 在SSH client端执行
+# -C : 对传输的数据进行压缩
+# -f : 让ssh后台执行
+# -N : 不执行远程命令
+# -g : 允许远程主机连接到本地forwarded的端口
+# -L :
 ssh sshUser@sshHost -C -f -N -g -L [localBindIP:]localBindPort:remoteServiceIP:remoteServicePort
 ```
 
@@ -421,3 +428,13 @@ ServerAliveCountMax 3  ＃client发出请求后，服务器端没有响应得次
 
 
 
+
+# sudo (NOT WORK)
+
+MY_PASS="xxx"
+ssh dangqian.zll@11.165.115.91 bash -c "echo '${MY_PASS}' | sudo -S dmidecode -t processor"
+
+# 多个目标机器
+
+- [ParallelSSH](https://parallel-ssh.org/)
+- [ansible](http://www.ansible.com.cn/)

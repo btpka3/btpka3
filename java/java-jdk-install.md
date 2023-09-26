@@ -10,7 +10,7 @@ export JAVA_HOE=/usr/lib/jvm/java-1.8.0
 
 
 # Ubuntu
-sudo add-apt-repository ppa:openjdk-r/ppa
+sudo add-apt-repository ppa:openjdk-r/dudubbo
 sudo apt-get update
 sudo apt-get install openjdk-8-jdk
 sudo update-alternatives --config java

@@ -206,9 +206,12 @@ mvn versions:display-dependency-updates
 # 清除本地缓存
 mvn dependency:purge-local-repository  -DsnapshotsOnly=true
 
-
 # 显示给定的jar是如何依赖进来的
 mvn dependency:tree -Dincludes=org.springframework:spring
+
+# 给定版本的jar包如何被仲裁的？
+mvn help:effective-pom -Dverbose=true -pl xxx
+mvn help:effective-pom -Dverbose=true -Dartifact=commons-logging:commons-logging
 ```
 
 
@@ -582,7 +585,9 @@ errorprone : [Installation](https://errorprone.info/docs/installation)
 mvn org.owasp:dependency-check-maven:5.0.0-M3:check
 ```
 
-# NullPointerException
+
+
+# NPE: NullPointerException
 
 
 ```bash
@@ -664,3 +669,34 @@ java.lang.NullPointerException
 ```
 
 
+
+
+
+# scope
+
+| scope  | compile | test compile | runtime | package | transitive deps | example            |
+|--------|---------|--------------|---------|---------|-----------------|--------------------|
+|compile | Y       | Y            | Y       | Y       | Y               | spring-core        |
+|provided| Y       | Y            | X       | X       | X               | jdk, servlet-api   |
+|runtime | X       | Y            | Y       | Y       |                 | jdbc driver        |
+|system  | Y       | Y            | X       | X       | Y               |                    |
+
+
+
+# MAVEN_OPTS
+
+-Xmx2048m -XX:MaxPermSize=1G
+export MAVEN_OPTS="-Xms2048m -Xmx2048m"
+
+```xml
+<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <fork>true</fork>
+          <meminitial>128m</meminitial>
+          <maxmem>512m</maxmem>
+        </configuration>
+      </plugin>
+```

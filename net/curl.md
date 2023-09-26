@@ -5,7 +5,8 @@ curl --verbose -X POST --header "Cookie: JSESSIONID=136zm5iif8o2e8tcelqk9nd6e"  
 
 # 使用socks代理
 ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort
-curl --socks5 localhost:9999 https://www.baidu.com/
+curl --socks5 localhost:13659 https://www.baidu.com/
+curl --proxy socks5://localhost:13659 https://www.baidu.com/
 
 export http_proxy=http://prod11.kingsilk.net:81/
 export https_proxy=http://prod11.kingsilk.net:81/
@@ -19,6 +20,11 @@ export https_proxy=https://localhost:1443/
 export https_proxy=socks://192.168.0.12:19999
 curl -v https://www.baidu.com/
 
+
+# 跟随302跳转
+
+# 禁止显示进度条
+-s
 
 # echo server
 socat -v tcp-l:1234,fork exec:'/bin/echo'
@@ -40,12 +46,13 @@ curl -v -u username:password https://www.baidu.com/
 # 以 multipart/form-data 形式post提交数据
 curl https://www.baidu.com \
     -F k1=v1 \
-    -F k2=v2 \
+    -F k2=@file \
     --trace-ascii /dev/stdout
 
 # 以 application/x-www-form-urlencoded 形式post提交数据
 curl https://www.baidu.com \
     -d k1=v1 \
+    --data-urlencod ddd@/tmp/data.json \
     --data-urlencode k2='v 2' \
     --trace-ascii /dev/stdout
 
@@ -64,6 +71,10 @@ curl https://www.baidu.com \
 curl -X POST \
     -H "Content-Type: application/json" \
     -d '{"username":"xyz","password":"xyz"}' \
+    http://localhost:3000/api/login
+curl -X POST \
+    -H "Content-Type: application/json" \
+    -d @./path/to/file.json \
     http://localhost:3000/api/login
 
 # POST XML

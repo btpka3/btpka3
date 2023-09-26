@@ -2,7 +2,7 @@
   "ignition": {
     "config": {
       "replace": {
-        "source": "http://30.196.225.79:8080/remote.ign"
+        "source": "http://192.168.10.107:8080/remote.ign"
       }
     },
     "version": "3.3.0"

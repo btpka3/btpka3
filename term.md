@@ -1,0 +1,8 @@
+- PM (Product manager/Project manager)：产品经理或项目经理。
+- RD(Reseach and Development)：研发，也有另外一种叫法PG（ProGramer），也就是程序员。
+- DBA(Database Administrator，简称DBA)：数据库管理员，是一个负责管理和维护数据库服务器的人。
+- FD(Framework Designer)：架构设计师，负责在整个项目中对技术活动和工件进行领导和协调。
+- UE(User Experience，简称UX或 UE)：用户体验，负责产品交互体验设计，一个好的交互会给用户不一样的体验。
+- UI(User Interface)：用户界面，负责对软件整体界面美观设计，给用户第一视觉上的冲击感。
+- QA(QUALITY ASSURANCE，中文意思是“质量保证”)：测试，把控整个产品的质量。
+- PE(Product Engineer)：运维工程师

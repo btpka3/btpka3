@@ -1,10 +1,13 @@
 DNF是新一代的rpm软件包管理器。他首先出现在 Fedora 18 这个发行版中。而最近，它取代了yum，正式成为 Fedora 22 的包管理器。
 
+https://docs.fedoraproject.org/en-US/quick-docs/dnf/
+
+https://dnf.readthedocs.io/en/latest/conf_ref.html
 
 ```bash
 yum install dnf
 dnf --version
-# 查看系统中可用的 DNF 软件库
+# 查看系统中可用的 DNF 软件库 (/etc/yum.repos.d/)
 dnf repolist
 # 查看系统中可用和不可用的所有的 DNF 软件库
 dnf repolist all
@@ -58,7 +61,8 @@ dnf distro-sync
 dnf reinstall nano
 # 回滚某个特定软件的版本
 dnf downgrade acpid
-
+# 下载相关 rpm 包
+dnf download containerd
 ```
 
 # DNF vs. YUM

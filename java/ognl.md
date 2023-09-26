@@ -14,3 +14,19 @@
 ```
 
 
+
+# List 
+## map : 映射成新元素
+
+```shell
+#xxxList.{yyyProp}
+#xxxList.{#this.getClass().getName()}
+
+# 假设某个方法 只有一个入参，且返回值是 List， 下面是 arthas 语句
+watch xxxClass xxxMethod  '{target.getClass().getName(), params[0].getName(), returnObj==null?null:returnObj.{#this==null?"null":#this.getClass().getName()} }' -x 3
+```
+## filter : 过滤
+```shell
+#xxxList.{? #this instanceof ActionListener}
+```
+

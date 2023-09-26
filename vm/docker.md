@@ -5,8 +5,32 @@
 * 《[Docker 入门实战](http://yuedu.baidu.com/ebook/d817967416fc700abb68fca1?fr=aladdin&key=docker&f=read###)》
 * 《[阿里云开发者平台](https://dev.aliyun.com/search.html)》
 * 《[docker使用阿里云Docker镜像库加速](http://blog.csdn.net/bwlab/article/details/50542261)》
+* https://rancherdesktop.io/
+- 《[Docker Desktop for Mac Commands for Getting Into The Local Docker VM](https://www.bretfisher.com/docker-for-mac-commands-for-getting-into-local-docker-vm/)》 
+    在 MacOS 运行 docker desktop 时，是用 [xhyve](https://github.com/mist64/xhyve) 
+    运行了一个 [Alpine Linux](https://alpinelinux.org/) 的虚拟机。
+
+- [Distroless](https://github.com/GoogleContainerTools/distroless)  # 最小的静态镜像
+- [dive](https://github.com/wagoodman/dive) # 分析镜像的工具
+- https://github.com/bitnami/minideb
+- 《[Optimizing builds with cache management](https://docs.docker.com/build/cache/)》
+
+# macos
+
+```shell
+brew install --cask docker
+#brew install docker docker-machine docker-compose
+
+cat ~/.docker/daemon.json
+cat ~/.docker/config.json
+cat ~/.docker/features.json
+```
+
+
 
 MacOS上，image的存储位置在 `~/Library/Containers/com.docker.docker/Data/`
+
+
 
 ```sh
 # https://github.com/docker/for-mac/issues/371
@@ -184,10 +208,19 @@ Docker Toolbox 主要用于为老旧的Mac, Windows系统提供支持,并使其�
 docker version                          # 查看版本号
 docker info                             # 查看系统(docker)层面信息
 
-
+# ----------------------- history
+docker history --format "{{.ID}} {{.CreatedBy}} {{.Size}}" spring-docker-demo
+c0d77f6af917 /bin/sh -c #(nop)  ENTRYPOINT ["java" "org.s… 0B
+762598a32eb7 /bin/sh -c #(nop) COPY dir:a87b8823d5125bcc4… 7.42kB
+80a00930350f /bin/sh -c #(nop) COPY dir:3875f37b8a0ed7494… 0B
+0e138e074118 /bin/sh -c #(nop) COPY dir:db6f791338cb4f209… 2.35kB
+e079ad66e67b /bin/sh -c #(nop) COPY dir:92a8a991992e9a488… 235kB
+77a9401bd813 /bin/sh -c #(nop) COPY dir:f0bcb2a510eef53a7… 16.4MB
+2eb37d403188 /bin/sh -c #(nop)  ENV JAVA_HOME=/opt/java/o… 0B
 
 # ----------------------- image
 docker search <image>                   # 在docker index中搜索image
+docker manifest inspect docker.io/library/alpine:3.17.3   # 检查镜像是否存在于远程registry 中
 docker images                           # 查看本机images
 docker image list                       # 查看本机images
 docker images -a                        # 查看所有images
@@ -339,6 +372,7 @@ docker system prune         # 支持删除系统中没有使用的数据，包�
                             #   - 所有没有被使用的数据卷
                             #   - 所有没有被使用的网络
                             #   - 所有标示为“dangling”状态的镜像
+docker system prune --all --force
 ```
 
 ### docker plugin
@@ -712,12 +746,13 @@ https://192.168.99.100:443
 
 - docker : [docker.io](https://hub.docker.com/)
 - redhat : [quay.io](https://quay.io/search)
-- fedora : [fedora registry](https://registry.fedoraproject.org/)
+- fedora : [registry.fedoraproject.org](https://registry.fedoraproject.org/)
 - k8s    : registry.k8s.io
 - github : [ghcr.io](https://github.com/features/packages)
 - google : [gcr.io](https://cloud.google.com/container-registry/)
 - Microsoft : [mcr.microsoft.com](https://mcr.microsoft.com/)
 - 阿里巴巴开源镜像站 : https://developer.aliyun.com/mirror
+- registry.k8s.io
 
 ```shell
 # docker.io
@@ -730,10 +765,123 @@ podman pull registry.fedoraproject.org/vim
 
 # 两个仓库之间进行镜像copy
 brew install skopeo
+skopeo login quay.io
+skopeo login registry.internal.company.com
 skopeo copy docker://quay.io/buildah/stable docker://registry.internal.company.com/buildah
 ```
+## mirror
 
-## docker in docker
+|mirror domain                 |status  |mirror providr | desc|
+|------------------------------|--------|------------|---------|
+| <youId>.mirror.aliyuncs.com  |✅      |阿里云       ||
+| hub-mirror.c.163.com         |✅      |网易         ||
+| dockerproxy.com              |✅      |Docker Proxy||
+| 05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com              |✅      |华为云|https://support.huaweicloud.com/usermanual-swr/swr_01_0045.html|
+
+
+| mirror.baidubce.com          |🚫      |百度         |https://cloud.baidu.com/doc/CCE/s/Yjxppt74z|不稳定|
+| docker.mirrors.ustc.edu.cn   |🚫      |中科大       |不可用|
+| ccr.ccs.tencentyun.com       |🚫      |腾讯         |不可用|
+ 
+
+- ✅ 阿里云
+    - 加速域名: `<youId>.mirror.aliyuncs.com`
+    - 示例值: `3ibg8tk1.mirror.aliyuncs.com`
+    - 说明文档：阿里云: 容器镜像服务 ACR : 首页>容器镜像服务 ACR>镜像工具>官方镜像加速 : [官方镜像加速](https://help.aliyun.com/document_detail/60750.html)
+
+- ✅ 网易
+    - 加速域名: `hub-mirror.c.163.com`
+- ✅ Docker Proxy
+    - 加速域名: `dockerproxy.com`
+- ✅ 华为云
+    - 加速域名: `<xxx>.mirror.swr.myhuaweicloud.com`
+    - 示例值: `05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com`
+    - 说明文档： https://support.huaweicloud.com/usermanual-swr/swr_01_0045.html
+- 🚫 百度
+    - 加速域名: `mirror.baidubce.com`, 不稳定
+    - 说明文档： https://cloud.baidu.com/doc/CCE/s/Yjxppt74z|不稳定
+- 🚫 中科大
+    - 加速域名: `docker.mirrors.ustc.edu.cn`, 不可用
+- 🚫 腾讯云
+    - 加速域名: `ccr.ccs.tencentyun.com`, 不可用
+
+
+   
+
+
+```shell
+# 从 docker hub 拉取镜像的完整命令
+podman pull docker.io/library/alpine:latest 
+
+# 验证使用镜像拉取
+MIRROR=05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com
+podman pull ${MIRROR}/library/alpine:latest 
+```
+
+## curl
+https://github.com/opencontainers/distribution-spec/blob/main/spec.md
+https://docs.docker.com/registry/spec/auth/token/
+https://stackoverflow.com/questions/57316115/get-manifest-of-a-public-docker-image-hosted-on-docker-hub-using-the-docker-regi
+
+### docker.io
+```shell
+DOCKERHUB_USERNAME=
+DOCKERHUB_PASSWORD=
+
+TARGET_NS_REPO=library/alpine
+
+# yes, you need a new token for each repository, maybe you can have multiple scopes though?
+PARAMS="service=registry.docker.io&scope=repository:$TARGET_NS_REPO:pull"
+
+TOKEN=$(curl  \
+    "https://auth.docker.io/token?$PARAMS" \
+    | jq -r '.token'
+)
+
+# TOKEN=$(curl --user "$DOCKERHUB_USERNAME:$DOCKERHUB_PASSWORD" \
+#     "https://auth.docker.io/token?$PARAMS" \
+#     | jq -r '.token'
+# )
+
+curl "https://registry-1.docker.io/v2/$TARGET_NS_REPO/tags/list" \
+    -H "Authorization:Bearer $TOKEN" \
+    | jq '.tags[:10]'
+
+TAG="3.6"
+curl "https://registry-1.docker.io/v2/$TARGET_NS_REPO/manifests/$TAG" \
+    -H "Authorization:Bearer $TOKEN" \
+    | jq '.fsLayers'
+```
+
+### 3ibg8tk1.mirror.aliyuncs.com
+
+```shell
+TARGET_NS_REPO=library/alpine
+TAG="3.6"
+curl "https://3ibg8tk1.mirror.aliyuncs.com/v2/$TARGET_NS_REPO/manifests/$TAG"
+```
+### registry.aliyuncs.com/google_containers
+
+```shell
+# 需要先 docker login
+TARGET_NS_REPO=pause
+TAG="3.9"
+curl "https://registry.aliyuncs.com/v2/google_containers/$TARGET_NS_REPO/manifests/$TAG"
+
+
+```
+
+### registry.cn-hangzhou.aliyuncs.com/google_containers  
+
+```shell
+docker manifest inspect registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.9
+TARGET_NS_REPO=pause
+TAG="3.9"
+curl "https://registry.cn-hangzhou.aliyuncs.com/v2/google_containers/$TARGET_NS_REPO/manifests/$TAG"
+```
+
+
+# docker in docker
 
 - [How To Run Docker in Docker Container [3 Easy Methods]](https://devopscube.com/run-docker-in-docker/)
 - [_/docker](https://hub.docker.com/_/docker)
@@ -766,6 +914,8 @@ docker run -it --rm --network dockerNet \
 # 在第二个容器中执行以下命令
 docker version
 docker run -it --rm docker.io/library/alpine:3.17.3 date
+docker run -it --rm --entrypoint /bin/sh docker.io/library/alpine:3.17.3 -l
+docker run -it --rm --entrypoint /bin/sh docker.io/library/alpine:3.17.3 -c date
 ```
 
 PinP(Podman in Podman)
@@ -926,16 +1076,7 @@ docker exec -it my-ubuntu bash
 
 在 windows 平台，docker toolbox 运行了一个 boot2docker， 可以 ssh 上去，并查看 `/lib/modules` 里的内容。
 
-# ORAS: OCI Registry As Storage
 
-- [ORAS](https://oras.land/)
-    - [helm](https://v3.helm.sh/docs/topics/registries/) : 实现该协议的客户端之一
-        - [microbean/microbean-helm](https://github.com/microbean/microbean-helm) ： helm 的 java client
-- [OCI artifacts on Docker Hub](https://docs.docker.com/docker-hub/oci-artifacts/)
-
-```shell
-brew install oras
-```
 
 # image 备注
 
@@ -1024,3 +1165,22 @@ curl -v --unix-socket /Users/zll/.local/share/containers/podman/machine/qemu/pod
 ```
 
 
+
+
+
+# ~/.docker/config.json
+
+- [Docker CLI configuration file (config.json) properties](https://docs.docker.com/engine/reference/commandline/cli/#docker-cli-configuration-file-configjson-properties)
+- [Credential stores](https://docs.docker.com/engine/reference/commandline/login/#credential-stores)
+- [pass](https://www.passwordstore.org/)
+
+```shell
+brew install pass
+```
+
+
+```json
+{
+  "credsStore": "osxkeychain"
+}
+```

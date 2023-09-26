@@ -1,0 +1,71 @@
+---
+# https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta3/
+
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: InitConfiguration
+
+localAPIEndpoint:
+  advertiseAddress: "192.168.56.6"    # --apiserver-advertise-address
+  bindPort: 6443
+nodeRegistration:
+  name: my-k8s-node0    # --node-name
+                        # `kube init` 或者 `kube join` 时，要新建的 node 的名称，建议是hostname。
+                        # 且所有 node 间，该 hostname 要唯一，且所有node上都在 /etc/hosts 明确配置
+                        # 为了方便区分主机名和 node名称，这里不要设置成 是node 的hostname
+  criSocket: unix:///var/run/containerd/containerd.sock
+  imagePullPolicy: IfNotPresent
+  taints: null
+bootstrapTokens:
+  - token: abcdef.0123456789abcdef
+    ttl: 24h0m0s
+    groups:
+      - system:bootstrappers:kubeadm:default-node-token
+    usages:
+      - signing
+      - authentication
+
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+clusterName: my-k8s
+kubernetesVersion: 1.26.7           # --kubernetes-version
+                                    # kubernetes-kubeadm : 1.26.7
+                                    # kubernetes.repo    : 1.27.4
+certificatesDir: /etc/kubernetes/pki
+imageRepository: registry.k8s.io    # --image-repository
+controllerManager: {}
+dns: {}
+scheduler: {}
+featureGates: {}                    # --feature-gates
+networking:
+  dnsDomain: cluster.local          # --service-dns-domain
+  podSubnet: 10.244.0.0/16          # --pod-network-cidr
+  serviceSubnet: 10.96.0.0/12       # --service-cidr
+apiServer:
+  timeoutForControlPlane: 4m0s
+etcd:
+  local:
+    dataDir: /var/lib/etcd
+  # external:
+  #   endpoints:
+  #     - https://ETCD_0_IP:2379 # 适当地更改 ETCD_0_IP
+  #     - https://ETCD_1_IP:2379 # 适当地更改 ETCD_1_IP
+  #     - https://ETCD_2_IP:2379 # 适当地更改 ETCD_2_IP
+  #   caFile: /etc/kubernetes/pki/etcd/ca.crt
+  #   certFile: /etc/kubernetes/pki/apiserver-etcd-client.crt
+  #   keyFile: /etc/kubernetes/pki/apiserver-etcd-client.key
+
+#controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT" # change this (see below)
+
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+cgroupDriver: systemd
+
+# ---
+# apiVersion: kubeproxy.config.k8s.io/v1alpha1
+# kind: KubeProxyConfiguration
+
+# ---
+# apiVersion: kubeadm.k8s.io/v1beta3
+# kind: JoinConfiguration

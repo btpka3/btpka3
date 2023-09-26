@@ -146,6 +146,7 @@ github
 
 export ROCKETMQ_HOME=$HOME/Downloads/rocketmq-all-5.1.0-bin-release
 export NAMESRV_ADDR=localhost:9876
+export NAMESRV_ADDR=11.167.75.235:9876
 cd $ROCKETMQ_HOME
 
 
@@ -163,8 +164,30 @@ cd $ROCKETMQ_HOME
 ./bin/mqadmin updateTopic -c DefaultCluster -p 6 -t yourNormalTopic
 # 删除 topic
 ./bin/mqadmin deleteTopic -c DefaultCluster -t yourNormalTopic
-./bin/mqadmin topicStatus
+./bin/mqadmin topicStatus -t mtee3_dispatch
 
 # 根据msgId查询消息
-./bin/mqadmin queryMsgByUniqueKey -i 018E413615E25925460477D19A00000001 -t yourNormalTopic
+./bin/mqadmin queryMsgByUniqueKey   -t mtee3_dispath -i AC1058F7004D6718465C5B024C7D001F
+# 根据消息 Key 查询消息
+./bin/mqadmin queryMsgByKey         -t mtee3_dispath -k 172.16.88.247_79_MTEE3_1692346077297_77  
+# 根据offsetMsgId查询消息
+./bin/mqadmin queryMsgById          --msgId AC1058F7004D6718465C5B024C7D001F 
 ```
+
+
+
+# http api
+
+```shell
+ROCKETMQ_SERVER=http://11.167.75.235:8080
+MSG_ID=AC1058F7004D6718465C5B024C7D001F
+MQ_TOPIC=mtee3_dispatch
+curl "${ROCKETMQ_SERVER}/message/viewMessage.query?msgId=${MSG_ID}&topic=${MQ_TOPIC}" \
+  -H 'Accept: application/json, text/plain, */*' \
+  --compressed \
+  -s \
+  --insecure | jq -M -r '.data.messageView.messageBody' > /tmp/a.txt
+  
+
+```
+ 

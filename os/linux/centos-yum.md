@@ -1,4 +1,7 @@
 
+替代品： [dnf](https://docs.fedoraproject.org/en-US/quick-docs/dnf/)
+
+
 # 常用命令
 
 ```bash

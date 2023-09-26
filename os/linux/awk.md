@@ -5,13 +5,27 @@
 
 awk 有不同的实现，如果下面示例不可用，请尝试使用 gawk （GNU版本的）
 
+
+
+
 ```bash
+# MacOS 上这样安装
+brew install gawk
+
 # 字符串拼接
-echo aaa | awk -v x=x1 '{ v="11" $x "22"; print v }'
+echo aaa | awk -v x=xxx '{ v="11" $0 "22" x "33"; print v }'
 
 ll | awk '{print $5}'
 
 awk -F"|" '{print $5}'
+
+# 添加前缀
+
+cat << EOF | awk -v prefix=xxx. '$0=prefix $0'  
+aaa
+bbb
+ccc
+EOF
 
 # 输出最后一个field
 awk -F" " '{print $NF}'
@@ -185,6 +199,12 @@ awk -v newVersion=3.3.3  '
     print
 }
 '
+```
+
+### trim
+
+```shell
+echo  "Main-Class: org.springframework.boot   .loader.JarLauncher " | awk -F':' '{gsub(/[ \t\n]+/, "", $2); print "==" $2 "=="}'
 ```
 
 ### 替换-多行

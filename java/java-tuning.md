@@ -310,6 +310,8 @@ Unable to open socket file: target process not responding or HotSpot VM not load
 The -F option can be used when the target process is not responding
 ```
 
+- [Eclipse Memory Analyzer](https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Fdoc%2Findex.html)
+
 ## show-busy-java-threads
 
 https://raw.githubusercontent.com/oldratlee/useful-scripts/master/show-busy-java-threads

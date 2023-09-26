@@ -224,3 +224,27 @@ ipchain -> iptables -> nftables -> bpfilter
 - [nftables](https://netfilter.org/projects/nftables/)
 -  bpfilter
 - ipset 
+
+
+# snat
+
+```shell
+# 开启IP转发：临时
+echo 1 > /proc/sys/net/ipv4/ip_forward
+# 或者
+sysctl -w net.ipv4.ip.forward=1
+
+# 开启IP转发：持久
+vim /etc/sysctl.conf
+net.ipv4.ip_forwad=1
+# 或者
+echo net.ipv4.ip_forwad=1 > /etc/sysctl.d/ip_forwad.conf
+sysctl -P
+
+# 非固定的出口IP
+iptalbes -t nat -A POSTROUTING -s 192.168.56.0/21 -o eth0 -j MASQUERADE
+
+
+
+
+```

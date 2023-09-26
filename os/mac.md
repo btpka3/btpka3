@@ -31,6 +31,10 @@ echo source \~/.bashrc >> ~/.bashr_profile
 
 # 提供ip命令
 brew install iproute2mac
+
+# 使用代理
+export ALL_PROXY=socks5://127.0.0.1:13659
+brew update
 ```
 
 ## 升级bash

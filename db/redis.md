@@ -1,6 +1,7 @@
 # 参考
 
 * [Running Redis in production ](http://shokunin.co/blog/2014/11/11/operational_redis.html)
+* [LUA 5.1](https://www.lua.org/manual/5.1/)
 
 # docker
 
@@ -10,11 +11,11 @@ docker pull redis:3.2.4
 
 docker stop my-redis
 docker rm my-redis
-docker run -itd \
+docker run --rm -it \
         --name my-redis \
         -p 6379:6379 \
         -v /Users/zll/tmp/my-redis/data/:/data \
-        redis:3.2.4
+        redis:7.0.11-alpine3.18
 
 docker start my-redis
 
@@ -23,6 +24,15 @@ docker exec -it my-redis bash
 config get databases
 info keyspace
 
+
+# redis 控制台
+brew install --cask redisinsight
+
+brew install redis
+# redis 服务器
+redis-server
+redis-cli
+redis-cli -h xxxHost --user default --pass xxxPassword
 ```
 
 # Cluster and Sentinel
@@ -308,3 +318,16 @@ TODO 上下合并
 1. `systemctl enable redis`
 
 1. `systemctl start redis`
+
+
+
+# scripting (LUA)
+- [EVAL](https://redis.io/docs/manual/programmability/eval-intro/)
+- [lua-api](https://redis.io/docs/manual/programmability/lua-api/)
+    - [cjson-library](https://redis.io/docs/manual/programmability/lua-api/#cjson-library)
+
+```shell
+incrby key001 3
+EVAL "return cjson.encode(redis.call('TYPE', KEYS[1])) " 1  key001 3 1 10
+"{\"ok\":\"string\"}"
+```

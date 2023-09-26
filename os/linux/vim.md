@@ -20,7 +20,8 @@ alias vi=vim
 ```
 
 # 修改vim配置文件
-修改用户级别的 需要修改 `~/.vimrc`。修改全局的，需要修改 `/etc/vimrc` （可以通过 `:version` 看到）
+修改用户级别的 需要修改 `~/.vimrc`。修改全局的，
+需要修改 `/etc/vimrc` , 或者 `/etc/vim/vimrc` , 或者 `/etc/vim/vimrc.local`（可以通过 `:version` 看到）
 
 ```vim
 set nocompatible
@@ -39,6 +40,7 @@ set fileformats=unix
 set hlsearch
 set formatoptions-=cro
 set paste
+set mouse=i
 " set list
 " comment here
 ```
@@ -161,6 +163,14 @@ g 替换一行当中所有的匹配项（没有g只替换第一个匹配值，pi
 i 忽略大小写
 I 不忽略大小写
 
+```
+
+## MacOS 无法copy ssh +vim 的内容
+
+https://stackoverflow.com/a/42433989/533317
+
+```bash
+:set mouse=i
 ```
 
 

@@ -61,6 +61,7 @@ systemctl stop name.service
 systemctl restart name.service
 systemctl try-restart name.service
 systemctl reload name.service
+systemctl daemon-reload
 ```
 
 ## Available systemd Unit Types

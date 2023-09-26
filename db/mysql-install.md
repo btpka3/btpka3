@@ -151,3 +151,14 @@ GRANT ALL PRIVILEGES ON test.* TO
 GRANT ALL PRIVILEGES ON test.* TO
 'root'@'%';
 ```
+
+
+# MacOS
+```shell
+brew install mysql-client
+mysql \
+  --host=mysql-server.default.svc.cluster.local \
+  --database=smeta \
+  --user=root \
+  --execute='select * from smeta.uf_cluster_node'
+```

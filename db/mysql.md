@@ -404,6 +404,30 @@ nice = 0
 no-auto-rehash                                      # 禁用自动提示（命令行tab键），可提高速度
 
 ```
+# MySql client
+
+```shell
+brew install mysql
+```
+
+
+# 连接
+
+```shell
+mysql_config_editor set --help
+mysql_config_editor set --login-path=k8s_mysql --host=mysql-server.default.svc.cluster.local --port=3306 --user=root --password
+mysql --login-path=k8s_mysql -e "select 1+2"
+
+
+mysql --host=name -port=3306 --user=root --password=xxx --execute='select 1+2'
+
+# 导出DDL
+mysqldump --login-path=k8s_mysql -d xxxDb > ddl.sql 
+
+# 按照前缀获取表名
+mysql --login-path=k8s_mysql -Bse 'show tables like "__test_%"' xxxDb | awk '$0="xxxDb."$0'
+```
+
 
 # JDBC : stream resultset
 
@@ -435,3 +459,12 @@ sudo apt-get update
 sudo apt-get install mysql-workbench-community
 ```
 
+
+
+# docker
+
+```
+docker run -e MYSQL_ROOT_PASSWORD=123456 -it --rm -p 3306:3306 docker.io/library/mysql:8.1.0
+
+mysql --host=127.0.0.1 --port=3306 --user=root --password=123456 --execute='select 1+2'
+```

@@ -172,6 +172,12 @@ git push --set-upstream origin master
 git rm README
 git mv file_from file_to
 git log
+git log -n 1 origin/master..xxxBranch                                                       # 0d5ca7bd1c1c0aeb463d53d7e5dc318c16267b56
+git log -n 1 --walk-reflogs --grep-reflog=origin/master --pretty=tformat:"%H"               # 倒序查看历史中第一个包含 origin/master 分支的 commitId
+git ls-remote --pretty=tformat:"%H" git@xxx.com:xxx-org/xxx-app.git  refs/heads/master      # 在没有本地代码仓的情况下直接插线远程git仓库中给定的 对象的信息（比如最后一个commitId）
+git show --no-patch --pretty=tformat:"%H %D" b482b9e3b3116f0185d6ae6effb21529f33003e1       # 查询给定的 commitid 的信息
+git merge-base origin/master dangqian_k8s                                                   # 查看两个分支 最后一个公共的 parent
+
 
 # 在提交前，将已标记为要提交的文件移除。
 git reset HEAD xxxFile

@@ -6,26 +6,37 @@
 # install
 
 ```bash
+brew install fuse-overlayfs
+brew install qemu
+
 #macos
-brew install podman
-brew install podman-desktop
-brew install podman-compose
-#brew install podman-machine
+brew install \
+    podman \
+    podman-desktop \
+    podman-compose
+
+sudo /usr/local/Cellar/podman/4.5.0/bin/podman-mac-helper install
 
 # 注意：初始化maichine的时候，都要设置一下数据卷
 # 因为 当宿主机是 MacOS 时，docker 命令的相关数据卷挂在 在其完全虚拟机 Fedora CoreOS 中执行的，而不是在 MacOS 上执行的。
-podman machine init -v $HOME:$HOME --now --cpus=2 --memory=2048
+podman machine init -v $HOME:$HOME --now --cpus=2 --memory=2048 --disk-size=30
+podman machine set --cpus=2
 podman machine start
 podman info
 
 podman machine ssh podman-machine-default
-
-podman run --rm -it alpine:latest sh
+# 推荐 在guest machine 中执行相关 podman 命令
+podman run --rm -it docker.io/alpine:latest sh
+sudo rpm-ostree install vim podman-compose
 
 
 ll /tmp/podman.sock
 /run/user/502/podman/podman.sock
 ```
+
+如果报错命令 `docker-credential-desktop` 找不到
+则修改 `vi ~/.docker/config.json`  , 将 `credsStore` 替换为 `credStore`
+
 
 # podman VS. docker
 
@@ -45,3 +56,164 @@ FIXME: Docker最近在其守护进程配置中添加了 [Rootless](https://docs.
 | docker         | podman         |
 | docker-compose | podman-compose |
 | docker-machine | podman-machine |
+
+
+
+# podmain in docker
+[How to use Podman inside of a container](https://www.redhat.com/sysadmin/podman-inside-container)
+
+```shell
+# https://quay.io/repository/podman/stable
+podman run -it --rm --user podman --privileged quay.io/podman/stable:v4.5 cat /etc/os-release
+podman run -it --rm --user podman --privileged quay.io/podman/stable:v4.5 podman run -it --rm alpine cat /etc/os-release  
+```
+
+
+# 异常问题
+## podman machine start : qemu exited unexpectedly with exit code 1
+
+```shell
+pkill podman
+pkill qemu
+
+ps aux|grep qemu-system-x86_64
+kill ${pidOfQemu}
+podman machine start
+```
+
+## podman machine start : exit status 255
+
+gvproxy
+
+```shell
+# 以debug模式开启
+# （1）检查独立的qemu窗口中的启动日志，看是否有异常
+# （2）检查当前窗口，看是否仅仅是最后的 ssh 连接失败, ssh 端口是
+podman machine start --log-level debug
+
+#
+podman system connection ls
+# FIXME: All identities removed.
+ssh-add -D
+
+ssh -i /Users/zll/.ssh/podman-machine-default -p 56901 core@localhost
+ssh -i /Users/zll/.ssh/podman-machine-default -p 56901 core@localhost -o StrictHostKeyChecking=no -o LogLevel=ERROR -o SetEnv=LC_ALL= -q -- sudo chattr -i / ; sudo mkdir -p /Users/zll ; sudo chattr +i / ;] 
+
+# https://github.com/laurent-martin/podman_x86_64_on_apple_aach64/blob/main/podmac.sh
+
+./podmac.sh start podman-machine-default
+
+```
+
+
+podman 的一些底层命令
+
+```shell
+/usr/local/bin/qemu-system-x86_64 -m 2048 
+-smp 2 -fw_cfg name=opt/com.coreos/config,file=/Users/zll/.config/containers/podman/machine/qemu/podman-machine-default.ign 
+-qmp unix:/var/folders/hn/bj86pn8n6p71ltp2h0wbpv640000gp/T/podman/qmp_podman-machine-default.sock,server=on,wait=off 
+-netdev socket,id=vlan,fd=3 
+-device virtio-net-pci,netdev=vlan,mac=5a:94:ef:e4:0c:ee \
+-device virtio-serial \
+-chardev socket,path=/var/folders/hn/bj86pn8n6p71ltp2h0wbpv640000gp/T/podman/podman-machine-default_ready.sock,server=on,wait=off,id=apodman-machine-default_ready \
+-device virtserialport,chardev=apodman-machine-default_ready,name=org.fedoraproject.port.0 \
+-pidfile /var/folders/hn/bj86pn8n6p71ltp2h0wbpv640000gp/T/podman/podman-machine-default_vm.pid \
+-machine q35,accel=hvf:tcg \
+-cpu host \
+-virtfs local,path=/Users/zll,mount_tag=vol0,security_model=none \
+-drive if=virtio,file=/Users/zll/.local/share/containers/podman/machine/qemu/podman-machine-default_fedora-coreos-38.20230609.2.1-qemu.x86_64.qcow2
+
+
+
+/usr/local/Cellar/podman/4.5.1/libexec/podman/gvproxy \
+-listen-qemu unix:///var/folders/hn/bj86pn8n6p71ltp2h0wbpv640000gp/T/podman/qmp_podman-machine-default.sock \
+-pid-file /var/folders/hn/bj86pn8n6p71ltp2h0wbpv640000gp/T/podman/podman-machine-default_proxy.pid \
+-ssh-port 52030 \
+-forward-sock /Users/zll/.local/share/containers/podman/machine/qemu/podman.sock \
+-forward-dest /run/user/502/podman/podman.sock -forward-user core \
+-forward-identity /Users/zll/.ssh/podman-machine-default
+
+ssh -vv -i /Users/zll/.ssh/podman-machine-default \
+-p 52030 core@localhost \
+-o StrictHostKeyChecking=no \
+-o LogLevel=ERROR \
+-o SetEnv=LC_ALL=  echo 111
+```
+
+# storage
+
+https://docs.oracle.com/en/operating-systems/oracle-linux/podman/podman-ConfiguringStorageforPodman.html#configuring-podman-storage
+
+```shell
+# 全局配置
+cat /etc/containers/storage.conf
+# 用户级别配置
+cat $HOME/.config/containers/storage.conf
+
+```
+
+# registry
+https://github.com/containers/image/blob/main/docs/containers-registries.conf.5.md
+
+```shell
+/etc/containers/registries.conf
+$HOME/.config/containers/registries.conf
+
+# 示例配置
+unqualified-search-registries = ["registry.fedoraproject.org", "registry.access.redhat.com", "docker.io", "quay.io"]
+[[registry]]
+prefix = "docker.io"
+location = "3ibg8tk1.mirror.aliyuncs.com"
+[[registry.mirror]]
+location = "docker.mirrors.ustc.edu.cn"
+[[registry.mirror]]
+location = "hub-mirror.c.163.com"
+```
+
+
+# proxy
+
+假设个人开发机是MacOS, 已经有代理服务器绑定到了 sockt5://127.0.0.1:13659
+则：
+
+```shell
+# 登录 podman 虚拟机中
+podman machines ssh
+
+# podman 虚拟机：
+# SSH 到 MacOS 上，并 将 MacOS 的端口 127.0.0.1:13659 (-L 的后半部分) 
+# 绑定到 podman 虚拟机的段端口 127.0.0.1:13659  (-L 的前半部分) 
+ssh zll@192.168.10.107 -C -f -N -g -L 127.0.0.1:13659:127.0.0.1:13659
+
+# podman 虚拟机：
+# 通过环境变量 开启代理皮配置
+export http_proxy=socks5://127.0.0.1:13659
+export https_proxy=socks5://127.0.0.1:13659
+export all_proxy=socks5://127.0.0.1:13659
+export HTTP_PROXY=socks5://127.0.0.1:13659
+export HTTPS_PROXY=socks5://127.0.0.1:13659
+export no_proxy="*.example.com,127.0.0.1,0.0.0.0,localhost"
+
+vi /etc/yum.repo.d/kubernetes.repo 
+proxy=socks5://127.0.0.1:13659
+
+vi ~/.docker/config.json
+{
+ "proxies": {
+   "default": {
+     "httpProxy": "socks5://127.0.0.1:13659",
+     "httpsProxy": "socks5://127.0.0.1:13659",
+     "noProxy": "*.test.example.com,.example.org,127.0.0.0/8"
+   }
+ }
+}
+
+# podman 虚拟机：
+# 验证拉取
+podman pull docker.io/library/alpine:latest 
+
+```
+
+
+
+

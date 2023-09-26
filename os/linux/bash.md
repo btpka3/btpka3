@@ -1,3 +1,5 @@
+[Bash Reference Manual](https://www.gnu.org/software/bash/manual/bash.html)
+
 ## grep
 
 ```
@@ -81,11 +83,43 @@ usermod -m -d /path/to/new/home/dir userNameHere
 
 ```bash
 # 声明数组，元素之间使用空格分隔
-arr=( "aaa" "bbb" "xxx" )
+arr=( "aaa" "bbb" "xxx" "ooo kkk" )
 
 # 显示数组长度
-echo ${#arr[@]}         # 3
-echo ${#arr[*]}         # 3
+echo ${#arr[@]}          
+echo ${#arr[*]}          
+
+# 有双引号时特殊打印
+function printArr(){
+  tmp_arr=("$@")
+  # 有双引号时特殊打印
+  for arg in "${tmp_arr[@]}"; do
+      # testing if the argument contains space(s)
+      if [[ $arg =~ \  ]]; then
+        # enclose in double quotes if it does
+        arg=\"$arg\"
+      fi
+      echo -n "$arg "
+  done
+}
+
+# 通过函数传递并打印
+function printArr(){
+  tmp_arr=("$@")
+  # 有双引号时特殊打印
+  for arg in "${tmp_arr[@]}"; do
+      # testing if the argument contains space(s)
+      if [[ $arg =~ \  ]]; then
+        # enclose in double quotes if it does
+        arg=\"$arg\"
+      fi
+      echo -n "$arg "
+  done
+}
+arr=(curl -v -X POST -H "Content-Type: application/json"-d /path/to/file)
+printArr "${arr[@]}"
+
+
 
 # 显示整个数组
 echo ${arr[@]}          # aaa bbb xxx
@@ -114,6 +148,9 @@ set | grep arr          # arr=([0]="aaa" [1]="bbb" [999]="yyz" [1000]="zzz")
 # 清除整个数组
 unset arr
 
+
+
+
 # 迭代每个元素
 for i in ${arr[@]}
 do
@@ -126,6 +163,19 @@ for (( i=0; i<${#arr[@]}-1; i++ ));
 do
     echo ===${arr[i]}===
 done
+
+# 检查给定值是否在数组中
+arr=( "aaa" "bbb" "xxx" )
+a="bbb"
+is_match=`
+for i in ${arr[@]} ; do
+    if [ "$i" = "$a" ] ; then
+        echo 0 
+        break
+    fi
+done
+`
+echo "===$is_match==="  # ===0===
 ```
 
 
@@ -194,7 +244,7 @@ chmod +s /usr/sbin/fuser    # 如果想要非root用户也可以执行该命令�
 参考：
 [1](http://en.wikipedia.org/wiki/Regular_expression)、
 [2](http://www.mikeplate.com/2012/05/09/extract-regular-expression-group-match-using-grep-or-sed/)、
-[3](http://www.gnu.org/software/sed/manual/html_node/Regular-Expressions.html)、
+[3](http://www.gnu.org/software/sed/oual/html_node/Regular-Expressions.html)、
 [4](http://www.gnu.org/software/sed/manual/html_node/Escapes.html#Escapes)、
 [5](http://docs.oracle.com/javase/1.4.2/docs/api/java/util/regex/Pattern.html)
 
@@ -220,6 +270,112 @@ ekv=$(escSedRegVal "$kv")
 echo "$target" | sed -r "s/^([[:space:]]*$ekk[[:space:]]*=).*$/\1$ekv/g"
 ```
 
+## Shell Parameter Expansion
+https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
+
+```shell
+################################### ${parameter:-word}
+# 如果 parameter 有值 则输出
+# 如果 parameter 没值 则默认值，不会修改 parameter 的值
+v=
+echo ${v:-defaultValue}             # stdout 输出: "defaultValue"
+echo $v                             # stdout 输出: ""
+
+################################### ${parameter:=word}
+# 如果 parameter 有值 则输出该值
+# 如果 parameter 没值 将 parameter 设置为该值，并输出
+v=
+echo ${v:=defaultValue}             # stdout 输出: "defaultValue"
+echo $v                             # stdout 输出: "defaultValue"
+
+################################### ${parameter:?word}
+# 如果 parameter 没值，则向 stderr 输出后面提示的错误消息，不会修改变量的值。
+v=
+echo ${v:?ERROR_V_IS_UNSET_OR_NULL} # stderr 输出: "bash: v: ERROR_V_IS_UNSET_OR_NULL"
+echo $v                             # stdout 输出: ""
+
+################################### ${parameter:+word}
+# 如果 parameter 有值 则输出后面替换的值，不影响变量原有值。
+# 如果 parameter 有值
+v=123
+echo ${v:+OVERWRITED_VALUE}         # stdout 输出: "OVERWRITED_VALUE"
+echo $v                             # stdout 输出: ""
+v=
+echo ${v:+OVERWRITED_VALUE}         # stdout 输出: ""
+echo $v                             # stdout 输出: ""
+
+################################### ${parameter:offset}
+# 字符串截取, offset 可以是负数。
+v=0123456789
+echo ${v:5}                         # stdout 输出: "56789"
+echo $v                             # stdout 输出: "0123456789"
+
+################################### ${parameter:offset:length}
+# 字符串截取
+v=0123456789
+echo ${v:5:3}                       # stdout 输出: "567"
+echo $v                             # stdout 输出: "0123456789"
+################################### ${!prefix*}
+???
+################################### ${!prefix@}
+???
+################################### ${!name[@]}
+???
+################################### ${!name[*]}
+???
+################################### ${#parameter}
+# 输出字符串的长度
+v=0123456789
+echo ${#v}                          # stdout 输出: "10"
+################################### ${parameter#word}
+???
+################################### ${parameter##word}
+???
+################################### ${parameter%word}
+???
+################################### ${parameter%%word}
+???
+################################### ${parameter/pattern/string}
+# 字符串替换，仅替换第一个匹配。不影响变量值
+v=aaa111bbb111ccc
+echo ${v/111/222}                   # stdout 输出: "aaa222ccc111ddd"
+echo ${v}                           # stdout 输出: "aaa111ccc111ddd"
+################################### ${parameter//pattern/string}
+# 字符串替换，替换所有匹配。不影响变量值
+v=aaa111bbb111ccc
+echo ${v//111/222}                  # stdout 输出: "aaa222bbb222ccc"
+echo ${v}                           # stdout 输出: "aaa111bbb111ccc"
+
+str="aaa
+bbb"
+echo "$str"                         # 有换行
+echo $str                           # 无换行
+str="${str//$'\n'/ }"
+echo "$str"                         # 无换行
+echo $str                           # 无换行
+################################### ${parameter/#pattern/string}
+# 字符串替换，必须匹配开头。不影响变量值
+v=aaa111aaa111aaa
+echo ${v/#aaa/bbb}                  # stdout 输出: "bbb111aaa111aaa"
+echo ${v}                           # stdout 输出: "aaa111aaa111aaa"
+################################### ${parameter/%pattern/string}
+# 字符串替换，必须匹配结尾。不影响变量值
+v=aaa111aaa111aaa
+echo ${v/%aaa/bbb}                  # stdout 输出: "aaa111aaa111bbb"
+echo ${v}                           # stdout 输出: "aaa111aaa111aaa"
+################################### ${parameter^pattern}
+???
+################################### ${parameter^^pattern}
+???
+################################### ${parameter,pattern}
+???
+################################### ${parameter,,pattern}
+???
+```
+
+
+
+
 ## 字符串处理
 
 [String Manipulation in Bash](https://www.baeldung.com/linux/bash-string-manipulation)
@@ -240,7 +396,8 @@ echo $'"\'"'        # "'"
 # 引号内输出 awk
 echo 'ls -l | awk -F"|" '"'"'{ if($5>10000) print $0}'"'"
 ```
-
+ 
+ 
 ### substr
 
 ```bash
@@ -290,7 +447,7 @@ echo -e $str | sed -n '1p'    # 打印第1行
 echo -e $str | sed -n '2,3p'  # 打印第2~3行
 echo -e $str | sed -n '$p'    # 打印第最后一行
 
-tail -f xxxFile
+tail -f 
 tailf xxxFile | grep --line-buffered --color=auto xxxKeyWord
 ```
 
@@ -351,6 +508,9 @@ ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
 
 # 批量列出压缩包内容
 find . -type f -name "*.jar" | xargs -n 1 unzip -l | less
+
+
+
 ```
 
 ## ls
@@ -382,7 +542,16 @@ ps -aux         # 显示内存、cpu使用信息
 ps -u  zhang3   # 显示用户 zhang3 所有的进程
 
 ps -ww -fp $PID # 打印完整命令行参数
+
+ps -ef | grep defunct
+
 ```
+[What is a <defunct> process, and why doesn't it get killed?](https://askubuntu.com/questions/201303/what-is-a-defunct-process-and-why-doesnt-it-get-killed)
+如果 ps 的输出结果中有 '<defunct>' 字样, 是说这些进程已经 completed、corrupted 或者 killed。
+但它的子进程还在运行，或饿着额他们的父进程在监控其子进程。
+处于这种状态的进程，无法被 'kill -9' 杀掉。
+
+
 
 ## 压缩包
 
@@ -456,6 +625,11 @@ cat newFilePrefix.* > singleFile
 unzip -j "myarchive.zip" "in/archive/file.txt" -d "/path/to/unzip/to"
 ```
 
+#### 不解压：查看压缩包中给定文件的内容
+```shell
+unzip -p xxx.jar git.properties.json 
+```
+
 #### list specific file/dir
 ```bash
   unzip file.zip entry/path/to/dir/*
@@ -490,6 +664,8 @@ EOF
   # 遍历磁盘，按指定规则查找文件
   find / -name xxx 2>/dev/null
   find / -name "*xxx*" | xargs ls -l
+  # 叶子目录
+  find dir -type d | sort -r | awk 'a!~"^"$0{a=$0;print}' | sort
   # 查找 "md" 结尾的文件，并且路径不包含 "node_modules"、"_book"
   find . -type f \
       -not -path "*/node_modules*" \
@@ -788,7 +964,18 @@ ncat -l 2000 -k -c 'xargs -n1 echo'
 ```bash
 # 截取 10~20 个字节
 cut -b 10-20 xxx.txt
+
+# 多个空格打印低3列
+cat > b.txt <<EOF 
+1    a1     b1
+2    a2    b2
+EOF
+
+< b.txt tr -s ' ' | cut -d ' ' -f 3
+awk -F '  +' '{print $3}' b.txt
 ```
+
+
 # sed
 
 ## 大文件中查找并截取上下文
@@ -851,4 +1038,134 @@ EOF
 
 enableSshdGatewayPorts /tmp/a # /etc/ssh/sshd_config
 cat /tmp/a
+```
+
+
+
+# sort
+
+```shell
+# 排序并保存到文件（这里是保存到原本的文件中）
+sort -o file file
+sort -o file{,}
+
+
+
+# man/help buildin command
+
+```bash
+# 如果当期shell是 bash，则执行下面命令 查看 alias buildin command 的 说明
+help alias
+
+# 如果当期shell是 zsh，则先进入bash 再执行对应的命令
+bash -c 'help alias'
+
+```
+
+
+# exec
+https://www.computerhope.com/unix/bash/exec.htm
+
+执行一个新的命令，并完全替代当前进程。
+当前的shell 进程会被 destroyed， 并用指定的命令替代。
+
+It lets you execute a command that completely replaces the current process.
+
+
+```bash
+bash                    # 确保当前是 bash
+rm -fr /tmp/file.txt    # 确保验证用的结果文件都是空的
+
+exec > /tmp/file.txt    # 开始 exec 命令，后续命令将替换到当前shell
+date                    # PS: exec 期间 命令，stdout上都不会有任何输出
+echo 111
+exit                    # 退出 exec 命令
+
+cat /tmp/file.txt       # 检查结果文件，发现内容是 exec 期间所有命令的 stdout
+Mon Jul  3 11:28:22 CST 2023
+111
+```
+
+
+
+# eval
+https://www.computerhope.com/unix/bash/eval.htm
+https://unix.stackexchange.com/a/23117
+
+将该 eval 的 参数用空格拼接成一个 string， 然后再将拼接后的字符串当做命令执行。
+其作用于 `bash -c 'string'` 类似，只不过 `bash -c 'string'` 是启动了一个子shell进程执行命令
+而 eval 是在当前 shell 中执行命令。
+
+
+```shell
+foo=10 x=foo    # 1: 定义两个变量: foo, x
+y='$'$x         # 2: 定义变量 y
+echo $y         # 3: 输出变量 y 的值: 是字符串 "$foo"
+$foo
+eval y='$'$x    # 5: 通过 eval 命令定义 执行字符串，并将字符串作为命令执行，并赋值给变量y
+echo $y         # 6: eval 执行后 y 的值是 10（即 `$foo` 的值）
+10
+```
+
+FIXME: 有什么复杂的 case 需要使用 eval ？忒难理解。
+
+```bash
+
+echo VAR=value
+$( echo VAR=value )         # 命令未找到： VAR=value
+echo $VAR                   # 空字符串
+
+eval $( echo VAR=value )    # 
+echo $VAR   
+value
+```
+
+FIXME: 如果要执行的命令不是 KEY=VALUE 的形式，
+而直接是 '/path/to/command arg1 arg2' 的形式，那使用 eval 不是多此一举？
+
+
+# source-highlight
+
+```shell
+# console 控制台输出彩色显示
+source-highlight --out-format=esc -o STDOUT -i xxx.java
+
+```
+
+
+
+# 参数个数
+
+```shell
+#!/usr/bin/env bash
+echo "参数个数=$#"
+echo "参数个数取2模=$(($# % 2))"
+if [ "$#" == "0" ] || [ $(($# % 2)) == "0" ] ; then
+  echo 111
+else
+  echo 222
+fi
+
+V=$1
+echo "arg1 = $V"
+shift
+while (( "$#" )) ; do
+
+A=$1
+B=$2
+echo "A=$A, B=$B"
+
+shift 2
+echo "====\$#=$#"
+done
+```
+
+
+# test
+
+
+```shell
+if [ "$fname" = "a.txt" ] || [ "$fname" = "c.txt" ] ; then
+  # ...
+fi
 ```

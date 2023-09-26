@@ -133,3 +133,13 @@ endpoint
   - org.springframework.cloud.client.discovery.DiscoveryClient
   - org.springframework.cloud.zookeeper.discovery.watcher.DependencyWatcherListener
   - org.springframework.cloud.zookeeper.serviceregistry.ZookeeperServiceRegistry
+
+# RefreshScope
+
+- org.springframework.cloud.autoconfigure.RefreshAutoConfiguration#refreshScope() 注册了一个bean `refreshScope`
+- org.springframework.cloud.context.scope.refresh.RefreshScope extends org.springframework.cloud.context.scope.GenericScope
+- org.springframework.cloud.context.scope.GenericScope 实现了 BeanFactoryPostProcessor
+  并在 postProcessBeanFactory() 中通过 org.springframework.beans.factory.config.ConfigurableBeanFactory#registerScope
+  注册了 `refresh` scope
+- org.springframework.cloud.context.scope.refresh.RefreshScope 实现了 `ApplicationListener<ContextRefreshedEvent>` 接口
+  并在

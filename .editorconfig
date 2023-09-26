@@ -9,9 +9,31 @@ indent_size                 = 4
 charset                     = utf-8
 trim_trailing_whitespace    = true
 insert_final_newline        = true
+ 
 
+[*.xml]
+charset = utf-8
+indent_style = space
+indent_size = 4
+max_line_length = 256
 
-[*.{yml,yaml}]
-indent_style                = space
-indent_size                 = 2
+[*.java]
+indent_style = space
+indent_size = 4
+max_line_length = 256
 
+[pom.xml]
+charset = utf-8
+indent_style = space
+indent_size = 4
+max_line_length = 512
+
+[*.sh]
+indent_style = space
+indent_size = 2
+max_line_length = 256
+
+[*.{yaml,yml}]
+indent_style = space
+indent_size = 2
+max_line_length = 256
