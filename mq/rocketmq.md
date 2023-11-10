@@ -4,6 +4,11 @@ github:
   - [rocketmq-docker](https://github.com/apache/rocketmq-docker)
   - [rocketmq-clients](https://github.com/apache/rocketmq-clients)
   - [rocketmq-dashboard](https://github.com/apache/rocketmq-dashboard)
+- alibaba
+  - [spring-cloud-alibaba](https://github.com/alibaba/spring-cloud-alibaba)
+    - [spring-cloud-starter-bus-rocketmq](https://github.com/alibaba/spring-cloud-alibaba/blob/master/spring-cloud-alibaba-starters/spring-cloud-starter-bus-rocketmq/)
+    - [spring-cloud-starter-stream-rocketmq](https://github.com/alibaba/spring-cloud-alibaba/tree/2.2.x/spring-cloud-alibaba-starters/spring-cloud-starter-stream-rocketmq)
+
 
 doc
 - [rocketmq](https://rocketmq.apache.org/)
@@ -169,9 +174,9 @@ cd $ROCKETMQ_HOME
 # 根据msgId查询消息
 ./bin/mqadmin queryMsgByUniqueKey   -t mtee3_dispath -i AC1058F7004D6718465C5B024C7D001F
 # 根据消息 Key 查询消息
-./bin/mqadmin queryMsgByKey         -t mtee3_dispath -k 172.16.88.247_79_MTEE3_1692346077297_77  
+./bin/mqadmin queryMsgByKey         -t mtee3_dispath -k 172.16.88.247_79_MTEE3_1692346077297_77
 # 根据offsetMsgId查询消息
-./bin/mqadmin queryMsgById          --msgId AC1058F7004D6718465C5B024C7D001F 
+./bin/mqadmin queryMsgById          --msgId AC1058F7004D6718465C5B024C7D001F
 ```
 
 
@@ -187,7 +192,18 @@ curl "${ROCKETMQ_SERVER}/message/viewMessage.query?msgId=${MSG_ID}&topic=${MQ_TO
   --compressed \
   -s \
   --insecure | jq -M -r '.data.messageView.messageBody' > /tmp/a.txt
-  
+
 
 ```
- 
+
+
+# 权限控制
+- 阿里云：云消息队列 RocketMQ版: 4.x系列: 开发参考：SDK参考：[社区版TCP协议SDK（仅供开源用户上云使用）](https://help.aliyun.com/zh/apsaramq-for-rocketmq/cloud-message-queue-rocketmq-4-x-series/developer-reference/three-modes-used-to-send-normal-messages?spm=a2c4g.11186623.0.0.31a837cekfr3SM)：
+
+- example : [AclClient](https://github.com/apache/rocketmq/blob/b18e564addbcff50165a5e1d9d4ab7db789d901b/example/src/main/java/org/apache/rocketmq/example/simple/AclClient.java#L45)
+- org.apache.rocketmq.remoting.RPCHook
+- org.apache.rocketmq.acl.common.AclClientRPCHook
+  maven GAV : org.apache.rocketmq:rocketmq-acl
+- org.apache.rocketmq.client.producer.DefaultMQProducer#DefaultMQProducer(org.apache.rocketmq.remoting.RPCHook)
+
+

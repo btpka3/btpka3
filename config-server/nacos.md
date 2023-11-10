@@ -4,7 +4,7 @@
 - github
   - alibaba
     - [nacos](https://github.com/alibaba/nacos/)
-        - [com.alibaba.nacos:nacos-console](https://github.com/alibaba/nacos/blob/develop/console/src/main/java/com/alibaba/nacos/Nacos.java) 
+        - [com.alibaba.nacos:nacos-console](https://github.com/alibaba/nacos/blob/develop/console/src/main/java/com/alibaba/nacos/Nacos.java)
   - nacos-group
     - [nacos-spring-project](https://github.com/nacos-group/nacos-spring-project)
     - [nacos-spring-boot-project](https://github.com/nacos-group/nacos-spring-boot-project)
@@ -151,7 +151,7 @@ maven GAV: com.alibaba.boot:nacos-discovery-spring-boot-starter:0.2.12
 
 ```shell
 # 手动使用外部 MySql 数据库
-docker run --rm -it  -p 8848:8848 -p 9848:9848 -p 9849:9849 -p 7848:7848 --entrypoint bash nacos/nacos-server:v2.2.3 
+docker run --rm -it  -p 8848:8848 -p 9848:9848 -p 9849:9849 -p 7848:7848 --entrypoint bash nacos/nacos-server:v2.2.3
 
 export MYSQL_SERVICE_HOST=mysql-server.default.svc.cluster.local
 export MYSQL_SERVICE_DB_NAME=nacos2
@@ -168,6 +168,8 @@ export NACOS_SERVERS="$(hostname):8848"
 
 # 本地验证
 
+## 查询
+
 ```shell
 NACOS_ADDR=http://127.0.0.1:8848
 CONTEXT_ROOT=/nacos
@@ -179,6 +181,35 @@ group=gong9-mw
 
 curl -v "${NACOS_ADDR}${CONTEXT_ROOT}/v2/cs/config?dataId=${dataId}&group=${group}&namespaceId=${namespaceId}"
 ```
+
+## 更新
+
+```shell
+
+NACOS_ADDR=http://mse-32a46c30-nacos-ans.mse.aliyuncs.com
+CONTEXT_ROOT=/nacos
+namespaceId=public
+dataId=gong9-mw-demo-web-test
+group=demo
+contentFile=/tmp/test.txt
+
+cat > ${contentFile} <<EOF
+demo001
+EOF
+
+# 更新
+curl -s -X POST \
+        "${NACOS_ADDR}${CONTEXT_ROOT}/v2/cs/config" \
+        -d "dataId=${dataId}" \
+        -d "group=${group}" \
+        -d "namespaceId=${NACOS_NAMESPACE}" \
+        --data-urlencode content@${contentFile}
+
+# 读取
+curl -v "${NACOS_ADDR}${CONTEXT_ROOT}/v2/cs/config?dataId=${dataId}&group=${group}&namespaceId=${namespaceId}"
+```
+
+
 
 # data 目录
 
@@ -193,9 +224,17 @@ curl -v "${NACOS_ADDR}${CONTEXT_ROOT}/v2/cs/config?dataId=${dataId}&group=${grou
 /home/nacos/data/protocol/raft/naming_instance_metadata/log/MANIFEST-000005
 /home/nacos/data/protocol/raft/naming_instance_metadata/log/OPTIONS-000007
 /home/nacos/data/protocol/raft/naming_instance_metadata/log/OPTIONS-000009
-/home/nacos/data/protocol/raft/naming_instance_metadata/meta-data/raft_meta  
-/home/nacos/data/protocol/raft/naming_instance_metadata/meta-data/snapshot/     # empty 
+/home/nacos/data/protocol/raft/naming_instance_metadata/meta-data/raft_meta
+/home/nacos/data/protocol/raft/naming_instance_metadata/meta-data/snapshot/     # empty
 ```
 
+
+
+
+
+# alterntive
+- [Togglz](https://www.togglz.org/)
+- spring cloud config
+- 阿里巴巴内部 : diamond / switch
 
 

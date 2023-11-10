@@ -1,12 +1,15 @@
 
 ```bash
+docker run --rm -it docker.io/curlimages/curl:latest cat /etc/os-release
+
 curl --verbose --header 'Host: www.example.com' 'http://10.1.1.36:8000/the_url_to_test'
 curl --verbose -X POST --header "Cookie: JSESSIONID=136zm5iif8o2e8tcelqk9nd6e"  http://www.lizi.com:30010/j_spring_security_logout
 
 # 使用socks代理
 ssh sshUser@sshHost -C -f -N -g -D [localBindIp:]localBindPort
 curl --socks5 localhost:13659 https://www.baidu.com/
-curl --proxy socks5://localhost:13659 https://www.baidu.com/
+curl --proxy socks5h://localhost:13659 https://www.baidu.com/
+export ALL_PROXY=socks5h://127.0.0.1:13659
 
 export http_proxy=http://prod11.kingsilk.net:81/
 export https_proxy=http://prod11.kingsilk.net:81/
@@ -83,6 +86,11 @@ curl -X POST \
     -d '<run><log encoding="hexBinary">4142430A</log><result>0</result><duration>2000</duration></run>' \
     http://user:pass@myhost/hudson/job/_jobName_/postBuildResult
 
+# 下载文件
+curl -fsSL https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz -o /tmp/apache-maven-3.9.5-bin.tar.gz
+tar zxvf /tmp/apache-maven-3.9.5-bin.tar.gz
+
+curl -fsSL https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz  | tar -C /tmp -zx
 
 # 下载 *.tag.gz 并解压
 TAG=v0.1.15
@@ -105,4 +113,14 @@ curl -sI --http3 https://curl.se -o/dev/null -w '%{http_version}\n'   # 3  (需�
 ```shell
 podman run --rm -it alpine:latest sh
 curl -v --unix-socket /Users/zll/.local/share/containers/podman/machine/qemu/podman.sock http:/v1.42/containers/json
+```
+
+
+
+
+# client ssl cipher suites
+- curl : [SSL Ciphers](https://curl.se/docs/ssl-ciphers.html)
+- [How's My SSL?](https://www.howsmyssl.com/s/api.html)
+```bash
+curl https://www.howsmyssl.com/a/check
 ```

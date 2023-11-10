@@ -35,11 +35,22 @@ rm '/etc/systemd/system/default.target'
 systemctl enable graphical.target
 # 该命令相当于
 ln -s '/usr/lib/systemd/system/graphical.target' '/etc/systemd/system/default.target'
+
+
+systemctl enable crond.service
+# 该命令相当于
+ln -s '/usr/lib/systemd/system/crond.service' '/etc/systemd/system/multi-user.target.wants/crond.service'
+
+tree /etc/systemd/system
 ```
 
 ## 常用命令
 
 ```
+systemctl                                       #
+systemctl list-units --type=service
+systemctl list-units --type=service --state=active 2>/dev/null
+
 less /var/log/messages                          # 查看详细错误日志
 journalctl                                      # 查看日志
 systemctl --failed                              # 检查启动失败的服务

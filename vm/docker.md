@@ -6,8 +6,8 @@
 * 《[阿里云开发者平台](https://dev.aliyun.com/search.html)》
 * 《[docker使用阿里云Docker镜像库加速](http://blog.csdn.net/bwlab/article/details/50542261)》
 * https://rancherdesktop.io/
-- 《[Docker Desktop for Mac Commands for Getting Into The Local Docker VM](https://www.bretfisher.com/docker-for-mac-commands-for-getting-into-local-docker-vm/)》 
-    在 MacOS 运行 docker desktop 时，是用 [xhyve](https://github.com/mist64/xhyve) 
+- 《[Docker Desktop for Mac Commands for Getting Into The Local Docker VM](https://www.bretfisher.com/docker-for-mac-commands-for-getting-into-local-docker-vm/)》
+    在 MacOS 运行 docker desktop 时，是用 [xhyve](https://github.com/mist64/xhyve)
     运行了一个 [Alpine Linux](https://alpinelinux.org/) 的虚拟机。
 
 - [Distroless](https://github.com/GoogleContainerTools/distroless)  # 最小的静态镜像
@@ -24,6 +24,12 @@ brew install --cask docker
 cat ~/.docker/daemon.json
 cat ~/.docker/config.json
 cat ~/.docker/features.json
+
+# kill docker daemon
+function kdo() {
+    ps ax|grep -i docker|egrep -iv 'grep|com.docker.vmnetd'|awk '{print $1}'|xargs kill
+}
+
 ```
 
 
@@ -782,7 +788,7 @@ skopeo copy docker://quay.io/buildah/stable docker://registry.internal.company.c
 | mirror.baidubce.com          |🚫      |百度         |https://cloud.baidu.com/doc/CCE/s/Yjxppt74z|不稳定|
 | docker.mirrors.ustc.edu.cn   |🚫      |中科大       |不可用|
 | ccr.ccs.tencentyun.com       |🚫      |腾讯         |不可用|
- 
+
 
 - ✅ 阿里云
     - 加速域名: `<youId>.mirror.aliyuncs.com`
@@ -806,16 +812,16 @@ skopeo copy docker://quay.io/buildah/stable docker://registry.internal.company.c
     - 加速域名: `ccr.ccs.tencentyun.com`, 不可用
 
 
-   
+
 
 
 ```shell
 # 从 docker hub 拉取镜像的完整命令
-podman pull docker.io/library/alpine:latest 
+podman pull docker.io/library/alpine:latest
 
 # 验证使用镜像拉取
 MIRROR=05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com
-podman pull ${MIRROR}/library/alpine:latest 
+podman pull ${MIRROR}/library/alpine:latest
 ```
 
 ## curl
@@ -871,7 +877,7 @@ curl "https://registry.aliyuncs.com/v2/google_containers/$TARGET_NS_REPO/manifes
 
 ```
 
-### registry.cn-hangzhou.aliyuncs.com/google_containers  
+### registry.cn-hangzhou.aliyuncs.com/google_containers
 
 ```shell
 docker manifest inspect registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.9

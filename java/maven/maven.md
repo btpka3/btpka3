@@ -25,7 +25,11 @@ wget -O "qh-common-domain-${v}.jar" "http://mvn.kingsilk.xyz/service/local/artif
 &v=$v"
 ```
 
+
+
 ## 全局 exclude
+
+- github : [maven-enforcer-plugin](https://github.com/apache/maven-enforcer/tree/enforcer-3.4.1/maven-enforcer-plugin)
 
 ```xml
 <plugins>
@@ -52,6 +56,18 @@ wget -O "qh-common-domain-${v}.jar" "http://mvn.kingsilk.xyz/service/local/artif
   </plugin>
 </plugins>
 ```
+
+## 单个 artifact 的依赖树
+
+- [ForArtifactDependencyGraphMojo.java](https://github.com/ferstl/depgraph-maven-plugin/blob/master/src/main/java/com/github/ferstl/depgraph/ForArtifactDependencyGraphMojo.java)
+
+```shell
+mvn com.github.ferstl:depgraph-maven-plugin:4.0.2:for-artifact \
+  -DgroupId=org.springframework -DartifactId=spring-context -Dversion=6.0.12 \
+  -DgraphFormat=text -DshowGroupIds=true -DshowVersions=true
+
+```
+
 
 
 ## 下载站
@@ -197,6 +213,58 @@ mvn -N io.takari:maven:wrapper -Dmaven=3.6.1
 mvn versions:display-dependency-updates
 ```
 
+## maven-jdeps-plugin
+[maven-jdeps-plugin](https://github.com/apache/maven-jdeps-plugin)
+[Guide to Using Toolchains](https://maven.apache.org/guides/mini/guide-using-toolchains.html)
+
+```bash
+mvn org.apache.maven.plugins:maven-jdeps-plugin:3.1.2:jdkinternals
+```
+
+## maven-pmd-plugin
+[maven-pmd-plugin](https://maven.apache.org/plugins/maven-pmd-plugin/)
+
+# animal-sniffer-maven-plugin
+（1）针对API提供方：用来 生成 API 签名（包含类，方法，字段）、
+（2）针对API使用方：验证自己的代码是否仅仅使用了给定API签名内的接口，如果使用了给定签名以外的方法，将会报错。
+
+- [Animal Sniffer](https://www.mojohaus.org/animal-sniffer/index.html)
+- [animal-sniffer-maven-plugin](https://www.mojohaus.org/animal-sniffer/animal-sniffer-maven-plugin/)
+- [animal-sniffer-enforcer-rule](https://www.mojohaus.org/animal-sniffer/animal-sniffer-enforcer-rule/examples/checking-signatures.html)
+- [java版本兼容_Maven：确保跨Java版本兼容性](https://blog.csdn.net/weixin_35745051/article/details/114689835)
+- groupId : [org.codehaus.mojo.signature](https://search.maven.org/search?q=g:org.codehaus.mojo.signature)
+- [SignatureBuilder.java](https://github.com/mojohaus/animal-sniffer/blob/master/animal-sniffer/src/main/java/org/codehaus/mojo/animal_sniffer/SignatureBuilder.java)
+
+
+
+
+```bash
+mvn org.codehaus.mojo:animal-sniffer-maven-plugin:1.23:build
+```
+
+Q1: SignatureBuilder 记录了啥？
+参考 [Clazz](https://github.com/mojohaus/animal-sniffer/blob/4d7f0c1ba16d48beec368d59d15e954c00d122e2/animal-sniffer/src/main/java/org/codehaus/mojo/animal_sniffer/Clazz.java) 的格式:
+- 类的全限定名
+- 方法和常量的 签名
+- 父 class 的类全限定名
+- 父 interface 列表 的的类全限定名
+
+保存的签名文件是 将 `Map<String, Clazz>` 通过 java.io.ObjectOutputStream 写入到文件。
+
+Q2: SignatureBuilder 如何校验的？
+
+
+
+
+
+# keytool-maven-plugin
+[keytool-maven-plugin](https://www.mojohaus.org/keytool/keytool-maven-plugin/)
+对jdk命令 keytool 的封装，用于管理秘钥。
+
+
+
+## maven-toolchain-plugin
+[maven-toolchain-plugin](https://maven.apache.org/plugins/maven-toolchains-plugin/)
 
 ## maven-dependency-plugin
 
@@ -700,3 +768,187 @@ export MAVEN_OPTS="-Xms2048m -Xmx2048m"
         </configuration>
       </plugin>
 ```
+
+
+
+
+# 原理
+
+
+- org.apache.maven.execution.scope.internal.MojoExecutionScopeModule
+- org.apache.maven.cli.MavenCli  # 主入口，通过 eclipse sisu /google guice 装配成兑现
+
+
+===== mvn 创建 插件的 realm plugin>com.github.btpka3:hello-maven-plugin:1.0.0-SNAPSHOT
+"main@1" prio=5 tid=0x1 nid=NA runnable
+  java.lang.Thread.State: RUNNABLE
+	  at org.codehaus.plexus.classworlds.ClassWorld.newRealm(ClassWorld.java:71)
+	  - locked <0x24c> (a org.codehaus.plexus.classworlds.ClassWorld)
+	  at org.apache.maven.classrealm.DefaultClassRealmManager.newRealm(DefaultClassRealmManager.java:123)
+	  at org.apache.maven.classrealm.DefaultClassRealmManager.createRealm(DefaultClassRealmManager.java:197)
+	  at org.apache.maven.classrealm.DefaultClassRealmManager.createPluginRealm(DefaultClassRealmManager.java:269)              # ⭕️
+	  at org.apache.maven.plugin.internal.DefaultMavenPluginManager.createPluginRealm(DefaultMavenPluginManager.java:412)
+	  at org.apache.maven.plugin.internal.DefaultMavenPluginManager.setupPluginRealm(DefaultMavenPluginManager.java:374)
+	  - locked <0xddb> (a org.apache.maven.plugin.internal.DefaultMavenPluginManager)
+	  at org.apache.maven.plugin.DefaultBuildPluginManager.getPluginRealm(DefaultBuildPluginManager.java:234)
+	  at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:105)
+	  at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	  at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	  at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	  at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	  at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	  at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	  at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	  at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	  at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	  at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	  at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	  at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	  at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	  at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-1)
+	  at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	  at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	  at java.lang.reflect.Method.invoke(Method.java:566)
+	  at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	  at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	  at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	  at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+===== mvn 创建 找到插件对应的 Mojo 的实现类
+"main@1" prio=5 tid=0x1 nid=NA runnable
+  java.lang.Thread.State: RUNNABLE
+	  at org.eclipse.sisu.space.LoadedClass.<init>(LoadedClass.java:34)
+	  at org.eclipse.sisu.plexus.ComponentDescriptorBeanModule.<init>(ComponentDescriptorBeanModule.java:72)
+	  at org.codehaus.plexus.DefaultPlexusContainer.discoverComponents(DefaultPlexusContainer.java:449)
+	  - locked <0x2655> (a java.util.IdentityHashMap)
+	  at org.apache.maven.plugin.internal.DefaultMavenPluginManager.discoverPluginComponents(DefaultMavenPluginManager.java:436)    # ⭕️
+	  at org.apache.maven.plugin.internal.DefaultMavenPluginManager.createPluginRealm(DefaultMavenPluginManager.java:415)
+	  at org.apache.maven.plugin.internal.DefaultMavenPluginManager.setupPluginRealm(DefaultMavenPluginManager.java:374)
+	  - locked <0x262e> (a org.apache.maven.plugin.internal.DefaultMavenPluginManager)
+	  at org.apache.maven.plugin.DefaultBuildPluginManager.getPluginRealm(DefaultBuildPluginManager.java:234)
+	  at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:105)
+	  at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	  at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	  at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	  at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	  at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	  at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	  at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	  at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	  at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	  at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	  at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	  at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	  at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	  at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-1)
+	  at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	  at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	  at java.lang.reflect.Method.invoke(Method.java:566)
+	  at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	  at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	  at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	  at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+===== mvn 创建 mojo 对象
+ "main@1" prio=5 tid=0x1 nid=NA runnable
+  java.lang.Thread.State: RUNNABLE
+	  at com.github.btpka3.hello.maven.plugin.GreetingMojo.<init>(GreetingMojo.java:31)
+	  at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(NativeConstructorAccessorImpl.java:-1)
+	  at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	  at jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	  at java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	  at com.google.inject.internal.DefaultConstructionProxyFactory$ReflectiveProxy.newInstance(DefaultConstructionProxyFactory.java:126)
+	  at com.google.inject.internal.ConstructorInjector.provision(ConstructorInjector.java:114)
+	  at com.google.inject.internal.ConstructorInjector.access$000(ConstructorInjector.java:32)
+	  at com.google.inject.internal.ConstructorInjector$1.call(ConstructorInjector.java:98)
+	  at com.google.inject.internal.ProvisionListenerStackCallback$Provision.provision(ProvisionListenerStackCallback.java:112)
+	  at com.google.inject.internal.ProvisionListenerStackCallback$Provision.provision(ProvisionListenerStackCallback.java:127)
+	  at com.google.inject.internal.ProvisionListenerStackCallback.provision(ProvisionListenerStackCallback.java:66)
+	  at com.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.java:93)
+	  at com.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.java:306)
+	  at com.google.inject.internal.InjectorImpl$1.get(InjectorImpl.java:1050)
+	  at com.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1086)
+	  at org.eclipse.sisu.space.AbstractDeferredClass.get(AbstractDeferredClass.java:48)
+	  at com.google.inject.internal.ProviderInternalFactory.provision(ProviderInternalFactory.java:85)
+	  at com.google.inject.internal.InternalFactoryToInitializableAdapter.provision(InternalFactoryToInitializableAdapter.java:57)
+	  at com.google.inject.internal.ProviderInternalFactory$1.call(ProviderInternalFactory.java:66)
+	  at com.google.inject.internal.ProvisionListenerStackCallback$Provision.provision(ProvisionListenerStackCallback.java:112)
+	  at com.google.inject.internal.ProvisionListenerStackCallback$Provision.provision(ProvisionListenerStackCallback.java:127)
+	  at com.google.inject.internal.ProvisionListenerStackCallback.provision(ProvisionListenerStackCallback.java:66)
+	  at com.google.inject.internal.ProviderInternalFactory.circularGet(ProviderInternalFactory.java:61)
+	  at com.google.inject.internal.InternalFactoryToInitializableAdapter.get(InternalFactoryToInitializableAdapter.java:47)
+	  at com.google.inject.internal.InjectorImpl$1.get(InjectorImpl.java:1050)
+	  at org.eclipse.sisu.inject.Guice4$1.get(Guice4.java:162)
+	  - locked <0x26b4> (a org.eclipse.sisu.inject.Guice4$1)
+	  at org.eclipse.sisu.inject.LazyBeanEntry.getValue(LazyBeanEntry.java:81)
+	  at org.eclipse.sisu.plexus.LazyPlexusBean.getValue(LazyPlexusBean.java:51)
+	  at org.codehaus.plexus.DefaultPlexusContainer.lookup(DefaultPlexusContainer.java:263)
+	  at org.codehaus.plexus.DefaultPlexusContainer.lookup(DefaultPlexusContainer.java:255)
+	  at org.apache.maven.plugin.internal.DefaultMavenPluginManager.getConfiguredMojo(DefaultMavenPluginManager.java:520)
+	  at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:124)
+	  at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	  at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	  at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	  at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	  at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	  at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	  at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	  at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	  at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	  at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	  at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	  at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	  at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	  at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-1)
+	  at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	  at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	  at java.lang.reflect.Method.invoke(Method.java:566)
+	  at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	  at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	  at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	  at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+# 源码
+1. 给定的 pom.xml 如何解析成 对应的 org.apache.maven.model.Model ?
+
+参考 `org.apache.maven.model.building.DefaultModelBuilder#readModel`,
+`org.apache.maven.model.building.DefaultModelBuilder#buildRawModel`
+
+2. 给定一个 Actifact ，是如何 resolve 的（下载 对应的 pom,jar 到本地 maven 仓库）
+
+参考： `org.eclipse.aether.resolution.ArtifactRequest`, `org.eclipse.aether.RepositorySystem#resolveArtifact`
+
+
+
+# IOC
+
+- org.apache.maven.plugin.internal.DefaultMavenPluginManager#getConfiguredMojo
+- org.codehaus.plexus.component.configurator.converters.composite.ObjectWithFieldsConverter#processConfiguration
+- org.codehaus.plexus.component.configurator.ComponentConfigurator
+- org.codehaus.plexus.component.configurator.converters.lookup.DefaultConverterLookup  # 参数类型转换
+- org.codehaus.plexus.component.configurator.expression.ExpressionEvaluator  # evaluator.evaluate("${enforcer.failFast}") 获取对应的参数值
+    - org.apache.maven.plugin.PluginParameterExpressionEvaluator#evaluate    # 里面列出可以支持的注入的 特殊属性
+                                                                             # "localRepository"    : ArtifactRepository
+                                                                             # "session"            : MavenSession
+                                                                             # "reactorProjects"    : List<MavenProject>
+                                                                             # "mojoExecution"      : MojoExecution
+                                                                             # "project"            : MavenProject
+                                                                             # "porject.*"          :
+                                                                             # "pom.*"              :
+                                                                             # "repositorySystemSession"    : RepositorySystemSession
+                                                                             # "mojo"               : MojoExecution
+                                                                             # "mojo.*"
+                                                                             # "plugin"             : PluginDescriptor
+                                                                             # "plugin.*"
+                                                                             # "settings"           : Settings
+                                                                             # "settings.*"
+                                                                             # "basedir"
+                                                                             # "basedir"
+                                                                             # 从 properties 中取值
+
+- org.codehaus.plexus.component.configurator.converters.ConfigurationConverter
+- org.codehaus.plexus.component.configurator.converters.composite.ObjectWithFieldsConverter#fromExpression    # "${project}" 类似的POJO注入
+

@@ -1,7 +1,12 @@
 
 -[jq Manual](https://stedolan.github.io/jq/manual/)
+    - xq
+    - yq
 
 ```bash
+curl -fsSL https://github.com/jqlang/jq/releases/download/jq-1.7/jq-linux-amd64 -o /tmp/jq-linux-amd64
+docker run --rm -it -v /tmp/jq-linux-amd64:/jq-linux-amd64  docker.io/library/alpine:3.18 sh -l
+
 # 输入文件：多行，一行一个JSON，且有String类型的字段 data
 # 作用：将单行当做json解析，提取 data , 并输出
 jq -r -R 'fromjson|.data' 20220414_productvideo.txt > 20220414_productvideo.data.txt
@@ -49,7 +54,7 @@ json='[
 ]'
 
 # 缺点：未对齐
-echo "$json" | jq -r '["T","NAME","AGE"], ["--","------","------"], (.[]|[.t, .name, .age]) | @tsv'  
+echo "$json" | jq -r '["T","NAME","AGE"], ["--","------","------"], (.[]|[.t, .name, .age]) | @tsv'
 T	NAME	AGE
 --	------	------
 a	a1	11
@@ -58,7 +63,7 @@ a	a2	12
 b	b2	22
 
 
-# 缺点：有双引号 
+# 缺点：有双引号
 echo "$json" | jq -r '["T","NAME","AGE"], (.[]|[.t, .name, .age]) |@csv' | column  -s, -t
 "T"  "NAME"  "AGE"
 "a"  "a1"    11
@@ -95,7 +100,7 @@ echo "$json" | jq -r '
 '
 ```
 
-## 数组 to_port 
+## 数组 to_port
 ```shell
 json='
 [
@@ -118,7 +123,7 @@ json='
 
 echo "$json" | jq -r '
     def to_port: (.port|tostring) + ":" + (.nodePort|tostring) + "/" + (.protocol|tostring);
-    map(.|to_port)|join(",") 
+    map(.|to_port)|join(",")
 '
 ```
 
@@ -190,17 +195,17 @@ echo "$json" | jq -r '
     def to_port: (.port|tostring) + ":" + (.nodePort|tostring) + "/" + (.protocol|tostring);
 
     ["NAME", "TYPE", "CLUSTER-IP", "PORT(S)"],
-    ( 
-       .items[] 
-       | select(.spec.type=="NodePort") 
+    (
+       .items[]
+       | select(.spec.type=="NodePort")
        | [
-          .metadata.name, 
-          .spec.type, 
+          .metadata.name,
+          .spec.type,
           .spec.clusterIP,
           (.spec.ports|map(.|to_port)|join(","))
-      ] 
+      ]
     )
-    | @tsv 
+    | @tsv
 ' | column -ts $'\t'
 ```
 
@@ -216,7 +221,7 @@ json='
 
 echo "$json" | jq -r '
     def to_port: (.port|tostring) + ":" + (.nodePort|tostring) + "/" + (.protocol|tostring);
-   .[]|to_entries|map(.key + "=" + .value)|join(",") 
+   .[]|to_entries|map(.key + "=" + .value)|join(",")
 '
 # 结果
 a=a1,b=b1
@@ -227,7 +232,7 @@ a=a2,b=b2
 # 压缩/minify
 ```shell
 # 字符串
-echo '{ "foo": "bar" }' | jq -r tostring 
+echo '{ "foo": "bar" }' | jq -r tostring
 echo '{ "foo": "bar" }' | jq -r tostring > minified.json
 
 # 文件
@@ -255,5 +260,5 @@ cat /tmp/demo.json.log | jq -r 'select(.level == "INFO")|.count|tostring' | sort
 cat > /tmp/demo.json.log <<EOF
 {"user":"stedolan","titles":["JQ Primer", "More JQ"]}
 EOF
-cat /tmp/demo.json.log | jq -r '{(.user): .titles}|tostring'  
+cat /tmp/demo.json.log | jq -r '{(.user): .titles}|tostring'
 ```

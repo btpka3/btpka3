@@ -86,8 +86,8 @@ usermod -m -d /path/to/new/home/dir userNameHere
 arr=( "aaa" "bbb" "xxx" "ooo kkk" )
 
 # 显示数组长度
-echo ${#arr[@]}          
-echo ${#arr[*]}          
+echo ${#arr[@]}
+echo ${#arr[*]}
 
 # 有双引号时特殊打印
 function printArr(){
@@ -170,7 +170,7 @@ a="bbb"
 is_match=`
 for i in ${arr[@]} ; do
     if [ "$i" = "$a" ] ; then
-        echo 0 
+        echo 0
         break
     fi
 done
@@ -396,8 +396,8 @@ echo $'"\'"'        # "'"
 # 引号内输出 awk
 echo 'ls -l | awk -F"|" '"'"'{ if($5>10000) print $0}'"'"
 ```
- 
- 
+
+
 ### substr
 
 ```bash
@@ -447,7 +447,7 @@ echo -e $str | sed -n '1p'    # 打印第1行
 echo -e $str | sed -n '2,3p'  # 打印第2~3行
 echo -e $str | sed -n '$p'    # 打印第最后一行
 
-tail -f 
+tail -f
 tailf xxxFile | grep --line-buffered --color=auto xxxKeyWord
 ```
 
@@ -509,7 +509,10 @@ ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
 # 批量列出压缩包内容
 find . -type f -name "*.jar" | xargs -n 1 unzip -l | less
 
-
+# 如果有下面报错，则需要指定 -S 的 值
+# xargs: command line cannot be assembled, too long
+# 比如:
+find . -type f -name "pom.xml" | xargs -I{} -S 1024000 bash -c 'echo "{}___{}"'
 
 ```
 
@@ -627,7 +630,7 @@ unzip -j "myarchive.zip" "in/archive/file.txt" -d "/path/to/unzip/to"
 
 #### 不解压：查看压缩包中给定文件的内容
 ```shell
-unzip -p xxx.jar git.properties.json 
+unzip -p xxx.jar git.properties.json
 ```
 
 #### list specific file/dir
@@ -966,7 +969,7 @@ ncat -l 2000 -k -c 'xargs -n1 echo'
 cut -b 10-20 xxx.txt
 
 # 多个空格打印低3列
-cat > b.txt <<EOF 
+cat > b.txt <<EOF
 1    a1     b1
 2    a2    b2
 EOF
@@ -1115,8 +1118,8 @@ echo VAR=value
 $( echo VAR=value )         # 命令未找到： VAR=value
 echo $VAR                   # 空字符串
 
-eval $( echo VAR=value )    # 
-echo $VAR   
+eval $( echo VAR=value )    #
+echo $VAR
 value
 ```
 

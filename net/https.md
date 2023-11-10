@@ -515,3 +515,277 @@ PEM ： 是 将 DER 内容 base-64 编码
 ## SPKI : Simple public key infrastructure
 
 - [SPKI/SDSI Certificates](https://theworld.com/~cme/html/spki.html)
+
+
+
+# cipher suit
+
+## server https cipher suite
+see [nmap.md](nmap.md) # SSL server cipher suite
+
+## curl https cipher suites
+see [curl.md](curl.md) # client ssl cipher suites
+
+## java client 1
+- [Missing ECDHE Ciphers in 8-jdk-alpine #3002](https://github.com/adoptium/temurin-build/issues/3002)
+
+```bash
+# 远程下载 Ciphers.java
+curl -fsSL https://confluence.atlassian.com/stashkb/files/679609085/679772359/2/1648624258064/Ciphers.java -o Ciphers.java
+
+# 或者直接本地新增一个
+cat > Ciphers.java <<EOF
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
+import javax.net.ssl.SSLServerSocketFactory;
+
+public class Ciphers {
+    public static void main(String[] args) {
+        SSLServerSocketFactory ssf = (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
+
+        String[] defaultCiphers = ssf.getDefaultCipherSuites();
+        String[] availableCiphers = ssf.getSupportedCipherSuites();
+
+        TreeMap<String, Boolean> ciphers = new TreeMap<String, Boolean>();
+
+        for(int i=0; i<availableCiphers.length; ++i )
+            ciphers.put(availableCiphers[i], Boolean.FALSE);
+
+        for(int i=0; i<defaultCiphers.length; ++i )
+            ciphers.put(defaultCiphers[i], Boolean.TRUE);
+
+        System.out.println("Default\tCipher");
+        for(Iterator i = ciphers.entrySet().iterator(); i.hasNext(); ) {
+            Map.Entry cipher=(Map.Entry)i.next();
+
+            if(Boolean.TRUE.equals(cipher.getValue()))
+                System.out.print('*');
+            else
+                System.out.print(' ');
+
+            System.out.print('\t');
+            System.out.println(cipher.getKey());
+        }
+    }
+}
+EOF
+
+
+
+
+docker run -it --rm \
+  --entrypoint="/bin/sh" \
+  -v ./Ciphers.java:/Ciphers.java \
+  docker.io/library/eclipse-temurin:8-jdk-alpine \
+  -c 'javac Ciphers.java ; java Ciphers'
+
+Default	Cipher
+*	TLS_AES_128_GCM_SHA256
+*	TLS_AES_256_GCM_SHA384
+*	TLS_DHE_DSS_WITH_AES_128_CBC_SHA
+*	TLS_DHE_DSS_WITH_AES_128_CBC_SHA256
+*	TLS_DHE_DSS_WITH_AES_128_GCM_SHA256
+*	TLS_DHE_DSS_WITH_AES_256_CBC_SHA
+*	TLS_DHE_DSS_WITH_AES_256_CBC_SHA256
+*	TLS_DHE_DSS_WITH_AES_256_GCM_SHA384
+*	TLS_DHE_RSA_WITH_AES_128_CBC_SHA
+*	TLS_DHE_RSA_WITH_AES_128_CBC_SHA256
+*	TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+*	TLS_DHE_RSA_WITH_AES_256_CBC_SHA
+*	TLS_DHE_RSA_WITH_AES_256_CBC_SHA256
+*	TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+*	TLS_EMPTY_RENEGOTIATION_INFO_SCSV
+*	TLS_RSA_WITH_AES_128_CBC_SHA
+*	TLS_RSA_WITH_AES_128_CBC_SHA256
+*	TLS_RSA_WITH_AES_128_GCM_SHA256
+*	TLS_RSA_WITH_AES_256_CBC_SHA
+*	TLS_RSA_WITH_AES_256_CBC_SHA256
+*	TLS_RSA_WITH_AES_256_GCM_SHA384
+
+
+curl -fsSL https://repo1.maven.org/maven2/org/bouncycastle/bcprov-ext-jdk18on/1.76/bcprov-ext-jdk18on-1.76.jar -o bcprov-ext-jdk18on-1.76.jar
+#JAVA_HOME=/opt/java/openjdk
+ls -l ${JAVA_HOME}/jre/lib/ext
+ls -l ${JAVA_HOME}/jre/lib/security/java.security
+grep "security.provider." ${JAVA_HOME}/jre/lib/security/java.security
+
+docker run -it --rm \
+  --entrypoint="/bin/sh" \
+  -v ./Ciphers.java:/Ciphers.java \
+  -v ./bcprov-ext-jdk18on-1.76.jar:/opt/java/openjdk/jre/lib/ext/bcprov-ext-jdk18on-1.76.jar \
+  docker.io/library/eclipse-temurin:8-jdk-alpine \
+  -c '
+  echo -e "\nsecurity.provider.10=org.bouncycastle.jce.provider.BouncyCastleProvider" >> ${JAVA_HOME}/jre/lib/security/java.security ;
+  javac Ciphers.java ;
+  java Ciphers
+  '
+
+Default	Cipher
+*	TLS_AES_128_GCM_SHA256
+*	TLS_AES_256_GCM_SHA384
+*	TLS_DHE_DSS_WITH_AES_128_CBC_SHA
+*	TLS_DHE_DSS_WITH_AES_128_CBC_SHA256
+*	TLS_DHE_DSS_WITH_AES_128_GCM_SHA256
+*	TLS_DHE_DSS_WITH_AES_256_CBC_SHA
+*	TLS_DHE_DSS_WITH_AES_256_CBC_SHA256
+*	TLS_DHE_DSS_WITH_AES_256_GCM_SHA384
+*	TLS_DHE_RSA_WITH_AES_128_CBC_SHA
+*	TLS_DHE_RSA_WITH_AES_128_CBC_SHA256
+*	TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+*	TLS_DHE_RSA_WITH_AES_256_CBC_SHA
+*	TLS_DHE_RSA_WITH_AES_256_CBC_SHA256
+*	TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+*	TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+*	TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
+*	TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+*	TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+*	TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384
+*	TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+*	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+*	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+*	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+*	TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+*	TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384
+*	TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+*	TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA
+*	TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256
+*	TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256
+*	TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA
+*	TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384
+*	TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384
+*	TLS_ECDH_RSA_WITH_AES_128_CBC_SHA
+*	TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256
+*	TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256
+*	TLS_ECDH_RSA_WITH_AES_256_CBC_SHA
+*	TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384
+*	TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384
+*	TLS_EMPTY_RENEGOTIATION_INFO_SCSV
+*	TLS_RSA_WITH_AES_128_CBC_SHA
+*	TLS_RSA_WITH_AES_128_CBC_SHA256
+*	TLS_RSA_WITH_AES_128_GCM_SHA256
+*	TLS_RSA_WITH_AES_256_CBC_SHA
+*	TLS_RSA_WITH_AES_256_CBC_SHA256
+*	TLS_RSA_WITH_AES_256_GCM_SHA384
+```
+## java client 2
+
+```pom
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.17</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.example</groupId>
+    <artifactId>demo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>demo</name>
+    <description>Demo project for Spring Boot</description>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-ram</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-ecs</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>4.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>2.0.41</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.15.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+
+```
+
+test java
+```java
+        public void checkClientCipherSuits() {
+            try {
+                IHttpClient client = HttpClientFactory.buildClient(DefaultProfile.getProfile());
+                System.out.println("====== test2 IHttpClient : " + client.getClass());
+                ApacheHttpClient ap = (ApacheHttpClient) client;
+                //ApacheHttpClient ap = ApacheHttpClient.getInstance();
+
+                Field field = ApacheHttpClient.class.getDeclaredField("httpClient");
+                field.setAccessible(true);
+                CloseableHttpClient httpClient = (CloseableHttpClient) ReflectionUtils.getField(field, ap);
+                String url = "https://www.howsmyssl.com/a/check";
+                HttpUriRequest request = RequestBuilder.create("GET")
+                        .setUri(url)
+                        .build();
+                CloseableHttpResponse response = httpClient.execute(request);
+                String str = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8);
+                System.out.println("====== test2 success :" + str);
+            } catch (Exception e) {
+                System.err.println("====== test2 failed.");
+                e.printStackTrace();
+            }
+        }
+```
+
+output on macos
+```
+{"given_cipher_suites":["TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384","TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384","TLS_RSA_WITH_AES_256_CBC_SHA256","TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384","TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384","TLS_DHE_RSA_WITH_AES_256_CBC_SHA256","TLS_DHE_DSS_WITH_AES_256_CBC_SHA256","TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA","TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA","TLS_RSA_WITH_AES_256_CBC_SHA","TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA","TLS_ECDH_RSA_WITH_AES_256_CBC_SHA","TLS_DHE_RSA_WITH_AES_256_CBC_SHA","TLS_DHE_DSS_WITH_AES_256_CBC_SHA","TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256","TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256","TLS_RSA_WITH_AES_128_CBC_SHA256","TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256","TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256","TLS_DHE_RSA_WITH_AES_128_CBC_SHA256","TLS_DHE_DSS_WITH_AES_128_CBC_SHA256","TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA","TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA","TLS_RSA_WITH_AES_128_CBC_SHA","TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA","TLS_ECDH_RSA_WITH_AES_128_CBC_SHA","TLS_DHE_RSA_WITH_AES_128_CBC_SHA","TLS_DHE_DSS_WITH_AES_128_CBC_SHA","TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384","TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256","TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384","TLS_RSA_WITH_AES_256_GCM_SHA384","TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384","TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384","TLS_DHE_RSA_WITH_AES_256_GCM_SHA384","TLS_DHE_DSS_WITH_AES_256_GCM_SHA384","TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256","TLS_RSA_WITH_AES_128_GCM_SHA256","TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256","TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256","TLS_DHE_RSA_WITH_AES_128_GCM_SHA256","TLS_DHE_DSS_WITH_AES_128_GCM_SHA256","TLS_EMPTY_RENEGOTIATION_INFO_SCSV"],"ephemeral_keys_supported":true,"session_ticket_supported":false,"tls_compression_supported":false,"unknown_cipher_suite_supported":false,"beast_vuln":false,"able_to_detect_n_minus_one_splitting":false,"insecure_cipher_suites":{},"tls_version":"TLS 1.2","rating":"Probably Okay"}
+```
+
+
+
+```bash
+docker run -it --rm \
+  --entrypoint="/bin/sh" \
+  -p 5005:5005 \
+  -v ./target/demo-0.0.1-SNAPSHOT.jar:/demo-0.0.1-SNAPSHOT.jar \
+  docker.io/library/eclipse-temurin:8-jdk-alpine \
+  -c 'java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005 -jar /demo-0.0.1-SNAPSHOT.jar'
+```
+
+output on alpine container
+```plain
+{"given_cipher_suites":["TLS_AES_256_GCM_SHA384","TLS_AES_128_GCM_SHA256","TLS_DHE_RSA_WITH_AES_256_GCM_SHA384","TLS_DHE_DSS_WITH_AES_256_GCM_SHA384","TLS_DHE_RSA_WITH_AES_128_GCM_SHA256","TLS_DHE_DSS_WITH_AES_128_GCM_SHA256","TLS_DHE_RSA_WITH_AES_256_CBC_SHA256","TLS_DHE_DSS_WITH_AES_256_CBC_SHA256","TLS_DHE_RSA_WITH_AES_128_CBC_SHA256","TLS_DHE_DSS_WITH_AES_128_CBC_SHA256","TLS_DHE_RSA_WITH_AES_256_CBC_SHA","TLS_DHE_DSS_WITH_AES_256_CBC_SHA","TLS_DHE_RSA_WITH_AES_128_CBC_SHA","TLS_DHE_DSS_WITH_AES_128_CBC_SHA","TLS_RSA_WITH_AES_256_GCM_SHA384","TLS_RSA_WITH_AES_128_GCM_SHA256","TLS_RSA_WITH_AES_256_CBC_SHA256","TLS_RSA_WITH_AES_128_CBC_SHA256","TLS_RSA_WITH_AES_256_CBC_SHA","TLS_RSA_WITH_AES_128_CBC_SHA","TLS_EMPTY_RENEGOTIATION_INFO_SCSV"],"ephemeral_keys_supported":true,"session_ticket_supported":false,"tls_compression_supported":false,"unknown_cipher_suite_supported":false,"beast_vuln":false,"able_to_detect_n_minus_one_splitting":false,"insecure_cipher_suites":{},"tls_version":"TLS 1.3","rating":"Probably Okay"}
+```
+
+

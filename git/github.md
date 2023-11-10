@@ -413,3 +413,39 @@ git push -f gitlab master:master
 
 echo `$TIME` Done.
 ```
+
+
+
+# search
+
+- [Understanding GitHub Code Search syntax](https://docs.github.com/en/search-github/github-code-search/understanding-github-code-search-syntax)
+- [languages.yml](https://github.com/github-linguist/linguist/blob/master/lib/linguist/languages.yml) 支持搜索的编程语言列表
+
+```plain
+org:github                              # 按照组织搜索
+repo:spring-cloud/spring-cloud-config   # 搜索指定的代码仓库
+user:zhang3                             # 再给定的个人账号下搜索
+
+language:java                           # 搜索指定的语言
+
+path:Event.java                         # 按照文件路径搜索,
+                                        # 支持正则表达式， 比如搜索所有 README.md 文件:  path:/(^|\/)README\.md$/
+                                        # 支持 glob 通配符，
+                                        # - `?`  : 匹配任意单个字符
+                                        # - `*`  : 匹配任意长度字符，但不匹配 '/' 字符。 比如: path:*.txt
+                                        # - `**` : 匹配任意级别目录。 比如: path:/src/**/*.js
+                                        # 如果要路径或文件中包含特殊字符（比如 '?','*'），需要使用双引号引用起来。 比如: path:"file?"
+
+symbol:WithContext                      # 部分编程语言可以搜索某个方法。
+                                        # symbol:Maint.deleteRows   : 比如 搜索 struct `Maint` 的 方法 `deleteRows`
+                                        # symbol:Maint::deleteRows  : 使用go 语言的话，用该方式
+                                        # symbol:/^String::to_.*/   : 支持正则
+
+content:README.md                       # 搜索内容中包含 "README.md" 的文件
+
+is:archived                             # 限定对仓库的属性进行过滤
+                                        # is:archived
+                                        # is:fork
+                                        # is:verdored
+                                        # is:vgenerated
+```

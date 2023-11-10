@@ -1,4 +1,6 @@
 
+# packages
+- [packages.fedoraproject.org](https://packages.fedoraproject.org/)
 
 # virtualbox
 下载 [fedora](https://fedoraproject.org/)  qcow2 格式的文件，然后将其转换成vdi 格式

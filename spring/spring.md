@@ -92,13 +92,16 @@ public class ChildService extends ParentService {
     />
 ```
 
+- @org.springframework.context.annotation.PropertySource
+- @org.springframework.context.annotation.PropertySources
 - org.springframework.context.config.ContextNamespaceHandler
 - org.springframework.context.config.PropertyPlaceholderBeanDefinitionParser
 - org.springframework.context.support.PropertySourcesPlaceholderConfigurer
 - org.springframework.beans.factory.config.PropertyPlaceholderConfigurer  : @Deprecated
 - org.springframework.core.io.ResourceLoader
-- org.springframework.util.PropertyPlaceholderHelper#replacePlaceholder
- 
+- org.springframework.util.PropertyPlaceholderHelper#replacePlaceholders
+- org.springframework.util.PropertyPlaceholderHelper.PlaceholderResolver
+
 
 设置bean 属性的时候，是如何将 string 转成特定类型的？
 
@@ -117,7 +120,7 @@ org.springframework.beans.BeanWrapperImpl#setPropertyValue
 org.springframework.context.support.AbstractApplicationContext#refresh
     #prepareRefresh
         #initPropertySources  # 但这个方法仅仅 spring-web 相关 代码才有特定实现， 常用的 placeholder 处理属于 BeanFactoryPostProcessor
-    #obtainFreshBeanFactory  
+    #obtainFreshBeanFactory
         org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory
             org.springframework.context.support.AbstractRefreshableApplicationContext#refreshBeanFactory
                 org.springframework.context.support.AbstractXmlApplicationContext#loadBeanDefinitions(DefaultListableBeanFactory)
@@ -125,7 +128,7 @@ org.springframework.context.support.AbstractApplicationContext#refresh
                         org.springframework.beans.factory.support.AbstractBeanDefinitionReader#loadBeanDefinitions(String...)
                             org.springframework.beans.factory.support.AbstractBeanDefinitionReader#loadBeanDefinitions(String)  # ⭕️ 处理 <import> 是在该阶段
     #postProcessBeanFactory                # 这个接口与 BeanFactoryPostProcessor 无关，仅仅是留给子类扩展用的，实际在这个地方做宽展的子类已不是很多。
-    #invokeBeanFactoryPostProcessors       # 调用 BeanFactoryPostProcessor 
+    #invokeBeanFactoryPostProcessors       # 调用 BeanFactoryPostProcessor
         org.springframework.context.support.PostProcessorRegistrationDelegate#invokeBeanFactoryPostProcessors
            # 前方高能：这里的逻辑真TMD的绕
            # - 先针对 AbstractApplicationContext#beanFactoryPostProcessors (代码编程注册的 BFPP)  中的 BeanDefinitionRegistryPostProcessor 类型，
@@ -137,24 +140,24 @@ org.springframework.context.support.AbstractApplicationContext#refresh
            #   并调用 BeanDefinitionRegistryPostProcessor#postProcessBeanDefinitionRegistry。
            # - 【递归】再从 beanFactory 获取 其他 BeanDefinitionRegistryPostProcessor 的 bean
            #   并调用 BeanDefinitionRegistryPostProcessor#postProcessBeanDefinitionRegistry。
-           # - 至此：bean definition 全部完成，对收集到的所有的 BeanFactoryPostProcessor 对象，调用 BeanFactoryPostProcessor#postProcessBeanFactory， 这个调用与 
+           # - 至此：bean definition 全部完成，对收集到的所有的 BeanFactoryPostProcessor 对象，调用 BeanFactoryPostProcessor#postProcessBeanFactory， 这个调用与
            #   注意： BeanFactoryPostProcessor 不要声明 注解 @Order，该注解无效。
 
     #registerBeanPostProcessors
         org.springframework.context.support.PostProcessorRegistrationDelegate#registerBeanPostProcessors()  # 从 beanFactory 中获取所有的 BPP, 并注册
         # org.springframework.context.annotation.AnnotationConfigUtils#AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME
         # "org.springframework.context.annotation.internalAutowiredAnnotationProcessor"
-        
-        
-    #initMessageSource 
+
+
+    #initMessageSource
     #initApplicationEventMulticaster
-    #onRefresh                          
+    #onRefresh
     #registerListeners
-    #finishBeanFactoryInitialization    # 这里会检查是否有 EmbeddedValueResolver， 如果没有的话，则默认 将 Environment 作为 embeddedValueResolver。  
+    #finishBeanFactoryInitialization    # 这里会检查是否有 EmbeddedValueResolver， 如果没有的话，则默认 将 Environment 作为 embeddedValueResolver。
                                         # 但这个时机就太晚了，所以最好明确声明一个 PlaceholderConfigurerSupport 的子类（比如 PropertySourcesPlaceholderConfigurer）
                                         # 以便在 BFPP初始化阶段就注入好。
-    #finishRefresh 
-     
+    #finishRefresh
+
 
 
 ```
@@ -173,10 +176,10 @@ org.springframework.context.support.AbstractApplicationContext#refresh
 - org.springframework.beans.factory.SmartFactoryBean  # isEagerInit
 - org.springframework.beans.factory.SmartInitializingSingleton
 - bean factory
-- org.springframework.beans.factory.config.BeanFactoryPostProcessor    
-    - org.springframework.context.annotation.ConfigurationClassPostProcessor        # @PriorityOrdered, 这里会提前注册一些 BPP 
+- org.springframework.beans.factory.config.BeanFactoryPostProcessor
+    - org.springframework.context.annotation.ConfigurationClassPostProcessor        # @PriorityOrdered, 这里会提前注册一些 BPP
     - org.springframework.beans.factory.config.PlaceholderConfigurerSupport         # @PriorityOrdered, placeHolder
-        - org.springframework.beans.factory.config.PropertyPlaceholderConfigurer  
+        - org.springframework.beans.factory.config.PropertyPlaceholderConfigurer
     - AnnotationAwareAspectJAutoProxyCreator
     - AsyncAnnotationBeanPostProcessor
     - org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor  # 额外增加 bean 定义
@@ -185,14 +188,14 @@ org.springframework.context.support.AbstractApplicationContext#refresh
 - bean
     - org.springframework.beans.factory.InitializingBean
     - org.springframework.beans.factory.DisposableBean
-        - org.springframework.beans.factory.support.DisposableBeanAdapter   
+        - org.springframework.beans.factory.support.DisposableBeanAdapter
     - org.springframework.beans.factory.BeanNameAware
     - org.springframework.beans.factory.BeanClassLoaderAware
     - @javax.annotation.PostConstruct
     - @javax.annotation.PreDestroy
 
 - org.springframework.core.SmartClassLoader
-    
+
 
 # order
 - org.springframework.core.Ordered # 数值越小，优先级越高
@@ -215,7 +218,7 @@ AbstractAutowireCapableBeanFactory#destroyBean
 # 2. 调用 DisposableBean#destroy
 # 3. 调用自定义的 destroy method
 
- 
+
 ```
 
 
@@ -227,26 +230,31 @@ BDRPP : BeanDefinitionRegistryPostProcessor
     1. AbstractApplicationContext#beanFactoryPostProcessors 中所有实现了 BDRPP 接口的 BFPP，
         这些对象 与 PriorityOrdered/Ordered 无关，按照编程的注册顺序来
     1. beanFactory 中 所有实现了 BDRPP + PriorityOrdered 接口的 BFPP（及其依赖的bean）
-    . 
+    .
         这些对象 按照 PriorityOrdered 的优先级来
-    1. beanFactory 中 所有实现了 BDRPP + Ordered 接口的 BFPP（及其依赖的bean）. 
+    1. beanFactory 中 所有实现了 BDRPP + Ordered 接口的 BFPP（及其依赖的bean）.
         这些对象 按照 Ordered 的优先级来。
-    1. 【递归】beanFactory 中 其他 BDRPP （未实现 PriorityOrdered/Ordered 接口）的 BFPP（及其依赖的bean）. 
-        这些对象 的顺序不保障。 
+    1. 【递归】beanFactory 中 其他 BDRPP （未实现 PriorityOrdered/Ordered 接口）的 BFPP（及其依赖的bean）.
+        这些对象 的顺序不保障。
         如果 在 BDRPP 中又引入了新的 BDRPP，则新引入的这一小批内部按照 PriorityOrdered/Ordered/无 排序后，整批排队后执行。
 1. 再调用 未实现 BDRPP 的 BFPP
-    1. AbstractApplicationContext#beanFactoryPostProcessors 中 未实现  BDRPP 接口的 BFPP , 
+    1. AbstractApplicationContext#beanFactoryPostProcessors 中 未实现  BDRPP 接口的 BFPP ,
         这些对象 与 PriorityOrdered/Ordered 无关，按照编程的注册顺序来
-    1. beanFactory 中 未实现 BDRPP, 但实现了 PriorityOrdered 接口的 BFPP. 
+    1. beanFactory 中 未实现 BDRPP, 但实现了 PriorityOrdered 接口的 BFPP.
         这些对象 按照 PriorityOrdered 的优先级来
-    1. beanFactory 中 未实现 BDRPP, 但实现了 Ordered 接口的 BFPP（及其依赖的bean）. 
+    1. beanFactory 中 未实现 BDRPP, 但实现了 Ordered 接口的 BFPP（及其依赖的bean）.
         这些对象 按照 Ordered 的优先级来
-    1. beanFactory 中 未实现 BDRPP/PriorityOrdered/Ordered 接口的 BFPP（及其依赖的bean）. 
-        这些对象 的顺序不保障。 
+    1. beanFactory 中 未实现 BDRPP/PriorityOrdered/Ordered 接口的 BFPP（及其依赖的bean）.
+        这些对象 的顺序不保障。
 1. 实例化并注册 BPP
      1. beanFactory 中 实现了 PriorityOrdered 接口的 BPP（及其依赖的bean）
      1. beanFactory 中 实现了 Ordered 接口的 BPP（及其依赖的bean）
      1. beanFactory 中 未实现 PriorityOrdered/Ordered 接口的 BPP（及其依赖的bean）
+
+
+# Ordered + BeanPostProcessor 可以使用的特性
+
+- 作为 spring bean 来完成依赖注入
 
 
 
@@ -265,7 +273,7 @@ BDRPP : BeanDefinitionRegistryPostProcessor
 - @org.springframework.context.annotation.PropertySource
 - org.springframework.core.env.PropertySource
     - org.springframework.core.env.MapPropertySource
-        - org.springframework.core.env.PropertiesPropertySource                 # ⭕️ 
+        - org.springframework.core.env.PropertiesPropertySource                 # ⭕️
         - org.springframework.boot.DefaultPropertiesPropertySource
     - org.springframework.core.env.CommandLinePropertySource
         - org.springframework.core.env.SimpleCommandLinePropertySource
@@ -281,9 +289,9 @@ BDRPP : BeanDefinitionRegistryPostProcessor
 
 - org.springframework.beans.factory.config.PropertyResourceConfigurer
 - org.springframework.beans.factory.config.PlaceholderConfigurerSupport
-    - org.springframework.context.support.PropertySourcesPlaceholderConfigurer  # ⭕️ 
+    - org.springframework.context.support.PropertySourcesPlaceholderConfigurer  # ⭕️
     - org.springframework.beans.factory.config.PropertyPlaceholderConfigurer    # @Deprecated
-  
+
 - org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer # @Deprecated
 
 - org.springframework.core.env.PropertyResolver
@@ -298,11 +306,13 @@ BDRPP : BeanDefinitionRegistryPostProcessor
 org.springframework.context.support.PropertySourcesPlaceholderConfigurer#postProcessBeanFactory
 name : 说明
 
-"systemProperties"      : 从 Environment 内初始化, 代表从 环境变量中取值
-"systemEnvironment"     : 从 Environment  内初始化, 代表从 JVM 系统属性上取值
-"environmentProperties" : 从 Environment 对象中获取
-"localProperties"       : 
+PropertySourcesPlaceholderConfigurer#propertySources
+- "environmentProperties" : 从 Environment 对象中获取
+  - "systemProperties"      : 从 Environment 内初始化, 代表从 环境变量中取值, @see StandardEnvironment#customizePropertySources
+  - "systemEnvironment"     : 从 Environment 内初始化, 代表从 JVM 系统属性上取值, @see StandardEnvironment#customizePropertySources
+- "localProperties"       :
 
+至于 environmentProperties， localProperties 哪个优先使用，则依赖 PropertySourcesPlaceholderConfigurer#localOverride
 ```
 
 
@@ -310,7 +320,7 @@ name : 说明
 
 ```
 - org.springframework.core.env.PropertyResolver
-org.springframework.core.env.ConfigurablePropertyResolver   # 
+org.springframework.core.env.ConfigurablePropertyResolver   #
 - org.springframework.core.env.Environment
 - org.springframework.core.env.ConfigurableEnvironment
 - org.springframework.core.env.AbstractEnvironment
@@ -318,7 +328,7 @@ org.springframework.core.env.ConfigurablePropertyResolver   #
 - org.springframework.core.env.EnvironmentCapable
 - org.springframework.context.EnvironmentAware
 - org.springframework.context.support.AbstractApplicationContext#createEnvironment
-- org.springframework.context.annotation.ConfigurationClassParser#doProcessConfigurationClass 
+- org.springframework.context.annotation.ConfigurationClassParser#doProcessConfigurationClass
     # 处理 @PropertySources 注解，并将其加入到 Environment 的 propertySources 中
 ```
 
@@ -334,7 +344,8 @@ org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#pop
 ```
 - XxxAware
     - org.springframework.context.annotation.ConfigurationClassPostProcessor.ImportAwareBeanPostProcessor
-    - org.springframework.context.support.ApplicationContextAwareProcessor      
+        #org.springframework.context.annotation.ImportAware
+    - org.springframework.context.support.ApplicationContextAwareProcessor
         #EnvironmentAware
         #EmbeddedValueResolverAware
         #ResourceLoaderAware
@@ -344,35 +355,38 @@ org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#pop
         #ApplicationContextAware
 
     - org.springframework.context.support.ApplicationListenerDetector
+        #org.springframework.context.ApplicationListener
     - org.springframework.context.weaving.LoadTimeWeaverAwareProcessor
-    - org.springframework.web.context.support.ServletContextAwareProcessor
-    - org.springframework.boot.web.servlet.context.WebApplicationContextServletContextAwareProcessor
- 
+        #org.springframework.context.weaving.LoadTimeWeaverAware
+    - org.springframework.boot.web.servlet.context.WebApplicationContextServletContextAwareProcessor/org.springframework.web.context.support.ServletContextAwareProcessor
+        #org.springframework.web.context.ServletContextAware
 
 
 - BDRPP
-    - org.springframework.context.annotation.ConfigurationClassPostProcessor                    # @Configuration, <context:annotation-config/>
-
-- org.springframework.context.weaving.LoadTimeWeaverAwareProcessor 
+    - org.springframework.context.annotation.ConfigurationClassPostProcessor                    # @Configuration, <context:annotation-config/> :
+                                                                                                # @Component,@PropertySource,@PropertySources
+                                                                                                # @ComponentScan,@ComponentScans,@ImportResource
+                                                                                                # see ConfigurationClassParser
 - org.springframework.beans.factory.support.MergedBeanDefinitionPostProcessor
 - init/destory
     - org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor
         - org.springframework.beans.factory.config.SmartInstantiationAwareBeanPostProcessor
             - org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor  # @Required, @Deprecated
-            - org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor # @Autowired,@Value,@Inject, <context:annotation-config/>
+            - org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor # @Autowired,@Value,@Inject, <context:annotation-config/>,
+                                                                                                # 构造函数注入
             - ???                                                                               # @Qualifier, @Lookup, @javax.annotation.Priority
             - org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor        # @javax.persistence.PersistenceUnit, @javax.persistence.PersistenceContext
             - org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator              # AOP
                 - org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator
                     - org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator
                     - org.springframework.aop.aspectj.autoproxy.AspectJAwareAdvisorAutoProxyCreator
-                        - org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator     # 
+                        - org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator     #
     - org.springframework.beans.factory.config.DestructionAwareBeanPostProcessor
         - org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor        # @Scheduled
         - org.springframework.web.servlet.handler.SimpleServletPostProcessor                    # Servlet#init, servlet#destory
         - org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor
             - org.springframework.context.annotation.CommonAnnotationBeanPostProcessor          # @Resource,@PostConstruct,@PreDestroy  : <context:annotation-config/>
-            
+
 
 ```
 
@@ -382,14 +396,14 @@ org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#pop
 ```
 org.springframework.context.annotation.AnnotationConfigApplicationContext#<init>
 org.springframework.context.annotation.AnnotatedBeanDefinitionReader#<init>
-org.springframework.context.annotation.AnnotationConfigUtils#registerAnnotationConfigProcessors # ⭕️ : 重点 
+org.springframework.context.annotation.AnnotationConfigUtils#registerAnnotationConfigProcessors # ⭕️ : 重点
     # 注册: ConfigurationClassPostProcessor (PriorityOrdered+BDRPP)
     # 注册: AutowiredAnnotationBeanPostProcessor
     # 注册: CommonAnnotationBeanPostProcessor
     # 注册: PersistenceAnnotationBeanPostProcessor
     # 注册: EventListenerMethodProcessor
     # 注册: DefaultEventListenerFactory
- 
+
 
 ```
 
@@ -405,7 +419,7 @@ org.springframework.beans.factory.support.AbstractBeanFactory#getBean
                 org.springframework.beans.factory.config.BeanPostProcessor#postProcessAfterInitialization
 
 # 该 BFPP （PriorityOrdered）编程添加 ImportAwareBeanPostProcessor
-org.springframework.context.annotation.ConfigurationClassPostProcessor#postProcessBeanFactory 
+org.springframework.context.annotation.ConfigurationClassPostProcessor#postProcessBeanFactory
 
 # 编程添加 ApplicationContextAwareProcessor,ApplicationListenerDetector,LoadTimeWeaverAwareProcessor
 org.springframework.context.support.AbstractApplicationContext#prepareBeanFactory
@@ -448,8 +462,8 @@ org.springframework.context.support.PostProcessorRegistrationDelegate#registerBe
 - org.springframework.boot.context.config.ConfigDataEnvironment
 
 
-# Q : BeanFactoryPostProcessor 的类上可以 使用 XxxAware 么？ 
-A: 可以使用 XxxAware， 
+# Q : BeanFactoryPostProcessor 的类上可以 使用 XxxAware 么？
+A: 可以使用 XxxAware，
 示例：org.springframework.context.support.PropertySourcesPlaceholderConfigurer : 属于 BFPP, 也实现了 BeanFactoryAware, BeanNameAware, EnvironmentAware 接口
 
 调用 XxxAware 接口的地方
@@ -457,7 +471,7 @@ A: 可以使用 XxxAware，
 - spring 框架编程注册的一些 BPP， 比如 ApplicationContextAwareProcessor 负责调用 EnvironmentAware,MessageSourceAware 等
 
 # Q : 那 BeanPostProcessor 和 BeanFactoryPostProcessor 到底谁先初始化的？
-在spring 框架代码中，有通过硬编码的方式提前注册了一些 BPP, 比如 ImportAwareBeanPostProcessor,ApplicationContextAwareProcessor 等 
+在spring 框架代码中，有通过硬编码的方式提前注册了一些 BPP, 比如 ImportAwareBeanPostProcessor,ApplicationContextAwareProcessor 等
 这些 BPP 支持的功能是可以在 BDRPP, BFPP 中使用的。
 
 但作为Bean初始化的 BPP，则不能使用。
@@ -499,7 +513,7 @@ A: 可以使用 XxxAware，
       # createArgumentArray
 核心代码: org.springframework.beans.factory.support.DefaultListableBeanFactory
     #resolveDependency(DependencyDescriptor,String,Set<String>,TypeConverter)
-    #doResolveDependency   # 获取 @Value 的原始值，并处理 placeholder 
+    #doResolveDependency   # 获取 @Value 的原始值，并处理 placeholder
 org.springframework.beans.factory.annotation.QualifierAnnotationAutowireCandidateResolver#extractValue  # 获取 @Value 的原始值——尚未处理 placeholder 和类型转换
 org.springframework.beans.factory.support.AutowireCandidateResolver
 
@@ -526,7 +540,8 @@ org.springframework.beans.factory.support.AutowireCandidateResolver
 	  at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
 	  at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
 	  at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
-	  at org.springframework.beans.factory.support.AbstractBeanFactory$$Lambda$330.380702608.getObject(Unknown Source:-1)```
+	  at org.springframework.beans.factory.support.AbstractBeanFactory$$Lambda$330.380702608.getObject(Unknown Source:-1)
+```
 
 
 # Q : BFPP 字段上声明的  @Value ，以及 依赖的 bean 的字段里的 @Value 为何无值?
@@ -535,5 +550,5 @@ org.springframework.beans.factory.support.AutowireCandidateResolver
 
 # Q : NoSuchMethodException : 找不到 bean 的 无参构造函数
 - org.springframework.beans.factory.config.AutowireCapableBeanFactory#AUTOWIRE_CONSTRUCTOR
-    #determineConstructorsFromBeanPostProcessors  
+    #determineConstructorsFromBeanPostProcessors
 - org.springframework.beans.factory.support.AbstractBeanDefinition#getResolvedAutowireMode

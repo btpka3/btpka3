@@ -90,7 +90,7 @@ kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 scp root@11.164.234.212:/root/.kube/config ~/.kube/config_daily
 
 # 确保下面命令能列出该表格中已经启用的 机器列表
-kubectl --kubeconfig ~/.kube/config_daily get node 
+kubectl --kubeconfig ~/.kube/config_daily get node
 
 # 如果不想每次都指定 --kubeconfig 参数，可以设置下环境变量 KUBECONFIG
 export KUBECONFIG=~/.kube/config_daily
@@ -283,7 +283,7 @@ kubectl create secret \
 kubectl describe secret yourSecretName
 kubectl get      secret yourSecretName -o yaml
 kubectl get      secret yourSecretName -o jsonpath="{.data['\.dockerconfigjson']}" | base64 -d | jq
-kubectl get      secret yourSecretName -o custom-columns=NAME:.data.'\.dockerconfigjson' 
+kubectl get      secret yourSecretName -o custom-columns=NAME:.data.'\.dockerconfigjson'
 ```
 
 ```json
@@ -311,13 +311,13 @@ type: Opaque
 data:
   username: YWRtaW4=
   password: MTIzNDU2Cg==
-# 明文 
+# 明文
 # 相同的 key 出现在 stringData, data 中时， 则使用 stringData 中的值
 stringData:
   username: admin
   password: "123456"
 ```
- 
+
 
 ## 使用
 - 作为挂载到一个或多个容器上的卷 中的文件。
@@ -361,7 +361,7 @@ data:
   # file-like keys
   game.properties: |
     enemy.types=aliens,monsters
-    player.maximum-lives=5    
+    player.maximum-lives=5
   user-interface.properties: |
     color.good=purple
     color.bad=yellow
@@ -369,7 +369,12 @@ data:
 ```
 
 ```shell
-
+kubectl apply -f xxx.yaml
+kubectl -n default get configmap game-demo
+# 查看 configMap 的 内容
+kubectl -n default describe configmap game-demo
+# 运行态编辑 configMap
+kubectl -n default edit configmap game-demo
 ```
 
 
@@ -473,7 +478,7 @@ kubectl describe pvc blackcat-data-blackcat-0
 # event
 
 ```shell
-kubectl get event 
+kubectl get event
 kubectl get event  --field-selector involvedObject.name=nacos-2 --sort-by=".metadata.managedFields[0].time"
 kubectl logs nacos-2
 ```
@@ -489,7 +494,7 @@ kubectl get ns
 # sc : storage class
 
 ```shell
-kubectl get sc 
+kubectl get sc
 ```
 
 # kubelet
@@ -513,23 +518,23 @@ domain: `${serviceName}.${namespace}.svc.cluster.local`
 
 
 ```shell
-# 获取 所有 type=NodePort 的 service 信息 
+# 获取 所有 type=NodePort 的 service 信息
 kubectl get service -o json | jq -r '
     def to_port: (.port|tostring) + ":" + (.nodePort|tostring) + "/" + (.protocol|tostring);
 
     ["NAME", "TYPE", "CLUSTER-IP", "PORT(S)", "SELECTOR"],
-    ( 
-       .items[] 
-       | select(.spec.type=="NodePort") 
+    (
+       .items[]
+       | select(.spec.type=="NodePort")
        | [
-          .metadata.name, 
-          .spec.type, 
+          .metadata.name,
+          .spec.type,
           .spec.clusterIP,
           (.spec.ports|map(.|to_port)|join(",")),
           (.spec.selector|to_entries|map(.key + "=" + .value)|join(","))
-         ] 
+         ]
     )
-    | @tsv 
+    | @tsv
 ' | column -ts $'\t'
 ```
 
@@ -558,7 +563,7 @@ kubectl exec -it ephemeral-demo -- sh
 # 进行 debug
 kubectl debug -it ephemeral-demo --image=busybox:1.28 --image-pull-policy=IfNotPresent --target=ephemeral-demo
 ```
- 
+
 
 
 
@@ -581,7 +586,7 @@ apk add cni-plugins@testing
 
 ## 准备操作系统
 ```shell
-docker run --rm docker.io/library/fedora:38 cat /etc/os-release 
+docker run --rm docker.io/library/fedora:38 cat /etc/os-release
 docker run --name my-k8s-master -it docker.io/library/fedora:38 bash -l
 docker ps -a
 docker exec -it my-k8s-master bash -l
@@ -612,7 +617,7 @@ firewall-cmd --reload
 # Set bridged packets to traverse iptables rules.
 dnf install procps-ng
 mkdir -p /etc/sysctl.d
-cat > /etc/sysctl.d/k8s.conf <<EOF 
+cat > /etc/sysctl.d/k8s.conf <<EOF
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
@@ -675,3 +680,7 @@ EOF
 dnf install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 systemctl enable --now kubelet
 ```
+
+
+# Job
+

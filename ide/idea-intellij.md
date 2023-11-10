@@ -57,6 +57,7 @@ sudo vi idea.sh                    // 在最开始加入  `. /etc/profile.d/xxx.
 |<kbd>Cmd + Option + L</kdb>|格式化代码|
 |<kbd>Cmd + Option + L</kdb>|格式化代码|
 |<kbd>Ctrl + Option + O</kdb>|格式化 import|
+|<kbd>Ctrl + H</kdb>|显示选中class的子类|
 
 
 # ubuntu 下中文字体
@@ -102,8 +103,8 @@ Editor :
             1. 选中 "Show line numbers"
             1. 选中 "Show whitespaces"
     Live Templates :
-        other:  
-            - add `@au`. value `@author dangqian.zll` 
+        other:
+            - add `@au`. value `@author dangqian.zll`
 Keymap : 复制一份 Eclipse 版的快捷键配置，搜索 close 并
     移除 Window/Active Tool Window/Close Active Tab 的 `Ctrl+W` 的快捷键
     为 Window/Editor Tabs/Close 追加 `Ctrl+W` 的快捷键
@@ -166,8 +167,104 @@ docker create                           \
     --restart unless-stopped            \
     -p 20701:20701                      \
     woailuoli993/jblse
-    
+
 docker start qh-idea
 
 # 认证服务器： http://127.0.0.1:20701
+```
+
+
+
+# format code
+
+[Format files from the command line](https://www.jetbrains.com/help/idea/command-line-formatter.html)
+
+
+"/Users/zll/Applications/IntelliJ IDEA Community Edition.app/Contents/bin/format.sh" -s ~/Default.xml /Users/zll/data0/work/git-repo/ali/chengdun_security_commercialization/deploy_daily/.tmp/a.java
+
+"/Users/zll/Applications/IntelliJ IDEA Ultimate.app/Contents/bin/format.sh" -s ~/Default.xml /Users/zll/data0/work/git-repo/ali/chengdun_security_commercialization/deploy_daily/.tmp/a.java
+
+
+```
+ormatting /Users/zll/data0/work/git-repo/ali/chengdun_security_commercialization/deploy_daily/.tmp/a.java...2023-10-13 17:04:01,185 [   3134] SEVERE - #c.i.o.progress - This method is forbidden on EDT because it does not pump the event queue. Switch to a BGT, or use com.intellij.openapi.progress.TasksKt.runWithModalProgressBlocking.
+java.lang.IllegalStateException: This method is forbidden on EDT because it does not pump the event queue. Switch to a BGT, or use com.intellij.openapi.progress.TasksKt.runWithModalProgressBlocking.
+	at com.intellij.openapi.progress.CoroutinesKt.assertBackgroundThreadOrWriteAction(coroutines.kt:413)
+	at com.intellij.openapi.progress.CoroutinesKt.runBlockingCancellable(coroutines.kt:124)
+	at com.intellij.openapi.progress.CoroutinesKt.runBlockingMaybeCancellable(coroutines.kt:152)
+	at org.editorconfig.configmanagement.extended.EditorConfigCodeStyleSettingsModifier.modifySettings(EditorConfigCodeStyleSettingsModifier.kt:66)
+	at com.intellij.application.options.codeStyle.cache.CodeStyleCachedValueProvider$AsyncComputation.computeSettings(CodeStyleCachedValueProvider.kt:183)
+	at com.intellij.openapi.application.impl.ApplicationImpl.runReadAction(ApplicationImpl.java:895)
+	at com.intellij.application.options.codeStyle.cache.CodeStyleCachedValueProvider$AsyncComputation.start(CodeStyleCachedValueProvider.kt:135)
+	at com.intellij.application.options.codeStyle.cache.CodeStyleCachedValueProvider$AsyncComputation.getCurrentResult(CodeStyleCachedValueProvider.kt:212)
+	at com.intellij.application.options.codeStyle.cache.CodeStyleCachedValueProvider.compute(CodeStyleCachedValueProvider.kt:65)
+	at com.intellij.psi.impl.PsiCachedValueImpl.doCompute(PsiCachedValueImpl.java:37)
+	at com.intellij.util.CachedValueBase.lambda$getValueWithLock$3(CachedValueBase.java:240)
+	at com.intellij.util.CachedValueBase.computeData(CachedValueBase.java:43)
+	at com.intellij.util.CachedValueBase.lambda$getValueWithLock$4(CachedValueBase.java:240)
+	at com.intellij.openapi.util.RecursionManager$1.computePreventingRecursion(RecursionManager.java:110)
+	at com.intellij.openapi.util.RecursionGuard.doPreventingRecursion(RecursionGuard.java:27)
+	at com.intellij.openapi.util.RecursionManager.doPreventingRecursion(RecursionManager.java:65)
+	at com.intellij.util.CachedValueBase.getValueWithLock(CachedValueBase.java:241)
+	at com.intellij.psi.impl.PsiCachedValueImpl.getValue(PsiCachedValueImpl.java:27)
+	at com.intellij.util.CachedValuesManagerImpl.getCachedValue(CachedValuesManagerImpl.java:69)
+	at com.intellij.psi.util.CachedValuesManager.getCachedValue(CachedValuesManager.java:111)
+	at com.intellij.application.options.codeStyle.cache.CodeStyleCachedValueProvider.tryGetSettings(CodeStyleCachedValueProvider.kt:47)
+	at com.intellij.application.options.codeStyle.cache.CodeStyleCachingServiceImpl.tryGetSettings(CodeStyleCachingServiceImpl.java:53)
+	at com.intellij.application.options.CodeStyle.getSettings(CodeStyle.java:115)
+	at com.intellij.formatting.ExcludedFileFormattingRestriction.isFormatterAllowed(ExcludedFileFormattingRestriction.java:17)
+	at com.intellij.lang.LanguageFormatting.forContext(LanguageFormatting.java:29)
+	at com.intellij.lang.LanguageFormatting.forContext(LanguageFormatting.java:23)
+	at com.intellij.formatting.commandLine.FileSetCodeStyleProcessorKt.isFormattingSupported(FileSetCodeStyleProcessor.kt:267)
+	at com.intellij.formatting.commandLine.FileSetCodeStyleProcessorKt.access$isFormattingSupported(FileSetCodeStyleProcessor.kt:1)
+	at com.intellij.formatting.commandLine.FileSetFormatter.processFileInternal(FileSetCodeStyleProcessor.kt:77)
+	at com.intellij.formatting.commandLine.FileSetCodeStyleProcessor$processVirtualFile$1.invoke(FileSetCodeStyleProcessor.kt:227)
+	at com.intellij.formatting.commandLine.FileSetCodeStyleProcessor$processVirtualFile$1.invoke(FileSetCodeStyleProcessor.kt:220)
+	at com.intellij.formatting.commandLine.FileSetCodeStyleProcessor.withStyleSettings(FileSetCodeStyleProcessor.kt:238)
+	at com.intellij.formatting.commandLine.FileSetCodeStyleProcessor.processVirtualFile(FileSetCodeStyleProcessor.kt:220)
+	at com.intellij.formatting.commandLine.FileSetProcessor.processFiles(FileSetProcessor.kt:91)
+	at com.intellij.formatting.commandLine.FormatterStarter.main(FormatterStarter.kt:49)
+	at com.intellij.ide.bootstrap.ApplicationLoader$initApplicationImpl$4.invokeSuspend$lambda$0(ApplicationLoader.kt:102)
+	at com.intellij.openapi.application.TransactionGuardImpl.performActivity(TransactionGuardImpl.java:105)
+	at com.intellij.openapi.application.TransactionGuardImpl.performUserActivity(TransactionGuardImpl.java:94)
+	at com.intellij.ide.bootstrap.ApplicationLoader$initApplicationImpl$4.invokeSuspend(ApplicationLoader.kt:101)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:106)
+	at com.intellij.openapi.application.impl.DispatchedRunnable.run(DispatchedRunnable.kt:43)
+	at com.intellij.openapi.application.TransactionGuardImpl.runWithWritingAllowed(TransactionGuardImpl.java:208)
+	at com.intellij.openapi.application.TransactionGuardImpl.access$100(TransactionGuardImpl.java:21)
+	at com.intellij.openapi.application.TransactionGuardImpl$1.run(TransactionGuardImpl.java:190)
+	at com.intellij.openapi.application.impl.ApplicationImpl.runIntendedWriteActionOnCurrentThread(ApplicationImpl.java:861)
+	at com.intellij.openapi.application.impl.ApplicationImpl$4.run(ApplicationImpl.java:478)
+	at com.intellij.openapi.application.impl.FlushQueue.doRun(FlushQueue.java:79)
+	at com.intellij.openapi.application.impl.FlushQueue.runNextEvent(FlushQueue.java:121)
+	at com.intellij.openapi.application.impl.FlushQueue.flushNow(FlushQueue.java:41)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:792)
+	at java.desktop/java.awt.EventQueue$3.run(EventQueue.java:739)
+	at java.desktop/java.awt.EventQueue$3.run(EventQueue.java:733)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:761)
+	at com.intellij.ide.IdeEventQueue.defaultDispatchEvent(IdeEventQueue.kt:690)
+	at com.intellij.ide.IdeEventQueue._dispatchEvent$lambda$10(IdeEventQueue.kt:593)
+	at com.intellij.openapi.application.impl.ApplicationImpl.runWithoutImplicitRead(ApplicationImpl.java:1485)
+	at com.intellij.ide.IdeEventQueue._dispatchEvent(IdeEventQueue.kt:593)
+	at com.intellij.ide.IdeEventQueue.access$_dispatchEvent(IdeEventQueue.kt:67)
+	at com.intellij.ide.IdeEventQueue$dispatchEvent$processEventRunnable$1$1$1.compute(IdeEventQueue.kt:369)
+	at com.intellij.ide.IdeEventQueue$dispatchEvent$processEventRunnable$1$1$1.compute(IdeEventQueue.kt:368)
+	at com.intellij.openapi.progress.impl.CoreProgressManager.computePrioritized(CoreProgressManager.java:787)
+	at com.intellij.ide.IdeEventQueue$dispatchEvent$processEventRunnable$1$1.invoke(IdeEventQueue.kt:368)
+	at com.intellij.ide.IdeEventQueue$dispatchEvent$processEventRunnable$1$1.invoke(IdeEventQueue.kt:363)
+	at com.intellij.ide.IdeEventQueueKt.performActivity$lambda$1(IdeEventQueue.kt:997)
+	at com.intellij.openapi.application.TransactionGuardImpl.performActivity(TransactionGuardImpl.java:105)
+	at com.intellij.ide.IdeEventQueueKt.performActivity(IdeEventQueue.kt:997)
+	at com.intellij.ide.IdeEventQueue.dispatchEvent$lambda$7(IdeEventQueue.kt:363)
+	at com.intellij.openapi.application.impl.ApplicationImpl.runIntendedWriteActionOnCurrentThread(ApplicationImpl.java:861)
+	at com.intellij.ide.IdeEventQueue.dispatchEvent(IdeEventQueue.kt:405)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:207)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:128)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:117)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:105)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:92)
 ```

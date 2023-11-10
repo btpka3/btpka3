@@ -9,6 +9,10 @@ awk 有不同的实现，如果下面示例不可用，请尝试使用 gawk （G
 
 
 ```bash
+# 多个分隔符， -F 使用的 正则表达是
+echo "aaa|bbb,ccc" | awk -F"[\|,]" '{print   $1 "___" $2 "___" $3 }'
+echo "aaa|bbb,ccc" | gawk -F"[|,]" '{printf("%s___%s___%s", $1, $2, $3)}'
+
 # MacOS 上这样安装
 brew install gawk
 
@@ -21,7 +25,7 @@ awk -F"|" '{print $5}'
 
 # 添加前缀
 
-cat << EOF | awk -v prefix=xxx. '$0=prefix $0'  
+cat << EOF | awk -v prefix=xxx. '$0=prefix $0'
 aaa
 bbb
 ccc

@@ -39,3 +39,19 @@ file hello-linux-arm64
 env GOOS=windows GOARCH=amd64 go build -o hello-windows-arm64.exe
 file hello-windows-arm64.exe
 ```
+
+
+
+# 工具
+
+```bash
+# 需要先进入一个 go module 的目录
+go get -u -v golang.org/x/tools/cmd/guru
+go build golang.org/x/tools/cmd/guru
+ll   # 此时当前go module 目录下有 可执行文件 guru
+go env GOROOT
+mv guru $(go env GOROOT)/bin
+# 针对 macos homebrew
+ln -s $(go env GOROOT)/bin/guru /usr/local/bin/guru
+guru --help
+```
