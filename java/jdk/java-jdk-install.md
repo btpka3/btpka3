@@ -131,3 +131,16 @@ echo 'String.format("%06d", 19)' | jshell --feedback concise | sed -n '2p'
 - [GraalVM Native Image Support](https://docs.spring.io/spring-boot/docs/current/reference/html/native-image.html)
 - [Setting up GraalVM with Native Image Support](https://graalvm.github.io/native-build-tools/latest/graalvm-setup.html)
 - gradle : [Gradle plugin for GraalVM Native Image building](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html)
+
+
+# bellsoft
+
+- sdkman : [JDKS](https://sdkman.io/jdks#nik)
+    - Liberica (Bellsoft)
+    - Liberica NIK (Bellsoft)
+- NIK: [native-image-kit](https://bell-sw.com/liberica-native-image-kit/)
+- docker hub : [bellsoft/liberica-native-image-kit-container](https://hub.docker.com/r/bellsoft/liberica-native-image-kit-container)
+- [Liberica NIK 22.1.0 Install Guide](https://bell-sw.com/pages/liberica_install_guide-native-image-kit-22.1.0/#installing-apk-package-on-alpine-linux)
+- spring boot [GraalVM Native Image Support](https://docs.spring.io/spring-boot/docs/current/reference/html/native-image.html#native-image.developing-your-first-application.buildpacks.gradle)
+
+

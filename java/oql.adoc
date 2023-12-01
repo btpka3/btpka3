@@ -1,0 +1,693 @@
+
+
+## 参考
+
+OQL : Object Query Language
+
+* https://wiki.eclipse.org/MemoryAnalyzer/OQL[MemoryAnalyzer/OQL]
+
+** https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Fdoc%2Forg%2Feclipse%2Fmat%2Fparser%2Fmodel%2FInstanceImpl.html[org.eclipse.mat.parser.model.InstanceImpl]
+
+** 帮助文档: Memory Analyzer
+*** Reference
+**** https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Freference%2Foqlsyntax.html&cp%3D54_4_2[OQL Syntax]
+
+***** https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Freference%2Fpropertyaccessors.html[Property Accessors]。 需要重点关注，里面有说明如何访问 field, property, method 以及 build in funciton 。
+
+**** https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Fdoc%2Findex.html[API Reference]
+***** https://help.eclipse.org/latest/topic/org.eclipse.mat.ui.help/doc/org/eclipse/mat/snapshot/ISnapshot.html[org.eclipse.mat.snapshot.ISnapshot]
+
+*** Concepts
+**** https://help.eclipse.org/latest/index.jsp?topic=/org.eclipse.mat.ui.help/concepts/dominatortree.html[Dominator Tree]
+** 源码mirror https://github.com/blacelle/org.eclipse.mat[blacelle/org.eclipse.mat]
+*** https://github.com/blacelle/org.eclipse.mat/blob/31a98ec7894450198b4c1d8ef86dc10fc490b4d8/plugins/org.eclipse.mat.api/src/org/eclipse/mat/snapshot/model/IObject.java[org.eclipse.mat.snapshot.model.IObject]
+*** https://github.com/blacelle/org.eclipse.mat/blob/master/plugins/org.eclipse.mat.api/src/org/eclipse/mat/snapshot/model/GCRootInfo.java[org.eclipse.mat.snapshot.model.GCRootInfo]
+
+*** https://github.com/blacelle/org.eclipse.mat/blob/31a98ec7894450198b4c1d8ef86dc10fc490b4d8/plugins/org.eclipse.mat.api/src/org/eclipse/mat/snapshot/ISnapshot.java[org.eclipse.mat.snapshot.ISnapshot]
+
+
+
+*  请勿参考，与 eclipse MemoryAnalyzer 的 OQL 语法不完全一致。
+https://cr.openjdk.java.net/~sundar/8022483/webrev.01/raw_files/new/src/share/classes/com/sun/tools/hat/resources/oqlhelp.html[Object Query Language (OQL)]
+
+
+* java.lang.ref.Finalizer
+* https://blog.csdn.net/u014365523/article/details/127513012[JVM垃圾回收的java.lang.ref.Finalizer]
+* https://www.oracle.com/technical-resources/articles/javase/finalization.html[How to Handle Java Finalization's Memory-Retention Issues]
+* https://www.baeldung.com/java-finalize[A Guide to the finalize Method in Java]
+* https://www.javamadesoeasy.com/2015/05/finalize-method-in-java-10-salient.html[finalize method in java - 13 salient features, force jvm to run garbage collection]
+* https://www.baeldung.com/jvm-parameters[Guide to the Most Important JVM Parameters]
+* https://blog.csdn.net/Dongguabai/article/details/114391877[开启String去重XX:+UseStringDeduplication的利与弊]
+
+
+
+
+
+
+
+
+## OQL vs. SQL
+
+// 示例1：最简单demo
+:table-caption: OQL (Memory Analyzer) versus SQL (MAT/Calcite)
+[#my-tbl1,cols="1,1,1"]
+.OQL (Memory Analyzer) versus SQL (MAT/Calcite)
+|===
+|Topic | OQL | SQL
+
+|普通语法
+a|
+[source,sql]
+----
+SELECT s FROM java.lang.String s
+----
+a|
+[source,sql]
+----
+SELECT s.this FROM "java.lang.String" s
+----
+
+
+|内建函数
+a|
+[source,sql]
+----
+SELECT
+  toString(s),
+  classof(s),
+  s.@objectAddress,
+  s.@usedHeapSize,
+  s.@retainedHeapSize
+FROM java.lang.String s
+----
+
+a|
+[source,sql]
+----
+SELECT
+  toString(s.this),
+  getType(s.this),
+  getAddress(s.this),
+  shallowSize(s.this),
+  retainedSize(s.this)
+FROM "java.lang.String" s
+----
+
+| 更多函数
+a|
+[source,sql]
+----
+SELECT
+  h,
+  h[0:-1].size(),
+  h.table,
+  h.table.@length,
+  h.modCount,
+  h.getField("modCount")
+FROM java.util.HashMap h
+----
+a|
+[source,sql]
+----
+SELECT
+  h.this,
+  getSize(h.this),
+  h.this['table'],
+  LENGTH(h.this['table']),
+  h.this['modCount'],
+  getField(h.this,'modCount')
+FROM "java.util.HashMap" h
+----
+
+
+| 多行注释
+a|
+`+/* multi-line comment */+`
+a|
+`+/* multi-line comment */+`
+
+| 单行注释
+a|
+`+// comment+`
+a|
+`+-- comment+`
+
+|JOIN
+| 不支持，可被模拟
+| 支持
+
+|LIMIT,OFFSET
+| 不支持，可被模拟
+| 支持
+
+| ORDER BY
+| 不支持，通过GUI上的表头进行排序
+| 支持
+
+| GROUP BY
+| 不支持，可被模拟
+| 支持
+
+| COUNT
+| 不支持，可被模拟
+| 支持
+
+| MAX,MIN
+| 不支持，通过GUI上的表头进行排序后查看第一个值
+| 支持
+
+| AVG,SUM
+| 不支持
+| 支持
+
+|===
+
+== Eclipse MAT 概念模型
+
+
+使用 Eclipse MAT 的，尤其是想要使用 OQL 查询时，需要了解其概念模型。
+
+
+Eclipse MAT 的源码仓库是 `git.eclipse.org/c/mat/org.eclipse.mat.git`
+但不方便浏览，这里是在github上的一个代码镜像仓库 : https://github.com/blacelle/org.eclipse.mat[blacelle/org.eclipse.mat]。
+
+主要的概念位于 java package `org.eclipse.mat.snapshot.model` 下面。
+
+javadoc 参考 ：
+https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Fdoc%2Forg%2Feclipse%2Fmat%2Fsnapshot%2Fmodel%2Fpackage-summary.html[这里]。
+
+源码参考（代码镜像仓库）： https://github.com/blacelle/org.eclipse.mat/blob/31a98ec7894450198b4c1d8ef86dc10fc490b4d8/plugins/org.eclipse.mat.api/src/org/eclipse/mat/snapshot/model/IObject.java[这里]。
+
+
+* 接口/interface
+** org.eclipse.mat.snapshot.model.IObject
+*** org.eclipse.mat.snapshot.model.IArray
+**** org.eclipse.mat.snapshot.model.IPrimitiveArray
+**** org.eclipse.mat.snapshot.model.IObjectArray
+*** org.eclipse.mat.snapshot.model.IClass
+*** org.eclipse.mat.snapshot.model.IInstance
+**** org.eclipse.mat.snapshot.model.IClassLoader
+** org.eclipse.mat.snapshot.model.IStackFrame  : ???
+** org.eclipse.mat.snapshot.model.IThreadStack : ???
+
+* 类/class
+** org.eclipse.mat.snapshot.model.GCRootInfo
+** org.eclipse.mat.snapshot.model.ObjectReference
+*** org.eclipse.mat.snapshot.model.NamedReference
+**** org.eclipse.mat.snapshot.model.PseudoReference
+** org.eclipse.mat.snapshot.model.FieldDescriptor
+*** org.eclipse.mat.snapshot.model.Field
+
+
+
+ 
+
+
+
+== 示例
+
+[source,sql]
+----
+
+-- ========================== 按类名查询对象
+-- 按照类名 查询出 new 出来的 实例
+-- 默认查询出 className , Shallow heap, Retained Heap
+SELECT distinct * FROM org.springframework.web.context.support.XmlWebApplicationContext
+-- 下面的查询等同于上面的
+SELECT * FROM ${snapshot}.getClassesByName("org.springframework.web.context.support.XmlWebApplicationContext", false)
+SELECT * FROM "java\.lang\..*"  -- 可以使用正则表达式查询
+select s from java.lang.String s where s.value.@length >= 1024
+
+
+-- INSTANCEOF
+-- INSTANCEOF + 类名
+-- INSTANCEOF + 类地址
+-- 只能查询 类、抽象类，不能查询 interface
+-- 即 不能查询 org.springframework.context.ApplicationContext
+-- 等同于查询  IObject.@clazz.@getSuperClass() 递归包含 a.b.XxxClass
+SELECT * FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext
+-- 下面的语句与上面的等同
+SELECT * FROM ${snapshot}.getClassesByName("org.springframework.context.support.AbstractApplicationContext", true)
+-- 下面的语句与上面的等同。 OBJECTS 出现在 SELECT 语句中时，不能再有其他查询字段。
+SELECT OBJECTS s FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+
+-- 按照 对象的地址 查询
+SELECT * FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+where toHex(s.@objectAddress) = "0x5638aca30"
+
+SELECT OBJECTS s FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s WHERE s.@clazz.@name = "org.springframework.context.support.ClassPathXmlApplicationContext"
+SELECT * FROM INSTANCEOF java.lang.ref.Reference
+SELECT * FROM INSTANCEOF java.lang.ClassLoader
+
+-- OBJECTS : 询对应的类实例
+-- OBJECTS + 类名  => 类实例
+--， 通常 一个 class 只被 父子classloader 加载一次。
+-- 查询出的对象下面有： class(参考 IObject#getClass(), 比如值是 java.lang), super, classloader, init_block
+-- OBJECTS 可以应用于函数 classof() 的返回值
+-- 可以用该方法查询出给定的 class 被不同classloader 加载了多少次。
+-- 比如下面的查询仅仅有一个结果，因为 java.lang.String 是jdk自带的，只被加载一次。
+SELECT * FROM OBJECTS java.lang.String
+SELECT * FROM OBJECTS "^org\.springframework\.context\.support\.Abstract.*"
+
+-- 按照对象地址查询
+SELECT * FROM OBJECTS 0x6b4c5e658
+
+
+-- OBJECTS 可以查询 interface （也是任意 java类：注解、枚举等）
+SELECT * FROM OBJECTS org.springframework.context.ApplicationContext
+SELECT * FROM OBJECTS org.springframework.stereotype.Component
+SELECT * FROM OBJECTS org.springframework.http.HttpMethod
+
+-- OBJECTS + 对象ID数组  => 对象列表(平铺)
+-- dominators 函数返回的是 对象ID数组，
+-- 通过 OBJECTS dominators(s) 的方式，可以将 对象ID数组展开，并转换成对应的 对象
+SELECT OBJECTS dominators(s) FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+
+
+-- ========================== 按类地址查询对象
+-- 可以通过 【类视图】by Name (正则): `.*${类全限定名}.*` 找到对应的 地址
+-- 参考: @objectAddress
+SELECT * FROM 0x5679618b0
+SELECT * FROM 0x5679618b0,0x5679618b1
+SELECT * FROM INSTANCEOF 0x5679618b0
+
+-- ========================== 按对象 id 查询对象
+-- 参考: @objectId
+SELECT * FROM 20815
+SELECT * FROM 20815,20975
+
+-- ========================== 按 用子查询/类对象 查询
+-- IMPLEMENTS 左变量是任意对象 或者 对象ID, 右变量只能是 eclipse MAT 的相关接口
+SELECT * FROM (
+  SELECT * FROM java.lang.Class c WHERE
+   c IMPLEMENTS org.eclipse.mat.snapshot.model.IClass
+)
+-- 该查询效果与上面的等同
+SELECT * FROM ${snapshot}.getClasses()
+
+
+-- ==========================AS RETAINED SET
+-- 查询给定对象传递引用的对象。
+SELECT AS RETAINED SET * FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+where toHex(s.@objectAddress) = "0x5638aca30"
+
+
+
+-- 查询所有 classloader 的名称
+select toString(cl.name) from instanceof java.lang.ClassLoader cl where cl.name !=null
+-- 查询所有实例化的 classloader 的class的全限定名
+select distinct cl.@clazz.@name from instanceof java.lang.ClassLoader cl
+-- 按照给定的 classloader 加载的对象
+SELECT * FROM ${snapshot}.getClasses() s WHERE s.@clazz.@classLoaderId = 0
+
+
+-- 按照 文件描述符ID（File Descriptor ID） 找到哪个 FileOutputStream 在向其写入内容，以便再定位哪块程序写入该文件
+select s from java.io.FileOutputStream s where s.fd.fd=409
+select s.@outboundReferences from java.io.FileOutputStream s where s.fd.fd=142
+select inbounds(s) from java.io.FileOutputStream s where s.fd.fd=142
+
+-- 查询出所有的 GC Root 根对象
+-- 参考 org.eclipse.mat.snapshot.ISnapshot#getGCRoots() 方法，返回值是 int[]
+SELECT objects s FROM OBJECTS ${snapshot}.@GCRoots s
+-- 与上面等同，但作为子查询
+select * from objects (SELECT objects s FROM OBJECTS ${snapshot}.@GCRoots s)
+-- 下面的查询展示的一堆 对象ID
+SELECT * FROM OBJECTS ${snapshot}.@GCRoots s
+-- 根据单个对象id查询 GCRootInfo的类型（2048=UNREACHABLE）
+SELECT t.@type FROM OBJECTS ${snapshot}.getGCRootInfo(1853404) t
+
+
+-- ========================== 模拟 LIMIT,OFFSET
+
+SELECT eval(
+    (SELECT * FROM OBJECTS ( SELECT s, s.value AS val FROM java.lang.String s ) v)
+) [3] FROM OBJECTS 0
+
+-- 查询第1个元素（下标从0开始）
+SELECT objects eval(
+    (SELECT * FROM OBJECTS (
+        SELECT * FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext
+    ))
+)[1] FROM OBJECTS 0
+-- 查询第3~5的元素（下标从0开始）
+SELECT objects eval(
+    (SELECT * FROM OBJECTS (
+        SELECT * FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext
+    ))
+)[3:5] FROM OBJECTS 0
+
+-- ========================== 模拟 GROUP BY
+-- 按照 new 的类名分组，折叠展示对应的实例列表
+SELECT
+  c.clazzName AS clazzName,
+  (
+    SELECT OBJECTS s
+    FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+    WHERE s.@clazz.@name = c.clazzName
+  ) AS objs
+FROM OBJECTS (
+    /* 查询出 AbstractApplicationContext 类型的对象的 className */
+    SELECT DISTINCT s.@clazz.@name AS clazzName FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+) c
+
+
+-- ========================== 模拟 COUNT
+-- 按照 new 的类名分组，折叠展示对应的实例数量
+SELECT
+    z.clazzName         AS clazzName,
+    z.objs              AS objs,
+    z.objs.@length      AS count
+FROM OBJECTS ( eval(
+(
+    SELECT
+    c.clazzName AS clazzName,
+    (
+        SELECT OBJECTS s
+        FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+        WHERE s.@clazz.@name = c.clazzName
+    ) AS objs
+    FROM OBJECTS (
+        /* 查询出 AbstractApplicationContext 类型的对象的 className */
+        SELECT DISTINCT s.@clazz.@name AS clazzName FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+    ) c
+)
+)) z
+
+-- 按照 类名 统计 GCROOT的数量
+SELECT
+    z.clazzName         AS clazzName,
+    z.objs              AS objs,
+    z.objs.@length      AS count
+FROM OBJECTS ( eval(
+(
+    SELECT
+    c.clazzName AS clazzName,
+    (
+        SELECT OBJECTS s
+        FROM OBJECTS (SELECT objects n FROM OBJECTS ${snapshot}.@GCRoots n) s
+        WHERE s.@clazz.@name = c.clazzName
+    ) AS objs
+    FROM OBJECTS (
+        SELECT DISTINCT s.@clazz.@name AS clazzName FROM OBJECTS (SELECT objects n FROM OBJECTS ${snapshot}.@GCRoots n) s
+    ) c
+)
+)) z
+
+
+-- ========================== 模拟 CROSS JOIN
+
+-- 查询结果：obj：GCRoot对象
+-- 查询结果：gcRootType：成功GcRoot的原因，
+-- （SYSTEM_CLASS=2,NATIVE_STATIC=8,THREAD_OBJ=256,UNREACHABLE=2048）
+-- 右值: rv : right value: 是单个 IObject 对象
+-- 左值: lf : left value : 是 GCRootInfo[] 数组，相当一个子查询 `(SELECT ...) AS lv`
+-- 最顶层的 `FROM OBJECTS` 会将其打平: (IObject, GCRootInfo[]) => (IObject, GCRootInfo)
+SELECT
+    a.rv        AS obj,
+    a.lv.@type  AS gcRootType
+FROM OBJECTS (
+    SELECT
+        ${snapshot}.getObject(r)     AS rv,
+        ${snapshot}.getGCRootInfo(r) AS lv
+    FROM OBJECTS ${snapshot}.@GCRoots r
+) a
+
+
+----
+
+
+== 查询对象的 字段（field）
+
+这里指的是原生class上声明的 field。
+
+比如 `+java.util.HashMap+` 的  `+loadFactor+` 字段,
+`+java.lang.String+` 的  `value` 字段。
+
+
+[source,sql]
+----
+select [<alias>.]<field>.<field>.<field> from a.b.XxxClass <alias>
+----
+
+== 查询对象的 属性（attribute）
+
+这里不是指原生class上声明的 getter， 原生class上的getter 里的代码也不可能在 eclipse MAT 的 JVM 上去执行。
+即不能调用  `java.lang.Throwable` 上的 getter `getMessage()`
+
+
+这里指的是对应类型 对应的 getter，且不是只原生class上声明的 getter，
+而是根据 OQL 查询出的对象映射的对应的 MAT 设计的类型上 getter
+
+[source,sql]
+----
+select [<alias>.]@<attribute> from a.b.XxxClass <alias>
+----
+
+
+
+
+
+.映射类型的属性列表
+[#my-tbl2,cols="1,1,1,1"]
+|===
+|OQL查询的对象类型 | 映射后的类型 | 映射后类型可用的属性（getter）| 含义
+
+.11+|任意对象
+.11+|IObject
+|objectId
+|snapshot对象的ID
+
+
+|objectAddress
+|snapshot对象的地址
+
+|class
+a|当前对象在 Eclipse MAT 的概念中的实现类（比如 概念 IClass 的实现类是 ClassImpl） ,
+示例值：
+
+* 普通对象时的值 :  `class org.eclipse.mat.parser.model.InstanceImpl`
+* 类对象时的值   :  `class org.eclipse.mat.parser.model.ClassImpl`
+
+[source,sql]
+----
+-- 示例：查询出普通对象，得到该对象的映射类型是: "org.eclipse.mat.parser.model.InstanceImpl"
+SELECT s.@class.@name FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+----
+
+|clazz
+a| 当前对象所属的 java class 的 类对象. 等同于函数调用 `classof(object)`。
+示例值：
+
+* 普通对象的值: `java.lang.Class [id=0x57d3dfb30;name=org.springframework.context.support.ClassPathXmlApplicationContext]`
+* 类对象的值： `java.lang.Class [id=0x560004bf8;name=java.lang.Class]`
+
+[source,sql]
+----
+-- 示例：用抽象类查询普通对象，然后后去实现类的完整类名, 得到 "org.springframework.context.support.ClassPathXmlApplicationContext"
+SELECT s.@clazz.@name FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+----
+
+
+|outboundReferences
+|该对象引用的所有对象，包含对应的 IClass， 字段， 数组entry等
+
+|usedHeapSize
+|shallow heap size
+
+|retainedHeapSize
+|retained heap size
+
+|technicalName
+| 类名+对象地址
+
+|classSpecificName
+|
+
+|displayName
+|拼接显示 technicalName+classSpecificName
+
+|snapshot
+|包含当前对象的 snapshot, 也可以用 `+${snapshot}+` 表示
+
+| Class 对象
+| IClass
+| classLoaderId
+| classLaoder 的 ID
+
+| 任意数组
+| IArray
+| length
+| 数组的长度
+
+| Primitive array
+| IPrimitiveArray
+| valueArray
+| 该数组的值
+
+| Reference array
+| IObjectArray
+| referenceArray
+| 数组中对象的 地址列表，可以使用 OBJECTS 找到对应的 对象。
+
+| Classloader 对象
+| IClassLoader
+| definedClasses
+| 该 classloader 定义的class
+
+.3+|Reference 对象
+.3+|ObjectReference
+| object
+| 引用的 的 IObject 对象
+
+| objectId
+| 引用的 的 IObject 对象的id
+
+| objectAddress
+| 引用的 的 IObject 对象的地址
+
+| Named Reference
+| NamedReference
+| name
+| 用来描述引用的 字段（field）名称，或者 array 的下标。
+
+
+|===
+
+== 查询对象的 方法（method）
+
+与 属性（attribute） 一样，都指的是 映射后的 类型（IClass、	IObject等）上的方法
+
+[source,sql]
+----
+select [<alias>.]@<method> from a.b.XxxClass <alias>
+----
+
+
+.映射类型的方法列表
+[#my-tbl3,cols="1,1,1,1"]
+|===
+|OQL查询的对象类型 | 映射后的类型 | 映射后类型可用的方法（method）| 含义
+
+.2+|${snapshot}
+.2+|ISnapshot
+|getClasses()
+|返回所有class 的集合
+
+|getClassesByName(String name, boolean includeSubClasses)
+|返回 class 的集合
+
+.2+| Class 对象
+.2+|IClass
+|hasSuperClass()
+|判断是否有父类
+
+|isArrayType()
+|判断是否是数组类型
+
+|任意对象
+|IObject
+|getObjectAddress()
+|返回
+
+|Primitive array
+|IPrimitiveArray
+|getValueAt(int index)
+|按下标获取对应的元素
+
+
+| array，List
+| `+[]+` or List
+| get(int index)
+|按下标获取对应的元素
+
+
+|===
+
+
+== 内建 OQL 函数
+
+[#my-tbl4,cols="1,1"]
+|===
+|函数 | 说明
+
+|`toHex(number)`
+| 将数值转换成十六进制字符串
+
+|`toString(object)`
+| 将对象转换成字符串，如果对象是 java.lang.String 的话，就返回其内容。
+
+|`dominators(object)`
+|查询出给定对象 直接引用的 对象。格式 数组，元素内容：对象ID。
+
+|`dominatorof(object)`
+|查询出哪些对象 直接引用了 给定的对象
+
+
+|`outbounds(object)`
+|查询出 给定对象 直接、间接引用的所有对象
+
+|`inbounds(object)`
+|查询出哪些对象 直接、间接引用了 给定的对象
+
+|`classof(object)`
+|给定对象的class
+
+|`eval(expression)`
+|Eclipse MAT 1.4 后的实验性质的功能。
+
+
+|===
+
+
+
+
+
+////
+== 内建对象
+
+
+
+=== heap
+
+* heap.forEachClass(callback) : 对每个class进行回调
+* heap.forEachObject(callback, clazz, includeSubtypes) : 对每个对象进行回调
+* heap.findClass(className) : 按名称查找类，返回的Class 对象有以下属性/方法
+** 属性
+*** name       : class 名称
+*** superclass : 父 class 名称
+*** statics    : 该class 的静态字段的名称-值
+*** fields     : 字段数组
+*** loader     : ClassLoader
+*** signers    : 该类的 Signer
+*** protectionDomain :
+** 方法
+*** isSubclassOf
+*** isSuperclassOf
+*** subclasses      : 返回所有子类
+*** superclasses    : 返回所有父类
+
+* heap.findObject(stringIdOfObject) : 查找对象
+* heap.classes   : 返回所有类
+* heap.objects(clazz, [includeSubtypes], [filter])  : 返回所有对象
+* heap.finalizables
+* heap.livepaths
+* heap.roots
+
+## 针对单个对象的函数
+
+* allocTrace(jobject)
+* classof(jobject)
+* forEachReferrer(callback, jobject)
+* identical(o1, o2)
+* objectid(jobject)
+* reachables(jobject, excludedFields)
+* referrers(jobject)
+* referees(jobject)
+* refers(jobject)
+* root(jobject)
+* sizeof(jobject)
+* toHtml(obj)
+
+
+
+////

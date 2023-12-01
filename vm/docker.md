@@ -236,6 +236,8 @@ docker push <image|repository>          # 推送一个image或repository到regis
 docker push <image|repository>:TAG      # 同上,但指定一个tag
 docker inspect <image|container>        # 查看image或container的底层信息
 docker rmi <image...>                   # 删除一个或多个image
+docker tag src_image:tag target_image:tag # 给指定的 image 分配一个新的tag
+
 
 docker run <image> <command>            # 使用image创建container并执行相应命令，然后停止
 # 比如:
@@ -298,6 +300,22 @@ docker port <container> <container port>    # 查看本地哪个端口映射到c
 # 默认有 host和birdge 网络驱动,
 docker network ls
 docker network inspect bridge
+```
+
+
+### 从 docker 镜像 copy 文件
+
+```shell
+DOCKER_IMAGE=o-docker.alibaba-inc.com/basic/app-base:alpine_jdk11_war_0.2.0-SNAPSHOT
+FILE_IN_IMAGE=/opt/gong9-mw.sar/plugins/gong9-mw.pandora-plugin-oss/conf/service.properties
+
+# 创建临时 docker 容器
+id=$(docker create ${DOCKER_IMAGE})
+# 从 docker 容器中 copy 文件到 当前目录
+docker cp $id:${FILE_IN_IMAGE} .
+# 删除临时 docker 容器
+docker rm -v $id
+
 ```
 
 ## Mac

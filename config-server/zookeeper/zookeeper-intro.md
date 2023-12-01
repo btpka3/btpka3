@@ -9,6 +9,7 @@ ZooKeeper通常以集群的方式对外提供服务，集群节点间通过选�
 - [ZooKeeper Programmer's Guide](https://zookeeper.apache.org/doc/trunk/zookeeperProgrammers.pdf)
 - [ZooKeeper Commands: The Four Letter Words](http://zookeeper.apache.org/doc/r3.3.1/zookeeperAdmin.html#sc_zkCommands)
 - [ZooKeeper系列之六：ZooKeeper四字命令](http://blog.csdn.net/shenlan211314/article/details/6187029)
+- [Apache Curator](http://curator.apache.org/)
 
 # 简单尝试
 
@@ -175,7 +176,7 @@ ZooKeeper的API相对来说还是很低级API，如果要直接使用，并完�
 
 [Apache Curator](http://curator.apache.org/) 则是对ZooKeeper进行封装，并提供了高级API，并简化开发。
 当然 Curator
-也完善、扩展了ZooKeeper的Recipes，并指出其中一些并不实用——比如消息队列。完整列表参考[这里](http://curator.apache.org/curator-recipes/index.html)。
+也完善、扩展了ZooKeeper的Recipes，并指出其中一些并不实用——比如消息队列。完整列表参考[这里](hhttps://curator.apache.org/docs/recipes-shared-reentrant-lock)。
 
 # Exhibitor
 

@@ -469,6 +469,10 @@ EOF
 
 ```bash
 date -s "20150130 10:45:00"
+
+date --date="Wed Nov 22 18:33:54 2023" '+%s'                    # 转换时间为unix 时间戳
+date --date="Wed Nov 22 18:33:54 2023" '+%Y-%m-%d.%H:%M:%S'     # 转换成给定格式
+
 ```
 循环打印当前时间
 
@@ -539,7 +543,7 @@ ping baidu.com \
 
 ## ps
 
-```
+```bash
 ps -ax          # 打印所有进程
 ps -aux         # 显示内存、cpu使用信息
 ps -u  zhang3   # 显示用户 zhang3 所有的进程
@@ -548,6 +552,7 @@ ps -ww -fp $PID # 打印完整命令行参数
 
 ps -ef | grep defunct
 
+ps -p 182454 -o lstart=   # 输出启动时间，示例输出: "Wed Nov 22 18:33:54 2023"
 ```
 [What is a <defunct> process, and why doesn't it get killed?](https://askubuntu.com/questions/201303/what-is-a-defunct-process-and-why-doesnt-it-get-killed)
 如果 ps 的输出结果中有 '<defunct>' 字样, 是说这些进程已经 completed、corrupted 或者 killed。

@@ -17,4 +17,7 @@ netstat -M          # ss
 
 # 组播成员
 netstat -g          # ip maddr
+
+# 统计网络发送情况，可以用以查看链接失败的数量
+netstat -s -tcp
 ```

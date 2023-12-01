@@ -1,0 +1,647 @@
+= 我的 AsciiDoc 学习示例集
+:toc:
+:toc-title: 索引
+:icons: font
+:author: btpka3
+:my-custom-document-attribute-1: 张亮亮
+
+该文档是 {author}/{my-custom-document-attribute-1} 的学习笔记，记录了各种 asciidoc 的基础demo.
+
+// 示例 block macro
+image::sunset.jpg[Sunset]
+
+// 示例 inline macro
+Click the button with the image:star.png[Star] to favorite the project.
+
+== Comment Demo
+
+
+// ----------------------------- 注释
+// 单行注释
+
+////
+多行注释1(可以有空行)
+
+多行注释1(可以有空行)
+////
+
+
+[comment]
+--
+多行注释2(可以有空行)
+
+多行注释2(可以有空行)
+--
+
+[comment]
+多行注释3(不能有空行)
+多行注释3(不能有空行)
+
+
+== Element Attributes
+// ----------------------------- Element Attributes
+
+[source]
+----
+// 如果要清除某个 named attribute 的属性值，需要将其设置成 `None`
+
+// block 的 element attribute 声明示例（单独占一行）:
+[pos1-attr#id.role1.role2%option1%option2,pos2-attr,named-attr1=value1,named-attr2=value2]
+
+// block macro 的 element attribute 声明示例（单独占一行）：
+name::target[pos1-attr#id.role1.role2%option1%option2,pos2-attr,named-attr1=value1,named-attr2=value2]
+image::sunset.jpg[Sunset,300,400]
+image::sunset.jpg[alt=Sunset,width=300,height=400]
+
+// Formatted text : 声明ID和role
+[#idName.roleName]*text with id and role*
+
+----
+
+
+.Positional attribute
+[%header,cols="4*"]
+|===
+| 类型
+| 参数1
+| 参数2
+| 参数3
+
+| 宏 : icon
+| size
+| {empty}
+| {empty}
+
+| 宏 : image
+| alt 提示文本
+| 宽度
+| 高度
+
+| 有分界符的 block
+| block简称
+| {empty}
+| {empty}
+
+| 其他行内引用文本
+| 属性的简称
+| {empty}
+| {empty}
+
+| link
+| 文本
+| {empty}
+| {empty}
+
+| xref
+| 文本
+| {empty}
+| {empty}
+|===
+
+第一个位置参数有些特殊，其通常用以定义block 的style, 也可以用来定义 id, role, 开关属性
+
+- `#` : ID
+- `.` : role
+- `%` : option 开关属性
+
+
+----
+// 短语法
+[pos1-attr#id.role1.role2%option1%option2,pos2-attr]
+// 长语法。注意 role 多值是用空格连接，类似 html 元素的 class 属性的写法。
+[id=xxx,role="role1 role2",opts="option1,option2"]
+
+// 示例1. 声明一个标题，该标题被赋予一个定义ID: custom-id1
+[#custom-id1]
+== Section with Custom ID
+
+// 示例2. 声明一个附录，该附录被赋予一个定义ID: custom-id1
+[appendix#custom-id1]
+== Appendix with Custom ID
+
+// 示例3. 声明一个列表。ID=rules, role=prominent, 并且将其设置成有序列表
+[#rules.prominent%incremental]
+* Work hard
+* Play hard
+* Be happy
+
+----
+
+
+
+
+
+== block
+// ----------------------------- delimited block
+
+
+
+.总结
+....
+
+- 不同分界符的 block 有不同的默认 context，不同的 context 影响渲染效果。
+  比如 ==== 是 :example 上下文
+- 可以通过 [xxxBlockName] 的方式，强将将任意使用的分界符 设置层该 block name 对应的 context
+
+verbatim 类型的 block :
+- 一字不差的将内容原样输出，换行符保留
+- 不可以内嵌其他 block
+
+compound 类型的 block :
+- 会将换行符删除，但会将空行视为换行符
+- 可以内嵌 compound、verbatim 类型的 block
+- 内嵌其他 block 时，建议将block的分界符的长度++，以便能快速定位当前内容是在那个级别的缩进内。
+- collapsible
+-- 可以使用 [xxxBlockName%collapsible]， 会将该 block 默认折叠,
+-- 可以使用 [xxxBlockName%collapsible%open] 的方式使其默认展开。
+-- 只能对 compound 类型的 block 生效，但可以让 compound 内嵌 verbatim 类型的方式来对 verbatim block 完成折叠。
+....
+
+
+// 示例1（verbatim）
+.block1 title
+....
+block1    block1
+block1
+
+block1
+....
+
+
+// 示例2（verbatim）
+.block2 title
+----
+block2    block2
+block2
+
+block2
+----
+
+// .示例3（compound）
+.block3 title
+====
+block3    block3
+block3
+
+block3
+====
+
+// 示例4（compound）
+.block4 title
+****
+block4    block4
+block4
+
+block4
+****
+
+// 示例5：compound 内嵌 verbatim，compound
+[example%collapsible%open]
+.block5 title
+====
+嵌套block5.0    嵌套block5.0
+嵌套block5.0
+
+.block5.1 title
+-----
+嵌套block5.1    嵌套block5.1
+嵌套block5.1
+
+嵌套block5.1
+-----
+
+.block5.2 title
+=====
+嵌套block5.2    嵌套block5.2
+嵌套block5.2
+
+嵌套block5.2
+=====
+
+嵌套block5.0
+====
+
+
+
+
+
+
+
+// ----------------------------- basic block
+.总结
+....
+- 可以使用 [xxxBlockName] 的方式，将连续的段落（无空行）快速定义成一个block
+- 不同的 block name，影响其外观。
+- 如果要使用多行内容的block，需要使用与对应 block name 搭配的 分界符。
+- 可以通过 [xxxBlockName#xxxId] 的方式给一个 block 分配ID
+- 可以通过 [xxxBlockName,xxxAttribute] 的方式给一个 block 分配属性
+....
+
+// 示例1. 无空行的、无分解符的 block
+.title1
+[listing]
+block1    block1
+block1
+
+// 示例2. 无空行的、无分解符的 block
+.title2
+[quote]
+block2 `'    block2 '
+block2
+
+// 示例3. 有空行的、有分解符的 block
+.title3
+[source,java]
+----
+package xxx;
+public class Hi {
+    public static void main(String[] args){
+        System.out.println("hello world");
+    }
+}
+----
+
+// 示例4. 有空行的、有分解符的 block
+.title4
+[quote]
+____
+block4    block4
+block4
+
+block4
+____
+
+
+
+
+
+// ----------------------------- List
+## list
+
+
+.总结
+....
+
+- 可以使用 `${空行}//-${空行}` , 或者插入一个空的block 属性 `${空行}[]` 的方式，强制重新开启一个新的list。
+- 列表开头字符可以是一个或多个，
+  碰到下一个与当前开头字符类型、数量不一致的均认为是下一层级的list元素开始。
+  故为了可读性，请尽量用相同开头字符、且数量随着缩进层级而++，
+  不要数量减小或不变。
+- 如果list元素中需要有空行，则该空行需要用一个 `+` 替换，且元组末尾必须有个空行。
+
+- 无序列表:
+-- 无序列表可以使用 -, * 开头。
+-- 无序列表默认缩进层级的展示字符是 圆点/圆圈/方块,
+  但可以通过 [disc],[circle],[square] 默认改变当前层级以及子级的展示字符。
+
+- 有序列表:
+-- 有序列表可以使用 `.`, `${数字}.`, `${单个英文字母}.` 开头。
+-- 建议级联时统一使用 `.` 作为开头字符，以便简化缩进
+-- 缩进层级默认的展示字符是 [arabic]/[loweralpha]/[lowerroman],
+   可以通过不同的标签改变当前层级的展示字符：
+--- [arabic]     : 1. / 2. / 3.
+--- [decimal]    : 01. / 02. / 03.
+--- [loweralpha] : a. / b. / c.
+--- [upperalpha] : A. / B. / C.
+--- [lowerroman] : i. / ii. / iii.
+--- [upperroman] : I. / II. / III.
+--- [lowergreek] : α. / β. / γ.
+-- 为了避免 `P. O. Box` 将其转换成 列表，需要这种方式编写: `P.{empty} O. Box`
+....
+
+
+
+// 示例1: 无序列表，级联
+.list1 title
+* item1
+** item1.1
+** item1.2
+*** item1.2.1
+*** item1.2.2
+* item2
+[disc]
+** item2.1
+** item2.2
+*** item2.2.1
+*** item2.2.2
+
+//-
+
+// 示例2：有序列表，级联
+.list2 title
+. item1
+[upperalpha]
+.. item1.1
+.. item1.2
+... item1.2.1
+... item1.2.2
+. item2
+.. item2.1
+.. item2.2
+... item2.2.1
+... item2.2.2
+
+//-
+
+// 示例3：checked 列表，级联
+.list3 title
+* [*] checked
+** [*] checked
+** [*] checked
+* [x] also checked
+* [ ] not checked
+* normal list item
+
+// 示例4：列表元素为复杂内容
+.list4 title
+. item1    item1
++
+item1 (注意：这里是属于 item1 层级的)
+
+.. item1.1
+.. item1.2
+
++
+item1 (注意：这里是属于 item1 层级的)
+. item2
+
+
+// 示例5：列表元素为复杂内容
+.list5 title
+. item1
++
+--
+由 -- 定义了一个block, 该 block 中又包含一个 block 和一个 note
+
+[source,java]
+----
+package xxx;
+public class Hi {
+    public static void main(String[] args){
+        System.out.println("hello world");
+    }
+}
+----
+
+NOTE: The header is optional.
+--
+. item2
+
+
+// 示例6：列表元素为复杂内容：不要文本，仅显示block.
+.list6 title
+. {empty}
++
+----
+print("one")
+----
+. {empty}
++
+----
+print("two")
+----
+
+
+
+// ----------------------------- 表格
+## table
+
+
+.总结
+....
+- [%header]
+- [%noheader]
+- [%footer]
+- [cols]
+-- cols 用来指定不同列所占的宽度的数值，以及列的数量，以及对其方式
+--- `cols="1,2"` : 表示有2列，第一列宽度占比数值=1，第二例宽度占比数值2
+--- `cols="1h,2"` : 表示有2列，第一列渲染成表头列
+--- `cols=3*` : 表示有3列，且宽度平分
+--- `cols="5,3*"` : 表示有4列，第一列的宽度占比数值是5，剩余3列的宽度平分
+--- `cols="15%,30%,55%"` : 表示有3列
+--- `cols=">.^5,3*"` : 表示有4列，第一列的宽度占比数值是5，右对齐、垂直居中对齐，后面3列平均宽度，对其方式默认。
+-- 水平对齐方式
+--- `<` : 左对齐
+--- `>` : 右对齐
+--- `^` : 居中对齐
+-- 垂直对齐方式
+--- `.<` : 顶部对齐（默认）
+--- `.>` : 底部对齐
+--- `.^` : 居中对齐
+-- 列操作符
+--- `a` : AsciiDoc
+--- `d` : Default
+--- `e` : Emphasis , 斜体
+--- `h` : Header, 表头列
+--- `l` : Literal, 将内容当做在一个文本block 中
+--- `m` : Monospace, 使用等款字体
+--- `s` : Strong, 加粗
+
+- 标题行与表格开始符 |=== 之间不能有空行，且标题行后必须有空行
+- 表格开始符 |=== 后是空行，则认为没有标题行。
+- 表格如果没有指定 cols, 标题行，%header, 则需要第一个数据行所有列位于一行，用以判定有几列。
+- 建议：表格里每行结束，建议都用空行分隔下。
+- 单元格开始前可以指定 单元格内容修饰符
+-- `2*e` : 接下来的单元格内容重复两行，且使用斜体
+-- `${跨几列}.${跨几行}+`
+....
+
+
+// 示例1：最简单demo
+:table-caption: Demo表格
+[#my-tbl1,cols="1,2"]
+.table1 title
+|===
+|header1 | Header2
+
+|Cell(1,1)
+|Cell(1,2)
+|Cell(2,1)
+|Cell(2,2)
+|===
+
+
+// 示例1：表头，多单元格内容相同
+.table2 title
+[%header,cols="1,1,1"]
+|===
+| header1
+| Header2
+| Header3
+
+|Cell(1,1)
+// 单元格跨两行
+2+|Cell(1,2+3)
+
+// 单元格内容重复2个cell
+2*e|Cell(2,1+2)
+// 单元格内跨两列
+.2+|Cell(2,3)
+
+|Cell(3,1)
+|Cell(3,2)
+
+// 单元格内跨两列、跨2列
+2.2+|Cell(4+5,1+2)
+|Cell(4,3)
+
+| Cell(5,3)
+
+// 第6行
+a|
+* List item 1
+* List item 2
+* List item 3
+
+a|
+[source,python]
+----
+// Cell(6,2)
+import os
+print "hello world"
+----
+| Cell(6,3)
+|===
+
+
+[caption="Table A. "]
+[title="{table-caption} {counter:table-number}"]
+[cols="1,2"]
+|===
+|header1 | Header2
+
+|Cell(1,1)
+|Cell(1,2)
+|Cell(2,1)
+|Cell(2,2)
+|===
+
+.table3 title
+[%footer,cols="1h,2"]
+|===
+|header1 | header2
+
+|Cell(1,1) |Cell(1,2)
+
+|Cell(2,1)
+|Cell(2,2)
+|===
+
+
+// ----------------------------- link
+## link
+
+
+[#aaa]*xxx*默认支持自动识别成链接的 URL schema:
+
+- `http`
+- `https`
+- `ftp`
+- `irc`
+- `mailto`
+
+link 示例case:
+
+- https://example.org
+- 普通文本中的 URL 将 https://example.org 自动被链接。
+- 可以加转义字符 \  让URL \https://example.org 不被自动链接。
+- 也key已使用 尖括号包含的方式 <https://example.org> 来自动链接。
+- 对于URL schema 前有非空白字符，比如 双引号的case，
+  则需要使用 link macro 的方式
+  "https://asciidoctor.org[] dd"
+  来启用链接。
+- 如果自定义显示文本，也需要使用 link macro 方式：
+https://example.org?q=label:%22Requires%20docs%22[示例]，
+也可对自定义显示文本其进行格式化，比如加速、增加删除线等：
+https://example.org?q=label:%22Requires%20docs%22[*示例*,role=red,window=_blank]，
+
+交叉链接
+
+----
+// 链接到当前文档中给定的ID处
+xref:#xxxIdName[显示文本]
+
+// 链接到外部 asciidoc 文档的给定ID处
+xref:xxx.adoc#xxxIdName[显示文本]
+
+// 链接到外部 html 文档的给定ID处
+link:xxx.html#xxxId[显示文本]
+----
+
+交叉链接示例
+
+- 链接到 xref:#_comment_demo[注释] 示例章节：asciidoc 会根究标题自动生成一个ID
+- 链接到 xref:#my-tbl1[表格] 示例：明确指定的 ID 值。
+
+
+// ----------------------------- 7788
+## 7788
+
+
+### source code
+
+
+.block source code demo
+[source,java]
+----
+package xxx;
+public class Hi {
+    public static void main(String[] args){
+        System.out.println("hello world");
+    }
+}
+----
+
+// 行内 code soure
+这是行内 code source  `+import os+` 示例。
+
+
+
+
+// TODO : ifdef
+
+
+
+
+// ----------------------------- Text Formatting
+## 文本格式化
+
+* 粗体
+** *一个星号表示粗体*
+** **两个星号也表示粗体**
+* 斜体
+** _一个下划线表示斜体_
+** __两个下划线也表示斜体__
+* 等宽字体
+** `一个反引号之间使用等宽字体：E=mc^2^`
+** ``两个反引号之间也使用等宽字体：E=mc^2^``
+* 等宽字体+原样展示
+** `+反引号和加号之间的将原样展示，不再解释成其他式样：E=mc^2^。注意：加号前后不能有空格+`
+// pass:[要原样展示的内容]
+** 如果原样展示的文本里有加号，需要使用 passthrough macro : `pass:[int i=i++;]`
+
+// [.xxxRole]#要使用的内容#
+* Text Span and Built-in Roles
+** [.underline]#使用下划线#
+** [.overline]#使用上划线#
+** [.line-through]#使用删除线#
+** [.nobreak]#禁止 break : aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa#
+** [.nowrap]#禁止 wrap : aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa#
+** [.pre-wrap]#禁止 空白合并 : aaa aaa  aaa   aaa    aaa#
+
+* 高亮
+** 井号之间的文本将被 #高亮#
+
+* 引号
+** 英文标准的半角单引号，双引号都一样，不区分 前、后的，可以通过
+   双引号和反引号，单引号和反引号来组合表示 前、后引号。
+   注意：需要配对组合使用，不能单独使用。
+*** 双引号和反引号 : "`aaa`" 将展示为 “aaa”
+*** 单引号和反引号 : '`aaa`' 将展示为 ‘aaa’
+** 如果要原样展示一个单引号，需要使用打斜杠，Olaf\'s desk, 否则会默认渲染成后单引号。
+** 将可以连续3个半角句号 `+...+` 渲染成 ... =>  …​ m
+
+* 上标、下标
+** 下标: H~2~O
+** 上标: E=mc^2^
+** 上标、下标中如果需要空格，需要使用 `+{sp}+`, 示例：Deep Creek Lake.^[citation{sp}needed]^

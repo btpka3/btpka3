@@ -1,0 +1,20 @@
+
+
+== dd
+
+[source,shell]
+----
+ognl '@java.lang.Runtime@getRuntime().exec("ps aux|grep java| grep mtee3| awk \'{print $2}\' > /tmp/pid")'
+ognl '
+#p=@java.lang.Runtime@getRuntime().exec("ps aux|grep java| grep mtee3 > /tmp/pid"),
+#p.waitFor()
+'
+
+ognl '
+#p=@java.lang.Runtime@getRuntime().exec("ps aux"),
+#p.waitFor()
+'
+
+/bin/bash -c "ps aux|grep java| grep org.apache.catalina.startup.Bootstrap | grep -v /bin/bash | awk '{print $2}' "
+/bin/bash -c "ps aux|grep java| grep catalina | awk '{print $2}' > /tmp/dq-dump-tool.target.pid"
+----

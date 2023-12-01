@@ -1,0 +1,32 @@
+
+
+- https://asciidoc.org/#docs[asciidoc]
+- https://asciidoctor.org/[asciidoctor]
+- https://docs.antora.org/antora/latest/[docs.antora.org]
+- https://gist.github.com/dcode/0cfbf2699a1fe9b46ff04c41721dda74[GitHub Flavored Asciidoc (GFA)]
+
+
+
+
+== antora
+
+github : https://gitlab.com/antora/demo/docs-site[antora/demo]
+
+
+.block source code demo
+[source,shell]
+----
+# 安装 nodejs
+nvm install --lts
+nvm alias default 16
+
+#
+mkdir docs-site && cd docs-site
+echo '{}' > package.json
+npm i -D -E @antora/cli@3.1 @antora/site-generator@3.1
+npx antora -v
+
+git clone git@gitlab.com:antora/demo/docs-site.git
+----
+
+

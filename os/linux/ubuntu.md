@@ -1,5 +1,6 @@
 
-[打印](http://www.hplipopensource.com/hplip-web/install/install/index.html)
+- [打印](http://www.hplipopensource.com/hplip-web/install/install/index.html)
+- [packages.ubuntu.com/](https://packages.ubuntu.com/)
 
 # u盘安装
 
@@ -168,9 +169,9 @@ fcitx-config-gtk
 ```bash
 sudo add-apt-repository ppa:webupd8team/atom
 sudo apt-get updateatom
-sudo apt-get instaom 
+sudo apt-get instaom
 
-# Visual Studio Code 
+# Visual Studio Code
 sudo add-apt-repository -y "deb https://packages.microsoft.com/repos/vscode stable main"
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB3E94ADBE1229CF
 sudo apt update
@@ -345,7 +346,7 @@ tput sgr0
 echo
 
  \E[4#1m
-  
+
 echo -e "\E[4#1m█"
 echo -e "\033[4159m█"
 
@@ -359,8 +360,8 @@ echo -e "   \033[38;5;164m█ "
 echo -e "   \033[38;5;0x10m█ "
 
 for (( i = 30; i <= 37; i++ ));  do echo -e "\e[0;"$i"m  $i : Hi stackoverflow";  done
-```                                                               
-                                                                             
+```
+
 # gnome-terminal
 
 ```bash

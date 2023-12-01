@@ -634,3 +634,11 @@ HAT
   - [JMH Visual Chart](http://deepoove.com/jmh-visual-chart/)
   - https://jmh.morethan.io/
 - [Introduction to JVM Code Cache](https://www.baeldung.com/jvm-code-cache)
+
+
+
+#  StackOverflowError
+
+[How to get full stack of StackOverflowError](https://stackoverflow.com/questions/5165753/how-to-get-full-stack-of-stackoverflowerror)
+JVM 一般只允许从异常中获取 1024 条堆栈entry，但遇到 StackOverflowError，常常无法定位报错的地方。
+可以通过 非标 JVM 开关 `-XX:MaxJavaStackTraceDepth=1000000` 来增加允许的数量，而 0，负数含义则不尽相同。

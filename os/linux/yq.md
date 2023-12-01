@@ -15,7 +15,7 @@ brew install yq
 yq  -o p '.project.profiles.profile[].id' /Users/zll/data0/work/git-repo/ali/ali_security/arm-mbus/mbus-web/pom.xml | sort
 
 # 输出所有子pom.xml 中 parent.version
-find . -type f -name "pom.xml" -exec  bash -c 'echo {} `yq -o a ".project.parent.version" {}` 111' \;
+find . -type f -name "pom.xml" -exec  bash -c 'echo {} `yq -o a ".project.parent.version" {}`' \;
 find . -type f -name "pom.xml"  | xargs  -I{} -S 1024000 bash -c 'echo  "{} `yq -o a ".project.parent.version" {}`"'
 
 

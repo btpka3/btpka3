@@ -1,0 +1,15 @@
+
+
+
+[source,shell]
+----
+# 查询所有已经安装的软件包，并过滤出 MySQL相关的
+rpm -qa | grep -i mysql
+rpm -qa gpg*
+
+# 列出给定软件包中包含的文件列表
+rpm -ql rsync
+
+# 查询给定的文件是哪个软件包安装的
+rpm -qf /usr/bin/rsync
+----

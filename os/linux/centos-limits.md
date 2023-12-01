@@ -44,22 +44,27 @@ sysctl -p                                                     # 重新加载配�
 net.ipv4.tcp_max_syn_backlog = 100000
 net.core.somaxconn = 65535
 net.ipv4.tcp_syncookies = 0
-```
 
-查看指定进程正在使用的文件数量
 
-```bash
-ls -la /proc/<pid>/fd
-lsof -p <pid of process>
-lsof -p <pid> | wc -l
-ulimit -n
-```
+# 查看给定的进程的 ulimit 限制
+JAVA_PID=$(ps aux|grep java | grep org.apache.catalina.startup.Bootstrap|awk '{print $2}')
+echo $JAVA_PID
+cat /proc/${JAVA_PID}/limits   # 方式一
+prlimit -p ${JAVA_PID} -n      # 方式二
+prlimit --pid ${JAVA_PID} --nofile
 
-查看指定用户开启的总进程数
+# 检查给定的进程的 使用的 open file 的数量
+ls -1 /proc/${JAVA_PID}/fd | wc -l
+lsof -p ${JAVA_PID} | wc -l
 
-```bash
+# 修改
+sudo prlimit --pid ${JAVA_PID} --nofile=655351:655352   #  修改 soft/hard
+
+# 查看指定用户开启的总进程数
 ps auxwwf | grep $USER_NAME | grep -v grep | wc -l
 ```
+
+
 
 ### upper limit on inotify watches reached
 
@@ -87,6 +92,7 @@ Pluggable Authentication Modules (PAM)
 https://www.tecmint.com/increase-set-open-file-limits-in-linux/
 
 ```bash
+
 man prlimit
 prlimit -p $$ -n
 ulimit
@@ -107,6 +113,9 @@ vi /etc/security/limits.conf
 vi /etc/security/limits.d/xxx.conf  # 如果值太小，则修改该文件，持久生效
 *        -    nofile         65535  # redis:64000
 *        -    nproc        40960    # redis:64000
+
+
+
 ```
 
 

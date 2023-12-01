@@ -1,4 +1,7 @@
-
+# 概念
+双亲委派
+- 找类: 优先从父 classLoader 找
+- 加载: 优先从父 classLoader 加载，加载不到再从自己找
 
 # 通用
 
@@ -36,9 +39,9 @@ WebAppClassLoader
 
 # pandora
 
-- LaunchedURLClassLoader  # 
+- LaunchedURLClassLoader  #
 - ModuleClassLoader      # pandora 的插件模块的classloader，负责隔离加载各个pandora插件下的类
-- ReLaunchMainLauncher   # 
+- ReLaunchMainLauncher   #
 
 
 
@@ -46,15 +49,15 @@ WebAppClassLoader
                   Bootstrap
                    /    \                             \              \
          Application   PandoraContainerClassLoader    Module1(HSF) Module1(Metaq)
-            |                   
-            |                
             |
-    ReLaunchURLClassLoader   # 使用了 PandoraContainerClassLoader暴露的 classCache  , 
+            |
+            |
+    ReLaunchURLClassLoader   # 使用了 PandoraContainerClassLoader暴露的 classCache  ,
             |                # 起独立线程运行，使用该classLoader, 并运行 spring
             |
             |
     SpringBootApplicaiton#main
- 
+
 ```
 
 

@@ -236,3 +236,22 @@ enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
 gpgcheck=1
 ```
+
+# 格式转换
+
+[RPM 文件格式](https://rpm-software-management.github.io/rpm/manual/format.html)
+
+## rpm2cpio
+
+rpm2cpio命令用于将rpm软件包转换为cpio格式的文件
+
+[GNU CPIO](https://www.gnu.org/software/cpio/manual/cpio.html)
+
+## alien
+将 RPM 格式转成 DEB 格式
+
+## AnyToISO
+https://crystalidea.com/anytoiso  可以将 RPM 转成 ISO
+
+## FileZigZag
+FileZigZag 可以将 RPM 转换成 TAR, TBZ, ZIP, BZ2, 7Z 等格式

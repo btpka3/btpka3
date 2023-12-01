@@ -229,6 +229,7 @@ mvn org.apache.maven.plugins:maven-jdeps-plugin:3.1.2:jdkinternals
 （2）针对API使用方：验证自己的代码是否仅仅使用了给定API签名内的接口，如果使用了给定签名以外的方法，将会报错。
 
 - [Animal Sniffer](https://www.mojohaus.org/animal-sniffer/index.html)
+- [Production Signatures](https://www.mojohaus.org/signatures/)
 - [animal-sniffer-maven-plugin](https://www.mojohaus.org/animal-sniffer/animal-sniffer-maven-plugin/)
 - [animal-sniffer-enforcer-rule](https://www.mojohaus.org/animal-sniffer/animal-sniffer-enforcer-rule/examples/checking-signatures.html)
 - [java版本兼容_Maven：确保跨Java版本兼容性](https://blog.csdn.net/weixin_35745051/article/details/114689835)
@@ -240,6 +241,10 @@ mvn org.apache.maven.plugins:maven-jdeps-plugin:3.1.2:jdkinternals
 
 ```bash
 mvn org.codehaus.mojo:animal-sniffer-maven-plugin:1.23:build
+
+# 需要先编译打包
+mvn clean package
+mvn animal-sniffer:check
 ```
 
 Q1: SignatureBuilder 记录了啥？
@@ -252,6 +257,25 @@ Q1: SignatureBuilder 记录了啥？
 保存的签名文件是 将 `Map<String, Clazz>` 通过 java.io.ObjectOutputStream 写入到文件。
 
 Q2: SignatureBuilder 如何校验的？
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>animal-sniffer-maven-plugin</artifactId>
+            <version>1.23</version>
+            <configuration>
+                <signature>
+                    <groupId>org.codehaus.mojo.signature</groupId>
+                    <artifactId>java15</artifactId>
+                    <version>1.0</version>
+                </signature>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
 
 
 
@@ -280,6 +304,16 @@ mvn dependency:tree -Dincludes=org.springframework:spring
 # 给定版本的jar包如何被仲裁的？
 mvn help:effective-pom -Dverbose=true -pl xxx
 mvn help:effective-pom -Dverbose=true -Dartifact=commons-logging:commons-logging
+
+
+```
+
+## maven-install-plugin
+
+[maven-install-plugin](https://maven.apache.org/plugins/maven-install-plugin/)
+
+```bash
+mvn install:install-file -Dfile=<path-to-file> -DgroupId=<group-id> -DartifactId=<artifact-id> -Dversion=<version> -Dpackaging=<packaging>
 ```
 
 

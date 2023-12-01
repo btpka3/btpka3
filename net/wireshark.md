@@ -1,6 +1,6 @@
 [interface not list](https://ask.wireshark.org/questions/7523/ubuntu-machine-no-interfaces-listed)
 
-```
+```bash
 sudo apt-get install wireshark
 cp /usr/share/applications/wireshark.desktop ~/Desktop/
 sudo dpkg-reconfigure wireshark-common
@@ -9,6 +9,9 @@ sudo usermod -a -G wireshark $USER
 gnome-session-quit --logout --no-prompt
 # 如果仍然失败，则尝试执行
 sudo chmod 4711 `which dumpcap`
+
+# macos 安装
+brew install --cask wireshark
 ```
 
 

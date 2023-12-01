@@ -29,7 +29,7 @@
     - gRPC : Remote Procedure Call
     - falco : Security & Compliance
     - Emissary-Ingress : API Gateway
-    - lstio : service mesh
+    - [lstio](https://istio.io/) : service mesh
     - OpenMetrics : Monitoring
     - cortex : Monitoring
     - OpenTelemetry : tracing

@@ -34,7 +34,7 @@ arm64已经与aarch64合并，因为aarch64和arm64指的是同一件事。
     - [eclipse-temurin:8-jdk-alpine](https://hub.docker.com/layers/library/eclipse-temurin/8-jdk-alpine/images/sha256-88faa301308c48dc55f3e94e518827bc22ee6b45d23377c85ad844fc673d9b6c?context=explore)
     - [eclipse-temurin:11-jdk-alpine](https://hub.docker.com/layers/library/eclipse-temurin/11-jdk-alpine/images/sha256-b574575375b043cc24e26907b9a7ad3b51ee42614abcb34a5cc51196948ae5b5?context=explore)
     - [eclipse-temurin:17-jdk-alpine](https://hub.docker.com/layers/library/eclipse-temurin/17-jdk-alpine/images/sha256-4f6f61ededa179586bd6679bb23c448bad317ca352ee253b6359650923e86c9a?context=explore)
-    
+
 - maven:
       [maven:3.9.2-eclipse-temurin-11-alpine](https://hub.docker.com/layers/library/maven/3.9.2-eclipse-temurin-11-alpine/images/sha256-76573f73fa5c642bab4b4faad08ee949900e8f98e8dd1195b679326d1fffb521?context=explore)
 
@@ -53,7 +53,7 @@ arm64已经与aarch64合并，因为aarch64和arm64指的是同一件事。
                -am \
                -pl sar
       ```
-    
+
 
 
 | package           | x86_64 | aarch64 |
@@ -181,7 +181,7 @@ https://www.analysisman.com/2020/11/macos-staticroutes.html
 setup-alpine
 
 tail -f /etc/apk/repositories
-# 默认只开启了main 的repo, 修改该文件，并开启 community repo 
+# 默认只开启了main 的repo, 修改该文件，并开启 community repo
 vi /etc/apk/repositories
 apk update
 
@@ -193,11 +193,11 @@ reboot
 
 
 # 共享目录
-# 在 VirtualBox GUI 上 通过 Settings/Shared Folders 添加要共享目录， 
+# 在 VirtualBox GUI 上 通过 Settings/Shared Folders 添加要共享目录，
 # 假设 Folder Name = zll ， Folder Path = /Users/zll
 # 然后在 alpine 中执行 :
 mkdir -p /Users/zll  # 只是简化一下，确保 虚拟机中、host 中的路径都一致
-modprobe -a vboxsf 
+modprobe -a vboxsf
 addgroup admin vboxsf
 # 检查 vboxsf 支持的选项
 mount.vboxsf
@@ -209,7 +209,7 @@ umount /Users/zll
 
 
 # 如果想重启自动挂载，则：
-vi /etc/fstab 
+vi /etc/fstab
 zll     /Users/zll  vboxsf  uid=1000,gid=1000   0    0
 mount -av
 
@@ -261,7 +261,7 @@ sudo networksetup -setadditionalroutes "USB 10/100/1000 LAN" 192.168.56.0 255.25
 #sudo route -n add -host 199.199.199.199 -interface en0
 
 192.168.56.1
-192.168.56.0/21 
+192.168.56.0/21
 
 # 启用图形界面
 #setup-xorg-base
@@ -282,7 +282,7 @@ adduser admin wheel
 vim /etc/doas.d/doas.conf # 增加以下一行
 permit persist :wheel
 
-# 设置 rc_cgroup_mode=unified 以便启用 cgroups v2 
+# 设置 rc_cgroup_mode=unified 以便启用 cgroups v2
 vim /etc/rc.conf
 # 启用 cgroups 服务
 rc-update add cgroups && rc-service cgroups start
@@ -307,7 +307,7 @@ echo "ip_tables" >> /etc/modules
 podman run --rm -it docker.io/alpine:latest echo aaa
 #podman run --rm hello-world
 
-# 可选：允许 ports < 1024 
+# 可选：允许 ports < 1024
 sudo echo "net.ipv4.ip_unprivileged_port_start=80" >> /etc/sysctl.conf
 
 mkdir -p /home/admin/.config/containers/
@@ -324,3 +324,18 @@ Error: a network file system with user namespaces is not supported.  Please use 
 
 
 # dmidecode
+
+# sysstat
+
+```bash
+/usr/bin/cifsiostat
+/usr/bin/iostat
+/usr/bin/mpstat
+/usr/bin/pidstat
+/usr/bin/sadf
+/usr/bin/sar
+/usr/bin/tapestat
+/usr/lib/sa/sa1
+/usr/lib/sa/sa2
+/usr/lib/sa/sadc
+```
