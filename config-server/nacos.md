@@ -148,6 +148,10 @@ maven GAV: com.alibaba.boot:nacos-discovery-spring-boot-starter:0.2.12
 
 ## docker
 
+```shell
+docker run --rm -it  -p 8848:8848 -p 9848:9848 -p 9849:9849 -p 7848:7848 -e MODE=standalone nacos/nacos-server:v2.2.3
+```
+
 
 ```shell
 # 手动使用外部 MySql 数据库

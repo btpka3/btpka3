@@ -109,6 +109,15 @@ END {
 
 ```
 
+### float -> int
+
+```bash
+printf "%4.3e\n", 1950
+printf "%.0f\n", 3.1415926
+printf "%.3f\n", 3.1415926
+
+grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {printf "%.1f" , usage}'
+```
 
 ### 行内统计
 
@@ -453,4 +462,71 @@ done
 ' > $LOG_FILE
 
 zip -r ${LOG_FILE}.zip $LOG_FILE
+```
+
+
+# regex
+
+## 转义字符
+```plain
+\\          # 匹配单个字符 `\`
+\a          # The “alert” character, Ctrl-g, ASCII code 7 (BEL)
+\b          # Backspace, Ctrl-h, ASCII code 8 (BS).
+\f          # Formfeed, Ctrl-l, ASCII code 12 (FF).
+\n          # Newline, Ctrl-j, ASCII code 10 (LF).
+\r          # Carriage return, Ctrl-m, ASCII code 13 (CR).
+\t          # Horizontal TAB, Ctrl-i, ASCII code 9 (HT).
+\v          # Vertical TAB, Ctrl-k, ASCII code 11 (VT).
+\nnn        # The octal value nnn, where nnn stands for 1 to 3 digits between ‘0’ and ‘7’.
+            # For example, the code for the ASCII ESC (escape) character is ‘\033’.
+\xhh…       # `hh` 表示十六进制的字符 [0-9a-fA-F], `\x` 之后最多允许2个字符
+\uhh…       # `hh` 表示十六进制的字符 [0-9a-fA-F], `\x` 之后最多允许8个字符
+\/          # 匹配单个字符 `/`
+\"          # 匹配单个字符 `"`
+```
+
+## 正则表达式操作符
+```
+\           # 用来转义特殊字符串，比如  `\$` 匹配单个字符串 `$`, 而不是表示匹配行尾
+^           # 匹配行首
+$           # 匹配行尾
+.           # 匹配任意单个字符
+[…]         # 匹配反括号内的任意单个字符。
+[^…]        # 不匹配方括号内的任意字符
+|           # 或
+(…)         # 分组
+*           # 出现0次或任意多次
++           # 出现至少1次
+?           # 出现至少0次，或1次
+{n}         # 出现至少n次
+{n,}        # 出现至少n次
+{n,m}       # 出现至少n次，最多m次
+```
+
+## 特殊的方括号表达式
+```
+[:alnum:]	Alphanumeric characters
+[:alpha:]	Alphabetic characters
+[:blank:]	Space and TAB characters
+[:cntrl:]	Control characters
+[:digit:]	Numeric characters
+[:graph:]	Characters that are both printable and visible (a space is printable but not visible, whereas an ‘a’ is both)
+[:lower:]	Lowercase alphabetic characters
+[:print:]	Printable characters (characters that are not control characters)
+[:punct:]	Punctuation characters (characters that are not letters, digits, control characters, or space characters)
+[:space:]	Space characters (these are: space, TAB, newline, carriage return, formfeed and vertical tab)
+[:upper:]	Uppercase alphabetic characters
+[:xdigit:]	Characters that are hexadecimal digits
+```
+## gawk 专有转义操作符
+
+```
+\s          # 匹配空白，等价于 `[[:space:]]`
+\S          # 不匹配空白，等价于 `[^[:space:]]`
+\w          # 等价于  `[[:alnum:]_]`
+\W          # 等价于  `[^[:alnum:]_]`
+\<          # 匹配一个词开头前的空字符串，比如 `/\<away/` 匹配 "away", 但不匹配 "stowaway"
+\>          # 匹配一个词结尾后的空字符串，比如 `/stow\>/` 匹配 "stow", 但不匹配 "stowaway"
+\y          # 匹配一个词开头前、或结尾后的空字符串，用来表示一个词的边界
+\B          # 匹配词内匹配（不含开头与结尾）。比如 `/\Brat\B/` 匹配 "crate", 但不匹配 "dirty rat"
 ```

@@ -325,9 +325,36 @@ TODO 上下合并
 - [EVAL](https://redis.io/docs/manual/programmability/eval-intro/)
 - [lua-api](https://redis.io/docs/manual/programmability/lua-api/)
     - [cjson-library](https://redis.io/docs/manual/programmability/lua-api/#cjson-library)
+- [Redis functions](https://redis.io/docs/interact/programmability/functions-intro/)
+- [triggers and functions](https://redis.io/docs/interact/programmability/triggers-and-functions/quick_start_cli/#load-a-library)
+
+原子性: 一个 function执行时，会阻塞其他所有活动.
+
+script    : 使用lua, 原子性. 相关的命令使用的 sha1,  名字难记，不便于调试。
+function  : 使用lua, 原子性. 相关命令可以自定义函数名。
+TFUCNTION : 使用 javascript。
 
 ```shell
-incrby key001 3
+# 启动 server ( javascript 版本的自定义函数需要 使用 redis-stack)
+#docker run --rm -p 6379:6379  docker.io/library/redis:7.2-alpine
+docker run --rm -d --name redis-stack -p 6379:6379 -p 8001:8001  redis/redis-stack:latest
+
+# client 链接
+redis-cli
+
+########## script-lua
+# 如果不想每次都携带这么长的 sript 文本，则应该使用 SCRIPT LOAD/EVALSHA 命令。
 EVAL "return cjson.encode(redis.call('TYPE', KEYS[1])) " 1  key001 3 1 10
 "{\"ok\":\"string\"}"
+
+########## function-lua
+FUNCTION LOAD REPLACE "#!lua name=mylib \n redis.register_function('myfunc', function(keys, args) return args[1] end)"
+FCALL myfunc 2 key1 key2 value1 value2 value2
+
+########## function-javascript
+TFUNCTION LOAD "#!js api_version=1.0 name=myFirstLibrary\n redis.registerFunction('hello', ()=>{ return 'Hello World'})"
+TFCALL myFirstLibrary.hello 2 key1 key2 value1 value2 value2
 ```
+
+
+

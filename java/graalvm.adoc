@@ -1,0 +1,21 @@
+
+
+https://www.graalvm.org/22.0/reference-manual/native-image/Options/
+
+
+## FIXME
+
+* 最常用的 Runtime AOP 机制还能使用么？
+* javaAgent 机制还能用么？尤其通过 attach 机制挂载的?
+* 如何运行态分析调试，比如 jfr,jstack,jamp, Alibaba Arthas, aysnc-profiler等
+* System.getProperty("java.home") 没值？还有哪些系统属性没值？
+* 运行态没有 jdk/jre, 那还怎么修改 `${JAVA_HOME}/conf/security/java.security`？
+* 运行态如何设置 JVM 开关？java属性？
+
+## native-image
+
+[source,shell]
+----
+which native-image
+native-image --help
+----

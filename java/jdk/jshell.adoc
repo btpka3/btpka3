@@ -1,0 +1,19 @@
+
+* link:https://docs.oracle.com/javase/10/jshell/introduction-jshell.htm[ava Platform, Standard Edition Java Shell User’s Guide]
+
+
+
+## demo
+
+[source,shell]
+----
+cat >> /tmp/b.jsh <<EOF
+//opt/taobao/java/bin/jshell --execution local "$0" "$@"; exit $?
+System.out.println("Hello zhang3")
+/exit
+EOF
+
+chmod u+x /tmp/b.jsh
+/tmp/b.jsh
+echo $?
+----

@@ -178,6 +178,9 @@ ZooKeeper的API相对来说还是很低级API，如果要直接使用，并完�
 当然 Curator
 也完善、扩展了ZooKeeper的Recipes，并指出其中一些并不实用——比如消息队列。完整列表参考[这里](hhttps://curator.apache.org/docs/recipes-shared-reentrant-lock)。
 
+
+[spring-integration-zookeeper](https://docs.spring.io/spring-integration/reference/zookeeper.html)
+
 # Exhibitor
 
 [Netflix/exhibitor](https://github.com/Netflix/exhibitor)

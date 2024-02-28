@@ -1,0 +1,68 @@
+
+
+
+
+* link:https://help.aliyun.com/zh/sls/developer-reference/connect-to-log-service-by-using-jdbc[对接JDBC]
+* link:https://help.aliyun.com/zh/sls/user-guide/sql-functions/[SQL函数列表]
+* link:https://help.aliyun.com/zh/sls/product-overview/scheduled-sql-1[定时sql]
+
+
+
+## 系统字段
+* `__time__` :
+
+
+
+## 常见SQL
+
+[source,sql]
+----
+select
+  date_format(__time__, '%Y%m%d') as date,
+  app,
+  clusterName,
+  exceptionCode,
+  count(*) as count
+from mtee3-exception-analyse
+group by date, app, clusterName, exceptionCode
+order by date, app, clusterName, exceptionCode
+limit 100000
+
+
+
+select
+  date_format(__time__, '%Y%m%d') as date,
+  app,
+  clusterName,
+  exceptionCode,
+  count(*) as count
+from mtee3-exception-analyse
+where __time__ < to_unixtime(current_date)
+  AND __time__ >= to_unixtime(date_add('day', -1, current_date))
+group by date_format(__time__, '%Y%m%d'), app, clusterName, exceptionCode
+order by date_format(__time__, '%Y%m%d'), app, clusterName, exceptionCode
+having count(*) > 0
+limit 100000
+
+41cc646a2b0a3851-60d17107431bd-30a583
+41cc646a2b0a3851-60d170bba4956-3527be
+
+
+----
+
+
+g9_err_cnt_day
+九宫诊断中心异常量天级计算任务
+
+
+select
+app,
+clusterName,
+date_format(__time__, '%Y%m%d') as date,
+exceptionCode,
+count(*) as count
+from mtee3-exception-analyse
+group by app, clusterName, date_format(__time__, '%Y%m%d'), exceptionCode order by date_format(__time__, '%Y%m%d'),  exceptionCode limit 10000
+
+
+11 * 40 * 30 *

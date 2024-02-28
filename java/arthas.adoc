@@ -18,3 +18,31 @@ ognl '
 /bin/bash -c "ps aux|grep java| grep org.apache.catalina.startup.Bootstrap | grep -v /bin/bash | awk '{print $2}' "
 /bin/bash -c "ps aux|grep java| grep catalina | awk '{print $2}' > /tmp/dq-dump-tool.target.pid"
 ----
+
+
+
+## 构造函数
+[source,shell]
+----
+watch some.package.XxxClass <init>
+----
+
+
+link:https://arthas.aliyun.com/doc/quick-start.html[快速入门]
+
+
+## classloader
+
+[source,shell]
+----
+# 查看 ClassLoader 的继承树
+classloader -t
+
+# 查看 URLClassLoader 实际的 urls
+classloader -c 3d4eac69
+
+classloader --classLoaderClass sun.misc.Launcher$AppClassLoader
+classloader --classLoaderClass jdk.internal.loader.ClassLoaders$PlatformClassLoader
+classloader --classLoaderClass jdk.internal.loader.ClassLoaders$AppClassLoader
+----
+

@@ -46,3 +46,7 @@ var jwt = {
 }
 
 ```
+
+# JSON Web Key (JWK)
+
+

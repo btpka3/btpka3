@@ -46,6 +46,7 @@ Cmd + K, M          : Select Language Model
 Shift + Alt + F     : 格式化代码
 Cmd + Shift + P     : 打开命令面板
 F1                  : 打开命令面板
+Cmd + K , Cmd + Q   : 跳转到最后一个修改处， 或打开命令面板后，输入 "go to last Edit Location"
 ```
 
 

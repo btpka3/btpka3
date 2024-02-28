@@ -11,6 +11,8 @@ lsof -nP +L1 -p xxxPid
 lsof -n -i :8080                               # 获取哪些进程在使用（监听/访问）8080端口
 lsof -nP -iTCP -sTCP:LISTEN -a -p 15008        # 获取进程 15008 监听的TCP 端口
 lsof -iUDP                                     # 按UDP过滤
+
+lsof +D /home/admin/logs/                      # 递归查询哪些文件被打开使用。慢。
 ```
 
 

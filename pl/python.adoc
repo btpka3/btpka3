@@ -1,18 +1,30 @@
 
 
-```bash
+[source,shell]
+----
+brew install python
+
+which python3
+which pip
+which pip3
+
+python3 --version
+pip --version
+pip3 --version
+
+python3 -m pip install --upgrade pip
 pip3 install --upgrade virtualenv
 
 cd /path/to/your/project
 virtualenv --system-site-packages .
-source ./bin/activate  
+source ./bin/activate
 
 
 pip3 install --upgrade tensorflow
- 
+
 
 deactivate          # 退出当前工作环境
-```
+----
 
 ```
 sudo apt-get install libpython-all-dev
@@ -24,5 +36,8 @@ sudo pip install pillow
 sudo pip install icon_font_to_png
 ```
 
-# 参考
-* [icon_font_to_png](https://github.com/Pythonity/icon-font-to-png)
+## 参考
+* https://github.com/Pythonity/icon-font-to-png[icon_font_to_png]
+
+
+## pipenv

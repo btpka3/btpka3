@@ -1,0 +1,21 @@
+
+
+## lombok.config
+
+[source,properties]
+----
+config.stopBubbling = true
+lombok.addLombokGeneratedAnnotation = true
+lombok.anyConstructor.addConstructorProperties=true
+----
+
+lombok.anyConstructor.addConstructorProperties=true 将使得构造函数增加以下值
+[source,java]
+----
+@java.beans.ConstructorProperties({"id", "brand"})
+public XxxPojo(Long id, String brand){
+    this.id=id;
+    this.brand=brand;
+}
+----
+

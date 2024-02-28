@@ -49,8 +49,8 @@ net.ipv4.tcp_syncookies = 0
 # 查看给定的进程的 ulimit 限制
 JAVA_PID=$(ps aux|grep java | grep org.apache.catalina.startup.Bootstrap|awk '{print $2}')
 echo $JAVA_PID
-cat /proc/${JAVA_PID}/limits   # 方式一
-prlimit -p ${JAVA_PID} -n      # 方式二
+prlimit -p ${JAVA_PID} -n      # 方式一
+cat /proc/${JAVA_PID}/limits   # 方式二
 prlimit --pid ${JAVA_PID} --nofile
 
 # 检查给定的进程的 使用的 open file 的数量

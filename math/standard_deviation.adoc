@@ -1,0 +1,26 @@
+
+
+
+# 标准差/standard deviation
+
+----
+jq -s '(add/length)as$a|map(pow(.-$a;2))|add/length|sqrt'
+ruby -e'a=readlines.map(&:to_f);puts (a.map{|x|(x-a.reduce(:+)/a.length)**2}.reduce(:+)/a.length)**0.5'
+jq -s '(map(.*.)|add/length)-pow(add/length;2)|sqrt'
+awk '{x+=$0;y+=$0^2}END{print sqrt(y/NR-(x/NR)^2)}'
+
+
+myNumbers=$(echo "0.556 1.456 45.111 7.812 5.001" | tr " " "\n")
+echo "$myNumbers" | awk '$1+0==$1 {sum+=$1; sumsq+=$1*$1; cnt++}
+                           END{print sumsq/cnt; print sqrt(sumsq/cnt - (sum/cnt)**2)}'
+
+standardDeviation=$(
+    echo "$myNumbers" |
+        awk '{sum+=$1; sumsq+=$1*$1}END{print sqrt(sumsq/NR - (sum/NR)**2)}'
+)
+echo $standardDeviation
+
+
+yum install gnuplot
+echo "${myNumbers}" | gnuplot -e 'stats "-" nooutput; print STATS_stddev'
+----

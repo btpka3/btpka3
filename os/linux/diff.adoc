@@ -1,0 +1,37 @@
+
+
+[source,shell]
+----
+
+cat > /tmp/aaa.txt <<EOF
+333
+555
+777
+EOF
+
+cat > /tmp/bbb.txt <<EOF
+444
+555
+666
+777
+EOF
+
+diff /tmp/aaa.txt /tmp/bbb.txt
+
+# 输出仅在左侧（old）的数据
+diff --unchanged-line-format='' --old-line-format='%L' --new-line-format=''  /tmp/aaa.txt /tmp/bbb.txt
+333
+
+# 输出仅在右侧（new）的数据
+diff --unchanged-line-format='' --old-line-format='' --new-line-format='%L'  /tmp/aaa.txt /tmp/bbb.txt
+444
+666
+
+# 输出未修改（unchanged）的数据
+diff --unchanged-line-format='%L' --old-line-format='' --new-line-format=''  /tmp/aaa.txt /tmp/bbb.txt
+555
+777
+
+# MacOS 上自带 diff 不是 GNU 版本的，可通过这个命令安装。
+brew install diffutils
+----

@@ -1,0 +1,40 @@
+
+
+## 用法
+
+[source,shell]
+----
+jstack ${JAVA_PID} >> jstack.txt
+----
+
+
+## 相关工具
+
+
+
+* https://raw.githubusercontent.com/oldratlee/useful-scripts/master/show-busy-java-threads[show-busy-java-threads]
+
+
+
+##  Java 线程 CPU 100% 对应方法
+
+[source,shell]
+----
+jstack pid
+
+# 找到所需的 Java 进程的 pid1。
+jps -mlv
+
+# 观则得到最占 CPU 的线程的 pid2。
+top -Hp pid1 -H                   # ps -Lp 15047  cu
+
+# 显示线程ID 的十六进制的值  xxx
+printf %x 212155
+
+# 导出 java 线程信息
+jstack pid1 > /tmp/cpu.log
+
+# 找出线程进行的上线文，并分析原因
+grep xxx -A 200 /tmp/cpu.log
+----
+

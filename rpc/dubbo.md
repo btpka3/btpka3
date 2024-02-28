@@ -24,7 +24,7 @@ serviceKey = nacos://nacos.default.svc.cluster.local:8848/org.apache.dubbo.metad
 groupIndex=7
 versionIndex=5
 serviceKey.substring(groupIndex, versionIndex) # 报错 java.lang.StringIndexOutOfBoundsException
-原因：误设置： nacos 的地址 =>  org.apache.dubbo.config.ApplicationConfig#setName 
+原因：误设置： nacos 的地址 =>  org.apache.dubbo.config.ApplicationConfig#setName
 ```
 
 # 指定provider的 IP 和端口
@@ -79,7 +79,7 @@ docker run -it --rm \
     -p 38080:38080 \
     docker.io/apache/dubbo-admin:0.5.0
 
-``` 
+```
 浏览器访问： [http://localhost:38080](http://localhost:38080)
 
 docker run -it --rm --name tmp_dubbo_admin --entrypoint sh docker.io/apache/dubbo-admin:0.5.0
@@ -183,3 +183,219 @@ ts=2023-08-21 09:56:10;thread_name=arthas-command-execute;id=1dd;is_daemon=true;
         at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
         at java.lang.Thread.run(Thread.java:829)
 ```
+
+
+## org.apache.dubbo.rpc.Invoker
+
+### org.apache.dubbo.rpc.protocol.injvm.InjvmInvoker
+## org.apache.dubbo.rpc.cluster.ClusterInvoker
+
+
+## SPI
+FIXME: 如何禁用某个特定的SPI实现？
+```plain
+- org.apache.dubbo.common.extension.ExtensionLoader#strategies
+    - org.apache.dubbo.common.extension.DubboInternalLoadingStrategy : "META-INF/dubbo/internal/" , overridden = false
+    - org.apache.dubbo.common.extension.DubboLoadingStrategy : "META-INF/dubbo/" , overridden = true
+    - org.apache.dubbo.common.extension.ServicesLoadingStrategy : "META-INF/services/"  : 优先级最低， overridden = true
+
+```
+FIXME: apache dubbo 有多少个 SPI ?
+
+
+
+
+### org.apache.dubbo.rpc.cluster.filter.ClusterFilter
+
+
+
+
+hsf://30.196.226.97/com.alibaba.dangqian.HiService?REGISTRY_CLUSTER=GLOBAL&application=unknow_project_name&background=false&check=false&dubbo=2.0.2&dubbo.metadata.storage-type=remote&group=HSF&include_filter=-cluster-filter&include_router=-cluster-router&init=true&interface=com.alibaba.dangqian.HiService&interfaces=com.alibaba.dangqian.HiService,com.taobao.hsf.remoting.service.GenericService,com.taobao.hsf.remoting.service.EchoService,org.apache.dubbo.rpc.service.GenericService,com.alibaba.dubbo.rpc.service.GenericService&loadbalance=hsfrandom&logger=dubbo-to-hsf&mapping-type=metadata&maxWaitAddressTime=3000&metadata-type=remote&methods=sayHello,sayHi&mg=unknown&migration.delay=10&migration.force=false&migration.step=FORCE_INTERFACE&migration.threshold=0.0&pid=5411&protocol=hsf&proxy=jdk&reference.filter=-genericimpl,-cluster-filter&register-mode=interface&register.ip=30.196.226.97&registry-cluster-type=msha&release=&retries=0&revision=1.0.2-SNAPSHOT&router=-app,-condition,-standard-mesh-rule,-service,-tag,-cluster-router&scope=remote&side=consumer&sticky=false&timeout=300000&timestamp=1705542554802&url-merge-processor=hsf&ut=CENTER&version=1.0.0
+
+
+
+
+```
+org.apache.dubbo.common.URL
+  org.apache.dubbo.common.url.component.ServiceConfigURL
+  org.apache.dubbo.common.url.component.ServiceAddressURL
+    org.apache.dubbo.common.url.component.DubboServiceAddressURL
+  org.apache.dubbo.registry.client.InstanceAddressURL
+  org.apache.dubbo.registry.client.OverrideInstanceAddressURL
+
+
+# ServiceConfigURL
+hsf-registry-protocol://127.0.0.1:3181/org.apache.dubbo.registry.RegistryService?application=unknow_project_name&dubbo=2.0.2&dubbo.metadata.storage-type=remote&logger=dubbo-to-hsf&mapping-type=metadata&metadata-type=remote&pid=30983&preferred=true&register-mode=interface&registry=cs&registry-cluster-type=msha&registry-protocol-type=hsf-registry-protocol&timestamp=1705650182730
+```
+
+# log
+https://cn.dubbo.apache.org/en/docs3-v2/java-sdk/advanced-features-and-usage/others/logger-management/
+
+```bash
+telnet 127.0.0.1 22222
+help
+ls
+loggerInfo
+```
+
+
+# ExtensionLoader
+org.apache.dubbo.common.extension.ExtensionLoader
+
+```plain
+sc -d org.apache.dubbo.rpc.model.FrameworkModel
+
+ognl -c 4470fbd6 '
+#extensionClazz=@org.apache.dubbo.spring.security.jackson.ObjectMapperCodecCustomer@class,
+#frameworkModel=@org.apache.dubbo.rpc.model.FrameworkModel@defaultInstance,
+#extensionLoader=#frameworkModel.extensionDirector.extensionLoadersMap[#extensionClazz],
+#extensionLoader.cachedInstances
+' -x 3
+
+# 获取 jackson ObjectMapper
+ognl -c 4470fbd6 '
+#frameworkModel=@org.apache.dubbo.rpc.model.FrameworkModel@defaultInstance,
+#appModel=#frameworkModel.defaultAppModel,
+#objectMapperCodec=#appModel.getBeanFactory().getBean(@org.apache.dubbo.spring.security.jackson.ObjectMapperCodec@class),
+#objectMapper=#objectMapperCodec.mapper
+#objectMapper
+' -x 3
+
+#  获取 jackson ObjectMapper 注册的 mixin
+ognl -c 4470fbd6 '
+#frameworkModel=@org.apache.dubbo.rpc.model.FrameworkModel@defaultInstance,
+#appModel=#frameworkModel.defaultAppModel,
+#objectMapperCodec=#appModel.getBeanFactory().getBean(@org.apache.dubbo.spring.security.jackson.ObjectMapperCodec@class),
+#objectMapperCodec._mixIns._localMixIns
+' -x 3
+
+
+
+
+# 检查有多少个 FrameworkModel 实例
+ognl -c 4470fbd6 '@org.apache.dubbo.rpc.model.FrameworkModel@allInstances'
+# 检查有多少个 ApplicationModel 实例
+ognl -c 4470fbd6 '@org.apache.dubbo.rpc.model.FrameworkModel@allInstances.{  applicationModels}'
+
+
+
+
+ognl -c 4470fbd6 '
+#extensionClazz=@org.apache.dubbo.spring.security.jackson.ObjectMapperCodecCustomer@class,
+#frameworkModel=@org.apache.dubbo.rpc.model.FrameworkModel@defaultInstance,
+#extensionLoader=#frameworkModel.extensionDirector.extensionLoadersMap[#extensionClazz],
+#extensionLoader.scopeModel
+' -x 3
+
+ognl -c 4470fbd6 '
+@org.apache.dubbo.common.extension.ExtensionLoader@strategies
+' -x 3
+
+ognl -c 4470fbd6 '
+#fileName="META-INF/dubbo/org.apache.dubbo.spring.security.jackson.ObjectMapperCodecCustomer",
+#classLoader=@com.alibaba.security.gong9.mw.pandora.hsf.impl.dubbo.jackson.G9ObjectMapperCodecCustomer@class.getClassLoader(),
+#classLoadersToLoad={#classLoader},
+#map=@org.apache.dubbo.common.utils.ClassLoaderResourceLoader@loadResources(#fileName,#classLoadersToLoad),
+#extensionClazz=@org.apache.dubbo.spring.security.jackson.ObjectMapperCodecCustomer@class,
+#frameworkModel=@org.apache.dubbo.rpc.model.FrameworkModel@defaultInstance,
+#extensionLoader=#frameworkModel.extensionDirector.extensionLoadersMap[#extensionClazz],
+#extensionClasses=#{},
+#loadingStrategy=@org.apache.dubbo.common.extension.ExtensionLoader@strategies[1],
+#extensionLoader.loadFromClass(
+  #extensionClasses,
+  #loadingStrategy.overridden(),
+  #map.values().toArray()[0],
+  #classLoader,
+  #loadingStrategy.includedPackages(),
+  #loadingStrategy.excludedPackages(),
+  #loadingStrategy.onlyExtensionClassLoaderPackages()
+),
+#extensionClasses
+' -x 3
+
+# 读取给定的文件的内容
+ognl -c 4470fbd6 '
+#fileName="META-INF/dubbo/org.apache.dubbo.spring.security.jackson.ObjectMapperCodecCustomer",
+#classLoader=@com.alibaba.security.gong9.mw.pandora.hsf.impl.dubbo.jackson.G9ObjectMapperCodecCustomer@class.getClassLoader(),
+#classLoadersToLoad={#classLoader},
+#map=@org.apache.dubbo.common.utils.ClassLoaderResourceLoader@loadResources(#fileName,#classLoadersToLoad),
+#extensionClazz=@org.apache.dubbo.spring.security.jackson.ObjectMapperCodecCustomer@class,
+#frameworkModel=@org.apache.dubbo.rpc.model.FrameworkModel@defaultInstance,
+#extensionLoader=#frameworkModel.extensionDirector.extensionLoadersMap[#extensionClazz],
+#extensionClasses=#{},
+#loadingStrategy=@org.apache.dubbo.common.extension.ExtensionLoader@strategies[1],
+#extensionLoader.getResourceContent(#map.values().toArray()[0].toArray()[0])
+' -x 3
+
+# 读取给定的文件的内容
+ognl -c 4470fbd6 '
+#fileName="META-INF/dubbo/org.apache.dubbo.spring.security.jackson.ObjectMapperCodecCustomer",
+#classLoader=@com.alibaba.security.gong9.mw.pandora.hsf.impl.dubbo.jackson.G9ObjectMapperCodecCustomer@class.getClassLoader(),
+#classLoadersToLoad={#classLoader},
+#map=@org.apache.dubbo.common.utils.ClassLoaderResourceLoader@loadResources(#fileName,#classLoadersToLoad),
+#extensionClazz=@org.apache.dubbo.spring.security.jackson.ObjectMapperCodecCustomer@class,
+#frameworkModel=@org.apache.dubbo.rpc.model.FrameworkModel@defaultInstance,
+#extensionLoader=#frameworkModel.extensionDirector.extensionLoadersMap[#extensionClazz],
+#extensionClasses=#{},
+#loadingStrategy=@org.apache.dubbo.common.extension.ExtensionLoader@strategies[1],
+#url=#map.values().toArray()[0].toArray()[0],
+#extensionLoader.loadClass(#classLoader,#extensionClasses,#url),
+#extensionClasses
+' -x 3
+
+
+ognl -c 4470fbd6 '
+#className="com.alibaba.security.gong9.mw.pandora.hsf.impl.dubbo.jackson.G9ObjectMapperCodecCustomer",
+#classLoader=@org.apache.dubbo.config.bootstrap.DubboBootstrap@class.getClassLoader(),
+@java.lang.Class@forName(#className, true, #classLoader)
+'
+
+ognl -c 4470fbd6 '
+#extensionClazz=@org.apache.dubbo.spring.security.jackson.ObjectMapperCodecCustomer@class,
+#frameworkModel=@org.apache.dubbo.rpc.model.FrameworkModel@defaultInstance,
+#extensionLoader=#frameworkModel.extensionDirector.extensionLoadersMap[#extensionClazz],
+#extensionLoader.exceptions
+' -x 3
+
+
+FIXME: 为何 #extensionLoader.loadClassIfActive(#classLoader,#class) 有 两个参数，既 传递 classLoader, 又传递 class ?
+
+ognl -c 4470fbd6 '
+#clazz=@org.apache.dubbo.spring.security.model.SecurityScopeModelInitializer@class,
+#classLoader=@org.apache.dubbo.config.bootstrap.DubboBootstrap@class.getClassLoader(),
+#extensionClazz=@org.apache.dubbo.spring.security.jackson.ObjectMapperCodecCustomer@class,
+#frameworkModel=@org.apache.dubbo.rpc.model.FrameworkModel@defaultInstance,
+#extensionLoader=#frameworkModel.extensionDirector.extensionLoadersMap[#extensionClazz],
+#extensionLoader.loadClassIfActive(#classLoader,#clazz)
+' -x 3
+
+
+# true - pandora 插件的classloader的parent==null，但仍然能找到对应的类
+ognl -c 4470fbd6 '
+#className="org.springframework.security.core.context.SecurityContextHolder",
+#classLoader=@org.apache.dubbo.config.bootstrap.DubboBootstrap@class.getClassLoader(),
+@org.apache.dubbo.common.utils.ClassUtils@isPresent(#className, #classLoader)
+' -x 3
+
+ognl -c 4470fbd6 '
+#pandoraPluginClassLoader=@org.apache.dubbo.config.bootstrap.DubboBootstrap@class.getClassLoader(),
+#pandoraFramworkClassLoader=#pandoraPluginClassLoader.pandoraClassLoader
+' -x 3
+
+
+```
+
+# @org.apache.dubbo.common.extension.Activate
+
+```java
+package org.apache.dubbo.spring.security.model;
+import org.apache.dubbo.common.extension.Activate;
+import org.apache.dubbo.rpc.model.ScopeModelInitializer;
+@Activate(onClass = {SECURITY_CONTEXT_HOLDER_CLASS_NAME, CORE_JACKSON_2_MODULE_CLASS_NAME, OBJECT_MAPPER_CLASS_NAME})
+public class SecurityScopeModelInitializer implements ScopeModelInitializer {
+
+    //...
+}
+```
+
+

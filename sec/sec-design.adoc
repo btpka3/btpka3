@@ -1,0 +1,109 @@
+
+
+
+* 事件
+一个业务领域（Domain）
+不再对标成一个 java class,
+不要再去通过 代码模板去生成 生成完整的 java/groovy 代码，
+再去运行态编译。
+
+
+* 事件scope
+表示事件实际运行的 一个阶段。
+比如实时识别阶段，近线识别阶段，离线识别阶段、入审阶段、决策阶段、人审阶段，处置阶段等。
+
+* 事件特征
+事件+事件scope 下特定的取数逻辑。
+可能是系统的属性（比如系统时间、随机数），
+也可能业务入参（比如入参 inputParamMap.get("userId"))
+也叶是通过 算法、远程服务 获取的其他数据。
+
+
+不再对标成一个 java/groovy class 下面的 getter。
+
+
+从入参取值
+
+[source,java]
+----
+public class UserIdGetter implement Supplier<Optional<String>> {
+    private final P p;
+    public UserIdGetter(P p){
+        this.p = p;
+    }
+    public Optional<String> get(){
+        Map ctx = p.getCtx();
+        return Optional.ofNullable(MapUtils.getString(ctx, "userId"))
+              .map(StringUtils::trimToNull);
+    }
+}
+----
+
+用其他服务对其他特征做加工取值
+
+[source,java]
+----
+public class UserPostCountGetter implement Supplier<Optional<Long>> {
+    private final P p;
+    public UserIdGetter(P p){
+        this.p = p;
+    }
+    public Optional<Long> get(){
+        String userId = p.getCachedProp("userId")
+           .orElse(null);
+        if( userId == null){
+            return Optional.empty();
+        }
+
+        return p.get("func")
+          .get("queryUserPostCountByUserId")
+          .apply(userId);
+    }
+}
+----
+
+
+.事件特征
+[cols="1,1,1,1"]
+|===
+|事件 | 事件scope | 事件特征| 取值脚本
+
+.4+| 会员下单
+.2+| 实时识别
+| userId
+a|
+[source,java]
+----
+ctx?.userId
+----
+
+| userPostCount
+a|
+[source,java]
+----
+getUserPostCount(userId)
+----
+
+.2+| 人审识别
+| userId
+a|
+[source,java]
+----
+ctx?.userId
+----
+
+| userPostCount
+a|
+[source,java]
+----
+ctx?.userPostCount ?: getUserPostCount(userId)
+----
+|===
+
+
+## 伪代码
+
+
+----
+----
+

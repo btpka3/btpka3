@@ -1,0 +1,13 @@
+
+
+
+
+[source,shell]
+----
+jcmd $PID GC.class_histogram filename={file-path}
+# 手动触发gc
+jcmd $PID GC.run
+----
+
+
+

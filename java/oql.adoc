@@ -200,7 +200,7 @@ https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Fdoc
 
 
 
- 
+
 
 
 
@@ -248,6 +248,11 @@ SELECT * FROM INSTANCEOF java.lang.ClassLoader
 -- 比如下面的查询仅仅有一个结果，因为 java.lang.String 是jdk自带的，只被加载一次。
 SELECT * FROM OBJECTS java.lang.String
 SELECT * FROM OBJECTS "^org\.springframework\.context\.support\.Abstract.*"
+
+select distinct objects s.@clazz.@classLoaderId from ch.qos.logback.classic.AsyncAppender s
+
+
+
 
 -- 按照对象地址查询
 SELECT * FROM OBJECTS 0x6b4c5e658
@@ -316,6 +321,11 @@ SELECT * FROM OBJECTS ${snapshot}.@GCRoots s
 -- 根据单个对象id查询 GCRootInfo的类型（2048=UNREACHABLE）
 SELECT t.@type FROM OBJECTS ${snapshot}.getGCRootInfo(1853404) t
 
+-- 查询出 特定java类型的 GCROOT
+SELECT a
+FROM OBJECTS ( SELECT OBJECTS s FROM OBJECTS ${snapshot}.@GCRoots s  ) a
+WHERE (a.@clazz.@name = "java.util.HashMap$Node")
+
 
 -- ========================== 模拟 LIMIT,OFFSET
 
@@ -373,6 +383,7 @@ FROM OBJECTS ( eval(
 )
 )) z
 
+
 -- 按照 类名 统计 GCROOT的数量
 SELECT
     z.clazzName         AS clazzName,
@@ -393,6 +404,42 @@ FROM OBJECTS ( eval(
 )
 )) z
 
+/*
+unreachable ：java.util.HashMap$Node 中 key 的 class 和数量
+*/
+SELECT
+    z.keyClassName      AS keyClassName,
+    z.objs              AS objs,
+    z.objs.@length      AS count
+FROM OBJECTS ( eval(
+(
+
+select
+  c.keyClassName as keyClassName,
+  (
+   SELECT OBJECTS a
+	  FROM OBJECTS ( SELECT OBJECTS s FROM OBJECTS ${snapshot}.@GCRoots s  ) a
+    WHERE (a.@clazz.@name = "java.util.HashMap$Node")
+    AND a.key.@clazz.@name = c.keyClassName
+  ) as objs
+from objects (
+  SELECT DISTINCT a.key.@clazz.@name as keyClassName
+	FROM OBJECTS ( SELECT OBJECTS s FROM OBJECTS ${snapshot}.@GCRoots s  ) a
+  WHERE (a.@clazz.@name = "java.util.HashMap$Node")
+) c
+
+)
+)) z
+
+/*
+GCRoot 的 java.util.HashMap$Node 只能看到其引用的对象，看不到 谁曾创建/应用这些对象。
+故需要 从 非GCROOT 的对象里找。
+*/
+select *
+from java.util.HashMap$Node n
+where n.@GCRootInfo = null
+and n.key.@clazz.@name = "java.util.concurrent.ThreadPoolExecutor$Worker"
+
 
 -- ========================== 模拟 CROSS JOIN
 
@@ -411,6 +458,18 @@ FROM OBJECTS (
         ${snapshot}.getGCRootInfo(r) AS lv
     FROM OBJECTS ${snapshot}.@GCRoots r
 ) a
+;
+
+-- 类似 IN 操作符
+SELECT
+    objects a.rv
+FROM OBJECTS (
+    SELECT
+        classLoader AS rv,
+        (select appender from ch.qos.logback.classic.AsyncAppender appender where appender.@clazz.@classLoaderId = classLoader.@objectId) AS lv
+    FROM com.alibaba.security.mtee.bundle.framework.core.loader.JiugongBundleClassLoader classLoader
+) a
+where a.lv != null
 
 
 ----
@@ -509,10 +568,14 @@ SELECT s.@clazz.@name FROM INSTANCEOF org.springframework.context.support.Abstra
 |snapshot
 |包含当前对象的 snapshot, 也可以用 `+${snapshot}+` 表示
 
-| Class 对象
-| IClass
+.2+| Class 对象
+.2+| IClass
 | classLoaderId
-| classLaoder 的 ID
+| classLoader 的 ID (对应于IObject#objectId)
+
+| classLoaderAddress
+| classLoader 对象实例的地址 (对应于IObject#objectAddress)
+
 
 | 任意数组
 | IArray

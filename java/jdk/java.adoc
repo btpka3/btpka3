@@ -1,0 +1,25 @@
+
+
+
+[source,shell]
+----
+# 列出 通过 `-X` 设置的选项
+java -X
+
+# 列出通过 `-XX:` 设置非标选项
+java -XX:+PrintFlagsFinal > /tmp/jvm_options.txt
+grep LogCompilation /tmp/jvm_options.txt        # 不显示
+# 检查特定选项是否支持
+java -XX:+LogCompilation -version
+
+
+# 列出通过 `-XX:` 设置非标选项，且解锁诊断相关的选项， 比如:   `-XX:+PrintCompilation`
+java -XX:+UnlockDiagnosticVMOptions -XX:+PrintFlagsFinal  > /tmp/jvm_options2.txt
+grep LogCompilation /tmp/jvm_options2.txt      # 显示
+java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -version
+
+# 列出开启 `-XX:+UnlockDiagnosticVMOptions` 后新增的可用选项
+diff --unchanged-line-format='' --old-line-format='' --new-line-format='%L'  /tmp/jvm_options.txt /tmp/jvm_options2.txt
+grep diagnostic /tmp/jvm_options2.txt
+
+----

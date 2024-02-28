@@ -1,0 +1,13 @@
+* https://openjfx.cn/
+* javafx theme
+    * [.line-through]#link:https://guigarage.com/aerofx/[aerofx]#
+    * [.line-through]#link:https://github.com/guigarage/AquaFX[AquaFX]#
+    * [.line-through]#link:https://guigarage.com/flatter/[AquaFX]#
+    * [.line-through]#link:https://github.com/JFXtras/jfxtras-styles[jfxtras-styles]#
+    * [.line-through]#link:https://guigarage.com/flatter/[AquaFX]#
+    * https://github.com/palexdev/MaterialFX
+
+
+
+
+

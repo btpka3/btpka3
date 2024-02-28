@@ -6,7 +6,7 @@ when(userDao.queryUserInfo(any()))
         .thenReturn("mockReturnForFistSecondCall"); // 第二次调用的模拟返回
 
 when(userDao.queryUserInfo(any()))
-        .thenReturn("mockReturnForFirstCall", "mockReturnForFistSecondCall") 
+        .thenReturn("mockReturnForFirstCall", "mockReturnForFistSecondCall")
 
 when(someMock.someMethod())
     .thenAnswer(new Answer() {
@@ -18,7 +18,7 @@ when(someMock.someMethod())
         }
         return 2;
     });
-    
+
 doReturn(null).when(rulerService)
             .queryPunishRecordPreCheck(any())
 doNothing()
@@ -27,7 +27,7 @@ doNothing()
 
 
 verify(
-    myObject, 
+    myObject,
     times(n)        // never()/times(n)/atLeastOnce()/astLeast(n)/atMost(n)/only()
 )
     .someMethod()
@@ -45,3 +45,9 @@ org.springframework.test.util.ReflectionTestUtils.setField(
     dictEventMappingDao
 );
 ```
+
+
+## powermock
+
+传言powermock 影响测试覆盖率的统计，我实际使用下来没有遇到，gpt给的方式是加入 `@PowerMockIgnore("org.jacoco.agent.rt.*")` 防止powermock 增强jacoco导致统计问题
+

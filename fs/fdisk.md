@@ -15,6 +15,7 @@ du -h -d 1 \
     --exclude=/var/lib/docker/devicemapper \
     --exclude=/var/lib/docker/containers \
     /
+du -h --max-depth=1|sort -h -r
 ```
 
 ## df

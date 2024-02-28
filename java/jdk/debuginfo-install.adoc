@@ -1,0 +1,24 @@
+
+
+https://man7.org/linux/man-pages/man1/debuginfo-install.1.html[debuginfo-install]
+
+fedora : https://packages.fedoraproject.org/pkgs/java-1.8.0-openjdk/[java-1.8.0-openjdk]
+
+[source,shell]
+----
+# 通过gdb 命令校验 debug info 是否可用
+# 可用: Symbol "UseG1GC" is at 0x1966419 in a file compiled without debugging.
+# 不可用: No symbol "UseG1GC" in current context
+yum provides /usr/bin/gdb
+sudo yum install gdb
+gdb $JAVA_HOME/lib/server/libjvm.so -ex 'info address UseG1GC' -ex quit
+
+# 如果 debug info 不可用，则需要参考对应的操作系统去安装，下面的这个是 centOS 的
+# 检查 debuginfo-install 命令的完整路径
+which debuginfo-install
+# 检查 debuginfo-install 是哪个软件包提供的：yum-utils
+rpm -qf /usr/bin/debuginfo-install
+sudo debuginfo-install java-1.8.0-openjdk
+----
+
+

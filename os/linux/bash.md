@@ -2,12 +2,34 @@
 
 ## grep
 
+
+```plain
+              等价于            含义
+[[:alnum:]]   [0-9a-zA-Z]      字符和数字
+[[:alpha:]]   [a-zA-Z]         字符
+[[:blank:]]                     空白，制表符
+[[:digit:]]   [0-9]
+[[:lower:]]   [a-z]
+[[:punct:]]   [^a-zA-Z0-9]
+[[:upper:]]   [A-Z]
+[[:xdigit:]]  [0-9a-fA-F]
 ```
+
+```shell
 # 查找出不匹配 "xxx" 和 "yyy" 的内容
 grep -v "xxx\|yyy"
 find /data0/work/git-repo/github/btpka3/btpka3.github.com -type d \
     | grep -v 'node_modules\|bower_components\|jspm_packages\|target\|/.git\|/.gradle\|/build\|/.idea\|/site-packages' \
     | less
+
+grep -E "^[[:blank:]]*[[:digit:]]+[[:blank:]]+.*$"
+
+     58    1       3       java.lang.StringLatin1::hashCode (42 bytes)
+     62    2       3       java.lang.String::isLatin1 (19 bytes)
+     62    3       3       java.lang.Object::<init> (1 bytes)
+     64    4     n 0       java.lang.invoke.MethodHandle::linkToStatic(LLLLLLL)L (native)   (static)
+     65    5     n 0       java.lang.invoke.MethodHandle::linkToStatic(LL)L (native)   (static)
+
 ```
 
 ## zipgrep
@@ -270,6 +292,63 @@ ekv=$(escSedRegVal "$kv")
 echo "$target" | sed -r "s/^([[:space:]]*$ekk[[:space:]]*=).*$/\1$ekv/g"
 ```
 
+## math
+[https://www.gnu.org/software/bash/manual/bash.html#Shell-Arithmetic](Shell Arithmetic)
+
+需要使用 `((` 命令 （内建的let命令）
+
+
+
+```shell
+id++ id--
+++id --id
+-       # 减
++       # 加
+!       # 逻辑取反
+~       # bit 取反
+*       # 乘
+/       # 除
+%       # 取模
+<<      # bit 左移位
+>>      # bit 右移位
+<=      # 小于等于
+>=      # 大于等于
+<       # 小于
+>       # 大于
+==      # 相等
+!=      # 不等
+&       # bit 与
+^       # bit 异或
+|       # bit 或
+&&      # 逻辑 且
+||      # 逻辑 或
+expr ? expr : expr  # 问号表达式
+= *= /= %= += -= <<= >>= &= ^= |=    # 赋值
+expr1 , expr2  # 多个表达式
+
+num1=100
+num2=$(( num1 ++ ))
+echo $num1 $num2            # 101 100
+
+num1=100
+num2=$(( ++ num1))
+echo $num1 $num2            # 101 101
+
+num1=100
+num2=200
+echo $(( num1+num2 ))       # 300
+
+num1=100.1
+num2=200.2
+echo $(( num1+num2 ))       # 报错
+
+
+
+
+```
+
+
+
 ## Shell Parameter Expansion
 https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
 
@@ -465,15 +544,19 @@ EOF
 ```
 
 ## date
-设置时间
+
 
 ```bash
+# 设置时间
 date -s "20150130 10:45:00"
 
-date --date="Wed Nov 22 18:33:54 2023" '+%s'                    # 转换时间为unix 时间戳
-date --date="Wed Nov 22 18:33:54 2023" '+%Y-%m-%d.%H:%M:%S'     # 转换成给定格式
 
+date --date="Wed Nov 22 18:33:54 2023" '+%s'                    # 转换时间为unix 时间戳
+date --date="@1700649234"  '+%Y-%m-%d %H:%M:%S'                 # unix 时间戳 -> 给定格式
+date --date="Wed Nov 22 18:33:54 2023" '+%Y-%m-%d %H:%M:%S'     # 转换成给定格式
+date --date="2023-11-22 18:33:54"
 ```
+
 循环打印当前时间
 
 ```bash
@@ -531,6 +614,15 @@ ll -h --time=atime --full-time -rt core*
 
 # 按照文件大小
 ll -S
+
+# 按文件修改时间
+stat -c $'%y\t%F\t%n' * | grep "regular file" | sort -n |  head -n -3
+stat -c $'%y\t%F\t%n' * | grep "directory" | sort -n |  head -n -3
+
+# 清理文件：只保留最后修改的3个目录
+rm -f $(stat -c $'%y\t%F\t%n' * | grep "regular file" | sort -n |  head -n -3 | awk '{print $6}')
+# 清理目录：只保留最后修改的3个目录
+rm -fr $(stat -c $'%y\t%F\t%n' * | grep "directory" | sort -n |  head -n -3 | awk '{print $5}')
 ```
 
 ## pipe
@@ -552,7 +644,7 @@ ps -ww -fp $PID # 打印完整命令行参数
 
 ps -ef | grep defunct
 
-ps -p 182454 -o lstart=   # 输出启动时间，示例输出: "Wed Nov 22 18:33:54 2023"
+ps -p 182454 -o lstart=   # 输出启动时间，示例输出: "Wed Nov 22 18:33:54 2023" , 后跟个等号就不会输出标题行
 ```
 [What is a <defunct> process, and why doesn't it get killed?](https://askubuntu.com/questions/201303/what-is-a-defunct-process-and-why-doesnt-it-get-killed)
 如果 ps 的输出结果中有 '<defunct>' 字样, 是说这些进程已经 completed、corrupted 或者 killed。
@@ -575,10 +667,13 @@ cat newFilePrefix.* > singleFile
 
 ### zip
 ```bash
-  zip -r file.zip file1 file2 ...
+  zip -r file.zip file1 file2 ... -x someFileToExclude @
+  zip -r file.zip xxxDir -x xxxDir/dir1/\* xxxDir/dir2/\* @
   tar -cvf file.tar file1 file2 ...
   tar -czvf file.tar.gz file1 file2 ...
   tar -cjvf file.tar.bz2 file1 file2 ...
+  gzip file.txt   # 生成 file.txt.gz
+
 
   # 分割
   tar -czvf - logs/ |split -b 1m - logs.tar.gz.
@@ -621,11 +716,13 @@ cat newFilePrefix.* > singleFile
   tar -xzvf file.tar.gz   -C outputDir # outputDir 必须先创建
   tar -xjvf file.tar.bz2  -C outputdir # outputDir 必须先创建
   tar -xJvf file.tar.xz   -C outputdir # outputDir 必须先创建
+  gzip -d file.txt.gz     # 生成 file.txt
 
   rar x xxx.rar /path/to/extract
 
   # 解压分割的多个文件
   cat newFilePrefix.* | tar -xzvf -C outputDir
+
 ```
 #### 解压特定的文件
 
@@ -668,6 +765,13 @@ EOF
 ### File Search
 ```bash
   which someExecutableFile # 从环境变量下查找可执行的文件位置
+
+
+# 查询哪个目录占用磁盘最大
+du -h -d 1 /home/admin/logs | sort -h -k1 -r | head -n 20
+
+# 按照文件的大小排序
+find . -type f |xargs ls -l -h | sort -b -h -k5
 
   # 遍历磁盘，按指定规则查找文件
   find / -name xxx 2>/dev/null
@@ -1176,4 +1280,17 @@ done
 if [ "$fname" = "a.txt" ] || [ "$fname" = "c.txt" ] ; then
   # ...
 fi
+```
+
+
+## head
+
+```bash
+cat <<EOF | head -n -2
+aaa
+bbb
+ccc
+ddd
+eee
+EOF
 ```

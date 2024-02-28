@@ -36,8 +36,8 @@ jstat -options
 
 
 ```bash
-jstat -class 22423 
-Loaded Bytes  Unloaded    Bytes       Time   
+jstat -class 22423
+Loaded Bytes  Unloaded    Bytes       Time
  12621 22686.5      121   180.3       9.51
 
 :<<EOF
@@ -53,7 +53,7 @@ EOF
 
 ```bash
 jstat -gcutil 17402 1000 5
-  S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT   
+  S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT
   0.00  98.18  78.51  50.33  97.89  95.73     31    0.477     3    0.445    0.922
   0.00  98.18  78.51  50.33  97.89  95.73     31    0.477     3    0.445    0.922
   0.00  98.18  78.51  50.33  97.89  95.73     31    0.477     3    0.445    0.922
@@ -82,7 +82,7 @@ EOF
 
 ```bash
 jstat -gccapacity 22423 1000 5
-NGCMN   NGCMX     NGC     S0C    S1C     EC         OGCMN     OGCMX      OGC        OC           MCMN MCMX       MC         CCSMN CCSMX       CCSC      YGC    FGC 
+NGCMN   NGCMX     NGC     S0C    S1C     EC         OGCMN     OGCMX      OGC        OC           MCMN MCMX       MC         CCSMN CCSMX       CCSC      YGC    FGC
 43648.0 174720.0  43648.0 4352.0 4352.0  34944.0    87424.0   349568.0   110284.0   110284.0      0.0 1107968.0  66764.0      0.0 1048576.0   8652.0    220    28
 43648.0 174720.0  43648.0 4352.0 4352.0  34944.0    87424.0   349568.0   110284.0   110284.0      0.0 1107968.0  66764.0      0.0 1048576.0   8652.0    220    28
 43648.0 174720.0  43648.0 4352.0 4352.0  34944.0    87424.0   349568.0   110284.0   110284.0      0.0 1107968.0  66764.0      0.0 1048576.0   8652.0    220    28
@@ -116,7 +116,7 @@ EOF
 
 ```bash
 jstat -gc 17402 1000 5
- S0C    S1C     S0U      S1U   EC       EU        OC         OU        MC      MU      CCSC   CCSU       YGC   YGCT    FGC    FGCT     GCT   
+ S0C    S1C     S0U      S1U   EC       EU        OC         OU        MC      MU      CCSC   CCSU       YGC   YGCT    FGC    FGCT     GCT
 14848.0 20992.0 14818.5  0.0   365568.0 161780.7  124928.0   62881.5   67840.0 66434.5 8704.0 8332.8     32    0.489   3      0.445    0.934
 14848.0 20992.0 14818.5  0.0   365568.0 161780.7  124928.0   62881.5   67840.0 66434.5 8704.0 8332.8     32    0.489   3      0.445    0.934
 14848.0 20992.0 14818.5  0.0   365568.0 162229.1  124928.0   62881.5   67840.0 66434.5 8704.0 8332.8     32    0.489   3      0.445    0.934
@@ -130,7 +130,7 @@ S0U     - Survivor space 0 已用量（单位:kB)    : 14.5M
 S1U     - Survivor space 1 已用量（单位:kB)    : 0M
 EC      - Eden space 当前容量（单位:kB)        : 257M
 EU      - Eden space 已用容量（单位:kB)        : 158M
-OC      - old space 当前容量（单位:kB)         : 122M    
+OC      - old space 当前容量（单位:kB)         : 122M
 OU      - old space 已用量（单位:kB)           : 61M
 MC      - Metaspace 当前容量（单位:kB)         : 66M
 MU      - Metaspace 已用量（单位:kB)           : 65M
@@ -140,6 +140,9 @@ YGC     - Young GC 次数                       : 32
 YGCT    - Young GC 耗时(单位：秒)              : 0.489秒
 FGC     — Full GC 次数                        : 3
 FGCT    – Full GC 耗时(单位：秒)               : 0.445秒
+CGC     - Concurrent GC Count
+CGCT    - Concurrent GC Collection Time
+
 GCT     — GC 总耗时(单位：秒)                  : 0.934秒
 EOF
 ```

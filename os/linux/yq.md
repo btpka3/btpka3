@@ -5,12 +5,12 @@ https://github.com/mikefarah/yq
 
 
 
-```
-brew install yq
-```
-
 
 ```shell
+# 安装
+brew install yq
+
+
 # 输出所有的 maven profile id
 yq  -o p '.project.profiles.profile[].id' /Users/zll/data0/work/git-repo/ali/ali_security/arm-mbus/mbus-web/pom.xml | sort
 
@@ -32,5 +32,29 @@ yq -o a '.project.parent.version' /Users/zll/data0/work/git-repo/ali/dangqian.zl
 
 ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
 
+```
+
+
+stdin /pipe
+```shell
+# check yq version
+yq -V
+
+# prepare test data
+xml='
+<project>
+  <profiles>
+    <profile><id>aaa</id></profile>
+    <profile><id>bbb</id></profile>
+    <profile><id>ccc</id></profile>
+  </profiles>
+</project>
+'
+echo $xml > /tmp/a.xml
+
+# test 1 :  worked
+echo $xml | yq eval -p xml -o json '.project.profiles.profile[].id'
+# test 2 :  worked
+yq eval -p xml -o json '.project.profiles.profile[].id' < /tmp/a.xml
 ```
 

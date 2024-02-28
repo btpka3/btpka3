@@ -791,3 +791,27 @@ dependencies {
     compile 'org.springframework:spring-core'
 }
 ```
+
+
+
+# 插件开发 / plugin development
+
+- [Developing Custom Gradle Plugins](https://docs.gradle.org/current/userguide/custom_plugins.html)
+
+
+```shell
+# 启动debug :
+# 启用更低级别的日志： --info , --debug
+./gradlew --stop
+./gradlew bootJar -Dorg.gradle.debug=true --no-daemon
+
+# 然后远程 java debug, 端口: 5005
+```
+
+
+# CopySpec
+
+```
+into, into  // 如果使用含 Closure/Action 的参数，将创建一个新的子 CopySpec， 否则直接修改当前 CopySpec 对象
+
+```

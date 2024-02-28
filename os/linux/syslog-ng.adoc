@@ -1,0 +1,61 @@
+
+## 参考
+* Github : https://github.com/syslog-ng/syslog-ng[syslog-ng]
+* https://www.syslog-ng.com/technical-documents/doc/syslog-ng-open-source-edition/3.26/administration-guide[syslog-ng Open Source Edition 3.26 - Administration Guide]
+** https://www.syslog-ng.com/technical-documents/doc/syslog-ng-open-source-edition/3.26/administration-guide/13#TOPIC-1430945[The syslog-ng OSE configuration file]
+
+** https://www.syslog-ng.com/technical-documents/doc/syslog-ng-open-source-edition/3.26/administration-guide/59#TOPIC-1431131[Filter Functions] , 比如 : facility, filter
+
+* https://www.syslog-ng.com/[syslog-ng] : 已废弃
+* The BSD syslog Protocol : https://datatracker.ietf.org/doc/html/rfc3164[RFC3164]
+* The Syslog Protocol : https://datatracker.ietf.org/doc/html/rfc5424[RFC5424]
+
+
+## 启动服务
+
+[source,shell]
+----
+# 安装
+yum install -y syslog-ng
+# 查看可以使用的模块
+syslog-ng --version
+man syslog-ng
+man 5 syslog-ng.conf
+rpm -ql syslog-ng
+#less /usr/local/etc/syslog-ng.conf
+ls -l /etc/syslog-ng/
+less /etc/syslog-ng/syslog-ng.conf
+
+# 检查运行状态
+systemctl status syslog-ng
+less /usr/lib/systemd/system/syslog-ng.service
+sudo journalctl -u syslog-ng
+
+#
+sudo less /var/log/messages
+
+#
+man logger
+----
+
+
+
+## 打印日志
+
+https://www.syslog-ng.com/technical-documents/doc/syslog-ng-open-source-edition/3.26/administration-guide/17#TOPIC-1430961[Logging from your Python code]
+### python
+
+[source,python]
+----
+import syslogng
+logger = syslogng.Logger()
+logger.info("This is a sample log message send from the Python code.")
+----
+
+对应的 syslog-ng 的示例配置:
+[source,text]
+----
+source s_internal { internal(); };
+destination d_internal { file("/var/log/internal.txt"); };
+log {source(s_internal); destination(d_internal); };
+----

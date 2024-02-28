@@ -166,7 +166,12 @@ git commit -m "first commit"
 
 # 将本地设置为跟踪远程服务器
 git remote add origin git@newcrm.nalashop.com:~/web/lizi-tmp
-git push --set-upstream origin master
+git push --set-upstream origin master    # 注意: 会更改今后push 默认的 upstream
+# 将本地分支push到远程，不影响 今后push 默认的 upstream
+git push -u origin branch_aaa:master
+
+
+
 
 # 删除
 git rm README
@@ -207,6 +212,11 @@ git remote set-url origin git@new-host:new-url
 git remote show
 git remote rm origin
 git push -u origin master:master  # 第一个master是本地分支，第二个master是远程分支
+
+git fetch --all -v
+git merge xxxRemote/feature/mtee-exception --allow-unrelated-histories
+
+
 
 # 重命名
 git remote rename origin xx
@@ -382,7 +392,7 @@ git reflog --pretty=full
 git cherry-pick 12944d8
 
 # 直接检出给定分支的文件到本地
-git restore --source 71b291db537caaacae3433e86a16f2be7fc8a26f . 
+git restore --source 71b291db537caaacae3433e86a16f2be7fc8a26f .
 ```
 
 # 清理本地空间

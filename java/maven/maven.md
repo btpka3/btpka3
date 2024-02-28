@@ -277,7 +277,27 @@ Q2: SignatureBuilder 如何校验的？
 </build>
 ```
 
+# maven-deploy-plugin
 
+```shell
+# 发布 单个jar包到给定的 maven 仓库
+# 注意：`-DrepositoryId` 的是 ${HOME}/.m2/settings.xml 中 `settings/servers/server` 下的id，
+#      用来找到上传文件时的认证授权信息。
+mvn deploy:deploy-file \
+    -Durl=file://C:\m2-repo \
+    -DrepositoryId=some.id \
+    -Dfile=your-artifact-1.0.jar \
+    [-DpomFile=your-pom.xml] \
+    [-DgroupId=org.some.group] \
+    [-DartifactId=your-artifact] \
+    [-Dversion=1.0] \
+    [-Dpackaging=jar] \
+    [-Dclassifier=test] \
+    [-DgeneratePom=true] \
+    [-DgeneratePom.description="My Project Description"] \
+    [-DrepositoryLayout=legacy] \
+    [-DuniqueVersion=false]
+```
 
 
 
@@ -787,6 +807,8 @@ java.lang.NullPointerException
 
 # MAVEN_OPTS
 
+增加 maven jvm 内存：
+
 -Xmx2048m -XX:MaxPermSize=1G
 export MAVEN_OPTS="-Xms2048m -Xmx2048m"
 
@@ -801,6 +823,11 @@ export MAVEN_OPTS="-Xms2048m -Xmx2048m"
           <maxmem>512m</maxmem>
         </configuration>
       </plugin>
+```
+
+
+```shell
+MAVEN_OPTS="-Xms512M -Xmx1024M -Xss2M -XX:MaxMetaspaceSize=1024M" mvn -Dmaven.test.skip=true clean package
 ```
 
 

@@ -1,0 +1,9 @@
+
+* link:https://github.com/alibaba/QLExpress[alibaba/QLExpress]
+* link:http://fnil.net/aviator/[Aviator]
+** 《link:https://www.yuque.com/boyan-avfmj/aviatorscript/cpow90[AviatorScript 编程指南]》
+
+* link:https://github.com/laiweiwei/fel[fel], 已超10年不更新了。
+* link:https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/expressions.html[spring expression language]
+* link:https://janino-compiler.github.io/janino/[janino library] : logback 动态配置用该功能
+* link:https://commons.apache.org/dormant/commons-ognl/[Apache OGNL]

@@ -3,14 +3,38 @@
 - 找类: 优先从父 classLoader 找
 - 加载: 优先从父 classLoader 加载，加载不到再从自己找
 
+# class lifecycle
+https://www.artima.com/insidejvm/ed2/lifetype.html
+
+```plain
+loading-> linking-> initialization->unloading.
+在使用一个class前，需要以下步骤都完成，每个步骤都会申请内存：
+1. The classes bytecodes need to be loaded and linked to resolve any static dependencies on other classes.
+    - loading : 将字节码从外部（比如磁盘上）加载到 JVM 内存中.
+    - linking : 将字节码数据与JVM运行态数据 merge。 又细拆分成以下几个步骤:
+        - verification
+        - preparation
+        - resolution 
+1. The class needs to be initialized.
+1. An instance of the class needs to be created.
+```
+
+
+
 # 通用
 
 ```plain
+# JDK8
+bootstrap class loader                  # null : 加载 jvm核心类，比如 ${JRE_HOME}/lib/ 下的 jar，比如：rt.jar,resoures.jar, charasets.jar 等
+  - sun.misc.Launcher$ExtClassLoader    # 加载 ${JRE_HOME}/lib/ext/ 下的 jar 包
+    - sun.misc.Launcher$AppClassLoader  # 加载当前classPath下所有类
 
-BootstrapClassLoader            # 加载 jvm核心类，比如 ${JRE_HOME}/lib/ 下的 jar，比如：rt.jar,resoures.jar, charasets.jar 等
-  - ExtentionClassLoader        # 加载 ${JRE_HOME}/lib/ext/ 下的 jar 包
-    - ApplicationclassLoader    # 加载当前classPath下所有类
+# JDK9
+bootstrap class loader
+  - jdk.internal.loader.ClassLoaders$PlatformClassLoade
+    - jdk.internal.loader.ClassLoaders$AppClassLoader
 
+jdk.internal.loader.ClassLoaders$AppClassLoader
 ```
 
 # tomcat

@@ -231,6 +231,10 @@ DefaultInstance=
 # journalctl
 
 ```bash
+# 跳转到末尾
+# journalctl 使用 less 作为内容读取工具，故可以使用 -e （less 的参数）直接跳转到末尾
+journalctl -e
+
 # Displaying Logs from the Current Boot
 journalctl -b
 

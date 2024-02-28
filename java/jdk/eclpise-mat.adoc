@@ -24,6 +24,7 @@ vi /Applications/mat.app/Contents/Eclipse/MemoryAnalyzer.ini
 
 分析一个 hprof dump 文件之后：
 
+* 数据库图标 : Java Basics : GC Roots
 * 数据库图标 : Java Basics : Unreachable Objects Histogram
 
 

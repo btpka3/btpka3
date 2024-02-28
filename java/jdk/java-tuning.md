@@ -227,32 +227,6 @@ HPROF or jhat
 http://publib.boulder.ibm.com/infocenter/realtime/v2r0/index.jsp?topic=%2Fcom.ibm.rt.doc.20%2Frealtime%2Fdiagnose_oom.html
 
 
-# jstack
-
-
-[show-busy-java-threads](https://raw.githubusercontent.com/oldratlee/useful-scripts/master/show-busy-java-threads)
-
-Java 线程 CPU 100% 对应方法
-
-```bash
-jstack pid
-
-# 找到所需的 Java 进程的 pid1。
-jps -mlv
-
-# 观则得到最占 CPU 的线程的 pid2。
-top -Hp pid1 -H                   # ps -Lp 15047  cu
-
-# 显示线程ID 的十六进制的值  xxx
-printf %x 212155
-
-# 导出 java 线程信息
-jstack pid1 > /tmp/cpu.log
-
-# 找出线程进行的上线文，并分析原因
-grep xxx -A 200 /tmp/cpu.log
-```
-
 
 # StackOverflowError
 
@@ -642,3 +616,15 @@ HAT
 [How to get full stack of StackOverflowError](https://stackoverflow.com/questions/5165753/how-to-get-full-stack-of-stackoverflowerror)
 JVM 一般只允许从异常中获取 1024 条堆栈entry，但遇到 StackOverflowError，常常无法定位报错的地方。
 可以通过 非标 JVM 开关 `-XX:MaxJavaStackTraceDepth=1000000` 来增加允许的数量，而 0，负数含义则不尽相同。
+
+
+
+《[全网最硬核 JVM TLAB 分析（单篇版不包含额外加菜）](https://zhuanlan.zhihu.com/p/349173209)》
+
+
+
+#  java.security.ProtectionDomain
+
+```
+ognl -c 4de73afb '@org.springframework.context.ApplicationContext@class.getProtectionDomain0()'
+ognl '@java.lang.Class@allPermDomain'```

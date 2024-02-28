@@ -1,5 +1,9 @@
 
 
+- [OpenAPI Specification v3.1.0](https://spec.openapis.org/oas/v3.1.0)
+- [springdoc-openapi](https://springdoc.org/)
+
+
 #swagger
 
 [swagger](http://swagger.io) 定了一个类似 WSDL (描述 基于SOAP/XML格式的

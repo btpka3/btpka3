@@ -1,0 +1,386 @@
+
+
+## 名词解释
+- JMC：Java Mission Control
+- JFR：Java Flight Recorder
+
+* 《link:https://www.baeldung.com/java-flight-recorder-monitoring[Monitoring Java Applications with Flight Recorder]》
+* github : https://github.com/gradle/jfr-polyfill[gradle/jfr-polyfill]
+* jmc 相关的 github : https://github.com/thegreystone
+* link:https://docs.oracle.com/en/java/javase/17/jfapi/creating-and-recording-your-first-event.html[Creating and Recording Your First Event]
+* link:https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/memleaks001.html[3.1 Debug a Memory Leak Using Java Flight Recorder]
+* link:https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/tooldescr004.html[2.4 How to Produce a Flight Recording]
+
+
+## 启动时直接输出
+
+[source,shell]
+----
+# 1. JVM 参数中追加以下配置
+# -XX:+UnlockCommercialFeatures
+# -XX:+EnableJFR                            # 已过期，不再推荐使用，但使用也无妨
+-XX:+FlightRecorder
+-XX:FlightRecorderOptions=stackdepth=256
+-XX:StartFlightRecording=<opt>=<val>        # 除了name,duration,filename外, 其他选项不推荐设置
+
+# jdk8
+java -XX:+UnlockCommercialFeatures -XX:+FlightRecorder -XX:StartFlightRecording=delay=20s,duration=60s,name=myrecording,filename=/tmp/aaa.jfr,settings=profile MyApp
+# jdk11
+java -XX:+FlightRecorder -XX:FlightRecorderOptions=stackdepth=256 -XX:StartFlightRecording=delay=20s,duration=60s,name=myrecording,filename=/tmp/aaa.jfr,settings=profile MyApp
+----
+
+## attach 启用步骤
+
+[source,shell]
+----
+
+# 其选项与FlightRecorderOptions一致， (注意此处大小不能使用单位, 如m,g, 必须换算成对应的字节数)
+jcmd $PID JFR.configure
+
+# 2. 启动 jfr,
+# 其选项与 StartFlightRecording 一致， (注意此处大小不能使用单位, 如m,g, 必须换算成对应的字节数)
+jcmd $PID JFR.start name=abc duration=60s
+jcmd $PID JFR.start duration=60s filename=/tmp/aaa.jfr  # 如果指定了 filename, 则边监控，边输出
+
+# 4. 检查 jfr 状态
+jcmd $PID JFR.check              # 查看所有
+jcmd $PID JFR.check name=abc
+
+# 5. 提前停止 jfr ，如果指定了filename 则还会输出到指定的文件
+jcmd $PID JFR.stop name=abc filename=/tmp/abc.jfr
+
+# 3. 如果前面的 JFR.start/JFR.stop 未指定 filename 参数 ，可以在停止之后用该命令 dump 到给定文件。
+jcmd $PID JFR.dump name=abc filename=/tmp/abc.jfr
+
+
+
+
+# 6. 通过 jmc 分析 dump 出来的 jfr 文件
+sdk install jmc
+jmc -help -exit
+jmc -help open -exit
+jmc open /tmp/aaa.jfr
+----
+
+
+## FlightRecorderOptions
+
+.FlightRecorderOptions 选项
+[cols="1,1,1"]
+|===
+|选项|描述|默认值
+
+|repository
+|仓储位置
+|NULL
+
+|threadbuffersize
+|线程buffer大小
+|8k
+
+|memorysize
+|JFR使用的内存大小
+|10m
+
+|globalbuffersize
+|全局buffer的大小
+|512k
+
+|numglobalbuffers
+|全局buffer的数量
+|20
+
+|maxchunksize
+|一个chunk的最大size
+|12m
+
+|old-object-queue-size
+|跟踪对象的队列大小
+|256
+
+|samplethreads
+|是否开启线程采样
+|true
+
+|stackdepth
+|爬栈时栈的最大深度, 最小值1,最大值2048
+|64
+
+|retransform
+|对event class, 是否进行instrumentation
+|true
+
+|===
+
+
+.StartFlightRecording 选项
+
+[cols="1,1,1"]
+|===
+|选项|描述|默认值
+
+|name
+|一次记录的名称, 例如 My Recording, 不能是纯数字
+|若不指定, 内部会为这次Recording生成一个名字, 如Recording-<id>
+
+|settings
+|settings文件, 以.jfc结尾
+可以是全路径, 也可以是profile或者default这两个值, 代表${java.home}/lib/jfr目录下的profile.jfc和default.jfc文件
+|default
+
+
+|delay
+|延迟启动, 例如 10s,10m或1h
+|0
+
+|duration
+|持续时间, 例如 120s,20m或者1h
+|0
+
+|filename
+|记录结果文件名, 例如 /home/admin/jfr.log
+|NULL
+
+|disk
+|记录结果是否持久化到磁盘
+|false
+
+|maxage
+|在磁盘上保留多久, 例如: 支持秒(s),分钟(m), 小时(h), 天(d)
+|0 - unlimited
+
+|maxsize
+|记录在磁盘上数据的最大大小
+|0 - unlimited
+
+|dumponexit
+|在jvm shutdown的时候进行运行记录的dump
+|false
+
+|path-to-gc-roots
+|收集到gc roots的路径
+|false
+
+|===
+
+## JFR.start 选项
+[cols="1,1,1"]
+|===
+|选项|描述|默认值
+
+|name
+|记录的名称
+|NULL
+
+|filename
+|转储文件名
+|用户必须指定
+
+|path-to-gc-roots
+|是否收集到GC roots的路径
+|false
+|===
+
+
+## JFR.check 选项
+
+
+[cols="1,1,1"]
+|===
+|选项|描述|默认值
+
+|name
+|记录的名称
+|NULL
+
+|verbose
+|是否输出settings
+|false
+
+|===
+
+## JFR.configure 选项
+
+
+[cols="1,1,1"]
+|===
+|选项|描述|默认值
+
+|name
+|记录的名称或ID
+|用户必须指定
+
+|filename
+|转储文件名
+|用户必须指定
+
+|===
+
+
+## 通过JMX动态控制JFR
+
+[source,java]
+----
+import java.lang.management.ManagementFactory;
+
+import javax.management.MBeanServerConnection;
+import javax.management.remote.JMXConnectorFactory;
+import javax.management.remote.JMXServiceURL;
+
+import jdk.management.jfr.FlightRecorderMXBean;
+
+/**
+ * 目标机器启动参数需要增加-XX:+EnableJFR, 同时开启remote jmx
+ * 更细节的内容请参考API
+ */
+public class CTRLByJMXDemo {
+    public static void main (String args[]) throws Exception {
+        JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://127.0.0.1:9981/jmxrmi");
+        MBeanServerConnection connection = JMXConnectorFactory.connect(url, null)
+            .getMBeanServerConnection();
+        FlightRecorderMXBean mxBean = ManagementFactory.newPlatformMXBeanProxy(connection,
+            FlightRecorderMXBean.MXBEAN_NAME, FlightRecorderMXBean.class);
+        long recordingId = mxBean.newRecording();
+        mxBean.startRecording(recordingId);
+        mxBean.stopRecording(recordingId);
+    }
+}
+----
+
+
+## API
+### 通过API记录JFR
+
+[source,java]
+----
+import jdk.jfr.Configuration;
+import jdk.jfr.Recording;
+
+/**
+ * java -XX:+EnableJFR RecordingDemo
+ */
+public class RecordingDemo {
+    public static void main(String[] args) throws Exception {
+        // 使用${java.home}/jre/lib/jfr/default.jfc配置
+        Configuration c = Configuration.getConfiguration("default");
+        // 创建一次Recording, 开始后结束
+        Recording r = new Recording(c);
+        r.start();
+        r.stop();
+    }
+}
+----
+
+### 自定义事件
+
+* instant event
+* duration event
+* sample event
+
+
+
+
+
+
+[source,java]
+----
+import jdk.jfr.Event;
+import jdk.jfr.Enabled;
+import jdk.jfr.Registered;
+import jdk.jfr.StackTrace;
+
+// 默认不开启
+@Enabled(false)
+// 不记录栈信息
+@StackTrace(false)
+@Registered(true)
+public class MyEvent extends Event {
+    public String info;
+}
+----
+
+自定义事件的字段允许一下类型:
+* byte
+* short
+* int
+* long
+* float
+* double
+* char
+* boolean
+* java.lang.String, which may be null
+* java.lang.Thread, which may be null
+* java.lang.Class, which may be null
+
+
+### 消费事件
+
+
+[source,java]
+----
+public void quickDemo() {
+        Recording r = new Recording();
+        // 启用事件, 并获取栈信息
+        r.enable(MyEvent.class).withStackTrace();
+        r.start();
+        {
+            MyEvent event1 = new MyEvent();
+            event1.info = "event1 info";
+            event1.commit();
+
+            MyEvent event2 = new MyEvent();
+            event2.info = "event2 info";
+            event2.commit();
+        }
+        r.stop();
+
+        Path path = Files.createTempFile("recording", ".jfr");
+        r.dump(path);
+        List<RecordedEvent> events = RecordingFile.readAllEvents(path);
+        events.forEach(event ->  {
+            // get field value
+            String info = event.getValue("info");
+            System.out.println(info);
+            // stack
+            System.out.println(event.getStackTrace());
+        });
+    }
+----
+
+
+
+link:https://inside.java/2022/04/25/sip48/[Custom JDK Flight Recorder Events - Sip of Java]
+
+创建一个 jfc 文件，来配置启用自定义 JFR event。
+[source,xml]
+----
+<configuration>
+    <event name="com.oracle.jfr.MyEvent">
+        <setting name="enabled">true</setting>
+    </event>
+</configuration>
+----
+
+
+通过 命令行参数，使用 jfc 文件来启用自定义 JFR event。
+[source,shell]
+----
+-XX:StartFlightRecording=event-setting=<event-name>#<setting-name>=<value>
+----
+
+
+## jfr 命令
+
+[source,shell]
+----
+jfr summary recording.jfr
+
+jfr metadata recording.jfr
+
+
+
+# 按照事件 name 过滤
+jfr print --events Hello sm.jfr
+# 按照事件 category 过滤
+jfr print --categories Demonstration sm.jfr
+----

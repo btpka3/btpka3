@@ -1,0 +1,121 @@
+
+
+
+## 参考
+* link:https://flink.apache.org/[apache flink]
+** Application Development
+/ link:https://nightlies.apache.org/flink/flink-docs-release-1.18/docs/dev/table/overview/[Table API & SQL]/
+*** SQL / Queries / link:https://nightlies.apache.org/flink/flink-docs-release-1.18/docs/dev/table/sql/queries/overview/[Overview]
+** Functions / link:https://nightlies.apache.org/flink/flink-docs-release-1.18/docs/dev/table/functions/udfs/#table-functions[User-defined Functions]
+
+* link:https://blog.csdn.net/qq_41982570/article/details/123780773[流计算框架 Flink 与 Storm 的性能对比]
+* link:https://zhuanlan.zhihu.com/p/159036199[Apache 流框架“三剑客” Flink、Spark Streaming、Storm对比分析（一）]
+
+
+
+apache flink : 窗口函数支持较为完善， 支持 Exactly Once 消息投递方式，
+支持 流处理、批处理。
+Flink 可以运行在 YARN 上，与 HDFS 协同工作。
+
+由 java,scala 混合编程实现、核心是 java 编写。
+
+初期的Spark Streaming是通过将数据流转成批(micro-batches)，
+即收集一段时间(time-window)内到达的所有数据，并在其上进行常规批处，
+所以严格意义上，还不能算作流式处理。
+但是Spark从版本开始推出基于 Continuous Processing Mode的 Structured Streaming，
+支持按事件时间处理和端到端的一致性，但是在功能上还有一些缺陷，比如对端到端的exactly-once语义的支持。
+
+弹性分布式数据集 RDD(Resilient Distributed Dattsets)
+
+
+## docker 运行
+
+* link:https://nightlies.apache.org/flink/flink-docs-master/docs/deployment/resource-providers/standalone/docker/[Docker Setup]
+
+
+[source,shell]
+----
+# docker pull docker.io/flink:1.18.1-scala_2.12-java11
+FLINK_TAG=1.18.1-scala_2.12-java11
+FLINK_PROPERTIES="jobmanager.rpc.address: jobmanager"
+docker network create flink-network
+
+docker run \
+    --rm \
+    --env FLINK_PROPERTIES="${FLINK_PROPERTIES}" \
+    --name=jobmanager \
+    --network flink-network \
+    docker.io/flink:${FLINK_TAG} standalone-job \
+    --job-classname com.job.ClassName
+
+docker run \
+    --env FLINK_PROPERTIES="${FLINK_PROPERTIES}" \
+    docker.io/flink:${FLINK_TAG} taskmanager
+----
+
+docker-compose.yaml
+[source,yaml]
+----
+version: "2.2"
+services:
+  jobmanager:
+    image: flink:1.18.1-scala_2.12-java11
+    ports:
+      - "8081:8081"
+    command: standalone-job
+    #command: standalone-job --job-classname com.job.ClassName [--job-id <job id>] [--jars /path/to/artifact1,/path/to/artifact2] [--fromSavepoint /path/to/savepoint] [--allowNonRestoredState] [job arguments]
+    #volumes:
+    #  - /host/path/to/job/artifacts:/opt/flink/usrlib
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        parallelism.default: 2
+
+  taskmanager:
+    image: flink:1.18.1-scala_2.12-java11
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    scale: 1
+    #volumes:
+    #  - /host/path/to/job/artifacts:/opt/flink/usrlib
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 2
+        parallelism.default: 2
+----
+
+启动
+[source,shell]
+----
+docker-compose up
+----
+
+
+浏览器访问web 控制台 : link:http://localhost:8081/#/overview[http://localhost:8081/#/overview]
+
+
+# sql
+
+* link:https://nightlies.apache.org/flink/flink-docs-release-1.18/docs/dev/table/functions/systemfunctions/#collection-functions[System (Built-in) Functions],  重点关注下 【Collection Functions】、【Value Construction Functions】
+
+[source,sql]
+----
+-- #################### array
+CARDINALITY(array)      -- 返回 array 的长度
+array[1]                -- 返回 array 第1个元素的值。注意：下标索引从1开始。
+ELEMENT(array)          -- 返回 array 中唯一的一个元素的值，需要 array 长度为1
+
+-- #################### map
+CARDINALITY(map)        -- 返回 map 的长度(有多少个entry)
+map["key1"]             -- 返回 map 中给定key的值
+
+-- #################### row
+("value1", "value2")                        -- 构建一个 ROW 对象
+ARRAY["value1", "value2"]                   -- 构建一个 ARRAY 对象
+MAP  ["key1", "value1", "key2", "value2"]   -- 构建一个 MAP 对象
+----
+

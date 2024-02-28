@@ -553,7 +553,14 @@ link 示例case:
 - 如果自定义显示文本，也需要使用 link macro 方式：
 https://example.org?q=label:%22Requires%20docs%22[示例]，
 也可对自定义显示文本其进行格式化，比如加速、增加删除线等：
-https://example.org?q=label:%22Requires%20docs%22[*示例*,role=red,window=_blank]，
+https://example.org?q=label:%22Requires%20docs%22[*示例*,role=red,window=_blank],
+- 测试链接到《link:http://test.com[文章标题]》没有空格,此时需要使用 link macro。
+- aaalink:xxx.html[xxx]bbb
+- aaalink:++https://example.org/now_this__link_works.html++[]bbb
+
+
+
+
 
 交叉链接
 
