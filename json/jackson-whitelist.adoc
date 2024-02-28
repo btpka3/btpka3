@@ -3,7 +3,9 @@
 
 ### 使用 Jackson 注解设置输出格式
 
-.Aaa
+先了解 jackson 注解 `@JsonTypeInfo` 不同配置时，输出的 json 的格式。
+
+.Aaa.java
 [source,java]
 ----
 package me.test.first.spring.boot.test.json.a;
@@ -11,7 +13,7 @@ public interface Aaa {
 }
 ----
 
-.A10
+.A10.java
 [source,java]
 ----
 package me.test.first.spring.boot.test.json.b;
@@ -23,7 +25,7 @@ public class A10 implements Aaa{
 }
 ----
 
-.A11
+.A11.java
 [source,java]
 ----
 package me.test.first.spring.boot.test.json.c;
@@ -229,7 +231,9 @@ a|
 ----
 
 注意: 如果使用 `objectMapper.activateDefaultTyping(PolymorphicTypeValidator)`, 默认使用的是 `JsonTypeInfo.Id.CLASS`, `JsonTypeInfo.As.WRAPPER_ARRAY`
+
 如果此时 A11 上注解配置的 不是 该值，就会造成格式不匹配，进而JSON反序列化异常。
+
 故在限定的使用场景下，需要统一使用一种 `JsonTypeInfo.Id.`,`JsonTypeInfo.As` 配置。
 如果既有class上的没有JsonTypeInfo注解，或者主键上与该全局白名单解析配置的不一致，则需要使用 `objectMapper.addMixIn(Class,Classs)` 来统一。
 
