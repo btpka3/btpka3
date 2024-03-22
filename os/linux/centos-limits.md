@@ -17,7 +17,9 @@ echo never > /sys/kernel/mm/transparent_hugepage/defrag
 ```bash
 /home/staragent/plugins/AOL.src/AOL.cur/scripts/salt-call
 ps -o pid,comm,ruid,ruser,euid,euser,fuid,fuser,ouid,ppid -p $$
+ps -o pid,ruid,ruser,euid,euser,fuid,fuser,ouid,ppid,cmd --ppid 1
 ps -o user= -o comm= -o pid= -p $$
+
 
 pstree -aup $$
 pstree -puh $$

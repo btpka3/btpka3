@@ -4,13 +4,21 @@
 - JMC：Java Mission Control
 - JFR：Java Flight Recorder
 
+* link:https://www.oracle.com/java/technologies/jdk-mission-control.html[JDK Mission Control]
 * 《link:https://www.baeldung.com/java-flight-recorder-monitoring[Monitoring Java Applications with Flight Recorder]》
 * github : https://github.com/gradle/jfr-polyfill[gradle/jfr-polyfill]
 * jmc 相关的 github : https://github.com/thegreystone
 * link:https://docs.oracle.com/en/java/javase/17/jfapi/creating-and-recording-your-first-event.html[Creating and Recording Your First Event]
 * link:https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/memleaks001.html[3.1 Debug a Memory Leak Using Java Flight Recorder]
 * link:https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/tooldescr004.html[2.4 How to Produce a Flight Recording]
+* https://www.oracle.com/java/technologies/javase/products-jmc8-downloads.html
 
+## 安装 jmc
+
+[source,shell]
+----
+brew install --cask jdk-mission-control
+----
 
 ## 启动时直接输出
 

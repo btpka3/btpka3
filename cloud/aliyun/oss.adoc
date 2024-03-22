@@ -1,7 +1,11 @@
-https://help.aliyun.com/zh/oss/developer-reference/install-ossutil
 
+link:https://help.aliyun.com/zh/oss/user-guide/enable-transfer-acceleration#concept-1813960[传输加速]
 
-```shell
+## ossutil
+link:https://help.aliyun.com/zh/oss/developer-reference/install-ossutil[ossutil]
+
+[source,shell]
+----
 ossutil help config
 ossutil config  -e oss-cn-beijing.aliyuncs.com -i xxx -k xxx
 cat ~/.ossutilconfig
@@ -14,5 +18,5 @@ accessKeySecret=yyy
 ossutil ls oss://uniface-tmp
 ossutil cp {} oss://uniface-tmp/dangqian.zll/{}
 ossutil cp ww_large_msg.txt oss://content-tmp/dangqian.zll/ww_large_msg.txt
-```
+----
 

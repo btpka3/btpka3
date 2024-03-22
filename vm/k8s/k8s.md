@@ -28,10 +28,14 @@
 - [k3s](https://k3s.io/)
 - [k3d](https://k3d.io/)
 - [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
+- [higress](https://github.com/alibaba/higress)
+- [OpenKruise](https://openkruise.io/docs/user-manuals/cloneset/)
 - [K8S集群内Pod如何与本地网络打通实现debug](https://cloud.tencent.com/developer/article/1836304)
 - [Telepresence](https://github.com/telepresenceio/telepresence)  # 个人开发机与k8s集群网络互联
 - [Ambassador Cloud](https://www.getambassador.io/products/ambassador-cloud)
 - [killercoda](https://killercoda.com/account/membership) # 交互式学习
+- 阿里云
+    - [获取集群KubeConfig并通过kubectl工具连接集群](https://help.aliyun.com/zh/ack/ack-managed-and-ack-dedicated/user-guide/obtain-the-kubeconfig-file-of-a-cluster-and-use-kubectl-to-connect-to-the-cluster?spm=a2c4g.11186623.0.0.33097961DQ7rje)
 
 ```yaml
 # application/deployment.yaml

@@ -1,0 +1,81 @@
+
+
+
+
+## 使用 slf4j+logback
+
+
+### API桥接
+针对依赖的jar包中有使用 log4j1.x, log4j2.x, acl, jul 的情形，将相关API的调用 转到 slf4j 的接口上。
+自身的工程源码中 应仅仅面向slf4j-api 编程，故其他日志框架的二方包应该谁在为runtime
+
+* 应该使用
+** ✅ org.slf4j:jul-to-slf4j:*:*:runtime
+** ✅ org.slf4j:jcl-over-slf4j:*:*:runtime
+** ✅ org.slf4j:log4j-over-slf4j:*:*:runtime
+** ✅ org.apache.logging.log4j:log4j-to-slf4j  (log4j 2.x)
+
+### API
+
+* 应该使用
+** ✅ org.slf4j:slf4j-api
+
+### 实现桥接
+slf4j api 内部将日志输出转为调用其他日志实现框架。
+
+* 应该使用
+** ✅ ch.qos.logback:logback-classic
+
+* 禁止使用
+** ❌ org.slf4j:slf4j-jdk14
+** ❌ org.slf4j:slf4j-jcl
+** ❌ org.slf4j:slf4j-nop
+** ❌ org.slf4j:slf4j-simple
+** ❌ org.slf4j:slf4j-log4j12
+** ❌ org.slf4j:slf4j-reload4j
+
+### 实现
+* 应该使用
+** ✅ ch.qos.logback:logback-core
+** ✅ ch.qos.logback:logback-classic
+
+* 禁用
+** ❌ log4j:log4j
+** ❌ org.apache.logging.log4j:log4j-core
+** ❌ commons-logging:commons-logging
+** ❌ ch.qos.reload4j:reload4j
+
+
+
+## jul 相关配置
+
+logback.xml 配置
+
+[source,xml]
+----
+<configuration>
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+</configuration>
+----
+
+install : 配置的方式 （推荐）
+
+logging.properties 文件示例
+
+[source,java]
+----
+handlers=org.slf4j.bridge.SLF4JBridgeHandler
+----
+
+install : 编程的方式
+
+[source,java]
+----
+static {
+    SLF4JBridgeHandler.removeHandlersForRootLogger();
+    SLF4JBridgeHandler.install();
+}
+----
+

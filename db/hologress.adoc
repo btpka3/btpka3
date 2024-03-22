@@ -1,8 +1,26 @@
 
 * 阿里云: link:https://help.aliyun.com/zh/hologres/product-overview/product-introduction/[实时数仓 Hologres]
+** link:https://help.aliyun.com/zh/hologres/user-guide/instance-types[实例规格概述]
 ** 实时数仓 Hologres/操作指南/开发指南/
 *** link:https://help.aliyun.com/zh/hologres/user-guide/data-types-1[数据类型]
 *** link:https://help.aliyun.com/zh/hologres/user-guide/ddl[DDL]
 *** link:https://help.aliyun.com/zh/hologres/user-guide/dml-and-dql/[DML]
 ** 实时数仓 Hologres/开发参考/SDK参考/link:https://help.aliyun.com/zh/hologres/developer-reference/sdk-for-java[Java SDK参考]
 ** 实时数仓 Hologres/操作指南/连接开发工具/link:https://help.aliyun.com/zh/hologres/user-guide/use-jdbc-to-connect-to-hologres[JDBC]
+* link:https://help.aliyun.com/zh/hologres/user-guide/hologres-source-table[flink:Hologres源表]
+* link:https://help.aliyun.com/zh/hologres/user-guide/data-types?#section-x29-ngb-txf[Blink/Flink与Hologres的数据类型映射]
+
+## create table
+
+
+[source,sql]
+----
+ALTER TABLE IF EXISTS mtee3_exception_2 DROP COLUMN IF EXISTS ds;
+
+-- 删除列
+set hg_experimental_enable_drop_column = on;
+ALTER TABLE IF EXISTS mtee3_exception_2 DROP COLUMN IF EXISTS ds;
+
+
+SELECT to_char(current_timestamp, 'YYYYMMDD');
+----

@@ -13,6 +13,41 @@ github:
 doc
 - [rocketmq](https://rocketmq.apache.org/)
 
+# SDK
+## 旧：remoting api
+
+典型接口：
+- org.apache.rocketmq.client.consumer.DefaultMQPushConsumer
+- org.apache.rocketmq.client.producer.DefaultMQProducer
+
+
+```xml
+<dependency>
+    <groupId>org.apache.rocketmq</groupId>
+    <artifactId>rocketmq-client</artifactId>
+    <version>5.2.0</version>
+</dependency>
+```
+
+[Logging Confituration](https://rocketmq.apache.org/docs/4.x/bestPractice/06log/)
+
+## 新：remoting api
+
+典型接口：
+- org.apache.rocketmq.client.apis.ClientServiceProvider
+- org.apache.rocketmq.client.apis.producer.Producer
+- org.apache.rocketmq.client.apis.ClientServiceProvider
+- org.apache.rocketmq.client.apis.consumer.PushConsumer
+
+
+```xml
+<dependency>
+    <groupId>org.apache.rocketmq</groupId>
+    <artifactId>rocketmq-client-java</artifactId>
+    <version>5.0.6</version>
+</dependency>
+```
+
 # server
 
 ## 5.x

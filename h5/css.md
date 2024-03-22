@@ -14,7 +14,11 @@
 
 ## Web Components
 
-[polymer](https://www.polymer-project.org)
+- [lit](https://lit.dev/)
+- [polymer](https://www.polymer-project.org)
+- [FAST](https://www.fast.design/)
+- [Lightning](https://developer.salesforce.com/docs/component-library/overview/components)
+
 
 ## Web Gradients
 

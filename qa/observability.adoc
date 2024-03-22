@@ -1,0 +1,44 @@
+
+
+* 阿里云: link:https://www.aliyun.com/product/developerservices/prometheus[可观测监控 Prometheus 版]
+* 阿里云: link:https://www.aliyun.com/product/developerservices/xtrace[可观测链路 OpenTelemetry 版]
+* 阿里云: link:https://www.aliyun.com/product/aliware/grafana[可观测可视化 Grafana 版]
+* 阿里云: link:https://www.aliyun.com/product/arms[应用实时监控服务 ARMS]
+
+## metrics
+
+. API : micrometer
+. DB: Prometheus
+. dashboard: Grafana
+
+
+## tracing
+
+.用阿里云
+. API : opentelemetry
+. 阿里云: 可观测链路 OpenTelemetry 版
+
+
+
+## TODO
+* 修改业务代码  记录相关数据
+** 入参增加必要的监控维度信息
+** ThreadLocal 中埋入必要的数据
+** 切换线程时的数据转存。
+
+
+* 自定义 自定义 opentelemetry 的 java agent 实现特定业务代码点的 tracing 和 metric 数据采集
+ FIXME： 真的能做到0代码改动灵活配置多维度的监控么？
+ 那就两者相结合。业务代码改动
+
+
+## FIXME
+- 如何做到不要采集不必要的数据？
+  比如 javaagent 模式：rocketmq 特定 topic, 特定 tag 的 tracing/metric 不采集
+- 自定义属性？比如 针对 某个事件，某个动作，只只对 RT 大于一定情形，或 特定错误码的情况下，则将trac数据 全链路保存。
+- opentelemetry collector 离 用户更新，其内部是如何存储的？能否做到削峰填谷式的上报数据？
+- JFR 对接 opentelemetry?
+
+
+
+

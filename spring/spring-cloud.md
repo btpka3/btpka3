@@ -2,6 +2,41 @@
 # spring-cloud
 [spring cloud](https://docs.spring.io/spring-cloud/docs/2021.0.6/reference/html/)
 
+
+
+Table 1. Release train Spring Boot compatibility
+```
+Release Train	        Spring Boot Generation
+sls2022.0.x aka Kilburn	3.0.x, 3.1.x (Starting with 2022.0.3)
+2021.0.x aka Jubilee	2.6.x, 2.7.x (Starting with 2021.0.3)
+2020.0.x aka Ilford	    2.4.x, 2.5.x (Starting with 2020.0.3)
+Hoxton	                2.2.x, 2.3.x (Starting with SR5)
+Greenwich	            2.1.x
+Finchley	            2.0.x
+Edgware	                1.5.x
+Dalston	                1.5.x
+```
+
+```xml
+<project>
+    <properties>
+        <spring-cloud.version>2021.0.9</spring-cloud.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
+```
+
+
 ## spring-cloud-build
 
 ## spring-cloud-bus

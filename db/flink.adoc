@@ -119,3 +119,20 @@ ARRAY["value1", "value2"]                   -- 构建一个 ARRAY 对象
 MAP  ["key1", "value1", "key2", "value2"]   -- 构建一个 MAP 对象
 ----
 
+
+## 类型转换
+
+
+
+[source,sql]
+----
+NOW()              -- 返回 TIMESTAMP_LTZ
+CURRENT_TIMESTAMP  -- 同 NOW()
+CURRENT_DATE       -- 返回 DATE 类型
+
+CAST( value AS type)  --
+DATE => TIMESTAMP WITH TIME ZONE
+
+
+DATE_FORMAT(xxxTimeStamp, 'yyyyMMdd')
+----

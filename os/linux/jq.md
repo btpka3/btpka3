@@ -148,6 +148,10 @@ echo "$json" | jq -c '.[]|select(all(.hobbies; .[] != "eee"))'
 echo "$json" | jq -c '.[]|select(any(.hobbies; .[] == "aaa"))'
 ```
 
+# diff
+```shell
+diff <(jq '.nodes[].ruleId' rollback.json | sort)  <(jq '.nodes[].ruleId' fix.json | sort)
+```
 
 
 # 输出表格

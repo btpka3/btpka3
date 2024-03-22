@@ -1,0 +1,7 @@
+
+
+link:https://istio.io/[istio]
+service mesh : 服务网格是一个独立的基础设施层，用来处理服务之间的通信.
+
+side car 模式
+

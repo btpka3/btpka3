@@ -486,6 +486,7 @@ echo ${"${FILENAME}"%.*}
 echo ${FILENAME%%.*}   # 通过 %% 截断尾部最长匹配，输出: index
 echo ${FILENAME#*.}    # 通过 #  截断前导最短匹配，输出：component.js
 echo ${FILENAME##*.}   # 通过 ## 截断前导最长匹配，输出：js
+echo "1234567890" | ( read h; echo ${h:0:6} )  # 使用 pipe + substring
 
 
 str='CREATE TABLE `offercalc_fields` ('
@@ -604,6 +605,7 @@ find . -type f -name "pom.xml" | xargs -I{} -S 1024000 bash -c 'echo "{}___{}"'
 ```
 
 ## ls
+
 
 ```basSecurityUtil.trimSqlh
 # 按照最后访问时间的先后顺序显示
@@ -1293,4 +1295,18 @@ ccc
 ddd
 eee
 EOF
+```
+
+## 获取 指定行范围的 记录
+
+获取 16224 ~ 16482 行的记录
+```
+# 使用 head + tail （ 不推荐，需要计算）
+head -16482 in.sql | tail -258 > out.sql
+
+# 使用 sed
+sed -n '16224,16482p' in.sql > out.sql
+
+# 使用 awk ( 行号从1开始)
+awk 'NR>=16224&&NR<=16482' in.sql > out.sql
 ```

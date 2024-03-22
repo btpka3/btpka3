@@ -1,0 +1,21 @@
+link:https://github.com/kordamp/jarviz[jarviz]
+
+[source,shell]
+----
+# 建议使用压缩包手动安装
+
+# sdkman
+sdk install jarviz
+
+# homebrew
+brew install kordamp/tap/jarviz
+----
+
+
+## 命令
+### 显示字节码版本号
+[source,shell]
+----
+jarviz bytecode show --directory /path/to/WEB-INF/lib/
+----
+

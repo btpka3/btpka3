@@ -1,5 +1,7 @@
 
 
+link:https://www.baeldung.com/lombok-custom-annotation[Implementing a Custom Lombok Annotation]
+
 ## lombok.config
 
 [source,properties]
@@ -7,6 +9,7 @@
 config.stopBubbling = true
 lombok.addLombokGeneratedAnnotation = true
 lombok.anyConstructor.addConstructorProperties=true
+lombok.nonNull.exceptionType=IllegalArgumentException
 ----
 
 lombok.anyConstructor.addConstructorProperties=true 将使得构造函数增加以下值

@@ -1,37 +1,40 @@
-- 如何打印日志1？
 
-    - 如果是 mybatis 使用的xml配置文件，则是 `${namespace}.${statementId}`
-    - 如果是使用自动映射的 Dao 接口，则是 `${Dao全类名}.${Dao方法名}`
-    - 具体可以在 `SimpleExecutor#doQuery` 内加断点,
+
+* 如何打印日志1？
+
+** 如果是 mybatis 使用的xml配置文件，则是 `${namespace}.${statementId}`
+** 如果是使用自动映射的 Dao 接口，则是 `${Dao全类名}.${Dao方法名}`
+** 具体可以在 `SimpleExecutor#doQuery` 内加断点,
       查看 `MappedStatement#statementLog#log#logger#name`，
       监控表达式为 `((Slf4jLocationAwareLoggerImpl) ((Slf4jImpl) ms.statementLog).log).logger`
 
-- 如何打印日志2？
+* 如何打印日志2？
   修改 mybatis 配置文件
 
-    ```xml
-    <?xml version="1.0" encoding="UTF-8"?>
-    <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-            "http://mybatis.org/dtd/mybatis-3-config.dtd">
-    <configuration>
-        <settings>
-            <setting name="logImpl" value="STDOUT_LOGGING" />
-        </settings>
-    </configuration>
-    ```
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+</configuration>
+----
 
-
-- 如何获取分页时，总记录数？
+* 如何获取分页时，总记录数？
 
 ### mapper 接口支持哪种参数和返回值？
 
 参考：
-— org.apache.ibatis.binding.MapperProxyFactory
 
-- org.apache.ibatis.binding.MapperProxy
-- org.apache.ibatis.binding.MapperMethod
+* org.apache.ibatis.binding.MapperProxyFactory
+* org.apache.ibatis.binding.MapperProxy
+* org.apache.ibatis.binding.MapperMethod
 
-```java
+[source,java]
+----
 public interface XxxMapper {
     // ------------------------------------------ insert/update/delete
     void insert(
@@ -81,8 +84,28 @@ public interface XxxMapper {
         @Param("xxx") String xxx
     );
 }
-```
+----
 
 ### TypeHandler 可以通过 resultMap 指定。那没有使用 resultMap，又是如何选择 默认的 typeHandler ?
 
 参考 org.apache.ibatis.executor.resultset.DefaultResultSetHandler#getRowValue
+
+## MyBatis Dynamic SQL
+* link:https://mybatis.org/mybatis-dynamic-sql/docs/introduction.html[MyBatis Dynamic SQL]
+
+## mybatis-spring
+* github: link:https://github.com/mybatis/spring[mybatis/spring]
+* 《link:https://www.baeldung.com/spring-mybatis[MyBatis with Spring]》
+
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis-spring</artifactId>
+    <version>2.0.2</version>
+</dependency>
+----
+
+## debug
+如果要查看生成的动态sql，需要配置 mapper 的  package 的 logger 的 日志级别==DEBUG

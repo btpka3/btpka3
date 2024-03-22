@@ -5,11 +5,41 @@
 * link:https://help.aliyun.com/zh/sls/developer-reference/connect-to-log-service-by-using-jdbc[对接JDBC]
 * link:https://help.aliyun.com/zh/sls/user-guide/sql-functions/[SQL函数列表]
 * link:https://help.aliyun.com/zh/sls/product-overview/scheduled-sql-1[定时sql]
+* link:https://github.com/aliyun/aliyun-log-java-sdk[aliyun-log]
+* link:https://github.com/alibaba/ilogtail[alibaba/ilogtail]
+* link:https://help.aliyun.com/zh/sls/user-guide/collect-metric-data-from-hosts[通过Logtail插件接入Prometheus监控数据]
+
+## 安装
+
+[source,shell]
+----
+ll /usr/local/ilogtail/ilogtail
+cat /usr/local/ilogtail/app_info.json  #
+
+----
+
+FIXME: 如何在 阿里云 k8s 容器内安装 ilogtail ? 比如使用的镜像是 alpine ， 但 ilogtail 没有 alpine 操作系统的安装包，使用的 是 k8s  sidecar 模式？
 
 
+## 保留字段
 
-## 系统字段
-* `__time__` :
+link:https://help.aliyun.com/zh/sls/user-guide/reserved-fields[保留字段]
+
+* `__time__` : 写入日志数据时指定的日志时间
+* `__source__` : 日志来源设备
+* `__topic__` : 日志主题（Topic）
+* `__partition_time__` : 投递MaxCompute的日志分区时间列，由__time__计算得到
+* `__extract_others__` : 日志中投递MaxCompute的未配置字段组装为一个JSON Map。
+* `_extract_others_` : 同 `__extract_others__`， 并建议使用后者。
+* `__tag__:__client_ip__` : 日志来源设备的公网IP
+* `__tag__:__receive_time__` : 日志到达服务端的时间，该字段为系统标签（Tag）
+* `__tag__:__path__` : Logtail采集的日志文件路径
+* `__tag__:__hostname__` : logtail采集数据的来源机器主机名
+* `__tag__:__user_defined_id__:` user define id
+* `__raw_log__` : 解析失败的原始日志
+* `__raw__` : 解析成功的原始日志
+* `__log_signature__` : 日志的签名，参考 link:https://help.aliyun.com/zh/sls/user-guide/logreduce[日志聚类]
+* `__date__` : link:https://help.aliyun.com/zh/sls/developer-reference/connect-to-log-service-by-using-jdbc[对接JDBC]
 
 
 
@@ -66,3 +96,116 @@ group by app, clusterName, date_format(__time__, '%Y%m%d'), exceptionCode order 
 
 
 11 * 40 * 30 *
+
+
+## log_reduce
+
+link:https://help.aliyun.com/zh/sls/user-guide/logreduce[日志聚类]
+
+
+
+### 通过 compare_log_reduce 查询出有问题的 signature
+
+轮训SLS, 通过 compare_log_reduce 查询新增异常，得到pattern的  signature
+示例：对比不同时间段日志聚类结果.
+
+[source,sql]
+----
+* | select v.pattern, v.signature, v.count, v.count_compare, v.diff
+from (select compare_log_reduce(3, 300) as v from log)
+order by v.diff desc
+limit 1000
+----
+
+.compare_log_reduce 函数返回字段：
+
+* pattern	    : 某类日志的具体模式。注意：是整个日志字段参加计算 signature、pattern的。
+* count_compare	: 在前一时间段内，某模式对应的日志数量。
+* count	        : 当前指定的查询时间段内，某模式对应的日志条数。
+* diff	        : count和count_compare的差值。
+* signature	    : 某模式的签名。
+
+[source,json]
+----
+[
+  -978151683326356283,  // signature
+  "content:2024-03-13 *:*:*,*|*|ERROR|com.taobao.mbus.biz.decision.service.ActionHandler|TRACEID=|EVENTID=33.*.*.*|APP=mtee3|CLUSTER=*|EVENT=*|BIZCODE=ali.china.*taobao********",
+                        // pattern
+  11165,                // count
+  0,                    // diff
+  11165                 // count_compare
+]
+----
+
+### 通过 log_reduce 查询出 origin_signatures
+
+[source,sql]
+----
+* | select a.pattern, a.count,a.signature, a.origin_signatures
+from (select log_reduce(3) as a from log)
+where a.signature in(-549741481547271137,3140203004153929085,4650488182077509230,-4280951279364421101)
+limit 1000
+----
+
+.log_reduce 函数返回字段：
+
+* pattern	某类日志的具体模式。
+* count	当前指定的查询时间段内，某模式对应的日志条数。
+* signature	某模式的签名。
+* origin_signatures	某模式的二级签名，可以通过二级签名，反查原始数据。
+
+[source,json]
+----
+[
+  -978151683326356283,             // signature
+  "content:2024-03-13 09:*:*,*|*|ERROR|com.taobao.mbus.biz.decision.service.ActionHandler|TRACEID=|EVENTID=********APP=mtee3|CLUSTER=*|EVENT=*|BIZCODE=ali.china.*taobao********",          // pattern
+  9509,                            // count
+  {                                // origin_signatures
+    "-300258048043542856": 1,
+    "5119731740810212497": 48,
+    "-6849479436775193167": 9294,
+    "4078495045540809630": 6,
+    "-194795887375774641": 1,
+    "-5617429354472931861": 24,
+    "1683693435804471083": 9,
+    "8091717120274279786": 11,
+    "-5648844398745193646": 111,
+    "-4229950577554029838": 4
+  }
+]
+----
+
+
+-2487698101083665603
+{"-2492169713187058740":29,"2602511673421739030":74,"3343669339254745644":1,"4206807440377022613":31,"6048978416306975390":1,"509975921417736711":1,"-7612145362806840657":2,"-4643524150889491180":1,"6515295249920895850":1,"4809294266885754343":1176,"-7445902195860617390":2,"1490293303639485787":3,"1127813515948251018":32,"-550719348625055384":10,"-86167489432769341":1}
+
+-7744493588291467820
+{"-5465998443455114173":4013,"-3286858846420232481":1341,"-8268963994154694835":1082,"3738171894897871836":148402,"-7910189161150507052":1073,"-8706398953298208894":2189,"-7698077397305190115":14915,"-1574317043382536223":2790,"2980270369636897817":13064,"8126698818774936503":91410}
+
+### 用 origin_signatures 查询出具体的日志
+
+[source,sql]
+----
+-- 使用 SLS 查询语句
+__log_signature__ : -5465998443455114173
+
+-- 使用sql
+*| select app,clusterName, __log_signature__, count(*) as count
+where  "__log_signature__" in (-8257723675149388898, -3064800766015547882,5758127530760440831)
+group by app,clusterName, __log_signature__ order by count desc
+----
+
+## 当做 Prometheus 存储
+
+SLS支持存储时序数据类型，并遵循Prometheus的定义规范和数据查询接口。可以把sls时序存储直接看作prometheus数据源，并配置到Grafana中
+
+[source,plain]
+----
+1. TODO: micrometer -> Prometheus exporter -> SLS
+1. TODO: micrometer -> Prometheus exporter -> Prometheus
+1. SLS(AS Prometheus) -> sunfire
+1. SLS(AS Prometheus) -> grafana
+----
+
+
+

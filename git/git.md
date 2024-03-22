@@ -413,6 +413,9 @@ git restore <commit-id> *
 
 ```bash
 git log path/to/file
+
+# 图形化
+git log --graph --full-history --all --pretty=format:"%h%x09%d%x20%s"
 ```
 
 ## diff

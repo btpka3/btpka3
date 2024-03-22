@@ -16,7 +16,7 @@ systemd使用了Linux专属技术，不再顾及POSIX兼容。
 systemctl 是 systemd 的主要命令。
 
 
-```
+```bash
 # 查看默认启动级别
 systemctl get-default
 systemctl set-default multi-user.target

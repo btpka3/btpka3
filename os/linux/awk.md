@@ -34,6 +34,28 @@ EOF
 # 输出最后一个field
 awk -F" " '{print $NF}'
 
+# 输出每个字段
+## $1=$1 # Re-arranging first field to make OFS into picture, since by default OFS is space and I am setting it as a new line.
+##       # 当将 $1 重新赋值给 $1 后，awk 会 将所有字段重新使用 OFS 连接起来, 而无参的 print 会输出新的 $0
+##       # https://www.gnu.org/software/gawk/manual/html_node/Changing-Fields.html
+cat <<EOF |
+aaa,bbb,ccc
+xxx,yyy,zzz
+111,222,333
+EOF
+awk '
+BEGIN{FS=",";OFS="\n"}
+{$1=$1;print;}
+'
+
+
+# 输出每个字段
+IN="aaa;bbb;ccc"
+for i in $(echo $IN | tr ";" "\n")
+do
+  echo $i
+done
+
 # 替换换行符 "\r\n" -> "\n"
 awk 'BEGIN{RS="\r\n"; ORS="\n"}{print $0}' file > file
 
