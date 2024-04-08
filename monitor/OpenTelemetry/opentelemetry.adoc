@@ -4,10 +4,16 @@
 
 * link:https://github.com/open-telemetry/opentelemetry-java-instrumentation[opentelemetry-java-instrumentation]
 ** link:https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/docs/supported-libraries.md[Supported libraries, frameworks, application servers, and JVMs]
+
 * link:https://opentelemetry.io/docs/concepts/instrumentation/zero-code/[Zero-code]
 * link:https://opentelemetry.io/docs/languages/java/automatic/configuration/[Agent Configuration]
 * link:https://github.com/open-telemetry/opentelemetry-java/tree/main/sdk-extensions/autoconfigure[OpenTelemetry SDK Autoconfigure]
+* link:https://github.com/open-telemetry/opentelemetry-collector-contrib[opentelemetry-collector-contrib]
+
 * link:https://www.51cto.com/article/766214.html[OpenTelemetry入门看这一篇就够了]
+
+
+
 * 阿里云: link:https://www.aliyun.com/product/developerservices/xtrace[可观测链路 OpenTelemetry 版]
 * 阿里云: link:https://help.aliyun.com/zh/opentelemetry/user-guide/use-opentelemetry-to-submit-the-trace-data-of-java-applications[通过OpenTelemetry上报Java应用数据]
 
@@ -46,8 +52,8 @@ otel.resource.providers.aws.enabled=false
 
 
 ## 术语
-* OTLP
-* OTel :
+* OTel : link:https://opentelemetry.io/docs/specs/otel/[OpenTelemetry Specification]
+* OTLP : link:https://opentelemetry.io/docs/specs/otlp/[OpenTelemetry Protocol]
 
 
 
@@ -63,5 +69,51 @@ otel.resource.providers.aws.enabled=false
 * dubbo
 ** link:https://cn.dubbo.apache.org/en/blog/2024/01/31/tracing-dubbo-with-opentelemetry/[Tracing Dubbo With OpenTelemetry]
 ** dubbo : 文档/任务/观测服务/全链路追踪/link:https://cn.dubbo.apache.org/zh-cn/overview/tasks/observability/tracing/otlp/[OTlp]
+
+
+
+## collector
+
+* link:https://github.com/open-telemetry/opentelemetry-java-examples/tree/main/log-appender[open-telemetry/opentelemetry-java-examples]
+* link:https://github.com/open-telemetry/opentelemetry-java-examples/blob/96fb7a333a6a28b27f7ac07dc4f15dcb8fbe6a65/log-appender/src/main/java/io/opentelemetry/example/logappender/Application.java[Application.java]
+* 阿里云:可观测链路OpenTelemetry版:OpenTelemetry接入说明: link:https://help.aliyun.com/zh/opentelemetry/user-guide/use-opentelemetry-sdks[通过开源OpenTelemetry Collector转发]
+
+opentelemetry-collector-contrib 镜像里默认的配置文件 `/etc/otelcol-contrib/config.yaml`， 只开启了 debug 类型的 exporter。
+这里额外开启了 file 类型的 exporter。
+
+如果要验证 阿里云:可观测链路OpenTelemetry版, 则在 其 Web 控制台:接入中心:OpenTelemetry 的界面 选择地域、使用公网方式 、上报方式=gRPC 后获取对应的接入点信息。
+
+[source,shell]
+----
+touch /tmp/collector.file.json
+vi opentelemetry-collector.config.yaml
+
+docker pull otel/opentelemetry-collector-contrib:0.96.0
+docker run --rm \
+  --name my-opentelemetry-collector-contrib \
+  -v $(pwd)/opentelemetry-collector.config.yaml:/etc/otelcol-contrib/config.yaml \
+  -v /tmp/collector.file.json:/collector.file.json \
+  -p 1888:1888 \
+  -p 8888:8888 \
+  -p 8889:8889 \
+  -p 13133:13133 \
+  -p 4317:4317 \
+  -p 4318:4318 \
+  -p 55679:55679 \
+   otel/opentelemetry-collector-contrib:0.96.0
+
+docker exec -it my-opentelemetry-collector-contrib /otelcol-contrib --version
+docker exec -it my-opentelemetry-collector-contrib /otelcol-contrib --help
+----
+
+运行测试程序
+
+[source,shell]
+----
+git clone git@github.com:open-telemetry/opentelemetry-java-examples.git
+cd opentelemetry-java-examples/log-appender
+../gradlew run
+----
+
 
 

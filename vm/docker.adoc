@@ -1,0 +1,28 @@
+
+
+
+
+## 查看文件内容
+
+* 方式1： 通过docker descktop 查看正在运行的 container 里的文件
+* 方式2： 通过 `docker cp` 命令来检查docker镜像最终的某个文件的内容。示例：
+
+[source,shell]
+----
+DOCKER_IMAGE=docker.io/otel/opentelemetry-collector-contrib:0.96.0
+FILE_IN_IMAGE=//etc/otelcol-contrib/config.yaml
+
+# 拉取最新Docker镜像
+docker pull ${DOCKER_IMAGE}
+# 创建临时 docker 容器
+id=$(docker create ${DOCKER_IMAGE})
+# 从 docker 容器中 copy 文件到 当前目录
+cur_dir=$(pwd)
+rm -fr /tmp/a
+mkdir -p /tmp/a
+cd /tmp/a
+docker cp $id:${FILE_IN_IMAGE} .
+# 删除临时 docker 容器
+docker rm -v $id
+cd ${cur_dir}
+----

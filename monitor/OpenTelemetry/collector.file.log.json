@@ -1,0 +1,397 @@
+{
+    "resourceLogs": [
+      {
+        "resource": {
+          "attributes": [
+            {
+              "key": "service.name",
+              "value": {
+                "stringValue": "log4j-example"
+              }
+            },
+            {
+              "key": "telemetry.sdk.language",
+              "value": {
+                "stringValue": "java"
+              }
+            },
+            {
+              "key": "telemetry.sdk.name",
+              "value": {
+                "stringValue": "opentelemetry"
+              }
+            },
+            {
+              "key": "telemetry.sdk.version",
+              "value": {
+                "stringValue": "1.36.0"
+              }
+            }
+          ]
+        },
+        "scopeLogs": [
+          {
+            "scope": {
+              "name": "custom-log-appender"
+            },
+            "logRecords": [
+              {
+                "observedTimeUnixNano": "1712543195045760000",
+                "severityNumber": 9,
+                "body": {
+                  "stringValue": "A log message from a custom appender without a span"
+                },
+                "attributes": [
+                  {
+                    "key": "key",
+                    "value": {
+                      "stringValue": "value"
+                    }
+                  }
+                ],
+                "traceId": "",
+                "spanId": ""
+              },
+              {
+                "observedTimeUnixNano": "1712543195045902000",
+                "severityNumber": 9,
+                "body": {
+                  "stringValue": "A log message from a custom appender with a span"
+                },
+                "attributes": [
+                  {
+                    "key": "key",
+                    "value": {
+                      "stringValue": "value"
+                    }
+                  }
+                ],
+                "traceId": "",
+                "spanId": ""
+              }
+            ]
+          },
+          {
+            "scope": {
+              "name": "slf4j-logger"
+            },
+            "logRecords": [
+              {
+                "timeUnixNano": "1712543195038000000",
+                "observedTimeUnixNano": "1712543195040638000",
+                "severityNumber": 9,
+                "severityText": "INFO",
+                "body": {
+                  "stringValue": "A slf4j log message without a span"
+                },
+                "attributes": [
+                  {
+                    "key": "thread.name",
+                    "value": {
+                      "stringValue": "main"
+                    }
+                  }
+                ],
+                "traceId": "",
+                "spanId": ""
+              },
+              {
+                "timeUnixNano": "1712543195040000000",
+                "observedTimeUnixNano": "1712543195040946000",
+                "severityNumber": 9,
+                "severityText": "INFO",
+                "body": {
+                  "stringValue": "A slf4j log message with a span"
+                },
+                "attributes": [
+                  {
+                    "key": "thread.name",
+                    "value": {
+                      "stringValue": "main"
+                    }
+                  }
+                ],
+                "traceId": "",
+                "spanId": ""
+              },
+              {
+                "timeUnixNano": "1712543195042000000",
+                "observedTimeUnixNano": "1712543195042658000",
+                "severityNumber": 9,
+                "severityText": "INFO",
+                "body": {
+                  "stringValue": "A slf4j structured message"
+                },
+                "attributes": [
+                  {
+                    "key": "key",
+                    "value": {
+                      "stringValue": "value"
+                    }
+                  },
+                  {
+                    "key": "thread.name",
+                    "value": {
+                      "stringValue": "main"
+                    }
+                  }
+                ],
+                "traceId": "",
+                "spanId": ""
+              },
+              {
+                "timeUnixNano": "1712543195042000000",
+                "observedTimeUnixNano": "1712543195044336000",
+                "severityNumber": 9,
+                "severityText": "INFO",
+                "body": {
+                  "stringValue": "A slf4j log message with an exception"
+                },
+                "attributes": [
+                  {
+                    "key": "exception.message",
+                    "value": {
+                      "stringValue": "error!"
+                    }
+                  },
+                  {
+                    "key": "exception.stacktrace",
+                    "value": {
+                      "stringValue": "java.lang.Exception: error!\n\tat io.opentelemetry.example.logappender.Application.lambda$main$7(Application.java:72)\n\tat io.opentelemetry.example.logappender.Application.maybeRunWithSpan(Application.java:137)\n\tat io.opentelemetry.example.logappender.Application.main(Application.java:71)\n"
+                    }
+                  },
+                  {
+                    "key": "exception.type",
+                    "value": {
+                      "stringValue": "java.lang.Exception"
+                    }
+                  },
+                  {
+                    "key": "thread.name",
+                    "value": {
+                      "stringValue": "main"
+                    }
+                  }
+                ],
+                "traceId": "",
+                "spanId": ""
+              }
+            ]
+          },
+          {
+            "scope": {
+              "name": "log4j-logger"
+            },
+            "logRecords": [
+              {
+                "timeUnixNano": "1712543195006468000",
+                "observedTimeUnixNano": "1712543195019241000",
+                "severityNumber": 9,
+                "severityText": "INFO",
+                "body": {
+                  "stringValue": "A log4j log message without a span"
+                },
+                "attributes": [
+                  {
+                    "key": "thread.id",
+                    "value": {
+                      "intValue": "1"
+                    }
+                  },
+                  {
+                    "key": "thread.name",
+                    "value": {
+                      "stringValue": "main"
+                    }
+                  }
+                ],
+                "traceId": "",
+                "spanId": ""
+              },
+              {
+                "timeUnixNano": "1712543195028106000",
+                "observedTimeUnixNano": "1712543195028168000",
+                "severityNumber": 9,
+                "severityText": "INFO",
+                "body": {
+                  "stringValue": "A log4j log message with a span"
+                },
+                "attributes": [
+                  {
+                    "key": "thread.id",
+                    "value": {
+                      "intValue": "1"
+                    }
+                  },
+                  {
+                    "key": "thread.name",
+                    "value": {
+                      "stringValue": "main"
+                    }
+                  }
+                ],
+                "traceId": "",
+                "spanId": ""
+              },
+              {
+                "timeUnixNano": "1712543195029368000",
+                "observedTimeUnixNano": "1712543195032374000",
+                "severityNumber": 9,
+                "severityText": "INFO",
+                "body": {
+                  "stringValue": "A log4j structured message"
+                },
+                "attributes": [
+                  {
+                    "key": "log4j.map_message.key",
+                    "value": {
+                      "stringValue": "value"
+                    }
+                  },
+                  {
+                    "key": "thread.id",
+                    "value": {
+                      "intValue": "1"
+                    }
+                  },
+                  {
+                    "key": "thread.name",
+                    "value": {
+                      "stringValue": "main"
+                    }
+                  }
+                ],
+                "traceId": "",
+                "spanId": ""
+              },
+              {
+                "timeUnixNano": "1712543195032703000",
+                "observedTimeUnixNano": "1712543195033643000",
+                "severityNumber": 9,
+                "severityText": "INFO",
+                "body": {
+                  "stringValue": "A log4j log message with an exception"
+                },
+                "attributes": [
+                  {
+                    "key": "exception.message",
+                    "value": {
+                      "stringValue": "error!"
+                    }
+                  },
+                  {
+                    "key": "exception.stacktrace",
+                    "value": {
+                      "stringValue": "java.lang.Exception: error!\n\tat io.opentelemetry.example.logappender.Application.lambda$main$3(Application.java:57)\n\tat io.opentelemetry.example.logappender.Application.maybeRunWithSpan(Application.java:137)\n\tat io.opentelemetry.example.logappender.Application.main(Application.java:56)\n"
+                    }
+                  },
+                  {
+                    "key": "exception.type",
+                    "value": {
+                      "stringValue": "java.lang.Exception"
+                    }
+                  },
+                  {
+                    "key": "thread.id",
+                    "value": {
+                      "intValue": "1"
+                    }
+                  },
+                  {
+                    "key": "thread.name",
+                    "value": {
+                      "stringValue": "main"
+                    }
+                  }
+                ],
+                "traceId": "",
+                "spanId": ""
+              }
+            ]
+          },
+          {
+            "scope": {
+              "name": "jul-logger"
+            },
+            "logRecords": [
+              {
+                "timeUnixNano": "1712543195044000000",
+                "observedTimeUnixNano": "1712543195045020000",
+                "severityNumber": 9,
+                "severityText": "INFO",
+                "body": {
+                  "stringValue": "A JUL log message without a span"
+                },
+                "attributes": [
+                  {
+                    "key": "thread.name",
+                    "value": {
+                      "stringValue": "main"
+                    }
+                  }
+                ],
+                "traceId": "",
+                "spanId": ""
+              },
+              {
+                "timeUnixNano": "1712543195045000000",
+                "observedTimeUnixNano": "1712543195045275000",
+                "severityNumber": 9,
+                "severityText": "INFO",
+                "body": {
+                  "stringValue": "A JUL log message with a span"
+                },
+                "attributes": [
+                  {
+                    "key": "thread.name",
+                    "value": {
+                      "stringValue": "main"
+                    }
+                  }
+                ],
+                "traceId": "",
+                "spanId": ""
+              },
+              {
+                "timeUnixNano": "1712543195045000000",
+                "observedTimeUnixNano": "1712543195045550000",
+                "severityNumber": 9,
+                "severityText": "INFO",
+                "body": {
+                  "stringValue": "A JUL log message with an exception"
+                },
+                "attributes": [
+                  {
+                    "key": "exception.message",
+                    "value": {
+                      "stringValue": "error!"
+                    }
+                  },
+                  {
+                    "key": "exception.stacktrace",
+                    "value": {
+                      "stringValue": "java.lang.Exception: error!\n\tat io.opentelemetry.example.logappender.Application.lambda$main$10(Application.java:80)\n\tat io.opentelemetry.example.logappender.Application.maybeRunWithSpan(Application.java:137)\n\tat io.opentelemetry.example.logappender.Application.main(Application.java:78)\n"
+                    }
+                  },
+                  {
+                    "key": "exception.type",
+                    "value": {
+                      "stringValue": "java.lang.Exception"
+                    }
+                  },
+                  {
+                    "key": "thread.name",
+                    "value": {
+                      "stringValue": "main"
+                    }
+                  }
+                ],
+                "traceId": "",
+                "spanId": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

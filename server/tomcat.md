@@ -21,7 +21,7 @@
 /data0/app/qh-agency/qh-agency-wap/deploy.sh        // 部署脚本
 /data0/app/qh-agency/qh-agency-wap/scp.sh           // scp -> upload/
 /data0/app/qh-agency/qh-agency-wap/start.sh         // systemctl, service
-/data0/app/qh-agency/qh-agency-wap/upload/          
+/data0/app/qh-agency/qh-agency-wap/upload/
 ```
 
 
@@ -41,7 +41,7 @@ dataStr=$(date +%Y%m%d%H%M%S)
 
 # 检查文件数量， 确保 upload 目录下只有一个最新的jar包
 checkFileCount(){
-    file=$1                                                      
+    file=$1
     fileCount=`ls $file |wc -l`
     [[ $fileCount -eq 0 ]] && {
         echo "$file not found, abort." 1>&2
@@ -49,7 +49,7 @@ checkFileCount(){
     }
     [[ $fileCount -gt 1 ]] && {
         echo "$file is more than one, will back up and remove them, please run again." 1>&2
-        
+
         for f in $file
         do
            md5Str=$(md5sum ${f} | cut -f1 -d ' ')
@@ -59,7 +59,7 @@ checkFileCount(){
 
         mv -f $file $BAK_DIR/
         exit 1
-    }   
+    }
 }
 
 checkFileCount "${UPLOAD_DIR}/${JAR}"
@@ -109,14 +109,14 @@ rm -rf ${DIR}/upload/*-sources.jar
 
 # tomcat
 
- 
+
 1.  安装
 
     ```
     su - app                   // 以 app 系统用户启动
     mkdir -p /data0/app/qh-agency/qh-agency-wap/
     cd /data0/app/qh-agency/qh-agency-wap/
-    
+
     tar zxvf /path/to/apache-tomcat-x.x.x.tar.gz .
     chown -R app:app apache-tomcat-x.x.x
     cd apache-tomcat-x.x.x
@@ -154,6 +154,9 @@ rm -rf ${DIR}/upload/*-sources.jar
 
 
 
+## http2
+tomcat 9 开始支持 http2
+
 
 
 
@@ -163,22 +166,22 @@ rm -rf ${DIR}/upload/*-sources.jar
 
 
     1. 创建脚本
-    
+
     ```bash
     su - root
-    touch /etc/init.d/$APP_NAME 
+    touch /etc/init.d/$APP_NAME
     chomd +x /etc/init.d/$APP_NAME
     ```
-    
+
     1. 修改脚本内容
-    
+
     ```bash
     #!/bin/bash
     # chkconfig: 2345 60 60
     # description: xxx
-    
+
     . /etc/profile.d/lizi.sh
-    
+
     CATALINA_HOME=/home/lizi/nala-admin/apache-tomcat-6.0.41
     TOMCAT_USER=lizi
     export CATALINA_PID=$CATALINA_HOME/tomcat.pid
@@ -201,7 +204,7 @@ rm -rf ${DIR}/upload/*-sources.jar
         -Dfile.encoding=UTF-8 \
     "
     export LD_LIBRARY_PATH=/usr/local/apr/lib:$LD_LIBRARY_PATH
-    
+
     if [[ `whoami` = "$TOMCAT_USER" ]]
     then
        $CATALINA_HOME/bin/catalina.sh $@
@@ -216,10 +219,10 @@ rm -rf ${DIR}/upload/*-sources.jar
     ```bash
     # 执行以下命令后，root用户就可以使用service命令启停了。并且，按照注释行 chkconfig 的配置设置默认启动级别
     chkconfig --add nala-admin
-    
+
     # 确认默认启动级别
     chkconfig --list nala-admin
-    
+
     # 重新设置启动级别（345级别默认启动）
     chkconfig --level 345 nala-admin on
     ```
@@ -231,7 +234,7 @@ rm -rf ${DIR}/upload/*-sources.jar
     因此，新建 `vi ${CATALINA_HOME}/bin/setenv.sh` 来处理环境变量
 
     1. 创建 systemctl 配置文件
-        
+
         ```bash
         touch /usr/lib/systemd/system/app-name.service
         ```
@@ -242,23 +245,23 @@ rm -rf ${DIR}/upload/*-sources.jar
         [Unit]
         Description=Apache Tomcat Web Application Container
         After=network.target
-        
+
         [Service]
         Type=forking
         PIDFile=/data0/app/qh-wap/apache-tomcat-8.0.23/tomcat.pid
-        
+
         User=qh
         ExecStartPre=
         ExecStart=/data0/app/qh-wap/apache-tomcat-8.0.23/bin/catalina.sh start
         ExecStop=/data0/app/qh-wap/apache-tomcat-8.0.23/bin/catalina.sh stop
-        
+
         LimitFSIZE=infinity
         LimitCPU=infinity
         LimitAS=infinity
         LimitNOFILE=64000
         LimitRSS=infinity
         LimitNPROC=64000
-        
+
         [Install]
         WantedBy=multi-user.target
         ```
@@ -266,7 +269,7 @@ rm -rf ${DIR}/upload/*-sources.jar
      1. 开机自启动
 
         ```bash
-        systemctl daemon-reload 
+        systemctl daemon-reload
         systemctl restart qh-wap
         systemctl status qh-wap
         ```
@@ -277,7 +280,7 @@ rm -rf ${DIR}/upload/*-sources.jar
 
 # tomcat 配置 HTTPS
 1. 生成自签名证书
-    
+
     ```bash
     # 注意： 为了能在 tomcat 下使用，-keypass 和 -storepass 必须一致。
     keytool -genkeypair \
@@ -293,7 +296,7 @@ rm -rf ${DIR}/upload/*-sources.jar
     ```
 
 1. 修改tomcat的配置文件 server.xml ：
-    
+
     ```xml
     <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
                    maxThreads="150" scheme="https" secure="true"
@@ -303,7 +306,7 @@ rm -rf ${DIR}/upload/*-sources.jar
     ```
 
 1. java client 端配置参数，防止证书校验异常：
-    
+
     ```bash
     # for tomcat
     vi %CATALINA_HOME%/bin/catalina.sh
@@ -361,7 +364,7 @@ export LD_LIBRARY_PATH=/usr/local/apr/lib:$LD_LIBRARY_PATH
     ```
 
 1. 修改tomcat配置文件 conf/context.xml
- 
+
     ```xml
     <Valve className="com.radiadesign.catalina.session.RedisSessionHandlerValve" />
     <Manager className="com.radiadesign.catalina.session.RedisSessionManager"
@@ -370,7 +373,7 @@ export LD_LIBRARY_PATH=/usr/local/apr/lib:$LD_LIBRARY_PATH
              database="0"
              maxInactiveInterval="1800" />
     ```
-     
+
 
 
 

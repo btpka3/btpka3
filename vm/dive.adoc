@@ -1,0 +1,98 @@
+- [dive](https://github.com/wagoodman/dive) # 分析镜像的工具
+
+## 特性
+
+* 显示 docker 镜像不同 layer 中的内容
+* 显示给定layer中哪些文件修改了。
+* 评估docker镜像的效能。比如：哪些文件因为被后面的layer 覆盖，移动等造成的镜像尺寸增大。
+* 可以在构建docker镜像时就完成分析，不必等到镜像构建完成之后再分析。
+只要将命令 `docker build ...` 替换成 `dive build ...`  即可。
+* 设置环境变量 export CI=true，可完全黑屏文本输出结果。
+* 支持多种镜像来源（source） :
+** docker
+** docker-archive
+** podman
+
+
+[source,shell]
+----
+dive <your-image> --source <source>
+dive <source>://<your-image>
+----
+
+
+## 安装
+完整安装命令参考器github的README.md 文档
+
+[source,shell]
+----
+brew install dive
+dive docker.io/library/eclipse-temurin:11-jdk-alpine
+----
+
+## 使用
+
+### 命令行图形化
+
+[source,shell]
+----
+docker images
+dive docker.io/library/eclipse-temurin:11-jdk-alpine
+----
+
+### 纯黑屏（CI）
+
+[source,shell]
+----
+export CI=true
+dive docker.io/library/eclipse-temurin:11-jdk-alpine
+----
+
+示例输出:
+
+[source,plain]
+----
+  Using default CI config
+Image Source: docker://docker.io/library/eclipse-temurin:11-jdk-alpine
+Fetching image... (this can take a while for large images)
+Analyzing image...
+  efficiency: 99.8830 %
+  wastedBytes: 578442 bytes (578 kB)
+  userWastedPercent: 0.2057 %
+Inefficient Files:
+Count  Wasted Space  File Path
+    2        436 kB  /etc/ssl/certs/ca-certificates.crt
+    2        116 kB  /lib/apk/db/installed
+    2         27 kB  /lib/apk/db/scripts.tar
+    2         388 B  /lib/apk/db/triggers
+    2         208 B  /etc/apk/world
+    2           0 B  /root
+    2           0 B  /etc
+    2           0 B  /tmp
+    2           0 B  /lib/apk/exec
+    2           0 B  /lib/apk/db/lock
+Results:
+  PASS: highestUserWastedPercent
+  SKIP: highestWastedBytes: rule disabled
+  PASS: lowestEfficiency
+Result:PASS [Total:3] [Passed:2] [Failed:0] [Warn:0] [Skipped:1]
+
+----
+
+
+## 注意
+
+* 查看文件内容 ：
+dive 只能查看docker构建的不同层中的 文件的基本信息，比如 文件大小,UID,GID,路径等，但无法查看文件内容。
+可以通过 `docker cp` 命令来检查docker镜像最终的某个文件的内容。
+
+* Cannot connect to the Docker daemon at unix:///var/run/docker.sock
+
+临时解法
+
+[source,shell]
+----
+sudo ln -s -f ${HOME}/.docker/run/docker.sock /var/run/docker.sock
+----
+
+正规解法：参考 《link:https://docs.docker.com/desktop/mac/permission-requirements/[Understand permission requirements for Docker Desktop on Mac]》

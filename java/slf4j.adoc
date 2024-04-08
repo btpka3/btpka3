@@ -60,6 +60,7 @@ logback.xml 配置
 </configuration>
 ----
 
+
 install : 配置的方式 （推荐）
 
 logging.properties 文件示例
@@ -71,6 +72,12 @@ handlers=org.slf4j.bridge.SLF4JBridgeHandler
 
 install : 编程的方式
 
+
+有的 JDK 使用 JVM 属性 `java.util.logging.config.file` 获取对应的 logging.properties 的值，但该值只是是 FileSystem 的（通过 FileInputStream 读取）。
+不能是jar包里的。 如果没配置则默认读取  `${JAVA_HOME}/conf/logging.properties`。
+可以编程 `LogManager.readConfiguration(xxxInputStream);` 加载配置。
+
+
 [source,java]
 ----
 static {
@@ -78,4 +85,19 @@ static {
     SLF4JBridgeHandler.install();
 }
 ----
+
+## NDC
+class `org.slf4j.NDC` 在 以下 maven 依赖中。
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.slf4j</groupId>
+  <artifactId>slf4j-ext</artifactId>
+  <version>1.7.34</version>
+</dependency>
+----
+
+
+
 

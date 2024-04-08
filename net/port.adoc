@@ -1,0 +1,46 @@
+
+
+
+## port
+
+
+
+
+[#my-tbl1,cols="1,2"]
+.port总结
+|===
+|port | 作用
+
+
+
+
+| 1888
+| link:https://opentelemetry.io/docs/collector/installation/[OpenTelemetry collector] : pprof extension
+
+| 3000
+| link:https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/[Configure Grafana] : Grafana dashboard web 控制台的端口
+
+
+| 4317
+| link:https://opentelemetry.io/docs/collector/installation/[OpenTelemetry collector] : OTLP gRPC receiver
+
+| 4318
+| link:https://opentelemetry.io/docs/collector/installation/[OpenTelemetry collector] : OTLP http receiver
+
+| 4318
+| link:https://opentelemetry.io/docs/collector/installation/[OpenTelemetry collector] : OTLP http receiver
+
+| 8080
+| tomcat http 端口
+
+
+| 8888
+| link:https://opentelemetry.io/docs/collector/installation/[OpenTelemetry collector] : Prometheus metrics exposed
+
+| 8889
+| link:https://opentelemetry.io/docs/collector/installation/[OpenTelemetry collector] : Prometheus metrics exposed
+
+| 13133
+| link:https://opentelemetry.io/docs/collector/installation/[OpenTelemetry collector] : health_check extension
+
+|===

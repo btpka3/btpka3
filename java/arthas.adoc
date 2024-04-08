@@ -4,7 +4,7 @@
 
 [source,shell]
 ----
-ognl '@java.lang.Runtime@getRuntime().exec("ps aux|grep java| grep mtee3| awk \'{print $2}\' > /tmp/pid")'
+# ognl '@java.lang.Runtime@getRuntime().exec("ps aux|grep java| grep mtee3| awk \'{print $2}\' > /tmp/pid")'
 ognl '
 #p=@java.lang.Runtime@getRuntime().exec("ps aux|grep java| grep mtee3 > /tmp/pid"),
 #p.waitFor()
@@ -45,4 +45,7 @@ classloader --classLoaderClass sun.misc.Launcher$AppClassLoader
 classloader --classLoaderClass jdk.internal.loader.ClassLoaders$PlatformClassLoader
 classloader --classLoaderClass jdk.internal.loader.ClassLoaders$AppClassLoader
 ----
+
+## tt
+
 

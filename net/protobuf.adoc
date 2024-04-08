@@ -1,0 +1,13 @@
+
+
+* link:https://protobuf.dev/[protobuf]
+* proto 3 : link:https://protobuf.dev/programming-guides/proto3/#scalar[Scalar Value Types]
+* link:https://github.com/ascopes/protobuf-maven-plugin[io.github.ascopes:protobuf-maven-plugin]
+
+
+[source,shell]
+----
+brew install protobuf
+
+protoc -I=. --java_out=/tmp/java protobuf-001.proto
+----

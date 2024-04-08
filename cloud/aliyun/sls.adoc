@@ -8,6 +8,8 @@
 * link:https://github.com/aliyun/aliyun-log-java-sdk[aliyun-log]
 * link:https://github.com/alibaba/ilogtail[alibaba/ilogtail]
 * link:https://help.aliyun.com/zh/sls/user-guide/collect-metric-data-from-hosts[通过Logtail插件接入Prometheus监控数据]
+* 阿里云： 日志服务： link:https://help.aliyun.com/zh/sls/developer-reference/connect-log-service-to-grafana[时序数据对接Grafana]
+* github ： link:https://github.com/aliyun/aliyun-log-grafana-datasource-plugin[aliyun/aliyun-log-grafana-datasource-plugin]
 
 ## 安装
 
