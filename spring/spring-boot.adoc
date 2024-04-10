@@ -158,17 +158,16 @@ tasks.named("bootJar") {
 
 ## version
 
-[,cols="1,2"]
+[,cols="1,1,1,1,1,1,1,1,1"]
 |===
-| spring boot | spring framework
+| spring boot | spring framework | jdk | maven | gradle    | tomcat | jetty | undertow | servlet
 
-|3.2.2        |6.1.3
-|3.0.0        |6.0.2
-|2.7.18       |5.3.31
-|2.7.18       |5.3.31
-|2.0.0.RELEASE|5.0.4.RELEASE
-|1.5.9.RELEASE|4.3.13.RELEASE
-|1.0.0.RELEASE|4.0.3.RELEASE
+|3.2.2        |6.1.3             |17   | 3.6.3 | 7.5       | 10.1   |12.0   |2.3    |6.0
+|3.0.0        |6.0.2             |17   | 3.5   | 7.5       | 10.0   |11     |2.2    |5.0
+|2.7.18       |5.3.31            |1.8  | 3.5   | 6.8 ~ 8.x | 9.0    | 10.0  | 2.0   |4.0
+|2.0.0.RELEASE|5.0.4.RELEASE     |1.8  | 3.2   | 4         | 8.5    | 9.4   |1.4    |3.1
+|1.5.9.RELEASE|4.3.13.RELEASE    |1.7  | 3.2   | 2.9       | 8      |9.3    |1.3    |3.1
+|1.0.0.RELEASE|4.0.3.RELEASE     |1.6  | 3.0   | ?         | 8      |9      |?      |?
 
 |===
 

@@ -13,11 +13,31 @@
 * link:https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/tooldescr004.html[2.4 How to Produce a Flight Recording]
 * https://www.oracle.com/java/technologies/javase/products-jmc8-downloads.html
 
-## 安装 jmc
+## 安装 jmc/JDK Mission Control
 
 [source,shell]
 ----
 brew install --cask jdk-mission-control
+
+file /Applications/"JDK Mission Control.app"/Contents/MacOS/jmc
+
+# 如果启动提示 java 版本错误，则修改该文件， array 下增加 `-vm` 和 要使用的 java 命令的路径
+cat /Applications/"JDK Mission Control.app"/Contents/Info.plist
+...
+<array>
+  <string>-keyring</string>
+  <string>~/.eclipse_keyring</string>
+  <string>-vm</string>
+  <string>/path/to/jdk-17.0.3+7-x86-64/Contents/Home/bin/java</string>
+</array>
+...
+
+# 调整 JVM 内存设置，过小或解析缓慢
+vi /Applications/JDK\ Mission\ Control.app/Contents/Eclipse/jmc.ini
+# 在 -vmargs 后面增加/修改以下配置
+-Xms6g
+-Xmx6g
+
 ----
 
 ## 启动时直接输出

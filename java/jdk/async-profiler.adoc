@@ -178,6 +178,8 @@ echo ${JAVA_PID}
 ./profiler.sh -d 60 -e cpu -e alloc -f /tmp/profiler.html "${JAVA_PID}"
 
 ./profiler.sh -d 180 -e cpu,alloc,lock -f /home/admin/logs/async-profile-%t.$(hostname).%p.jfr "${JAVA_PID}"
+# 一次性以 wall-clock 方式采集，注意：不能同时使用 cpu 等event 类型
+./profiler.sh -d 180 -e wall -t -f /home/admin/logs/async-profile-%t.$(hostname).%p.jfr "${JAVA_PID}"
 
 
 
@@ -185,5 +187,7 @@ echo ${JAVA_PID}
 # 每记录10分钟输出一次，同时记录多种事件，输入到JFR文件中。
 # 注意：只有 JFR 文件格式才支持同时记录多种事件
 ./profiler.sh --loop 10m  -e cpu,alloc,lock -f /tmp/profile-$(hostname)-%p-%t.jfr "${JAVA_PID}"
+
+
 
 ----

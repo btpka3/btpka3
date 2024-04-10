@@ -1,19 +1,30 @@
 
--[jq Manual](https://stedolan.github.io/jq/manual/)
-    - xq
-    - yq
+* link:https://stedolan.github.io/jq/manual/[jq Manual]
+* xq
+* yq
 
-```bash
+[source,shell]
+----
 curl -fsSL https://github.com/jqlang/jq/releases/download/jq-1.7/jq-linux-amd64 -o /tmp/jq-linux-amd64
 docker run --rm -it -v /tmp/jq-linux-amd64:/jq-linux-amd64  docker.io/library/alpine:3.18 sh -l
 
 # 输入文件：多行，一行一个JSON，且有String类型的字段 data
 # 作用：将单行当做json解析，提取 data , 并输出
 jq -r -R 'fromjson|.data' 20220414_productvideo.txt > 20220414_productvideo.data.txt
-```
+----
 
-# 输出字段
-```shell
+## 连接字符串
+
+[source,shell]
+----
+# 输出 {"v:":"zhang3li4"}
+echo '{"name":"zhang3"}' | jq -r '{"v:" : ( .name + "li4" )}'
+----
+
+
+## 输出字段
+[source,shell]
+----
 json='{"x":[
     {"t":"a","name":"a1","age":11},
     {"t":"b","name":"b1","age":21},
@@ -66,10 +77,11 @@ echo "$json" | jq -r '[to_entries|.[]|.value.x=.key|.value]'
     "x": "ddd"
   }
 ]
-```
+----
 
-# 单行输出
-```shell
+## 单行输出
+[source,shell]
+----
 json='{
    "a": "a1",
    "b": "b1"
@@ -77,11 +89,25 @@ json='{
 echo "$json" | jq -r -c
 # 输出
 {"a":"a1","b":"b1"}
-```
+----
 
+## 两维数组：过滤出长度>1的
+[source,shell]
+----
+json='[
+    ["a01","a02"],
+    ["b01"],
+    ["c01","c02","c03"]
+]'
+# 输出结果：仍然是二维数组
+echo "$json" | jq -c 'map(select(length >1))'
+# 输出结果：一行一条记录
+echo "$json" | jq -c '.[]|select(length >1)'
+----
 
-# 按照字段筛选
-```shell
+## 按照字段筛选
+[source,shell]
+----
 json='[
     {"t":"a","name":"a1","age":11},
     {"t":"b","name":"b1","age":21},
@@ -128,13 +154,13 @@ json='{
    ]
 }'
 echo "$json" | jq -r '.classLoaders[]|.classes[]|select(.size > 10)'
+----
 
-```
-
-# any/all
+## any/all
 等价于java的 Stream#anyMatch,Stream#allMatch,
 
-```shell
+[source,shell]
+----
 json='[
     {"name":"a1","hobbies":["aaa","bbb","ccc"]},
     {"name":"a2","hobbies":["bbb","ccc","ddd"]},
@@ -146,16 +172,18 @@ echo "$json" | jq -c '.[]|select(all(.hobbies; .[] != "eee"))'
 # 注意：如果数组中 全部都 满足 any 的条件，此时结果是不匹配的（🤔🤔🤔 WHY???)
 # 下面的这个将不会输出全部都是 "aaa" 的记录
 echo "$json" | jq -c '.[]|select(any(.hobbies; .[] == "aaa"))'
-```
+----
 
-# diff
-```shell
+## diff
+[source,shell]
+----
 diff <(jq '.nodes[].ruleId' rollback.json | sort)  <(jq '.nodes[].ruleId' fix.json | sort)
-```
+----
 
 
-# 输出表格
-```shell
+## 输出表格
+[source,shell]
+----
 json='[
     {"t":"a","name":"a1","age":11},
     {"t":"b","name":"b1","age":21},
@@ -188,12 +216,13 @@ a  a1    11
 b  b1    21
 a  a2    12
 b  b2    22
-```
+----
 
 
-# reduce
+## reduce
 
-```shell
+[source,shell]
+----
 json='[1,2,3,4,5]'
 echo "${json}" | jq 'reduce .[] as $item (0; . + $item)'
 # Output : 15
@@ -215,13 +244,13 @@ to_entries | map()
     |from_entries
 ]
 '
+----
 
-```
 
-
-# 自定义函数
+## 自定义函数
 ## 单个 to_port
-```shell
+[source,shell]
+----
 json='
 {
     "name": "http",
@@ -236,10 +265,11 @@ echo "$json" | jq -r '
     def to_port: (.port|tostring) + ":" + (.nodePort|tostring) + "/" + (.protocol|tostring);
     .|to_port
 '
-```
+----
 
 ## 数组 to_port
-```shell
+[source,shell]
+----
 json='
 [
     {
@@ -263,11 +293,12 @@ echo "$json" | jq -r '
     def to_port: (.port|tostring) + ":" + (.nodePort|tostring) + "/" + (.protocol|tostring);
     map(.|to_port)|join(",")
 '
-```
+----
 
 
 
-```shell
+[source,shell]
+----
 json='
 {
     "apiVersion": "v1",
@@ -345,11 +376,57 @@ echo "$json" | jq -r '
     )
     | @tsv
 ' | column -ts $'\t'
-```
+----
 
-# object key-value字符串拼接
+## group by
 
-```shell
+
+简单case1
+
+[source,shell]
+----
+json='
+[
+    {"key": 1},
+    {"key": 2},
+    {"key": 1}
+]
+'
+
+echo "$json" | jq 'group_by (.key)[] | {key: .[0].key, length: length}'
+----
+
+简单case2: 查询出 相同 name 出现多次的记录
+
+[source,shell]
+----
+json='
+[
+    {"name": "zhang3", "hobby":"basketball"},
+    {"name": "li4",    "hobby":"pingpong"},
+    {"name": "wang5",  "hobby":"enjoy delicacy"},
+    {"name": "zhang3", "hobby":"football"},
+    {"name": "wang5",  "hobby":"enjoy jogging"}
+]
+'
+
+echo "$json" | jq '
+[
+  group_by(.name)
+  | .[]
+  | {key: .[0].name, length: length, rec: .}
+  | select(.length > 1)
+  | .rec
+]
+  | flatten
+'
+----
+
+
+## object key-value字符串拼接
+
+[source,shell]
+----
 json='
 [
     {"a": "a1","b": "b1"},
@@ -364,17 +441,19 @@ echo "$json" | jq -r '
 # 结果
 a=a1,b=b1
 a=a2,b=b2
-```
+----
 
 
-# pretty
+## pretty
 
-```shell
+[source,shell]
+----
 jq . fminified.json
-```
+----
 
-# 压缩/minify
-```shell
+## 压缩/minify
+[source,shell]
+----
 # 字符串
 echo '{ "foo": "bar" }' | jq -r tostring
 echo '{ "foo": "bar" }' | jq -r tostring > minified.json
@@ -382,12 +461,13 @@ echo '{ "foo": "bar" }' | jq -r tostring > minified.json
 # 文件
 jq -r tostring file.json
 jq -r tostring file.json > minified.json
-```
+----
 
 
-# 多行JSON日志
+## 多行JSON日志
 
-```shell
+[source,shell]
+----
 json='
 {"level":"ERROR","count":44}
 {"level":"INFO","count":22}
@@ -396,22 +476,24 @@ json='
 '
 
 echo "${json}" | jq -r 'select(.level == "INFO")|.count|tostring' | sort
-```
+----
 
 
-# 把key替换成值
-```shell
+## 把key替换成值
+[source,shell]
+----
 json='
 {"user":"stedolan","titles":["JQ Primer", "More JQ"]}
 '
 echo "${json}" | jq -r '{(.user): .titles}|tostring'
-```
+----
 
 
-# 按照 key 过滤
+## 按照 key 过滤
 等价于java的 Stream#filter
 
-```shell
+[source,shell]
+----
 json='
 {
     "a1":["a101","a102"],
@@ -427,13 +509,14 @@ echo "${json}" | jq -r 'to_entries|.[]|select(.key | test( "^a"; "x"))|.value'
 echo "${json}" | jq -r '[to_entries|.[]|select(.key | test( "^a"; "x"))]|from_entries'
 # 重新合并成成对应的对象: 通过 with_entries
 echo "${json}" | jq -r 'with_entries(select(.key | test( "^a"; "x")))'
-```
+----
 
-# 数组、对象展开
+## 数组、对象展开
 等价于java的 Stream#flatMap
 
 
-```shell
+[source,shell]
+----
 ################ 示例1. 内部是数组
 json='
 {"name":"333","hobbies":["a201","a202"]}
@@ -480,16 +563,18 @@ echo "${json}" | jq -c 'to_entries|.[]|{"room":.key} + .value[]| del(.hobbies) +
 # {"room":"x2","name":"333","hobby":"a202"}
 # {"room":"x2","name":"444","hobby":"b201"}
 # {"room":"x2","name":"444","hobby":"b202"}
-```
+----
 
 
 
 
 
-# 阿里云SLS user_log_config.json 列出采集的文件
+## 阿里云SLS user_log_config.json
 
+### 列出采集的文件
 
-```shell
+[source,shell]
+----
 # 输出 \t 分隔的以下信息
 # 阿里云主账号,日志路径,  文件名,        SLS project,   SLS logstore
 # aliuid,    log_path, file_pattern, project_name, category
@@ -501,10 +586,13 @@ cat user_log_config.json  | jq -r '
 |.[]
 |@tsv
 '
+----
 
-# 列出 max_depth>0 的配置
-cat user_log_config.json  | jq -r '.metrics|with_entries(select(.value.max_depth>0))'
+### 列出 max_depth>0 的配置
 
+
+[source,shell]
+----
 # 列出 max_depth>0 的配置, 并转成终端表格
 tsvStr=$(cat user_log_config.json  \
 | jq -r '
@@ -512,7 +600,6 @@ tsvStr=$(cat user_log_config.json  \
     .metrics
     |to_entries
     |.[]
-    |select(.value.max_depth>0)
     |.sls_logtail = (.key |split("$")[1])
     |[
         .value.aliuid,
@@ -524,13 +611,67 @@ tsvStr=$(cat user_log_config.json  \
         .value.file_pattern
     ]
 ]
+|map(select(.[4]>1))
 |sort_by(.[0], .[1], .[2], .[3], .[4], .[5], .[6])
 |.[]
 |@tsv
 ' )
 headStr=$'ALIYUN_USERID\tSLS_PROJECT\tSLS_LOGSTORE\tSLS_LOGTAIL\tMAX_DEPTH\tLOG_PATH\tFILE_PATTERN\n'
 echo "${headStr}${tsvStr}" | column -t -s $'\t'
+----
 
 
 
-```
+
+
+
+
+
+
+
+
+
+
+### 列出 一个文件采集到多个 lostore  的配置
+
+[source,shell]
+----
+tsvStr=$(cat user_log_config.json  \
+| jq -r '
+[
+    .metrics
+    |to_entries
+    |.[]
+    |.sls_logtail = (.key |split("$")[1])
+    |{
+        LOG_PATH      : .value.log_path,
+        FILE_PATTERN  : .value.file_pattern,
+        ALIYUN_USERID : .value.aliuid,
+        SLS_PROJECT   : .value.project_name,
+        SLS_LOGSTORE  : .value.category,
+        SLS_LOGTAIL   : .sls_logtail,
+        fullPath      : (.value.log_path +  .value.file_pattern )
+    }
+]
+| group_by(.fullPath)
+| map(select(length > 1))
+| flatten
+| map([
+    .LOG_PATH,
+    .FILE_PATTERN,
+    .ALIYUN_USERID,
+    .SLS_PROJECT,
+    .SLS_LOGSTORE,
+    .SLS_LOGTAIL
+  ])
+|sort_by(.[0], .[1], .[2], .[3], .[4], .[5])
+|.[]
+|@tsv
+')
+
+headStr=$'LOG_PATH\tFILE_PATTERN\tALIYUN_USERID\tSLS_PROJECT\tSLS_LOGSTORE\tSLS_LOGTAIL\n'
+echo "${headStr}${tsvStr}" | column -t -s $'\t'
+----
+
+
+

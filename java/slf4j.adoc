@@ -99,5 +99,42 @@ class `org.slf4j.NDC` 在 以下 maven 依赖中。
 ----
 
 
+## binder
+
+
+### slf4j 1.x
+参考： link:https://www.slf4j.org/faq.html#slf4j_compatible[Implementing the SLF4J API]
+
+所谓的静态绑定，是指 slf4j 1.x 会将上述3个 class 字节码
+从jar包中  link:https://github.com/qos-ch/slf4j/blob/v_1.7.36/slf4j-api/pom.xml#L30[排除],
+然后由各个 日志框架二方包桥接器（ slf4j-jcl, slf4j-noop） 、日志框架二方包（比如 logback）等实现。
+
+* link:https://github.com/qos-ch/slf4j/blob/v_1.7.36/slf4j-api/src/main/java/org/slf4j/impl/StaticLoggerBinder.java[org.slf4j.impl.StaticLoggerBinder]
+
+org.slf4j.LoggerFactory 内部有 先检查 classpath 下 是否有多个 `org.slf4j.impl.StaticLoggerBinder` class，并 WARNNING， 然后使用第一个。
+注意，关于如何定义第一个，并不能依赖文件系统上 jar 包名字的自然顺序的。
+
+
+* link:https://github.com/qos-ch/slf4j/blob/v_1.7.36/slf4j-api/src/main/java/org/slf4j/impl/StaticMDCBinder.java[org.slf4j.impl.StaticMDCBinder]
+
+`org.slf4j.MDC` 负责调用 `org.slf4j.impl.StaticMDCBinder` ，其接使用 发现的第一个类，这里并没有多个实现告警。
+
+* link:https://github.com/qos-ch/slf4j/blob/v_1.7.36/slf4j-api/src/main/java/org/slf4j/impl/StaticMarkerBinder.java[org.slf4j.impl.StaticMarkerBinder]
+
+`org.slf4j.MarkerFactory` 负责滴啊用 `org.slf4j.impl.StaticMarkerBinder` ，也是直接使用第一个类，不会多实现告警。
+
+而 slf4j 官方的代码中，只有 以下类有调用 `org.slf4j.MarkerFactory` ：
+
+** slf4j-ext : org/slf4j/ext/XLogge
+** slf4j-ext : org/slf4j/cal10n/LocLogger
+** log4j-over-slf4j : org.apache.log4j.Category
+
+link:https://github.com/logfellow/logstash-logback-encoder[logstash-logback-encoder] 有使用 Marker 类，但也是通过自己的
+link:https://github.com/logfellow/logstash-logback-encoder/blob/logstash-logback-encoder-7.4/src/main/java/net/logstash/logback/argument/StructuredArguments.java[StructuredArguments] 创建的，并没有使用到 MarkerFactory/StaticMarkerBinder.
+
+
+
+
+
 
 
