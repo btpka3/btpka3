@@ -1,7 +1,10 @@
 
-# install
+## install
 
-```bash
+
+
+[source,shell]
+----
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 
 # root执行以下命令
@@ -40,29 +43,41 @@ sudo rm -fr ~/.rvmrc
 sduo rm -fr /usr/local/rvm
 sduo rm -fr /etc/profile.d/rvm.sh
 
-```
+----
 
-# 更换 gem 源
+### MacOS 上安装
 
-```
+[source,shell]
+----
+brew install ruby
+----
+
+
+
+## 更换 gem 源
+
+[source,shell]
+----
 gem sources -l
 gem sources --add https://ruby.taobao.org/ --remove https://rubygems.org/
 gem sources -l
 
 bundle config mirror.https://rubygems.org https://ruby.taobao.org
-```
+----
 
 ????
-```bash
+[source,shell]
+----
 #rvm user gemsets
 rvm gemset use global
 bundle update
 #bundle init
 bundle install
 /usr/local/rvm/scripts/rvm
-```
+----
 
-# 卸载 rvm
-```
+## 卸载 rvm
+[source,shell]
+----
 rvm implode
-```
+----

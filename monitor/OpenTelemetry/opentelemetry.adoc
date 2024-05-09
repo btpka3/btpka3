@@ -74,6 +74,12 @@ otel.resource.providers.aws.enabled=false
 
 ## collector
 
+* link:https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/probabilisticsamplerprocessor[Probabilistic Sampling Processor]
+  主要对认为有异常的 trace,log 进行采样
+
+* link:https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/tailsamplingprocessor[Tail Sampling Processor]
+  在几乎trace 的 所有 span 都收集到之后，再决定如何采样，在仅支持trace。
+
 * link:https://github.com/open-telemetry/opentelemetry-java-examples/tree/main/log-appender[open-telemetry/opentelemetry-java-examples]
 * link:https://github.com/open-telemetry/opentelemetry-java-examples/blob/96fb7a333a6a28b27f7ac07dc4f15dcb8fbe6a65/log-appender/src/main/java/io/opentelemetry/example/logappender/Application.java[Application.java]
 * 阿里云:可观测链路OpenTelemetry版:OpenTelemetry接入说明: link:https://help.aliyun.com/zh/opentelemetry/user-guide/use-opentelemetry-sdks[通过开源OpenTelemetry Collector转发]

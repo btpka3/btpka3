@@ -1,0 +1,14 @@
+
+
+## 时区
+
+[source,sql]
+----
+-- 获取全局时区，会话时区. 'SYSTEM' 表示使用服务器端的时区。
+SELECT @@global.time_zone, @@session.time_zone;
+
+
+-- 按时区转换时间
+select CONVERT_TZ('2007-03-11 10:00:00','US/Eastern','-08:01') AS time1;
+select CONVERT_TZ('2007-03-11 10:00:00','US/Eastern','SYSTEM') AS time1;
+----

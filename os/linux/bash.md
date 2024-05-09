@@ -548,8 +548,27 @@ EOF
 
 
 ```bash
+
+info coreutils 'date invocation'
+
+
+
 # 设置时间
 date -s "20150130 10:45:00"
+
+# 按照 ISO-8601 标准输出
+# ns - 输出日期+时间, 示例值: "2024-05-07T10:06:03,937821647+0800"
+date --iso-8601=ns
+date -Ins
+TZ='America/Los_Angeles' date --iso-8601=ns
+date --date="2024-05-07T10:06:03,937821647+0800"  +%Y-%m-%dT%H:%M:%S.%N%:z
+
+# 减去1天
+date -d '- 1 day'   +%Y-%m-%dT%H:%M:%S.%N%:z
+
+# 自定义格式输出
+date +%Y-%m-%dT%H:%M:%S.%N%:z  # 示例输出: "2024-05-07T10:16:42.114658791+08:00"
+date +%FT%T.%N%:z              # 同上
 
 
 date --date="Wed Nov 22 18:33:54 2023" '+%s'                    # 转换时间为unix 时间戳

@@ -1,0 +1,18 @@
+Java规则引擎API
+
+* link:https://jcp.org/aboutJava/communityprocess/final/jsr094/index.html[JSR-000094 JavaTM Rule Engine API]
+* link:https://www.oracle.com/technical-resources/articles/javase/javarule.html[Getting Started With the Java Rule Engine API (JSR 94): Toward Rule-Based Applications]
+* like:https://www.baeldung.com/java-rule-engine-jess-jsr-94[Jess Rule Engine and JSR 94]
+* link:https://www.baeldung.com/java-rule-engines[List of Rules Engines in Java]
+
+
+## Rete 算法
+
+* link:https://en.wikipedia.org/wiki/Rete_algorithm[Rete algorithm]
+* link:https://mp.weixin.qq.com/s?__biz=MzAxMjY5NDU2Ng==&mid=2651866165&idx=1&sn=3779e82c5df38945789cc7923441eac0[Rete算法]
+
+## ReteOO 算法
+* link:https://www.linkedin.com/pulse/reteoo-algorithm-vikas-sharma[ReteOO Algorithm]
+## Leaps 算法
+
+## drools

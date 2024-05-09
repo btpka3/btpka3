@@ -1,0 +1,33 @@
+
+
+* link:https://asciidoctor.org/[asciidoctor]
+* link:https://github.com/asciidoctor/docker-asciidoctor[Asciidoctor Docker Container]
+
+## 安装
+
+[source,shell]
+----
+gem install asciidoctor
+
+# MacOS 上安装
+brew install asciidoctor
+asciidoctor --version
+
+asciidoctor -b html5 \
+-d book \
+-r asciidoctor-diagram \
+-B /Users/zll/data0/work/git-repo/github/btpka3/btpka3 \
+-D /tmp/aaa
+
+----
+
+## docker
+
+
+
+[source,shell]
+----
+docker run -it -u $(id -u):$(id -g) -v <your directory>:/documents/ docker.io/asciidoctor/docker-asciidoctor
+----
+
+

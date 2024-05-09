@@ -1,11 +1,11 @@
 
 
 - https://asciidoc.org/#docs[asciidoc]
-- https://asciidoctor.org/[asciidoctor]
+
 - https://docs.antora.org/antora/latest/[docs.antora.org]
 - https://gist.github.com/dcode/0cfbf2699a1fe9b46ff04c41721dda74[GitHub Flavored Asciidoc (GFA)]
 * link:https://github.com/marketplace/actions/asciidoctor-ghpages[AsciiDoctor GitHub Pages Action]
-
+* link:https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[AsciiDoc Syntax Quick Reference]
 
 
 == antora

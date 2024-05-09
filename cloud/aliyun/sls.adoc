@@ -10,6 +10,8 @@
 * link:https://help.aliyun.com/zh/sls/user-guide/collect-metric-data-from-hosts[通过Logtail插件接入Prometheus监控数据]
 * 阿里云： 日志服务： link:https://help.aliyun.com/zh/sls/developer-reference/connect-log-service-to-grafana[时序数据对接Grafana]
 * github ： link:https://github.com/aliyun/aliyun-log-grafana-datasource-plugin[aliyun/aliyun-log-grafana-datasource-plugin]
+* link:https://help.aliyun.com/zh/sls/user-guide/collect-metric-data-from-prometheus-by-using-the-remote-write-protocol[通过Remote Write协议接入Prometheus监控数据]
+* link:https://help.aliyun.com/zh/sls/user-guide/import-trace-data-from-java-applications-to-log-service-by-using-opentelemetry-sdk-for-java[通过OpenTelemetry接入Java Trace数据]
 
 ## 安装
 

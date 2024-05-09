@@ -82,7 +82,6 @@ jcmd $PID JFR.dump name=abc filename=/tmp/abc.jfr
 
 
 
-
 # 6. 通过 jmc 分析 dump 出来的 jfr 文件
 sdk install jmc
 jmc -help -exit
@@ -401,14 +400,393 @@ link:https://inside.java/2022/04/25/sip48/[Custom JDK Flight Recorder Events - S
 
 [source,shell]
 ----
-jfr summary recording.jfr
+JFR_FILE=412.jfr
 
-jfr metadata recording.jfr
+jfr summary ${JFR_FILE}
+# 查看有哪些类型的的元信息
+jfr metadata ${JFR_FILE}
+
+jfr view gc ${JFR_FILE}
+jfr view jdk.GarbageCollection ${JFR_FILE}
+
+jfr view exception-count ${JFR_FILE}
+
+# 短时CPU飙高
+jfr help view
+jfr view jdk.CPULoad            ${JFR_FILE}             # 确认要看的 CPU 飙高的时间点
+jfr view longest-compilations   ${JFR_FILE}             # 按时间点检查 JIT 编译状况
+jfr view gc-cpu-time            ${JFR_FILE}
+jfr view gc-references          ${JFR_FILE}
+jfr view compiler-phases        ${JFR_FILE}
+jfr view contention-by-address  ${JFR_FILE}            # lock : 按lock对象的地址
+jfr view contention-by-class    ${JFR_FILE}            # lock : 按lock对象的class
+jfr view contention-by-site     ${JFR_FILE}            # lock : 按调用方
+jfr view contention-by-thread   ${JFR_FILE}            # lock : 按线程
+jfr view hot-methods            ${JFR_FILE}
+
+
+
+# JFR 文件如果过大，可以用该命令来切割
+jfr help disassemble
+jfr disassemble --output /tmp/aaa  --max-chunks 11 ${JFR_FILE}
+
+# 将给定事件的 数据挑选出来并保存到新JFR文件中
+jfr scrub --include-events jdk.CPULoad ${JFR_FILE}
+
+jfr print --json --events JavaMonitorEnter ${JFR_FILE}
+
+jfr print --json --events jdk.Compilation ${JFR_FILE}
+
+
+# 给定特定类型，仅仅打印出一条事件， 以便后续如何结合 jq 命令进行过滤、显示
+jfr print --json --events jdk.Compilation  ${JFR_FILE} | jq '.recording.events|[limit(1;.[])]'
+# 通过jq 按时间筛选
+jfr print --json --events jdk.Compilation  ${JFR_FILE} | jq '.recording.events
+|map(select(.values.eventThread.javaThreadId==7 and ( .values.startTime  | test("2024-04-12T14:59:[45]")) ))'
+# 通过jq 按时间筛选，并显示特定字段
+jfr print --json --events jdk.Compilation  ${JFR_FILE} | jq '.recording.events
+|map(select( .values.startTime  | test("2024-04-12T14:59:[45]") ))
+|.[]
+|[
+    .values.startTime,
+    .values.duration,
+    .values.eventThread.javaName,
+    .values.eventThread.javaThreadId,
+    .values.method.type.name,
+    .values.method.name
+]'
 
 
 
 # 按照事件 name 过滤
-jfr print --events Hello sm.jfr
+jfr print --events Hello ${JFR_FILE}
 # 按照事件 category 过滤
-jfr print --categories Demonstration sm.jfr
+jfr print --categories Demonstration ${JFR_FILE}
 ----
+
+
+获取支持的 Category
+
+[source,shell]
+----
+jfr metadata ${JFR_FILE} | grep @Category | sort | uniq | awk '
+BEGIN{FS="\"";OFS="\n"}
+{$1=$1;print;}
+' | grep -v '@Category({'| grep -v '})' | grep -v '@Category(' | grep -v ')' | grep -v ", "| sort | uniq
+----
+
+支持的 Category 列表
+[source,plain]
+----
+Class Loading
+Code Cache
+Code Sweeper
+Collector
+Compiler
+Configuration
+Detailed
+Flag
+Flight Recorder
+GC
+Heap
+Java Application
+Java Development Kit
+Java Virtual Machine
+Memory
+Metaspace
+Modules
+Network
+Operating System
+Optimization
+Phases
+Processor
+Profiling
+Reference
+Runtime
+Safepoint
+Security
+Serialization
+Statistics
+----
+
+获取支持的 Event 列表
+
+[source,shell]
+----
+jfr metadata ${JFR_FILE} | grep '@Name'  | awk -F"[\"]" '{print $2}' | sort
+----
+
+[source,plain]
+----
+java.lang.Class
+java.lang.String
+java.lang.Thread
+jdk.ActiveRecording
+jdk.ActiveRecording
+jdk.ActiveSetting
+jdk.ActiveSetting
+jdk.AllocationRequiringGC
+jdk.BiasedLockClassRevocation
+jdk.BiasedLockRevocation
+jdk.BiasedLockSelfRevocation
+jdk.BooleanFlag
+jdk.BooleanFlagChanged
+jdk.CPUInformation
+jdk.CPULoad
+jdk.CPUTimeStampCounter
+jdk.ClassDefine
+jdk.ClassLoad
+jdk.ClassLoaderStatistics
+jdk.ClassLoadingStatistics
+jdk.ClassUnload
+jdk.CodeCacheConfiguration
+jdk.CodeCacheFull
+jdk.CodeCacheStatistics
+jdk.CodeSweeperConfiguration
+jdk.CodeSweeperStatistics
+jdk.Compilation
+jdk.CompilationFailure
+jdk.CompilerConfiguration
+jdk.CompilerInlining
+jdk.CompilerPhase
+jdk.CompilerStatistics
+jdk.ConcurrentModeFailure
+jdk.DataLoss
+jdk.Deoptimization
+jdk.Deserialization
+jdk.Deserialization
+jdk.DoubleFlag
+jdk.DoubleFlagChanged
+jdk.DumpReason
+jdk.EvacuationFailed
+jdk.EvacuationInformation
+jdk.ExceptionStatistics
+jdk.ExceptionStatistics
+jdk.ExecuteVMOperation
+jdk.ExecutionSample
+jdk.FileForce
+jdk.FileForce
+jdk.FileRead
+jdk.FileRead
+jdk.FileWrite
+jdk.FileWrite
+jdk.G1AdaptiveIHOP
+jdk.G1BasicIHOP
+jdk.G1EvacuationOldStatistics
+jdk.G1EvacuationYoungStatistics
+jdk.G1GarbageCollection
+jdk.G1HeapRegionInformation
+jdk.G1HeapRegionTypeChange
+jdk.G1HeapSummary
+jdk.G1MMU
+jdk.GCConfiguration
+jdk.GCHeapConfiguration
+jdk.GCHeapSummary
+jdk.GCPhaseConcurrent
+jdk.GCPhasePause
+jdk.GCPhasePauseLevel1
+jdk.GCPhasePauseLevel2
+jdk.GCPhasePauseLevel3
+jdk.GCPhasePauseLevel4
+jdk.GCReferenceStatistics
+jdk.GCSurvivorConfiguration
+jdk.GCTLABConfiguration
+jdk.GarbageCollection
+jdk.InitialEnvironmentVariable
+jdk.InitialSystemProperty
+jdk.IntFlag
+jdk.IntFlagChanged
+jdk.JVMInformation
+jdk.JWarmupBitData
+jdk.JWarmupBranchData
+jdk.JWarmupCallTypeData
+jdk.JWarmupClassDefine
+jdk.JWarmupCompilation
+jdk.JWarmupCounterData
+jdk.JWarmupJumpData
+jdk.JWarmupMethodCounters
+jdk.JWarmupMultiBranchData
+jdk.JWarmupParametersTypeData
+jdk.JWarmupReceiverTypeData
+jdk.JWarmupRetData
+jdk.JWarmupVirtualCallData
+jdk.JWarmupVirtualCallTypeData
+jdk.JavaErrorThrow
+jdk.JavaErrorThrow
+jdk.JavaExceptionThrow
+jdk.JavaExceptionThrow
+jdk.JavaMonitorEnter
+jdk.JavaMonitorInflate
+jdk.JavaMonitorWait
+jdk.JavaThreadStatistics
+jdk.LongFlag
+jdk.LongFlagChanged
+jdk.MetaspaceAllocationFailure
+jdk.MetaspaceChunkFreeListSummary
+jdk.MetaspaceGCThreshold
+jdk.MetaspaceOOM
+jdk.MetaspaceSummary
+jdk.ModuleExport
+jdk.ModuleRequire
+jdk.NativeLibrary
+jdk.NativeMethodSample
+jdk.NetworkUtilization
+jdk.OSInformation
+jdk.ObjectAllocationInNewTLAB
+jdk.ObjectAllocationOutsideTLAB
+jdk.ObjectCount
+jdk.ObjectCountAfterGC
+jdk.OldGarbageCollection
+jdk.OldObjectSample
+jdk.OptoArrayObjectAllocation
+jdk.OptoInstanceObjectAllocation
+jdk.PSHeapSummary
+jdk.ParallelOldGarbageCollection
+jdk.PhysicalMemory
+jdk.PromoteObjectInNewPLAB
+jdk.PromoteObjectOutsidePLAB
+jdk.PromotionFailed
+jdk.ReservedStackActivation
+jdk.SafepointBegin
+jdk.SafepointCleanup
+jdk.SafepointCleanupTask
+jdk.SafepointEnd
+jdk.SafepointStateSynchronization
+jdk.SafepointWaitBlocked
+jdk.SecurityPropertyModification
+jdk.SecurityPropertyModification
+jdk.ShenandoahHeapRegionInformation
+jdk.ShenandoahHeapRegionStateChange
+jdk.Shutdown
+jdk.SocketRead
+jdk.SocketRead
+jdk.SocketWrite
+jdk.SocketWrite
+jdk.StringFlag
+jdk.StringFlagChanged
+jdk.SweepCodeCache
+jdk.SystemProcess
+jdk.TLSHandshake
+jdk.TLSHandshake
+jdk.TenuringDistribution
+jdk.ThreadAllocationStatistics
+jdk.ThreadCPULoad
+jdk.ThreadContextSwitchRate
+jdk.ThreadDump
+jdk.ThreadEnd
+jdk.ThreadPark
+jdk.ThreadSleep
+jdk.ThreadStart
+jdk.TouchedMethod
+jdk.UnsignedIntFlag
+jdk.UnsignedIntFlagChanged
+jdk.UnsignedLongFlag
+jdk.UnsignedLongFlagChanged
+jdk.VirtualizationInformation
+jdk.X509Certificate
+jdk.X509Certificate
+jdk.X509Validation
+jdk.X509Validation
+jdk.YoungGarbageCollection
+jdk.YoungGenerationConfiguration
+jdk.ZAllocationStall
+jdk.ZPageAllocation
+jdk.ZRelocationSet
+jdk.ZRelocationSetGroup
+jdk.ZStatisticsCounter
+jdk.ZStatisticsSampler
+jdk.ZThreadPhase
+jdk.ZUncommit
+jdk.ZUnmap
+jdk.jfr.BooleanFlag
+jdk.jfr.Category
+jdk.jfr.ContentType
+jdk.jfr.DataAmount
+jdk.jfr.Description
+jdk.jfr.Enabled
+jdk.jfr.Experimental
+jdk.jfr.Frequency
+jdk.jfr.Label
+jdk.jfr.MemoryAddress
+jdk.jfr.Name
+jdk.jfr.Percentage
+jdk.jfr.Period
+jdk.jfr.Relational
+jdk.jfr.StackTrace
+jdk.jfr.Threshold
+jdk.jfr.Timespan
+jdk.jfr.Timestamp
+jdk.jfr.TransitionFrom
+jdk.jfr.Unsigned
+jdk.jfr.internal.Cutoff
+jdk.settings.Cutoff
+jdk.settings.Cutoff
+jdk.settings.Enabled
+jdk.settings.Enabled
+jdk.settings.Period
+jdk.settings.Period
+jdk.settings.StackTrace
+jdk.settings.StackTrace
+jdk.settings.Threshold
+jdk.settings.Threshold
+jdk.types.Bytecode
+jdk.types.CalleeMethod
+jdk.types.ClassLoader
+jdk.types.CodeBlobType
+jdk.types.CompileId
+jdk.types.CompilerPhaseType
+jdk.types.CompilerType
+jdk.types.CopyFailed
+jdk.types.DeoptimizationAction
+jdk.types.DeoptimizationReason
+jdk.types.FlagValueOrigin
+jdk.types.FrameType
+jdk.types.G1EvacuationStatistics
+jdk.types.G1HeapRegionType
+jdk.types.G1YCType
+jdk.types.GCCause
+jdk.types.GCName
+jdk.types.GCThresholdUpdater
+jdk.types.GCWhen
+jdk.types.GcId
+jdk.types.InflateCause
+jdk.types.JWarmupClassDependency
+jdk.types.JWarmupInlineTreeNode
+jdk.types.JWarmupMethodCell
+jdk.types.JWarmupObjectDependency
+jdk.types.JWarmupProfileDataHeader
+jdk.types.JWarmupRetDataCell
+jdk.types.JWarmupTypeCell
+jdk.types.JavaMonitorAddress
+jdk.types.MetadataType
+jdk.types.MetaspaceObjectType
+jdk.types.MetaspaceSizes
+jdk.types.Method
+jdk.types.Module
+jdk.types.NarrowOopMode
+jdk.types.NetworkInterfaceName
+jdk.types.ObjectSpace
+jdk.types.OldObject
+jdk.types.OldObjectArray
+jdk.types.OldObjectField
+jdk.types.OldObjectGcRoot
+jdk.types.OldObjectRootSystem
+jdk.types.OldObjectRootType
+jdk.types.Package
+jdk.types.Reference
+jdk.types.ReferenceType
+jdk.types.SafepointId
+jdk.types.ShenandoahHeapRegionState
+jdk.types.StackFrame
+jdk.types.StackTrace
+jdk.types.SweepId
+jdk.types.Symbol
+jdk.types.ThreadGroup
+jdk.types.ThreadState
+jdk.types.VMOperationType
+jdk.types.VirtualSpace
+jdk.types.ZPageTypeType
+jdk.types.ZStatisticsCounterType
+jdk.types.ZStatisticsSamplerType
+----
+

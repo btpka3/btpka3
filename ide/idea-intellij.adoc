@@ -1,14 +1,20 @@
-# 15
 
-```
+:experimental:
+
+## 15
+
+[source,plain]
+----
 >> License server
 http://idea.lanyus.com
 或者
 http://www.iteblog.com/idea/key.php
-```
-# 安装
+----
 
-```
+## 安装
+
+[source,shell]
+----
 sudo mkdir /usr/local/idea
 sudo tar zxvf ~/Downloads/ideaIU-14.0.3.tar.gz -C /usr/local/idea
 
@@ -29,40 +35,46 @@ sudo vi idea.sh                    // 在最开始加入  `. /etc/profile.d/xxx.
 
 # 注意： Mac OS X 下，会单独生成文件的保存路径，比如：/Users/zll/Library/Preferences/IntelliJIdea2016.2/idea.vmoptions
 
-```
+----
 
-# 苹果下快捷键
+## 苹果下快捷键
 
 <!-- ↑ ↓ ← → ↖ ↗ ↙ ↘ ↔ ↕  ⬆️⬇️➡️⬅️ -->
 
-|key |description|
-|------|-----|
-|<kbd>Cmd + ←</kdb>|光标移动到行首|
-|<kbd>Cmd + →</kdb>|光标移动到行尾|
-|<kbd>Cmd + Shift + ↑</kdb>|选中区域向上移动|
-|<kbd>Cmd + Shift + ↓</kdb>|选中区域向下移动|
-|<kbd>Cmd + /</kdb>|注释代码|
-|<kbd>Cmd + [</kdb>|导航：向后|
-|<kbd>Cmd + ]</kdb>|导航：向前|
-|<kbd>Cmd + Shift + [</kdb>|导航：前一个 Tab|
-|<kbd>Cmd + Shift + ]</kdb>|导航：后一个 Tab|
-|<kbd>Cmd + Backspace</kdb>|删除当前行|
-|<kbd>Cmd + D</kdb>|复制当前行|
-|<kbd>Cmd + Shift + Backspace</kdb>|导航：回到最后一次修改处|
-|<kbd>Cmd + Fn + ←</kdb>|回到编辑器第一行|
-|<kbd>Cmd + Fn + →</kdb>|回到编辑器最后一行|
-|<kbd>Cmd + P</kdb>|显示参数|
-|<kbd>Cmd + Shift + E</kdb>|显示最近修改的文件|
-|<kbd>Cmd + Shift + V</kdb>|显示最近5次粘贴的内容|
-|<kbd>Cmd + Option + L</kdb>|格式化代码|
-|<kbd>Cmd + Option + L</kdb>|格式化代码|
-|<kbd>Ctrl + Option + O</kdb>|格式化 import|
-|<kbd>Ctrl + H</kdb>|显示选中class的子类|
+
+
+
+|===
+|key | description
+
+|kbd:[Cmd+←]|光标移动到行首
+|kbd:[Cmd+→]|光标移动到行尾
+|kbd:[Cmd+Shift+↑]|选中区域向上移动
+|kbd:[Cmd+Shift+↓]|选中区域向下移动
+|kbd:[Cmd+/]|注释代码
+|kbd:[Cmd+[]|导航：向后
+|kbd:[Cmd+\]]|导航：向前
+|kbd:[Cmd+Shift+[]|导航：前一个 Tab
+|kbd:[Cmd+Shift+\]]|导航：后一个 Tab
+|kbd:[Cmd+Backspace]|删除当前行
+|kbd:[Cmd+D]|复制当前行
+|kbd:[Cmd+Shift+Backspace]|导航：回到最后一次修改处
+|kbd:[Cmd+Fn+←]|回到编辑器第一行
+|kbd:[Cmd+Fn+→]|回到编辑器最后一行
+|kbd:[Cmd+P]|显示参数
+|kbd:[Cmd+Shift+E]|显示最近修改的文件
+|kbd:[Cmd+Shift+V]|显示最近5次粘贴的内容
+|kbd:[Cmd+Option+L]|格式化代码
+|kbd:[Cmd+Option+L]|格式化代码
+|kbd:[Ctrl+Option+O]|格式化 import
+|kbd:[Ctrl+H]|显示选中class的子类
+|===
 
 
 # ubuntu 下中文字体
 
-```bash
+[source,shell]
+----
 # 安装文泉驿中文字体
 sudo apt-get install ttf-wqy-microhei
 
@@ -80,18 +92,19 @@ Settings -> Editor
     -> Colors & Fonts -> Font.  : WenQuanYi Micro Hei Mono 14px
 
 or  YaHei Consolas Hybrid 15px
-```
-[YaHei.Consolas.1.12.rar](http://files.cnblogs.com/icelyb24/YaHei.Consolas.1.12.rar)
+----
+link:http://files.cnblogs.com/icelyb24/YaHei.Consolas.1.12.rar[YaHei.Consolas.1.12.rar]
 
 
 
 
 
-# 常用设置
+## 常用设置
 
 从菜单栏打开 File -> Settings :
 
-```
+[source,plain]
+----
 Appearance && Behavior
     Appearance :
         1. Theme 下拉选择为 "Darcula"
@@ -109,12 +122,13 @@ Keymap : 复制一份 Eclipse 版的快捷键配置，搜索 close 并
     移除 Window/Active Tool Window/Close Active Tab 的 `Ctrl+W` 的快捷键
     为 Window/Editor Tabs/Close 追加 `Ctrl+W` 的快捷键
     查找F2使用的快捷键，并全部移除，为 Main Menu/Refactor/Rename 增加 F2 快捷键
-```
+----
 
 Editor/File and Code Templates :
 
 
-```txt
+[source,plain]
+----
 #if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
 #parse("File Header.java")
 
@@ -124,18 +138,19 @@ Editor/File and Code Templates :
  */
 public class ${NAME} {
 }
-```
+----
 
 
-# 插件
+## 插件
 
-* [sonarqube](http://plugins.jetbrains.com/plugin/7238?pr=idea)
-* [angularjs](http://plugins.jetbrains.com/plugin/6971?pr=idea)
-# 通过IP地址访问 build-in server
+* link:http://plugins.jetbrains.com/plugin/7238?pr=idea[sonarqube]
+* link:http://plugins.jetbrains.com/plugin/6971?pr=idea[angularjs]
+## 通过IP地址访问 build-in server
 
 在nginx/tengin 中加入如下配置文件
 
-```
+[source,plain]
+----
 server {
     listen 192.168.0.60:63342;
     server_name 192.168.0.60;
@@ -149,19 +164,19 @@ server {
         proxy_set_header        X-Forwarded-Proto $scheme;
     }
 }
-```
-## 7788
+----
+### 7788
 
-1. 工程中选择输出目录（比如 target，build，dist 等），右键选择 `Mark Directory As` -> `Excluded`
+. 工程中选择输出目录（比如 target，build，dist 等），右键选择 `Mark Directory As` -> `Excluded`
    或者到 `Preferences | Project | Directories` 中排除指定的目录。
 
 
-## jetbrains license server
+### jetbrains license server
 
 use docker [woailuoli993/jblse](https://hub.docker.com/r/woailuoli993/jblse/).
 
-
-```bash
+[source,shell]
+----
 docker create                           \
     --name qh-idea                      \
     --restart unless-stopped            \
@@ -171,13 +186,13 @@ docker create                           \
 docker start qh-idea
 
 # 认证服务器： http://127.0.0.1:20701
-```
+----
 
 
 
-# format code
+### format code
 
-[Format files from the command line](https://www.jetbrains.com/help/idea/command-line-formatter.html)
+link:https://www.jetbrains.com/help/idea/command-line-formatter.html[Format files from the command line]
 
 
 "/Users/zll/Applications/IntelliJ IDEA Community Edition.app/Contents/bin/format.sh" -s ~/Default.xml /Users/zll/data0/work/git-repo/ali/chengdun_security_commercialization/deploy_daily/.tmp/a.java
@@ -185,7 +200,8 @@ docker start qh-idea
 "/Users/zll/Applications/IntelliJ IDEA Ultimate.app/Contents/bin/format.sh" -s ~/Default.xml /Users/zll/data0/work/git-repo/ali/chengdun_security_commercialization/deploy_daily/.tmp/a.java
 
 
-```
+[source,plain]
+----
 ormatting /Users/zll/data0/work/git-repo/ali/chengdun_security_commercialization/deploy_daily/.tmp/a.java...2023-10-13 17:04:01,185 [   3134] SEVERE - #c.i.o.progress - This method is forbidden on EDT because it does not pump the event queue. Switch to a BGT, or use com.intellij.openapi.progress.TasksKt.runWithModalProgressBlocking.
 java.lang.IllegalStateException: This method is forbidden on EDT because it does not pump the event queue. Switch to a BGT, or use com.intellij.openapi.progress.TasksKt.runWithModalProgressBlocking.
 	at com.intellij.openapi.progress.CoroutinesKt.assertBackgroundThreadOrWriteAction(coroutines.kt:413)
@@ -267,4 +283,4 @@ java.lang.IllegalStateException: This method is forbidden on EDT because it does
 	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:113)
 	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:105)
 	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:92)
-```
+----

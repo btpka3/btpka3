@@ -4,6 +4,7 @@
 :icons: font
 :author: btpka3
 :my-custom-document-attribute-1: 张亮亮
+:experimental:
 
 该文档是 {author}/{my-custom-document-attribute-1} 的学习笔记，记录了各种 asciidoc 的基础demo.
 
@@ -583,6 +584,17 @@ link:xxx.html#xxxId[显示文本]
 
 // ----------------------------- 7788
 ## 7788
+
+
+### kbd
+
+|===
+|key | description
+
+|kbd:[Cmd+←]|光标移动到行首
+|kbd:[Cmd+→]|光标移动到行尾
+|kbd:[Cmd+\]]|导航：向前
+|===
 
 
 ### source code

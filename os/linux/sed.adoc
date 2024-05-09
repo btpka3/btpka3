@@ -1,0 +1,43 @@
+
+- https://www.gnu.org/software/sed/manual/sed.html[sed, a stream editor]
+- https://docstore.mik.ua/orelly/unix/sedawk/appa_03.htm[Command Summary for sed]
+
+
+
+## 字符串替换
+
+[source,shell]
+----
+cat <<EOF |
+#1catalina.org.apache.juli.AsyncFileHandler.directory = \${catalina.base}/logs
+#2localhost.org.apache.juli.AsyncFileHandler.directory = \${catalina.base}/logs
+EOF
+sed -i 's/\${catalina.base}\/logs/\${catalina.logs}/g' logging.properties
+
+sed -i 's/\${catalina.base}\/logs/\${catalina.logs}/g' logging.properties
+# mysql ddl 全局重置 AUTO_INCREMENT 为 1
+# 如果MacOS 上执行sed, -i 后面需要增加 `''` 参数
+sed -i '' 's/ AUTO_INCREMENT=[0-9]* / AUTO_INCREMENT=1 /g'  ddl.sql
+----
+
+
+## 多文件批量字符串替换
+
+[source,shell]
+----
+# GNU 版本的 sed
+## 格式
+find ./ -type f -exec sed -i 's/old_string/new_string/g' {} \;
+
+
+# macOs 版本的 sed
+## 格式
+find ./ -type f -exec sed -i '' -e 's/old_string/new_string/g' {} \;
+
+## 示例: 将 gradle 文件 中maven 仓库地址 从 http 协议改成 https 协议
+find ./mqtt/my-mqtt/ -type f -name "*.gradle" -exec sed -i '' -e  's/http:\/\/maven.aliyun.com/https:\/\/maven.aliyun.com/g' {} \;
+find . -type f -name "*.gradle" -exec sed -i '' -e 's/http:\/\/maven.aliyun.com/https:\/\/maven.aliyun.com/g' {} \;
+
+find . -type f -name "*.gradle" | xargs grep "http://maven.aliyun.com"
+----
+

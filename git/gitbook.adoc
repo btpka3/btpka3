@@ -1,0 +1,159 @@
+
+## 参考
+
+* link:https://github.com/GitbookIO/gitbook-cli[gitbook-cli] 已经不再维护
+* link:https://help.gitbook.com/[GitBook Help Center]
+* link:https://github.com/GitbookIO/gitbook[gitbook@github]
+* link:http://toolchain.gitbook.com/[GitBook Toolchain Documentation]
+* link:https://www.bookstack.cn/read/gitbook-documentation/README.md[GitBook文档（中文版）]
+
+[source,shell]
+----
+npm install gitbook-cli -g
+cd youBookRootDir
+gitbook init
+gitbook serve
+
+# gitbook build ./ --log=debug --debug
+gitbook build
+----
+
+目录结构
+
+[source,plain]
+----
+.
+├── cover.jpg           // 可选: 转换为电子书时,使用的封面
+├── book.json           // 可选: 配置文件
+├── README.md           // 必须: 前言、简介
+├── SUMMARY.md          // 必须: ToC 目录
+├── GLOSSARY.md         // 可选: 术语表
+├── chapter-1/
+|   ├── README.md       // 每个章节特定的说明文档
+|   └── something.md
+└── chapter-2/
+    ├── README.md
+    └── something.md
+----
+
+gitbook 从 `.gitignore`, `.bookignore` 和 `.ignore` 中读取要忽略的文件。
+其他静态文件都复制到输出目录中
+
+## 插件
+
+[source,shell]
+----
+# 1. 先修改 book.json 追加plugins的名称
+plugins : ["mathjax"]
+
+# 2. 再在命令安装插件
+gitbook install
+----
+
+常用插件
+
+* link:https://plugins.gitbook.com/plugin/mathjax[mathjax]
+
+[source,markdown]
+----
+$$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$
+\\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\\)
+----
+
+
+
+## 输出
+
+需要先 link:http://toolchain.gitbook.com/ebook.html[安装] 一定的必要软件, 比如 link:https://calibre-ebook.com/download[calibre] 。
+
+
+[source,shell]
+----
+sudo ln -s /Applications/calibre.app/Contents/MacOS/ebook-convert /usr/bin
+
+
+# 生成各种格式
+gitbook pdf ./ ./mybook.pdf
+gitbook epub ./ ./mybook.epub
+----
+
+## 插件 - prism
+link:https://plugins.gitbook.com/plugin/prism[prism] 插件提供了更好的代码着色配置。
+但是在本地启动过程中，如果发现控制台有提示 `{ [Error: Cannot find module 'prismjs/components/prism-cfg.js'] code: 'MODULE_NOT_FOUND' }` 这样的提示，
+务必请查找并修改为 prism 支持的语法类型。该类型可以在 `./node_modules/prismjs/components` 目录下通过文件名来快速判别。
+
+### 使用其他的主题？
+
+确保你的book目录中有 package.json （可以通过 `npm init` 创建）
+
+[source,shell]
+----
+npm install --save prism-themes
+----
+
+修改 book.json
+
+[source,json]
+----
+{
+  "pluginsConfig": {
+    "prism": {
+      "css": [
+        "prism-themes/themes/prism-duotone-dark.css"
+      ]
+    }
+  }
+}
+----
+
+## 默认插件
+
+* link:https://github.com/GitbookIO/plugin-lunr[lunr]
+* link:https://github.com/GitbookIO/theme-default[theme-default]
+* link:https://plugins.gitbook.com/plugin/fontsettings[fontsettings]
+* link:https://plugins.gitbook.com/plugin/livereload[livereload]
+* link:https://plugins.gitbook.com/plugin/sharing[sharing]
+
+## 主题
+
+link:https://github.com/GitbookIO/theme-default[theme-default] 是默认主题。
+
+## 字体
+
+link:https://plugins.gitbook.com/plugin/fontsettings[fontsettings]
+
+
+## travis-ci 构建
+
+. 生成一个 github [Personal access tokens](https://github.com/settings/tokens)
+
+. 在 gitbook 中对单个 repo 进行配置，追加环境变量
+   `https://travis-ci.org/<me>/<myrepo>/settings`
+
+[source,plain]
+----
+GITHUB_API_KEY=<token>
+----
+
+并确保没有启用 "Display value in build log"
+
+. 修改 `.travis.yml` :
+
+[source,yaml]
+----
+after_success: |
+    if [ -n "$GITHUB_API_KEY" ]; then
+        cd "$TRAVIS_BUILD_DIR"
+        # This generates a `web` directory containing the website.
+        make web
+        cd web
+        git init
+        git checkout -b gh-pages
+        git add .
+        git -c user.name='travis' -c user.email='travis' commit -m init
+        # Make sure to make the output quiet, or else the API token will leak!
+        # This works because the API key can replace your password.
+        git push -f -q https://<me>:$GITHUB_API_KEY@github.com/<me>/<myrepo>-gh-pages gh-pages &2>/dev/null
+        cd "$TRAVIS_BUILD_DIR"
+    fi
+----

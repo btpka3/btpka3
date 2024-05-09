@@ -488,6 +488,25 @@ json='
 echo "${json}" | jq -r '{(.user): .titles}|tostring'
 ----
 
+## sort\limit
+
+[source,shell]
+----
+json='
+[
+    {"name":"zhang3", "age":40},
+    {"name":"li4",    "age":28},
+    {"name":"wang5",  "age":50},
+    {"name":"zhao6",  "age":18}
+]
+'
+## 按照年龄从小到大取前3个
+echo "${json}" | jq -r 'sort_by(.age)|[limit(3;.[])]'
+## 按照年龄从大到小取前3个
+echo "${json}" | jq -r 'sort_by(.age)|reverse|[limit(3;.[])]'
+----
+
+
 
 ## 按照 key 过滤
 等价于java的 Stream#filter
