@@ -1,5 +1,0 @@
-
-## CockroachDB
-
-link:https://www.cockroachlabs.com/[CockroachDB]
-
