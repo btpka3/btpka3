@@ -1,0 +1,142 @@
+
+
+## 经验
+
+* bom import 越靠前越优先
+
+[source,xml]
+----
+<project>
+    <properties>
+        <slf4j.version>2.0.13</slf4j.version>
+        <spring-boot.version>2.7.11</spring-boot.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-bom</artifactId>
+                <version>${slf4j.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+          </dependencies>
+    </dependencyManagement>
+</project>
+----
+
+如上面示例：实际依赖的 slf4j-api 的版本 是 spring-boot 管理的 1.7.36。但如果将 slf4j-bom import 置前，将使用 2.0.13版本的 slf4j-api 。
+
+
+
+
+* profile越靠后优先级越高
+
+[source,xml]
+----
+<project>
+    <properties>
+        <commons-lang3.version>3.5</commons-lang3.version>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>my1</id>
+            <properties>
+                <commons-lang3.version>3.6</commons-lang3.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>my2</id>
+            <properties>
+                <commons-lang3.version>3.7</commons-lang3.version>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+    </dependencies>
+</project>
+----
+● 不启用 maven profile 时，依赖的 commons-lang3 的版本是 3.5
+● 只启用 maven profile -Pmy1 时，依赖的 commons-lang3 的版本是 3.6
+● 同时启用 maven profile -Pmy1,my2  时，依赖的 commons-lang3 的版本是 3.7 ， profile my2在pom.xml中出现的位置比 my1靠后，故 后者覆盖前者。
+● 结合 前面的 【特性：bom import 越靠前越优先】，为避免 再引入 maven profile 后对 bom import 顺序的理解上的困扰。
+建议：一旦启用maven profile，请将 bom import 全部放到 mavne profile里管理。
+
+
+* profile 内的声明的优先级高于profile外的
+
+
+
+
+
+* 按照profile打包不同的资源文件
+
+同时配置两个 resource 目录，则同名的文件以按该pom.xml 配置的目录的顺序，使用第一个出现的。
+
+[source,xml]
+----
+<project>
+    <profiles>
+        <profile>
+            <id>mtee3</id>
+            <!-- 不做特殊配置，则保持使用默认的 src/main/resources 作为资源目录 -->
+        </profile>
+        <profile>
+            <id>k8s</id>
+            <build>
+                <resources>
+                    <!-- 同时配置两个 resource 目录，
+                         则同名的文件以按该pom.xml 配置的目录的顺序，使用第一个出现的。
+                    -->
+                    <resource>
+                        <directory>src/maven-profile-k8s/resources</directory>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
+</project>
+----
+
+
+## scm
+
+[source,xml]
+----
+ <scm>
+    <connection>scm:git:git://github.com/btpka3/btpka3.github.com</connection>
+</scm>
+----
+
+
+
+
+
+
+
+

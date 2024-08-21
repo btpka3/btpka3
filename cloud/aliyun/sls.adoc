@@ -30,7 +30,7 @@ FIXME: 如何在 阿里云 k8s 容器内安装 ilogtail ? 比如使用的镜像�
 link:https://help.aliyun.com/zh/sls/user-guide/reserved-fields[保留字段]
 
 * `__time__` : 写入日志数据时指定的日志时间
-* `__source__` : 日志来源设备
+* `__source__` : 日志来源设备ma
 * `__topic__` : 日志主题（Topic）
 * `__partition_time__` : 投递MaxCompute的日志分区时间列，由__time__计算得到
 * `__extract_others__` : 日志中投递MaxCompute的未配置字段组装为一个JSON Map。

@@ -1,6 +1,29 @@
 
 
+## 安装
 
+[source,shell]
+----
+# 如果MacOS上安装后启动不起来，请参考下载使用这里提示的版本。比如：
+# 比如: 2024-05-16, 安装 4.30.0 版本的 Mac with Intel chip 版本就启动不起来，退回成 4.26.0 版本就好了。
+brew info docker
+
+#brew install --cask docker
+#brew uninstall docker
+
+# 下载 Docker.dmg 后
+vi ~/.zshrc  # 增加以下配置
+export PATH="${HOME}/.docker/bin:${PATH}"
+
+
+# 启动异常诊断
+/Applications/Docker.app/Contents/MacOS/com.docker.diagnose check
+ll /usr/local/bin/dock*
+ll ~/Library/Containers/com.docker.*
+ll ~/Library/Containers/com.docker.docker/Data/log/host/
+
+/Applications/Docker.app/Contents/Resources/bin/docker system prune --all --force
+----
 
 ## 查看文件内容
 
@@ -26,3 +49,37 @@ docker cp $id:${FILE_IN_IMAGE} .
 docker rm -v $id
 cd ${cur_dir}
 ----
+
+
+
+
+## ~/.docker/config.json
+
+- link:https://docs.docker.com/engine/reference/commandline/cli/#docker-cli-configuration-file-configjson-properties[Docker CLI configuration file (config.json) properties]
+- link:https://docs.docker.com/engine/reference/commandline/login/#credential-stores[Credential stores]
+- link:https://www.passwordstore.org/[pass]
+
+```shell
+brew install pass
+```
+
+`docker login` 如果这个错误，则修改 `vi ~/.docker/config.json` 删除 "credsStore"
+
+[source,plain]
+----
+Error saving credentials: error storing credentials - err: exit status 1, out: `status code not OK but 500: {"message":"Post \"https://hub.docker.com/v2/users/login?refresh_token=true\": EOF"}
+{"message":"Post \"https://hub.docker.com/v2/users/login?refresh_token=true\": EOF"}`
+----
+
+[source,shell]
+----
+{
+  "credsStore": "osxkeychain"
+}
+----
+
+
+## /etc/docker/daemon.json
+## ~/.docker/daemon.json
+
+

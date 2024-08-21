@@ -1,32 +1,37 @@
 
-[ognl](http://commons.apache.org/proper/commons-ognl/language-guide.html)
+* http://commons.apache.org/proper/commons-ognl/language-guide.html[ognl]
 
 
-# 调用静态方法
-```
+## 调用静态方法
+[source,shell]
+----
 @your.java.package.XxxClass@xxxStaticMethod
-```
+----
 
-# 引用 class
+## 引用 class
 
-```
+[source,shell]
+----
 @your.java.package.XxxClass@class
-```
+----
 
 
 
-# List 
+## List
 ## map : 映射成新元素
 
-```shell
+[source,shell]
+----
 #xxxList.{yyyProp}
 #xxxList.{#this.getClass().getName()}
 
 # 假设某个方法 只有一个入参，且返回值是 List， 下面是 arthas 语句
 watch xxxClass xxxMethod  '{target.getClass().getName(), params[0].getName(), returnObj==null?null:returnObj.{#this==null?"null":#this.getClass().getName()} }' -x 3
-```
+----
+
 ## filter : 过滤
-```shell
+[source,shell]
+----
 #xxxList.{? #this instanceof ActionListener}
-```
+----
 

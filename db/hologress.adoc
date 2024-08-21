@@ -24,3 +24,68 @@ ALTER TABLE IF EXISTS mtee3_exception_2 DROP COLUMN IF EXISTS ds;
 
 SELECT to_char(current_timestamp, 'YYYYMMDD');
 ----
+
+
+## 行存、列存、行列共存
+
+* 行式存储：在行式存储中，表的单行数据被一起存储在磁盘上的一个块或页面中。这意味着给定行的所有列都被一起存储，这对于需要一次检索整行数据的操作（如SELECT查询）是有效的。然而，对于只需要访问表中某些列的操作，行式存储可能效率较低。
+
+* 列式存储：在列式存储中，表的每一列都被单独存储在磁盘上，这意味着给定列的所有值都被一起存储。对于只需要访问表中某些列的操作，这可能更为高效，因为数据库可以避免读入不必要的数据。列式存储在某些类型的查询（例如涉及聚合或仅涉及一列的计算的查询）方面也可能更为高效。
+
+* 混合式存储：一些数据库采用混合式存储方法，将行式和列式存储结合起来使用。在这种方法中，数据库可能以列式格式存储经常访问的列，而以行式格式存储不太频繁访问的列。这可以提供两种方法的优势，但实施和管理可能更为复杂。
+
+
+
+## 数据类型
+
+* INTEGER/INT/INT4
+* BIGINT/INT8
+* DECIMAL/NUMERIC
+* TEXT
+* TIMESTAMP WITH TIME ZONE / TIMESTAMPTZ : 带时区，精确到毫秒, 示例: '2004-10-19 10:23:54+02'
+* TIMESTAMP : 不含时区，精度为微秒，示例: '2020-01-01 01:01:01.123456'
+* SERIAL
+* JSON
+* JSONB
+* UUID
+
+## 函数
+
+link:https://help.aliyun.com/zh/hologres/user-guide/functions/[函数参考]
+
+
+
+### 日期和时间函数
+
+PostGreSql : link:https://www.postgresql.org/docs/current/functions-formatting.html[Data Type Formatting Functions]
+
+[source,sql]
+----
+select
+    to_timestamp('2024071013','YYYYMMDDHH24') ,
+    dateadd(to_timestamp('2024071013','YYYYMMDDHH24') , 1, 'hh') ;
+
+    db_time >= to_date('${bizhour}', 'yyyymmddhh')
+and db_time < DATEADD(to_date('${bizhour}', 'yyyymmddhh'), 1, 'hh')
+
+    db_time >= to_timestamp('${bizhour}', 'YYYYMMDDHH24')
+and db_time < dateadd(to_timestamp('${bizhour}', 'YYYYMMDDHH24'), 1, 'hh')
+
+
+
+-- 输出 毫秒 的时间字符串。
+-- 示例输出: '2024-07-11T12:10:42.776+08:00'
+select to_char(current_timestamp, 'YYYY-MM-DD"T"HH24:MI:SS.MSTZH:TZM')
+-- 输出 微秒 的时间字符串。
+-- 示例输出: '2024-07-11T12:07:16.241452+08:00'
+select to_char(current_timestamp, 'YYYY-MM-DD"T"HH24:MI:SS.USTZH:TZM')
+
+-- str -> timestamp
+-- 示例输出: 2024-07-11 12:10:42.776+08
+select to_timestamp('2024-07-11T12:10:42.776+08:00', 'YYYY-MM-DD"T"HH24:MI:SS.MSTZH:TZM')
+-- 示例输出: 2024-07-11 12:07:16.241452+08
+select to_timestamp('2024-07-11T12:07:16.241452+08:00', 'YYYY-MM-DD"T"HH24:MI:SS.USTZH:TZM')
+----
+
+
+

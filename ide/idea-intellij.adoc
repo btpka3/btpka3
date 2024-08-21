@@ -68,6 +68,10 @@ sudo vi idea.sh                    // 在最开始加入  `. /etc/profile.d/xxx.
 |kbd:[Cmd+Option+L]|格式化代码
 |kbd:[Ctrl+Option+O]|格式化 import
 |kbd:[Ctrl+H]|显示选中class的子类
+|kbd:[Cmd+-]|折叠
+|kbd:[Cmd++]|展开
+|kbd:[Shift+Cmd+-]|全部折叠
+|kbd:[Shift+Cmd++]|全部展开
 |===
 
 

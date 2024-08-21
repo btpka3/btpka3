@@ -1,0 +1,58 @@
+
+
+link:https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html[How to Write Doc Comments for the Javadoc Tool]
+
+## 标签
+[source,java]
+-----
+/**
+ * @author dangqian.zll
+ * @version xxx
+ * @param xxx xxx desc
+ * @return xxx
+ * @exception xxx
+ * @see org.xxx.Class#method
+ * @since 1.2
+ * @serial
+ * @deprecated
+ */
+ public String getXxxText(String text) {}
+-----
+
+
+### @author
+[source,java]
+-----
+/**
+ * @author dangqian.zll
+ */
+-----
+
+### @since
+
+[source,java]
+-----
+/**
+ * @since 1.2
+ */
+-----
+
+### @version
+
+[source,java]
+-----
+/**
+ * @since 1.2
+ */
+-----
+
+
+### @param
+[source,java]
+-----
+/**
+ * @param text  the text of the tool tip
+ */
+public void setToolTipText(String text) {}
+-----
+

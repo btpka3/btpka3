@@ -1,0 +1,30 @@
+
+## ugrep
+
+link:https://github.com/Genivia/ugrep[ugrep]
+
+[source,shell]
+----
+ugrep -z 'cache' *.jar
+ugrep -z                # also search zip/7z/tar/pax/cpio archives, tarballs and gz/Z/bz/bz2/lzma/xz/lz4/zstd/brotli compressed files
+ugrep -z -g"*.txt,*.md" # 只搜索压缩包中 给定 glob (txt,md) 文件。
+ugrep -z -g"^bak/"      # 不搜索bak目录下的文件
+
+# 按照 loggerName == "xxx.yyy.zzz" 搜索。
+ugrep -z -P '([^\w\.\/]|")xxx\.yyy\.zzz([^\w\.\/]|")' *.jar
+
+ugrep -z -P '(\x01[\x00-\xFF]{2}|")com\.alibaba\.lindorm[\x00-\x1F"]' *.jar
+ugrep -z -P '(\x01[\x00-\xFF]{2}|")com\.aliyun\.tair\.core[\x00-\x1F"]' *.jar
+
+# 下面是 vim 编辑 class 文件时， 字符串 "com.alibaba.lindorm" 前后展示的数值。
+# 这里需要详细了解 class 文件格式，其中 字符串常量是放在 CONSTANT_Utf8_info 结构，包括
+# 1. 长度: 一个无符号短整型（2字节），表示字符串的字节数
+# 2. 内容: 实际的字符串内容，以UTF-8编码。
+# 下列的实例中 ^A=0x01=开始符, ^@=0x00, ^S=0x13=19=字符串的长度
+256MB^A^@^Scom.alibaba.lindorm^A^@^Pjava/lang/Object
+
+----
+
+
+
+

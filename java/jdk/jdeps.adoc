@@ -1,0 +1,14 @@
+
+
+[source,shell]
+----
+JAVA_HOME=/opt/taobao/java
+export PATH=${JAVA_HOME}/bin:${PATH}
+jdeps -p ch.qos.logback.classic.joran .
+
+
+# 累出给定jar包依赖的外部依赖
+jdeps --class-path . --list-deps xxx.jar
+
+
+----

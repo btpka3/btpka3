@@ -5,4 +5,5 @@
 * github link:https://github.com/QwenLM/Qwen1.5[QwenLM/Qwen1.5]
 * github link:https://github.com/QwenLM/Qwen[QwenLM/Qwen]
 
-*  link:https://huggingface.co/Qwen/Qwen1.5-72B[Qwen-72B/通义千问72B]
+* link:https://huggingface.co/Qwen/Qwen1.5-72B[Qwen-72B/通义千问72B]
+* github link:https://github.com/ml-explore/mlx[ml-explore/mlx]

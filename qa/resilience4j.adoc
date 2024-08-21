@@ -1,0 +1,26 @@
+
+
+* link:https://resilience4j.readme.io/docs/ratelimiter[RateLimiter]
+* link:java/spring/first-spring-boot/first-spring-boot-test/src/test/java/me/test/first/spring/boot/test/Resilience4jTest.java[Resilience4jTest.java]
+
+## 断路器/CircuitBreaker
+
+原有链路执行报错（抛出异常）时要做什么动作（额外记录日志，返回兜底返回值等）
+
+## Bulkhead
+控制并发度。
+
+比如作为平台提供方，虽然资源很充足，但限定每个用户场景最多运行4个任务。
+
+
+## 限流/RateLimiter
+
+限流。即给定时间窗口允许执行多个任务。
+
+
+[source,java]
+----
+----
+
+## Retry
+失败重试

@@ -32,11 +32,6 @@ grep -E "^[[:blank:]]*[[:digit:]]+[[:blank:]]+.*$"
 
 ```
 
-## zipgrep
-
-```js
-
-```
 
 
 ## free
@@ -698,6 +693,9 @@ cat newFilePrefix.* > singleFile
 
   # 分割
   tar -czvf - logs/ |split -b 1m - logs.tar.gz.
+
+  # 只显示其中一个文件的内容
+  unzip -p xxx.jar META-INF/MANIFEST.MF
 
   # 只解压出其中一个文件
   unzip -j xxx.jar "eventDict.vm" -d .

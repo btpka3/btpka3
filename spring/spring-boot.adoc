@@ -178,3 +178,11 @@ tasks.named("bootJar") {
 Q. Endpoint vs.Controller
 
 
+EndpointHandlerMappingCustomizer
+org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes
+org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration
+org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration
+org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
+org.springframework.beans.factory.ObjectProvider
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration
+No converter for [class org.springframework.boot.actuate.health.SystemHealth]

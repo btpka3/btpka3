@@ -1,0 +1,37 @@
+
+## zipgrep
+
+```shell
+zipgrep ch.qos.logback.classic.joran.JoranConfigurator *.jar
+find . -type f -name "*.jar"  -print0 | xargs -0 zipgrep -l "ch.qos.logback.classic.joran.JoranConfigurator"
+find . -type f -name "*.jar" -exec  zipgrep "ch.qos.logback.classic.joran.JoranConfigurator" {} \;
+
+find . -type f -name "*.jar" -exec  zipgrep -l "ch.qos.logback.classic.joran.JoranConfigurator" {} \;
+
+
+for jar in *.jar; do zipgrep -l "ch.qos.logback.classic.joran.JoranConfigurator" "${jar}" ; done
+
+# 按照压缩包里的文件名过滤jar包
+FILE_IN_ZIP="com/alibaba/security/mtee/sup/common/SupLogger.class"
+for jar in *.jar; do
+  unzip -l "${jar}" | grep ${FILE_IN_ZIP} > /dev/null
+  if [ $? = 0 ] ; then
+    echo ${jar}
+  fi
+done
+
+
+
+-b 显示匹配行距文件头部的偏移量
+-c 显示匹配行的数量
+-h 查询多文件时不显示文件名
+-i 搜索时忽略大小写
+-l 仅显示符合匹配的文件名
+-n 显示所有的匹配行及其行号
+-q 静默执行模式
+-r 递归处理所有子文件
+-s 不显示错误信息
+-v 反选匹配结果，输出不匹配的行
+-w 匹配整词
+-x 匹配整行
+```

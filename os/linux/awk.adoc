@@ -1,14 +1,14 @@
 
 
-- [The GNU Awk User’s Guide](https://www.gnu.org/s/gawk/manual/gawk.html)
-- [Awk to read file as a whole](https://stackoverflow.com/questions/43250592/awk-to-read-file-as-a-whole)
+* link:https://www.gnu.org/s/gawk/manual/gawk.html[The GNU Awk User’s Guide]
+* link:https://stackoverflow.com/questions/43250592/awk-to-read-file-as-a-whole[Awk to read file as a whole]
 
 awk 有不同的实现，如果下面示例不可用，请尝试使用 gawk （GNU版本的）
 
+## xxx
 
-
-
-```bash
+[source,shell]
+----
 # 多个分隔符， -F 使用的 正则表达是
 echo "aaa|bbb,ccc" | awk -F"[\|,]" '{print   $1 "___" $2 "___" $3 }'
 echo "aaa|bbb,ccc" | gawk -F"[|,]" '{printf("%s___%s___%s", $1, $2, $3)}'
@@ -129,21 +129,23 @@ END {
 }
 ' | sort
 
-```
+----
 
 ### float -> int
 
-```bash
+[source,shell]
+----
 printf "%4.3e\n", 1950
 printf "%.0f\n", 3.1415926
 printf "%.3f\n", 3.1415926
 
 grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {printf "%.1f" , usage}'
-```
+----
 
 ### 行内统计
 
-```bash
+[source,shell]
+----
 # 统计行内 数值字符串 是个数，并输出
 
 cat <<EOF |
@@ -174,14 +176,15 @@ awk '
     printf "%-30s : %2d : %s \n", $0 , numberCount, numArrStr;
 }
 '
-```
+----
 
 
 ### 提取字符串
 
 [Using Bracket Expressions](https://www.gnu.org/software/gawk/manual/html_node/Bracket-Expressions.html#Bracket-Expressions)
 
-```bash
+[source,shell]
+----
 cat <<EOF |
 中华1A18912XDFUDTTSLVP48EC人民
   1A18927UAEB74UQOOW0AUD
@@ -197,12 +200,13 @@ awk --re-interval '
     }
 }
 '
-```
+----
 
 
 ### 截取
 
-```bash
+[source,shell]
+----
 
 cat <<EOF |
 2020-03-20 14:48:41,166 [http-bio-7001-exec-15] WARN  c.a.s.t.a.c.a.UserDetailServiceImpl - user not found : 111
@@ -211,13 +215,14 @@ cat <<EOF |
 2020-03-20 14:53:22,138 [http-bio-7001-exec-61] WARN  c.a.s.t.a.c.a.UserDetailServiceImpl - user not found : 333
 EOF
 awk 'match($0, /.*user not found : (.*)/, arr) {print arr[1]}' | sort | uniq
-```
+----
 
 
 ### 替换
 替换前N行中满足条件的数据
 
-```bash
+[source,shell]
+----
 cat <<EOF |
    <groupId>aa.bb.cc</groupId>
    <version>1.1.1</version>
@@ -234,17 +239,44 @@ awk -v newVersion=3.3.3  '
     print
 }
 '
-```
+----
 
 ### trim
 
-```shell
+[source,shell]
+----
 echo  "Main-Class: org.springframework.boot   .loader.JarLauncher " | awk -F':' '{gsub(/[ \t\n]+/, "", $2); print "==" $2 "=="}'
-```
+----
+
+### 多行分割
+
+[source,shell]
+----
+cat <<EOF |
+class-info        com.taobao.eagleeye.EagleEye
+code-source       /tmp/bbb.jar
+classLoaderHash   69454fd4
+
+class-info        com.taobao.eagleeye.EagleEye
+code-source       /taobao-hsf.sar/aaa.jar
+classLoaderHash   1b5b6fcb
+
+class-info        com.taobao.eagleeye.EagleEye
+code-source       /tmp/ccc.jar
+classLoaderHash   68f952fe
+EOF
+gawk  ' BEGIN{RS="class-info"; ORS=""} { print "========\n" RS $0}'
+
+# 多行分割
+
+
+----
+
 
 ### 替换-多行
 
-```bash
+[source,shell]
+----
 cat <<EOF |
 <project>
   <parent>
@@ -269,14 +301,15 @@ gawk -v newVersion=3.3.3  '
 
 }
 ' RS='^$'
-```
+----
 
 
 
 
 ### 查找-多行
 
-```bash
+[source,shell]
+----
 CONTENT='
 "AAA Handler" Id=11 RUNNABLE
         at java.base@11.0.15.14-JDK/java.lang.ref.Reference.waitForReferencePendingList(Native Method)
@@ -374,10 +407,11 @@ BEGIN {
    }
 }
 ' RS='^$' $STACK_FILE
-```
+----
 
 
-```bash
+[source,shell]
+----
 for STACK_FILE in /home/admin/logs/hsf/HSF_JStack.log.2023-02-09_10:38:31
 do
     grep BLOCKED $STACK_FILE | awk '
@@ -426,10 +460,11 @@ BEGIN {
 }
 ' RS='^$' $STACK_FILE
 done
-```
+----
 
 
-```bash
+[source,shell]
+----
 LOG_FILE=HSF_JStack_stat_`date +%Y%m%d%H%M%S`.log
 
 pgm -b -p 20 `armory -leg mtee3.content_sync.prodhost` '
@@ -484,13 +519,14 @@ done
 ' > $LOG_FILE
 
 zip -r ${LOG_FILE}.zip $LOG_FILE
-```
+----
 
 
-# regex
+## regex
 
-## 转义字符
-```plain
+### 转义字符
+[source,plain]
+----
 \\          # 匹配单个字符 `\`
 \a          # The “alert” character, Ctrl-g, ASCII code 7 (BEL)
 \b          # Backspace, Ctrl-h, ASCII code 8 (BS).
@@ -505,10 +541,11 @@ zip -r ${LOG_FILE}.zip $LOG_FILE
 \uhh…       # `hh` 表示十六进制的字符 [0-9a-fA-F], `\x` 之后最多允许8个字符
 \/          # 匹配单个字符 `/`
 \"          # 匹配单个字符 `"`
-```
+----
 
-## 正则表达式操作符
-```
+### 正则表达式操作符
+[source,plain]
+----
 \           # 用来转义特殊字符串，比如  `\$` 匹配单个字符串 `$`, 而不是表示匹配行尾
 ^           # 匹配行首
 $           # 匹配行尾
@@ -523,10 +560,11 @@ $           # 匹配行尾
 {n}         # 出现至少n次
 {n,}        # 出现至少n次
 {n,m}       # 出现至少n次，最多m次
-```
+----
 
-## 特殊的方括号表达式
-```
+### 特殊的方括号表达式
+[source,plain]
+----
 [:alnum:]	Alphanumeric characters
 [:alpha:]	Alphabetic characters
 [:blank:]	Space and TAB characters
@@ -539,10 +577,11 @@ $           # 匹配行尾
 [:space:]	Space characters (these are: space, TAB, newline, carriage return, formfeed and vertical tab)
 [:upper:]	Uppercase alphabetic characters
 [:xdigit:]	Characters that are hexadecimal digits
-```
-## gawk 专有转义操作符
+----
+### gawk 专有转义操作符
 
-```
+[source,plain]
+----
 \s          # 匹配空白，等价于 `[[:space:]]`
 \S          # 不匹配空白，等价于 `[^[:space:]]`
 \w          # 等价于  `[[:alnum:]_]`
@@ -551,4 +590,29 @@ $           # 匹配行尾
 \>          # 匹配一个词结尾后的空字符串，比如 `/stow\>/` 匹配 "stow", 但不匹配 "stowaway"
 \y          # 匹配一个词开头前、或结尾后的空字符串，用来表示一个词的边界
 \B          # 匹配词内匹配（不含开头与结尾）。比如 `/\Brat\B/` 匹配 "crate", 但不匹配 "dirty rat"
-```
+----
+
+
+
+## 删除第一行
+
+[source,shell]
+----
+# 命令拆解
+cat <<EOF |
+aaa
+bbb
+ccc
+EOF
+tee a.txt
+
+awk 'NR>1' a.txt
+
+# 上述命令合并
+cat <<EOF |
+aaa
+bbb
+ccc
+EOF
+awk 'NR>1'
+----

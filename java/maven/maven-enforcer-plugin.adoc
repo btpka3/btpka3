@@ -1,26 +1,28 @@
 
 
 
-- [maven-enforcer-plugin](https://maven.apache.org/enforcer/maven-enforcer-plugin/index.html)
-  - [extra-enforcer-rules](https://www.mojohaus.org/extra-enforcer-rules/)
-  - [ossindex-maven-enforcer-rules](https://sonatype.github.io/ossindex-maven/enforcer-rules/)
-- github :
-  - [apache/maven-enforcer](https://github.com/apache/maven-enforcer)
+* link:https://maven.apache.org/enforcer/maven-enforcer-plugin/index.html[maven-enforcer-plugin]
+** link:https://www.mojohaus.org/extra-enforcer-rules/[extra-enforcer-rules]
+** link:https://sonatype.github.io/ossindex-maven/enforcer-rules/[ossindex-maven-enforcer-rules]
+* link:https://github.com/apache/maven-enforcer[apache/maven-enforcer]
 
 
-# 命令行
+## 命令行
 
-```bash
+[source,shell]
+----
 mvn enfocer:enforce
-mvnDebug org.apache.maven.plugins:maven-enforcer-plugin:3.4.1:enforce -Denforcer.rules=alwaysFail -Denforcer.failFast=true
+mvn org.apache.maven.plugins:maven-enforcer-plugin:3.5.0:enforce -Denforcer.rules=requireReleaseDeps -Denforcer.failFast=true
+mvnDebug org.apache.maven.plugins:maven-enforcer-plugin:3.5.0:enforce -Denforcer.rules=requireReleaseDeps -Denforcer.failFast=true
 
-```
+----
 
 
-# 堆栈
+## 堆栈
 实例化 org.apache.maven.enforcer.rules.dependency.BannedDependencies
 
-```plain
+[source,plain]
+----
 "main@1" prio=5 tid=0x1 nid=NA runnable
   java.lang.Thread.State: RUNNABLE
 	  at org.apache.maven.enforcer.rules.dependency.BannedDependencies.<init>(BannedDependencies.java:38)
@@ -71,7 +73,7 @@ mvnDebug org.apache.maven.plugins:maven-enforcer-plugin:3.4.1:enforce -Denforcer
 	  at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
 	  at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
 
-```
+----
 
 @Paramter 设置值
 org.apache.maven.plugins.enforcer.EnforceMojo#failFast
@@ -79,7 +81,8 @@ org.apache.maven.plugins.enforcer.EnforceMojo#failFast
 
 
 
-```plain
+[source,plain]
+----
 "main@1" prio=5 tid=0x1 nid=NA runnable
   java.lang.Thread.State: RUNNABLE
 	  at org.apache.maven.plugins.enforcer.EnforceMojo.setFailFast(EnforceMojo.java:442)
@@ -116,4 +119,4 @@ org.apache.maven.plugins.enforcer.EnforceMojo#failFast
 	  at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
 	  at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
 	  at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
-```
+----

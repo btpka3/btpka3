@@ -238,13 +238,44 @@ json='
 echo "${json}" | jq -r '
 to_entries | map()
 [
-
     |.[]
     |select(.key | test( "^a"; "x"))
     |from_entries
 ]
 '
 ----
+
+## 对象转数组
+
+参考: link:https://jqlang.github.io/jq/manual/#variable-symbolic-binding-operator[Variable / Symbolic Binding Operator: ... as $identifier | ...]
+
+[source,shell]
+----
+json='
+{
+    "key_e": "value_e",
+    "key_a": "value_a",
+    "key_f": "value_f",
+    "key_b": "value_b",
+    "key_c": "value_c"
+}
+'
+# 转换成 value:${索引} : 按 key-value 原始顺序生成
+echo "${json}" | jq -r 'to_entries | . as $in | reduce range(0; length) as $i ({}; . + {($in[$i].value):($i)})'
+
+# 示例输出
+{
+  "value_a": 0,
+  "value_e": 1,
+  "value_f": 2,
+  "value_b": 3,
+  "value_c": 4
+}
+
+# 转换成 value:${索引} : 对 key 自然排序后再生成
+jq -r 'to_entries | sort_by(.key) | . as $in | reduce range(0; length) as $i ({}; . + {($in[$i].value):($i)})' jarFile2Ga.conifg
+----
+
 
 
 ## 自定义函数
@@ -508,6 +539,27 @@ echo "${json}" | jq -r 'sort_by(.age)|reverse|[limit(3;.[])]'
 
 
 
+[source,shell]
+----
+json='
+{
+    "key_a": 500,
+    "key_e": 200,
+    "key_f": 100,
+    "key_b": 400,
+    "key_c": 300
+}
+'
+## 对象: 按字段key排序
+echo "${json}" | jq -r --sort-keys
+echo "${json}" | jq -r 'to_entries | sort_by(.key) | from_entries'
+## 对象: 按字段value排序
+echo "${json}" | jq -r 'to_entries | sort_by(.value) | from_entries'
+----
+
+
+
+
 ## 按照 key 过滤
 等价于java的 Stream#filter
 
@@ -529,6 +581,25 @@ echo "${json}" | jq -r '[to_entries|.[]|select(.key | test( "^a"; "x"))]|from_en
 # 重新合并成成对应的对象: 通过 with_entries
 echo "${json}" | jq -r 'with_entries(select(.key | test( "^a"; "x")))'
 ----
+
+## 数据部分替换
+等价于java的 Stream#filter
+
+[source,shell]
+----
+json='
+{
+    "name":"zhang3",
+    "classLoaders":[
+        { "name":"cl01", "hash":"111"},
+        { "name":"cl02", "hash":"222"},
+        { "name":"cl03", "hash":"333"}
+    ]
+}
+'
+echo "${json}" | jq -r '.classLoaders = (.classLoaders|map(select(.hash=="222")))'
+----
+
 
 ## 数组、对象展开
 等价于java的 Stream#flatMap
@@ -691,6 +762,8 @@ tsvStr=$(cat user_log_config.json  \
 headStr=$'LOG_PATH\tFILE_PATTERN\tALIYUN_USERID\tSLS_PROJECT\tSLS_LOGSTORE\tSLS_LOGTAIL\n'
 echo "${headStr}${tsvStr}" | column -t -s $'\t'
 ----
+
+
 
 
 

@@ -11,7 +11,7 @@
 
 * 应该使用
 ** ✅ org.slf4j:jul-to-slf4j:*:*:runtime
-** ✅ org.slf4j:jcl-over-slf4j:*:*:runtime
+** ✅ org.slf4j:jcl-over-slf4j:*:*:runtime  or spring-jcl  ： ❓❓❓ 注意：两者互斥，只选择其一即可，建议选择后者。
 ** ✅ org.slf4j:log4j-over-slf4j:*:*:runtime
 ** ✅ org.apache.logging.log4j:log4j-to-slf4j  (log4j 2.x)
 

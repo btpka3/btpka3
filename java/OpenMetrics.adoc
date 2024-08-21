@@ -1,0 +1,153 @@
+
+
+link:https://github.com/OpenObservability/OpenMetrics/blob/main/specification/OpenMetrics.md[OpenMetrics.md]
+
+OpenMetrics 定义了几种 metrics 类型，和两种传输格式 (Text format、Protobuf format)
+
+
+## Metric Types
+
+* Gauge             : 数值, 但一定时间范围内可以上下波动，比如1分钟内的 cpu 使用率
+* Counter           : 单值，数值，只能增加，或者 reset成0后再开始累加，比如 : qps、 qpm
+* Summary           : 与 Histogram 类似，也有一个 count 和一个 sum，但 summary 维护一个分位数（ 比如 TOP99, TOP95？）
+* Histogram         : 通过划定边界值，统计不同桶中的样本数量。
+                      故直方图看起来只会递增呈现。
+                      一组指标 : count,sum, 多个 Bucket里的数值.  至少要有一个bucket
+                      场景示例: http 请求量, 函数运行次数， I/O 请求的大小
+
+
+某一分钟某个接口的请求在不同RT区间 请求数量的分布。
+请求数量，
+请求总耗时，
+请求耗时 [0,      30ms) 的请求量，
+请求耗时 [30ms,  100ms) 的请求量
+请求耗时 [100ms, 500ms) 的请求量
+请求耗时 [500ms, 1000ms) 的请求量
+请求耗时 [1000ms, 3000ms) 的请求量
+请求耗时 [3000ms, ~+Inf)  的请求量  # 注意：后面的   Text format 示例中，始终是从0开始的总数量。
+
+
+** ${xxxMeticsName}_sum
+** ${xxxMeticsName}_count
+** ${xxxMeticsName}_created
+** ${xxxMeticsName}_bucket
+
+* GaugeHistogram    : 场景示例: 多少请求在队列里等了多久。
+
+* Info              : 不修改的文本信息，比如 构建是的 git commit id, 运行时的 jdk 版本号等
+* Gauge
+* StateSet          : 类似开关值(true/false)。比如 系统启动时某个功能是否开启: xxx_enabled: true
+* Unknown
+
+
+
+
+
+[#my-tbl1,cols="1,1,1,1"]
+.类型映射
+|===
+| OpenMetrics       | prometheus  | microMeter                          | OpenTelemetry
+
+| Gauge             | Y           |Gauge,TimeGauge                      |
+| Counter           | Y           |Counter                              |
+| StateSet          |             |                                     |
+| Info              |             |                                     |
+| Histogram         | Y           |Timer,FunctionTimer,LongTaskTimer    |
+| GaugeHistogram    |             |                                     |
+| Summary           | Y           |DistributionSummary                  |
+| Unknown           |             |                                     |
+|===
+
+
+## Text format 示例
+
+### gauge
+An example with a Metric with no labels and MetricPoint with a timestamp:
+
+[source,plain]
+----
+# TYPE foo gauge
+foo 17.0 1520879607.789
+----
+
+### counter
+
+An example with a Metric with no labels, and a MetricPoint with a timestamp and no created:
+[source,plain]
+----
+# TYPE foo counter
+foo_total 17.0 1520879607.789
+----
+
+### Summary
+
+某一分钟某个接口的请求RT的TOP分布。
+* 请求数量
+* 请求总耗时
+* 95%的耗时
+* 99%的耗时
+
+注意: 平均耗时可以根据 请求总耗时/请求量 获得。
+注意: Quantiles 可以无序出现。
+
+
+
+An example of a Metric with no labels and a MetricPoint with Sum, Count and Created values:
+[source,plain]
+----
+# TYPE foo summary
+foo_count 17.0
+foo_sum 324789.3
+foo_created 1520430000.123
+----
+
+An example of a Metric with no labels and a MetricPoint with two quantiles:
+[source,plain]
+----
+# TYPE foo summary
+foo{quantile="0.95"} 123.7
+foo{quantile="0.99"} 150.0
+----
+
+### Histogram
+
+
+
+其中 label `le="+Inf"` 的值必须与 后缀 `_count` 结尾的值一致。
+
+[source,plain]
+----
+# TYPE foo histogram
+foo_bucket{le="0.0"} 0
+foo_bucket{le="1e-05"} 0
+foo_bucket{le="0.0001"} 5
+foo_bucket{le="0.1"} 8
+foo_bucket{le="1.0"} 10
+foo_bucket{le="10.0"} 11
+foo_bucket{le="100000.0"} 11
+foo_bucket{le="1e+06"} 15
+foo_bucket{le="1e+23"} 16
+foo_bucket{le="1.1e+23"} 17
+foo_bucket{le="+Inf"} 17
+foo_count 17
+foo_sum 324789.3
+foo_created 1520430000.123
+----
+
+
+### GaugeHistogram
+
+
+[source,plain]
+----
+# TYPE foo gaugehistogram
+foo_bucket{le="0.01"} 20.0
+foo_bucket{le="0.1"} 25.0
+foo_bucket{le="1"} 34.0
+foo_bucket{le="10"} 34.0
+foo_bucket{le="+Inf"} 42.0
+foo_gcount 42.0
+foo_gsum 3289.3
+----
+
+

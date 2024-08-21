@@ -44,3 +44,8 @@
 | link:https://opentelemetry.io/docs/collector/installation/[OpenTelemetry collector] : health_check extension
 
 |===
+
+
+
+## 9091
+* prometheus pushgateway 的监听端口

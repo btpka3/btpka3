@@ -1,0 +1,7 @@
+
+
+[source,shell]
+----
+brew install nmap
+brew install curl
+----

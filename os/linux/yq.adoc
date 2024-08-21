@@ -1,12 +1,9 @@
 
 https://github.com/mikefarah/yq
 
-~~https://github.com/kislyuk/yq~~
 
-
-
-
-```shell
+[source,shell]
+----
 # 安装
 brew install yq
 
@@ -31,12 +28,19 @@ find . -type f -name "pom.xml" | xargs yq -o a '.project.parent.version'
 yq -o a '.project.parent.version' /Users/zll/data0/work/git-repo/ali/dangqian.zll/gong9-mw/pandora/tddl/pandora-tddl-impl-mysql/pom.xml
 
 ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
+----
+
+
+```shell
+
 
 ```
 
+ 
 
-stdin /pipe
-```shell
+
+[source,shell]
+----
 # check yq version
 yq -V
 
@@ -56,5 +60,4 @@ echo $xml > /tmp/a.xml
 echo $xml | yq eval -p xml -o json '.project.profiles.profile[].id'
 # test 2 :  worked
 yq eval -p xml -o json '.project.profiles.profile[].id' < /tmp/a.xml
-```
-
+----

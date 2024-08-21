@@ -1,0 +1,63 @@
+
+
+## junit4
+
+### @org.junit.ClassRule
+
+link:https://github.com/junit-team/junit4/wiki/Rules[Rules]
+
+
+### 注解
+[source,shell]
+----
+# 注解
+org.junit.After
+org.junit.AfterClass
+org.junit.Before
+org.junit.BeforeClass
+org.junit.Rule          # 等同 @Before、@After ，但更灵活
+org.junit.ClassRule     # 等同 @BeforeClass、@AfterClass ，但更灵活
+org.junit.Ignore
+org.junit.Test
+org.junit.runner.RunWith
+
+# 类
+org.junit.rules.TestRule
+org.junit.rules.MethodRule
+
+
+# 时序示例
+@ClassRule(org.junit.rules.TemporaryFolder#before())
+-> @BeforeClass
+-> ( @Rule(org.junit.rules.TestWatcher#starting())-> @Before->@Test->@After)*
+->@AfterClass
+->@ClassRule(org.junit.rules.TemporaryFolder#after())
+
+----
+
+
+## junit5
+
+
+
+
+### 注解
+[source,shell]
+----
+org.junit.jupiter.api.BeforeAll
+org.junit.jupiter.api.BeforeEach
+org.junit.jupiter.api.Disabled
+org.junit.jupiter.api.Test
+org.junit.jupiter.api.extension.ExtendWith          # 取代 junit4 中的 Rule,ClassRule
+org.junit.jupiter.api.extension.RegisterExtension
+----
+
+
+## maven 运行
+
+[source,shell]
+----
+# 运行单个testcase
+mvn -Dsurefire.failIfNoSpecifiedTests=false -Dtest="KeyCenterEncryptorTest#test03"                     -DclearText=123456 -am -pl g9ea-boot test
+mvn -Dsurefire.failIfNoSpecifiedTests=false -Dtest="com/alibaba/**/KeyCenterEncryptorTest.java#test03" -DclearText=123456 -am -pl g9ea-boot test
+----

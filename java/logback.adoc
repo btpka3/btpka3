@@ -66,3 +66,49 @@ logback-spring.xml 文件
 
 </configuration>
 ----
+
+## ShutdownHook
+
+* 相关类
+** ch.qos.logback.core.joran.action.ShutdownHookAction
+** ch.qos.logback.core.hook.DelayingShutdownHook
+
+[source,xml]
+----
+<?xml version="1.0"?>
+<configuration debug="true">
+    <shutdownHook class="ch.qos.logback.core.hook.DefaultShutdownHook" />
+</configuration>
+----
+
+
+
+## AsyncAppender
+
+[source,shell]
+----
+# 检查 logback 等静态绑定类的加载的jar包位置
+ognl -c 32ac360d '@org.slf4j.impl.StaticLoggerBinder@class.getProtectionDomain().codesource'
+# 检查 ROOT logger 的 appender 列表
+ognl -c 32ac360d '@org.slf4j.LoggerFactory@getLogger("ROOT").aai'
+ognl -c 32ac360d '@org.slf4j.LoggerFactory@getLogger("ROOT").aai'
+ognl -c 32ac360d '@org.slf4j.LoggerFactory@getLogger("ROOT").aai.getAppender("xxxAsyncAppender").blockingQueue.size()'
+ognl -c 32ac360d '@org.slf4j.LoggerFactory@getLogger("ROOT").aai.getAppender("xxxAsyncAppender").blockingQueue.remainingCapacity()'
+# 检查给定异步appender 的内部 worker 线程的状态。
+ognl -c 32ac360d '@org.slf4j.LoggerFactory@getLogger("ROOT").aai.getAppender("xxxAsyncAppender").worker.getState()'
+ognl -c 32ac360d '@org.slf4j.LoggerFactory@getLogger("ROOT").aai.getAppender("xxxAsyncAppender").worker.getStackTrace()'
+
+----
+
+## StatusListener
+## LoggerContextListener
+
+
+
+
+
+## 常用pattern格式定义
+
+```plain
+%date{ISO8601}|%thread|%level|%logger|%msg%n
+```

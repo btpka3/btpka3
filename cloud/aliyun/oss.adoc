@@ -1,5 +1,6 @@
 
-link:https://help.aliyun.com/zh/oss/user-guide/enable-transfer-acceleration#concept-1813960[传输加速]
+* link:https://help.aliyun.com/zh/oss/user-guide/enable-transfer-acceleration#concept-1813960[传输加速]
+* link:https://help.aliyun.com/zh/oss/developer-reference/java-installation[安装SDK]
 
 ## ossutil
 link:https://help.aliyun.com/zh/oss/developer-reference/install-ossutil[ossutil]

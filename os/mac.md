@@ -533,3 +533,29 @@ ls "/Users/zll/Library/Group Containers/Q8LTS84VQ9.huoying/Application Support/D
 
 
 
+## gnu beanutils
+```shell
+brew install binutils
+
+brew install mysql-client@8.4
+brew link mysql-client@8.4
+
+brew install jq
+brew install yq
+brew install kubectl
+brew install kubernetes-cli
+
+brew install node@20
+brew link node@20
+
+brew install git
+brew install git-gui
+
+
+brew install --cast docker
+brew install podman
+brew install podman-desktop
+brew install podman-compose
+```
+
+

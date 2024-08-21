@@ -1,0 +1,164 @@
+## jinfo
+可以输出并修改运行时的java 进程的opts。
+
+[source,shell]
+----
+JAVA_PID=$(ps aux|grep java | grep org.apache.catalina.startup.Bootstrap|awk '{print $2}')
+/opt/taobao/java/bin/jstack ${JAVA_PID} > /tmp/jstack.txt
+grep localhost-startStop-1 jstack2.txt
+
+# 列出JVM支持的所有开关
+/opt/taobao/java/bin/java -XX:+PrintFlagsFinal -XX:+PrintFlagsInitial -version  # 打印出相 -XX 参数
+
+# 列出所有JVM属性
+/opt/taobao/java/bin/jinfo-sysprops ${JAVA_PID}
+
+# 列出所有开关值
+/opt/taobao/java/bin/jinfo -flags ${JAVA_PID}
+
+# 查看某个JVM实际运行的参数值
+/opt/taobao/java/bin/jinfo -flag MaxLabelRootDepth ${JAVA_PID}
+/opt/taobao/java/bin/jinfo -flag SoftRefLRUPolicyMSPerMB=1001  ${JAVA_PID}
+
+
+# 动态打开、关闭相关开关（boolean类型）（这里演示的是 `PrintGC`)
+/opt/taobao/java/bin/jinfo -flag +PrintGC ${JAVA_PID}
+/opt/taobao/java/bin/jinfo -flag -PrintGC ${JAVA_PID}
+
+# 动态调整相关开关值
+
+
+
+# 关闭 OmitStackTraceInFastThrow 开关
+/opt/taobao/java/bin/jinfo -flag -OmitStackTraceInFastThrow 2436
+# metaspace 相关jvm参数
+# MetaspaceSize         : Metaspace 空间初始大小，如果不设置的话，默认是20.79M，这个初始大小是触发首次 Metaspace Full GC 的阈值，例如 -XX:MetaspaceSize=256M
+# MaxMetaspaceSize      : Metaspace 最大值，默认不限制大小，但是线上环境建议设置，例如 -XX:MaxMetaspaceSize=256M
+# SoftRefLRUPolicyMSPerMB
+# MinMetaspaceFreeRatio : 最小空闲比，当 Metaspace 发生 GC 后，会计算 Metaspace 的空闲比，如果空闲比(空闲空间/当前 Metaspace 大小)小于此值，就会触发 Metaspace 扩容。默认值是 40 ，也就是 40%，例如 -XX:MinMetaspaceFreeRatio=40
+# MaxMetaspaceFreeRatio : 最大空闲比，当 Metaspace 发生 GC 后，会计算 Metaspace 的空闲比，如果空闲比(空闲空间/当前 Metaspace 大小)大于此值，就会触发 Metaspace 释放空间。默认值是 70 ，也就是 70%，例如 -XX:MaxMetaspaceFreeRatio=70
+# MaxMetaspaceExpansion
+# MinMetaspaceExpansion
+----
+
+
+
+## JVM 参数
+
+[source,plain]
+----
+-XX:+PrintFlagsFinal -XX:+PrintFlagsInitial -version  # 打印出相 -XX 参数
+
+
+-Xmn256m        # 设置 young generation 的初始和最大大小。如果使用 G1 垃圾回收器，则不要设置。
+-Xms256m        # 设置 heap 的初始大小
+-Xmx2G          # 设置 heap 的最大大小
+-Xnoclassgc     # 禁止针对 class 的 gc
+-Xprof          #
+-Xrs            #
+-Xshare:mode    # 设置 class data sharing (CDS) 模式 : auto/on/off
+-XshowSettings  #
+-XshowSettings:category     # all/locale/properties/vm
+-Xss1m          # 线程栈大小
+-Xverify:mode   # remote/all/none
+
+--add-reads module=target-module(,target-module)*
+--add-exports module/package=target-module(,target-module)*
+--add-opens module/package=target-module(,target-module)*
+--illegal-access=parameter  # permit/warn/debug/deny
+--limit-modules module[,module...]
+--patch-module module=file(;file)*
+--disable-@files
+
+
+-XX:+CheckEndorsedAndExtDirs
+-XX:-CompactStrings # 关闭字符串压缩。默认是开启压缩的，全部是 ASCII 的字符串会使用单字节内存存储。减少 50% 内存
+-XX:CompilerDirectivesFile=file
+-XX:CompilerDirectivesPrint
+-XX:ConcGCThreads=n     # ParallelGCThreads 的线程数量
+-XX:+DisableAttachMechanism     # 禁止工具（jcmd,jstack,jmap,jinfo）连接上来。默认是允许的。
+-XX:+FailOverToOldVerifier
+
+
+-XX:LargePageSizeInBytes=4m     # heap使用的 page 的size
+-XX:MaxDirectMemorySize=size    # java.nio 可以使用的最大内存
+-XX:-MaxFDLimit                 # 禁止设置可打开文件的 soft limit 为 hard limit。默认是允许的。
+-XX:NativeMemoryTracking=summary   # off/summary/detail , 申请大内存时打印输出。 可通过jcmd <pid> VM.native_memory 查看内存
+-XX:ObjectAlignmentInBytes=alignment    #
+-XX:OnOutOfMemoryError=string
+-XX:+PerfDataSaveToFile
+-XX:+PrintCommandLineFlags      #
+-XX:+PreserveFramePointer
+-XX:+PrintNMTStatistics
+-XX:+RelaxAccessControlCheck
+-XX:+ResourceManagement
+-XX:ResourceManagementSampleInterval=value in milliseconds
+-XX:SharedArchiveFile=path
+-XX:SharedArchiveConfigFile=shared_config_file
+-XX:SharedClassListFile=file_name
+-XX:+ShowMessageBoxOnError
+-XX:StartFlightRecording=parameter=value
+-XX:ThreadStackSize=size
+
+-XX:+DisableExplicitGC
+
+
+
+–XX:+UseSerialGC
+–XX:+UseParallelGC
+–XX:+UseParallelOldGC
+    -XX:MaxGCPauseMillis=200    # 指示垃圾回收器的全局暂停时间应当不超过该 毫秒数。
+    –XX:ParallelGCThreads=n     # 垃圾回收器线程数，默认为 CPU 核心数量
+    -XX:GCTimeRatio=99          # 垃圾回收所花费时长， 计算公式为 1/(1+n)。 默认的99表达为GC时间不超过 1% 的 CPU 时间。
+–XX:+UseConcMarkSweepGC
+    –XX:+CMSIncrementalMode                 # 默认： 'Disabled'。
+    –XX:+CMSIncrementalPacing               # 默认： 'Disabled'。
+    -XX:CMSIncrementalDutyCycle=n           #
+    -XX:CMSIncrementalDutyCycleMin=n        #
+    -XX:CMSIncrementalSafetyFactor=n        #
+    -XX:CMSIncrementalOffset=n              #
+    -XX:CMSExpAvgFactor=n                   #
+    –XX:ParallelGCThreads=n                 #
+    –XX:CMSInitiatingOccupancyFraction=68   #
+-XX:+UseG1GC
+    -XX:G1HeapRegionSize=size       # 1M~32M
+    -XX:InitiatingHeapOccupancyPercent=45
+
+–XX:+PrintGCDetails     # 打印每次 GC 的详情
+–XX:+PrintGCTimeStamps  # 打印每次 GC 的的时间戳
+-XX:+PrintHeapAtGC      # GC 前打印d堆使用状况
+-server
+-Xms512m
+-Xmx1024m
+
+-XX:PermSize=32m            # permanent generation 初始尺寸
+–XX:MaxPermSize=n           # permanent generation 最大尺寸
+–XX:MinHeapFreeRatio=40     # heap 中每个 generation 最小空余内存，如果空余内存小于该百分比，就自动扩大内存。
+–XX:MaxHeapFreeRatio=70     # 如果空余内存多余该比例，则缩小内存。
+–XX:NewSize=n               # young generation 初始大小
+–XX:NewRatio=n              # 用于分割 heap。
+                            # old generation 是 young generation 的多少倍。
+                            # server 模式默认为8，client 模式默认为 2
+–XX:SurvivorRatio=32        # 用于分割 young generation。按照默认值的话，Eden 和两个 Survivor 的比例为
+                            # 32:1:1
+
+
+-XX:ErrorFile=${CATALINA_HOME}/logs/hs_err_pid%p.log
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:HeapDumpPath=${CATALINA_HOME}/logs/start.at.$today.dump.hprof
+-XX:+PrintGCDateStamps
+-XX:+PrintGCDetails
+
+-Dfile.encoding=UTF-8       # 设定系统编码，仅启动时可生效，启动后被缓存，再修改将无效。
+-Djava.net.preferIPv4Stack=true
+
+-XX:+UseStringCache         # 已废弃
+-XX:+UseCompressedStrings   # 已废弃
+-XX:+UseStringDeduplication # 相同字符串去重，适合长期存活的String对象， 需要开启 -XX:+UseG1GC
+                            # 可以开启以下参数查看 gc 日志
+                            # -XX:+PrintGCDetails -XX:+PrintStringDeduplicationStatistics
+-XX:+OptimizeStringConcat
+-XX:+TraceClassLoading      # 打印类加载信息
+
+
+----

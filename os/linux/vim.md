@@ -57,6 +57,9 @@ autocmd BufRead,BufNewFile build.gradle set syntax=groovy
 ## 使用不同的编码重新加载文件
 
 ```bash
+# 检查当前打开文件时使用的字符集编码
+:set fileencoding?
+# 用指定的字符集重新加载文件（未修改源文件的）
 :e ++enc=gbk
 ```
 
@@ -106,7 +109,7 @@ vi LargeFile.vba
 :w
 ```
 
-十六进制编辑
+二进制文件用十六进制编辑/
 
 ```
 :%!xxd

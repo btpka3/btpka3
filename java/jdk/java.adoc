@@ -23,3 +23,49 @@ diff --unchanged-line-format='' --old-line-format='' --new-line-format='%L'  /tm
 grep diagnostic /tmp/jvm_options2.txt
 
 ----
+
+
+## threadlocal
+
+
+----
+public interface TLRestoreFactory {
+
+    /**
+     * 线程切换时，该代码在老线程执行，以便获取老线程内的上下文信息。
+     *
+     * @return
+     */
+    TLRestore newTLRestore();
+}
+public interface TLRestore {
+
+    /**
+     * 请在线程切换时调用，需要再AutoCloseable 中完整清理工作。
+     *
+     * @return
+     */
+    AutoCloseable makeCurrent();
+}
+
+----
+
+## 查找线程切换的地方
+
+常见线程切换的地方有：
+● 自定义  new Thread 并 start 执行；
+● 自定义提交 Runnable 到 java.util.concurrent.Executor 等线程池。
+  搜索关键词: `.submit(`
+* java.util.concurrent.ScheduledThreadPoolExecutor
+  搜索关键词: `.schedule(`, `.scheduleAtFixedRate(`
+● logback : ch.qos.logback.classic.AsyncAppender 异步输出日志。
+● 使用JDK 的 parallel stream 机制： java.util.stream.BaseStream#parallel
+（固定运行在 java.util.concurrent.ForkJoinPool#common 上）
+● 使用 rxjava 的 parallel 机制: io.reactivex.rxjava3.core.Flowable#parallel().runOn(Schedulers.computation())
+● 使用 project reactor 的 parallel 机制: reactor.core.publisher.Flux#subscribeOn(Schedulers.parallel())
+* 回调函数：
+** 阿里云SLS: com.aliyun.openservices.aliyun.log.producer.Producer#send, 搜索关键词: `.send(`
+* 搜索关键词 `callback` (不区分大小写)
+*  `.subscribe(`
+* `Listener`
+* `.send(`

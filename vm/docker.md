@@ -1192,19 +1192,3 @@ curl -v --unix-socket /Users/zll/.local/share/containers/podman/machine/qemu/pod
 
 
 
-# ~/.docker/config.json
-
-- [Docker CLI configuration file (config.json) properties](https://docs.docker.com/engine/reference/commandline/cli/#docker-cli-configuration-file-configjson-properties)
-- [Credential stores](https://docs.docker.com/engine/reference/commandline/login/#credential-stores)
-- [pass](https://www.passwordstore.org/)
-
-```shell
-brew install pass
-```
-
-
-```json
-{
-  "credsStore": "osxkeychain"
-}
-```

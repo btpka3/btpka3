@@ -1,0 +1,18 @@
+
+
+
+## 文件信息
+
+[source,shell]
+----
+
+# macos 版本的 stat
+# 显示 birthtime, ctime, mtime, atime
+# birthtime : 文件的创建时间
+# ctime : 最后一次更改文件属性（比如权限的事件）
+# mtime : 最后一次修改文件内容的时间
+# atime : 最后一次访问文件内容的时间
+stat -f "%SB   %Sc   %Sm   %Sa   %N" -t "%Y-%m-%d %H:%M:%S" *
+----
+
+

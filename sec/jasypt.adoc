@@ -1,0 +1,168 @@
+
+
+## PBE
+password based encryption : 基于口令加密
+
+
+## jasypt
+* link:http://jasypt.org/[jasypt]
+
+
+
+## jasypt-spring-boot
+* link:https://github.com/ulisesbocchio/jasypt-spring-boot[jasypt-spring-boot]
+* 核心java类
+** com.ulisesbocchio.jasyptspringboot.configuration.EnableEncryptablePropertiesConfiguration
+** com.ulisesbocchio.jasyptspringboot.configuration.EncryptablePropertyResolverConfiguration   # 定义了bean的名字
+** com.ulisesbocchio.jasyptspringboot.properties.JasyptEncryptorConfigurationProperties
+** com.ulisesbocchio.jasyptspringboot.detector.DefaultLazyPropertyDetector         # 判断给定的 `ENC(` 前缀和 `)` 后缀。
+** com.ulisesbocchio.jasyptspringboot.configuration.EnableEncryptablePropertiesBeanFactoryPostProcessor
+** com.ulisesbocchio.jasyptspringboot.annotation.EncryptablePropertySource
+** com.ulisesbocchio.jasyptspringboot.annotation.EncryptablePropertySources
+** com.ulisesbocchio.jasyptspringboot.EncryptablePropertyResolver
+** com.ulisesbocchio.jasyptspringboot.resolver.DefaultPropertyResolver              # spring place holder `ENC(xxx)` 解密成明文
+** com.ulisesbocchio.jasyptspringboot.encryptor.SimpleAsymmetricStringEncryptor     # 非对称加密
+** com.ulisesbocchio.jasyptspringboot.encryptor.SimpleAsymmetricByteEncryptor       # 非对称加密
+** com.ulisesbocchio.jasyptspringboot.configuration.BeanNamePlaceholderRegistryPostProcessor
+   处理 beanName="${placeholder}" 或者 beanName="${placeholder:defaultValue}"
+
+### JasyptEncryptorConfigurationProperties
+
+[source,yaml]
+----
+jasypt.encryptor:
+  proxy-property-sources: false
+  skip-property-sources:
+    - xxx
+    - yyy
+  bean: jasyptStringEncryptor
+  password: xxxMasterPassword
+  algorithm: PBEWITHHMACSHA512ANDAES_256
+  key-obtention-iterations: 1000
+  pool-size: "1"
+  provider-name: null
+  provider-class-name: null
+  salt-generator-classname: org.jasypt.salt.RandomSaltGenerator
+  iv-generator-classname: org.jasypt.iv.RandomIvGenerator
+  string-output-type: base64
+  private-key-string: null
+  private-key-location: null
+  privat-key-format: DER
+  public-key-string: null
+  public-key-location: null
+  public-key-format: DER
+  gcm-secret-key-string: null
+  gcm-secret-key-location: null
+  gcm-secret-key-password: null
+  gcm-secret-key-salt: null
+  refreshed-event-classes:
+    - xxx
+    - yyy
+  gcm-secret-key-algorithm: PBKDF2WithHmacSHA256
+  property:
+    detector-bean: encryptablePropertyDetector
+    resolver-bean: encryptablePropertyResolver
+    filter-bean: encryptablePropertyFilter
+    prefix: ENC(
+    suffix: )
+    filter:
+      include-sources:
+        - xxx
+        - yyy
+      exclude-sources:
+        - xxx
+        - yyy
+      include-names:
+        - xxx
+        - yyy
+      exclude-names:
+        - "^jasypt\\.encryptor\\.*"
+
+
+----
+
+## jasypt-maven-plugin
+
+### 单值
+
+[source,shell]
+----
+# 单值: 加密
+mvn com.github.ulisesbocchio:jasypt-maven-plugin:3.0.5:encrypt-value \
+    -Djasypt.encryptor.password="myMasterPassword" \
+    -Djasypt.plugin.value="123456"
+
+# 单值: 解密
+mvn com.github.ulisesbocchio:jasypt-maven-plugin:3.0.5:decrypt-value \
+    -Djasypt.encryptor.password="myMasterPassword" \
+    -Djasypt.plugin.value="Q/J2REQOQWZvI7vAtL/McxybNCWHHJlpWZSzyShDNDTjOuXUiGIwk7fA1nSZpB8E"
+----
+
+
+### 文件
+
+[source,shell]
+----
+
+DIR=/tmp/demo-jasypt
+rm   -fr ${DIR}
+mkdir -p ${DIR}
+cat > ${DIR}/pom.xml <<EOF
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>me.test</groupId>
+    <artifactId>empty-app</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                 <groupId>com.github.ulisesbocchio</groupId>
+                 <artifactId>jasypt-maven-plugin</artifactId>
+                 <version>3.0.5</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+EOF
+
+file=${DIR}/application.properties
+cat > ${file} <<EOF
+# 明文密码
+k1=DEC(123456)
+k2=value002
+EOF
+
+# 重要：需要有 pom.xml
+cd ${DIR}
+
+# 文件: 加密（明文->密文）
+mvn jasypt:encrypt \
+    -Djasypt.encryptor.password="myMasterPassword" \
+    -Djasypt.plugin.path=file://${file}
+cat ${file}
+
+# 文件: 解密: 注意：文件仍然是密文，仅仅是向 stdout 输出。
+mvn jasypt:decrypt \
+    -Djasypt.encryptor.password="myMasterPassword" \
+    -Djasypt.plugin.path=file://${file}
+cat ${file}
+
+# 文件: 变更密码后重新加密
+mvn jasypt:reencrypt \
+    -Djasypt.plugin.old.password=myMasterPassword \
+    -Djasypt.encryptor.password=myMasterPassword222 \
+    -Djasypt.plugin.path=file://${file}
+cat ${file}
+
+# 文件: 升级 jasypt-spring-boot 后按新的默认配置项重新加密
+mvn jasypt:reencrypt \
+    -Djasypt.encryptor.password=myMasterPassword \
+    -Djasypt.plugin.old.major-version=2 \
+    -Djasypt.plugin.path=file://${file}
+
+----
+
+

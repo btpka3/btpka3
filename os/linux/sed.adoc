@@ -21,6 +21,21 @@ sed -i '' 's/ AUTO_INCREMENT=[0-9]* / AUTO_INCREMENT=1 /g'  ddl.sql
 ----
 
 
+## 删除第一行
+
+[source,shell]
+----
+cat <<EOF
+aaa
+bbb
+ccc
+EOF
+
+sed  -i '1d' a.txt
+----
+
+
+
 ## 多文件批量字符串替换
 
 [source,shell]

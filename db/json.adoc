@@ -1,0 +1,8 @@
+
+
+
+## jsonpath
+
+
+
+`$.appPublishInfoMap.appAntxProperty.["mbus.hsf.register.configserverlist"]`

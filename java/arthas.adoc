@@ -1,6 +1,309 @@
 
 
-== dd
+## 参考
+* link:https://arthas.aliyun.com/doc/quick-start.html[Arthas快速入门]
+* link:https://arthas.aliyun.com/doc/commands.html[Arthas命令列表]
+* link:https://github.com/alibaba/arthas[Arthas代码仓库]
+* link:https://commons.apache.org/dormant/commons-ognl/language-guide.html[OGNL语法参考]
+
+
+## 安装
+
+
+
+## 命令
+
+### watch
+
+[source,shell]
+----
+# 监控目标方法的调用，构建并打印一个 List，打印层次是2层。该List 的内容是：
+# 1. 目标方法的第一个参数;
+# 2. 目标方法的返回值;
+# 3. 目标方法抛出的异常
+watch come.package.XxxClass xxxMethod "{params[0],returnObj,throwExp}" -x 2
+
+# 如果要打印的对象重写了 toString 方法，我们有不想打印的层次太深，
+# 可以 调用静态方法 转成 JSON 字符串打印出来
+watch come.package.XxxClass xxxMethod '@com.alibaba.fastjson.JSON@toJSONString(params)'
+
+# 要观测的值可以用逗号写多个语句, 只观侧最后一条语句的返回值。
+# 下面的示例是先定义了一个 list 变量 `a`, 再将其转成JSON字符串输出。
+watch come.package.XxxClass xxxMethod '
+#a={
+  params[2],
+  returnObj.sendStatus.name,
+  returnObj.msgId,
+  throwExp==null?null:throwExp.toString()
+},
+@com.alibaba.fastjson.JSON@toJSONString(#a)
+' 'params[0]=="zhang3"' -x 3 | tee /tmp/a.log
+----
+
+PS: arthas 可以双开，同时各自进行不同的监控，比如一个触发调用，一个内部监控。
+
+
+## jad
+反编译看源码
+
+
+----
+sc-d
+jad -c 5e950bde Clz_EVENTPREPROCESS_alsc_zhuzhancaip_common_mtee_sns_unify_check
+----
+
+## tt
+由于并不总是能 通过 类的静态成员变量，一层一层找到要分析的目标java 对象，可以使用 tt 来监控一次调用流后，根据调用中的相关信息，找到目标对象，并执行相关动作。
+
+## 使用总结
+
+### 构造函数
+[source,shell]
+----
+# watch 构造函数
+watch some.package.XxxClass <init>
+
+# new 一个对象
+#xxxUser =new com.wangji92.arthas.plugin.demo.controller.User()
+
+# new 一个 HahsMap
+#xxxMap = #{ "key1":"value", "key2":"value2"}
+# new 一个特定类型的 Map
+#@java.util.LinkedHashMap@{ "foo" : "foo value", "bar" : "bar value" }
+
+# new 一个ArrayList
+#xxxList = {"item1", "item2"}
+
+# new 一个 array
+new int[] { 1, 2, 3 }
+----
+
+### 调用静态方法
+
+[source,shell]
+----
+# 获取 JVM 属性（这只是示例，获取JVM属性有好多种其他方式）
+ognl '@java.lang.System@getProperty("user.home")'
+----
+
+
+### 调用静态方法——特定classLoader 加载的类
+
+[source,shell]
+----
+# 找到 加载该类 classloader 的hash值, 最后一行 "classLoaderHash" 的值
+sc -d some.package.XxxClass
+
+# -c 的参数是前面查询到的 "classLoaderHash" 的值
+ognl -c 1f3ac5e2 "@come.package.XxxClass@logger"
+ognl -c 1f3ac5e2 "@some.package.XxxClass@logger.warn('x===xxx')"
+----
+
+### 获取特定类所在的jar包
+
+link:https://github.com/alibaba/arthas/issues/849[Alibaba Arthas 3.1.2版本:增加logger/heapdump/vmoption命令,支持tunnel server]
+
+[source,shell]
+----
+ognl -c 20a01a0c '
+#obj=@some.package.XxxClass@logger@logger,
+#obj.getClass().getProtectionDomain().getCodeSource().getLocation().toString()
+'
+----
+
+### 动态修改日志级别
+
+
+[source,shell]
+----
+logger --name  com.your.package  --level debug
+
+logger -c 8ff71f2 --include-no-appender
+logger -c 8ff71f2 --include-no-appender --name com.alibaba.security.green --level trace
+logger -c 8ff71f2 --include-no-appender --name com.taobao.ruler --level trace
+
+# -------------------- 不建议下面这中繁杂的方式了。
+# 动态修改日志级别
+ognl -c 1f3ac5e2 '@org.slf4j.LoggerFactory@getLogger("root").setLevel(@ch.qos.logback.classic.Level@DEBUG)'
+
+# 获取给定logger的日志级别
+ognl -c 8fc0ff7 '@org.slf4j.LoggerFactory@getLogger("decision").getLevel().toString()' -x 2
+
+# 查看给定的 logger 实际的使用的实现类，如果 logback，则会是： ch.qos.logback.classic.Logger
+ognl -c 8fc0ff7 '@org.slf4j.LoggerFactory@getLogger("decision").getClass().getName()'
+
+# 查看给定的 logger 使用了哪些 appender
+ognl -c 8fc0ff7 '@org.slf4j.LoggerFactory@getLogger("decision").aai.appenderList' -x 2
+
+# 使用给定logger打印日志，以便验证日志配置
+ognl -c 8fc0ff7 '@org.slf4j.LoggerFactory@getLogger("decision").info("bbbbbbb")' -x 2
+----
+
+
+### 获取 logback 的内部状态信息
+
+logback 初始化异常，内部运行态异常会记录在其内部的 StatusManager 中，需要开启 `debug="true"` 才会输出到标准输出。
+如果没输出，很难排查日志输出相关问题。比如：
+
+* 配置的 RollingFileAppender 没有将日志文件轮转，造成日志文件持续增大，进而磁盘满。
+* `logger.info("xxxMsg")` 等日志输出内部 报错，但被 try...catch, 表象是日志未输出，调用方也未能感知异常。
+
+
+[source,shell]
+----
+ognl -c 6979e954 '
+    #os=new java.io.ByteArrayOutputStream(1024*1024),
+    #ps=new java.io.PrintStream(#os),
+    @ch.qos.logback.core.util.StatusPrinter@setPrintStream(#ps),
+
+    #lc=@org.slf4j.LoggerFactory@getILoggerFactory(),
+    @ch.qos.logback.core.util.StatusPrinter@print(#lc),
+    #ps.flush(),
+    @ch.qos.logback.core.util.StatusPrinter@setPrintStream(@java.lang.System@out),
+    @org.apache.commons.io.IOUtils@toString(#os.toByteArray(),"UTF-8")
+'
+----
+
+### 获取 logback 的配置文件
+
+
+[source,shell]
+----
+ognl -c 1f3ac5e2 '
+#map1=@org.slf4j.LoggerFactory@getLogger("root").loggerContext.objectMap,
+#map1.get("CONFIGURATION_WATCH_LIST")
+'
+----
+
+示例输出如下：
+[source,text]
+----
+@ConfigurationWatchList[
+    mainURL=@URL[jndi:/localhost/WEB-INF/logback.xml],
+    fileWatchList=@ArrayList[isEmpty=true;size=0],
+    lastModifiedList=@ArrayList[isEmpty=true;size=0],
+]
+----
+
+### 找到 spring bean 并调用方法
+
+注意：这里预初始化了个可静态访问到的 spring ApplicationContext 的 Holder 工具类。
+
+[source,shell]
+----
+# 注意：这里使用了多行脚本，逗号分隔。控制台打印的是最后一条语句的返回值。
+ognl -c 6dfba8fd  -x 3 '
+#userId="4398621042106",
+@some.package.ApplicationContextHolder@applicationContext
+    .getBean(@some.package.XxxClass@class)
+    .xxxMethod(#userId)
+'
+----
+
+### 找到 spring 可以加载到的资源文件
+注意：这里预初始化了个可静态访问到的 spring ApplicationContext 的 Holder 工具类。
+
+[source,shell]
+----
+ognl -c 6dfba8fd  -x 3 '
+#appCtx=@some.package.ApplicationContextHolder@applicationContext,
+#appCtx.getResources("classpath*:messages.properties")
+'
+----
+
+### 根据特定类找到可以加载的资源文件
+[source,shell]
+----
+# 找到与类在同个jar包，同目录下的文件 ( 比如 xxx.class, xxx.propertes 等)
+# 注意：可以使用绝对路径，相对路径找资源文件，
+@some.package.XxxClass@getResource("messages.properties")
+----
+
+### 查找被 spring AOP proxy 实际的target
+
+参考： `org.springframework.aop.TargetSource`、 `org.springframework.test.util.AopTestUtils#getTargetObject`
+[source,shell]
+----
+ognl -c 1fec7ea9 '
+#appCtx = @some.package.ApplicationContextHolder@applicationContext,
+#bean=#appCtx.getBean("xxxService"),
+#bean.getTargetSource().getTarget()
+'
+----
+
+
+### JSON解析POJO
+[source,shell]
+----
+ognl -c 1b97e39 '
+#str = @org.apache.commons.io.FileUtils@readFileToString(new java.io.File("/tmp/param.json"),"UTF-8"),
+#param = @com.alibaba.fastjson.JSON@parseObject(#str, @come.package.XxxClass@class)
+'
+----
+
+
+### list 元素过滤
+
+相当于 jdk `java.util.stream.Stream#filter`。
+
+具体参考 apache ONGL 语法中的 【Selecting From Collections】:
+
+`xxxList.{? #this instanceof ActionListener}`
+
+
+
+### list 元素类型转换
+
+相当于 jdk `java.util.stream.Stream#map`。
+
+具体参考 apache ONGL 语法中的 【Projecting Across Collections】:
+`xxxList.{ #this instanceof String ? #this : #this.toString()}`
+
+
+### list 中元组的子字段合并成list
+
+具体参考 apache ONGL 语法中的 【Projecting Across Collections】:
+`xxxList.{ #this instanceof String ? #this : #this.toString()}`
+
+[source,java]
+----
+// 假设对应的 User 类
+class User {
+   String name;
+}
+// 有以下变量
+List<User> list1;
+----
+
+arthas示例语句如下
+
+[source,shell]
+----
+
+# 则以下方法可以获取所有的name,
+ognl -c 52aa4472 '
+  #list1=...,
+  #list1.{name}
+'
+----
+
+
+### classloader
+
+[source,shell]
+----
+# 查看 ClassLoader 的继承树
+classloader -t
+
+# 查看 URLClassLoader 实际的 urls
+classloader -c 3d4eac69
+
+classloader --classLoaderClass sun.misc.Launcher$AppClassLoader
+classloader --classLoaderClass jdk.internal.loader.ClassLoaders$PlatformClassLoader
+classloader --classLoaderClass jdk.internal.loader.ClassLoaders$AppClassLoader
+----
+
+### ???
 
 [source,shell]
 ----
@@ -21,31 +324,12 @@ ognl '
 
 
 
-## 构造函数
-[source,shell]
-----
-watch some.package.XxxClass <init>
-----
-
-
-link:https://arthas.aliyun.com/doc/quick-start.html[快速入门]
-
-
-## classloader
+## 非交互式直接输出
 
 [source,shell]
 ----
-# 查看 ClassLoader 的继承树
-classloader -t
+JAVA_PID=$(ps aux|grep java | grep org.apache.catalina.startup.Bootstrap|awk '{print $2}')
+./as.sh -c '' ${JAVA_PID}
 
-# 查看 URLClassLoader 实际的 urls
-classloader -c 3d4eac69
-
-classloader --classLoaderClass sun.misc.Launcher$AppClassLoader
-classloader --classLoaderClass jdk.internal.loader.ClassLoaders$PlatformClassLoader
-classloader --classLoaderClass jdk.internal.loader.ClassLoaders$AppClassLoader
+sc -d  com.taobao.eagleeye.EagleEye | awk 'BEGIN{FS="class-info"}{print "========"  $0}}'
 ----
-
-## tt
-
-

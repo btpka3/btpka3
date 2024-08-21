@@ -14,7 +14,7 @@ loading-> linking-> initialization->unloading.
     - linking : 将字节码数据与JVM运行态数据 merge。 又细拆分成以下几个步骤:
         - verification
         - preparation
-        - resolution 
+        - resolution
 1. The class needs to be initialized.
 1. An instance of the class needs to be created.
 ```
@@ -33,8 +33,6 @@ bootstrap class loader                  # null : 加载 jvm核心类，比如 ${
 bootstrap class loader
   - jdk.internal.loader.ClassLoaders$PlatformClassLoade
     - jdk.internal.loader.ClassLoaders$AppClassLoader
-
-jdk.internal.loader.ClassLoaders$AppClassLoader
 ```
 
 # tomcat

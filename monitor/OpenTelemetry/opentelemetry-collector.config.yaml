@@ -66,7 +66,8 @@ service:
       exporters: [debug,file,otlp]
 
     metrics:
-      receivers: [otlp, opencensus, prometheus]
+      #receivers: [otlp, opencensus, prometheus]
+      receivers: [otlp, opencensus]
       processors: [batch]
       exporters: [debug,file]
 
