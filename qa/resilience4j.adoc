@@ -20,7 +20,46 @@
 
 [source,java]
 ----
+// io.github.resilience4j.ratelimiter.configure.RateLimiterConfigurationProperties
+// io.github.resilience4j.retry.configure.RetryConfigurationProperties
 ----
+
+
+[source,properties]
+----
+resilience4j.ratelimiter.metrics.enabled=true
+
+resilience4j.ratelimiter.configs.ExceedLimit.register-health-indicator=false
+resilience4j.ratelimiter.configs.ExceedLimit.limit-for-period=1000
+resilience4j.ratelimiter.configs.ExceedLimit.limit-refresh-period=1s
+resilience4j.ratelimiter.configs.ExceedLimit.timeout-duration=0s
+resilience4j.ratelimiter.configs.ExceedLimit.allow-health-indicator-to-fail=true
+resilience4j.ratelimiter.configs.ExceedLimit.subscribe-for-events=false
+resilience4j.ratelimiter.configs.ExceedLimit.event-consumer-buffer-size=100
+
+resilience4j.ratelimiter.instances.rateLimiterApi.register-health-indicator=true
+resilience4j.ratelimiter.instances.rateLimiterApi.limit-for-period=5
+resilience4j.ratelimiter.instances.rateLimiterApi.limit-refresh-period=60s
+resilience4j.ratelimiter.instances.rateLimiterApi.timeout-duration=0s
+resilience4j.ratelimiter.instances.rateLimiterApi.allow-health-indicator-to-fail=true
+resilience4j.ratelimiter.instances.rateLimiterApi.subscribe-for-events=true
+resilience4j.ratelimiter.instances.rateLimiterApi.event-consumer-buffer-size=50
+
+resilience4j.retry.instances.retryApi.max-attempts=3
+resilience4j.retry.instances.retryApi.wait-duration=1s
+resilience4j.retry.metrics.legacy.enabled=true
+resilience4j.retry.metrics.enabled=true
+
+resilience4j.circuitbreaker.instances.CircuitBreakerService.failure-rate-threshold=50
+resilience4j.circuitbreaker.instances.CircuitBreakerService.minimum-number-of-calls=5
+resilience4j.circuitbreaker.instances.CircuitBreakerService.automatic-transition-from-open-to-half-open-enabled=true
+resilience4j.circuitbreaker.instances.CircuitBreakerService.wait-duration-in-open-state=5s
+resilience4j.circuitbreaker.instances.CircuitBreakerService.permitted-number-of-calls-in-half-open-state=3
+resilience4j.circuitbreaker.instances.CircuitBreakerService.sliding-window-size=10
+resilience4j.circuitbreaker.instances.CircuitBreakerService.sliding-window-type=count_based
+----
+
+
 
 ## Retry
 失败重试

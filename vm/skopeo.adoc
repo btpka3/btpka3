@@ -1,0 +1,44 @@
+
+link:https://github.com/containers/skopeo[containers/skopeo]
+
+
+[source,shell]
+----
+# 两个仓库之间进行镜像copy
+brew install skopeo
+
+
+skopeo login -u btpka3@163.com docker.io
+
+
+skopeo login quay.io
+skopeo login registry.internal.company.com
+skopeo copy docker://quay.io/buildah/stable docker://registry.internal.company.com/buildah
+
+# 如果当前命令执行的机器的CPU架构（比如 arm64 ） 与 docker 镜像的CPU架构（比如 amd64）不同，
+# 则需要指定 --override-os, --override-arch
+skopeo inspect \
+    --config \
+    --override-os=linux \
+    --override-arch=amd64 \
+    docker://registry.fedoraproject.org/fedora:latest
+
+MY_PROXY=socks5h://127.0.0.1:13659
+# export MY_PROXY=http://127.0.0.1:13660
+export NO_PROXY=localhost,127.0.0.0/8,172.16.0.0/12,192.168.0.0/16,*.alibaba-inc.com
+export HTTP_PROXY=${MY_PROXY}
+export HTTPS_PROXY=${MY_PROXY}
+export ALL_PROXY=${MY_PROXY}
+#export no_proxy=${NO_PROXY}
+#export http_proxy=${HTTP_PROXY}
+#export https_proxy=${HTTPS_PROXY}
+#export all_proxy=${ALL_PROXY}
+
+skopeo inspect \
+    --config \
+    --override-os=linux \
+    --override-arch=amd64 \
+    docker://docker.io/library/eclipse-temurin:11-jdk-alpine
+
+----
+

@@ -344,110 +344,6 @@ echo $(( num1+num2 ))       # 报错
 
 
 
-## Shell Parameter Expansion
-https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
-
-```shell
-################################### ${parameter:-word}
-# 如果 parameter 有值 则输出
-# 如果 parameter 没值 则默认值，不会修改 parameter 的值
-v=
-echo ${v:-defaultValue}             # stdout 输出: "defaultValue"
-echo $v                             # stdout 输出: ""
-
-################################### ${parameter:=word}
-# 如果 parameter 有值 则输出该值
-# 如果 parameter 没值 将 parameter 设置为该值，并输出
-v=
-echo ${v:=defaultValue}             # stdout 输出: "defaultValue"
-echo $v                             # stdout 输出: "defaultValue"
-
-################################### ${parameter:?word}
-# 如果 parameter 没值，则向 stderr 输出后面提示的错误消息，不会修改变量的值。
-v=
-echo ${v:?ERROR_V_IS_UNSET_OR_NULL} # stderr 输出: "bash: v: ERROR_V_IS_UNSET_OR_NULL"
-echo $v                             # stdout 输出: ""
-
-################################### ${parameter:+word}
-# 如果 parameter 有值 则输出后面替换的值，不影响变量原有值。
-# 如果 parameter 有值
-v=123
-echo ${v:+OVERWRITED_VALUE}         # stdout 输出: "OVERWRITED_VALUE"
-echo $v                             # stdout 输出: ""
-v=
-echo ${v:+OVERWRITED_VALUE}         # stdout 输出: ""
-echo $v                             # stdout 输出: ""
-
-################################### ${parameter:offset}
-# 字符串截取, offset 可以是负数。
-v=0123456789
-echo ${v:5}                         # stdout 输出: "56789"
-echo $v                             # stdout 输出: "0123456789"
-
-################################### ${parameter:offset:length}
-# 字符串截取
-v=0123456789
-echo ${v:5:3}                       # stdout 输出: "567"
-echo $v                             # stdout 输出: "0123456789"
-################################### ${!prefix*}
-???
-################################### ${!prefix@}
-???
-################################### ${!name[@]}
-???
-################################### ${!name[*]}
-???
-################################### ${#parameter}
-# 输出字符串的长度
-v=0123456789
-echo ${#v}                          # stdout 输出: "10"
-################################### ${parameter#word}
-???
-################################### ${parameter##word}
-???
-################################### ${parameter%word}
-???
-################################### ${parameter%%word}
-???
-################################### ${parameter/pattern/string}
-# 字符串替换，仅替换第一个匹配。不影响变量值
-v=aaa111bbb111ccc
-echo ${v/111/222}                   # stdout 输出: "aaa222ccc111ddd"
-echo ${v}                           # stdout 输出: "aaa111ccc111ddd"
-################################### ${parameter//pattern/string}
-# 字符串替换，替换所有匹配。不影响变量值
-v=aaa111bbb111ccc
-echo ${v//111/222}                  # stdout 输出: "aaa222bbb222ccc"
-echo ${v}                           # stdout 输出: "aaa111bbb111ccc"
-
-str="aaa
-bbb"
-echo "$str"                         # 有换行
-echo $str                           # 无换行
-str="${str//$'\n'/ }"
-echo "$str"                         # 无换行
-echo $str                           # 无换行
-################################### ${parameter/#pattern/string}
-# 字符串替换，必须匹配开头。不影响变量值
-v=aaa111aaa111aaa
-echo ${v/#aaa/bbb}                  # stdout 输出: "bbb111aaa111aaa"
-echo ${v}                           # stdout 输出: "aaa111aaa111aaa"
-################################### ${parameter/%pattern/string}
-# 字符串替换，必须匹配结尾。不影响变量值
-v=aaa111aaa111aaa
-echo ${v/%aaa/bbb}                  # stdout 输出: "aaa111aaa111bbb"
-echo ${v}                           # stdout 输出: "aaa111aaa111aaa"
-################################### ${parameter^pattern}
-???
-################################### ${parameter^^pattern}
-???
-################################### ${parameter,pattern}
-???
-################################### ${parameter,,pattern}
-???
-```
-
-
 
 
 ## 字符串处理
@@ -563,6 +459,8 @@ date -d '- 1 day'   +%Y-%m-%dT%H:%M:%S.%N%:z
 
 # 自定义格式输出
 date +%Y-%m-%dT%H:%M:%S.%N%:z  # 示例输出: "2024-05-07T10:16:42.114658791+08:00"
+date "+%Y-%m-%d %H:%M:%S.%N"   # "2024-09-27 14:39:30.870508345"
+
 date +%FT%T.%N%:z              # 同上
 
 
@@ -570,6 +468,13 @@ date --date="Wed Nov 22 18:33:54 2023" '+%s'                    # 转换时间�
 date --date="@1700649234"  '+%Y-%m-%d %H:%M:%S'                 # unix 时间戳 -> 给定格式
 date --date="Wed Nov 22 18:33:54 2023" '+%Y-%m-%d %H:%M:%S'     # 转换成给定格式
 date --date="2023-11-22 18:33:54"
+
+# 计时
+start=`date +%s.%N`
+xxxCommand
+end=`date +%s.%N`
+runtime=$( echo "$end - $start" | bc -l )
+
 ```
 
 循环打印当前时间
@@ -1292,15 +1197,6 @@ done
 ```
 
 
-# test
-
-
-```shell
-if [ "$fname" = "a.txt" ] || [ "$fname" = "c.txt" ] ; then
-  # ...
-fi
-```
-
 
 ## head
 
@@ -1327,3 +1223,4 @@ sed -n '16224,16482p' in.sql > out.sql
 # 使用 awk ( 行号从1开始)
 awk 'NR>=16224&&NR<=16482' in.sql > out.sql
 ```
+

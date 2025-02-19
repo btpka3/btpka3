@@ -1,5 +1,5 @@
-
-```bash
+[source,shell]
+----
 docker run --rm -it docker.io/curlimages/curl:latest cat /etc/os-release
 
 curl --verbose --header 'Host: www.example.com' 'http://10.1.1.36:8000/the_url_to_test'
@@ -105,22 +105,24 @@ ncat -l 2000 -k -c 'xargs -n1 echo'
 curl -sI http://curl.se -o/dev/null -w '%{http_version}\n'            # 1.1
 curl -sI https://curl.se -o/dev/null -w '%{http_version}\n'           # 2
 curl -sI --http3 https://curl.se -o/dev/null -w '%{http_version}\n'   # 3  (需要 curl >= 7.88.1)
-```
+----
 
-# socket
+## socket
 [Docker Engine API (1.42)](https://docs.docker.com/engine/api/v1.42/)
 
-```shell
+[source,shell]
+----
 podman run --rm -it alpine:latest sh
 curl -v --unix-socket /Users/zll/.local/share/containers/podman/machine/qemu/podman.sock http:/v1.42/containers/json
-```
+----
 
 
 
 
-# client ssl cipher suites
-- curl : [SSL Ciphers](https://curl.se/docs/ssl-ciphers.html)
-- [How's My SSL?](https://www.howsmyssl.com/s/api.html)
-```bash
+## client ssl cipher suites
+* curl : link:https://curl.se/docs/ssl-ciphers.html[SSL Ciphers]
+* link:https://www.howsmyssl.com/s/api.html[How's My SSL?]
+[source,shell]
+----
 curl https://www.howsmyssl.com/a/check
-```
+----

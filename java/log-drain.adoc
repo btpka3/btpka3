@@ -6,3 +6,18 @@
 
 
 
+## 日志聚类
+日志聚类是一种用于将相似的日志条目分组的技术，有助于快速识别和分析系统中的问题。在Java中，虽然没有专门针对日志聚类的库，但你可以利用一些通用的数据处理、机器学习或文本处理库来实现这一功能。下面列举了一些可以用来进行日志聚类的Java库：
+
+* 阿里云SLS : link:https://help.aliyun.com/zh/sls/user-guide/logreduce[日志聚类]
+* link:https://cloud.tencent.com/developer/article/1670139[文本智能聚类——千万日志一览无余]
+* link:https://www.jianshu.com/p/7ed15e526111[日志聚类:Drain3和Spell算法简单了解]
+
+* link:https://mahout.apache.org/[Apache Mahout]
+* link:https://www.weka.io/[Weka]
+
+Smile (Statistical Machine Intelligence and Learning Engine)
+ELKI (Environment for Developing KDD-Applications Supported by Index-Structures)
+TensorFlow Java API
+Stanford NLP Group's CoreNLP
+Apache Spark MLlib

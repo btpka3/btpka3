@@ -179,7 +179,7 @@ https://stackoverflow.com/a/42433989/533317
 
 ## tab
 ```bash
-# 显示空白字符
+# 显示不可见、空白、non-printable 字符
 :set list
 
 # 替换为空格

@@ -13,6 +13,9 @@
 * link:https://help.aliyun.com/zh/sls/user-guide/collect-metric-data-from-prometheus-by-using-the-remote-write-protocol[通过Remote Write协议接入Prometheus监控数据]
 * link:https://help.aliyun.com/zh/sls/user-guide/import-trace-data-from-java-applications-to-log-service-by-using-opentelemetry-sdk-for-java[通过OpenTelemetry接入Java Trace数据]
 
+* link:https://help.aliyun.com/zh/sls/developer-reference/embed-console-pages-and-share-log-data[控制台内嵌及分享]
+* link:https://help.aliyun.com/zh/sls/user-guide/full-stack-observable-embedding[全栈可观测内嵌]
+
 ## 安装
 
 [source,shell]
@@ -29,7 +32,8 @@ FIXME: 如何在 阿里云 k8s 容器内安装 ilogtail ? 比如使用的镜像�
 
 link:https://help.aliyun.com/zh/sls/user-guide/reserved-fields[保留字段]
 
-* `__time__` : 写入日志数据时指定的日志时间
+* `__time__` : 写入日志数据时指定的日志时间, 内部表达类型：INTEGER/BIGINT，（秒）
+* `__time_ns_part__` : 数据时间：纳秒部分, 内部表达类型：INTEGER/BIGINT，（纳秒）
 * `__source__` : 日志来源设备ma
 * `__topic__` : 日志主题（Topic）
 * `__partition_time__` : 投递MaxCompute的日志分区时间列，由__time__计算得到
@@ -210,6 +214,10 @@ SLS支持存储时序数据类型，并遵循Prometheus的定义规范和数据�
 1. SLS(AS Prometheus) -> sunfire
 1. SLS(AS Prometheus) -> grafana
 ----
+
+## 内嵌
+
+
 
 
 

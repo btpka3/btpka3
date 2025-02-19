@@ -1,15 +1,15 @@
-[apache dubbo](https://cn.dubbo.apache.org/zh-cn/index.html)
+## 参考
+
+* link:https://cn.dubbo.apache.org/zh-cn/index.html[apache dubbo]
+* org.apache.dubbo.config.spring.context.annotation.DubboConfigConfiguration
+* org.apache.dubbo.config.spring.ConfigCenterBean
 
 
-- org.apache.dubbo.config.spring.context.annotation.DubboConfigConfiguration
-- org.apache.dubbo.config.spring.ConfigCenterBean
+## error
+### 字符串substring下标越界
 
-
-
-# error
-## 字符串substring下标越界
-
-```
+[source,plain]
+----
 堆栈
 "localhost-startStop-1@2386" daemon prio=5 tid=0x1c nid=NA runnable
   java.lang.Thread.State: RUNNABLE
@@ -25,12 +25,13 @@ groupIndex=7
 versionIndex=5
 serviceKey.substring(groupIndex, versionIndex) # 报错 java.lang.StringIndexOutOfBoundsException
 原因：误设置： nacos 的地址 =>  org.apache.dubbo.config.ApplicationConfig#setName
-```
+----
 
-# 指定provider的 IP 和端口
-- [Invoke provider with specified IP port](https://cn.dubbo.apache.org/en/docs/v2.7/user/examples/invoke-with-specified-ip/)
+### 指定provider的 IP 和端口
+* link:https://cn.dubbo.apache.org/en/docs/v2.7/user/examples/invoke-with-specified-ip/[Invoke provider with specified IP port]
 
-```java
+[source,java]
+----
 try {
     // create Address instance based on provider's ip port
     Address address = new Address("10.220.47.253", 20880);
@@ -39,15 +40,16 @@ try {
 } catch (Throwable ex){
     return ex.getMessage();
 }
-```
+----
 
 
-# dubbo-admin
+## dubbo-admin
 
-- [docker.io/apache/dubbo-admin:0.5.0](https://hub.docker.com/r/apache/dubbo-admin)
--《[Dubbo Admin配置说明](https://github.com/apache/dubbo-admin/wiki/Dubbo-Admin%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E)》
+* link:https://hub.docker.com/r/apache/dubbo-admin[docker.io/apache/dubbo-admin:0.5.0]
+*《link:https://github.com/apache/dubbo-admin/wiki/Dubbo-Admin%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E[Dubbo Admin配置说明]》
 
-```shell
+[source,shell]
+----
 
 echo '
 server.port=38080
@@ -79,32 +81,35 @@ docker run -it --rm \
     -p 38080:38080 \
     docker.io/apache/dubbo-admin:0.5.0
 
-```
-浏览器访问： [http://localhost:38080](http://localhost:38080)
+
+#浏览器访问： link:http://localhost:38080[http://localhost:38080]
 
 docker run -it --rm --name tmp_dubbo_admin --entrypoint sh docker.io/apache/dubbo-admin:0.5.0
 
 docker run -it --rm  --entrypoint sh docker.io/apache/dubbo-admin:0.5.0
 
 docker cp tmp_dubbo_admin:/app.jar /tmp/app.jar
+----
 
 
-
-# ???
-```shell
+## ???
+[source,shell]
+----
 -Ddubbo.application.check-serializable=false
 -Ddubbo.application.serialize-check-status=DISABLE
 -Ddubbo.hessian.allowNonSerializable=true
-```
+----
 
-# 序列化：Serialization
+
+## 序列化：Serialization
 - org.apache.dubbo.common.serialize.Serialization
 - org.apache.dubbo.common.serialize.hessian2.Hessian2Serialization deserialize
 
 watch org.apache.dubbo.common.serialize.hessian2.Hessian2FactoryManager getSerializerFactory '{params[0],returnObj,throwExp}' -x 3
 
 
-```txt
+[source,plain]
+----
 # dubbo 调用后，对返回值的反序列化调用
 ts=2023-08-21 09:56:10;thread_name=arthas-command-execute;id=1dd;is_daemon=true;priority=5;TCCL=com.taobao.pandora.boot.loader.ReLaunchURLClassLoader@79079097
     @org.apache.dubbo.common.serialize.hessian2.Hessian2Serialization.deserialize()
@@ -182,7 +187,7 @@ ts=2023-08-21 09:56:10;thread_name=arthas-command-execute;id=1dd;is_daemon=true;
         at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
         at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
         at java.lang.Thread.run(Thread.java:829)
-```
+----
 
 
 ## org.apache.dubbo.rpc.Invoker
@@ -193,13 +198,14 @@ ts=2023-08-21 09:56:10;thread_name=arthas-command-execute;id=1dd;is_daemon=true;
 
 ## SPI
 FIXME: 如何禁用某个特定的SPI实现？
-```plain
+[source,plain]
+----
 - org.apache.dubbo.common.extension.ExtensionLoader#strategies
     - org.apache.dubbo.common.extension.DubboInternalLoadingStrategy : "META-INF/dubbo/internal/" , overridden = false
     - org.apache.dubbo.common.extension.DubboLoadingStrategy : "META-INF/dubbo/" , overridden = true
     - org.apache.dubbo.common.extension.ServicesLoadingStrategy : "META-INF/services/"  : 优先级最低， overridden = true
 
-```
+----
 FIXME: apache dubbo 有多少个 SPI ?
 
 
@@ -215,7 +221,8 @@ hsf://30.196.226.97/com.alibaba.dangqian.HiService?REGISTRY_CLUSTER=GLOBAL&appli
 
 
 
-```
+[source,plain]
+----
 org.apache.dubbo.common.URL
   org.apache.dubbo.common.url.component.ServiceConfigURL
   org.apache.dubbo.common.url.component.ServiceAddressURL
@@ -226,23 +233,25 @@ org.apache.dubbo.common.URL
 
 # ServiceConfigURL
 hsf-registry-protocol://127.0.0.1:3181/org.apache.dubbo.registry.RegistryService?application=unknow_project_name&dubbo=2.0.2&dubbo.metadata.storage-type=remote&logger=dubbo-to-hsf&mapping-type=metadata&metadata-type=remote&pid=30983&preferred=true&register-mode=interface&registry=cs&registry-cluster-type=msha&registry-protocol-type=hsf-registry-protocol&timestamp=1705650182730
-```
+----
 
-# log
+## log
 https://cn.dubbo.apache.org/en/docs3-v2/java-sdk/advanced-features-and-usage/others/logger-management/
 
-```bash
+[source,shell]
+----
 telnet 127.0.0.1 22222
 help
 ls
 loggerInfo
-```
+----
 
 
 # ExtensionLoader
 org.apache.dubbo.common.extension.ExtensionLoader
 
-```plain
+[source,shell]
+----
 sc -d org.apache.dubbo.rpc.model.FrameworkModel
 
 ognl -c 4470fbd6 '
@@ -383,11 +392,12 @@ ognl -c 4470fbd6 '
 ' -x 3
 
 
-```
+----
 
-# @org.apache.dubbo.common.extension.Activate
+## @org.apache.dubbo.common.extension.Activate
 
-```java
+[source,java]
+----
 package org.apache.dubbo.spring.security.model;
 import org.apache.dubbo.common.extension.Activate;
 import org.apache.dubbo.rpc.model.ScopeModelInitializer;
@@ -396,6 +406,71 @@ public class SecurityScopeModelInitializer implements ScopeModelInitializer {
 
     //...
 }
-```
+----
 
+
+## 基于权重值的比例流量转发
+
+* link:https://cn.dubbo.apache.org/zh-cn/overview/mannual/java-sdk/tasks/traffic-management/weight/[基于权重值的比例流量转发]
+* link:https://cn.dubbo.apache.org/zh-cn/overview/what/core-features/traffic/configuration-rule/[动态配置规则]
+* org.apache.dubbo.config.AbstractServiceConfig#weight
+
+[source,yaml]
+----
+configVersion: v3.0
+scope: service
+key: org.apache.dubbo.samples.OrderService
+configs:
+  - side: provider
+    match:
+      param:
+        - key: orderVersion
+          value:
+            exact: v2
+    parameters:
+      weight: 25
+----
+
+
+## triple 协议
+
+link:https://cn.dubbo.apache.org/zh-cn/overview/mannual/java-sdk/tasks/protocols/rest/[发布 REST 风格的服务]
+
+[source,shell]
+----
+cat > /tmp/data.json <<EOF
+[
+  "taobao_k8s_daily_test01",
+  {
+    "userId": "black01"
+  }
+]
+EOF
+
+cat > /tmp/data.json <<EOF
+[
+  "qooland_public_templete",
+  {
+    "content": "black01"
+  }
+]
+EOF
+
+curl -XPOST "http://localhost:50051/com.alibaba.security.tenant.common.service.RequestService/request" \
+   -H "Content-Type: application/json" \
+   -d @/tmp/data.json
+
+curl  --header "Content-Type: application/json" \
+--data '["qooland_public_templete",{ "content": "あんまり覚えてないもん(៸៸<1cd0>>𖥦<៸៸<1cd0> )੭ﾞ  "}]'    \
+ http://121.199.172.170/com.alibaba.security.tenant.common.service.RequestService/request  \
+ -H "Authorization: Bearer eyJraWQiOiJiNDYxMzJiOS0xYzQwLTQ2YTMtODEwMC0xMWMwMWU0MWQyY2MiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJ1cm46ZXhhbXBsZTphdWRpZW5jZSIsInVpZCI6IjEyMzQ1Njc4OTAifQ.U52Cg2paCOcNJU4W4PMYFesJfDd5JAA8tKi7NliQbUyvC0gxdMuYd6WrGJpVlZ7a0zLrMbVf__I7KTE8zu-B-doOKhWujSu9rh1G_R2fkc29wO8M1em2jyVTvibK4Tj8ln1xIo_Fp-IYC5ySCRCOFAjv6B3ObJ0h8iiJ2ftjViOyOs7DntMZ6W8oqlrvhp7McBkiFDkznu9IIjW55bPO72TFuLYU10WxLy2AicJE1l0HFnj7qM7VcF7IBTvxLaBy2lr4MfqdrZAiVbqhV0cd4vnWoJw7Bat2fArq_ZHrm21RrXwgafRdJqqE052YD0Wz-2xzfuMSZTBa7VPaDUJ57g"
+
+curl  \
+    --header "Content-Type: application/json" \
+    --data '{"content": "black01"}'    \
+    'http://121.199.172.170/requestService/invoke?eventCode=qooland_public_templete'  \
+    -H "Authorization: Bearer eyJraWQiOiJiNDYxMzJiOS0xYzQwLTQ2YTMtODEwMC0xMWMwMWU0MWQyY2MiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJ1cm46ZXhhbXBsZTphdWRpZW5jZSIsInVpZCI6IjEyMzQ1Njc4OTAifQ.U52Cg2paCOcNJU4W4PMYFesJfDd5JAA8tKi7NliQbUyvC0gxdMuYd6WrGJpVlZ7a0zLrMbVf__I7KTE8zu-B-doOKhWujSu9rh1G_R2fkc29wO8M1em2jyVTvibK4Tj8ln1xIo_Fp-IYC5ySCRCOFAjv6B3ObJ0h8iiJ2ftjViOyOs7DntMZ6W8oqlrvhp7McBkiFDkznu9IIjW55bPO72TFuLYU10WxLy2AicJE1l0HFnj7qM7VcF7IBTvxLaBy2lr4MfqdrZAiVbqhV0cd4vnWoJw7Bat2fArq_ZHrm21RrXwgafRdJqqE052YD0Wz-2xzfuMSZTBa7VPaDUJ57g"
+
+
+----
 

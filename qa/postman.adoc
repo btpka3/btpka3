@@ -1,0 +1,14 @@
+
+
+
+## Create and capture cookies using Postman's cookie manage
+
+link:https://learning.postman.com/docs/sending-requests/response-data/cookies/[Create and capture cookies using Postman's cookie manage]
+
+link:https://learning.postman.com/docs/sending-requests/capturing-request-data/interceptor/[Capture traffic from a web browser using Postman Interceptor]
+
+
+## interceptor
+link:https://learning.postman.com/docs/sending-requests/capturing-request-data/interceptor/#install-interceptor[install-interceptor]
+
+

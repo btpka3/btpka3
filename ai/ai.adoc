@@ -1,0 +1,56 @@
+
+
+
+
+## ollama
+
+Ollama 是一个开源项目，它旨在简化在本地运行和管理大语言模型（LLMs）的过程。通过Ollama，用户可以在自己的计算机上部署和使用各种大语言模型，而不需要依赖云服务。
+
+link:https://ollama.com/[ollama]
+
+## LLM
+
+### Llama
+link:https://www.llama.com/[llama] 是Meta（前身为Facebook）发布的一种大型语言模型。
+
+
+
+### DeepSeek
+link:https://www.deepseek.com/[DeepSeek]
+
+
+### 通义千问
+
+* https://tongyi.aliyun.com/qianwen/
+
+* github link:https://github.com/QwenLM/Qwen2.5[Qwen2.5]
+** link:https://qwen.readthedocs.io/zh-cn/latest/[Qwen2.5文档]
+
+
+* github link:https://github.com/QwenLM/Qwen1.5[QwenLM/Qwen1.5]
+* github link:https://github.com/QwenLM/Qwen[QwenLM/Qwen]
+* github link:https://github.com/ml-explore/mlx[ml-explore/mlx]
+
+
+## libs
+
+* link:https://github.com/deeplearning4j/deeplearning4j[deeplearning4j]  DL4J
+
+[source,xml]
+----
+<dependencies>
+  <dependency>
+      <groupId>org.deeplearning4j</groupId>
+      <artifactId>deeplearning4j-core</artifactId>
+      <version>1.0.0-M2.1</version>
+  </dependency>
+  <dependency>
+      <groupId>org.nd4j</groupId>
+      <artifactId>nd4j-native-platform</artifactId>
+      <version>1.0.0-M2.1</version>
+  </dependency>
+</dependencies>
+----
+
+* link:https://treelite.readthedocs.io/en/4.2.1/install.html[treelite]
+* link:Treelite4J

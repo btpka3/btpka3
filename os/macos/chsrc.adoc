@@ -1,0 +1,9 @@
+
+[source,shell]
+----
+# 安装 chsrc
+brew install chsrc
+# 列出 docker hub 的 镜像源
+chsrc list docker
+----
+

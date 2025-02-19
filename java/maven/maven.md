@@ -280,6 +280,7 @@ Q2: SignatureBuilder 如何校验的？
 # maven-deploy-plugin
 
 ```shell
+# -Dmaven.deploy.skip=true
 # 发布 单个jar包到给定的 maven 仓库
 # 注意：`-DrepositoryId` 的是 ${HOME}/.m2/settings.xml 中 `settings/servers/server` 下的id，
 #      用来找到上传文件时的认证授权信息。
@@ -321,7 +322,7 @@ mvn dependency:purge-local-repository  -DsnapshotsOnly=true
 # 显示给定的jar是如何依赖进来的
 mvn dependency:tree -Dincludes=org.springframework:spring
 
-# 给定版本的jar包如何被仲裁的？
+# 给定版本的jar包如何被仲裁/resolve 的？
 mvn help:effective-pom -Dverbose=true -pl xxx
 mvn help:effective-pom -Dverbose=true -Dartifact=commons-logging:commons-logging
 

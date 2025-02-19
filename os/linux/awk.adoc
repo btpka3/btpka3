@@ -48,6 +48,30 @@ BEGIN{FS=",";OFS="\n"}
 {$1=$1;print;}
 '
 
+# 替换分隔符
+cat <<EOF |
+aaa|bbb|ccc
+xxx|yyy|zzz
+111|222|333
+EOF
+awk '
+BEGIN{FS="|";OFS="\t"}
+{$1=$1;print;}
+' | xargs -I {} echo "=== {}"
+
+# 字符串替换
+# 删除999
+cat <<EOF |
+999aaa999|bbb|ccc
+999xxx999|yyy|zzz
+999111999|222|333
+EOF
+gawk '
+BEGIN{FS="|";OFS="|"}
+{$1=gensub(/999/,"","g",$1);print;}
+' | xargs -I {} echo "=== {}"
+
+
 
 # 输出每个字段
 IN="aaa;bbb;ccc"
@@ -55,6 +79,7 @@ for i in $(echo $IN | tr ";" "\n")
 do
   echo $i
 done
+
 
 # 替换换行符 "\r\n" -> "\n"
 awk 'BEGIN{RS="\r\n"; ORS="\n"}{print $0}' file > file
@@ -129,7 +154,31 @@ END {
 }
 ' | sort
 
+
+
+# group，sum
+cat << EOF |
+time01,AAA,1
+time01,AAA,2
+time01,BBB,3
+time02,AAA,100
+time02,BBB,200
+time02,BBB,300
+EOF
+gawk -F, '
+BEGIN{FS=",";OFS="|"}
+{array[$1][$2] += $3}
+END {
+    for(time in array ) {
+        for( type in array[time] ) {
+            print time OFS type OFS array[time][type]
+        }
+    }
+}
+'
 ----
+
+
 
 ### float -> int
 
@@ -181,7 +230,7 @@ awk '
 
 ### 提取字符串
 
-[Using Bracket Expressions](https://www.gnu.org/software/gawk/manual/html_node/Bracket-Expressions.html#Bracket-Expressions)
+link:https://www.gnu.org/software/gawk/manual/html_node/Bracket-Expressions.html#Bracket-Expressions[Using Bracket Expressions]
 
 [source,shell]
 ----

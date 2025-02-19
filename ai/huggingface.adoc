@@ -1,0 +1,18 @@
+
+* link:https://huggingface.co/
+  搜索 `Qwen2.5 -GGUF`
+* link:https://huggingface.co/docs/huggingface_hub/index[huggingface_hub]
+* link:https://hf-mirror.com/
+
+
+
+## huggingface-cli
+
+[source,shell]
+----
+brew install huggingface-cli
+
+export HF_ENDPOINT=https://hf-mirror.com
+
+
+----

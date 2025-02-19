@@ -17,3 +17,12 @@ chmod u+x /tmp/b.jsh
 /tmp/b.jsh
 echo $?
 ----
+
+
+
+示例1
+
+[source,shell]
+----
+echo 'String.format("%06d", 19)' | jshell --feedback concise | sed -n '2p'
+----

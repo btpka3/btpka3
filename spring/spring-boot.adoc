@@ -186,3 +186,43 @@ org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
 org.springframework.beans.factory.ObjectProvider
 org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration
 No converter for [class org.springframework.boot.actuate.health.SystemHealth]
+
+
+## gradle
+### bootJar
+
+[source,groovy]
+----
+tasks.named("bootJar") {
+
+    // 将给定的 jar包 zip 展开到顶层
+    from(zipTree((project.configurations.runtimeClasspath.find { it.name.startsWith("byte-buddy") } )))
+    // 将给定的 jar包 zip 从fat jar的打包中移除
+    filesMatching("byte-buddy-*.jar", { details ->
+        // 不再copy该文件
+        details.exclude()
+    })
+
+}
+----
+
+## BootstrapContext
+
+- org.springframework.boot.BootstrapContext
+- org.springframework.boot.BootstrapRegistry
+- org.springframework.boot.ConfigurableBootstrapContext
+- org.springframework.boot.DefaultBootstrapContext
+- org.springframework.boot.BootstrapRegistryInitializer
+- org.springframework.boot.SpringApplication#addBootstrapRegistryInitializer
+
+## EnvironmentPostProcessor
+
+
+## Scan
+
+org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider
+org.springframework.context.annotation.ClassPathBeanDefinitionScanner
+
+
+## autoConfiguration
+org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener

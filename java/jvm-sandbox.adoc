@@ -1,0 +1,204 @@
+
+* link:https://github.com/alibaba/jvm-sandbox[alibaba/jvm-sandbox]
+* link:https://github.com/alibaba/jvm-sandbox/wiki/MDEV-FIRST-MODULE[修复一个损坏了的钟]
+* com.alibaba.jvm.sandbox.core.enhance.weaver.asm.EventWeaver#rewriteNormalMethod
+
+## 下载
+[source,shell]
+----
+# 下载最新版本的JVM-SANDBOX，oss已到期，或者oss链接不可访问时，可选择自行打包
+wget https://ompc.oss-cn-hangzhou.aliyuncs.com/jvm-sandbox/release/sandbox-1.4.0-bin.zip
+
+# 解压
+unzip sandbox-1.4.0-bin.zip
+cd sandbox
+# 安装，默认会安装到 ${HOME}/.opt/sandbox
+./install-local.sh
+cd ${HOME}/.opt/sandbox
+
+
+# 默认日志文件 :
+tailf ${HOME}/logs/sandbox/sandbox.log
+
+
+-javaagent:/Users/zll/.opt/sandbox/lib/sandbox-agent.jar
+----
+
+
+## 目录结构
+[source,plain]
+----
+${sandboxHome}/cfg/sandbox.properties   #
+${sandboxHome}/module/
+${sandboxHome}/lib/sandbox-core.jar
+${sandboxHome}/lib/sandbox-spy.jar      #
+${sandboxHome}/provider/
+
+${user.home}/.sandbox.token     #
+----
+
+
+##  核心类
+
+* com.alibaba.jvm.sandbox.core.CoreConfigure
+* com.alibaba.jvm.sandbox.core.server.ProxyCoreServer
+* com.alibaba.jvm.sandbox.agent.AgentLauncher  # Premain-Class &&  AgentMan-Class
+* com.alibaba.jvm.sandbox.core.enhance.weaver.EventProcessor#processRef # ThreadLocal<Process> 类型
+
+## PreMain 静态启动
+参数: `namespace,prop`
+
+
+
+## AgentMain 动态启动
+参数: `namespace,token,ip,port,prop`
+
+
+## javax.annotation.Resource
+
+参考： com.alibaba.jvm.sandbox.core.manager.impl.DefaultCoreModuleManager#injectResourceOnLoadIfNecessary
+
+可以注入以下类型：
+* com.alibaba.jvm.sandbox.api.resource.LoadedClassDataSource
+* com.alibaba.jvm.sandbox.api.resource.ModuleEventWatcher
+* com.alibaba.jvm.sandbox.api.resource.ModuleController
+* com.alibaba.jvm.sandbox.api.resource.ModuleManager
+* com.alibaba.jvm.sandbox.api.resource.ConfigInfo
+* com.alibaba.jvm.sandbox.api.resource.EventMonitor
+
+
+
+* com.alibaba.jvm.sandbox.agent.SandboxClassLoader
+* com.alibaba.jvm.sandbox.core.classloader.ProviderClassLoader
+* com.alibaba.jvm.sandbox.core.classloader.ModuleJarClassLoader
+
+## ModuleJarClassLoader
+[source,shell]
+----
+# 以下package 下的类会向 java.lang.ClassLoader#getSystemClassLoader 中查询。
+com.alibaba.jvm.sandbox.api.**   # sandbox-api,sandbox-common-api
+javax.servlet.**
+javax.annotation.Resource.**
+----
+
+FIXME: sandbox-provider-api  中 com.alibaba.jvm.sandbox.provider.api.*  是否应该打包到moudle 中，
+sandbox-mgr-module.jar 是没有打包的。
+
+
+## ProviderClassLoader
+[source,shell]
+----
+# 以下package 下的类会向 java.lang.ClassLoader#getSystemClassLoader 中查询。
+com.alibaba.jvm.sandbox.api.**      # sandbox-api,sandbox-common-api
+com.alibaba.jvm.sandbox.provider.** # sandbox-provider-api
+javax.annotation.Resource.**
+----
+
+
+
+
+
+
+## 示例
+[source,java]
+----
+final EventWatcher watcher = new EventWatchBuilder(moduleEventWatcher)
+        .onClass("java.lang.ClassLoader")
+        .includeBootstrap()  // ⭕️
+        .onBehavior("loadClass")
+        .withParameterTypes("java.lang.String")
+        .onWatching()
+        .withCall()
+        .onWatch(new AdviceAdapterListener(listener), Event.Type.CALL_BEFORE, Event.Type.CALL_RETURN, Event.Type.CALL_THROWS);
+----
+
+
+[source,java]
+----
+// java.lang.ClassLoader#loadClass(java.lang.String)
+public Class<?> loadClass(String string) throws ClassNotFoundException {
+    try {
+        Class<?> clazz;
+        block9: {
+            Spy.Ret ret;
+            block8: {
+                block7: {
+                    block6: {
+                        Spy.Ret ret2;
+                        block5: {
+                            block4: {
+                                Object[] objectArray = new Object[]{string};
+                                ret2 = Spy.spyMethodOnBefore((Object[])objectArray, (String)"default", (int)1001, (int)0, (String)"java.lang.ClassLoader", (String)"loadClass", (String)"(Ljava/lang/String;)Ljava/lang/Class;", (Object)this);
+                                string = (String)objectArray[0];
+                                int n = ret2.state;
+                                if (n == 1) break block4;
+                                if (n == 2) break block5;
+                                break block6;
+                            }
+                            return (Class)ret2.respond;
+                        }
+                        throw (Throwable)ret2.respond;
+                    }
+                    Spy.spyMethodOnCallBefore((int)351, (String)"java.lang.ClassLoader", (String)"loadClass", (String)"(Ljava/lang/String;Z)Ljava/lang/Class;", (String)"default", (int)1001);
+                    try {
+                        clazz = this.loadClass(string, false);
+                    }
+                    catch (Throwable throwable) {
+                        Spy.spyMethodOnCallThrows((String)throwable.getClass().getName(), (String)"default", (int)1001);
+                        throw throwable;
+                    }
+                    Spy.spyMethodOnCallReturn((String)"default", (int)1001);
+                    ret = Spy.spyMethodOnReturn(clazz, (String)"default", (int)1001);
+                    int n = ret.state;
+                    if (n == 1) break block7;
+                    if (n == 2) break block8;
+                    break block9;
+                }
+                return (Class)ret.respond;
+            }
+            throw (Throwable)ret.respond;
+        }
+        return clazz;
+    }
+    catch (Throwable throwable) {
+        Throwable throwable2;
+        block12: {
+            Spy.Ret ret;
+            block11: {
+                block10: {
+                    throwable2 = throwable;
+                    ret = Spy.spyMethodOnThrows((Throwable)throwable2, (String)"default", (int)1001);
+                    int n = ret.state;
+                    if (n == 1) break block10;
+                    if (n == 2) break block11;
+                    break block12;
+                }
+                return (Class)ret.respond;
+            }
+            throw (Throwable)ret.respond;
+        }
+        throw throwable2;
+    }
+}
+----
+
+[source,plain]
+----
+java.lang.ClassCircularityError: com/alibaba/jvm/sandbox/core/util/collection/GaStack
+	at com.alibaba.jvm.sandbox.core.enhance.weaver.EventProcessor.lambda$new$0(EventProcessor.java:176)
+	at java.lang.ThreadLocal$SuppliedThreadLocal.initialValue(ThreadLocal.java:305)
+	at java.lang.ThreadLocal.setInitialValue(ThreadLocal.java:195)
+	at java.lang.ThreadLocal.get(ThreadLocal.java:172)
+	at com.alibaba.jvm.sandbox.core.enhance.weaver.EventListenerHandler.handleOnCallBefore(EventListenerHandler.java:453)
+	at java.com.alibaba.jvm.sandbox.spy.Spy.spyMethodOnCallBefore(Spy.java:101)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+	at com.alibaba.jvm.sandbox.core.enhance.weaver.EventProcessor.lambda$new$0(EventProcessor.java:176)
+	at java.lang.ThreadLocal$SuppliedThreadLocal.initialValue(ThreadLocal.java:305)
+	at java.lang.ThreadLocal.setInitialValue(ThreadLocal.java:195)
+	at java.lang.ThreadLocal.get(ThreadLocal.java:172)
+	at com.alibaba.jvm.sandbox.core.enhance.weaver.EventListenerHandler.handleOnBefore(EventListenerHandler.java:323)
+	at java.com.alibaba.jvm.sandbox.spy.Spy.spyMethodOnBefore(Spy.java:164)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java)
+	at sun.instrument.InstrumentationImpl.loadClassAndStartAgent(InstrumentationImpl.java:304)
+	at sun.instrument.InstrumentationImpl.loadClassAndCallPremain(InstrumentationImpl.java:401)
+----

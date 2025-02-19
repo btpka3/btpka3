@@ -1,0 +1,64 @@
+
+
+
+
+## event
+
+link:https://docs.spring.io/spring-boot/reference/features/spring-application.html[Application Events and Listeners]
+* org.springframework.boot.context.event.SpringApplicationEvent
+
+[source,plain]
+----
+org.springframework.context.ApplicationEvent
+    org.springframework.boot.context.event.SpringApplicationEvent
+        org.springframework.boot.context.event.ApplicationStartingEvent
+        org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent # 初始化 LogbackLoggingSystem
+        org.springframework.boot.context.event.ApplicationContextInitializedEvent
+        org.springframework.boot.context.event.ApplicationPreparedEvent
+        org.springframework.boot.context.event.ApplicationStartedEvent  # 从这里开始，才允许作为spring bean 来监听
+        org.springframework.boot.availability.AvailabilityChangeEvent   # LivenessState.CORRECT
+        org.springframework.boot.context.event.ApplicationReadyEvent
+        org.springframework.boot.availability.AvailabilityChangeEvent   # ReadinessState.ACCEPTING_TRAFFIC
+        org.springframework.boot.context.event.ApplicationFailedEvent
+    org.springframework.context.event.ApplicationContextEvent
+        org.springframework.context.event.ContextClosedEvent
+        org.springframework.context.event.ContextRefreshedEvent
+        org.springframework.context.event.ContextStoppedEvent
+        org.springframework.context.event.ContextStartedEvent
+----
+
+
+:table-caption: Demo表格
+[#my-tbl1,cols="1,1,1,1"]
+.table1 title
+|===
+|event                                          |@EventListener/bean| SPI:ApplicationListener   | SPI:SpringApplicationRunListener
+
+|ApplicationStartingEvent                       |❌                 |✅                         |
+|starting                                       |❌                 |                           |✅
+|ApplicationEnvironmentPreparedEvent            |❌                 |✅                         |
+|environmentPrepared                            |❌                 |                           |✅
+|ApplicationContextInitializedEvent             |❌                 |✅                         |
+|contextPrepared                                |❌                 |                           |✅
+|ApplicationPreparedEvent                       |❌                 |✅                         |
+|contextLoaded                                  |❌                 |                           |✅
+|ContextRefreshedEvent                          |✅                 |✅                         |
+|ApplicationStartedEvent                        |✅                 |✅                         |
+|AvailabilityChangeEvent,CORRECT                |✅                 |✅                         |
+|started                                        |                   |                           |✅
+|ApplicationReadyEvent                          |✅                 |✅                         |
+|AvailabilityChangeEvent,ACCEPTING_TRAFFIC      |✅                 |✅                         |
+|ready                                          |                   |                           |✅
+|ApplicationFailedEvent                         |                   |                           |
+|ContextStoppedEvent                            |                   |                           |
+|ContextStartedEvent                            |                   |                           |
+|ContextClosedEvent                             |                   |                           |
+
+|===
+
+
+////
+❓
+❌
+✅
+////

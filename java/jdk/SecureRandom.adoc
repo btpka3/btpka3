@@ -10,6 +10,15 @@
 
 * java.security.SecureRandom
 * sun.security.provider.SunEntries
+如果不是对 随机值 要求那么高的情况下，可以使用 `org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric(16)`
+来替代 `UUID.randomUUID().toString()`
+
+* 替代方案1 :
+** link:https://github.com/ulid/spec[ulid]
+** link:https://github.com/azam/ulidj?tab=readme-ov-file[ulidj]
+** link:https://github.com/f4b6a3/uuid-creator[uuid-creator]
+** link:https://github.com/cowtowncoder/java-uuid-generator[Java Uuid Generator (JUG)]
+
 
 
 ```shell

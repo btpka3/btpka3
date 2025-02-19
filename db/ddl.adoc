@@ -1,0 +1,18 @@
+
+
+## tags
+
+### 使用逗号分隔的字符串
+
+比如 : `tag1,tag2,tag3`
+
+* 查询
+** mysql : 可以使用 `FIND_IN_SET('tag2', 'tag1,tag2,tag3')` 的方式查询。
+
+
+### 使用JSONArray
+
+比如 : `["tag1","tag2","tag3"]`
+
+** mysql : 可以使用 `JSON_CONTAINS('["aa","bb","cc"]','"bb"','$')` 的方式查询。
+JSON_CONTAINS

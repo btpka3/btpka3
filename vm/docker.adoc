@@ -1,5 +1,8 @@
 
 
+* link:https://docs.docker.com/desktop/cert-revoke-solution/[Resolve the recent Docker Desktop issue on macOS]
+如果出现这个 弹框报错 : "Malware Blocked: “com.docker.vmnetd” was not opened because it contains malware", 则按照该流程走一遍。
+
 ## 安装
 
 [source,shell]
@@ -59,9 +62,12 @@ cd ${cur_dir}
 - link:https://docs.docker.com/engine/reference/commandline/login/#credential-stores[Credential stores]
 - link:https://www.passwordstore.org/[pass]
 
-```shell
+[source,shell]
+----
 brew install pass
-```
+----
+
+
 
 `docker login` 如果这个错误，则修改 `vi ~/.docker/config.json` 删除 "credsStore"
 
@@ -83,3 +89,56 @@ Error saving credentials: error storing credentials - err: exit status 1, out: `
 ## ~/.docker/daemon.json
 
 
+
+## 镜像源
+
+[source,shell]
+----
+# 安装 chsrc
+brew install chsrc
+# 列出 docker hub 的 镜像源
+chsrc list docker
+----
+
+MacOS 的 Docker desktop ： Settings / Docker Engine 进行配置：
+
+[source,json]
+----
+{
+  "builder": {
+    "gc": {
+      "defaultKeepStorage": "20GB",
+      "enabled": true
+    }
+  },
+  "experimental": false,
+  "registry-mirrors": [
+    "https://docker.1panel.live",
+    "https://docker.m.daocloud.io",
+    "https://huecker.io"
+  ]
+}
+----
+
+## 代理
+参考 link:tinyproxy.adoc[tinyproxy]
+
+注意：由于macos上的docker engine 实际也是运行在一个镜像里的，故代理服务器地址不能是 127.0.0.1，这里的30.166.33.108就是个人电脑（宿主机）的局域网IP。
+
+[source,json]
+----
+{
+  "builder": {
+    "gc": {
+      "defaultKeepStorage": "20GB",
+      "enabled": true
+    }
+  },
+  "experimental": false,
+  "proxies": {
+    "http-proxy": "http://30.166.33.108:13660",
+    "https-proxy": "http://30.166.33.108:13660",
+    "no-proxy": "*.test.example.com,.example.org"
+  }
+}
+----

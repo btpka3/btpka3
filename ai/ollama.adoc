@@ -1,0 +1,28 @@
+## ref
+* link:https://ollama.com/[ollama]
+* link:https://github.com/ollama/ollama/blob/main/docs/modelfile.md[Ollama Model File]
+
+
+## install
+[source,shell]
+----
+
+# ollama
+brew install ollama
+ollama serve
+# 查看模型信息
+ollama show qwen2.5:7b
+ollama pull qwen2.5:7b
+# 模型下载的目录
+tree ~/.ollama/models
+ollama run  qwen2.5:7b
+# 查看本地模型
+ollama list
+# 查看运行中的模型
+ollama ps
+# 复制模型
+ollama copy model_1 model_2
+# 删除模型
+ollama rm model_1
+----
+

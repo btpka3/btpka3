@@ -21,8 +21,13 @@ logback.xml
 * link:https://github.com/qos-ch/logback/blob/1.1.11/logback-core/src/main/java/ch/qos/logback/core/joran/conditional/PropertyWrapperForScripts.java[PropertyWrapperForScripts]
 
 
+
 ## 使用 spring placeholder
 
+* org.springframework.boot.logging.logback.LogbackLoggingSystem
+* org.springframework.boot.context.logging.LoggingApplicationListener
+* org.springframework.boot.SpringApplicationRunListener
+* org.springframework.boot.logging.AbstractLoggingSystem#getSpringInitializationConfig
 * link:https://reflectoring.io/profile-specific-logging-spring-boot/[Using Profiles in logback-spring.xml]
 
 
@@ -109,6 +114,30 @@ ognl -c 32ac360d '@org.slf4j.LoggerFactory@getLogger("ROOT").aai.getAppender("xx
 
 ## 常用pattern格式定义
 
-```plain
+[source,plain]
+----
 %date{ISO8601}|%thread|%level|%logger|%msg%n
-```
+----
+
+
+## 条件配置
+
+* link:https://logback.qos.ch/manual/configuration.html[Conditional processing of configuration files]
+* ch.qos.logback.core.joran.conditional.IfAction
+* link:https://github.com/qos-ch/logback/blob/69ce513bdccc002a7fc4920ab6b7b373c593d2ff/logback-core/src/main/java/ch/qos/logback/core/joran/conditional/PropertyWrapperForScripts.java#L35[ch.qos.logback.core.joran.conditional.PropertyWrapperForScripts]
+
+[source,java]
+-----
+public class PropertyWrapperForScripts {
+
+    public boolean isNull(String k);
+
+    public boolean isDefined(String k);
+
+    public String p(String k);
+
+    public String property(String k);
+}
+-----
+
+

@@ -6,7 +6,9 @@
 # 记住密码
 使用ssh协议，可以使用ssh key来免密码登录。但是如果使用 http/https 协议来clone，则可以参考 [这里](https://help.github.com/articles/caching-your-github-password-in-git/)
 
-```
+```shell
+
+
 # Mac
 git credential-osxkeychain
 brew install git
@@ -24,6 +26,8 @@ git config --global credential.helper wincred
 git config --global credential.helper 'cache --timeout=3600'   # 保存在内存中
 # 保存在磁盘上, 默认查找 ~/.git-credentials  $XDG_CONFIG_HOME/git/credentials
 git config credential.helper 'store --file=<path>'
+
+git clone --depth=1 git@github.com:spring-projects/spring-boot.git
 ```
 
 
@@ -175,6 +179,7 @@ git push -u origin branch_aaa:master
 
 # 删除
 git rm README
+git rm --cached xxFile  # 保留本地磁盘文件
 git mv file_from file_to
 git log
 git log -n 1 origin/master..xxxBranch                                                       # 0d5ca7bd1c1c0aeb463d53d7e5dc318c16267b56

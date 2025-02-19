@@ -1,0 +1,91 @@
+
+
+## macos
+
+[source,shell]
+----
+brew install mysql
+brew reinstall mysql
+
+brew services info mysql
+# 启动数据库
+brew services restart mysql
+----
+
+
+## docker
+
+[source,shell]
+----
+# docker run --rm anolis-registry.cn-zhangjiakou.cr.aliyuncs.com/openanolis/mysql:8.0.30-8.6
+mkdir -p ~/data0/store/docker_volumn/mysql
+docker pull docker.io/mysql:8.4.2
+docker run \
+    --name mysql \
+    -e MYSQL_ROOT_PASSWORD=123456  \
+    -v ${HOME}/data0/store/docker_volumn/mysql:/var/lib/mysql \
+    -p 3306:3306 \
+    -d \
+    docker.io/mysql:8.4.2
+
+
+docker stop mysql
+docker start mysql
+mysql --host=127.0.0.1 --port=3306 --user=root --password=123456 --execute='select 1+2'
+
+# JDBC 链接 : jdbc:mysql://localhost:3306/?allowPublicKeyRetrieval=true&useSSL=False
+----
+
+
+## JSON
+
+[source,shell]
+----
+# 对象: 按照单个字段值过滤。
+## 返回 1
+SELECT JSON_CONTAINS('{"a": 1, "b": 2, "c": {"d": 4}}', '1', '$.a');
+## 返回 1
+SELECT JSON_CONTAINS('{"a": 1, "b": 2, "c": {"d": 4}}', '1', '$.b');
+
+# 对象: 按照多个字段过滤
+## 返回 1
+SELECT JSON_CONTAINS('{"a": 1, "b": 2, "c": {"d": 4}}', '{"a": 1, "b": 2}', '$');
+## 返回 1
+SELECT JSON_CONTAINS('{"a": 1, "b": 2, "c": {"d": 4}}', '{"d": 4}', '$.c');
+
+# 数组
+## 返回 1
+SELECT JSON_CONTAINS('[111,"aaa",{"d": 4, "e":5}]', '111', '$');
+## 返回 1
+SELECT JSON_CONTAINS('[111,"aaa",{"d": 4, "e":5}]', '"aaa"', '$');
+## 返回 1
+SELECT JSON_CONTAINS('[111,"aaa",{"d": 4, "e":5}]', '{"d": 4}', '$');
+
+----
+
+
+
+
+## The last packet successfully received from the server was xxx milliseconds ago
+[source,sql]
+----
+SHOW GLOBAL VARIABLES LIKE '%wait_timeout%';
+interactive_timeout: 指的是mysql在关闭一个交互的连接之前所要等待的秒数，
+wait_timeout: 指的是mysql在关闭一个非交互的连接之前所要等待的秒数
+----
+
+
+## left join
+[source,sql]
+----
+select u.id, count(IFNULL(l.user_id , 0) )
+FROM user u
+left join logins l on u.id = l.user_id
+group by u.id;
+
+select u.id,
+    count(l.user_id)
+from user u
+left join logins l on u.id = l.user_id
+group by u.id
+----

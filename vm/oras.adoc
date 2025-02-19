@@ -1,15 +1,16 @@
 
-# ORAS: OCI Registry As Storage
+## ORAS: OCI Registry As Storage
 
-- [ORAS](https://oras.land/)
-    - [helm](https://v3.helm.sh/docs/topics/registries/) : 实现该协议的客户端之一
-        - [microbean/microbean-helm](https://github.com/microbean/microbean-helm) ： helm 的 java client
-- [OCI artifacts on Docker Hub](https://docs.docker.com/docker-hub/oci-artifacts/)
-- bitnami
-    - docker hub : [bitnami/oras](https://hub.docker.com/r/bitnami/oras)
-    - [Dockerfile](https://github.com/bitnami/containers/blob/main/bitnami/oras/1/scratch/Dockerfile)
+* link:https://oras.land/[ORAS]
+** link:https://v3.helm.sh/docs/topics/registries/[helm] : 实现该协议的客户端之一
+* link:https://github.com/microbean/microbean-helm[microbean/microbean-helm] ： helm 的 java client
+* link:https://docs.docker.com/docker-hub/oci-artifacts/[OCI artifacts on Docker Hub]
+* bitnami
+** docker hub : link:https://hub.docker.com/r/bitnami/oras[bitnami/oras]
+** link:https://github.com/bitnami/containers/blob/main/bitnami/oras/1/scratch/Dockerfile[Dockerfile]
 
-```shell
+[source,shell]
+----
 # MacOS
 brew install oras
 
@@ -17,7 +18,7 @@ brew install oras
 rpm-ostree install golang-oras
 
 # docker
-docker run --rm docker.io/bitnami/oras version   
+docker run --rm docker.io/bitnami/oras version
 
 export DOCKER_USERNAME="E-dangqian.zll-158230@alibaba-mtee"
 export DOCKER_PASSWD="xxx"
@@ -42,7 +43,7 @@ cat > docker_config.json <<EOF
 {
   "auths": {
     "chengdun-sec-scr-registry.cn-hangzhou.cr.aliyuncs.com": {
-      "auth": "$(echo -n "${DOCKER_USERNAME}:${DOCKER_PASSWD}" | base64)"    
+      "auth": "$(echo -n "${DOCKER_USERNAME}:${DOCKER_PASSWD}" | base64)"
     }
   }
 }
@@ -55,21 +56,23 @@ docker run --rm \
         --registry-config /data/docker_config.json \
         -o /data \
         chengdun-sec-scr-registry.cn-hangzhou.cr.aliyuncs.com/sec/hello-artifact:v1
-```
+----
 
-# alpine
+## alpine
 
-```shell
+[source,shell]
+----
 docker run -it --rm  docker.io/library/alpine:3.18 bash -l
 echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing/"     >> /etc/apk/repositories
 apk add oras-cli
 oras login --username=E-dangqian.zll-158230@alibaba-mtee chengdun-sec-scr-registry.cn-hangzhou.cr.aliyuncs.com
 cat ~/.docker/config.json
-```
+----
 
 ~/.docker/config.json 示例内容：
 
-```json
+[source,json]
+----
 {
   "auths": {
     "chengdun-sec-scr-registry.cn-hangzhou.cr.aliyuncs.com": {
@@ -77,4 +80,4 @@ cat ~/.docker/config.json
     }
   }
 }
-```
+----

@@ -355,6 +355,26 @@ DATE => TIMESTAMP WITH TIME ZONE
 
 
 DATE_FORMAT(xxxTimeStamp, 'yyyyMMdd')
+
+-- 毫秒 -> TIMESTAMP_LTZ
+TO_TIMESTAMP_LTZ(1728967350000,3)
+
+UNIX_TIMESTAMP('2024-10-15T12:46:27.486+08:00','yyyy-MM-dd''T''HH:mm:ss.SSSX')
+TO_TIMESTAMP('2024-10-15T12:46:27.486+08:00','yyyy-MM-dd''T''HH:mm:ss.SSSX')
+DATE_FORMAT(TO_TIMESTAMP('2024-10-15T12:46:27.486+08:00','yyyy-MM-dd''T''HH:mm:ss.SSSX'),'yyyyMMdd'),
+
+---
+    DATE_FORMAT(TO_TIMESTAMP(T.`time`,'yyyy-MM-dd''T''HH:mm:ss.SSSX'), 'yyyyMMdd') AS `db_ds`,
+    TO_TIMESTAMP(T.`time`,'yyyy-MM-dd''T''HH:mm:ss.SSSX')                          AS `db_time`,
+
+-- XXX : new1
+    DATE_FORMAT(TO_TIMESTAMP_LTZ(MoreGong9IsoTimStrToBigIntUdf(T.`time`), 3), 'yyyyMMdd')   AS `db_ds`,
+    TO_TIMESTAMP_LTZ(MoreGong9IsoTimStrToBigIntUdf(T.`time`), 3)                            AS `db_time`,
+
+-- XXX : old
+    DATE_FORMAT(MoreGong9IsoTimStrToTimestampUdf(T.`time`), 'yyyyMMdd') AS `db_ds`,
+    MoreGong9IsoTimStrToTimestampUdf(T.`time`)                          AS `db_time`,
+
 ----
 
 

@@ -88,7 +88,7 @@ public interface XxxMapper {
 
 ### TypeHandler 可以通过 resultMap 指定。那没有使用 resultMap，又是如何选择 默认的 typeHandler ?
 
-参考 org.apache.ibatis.executor.resultset.DefaultResultSetHandler#getRowValue
+参考 org.apache.ibatis.executor.resultset.Defau ltResultSetHandler#getRowValue
 
 ## MyBatis Dynamic SQL
 * link:https://mybatis.org/mybatis-dynamic-sql/docs/introduction.html[MyBatis Dynamic SQL]
@@ -109,3 +109,176 @@ public interface XxxMapper {
 
 ## debug
 如果要查看生成的动态sql，需要配置 mapper 的  package 的 logger 的 日志级别==DEBUG
+
+
+## MyBatis Generator
+
+* link:https://mybatis.org/generator/index.html[MyBatis Generator]
+* link:https://mybatis.org/generator/running/runningWithMaven.html[mybatis-generator-maven-plugin]
+* link:https://mybatis.org/generator/usage/postgresql.html[PostgreSQL Usage Notes]
+
+postgresql 的列需要双引号应用，则可以配置 : link:https://mybatis.org/generator/configreference/context.html[The <context> Element]
+[source,xml]
+----
+    <property name="autoDelimitKeywords" value="true"/>
+    <!--
+    the beginningDelimiter and endingDelimiter using " by default
+    when using PostgreSQL using "
+    when using MySQL, we should change to `
+     -->
+    <property name="beginningDelimiter" value="&quot;"/>
+    <property name="endingDelimiter" value="&quot;"/>
+
+  <table schema="HR" tableName="Employees"
+      delimitIdentifiers="true" delimitAllColumns="true"/>
+  <table schema="HR" tableName="Employees" delimitIdentifiers="true" >
+    <columnOverride column="EmployeeId" delimitedColumnName="true" />
+    <columnOverride column="EmployeeName" delimitedColumnName="true" />
+  </table>
+----
+
+
+### postgresql
+
+pom.xml
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>me.test</groupId>
+    <artifactId>mbg</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+     <build>
+         <plugins>
+             <plugin>
+                 <groupId>org.mybatis.generator</groupId>
+                 <artifactId>mybatis-generator-maven-plugin</artifactId>
+                 <version>1.4.2</version>
+                 <dependencies>
+                     <dependency>
+                         <groupId>org.postgresql</groupId>
+                         <artifactId>postgresql</artifactId>
+                         <version>42.5.1</version>
+                     </dependency>
+                 </dependencies>
+                 <configuration>
+                     <overwrite>true</overwrite>
+                     <verbose>true</verbose>
+                 </configuration>
+                 <executions>
+                     <execution>
+                         <goals>
+                             <goal>generate</goal>
+                         </goals>
+                         <phase>generate-sources</phase>
+                     </execution>
+                 </executions>
+             </plugin>
+         </plugins>
+     </build>
+</project>
+----
+
+src/main/resources/generatorConfig.xml
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- dependency:copy 默认的输出目录  -->
+<!--    <classPathEntry location="target/dependency/h2-1.3.150.jar" />-->
+
+    <context id="myTables" defaultModelType="flat" targetRuntime="MyBatis3">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin">
+        </plugin>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin">
+        </plugin>
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin">
+        </plugin>
+<!--        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">-->
+<!--            <property name="searchString"   value="Example$" />-->
+<!--            <property name="replaceString"  value="Criteria" />-->
+<!--        </plugin>-->
+<!--        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin">-->
+<!--        </plugin>-->
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin">
+
+        </plugin>
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="false"/>
+        </commentGenerator>
+
+        <!-- 数据库连接 -->
+        <jdbcConnection driverClass="org.postgresql.Driver"
+                        connectionURL="jdbc:postgresql://localhost:5432/postgres"
+                        userId="zll"
+                        password="">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- 生成Model的Java文件 -->
+        <javaModelGenerator targetPackage="me.test.dao.domain"
+                            targetProject="src/main/java/">
+            <property name="enableSubPackages"  value="true" />
+            <property name="trimStrings"        value="true" />
+        </javaModelGenerator>
+
+        <!-- 生成Mapper的XML文件 -->
+        <sqlMapGenerator targetPackage="mybatis/sqlmap"
+                         targetProject="src/main/resources/">
+        </sqlMapGenerator>
+
+        <!-- 生成Mapper的Java文件 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="me.test.dao"
+                             targetProject="src/main/java/">
+        </javaClientGenerator>
+
+
+
+        <table tableName="gong9_exception_analyse"
+               delimitIdentifiers="true"
+               delimitAllColumns="true"
+               domainObjectName="G9ErrLogRec">
+            <property name="useActualColumnNames" value="true" />
+            <columnOverride column="db_ds" property="dbDs"/>
+            <columnOverride column="db_gmt_create" property="dbGmtCreate"/>
+            <columnOverride column="db_gmt_modified" property="dbGmtModified"/>
+            <columnOverride column="db_time" property="dbTime"/>
+        </table>
+
+    </context>
+</generatorConfiguration>
+----
+
+
+
+## RowBounds
+
+RowBounds 不适用于大数据量大数据。该实现是 客户端分页。
+故如果满足条件的记录大于1W条，会先将这1W条记录都拿到客户端JVM内存里，再截取相关数据。
+不不要使用。
+
+## PageHelper

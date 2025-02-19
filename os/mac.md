@@ -355,51 +355,6 @@ http://sdk.android-studio.org/
 /Users/zll/work/nfs/12/share /data1/samba/share/share
 
 
-## homebrew
-
-通过  [homebrew](https://brew.sh/) 已经安装 来安装 maven
-
-```sh
-# 检查并安装 homebrew
-brew --version
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-# 安装 最新的 maven
-brew info maven
-brew install maven
-brew list --versions maven
-mvn --version
-```
-如果上述安装过程中报错:  `xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun`, 则执行以下命令：
-
-```sh
-sudo xcode-select --install
-sudo xcode-select -switch /
-```
-
-[https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/](Homebrew/Linuxbrew 镜像使用帮助)
-```bash
--> % git remote -v
-origin	https://github.com/Homebrew/brew (fetch)
-origin	https://github.com/Homebrew/brew (push)
-
-# brew 程序本身，Homebrew/Linuxbrew 相同
-git -C "$(brew --repo)" remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
-
-# 以下针对 mac OS 系统上的 Homebrew
-git -C "$(brew --repo homebrew/core)" remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
-git -C "$(brew --repo homebrew/cask)" remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git
-git -C "$(brew --repo homebrew/cask-fonts)" remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask-fonts.git
-git -C "$(brew --repo homebrew/cask-drivers)" remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask-drivers.git
-
-# 以下针对 Linux 系统上的 Linuxbrew
-git -C "$(brew --repo homebrew/core)" remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/linuxbrew-core.git
-
-# 更换后测试工作是否正常
-brew update
-```
-
-
 
 ## node
 ### 使用 brew 安装
@@ -532,30 +487,5 @@ ls "/Users/zll/Library/Group Containers/Q8LTS84VQ9.huoying/Application Support/D
 
 
 
-
-## gnu beanutils
-```shell
-brew install binutils
-
-brew install mysql-client@8.4
-brew link mysql-client@8.4
-
-brew install jq
-brew install yq
-brew install kubectl
-brew install kubernetes-cli
-
-brew install node@20
-brew link node@20
-
-brew install git
-brew install git-gui
-
-
-brew install --cast docker
-brew install podman
-brew install podman-desktop
-brew install podman-compose
-```
 
 

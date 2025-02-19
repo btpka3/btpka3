@@ -6,6 +6,10 @@
 ## 批量检测，并变更文件编码
 ```bash
 brew install uchardet
+
+uchardet xxx.java
+
+# 修改文件的编码
 find . -type f              \
     | grep -v \.idea        \
     | grep -v \.git         \
@@ -15,13 +19,14 @@ find . -type f              \
     | grep -v \.gif \
     | grep -v \.png \
     | grep -v \.swf \
-    | xargs -I {} sh -c 'printf "%s %s\n" {} `uchardet {}`' \
+    | xargs -I {} -S 10240 sh -c 'printf "%s %s\n" {} `uchardet {}`' \
     | grep GB18030 \
     | cut -d' ' -f1 \
     | grep \.java \
-    | xargs -I {} sh -c 'f="{}"; iconv -f GB18030 -t UTF-8 ${f} > ${f}.tmp ; mv ${f}.tmp ${f}'
+    | xargs -I {} -S 10240 sh -c 'f="{}"; iconv -f UTF-8 -t GBK ${f} > ${f}.tmp ; mv ${f}.tmp ${f}'
 
 
+# 修改换行符
 find . -type f -name "*.java" \
     | xargs -I {} sh -c 'f="{}"; awk '"'"'BEGIN{RS="\r\n"; ORS="\n"}{print $0}'"'"' ${f} > ${f}.tmp ;  mv ${f}.tmp ${f}'
 
@@ -47,7 +52,7 @@ find . -type f -name "*.java" \
 # 少量处理 （Idea Intellj)
 # PS: 部分文件可能会被识别成 WINDOWS-1252, ISO-8859-1 等编码，
 # 但内容还是有包含中文字符的，这种量少，手动处理即可
-Idea Intellij : 
+Idea Intellij :
 1. 文件源码右键 : File encoding : 先选 GB2312 : Reload ，确保能正确显示中文字符
 2. 文件源码右键 : File encoding : 再选 UTF-8 : Convert ，再进行转换，存盘
 ```
@@ -63,7 +68,7 @@ find . -type f -name "*.java" \
 
 # 少量处理 （VIM)
 vim /path/to/file
-:e ++ff=dos	         # 再次编辑文件，使用 DOS 文件格式（换行符是 "\r\n"), 会忽略 fileformats 设定 
+:e ++ff=dos	         # 再次编辑文件，使用 DOS 文件格式（换行符是 "\r\n"), 会忽略 fileformats 设定
 :setlocal ff=unix	 # VIM  Buffer 中使用换行符 "\n".
 :w	                 # 存盘
 ```

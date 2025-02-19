@@ -3,3 +3,12 @@
 ## exclude dependencies
 
 
+## proxy
+
+.gradle/gradle.properties
+[source,properties]
+----
+org.gradle.jvmargs=-DsocksProxyHost\=127.0.0.1 -DsocksProxyPort\=1080 -DhttpProxyHost\=127.0.0.1 -DhttpProxyPort\=13659
+#org.gradle.jvmargs=-DsocksProxyHost\=127.0.0.1 -DsocksProxyPort\=1080 -DhttpProxyHost\=127.0.0.1 -DhttpProxyPort\=1081 -DhttpsProxyHost\=127.0.0.1 -DhttpsProxyPort\=1081
+
+----

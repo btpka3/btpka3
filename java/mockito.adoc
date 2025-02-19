@@ -423,3 +423,36 @@ public class DemoTest{
 
 }
 ----
+
+
+
+## spring
+- @org.springframework.boot.test.mock.mockito.MockBean
+- @org.springframework.boot.test.mock.mockito.SpyBean
+
+
+
+## 构造函数注入mock对象
+
+[source,java]
+----
+@Test
+void test01(){
+    try(MockedConstruction<PaymentService> mockPaymentService = Mockito.mockConstruction(PaymentService.class)){
+        PaymentProcessor paymentProcessor = new PaymentProcessor();
+        PaymentProcessor secondPaymentProcessor = new PaymentProcessor();
+        PaymentProcessor thirdPaymentProcessor = new PaymentProcessor("Debit");
+
+        when(mockPaymentService.constructed().get(0).processPayment()).thenReturn("Credit");
+        when(mockPaymentService.constructed().get(1).processPayment()).thenReturn("Online Banking");
+
+        Assertions.assertEquals(3,mockPaymentService.constructed().size());
+        Assertions.assertEquals("Credit", paymentProcessor.processPayment());
+        Assertions.assertEquals("Online Banking", secondPaymentProcessor.processPayment());
+        Assertions.assertNull(thirdPaymentProcessor.processPayment());
+    }
+}
+Copy
+
+----
+

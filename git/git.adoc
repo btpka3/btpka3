@@ -8,3 +8,45 @@
 [source,shell]
 ----
 ----
+
+
+## gitigore
+
+[source,shell]
+----
+# 排除任何 层级的 "lib/"
+lib/
+# 但保留这个 lib 目录
+!some/commit/lib/
+----
+
+
+## 开发模式
+
+link:https://bbs.huaweicloud.com/blogs/281789[Git工作流中常见的三种分支策略：GitFlow、GitHubFlow以及GitLabFlow]
+默认主干: master
+
+* branch: 分支模式, 多个代码分支自动集成发布
+* develop: 自由模式: 可使用任意项目分支进行构建发布
+
+* Git Flow: 项目分支合并到集成分支, 基于集成分支发布
+** Master分支: 主干分支，也是正式发布版本的分支，其包含可以部署到生产环境中的代码，通常情况下只允许其他分支将代码合入，不允许向Master分支直接提交代码（对应生产环境）。
+*** create from : 无
+*** merge from : hotfix,  develop
+
+** Develop分支：开发分支，用来集成测试最新合入的开发成果，包含要发布到下一个Release的代码（对应开发环境）。
+*** create from: master, hotfix,
+*** merge from : feature
+
+** Feature分支：特性分支，通常从Develop分支拉出，每个新特性的开发对应一个特性分支，用于开发人员提交代码并进行自测。自测完成后，会将Feature分支的代码合并至Develop分支，进入下一个Release。
+*** create from: develop
+*** merge from : any
+
+** Release分支：发布分支，发布新版本时，基于Develop分支创建，发布完成后，合并到Master和Develop分支（对应集成测试环境）。
+*** create from: develop
+*** merge from : 无
+
+** Hot fix分支：热修复分支，生产环境发现新Bug时创建的临时分支，问题验证通过后，合并到Master和Develop分支。
+
+
+

@@ -5,9 +5,33 @@
 * link:https://github.com/ascopes/protobuf-maven-plugin[io.github.ascopes:protobuf-maven-plugin]
 
 
+
+
 [source,shell]
 ----
 brew install protobuf
+protoc --version
+protoc --help
 
-protoc -I=. --java_out=/tmp/java protobuf-001.proto
+mkdir -p /tmp/demo-proto/{src,out}
+
+cat <<EOF >/tmp/demo-proto/src/a.proto
+syntax = "proto3";
+option java_multiple_files = true;
+package org.apache.dubbo.springboot.demo.idl;
+
+message GreeterRequest {
+  string name = 1;
+}
+message GreeterReply {
+  string message = 1;
+}
+
+service Greeter{
+  rpc greet(GreeterRequest) returns (GreeterReply);
+}
+EOF
+
+protoc --java_out=/tmp/demo-proto/out --proto_path=/tmp/demo-proto
+protoc --java_out=/tmp/demo-proto/out -I=/tmp/demo-proto /tmp/demo-proto/src/a.proto
 ----

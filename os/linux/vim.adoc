@@ -41,3 +41,55 @@ char  digraph	hex	dec	official name
 ^^	RS	0x1e	 30	RECORD SEPARATOR (IS2)
 ^_	US	0x1f	 31	UNIT SEPARATOR (IS1)
 ----
+
+
+## plugin
+
+
+* link:https://www.vim.org/scripts/script.php?script_id=302[AnsiEsc]
+
+
+[source,shell]
+----
+
+# 下载
+curl -fsSL https://www.vim.org/scripts/download_script.php?src_id=14498 -o  AnsiEsc.vba.gz
+wget -o AnsiEsc.vba.gz https://www.vim.org/scripts/download_script.php?src_id=14498
+
+# 安装， 安装后，会将该 Vimball 中文件解压到相应目录。
+vim AnsiEsc.vba.gz
+:so %
+:q
+
+tree ~/.vim
+ll ~/.vim/autoload/AnsiEsc.vim
+ll ~/.vim/doc/AnsiEsc.txt
+ll ~/.vim/plugin/AnsiEscPlugin.vim
+
+# 使用
+ls -l --color=always / > /tmp/colored.txt
+vi /tmp/colored.txt
+:AnsiEsc
+----
+
+## vim-plug
+
+* link:https://github.com/junegunn/vim-plug[vim-plug]
+
+[source,shell]
+----
+# 先确保 vim 版本 >= 8.0
+vim --version
+
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+vi ~/.vimrc
+call plug#begin()
+# Plug 'junegunn/seoul256.vim'
+call plug#end()
+
+
+#mkdir -p ~/.vim/pack/vendor/start
+----
+

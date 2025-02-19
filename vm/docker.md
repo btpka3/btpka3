@@ -759,14 +759,14 @@ https://192.168.99.100:443
 # docker registry
 
 《[About Registry](https://docs.docker.com/registry/introduction/)》
-[containers/skopeo](https://github.com/containers/skopeo)
+
 
 ## 软件/镜像
 
 - [Harbor](https://goharbor.io/)
 - [_/registry](https://hub.docker.com/_/registry)
 
-## 在线服务
+## 在线服务/registry
 
 - docker : [docker.io](https://hub.docker.com/)
 - redhat : [quay.io](https://quay.io/search)
@@ -787,11 +787,6 @@ podman pull quay.io/coreos/coreos-installer:release
 # registry.fedoraproject.org
 podman pull registry.fedoraproject.org/vim
 
-# 两个仓库之间进行镜像copy
-brew install skopeo
-skopeo login quay.io
-skopeo login registry.internal.company.com
-skopeo copy docker://quay.io/buildah/stable docker://registry.internal.company.com/buildah
 ```
 ## mirror
 

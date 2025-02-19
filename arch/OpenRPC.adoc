@@ -1,0 +1,2 @@
+link:https://spec.open-rpc.org/[OpenRPC]
+

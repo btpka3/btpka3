@@ -1,0 +1,42 @@
+
+* link:https://tongyi.aliyun.com/[通义千问]
+* link:https://www.aliyun.com/product/bailian[阿里云百炼]
+* link:https://help.aliyun.com/zh/model-studio/use-cases/model-training-best-practices[自定义模型最佳实践]
+* link:https://github.com/QwenLM/Qwen[Qwen]
+* link:https://github.com/QwenLM/Qwen2.5[Qwen2.5]
+* link:https://github.com/QwenLM/Qwen-Agent[Qwen-Agent]
+* link:https://github.com/alibaba/spring-ai-alibaba[spring-ai-alibaba]
+
+* link:https://huggingface.co/Qwen/Qwen2.5-7B-Instruct-GGUF
+
+## install
+
+[source,shell]
+----
+# python >=3.10
+brew install pyenv
+pyenv help global
+pyenv install 3.13
+pyenv global 3.13
+
+python3 -m pip install transformers -U
+
+python3 -m pip install mlx-lm
+
+pip install vllm
+
+----
+
+## 术语
+* Safetensors 文件
+safetensors是一种由Hugging Face推出的新型的安全的模型存储格式。
+
+* GGUF : Generic Graphics Universal Format
+GGUF 这是一种由开发者社区提出的数据格式，主要用于存储和传输与机器学习模型相关的权重等信息。这种格式旨在提高模型的加载速度，并减少存储空间的需求。
+GGUF 的前身是 GGML。
+
+
+link:https://huggingface.co/docs/hub/en/gguf
+link:https://github.com/ggerganov/ggml/blob/master/docs/gguf.md
+
+* GGML: Generic Game Model Library / GigaGram Machine Learning

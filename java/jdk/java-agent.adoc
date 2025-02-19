@@ -1,0 +1,20 @@
+
+
+Instrumentation
+
+[source,shell]
+----
+# 方式1
+# 加载本机代理库 <libname>, 例如
+# 示例:  -agentlib:hprof, -agentlib:jdwp=help, -agentlib:hprof=help
+-agentlib:<libname>[=<选项>]
+
+# 方式2
+# 按完整路径名加载本机代理库
+-agentpath:<pathname>[=<选项>]
+
+# 方式3
+# 加载 Java 编程语言代理, 请参阅 java.lang.instrument
+-javaagent:<jarpath>[=<选项>]
+	加载 Java 编程语言代理, 请参阅 java.lang.instrument
+----

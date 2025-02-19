@@ -16,6 +16,7 @@
 
 * 阿里云: link:https://www.aliyun.com/product/developerservices/xtrace[可观测链路 OpenTelemetry 版]
 * 阿里云: link:https://help.aliyun.com/zh/opentelemetry/user-guide/use-opentelemetry-to-submit-the-trace-data-of-java-applications[通过OpenTelemetry上报Java应用数据]
+* 阿里云: link:https://help.aliyun.com/zh/opentelemetry/developer-reference/arms-observable-data-storage-overview[ARMS可观测数据存储概述]
 
 
 

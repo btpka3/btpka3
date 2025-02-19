@@ -35,3 +35,12 @@ watch xxxClass xxxMethod  '{target.getClass().getName(), params[0].getName(), re
 #xxxList.{? #this instanceof ActionListener}
 ----
 
+
+
+## function
+
+[source,shell]
+----
+# 示例输出：@Long[40320]
+ognl '#fact = :[#this<=1? 1 : #this*#fact(#this-1)], #fact(8H).longValue()'
+----

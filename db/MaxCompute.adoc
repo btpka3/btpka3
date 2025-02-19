@@ -52,7 +52,25 @@
 ** UDAF : user-defined aggregate function : 用户定义聚集函数
 ** UDTF : user-defined table-generating function : 用户定义表生成函数
 
+### UDTF
 
+[source,sql]
+----
+-- explode
+ select explode(array(
+    'aaa',
+    'bbb',
+    'ccc'
+)) as xxx ;
+select explode(array(
+    datetrunc(DATEADD(cast(current_timestamp()as datetime),-3,'day'),'DD'),
+    datetrunc(DATEADD(cast(current_timestamp()as datetime),-2,'day'),'DD'),
+    datetrunc(DATEADD(cast(current_timestamp()as datetime),-1,'day'),'DD')
+)) as yyy;
+-- JSON_EXPLODE
+-- JSON_TUPLE
+-- trans_array
+----
 
 ### 窗口函数
 * COUNT
@@ -71,12 +89,42 @@
 
 [source,sql]
 ----
-select current_timestamp(); 
+select current_timestamp();
 
 select
    to_date('2024071013', 'yyyymmddhh'),
    DATEADD(to_date('2024071013', 'yyyymmddhh'), 1, 'hh');
 
+-- 1.0数据类型
+select DATETIME'2017-11-11 21:22:23';
+
+-- 2.0数据类型
+select DATETIME'2017-11-11 21:22:23';
+select DATE'2017-11-11';
+select TIMESTAMP'2017-11-11 00:00:00.123456789'
+
+
+-- yyyy为4位数的年，mm为2位数的月，dd为2位数的日，hh为24小时制的时，mi为2位数的分钟，ss为2位数秒，ff3为3位精度毫秒。
+select to_char(DATETIME'2017-11-11 21:22:23','yyyy-mm-dd');
+
+-- date_add 的返回值是 date 类型
+-- 2017-11-10
+select date_add(DATETIME'2017-11-11 21:22:23',-1);
+
+-- DATEADD 的返回值是 date|datetime 类型
+-- 2017-11-10 21:22:23
+select DATEADD(DATETIME'2017-11-11 21:22:23',-1,'day');
+select to_char(DATEADD(DATETIME'2017-11-11 21:22:23',-1,'day'), 'yyyy-mm-dd');
+select DATEADD(current_timestamp(),-1, 'day') ; -- ❌ 报错，因为入参是timestamp，期望是 Date|dateTime
+select DATEADD(NOW(),-1, 'day')                 -- ❌ 报错，因为入参是timestamp，期望是 Date|dateTime
+select DATEADD(cast(current_timestamp()as datetime),-1, 'day');  -- ⭕️
+select DATEADD(cast(NOW()as datetime),-1, 'day');                -- ⭕️
+
+
+-- datetrunc 的返回值是 date|datetime 类型
+-- 2017-11-11 00:00:00
+select datetrunc(DATETIME'2017-11-11 21:22:23', 'DD') ;
+select to_char(datetrunc(DATETIME'2017-11-11 21:22:23', 'DD'), 'yyyy-mm-dd');
 ----
 
 ### 复杂类型函数

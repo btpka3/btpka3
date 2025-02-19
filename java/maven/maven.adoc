@@ -123,6 +123,12 @@
 </project>
 ----
 
+[source,shell]
+----
+# 列出所有 maven profile , 无论是否激活
+mvn help:all-profiles | grep "Profile Id:" | awk -F '[:(]' '{print $2}' | awk '{print $1}' | sort | uniq
+----
+
 
 ## scm
 
@@ -140,3 +146,40 @@
 
 
 
+
+## 并行构建
+[source,shell]
+----
+mvn -T 4    clean package   # Builds with 4 threads
+mvn -T 1C   clean package   # 1 thread per cpu core
+mvn -T 1.5C clean package   # 1.5 thread per cpu core
+mvn -T 1C -Dautoconfig.skip=true -Denforcer.skip=true -Dmaven.test.skip=true clean package
+----
+
+
+
+## 找出所有 import
+[source,shell]
+----
+find . -type f  -name "*.java" \
+    | xargs -I {} -S 10240 grep "import " {} \
+    | tee /tmp/import.txt
+
+cat /tmp/import.txt | sort | uniq > /tmp/import2.txt
+grep . /tmp/import2.txt \
+   | grep -v "import static java." \
+   | grep -v "import static org.mockito." \
+   | grep -v "import static org.junit." \
+   | grep -v "import tools." \
+   | tail -n 20
+
+
+
+
+find . -type f  -name "*.java" \
+    | xargs -I {} -S 10240 sh -c 'printf "%s %s\n" {} `grep "import " {}`' \
+    | grep GB18030 \
+    | cut -d' ' -f1 \
+    | grep \.java \
+    | xargs -I {} -S 10240 sh -c 'f="{}"; iconv -f UTF-8 -t GBK ${f} > ${f}.tmp ; mv ${f}.tmp ${f}'
+----

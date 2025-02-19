@@ -9,7 +9,19 @@
 
 ## 安装
 
+[source,shell]
+----
+mkdir -p ~/data0/soft/arthas
+cd ~/data0/soft/arthas
+curl -fsSL "https://arthas.aliyun.com/download/latest_version?mirror=aliyun" -o arthas.zip
+unzip arthas.zip
 
+# 将命令增加到 PATH 下
+ln -s ~/data0/soft/arthas/as.sh as.sh
+vi ~/.zshrc
+export PATH=${HOME}:${PATH}
+
+----
 
 ## 命令
 

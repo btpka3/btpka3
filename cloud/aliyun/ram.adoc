@@ -1,0 +1,5 @@
+
+* link:https://help.aliyun.com/zh/ram/[访问控制,Resource Access Management]
+* link:https://help.aliyun.com/zh/ram/product-overview/what-is-sts[什么是STS(Security Token Service)]
+* link:https://help.aliyun.com/zh/ram/developer-reference/sts-sdk-overview[STS SDK概览]
+

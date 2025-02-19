@@ -26,3 +26,24 @@ $ tsar --mem
 
 
 ----
+
+## 替换命令
+
+[source,shell]
+----
+sar
+sysstat
+iostat -x 1
+
+yum provides /usr/bin/gdb
+iotop
+yum install iotop
+
+iozone
+dstat
+# https://github.com/stolk/diskgraph
+diskgraph
+
+# https://www.atoptool.nl/
+atop
+----

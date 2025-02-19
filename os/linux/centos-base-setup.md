@@ -23,9 +23,9 @@ LVM 卷组
 
 ```
 yum install epel-release
-yum update && yum upgrade  
+yum update && yum upgrade
 # yum -y update && yum -y upgrade
- 
+
 yum install net-tools               # centos 7 最小化安装找不到 ifconfig, netstat
 yum install nmap                    # nmap
 yum install wget
@@ -151,27 +151,27 @@ vi /etc/sysconfig/i18n   # 永久修改环境
     HOSTNAME=h01
     ```
 
-1. DNS 
+1. DNS
 
-    参考 ： 
+    参考 ：
     [8.2. Interface Configuration Files](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/3/html/Reference_Guide/s1-networkscripts-interfaces.html)
     [2](https://ma.ttias.be/centos-7-networkmanager-keeps-overwriting-etcresolv-conf/)
-    
+
     ```bash
-    # 1. NetworkManager 重启会重写 /etc/resolv.conf, 
+    # 1. NetworkManager 重启会重写 /etc/resolv.conf,
     #   其中的内容来自于 /etc/sysconfig/network-scripts/ifcfg-*
     #   因此可以通过该文件配置
-    
+
     # 2. 如果不想 /etc/resolv.conf 被重写，可以
     # 2.1 禁用 NetworkManager
     systemctl disable NetworkManager.service
     systemctl stop NetworkManager.service
-    
+
     # 2.2 不让 NetworkManager 修改 DNS 设置
     vi /etc/NetworkManager/NetworkManager.conf
     [main]
     dns=none
- 
+
     # 3. 注意： 如果某个网卡使用的 dhcp，且配置为 PEERDNS="yes"
     #    则 /etc/resolv.conf 仍会被重写，只不过是被 /usr/sbin/dhclient-script 重写
     ```
@@ -395,6 +395,9 @@ LANG="en_US.UTF-8"
 ## 时区 timezone
 
 ```bash
+# 显示时区： 示例输出 "CST +0800"
+date +"%Z %z"
+
 ls /usr/share/zoneinfo  # 列出可用时区
 
 ll /etc/localtime       # 查看当前时区

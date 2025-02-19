@@ -16,3 +16,182 @@ stat -f "%SB   %Sc   %Sm   %Sa   %N" -t "%Y-%m-%d %H:%M:%S" *
 ----
 
 
+
+## 不可见字符
+
+[source,shell]
+----
+# ASCII 表
+# Bin(二进制)   Octal(8进制)  Dec(十进制)  Hex(十进制)     缩写/字符                     解释
+# 0000 0000     00          0           0x00            NUL(null)                   空字符
+# 0000 0001     01          1           0x01            SOH(start of headline)      正文开始
+# 0000 0011     03          3           0x03            ETX(end of text)            正文结束
+# 0010 0000     040         32          0x20            (space)                     空格
+# 0011 0000     060         48          0x30            0                           字符0
+# 0011 1001     071         57          0x39            9                           字符9
+# 0100 0001     0101        65          0x41            A                           大写字母A
+# 0101 1010     0132        90          0x5A            Z                           大写字母Z
+# 0110 0001     0141        97          0x61            a                           小写字母a
+# 0111 1010     0172        122         0x7A            z                           小写字母z
+# 0111 1111     0177        127         0x7F            DEL(delete)                 删除
+
+
+man ascii
+
+# ====== echo
+echo -e '\0101'         # 按8进制输出
+echo -e '\x41'          # 按16进制输出
+echo -e '\u41'
+
+----
+
+echo -e '\x41'
+echo -e 'toto\010\010ti'   # OUTPUTS: toti
+echo -e '\x41'             # OUTPUTS: A
+echo -e '\u03B1'           # OUTPUTS: α
+echo -e '\U1F413 <= \U1F1EB\U1F1F7' # OUTPUTS 🐓 <= 🇫🇷
+
+
+
+
+## Shell Parameter Expansion
+https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
+
+[source,shell]
+----
+################################### ${parameter:-word}
+# 如果 parameter 有值 则输出
+# 如果 parameter 没值 则默认值，不会修改 parameter 的值
+v=
+echo ${v:-defaultValue}             # stdout 输出: "defaultValue"
+echo $v                             # stdout 输出: ""
+
+################################### ${parameter:=word}
+# 如果 parameter 有值 则输出该值
+# 如果 parameter 没值 将 parameter 设置为该值，并输出
+v=
+echo ${v:=defaultValue}             # stdout 输出: "defaultValue"
+echo $v                             # stdout 输出: "defaultValue"
+
+################################### ${parameter:?word}
+# 如果 parameter 没值，则向 stderr 输出后面提示的错误消息，不会修改变量的值。
+v=
+echo ${v:?ERROR_V_IS_UNSET_OR_NULL} # stderr 输出: "bash: v: ERROR_V_IS_UNSET_OR_NULL"
+echo $v                             # stdout 输出: ""
+
+################################### ${parameter:+word}
+# 如果 parameter 有值 则输出后面替换的值，不影响变量原有值。
+# 如果 parameter 有值
+v=123
+echo ${v:+OVERWRITED_VALUE}         # stdout 输出: "OVERWRITED_VALUE"
+echo $v                             # stdout 输出: ""
+v=
+echo ${v:+OVERWRITED_VALUE}         # stdout 输出: ""
+echo $v                             # stdout 输出: ""
+
+################################### ${parameter:offset}
+# 字符串截取, offset 可以是负数。
+v=0123456789
+echo ${v:5}                         # stdout 输出: "56789"
+echo $v                             # stdout 输出: "0123456789"
+
+################################### ${parameter:offset:length}
+# 字符串截取
+v=0123456789
+echo ${v:5:3}                       # stdout 输出: "567"
+echo $v                             # stdout 输出: "0123456789"
+################################### ${!prefix*}
+???
+################################### ${!prefix@}
+???
+################################### ${!name[@]}
+???
+################################### ${!name[*]}
+???
+################################### ${#parameter}
+# 输出字符串的长度
+v=0123456789
+echo ${#v}                          # stdout 输出: "10"
+################################### ${parameter#word}
+???
+################################### ${parameter##word}
+???
+################################### ${parameter%word}
+???
+################################### ${parameter%%word}
+???
+################################### ${parameter/pattern/string}
+# 字符串替换，仅替换第一个匹配。不影响变量值
+v=aaa111bbb111ccc
+echo ${v/111/222}                   # stdout 输出: "aaa222ccc111ddd"
+echo ${v}                           # stdout 输出: "aaa111ccc111ddd"
+################################### ${parameter//pattern/string}
+# 字符串替换，替换所有匹配。不影响变量值
+v=aaa111bbb111ccc
+echo ${v//111/222}                  # stdout 输出: "aaa222bbb222ccc"
+echo ${v}                           # stdout 输出: "aaa111bbb111ccc"
+
+str="aaa
+bbb"
+echo "$str"                         # 有换行
+echo $str                           # 无换行
+str="${str//$'\n'/ }"
+echo "$str"                         # 无换行
+echo $str                           # 无换行
+################################### ${parameter/#pattern/string}
+# 字符串替换，必须匹配开头。不影响变量值
+v=aaa111aaa111aaa
+echo ${v/#aaa/bbb}                  # stdout 输出: "bbb111aaa111aaa"
+echo ${v}                           # stdout 输出: "aaa111aaa111aaa"
+################################### ${parameter/%pattern/string}
+# 字符串替换，必须匹配结尾。不影响变量值
+v=aaa111aaa111aaa
+echo ${v/%aaa/bbb}                  # stdout 输出: "aaa111aaa111bbb"
+echo ${v}                           # stdout 输出: "aaa111aaa111aaa"
+################################### ${parameter^pattern}
+???
+################################### ${parameter^^pattern}
+???
+################################### ${parameter,pattern}
+???
+################################### ${parameter,,pattern}
+???
+
+----
+
+## profile
+
+[source,shell]
+----
+ll /etc/profile
+ll /etc/profile.d
+----
+
+
+## test
+
+[source,shell]
+----
+# 示例1: PATH 环境变量添加内容，避免重复添加
+
+export JAVA_HOME=/opt/taobao/java
+# 注意：左变量前后有刻意加分号，以便进行正则匹配
+if [[ ":$PATH:" != *":$JAVA_HOME/bin:"* ]]; then
+  export PATH=$JAVA_HOME/bin:$PATH
+fi
+
+# 示例2 : 字符串比较
+
+if [ "$fname" = "a.txt" ] || [ "$fname" = "c.txt" ] ; then
+  # ...
+fi
+----
+
+
+# test
+
+
+```shell
+
+```
+

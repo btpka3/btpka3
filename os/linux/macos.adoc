@@ -2,6 +2,83 @@
 
 [source,shell]
 ----
+# 搜索指定的软件包
+brew search binutils
+# 查看给定软件包的信息
+brew info binutils
+# 安装给定的软件包
+brew install binutils           # 提供 nm 等命令
+brew deps --graph binutils
+# 列出已安装的软件包的文件列表
+brew list binutils
+# 由于 binutils 是 keg-only，故不会在 /opt/homebrew创建符号连接，不会默认启用该软件包的命令，因为会系统的toolchain 中相同的命令
+# 如果要使用，还需要手动修改 PATH
+echo 'export PATH="/opt/homebrew/opt/binutils/bin:$PATH"' >> ~/.zshrc
+
+brew install coreutils
+brew install mysql-client@8.4
+brew link mysql-client@8.4
+
+brew services start xxx # 启动服务，下次开机也会启动
+brew services run   xxx # 启动服务，仅这次
+brew services stop  xxx # 停止服务，也不会启动
+brew services info  xxx # 查看运行信息
+ls ${HOME}/Library/LaunchAgents  # 开机启动的配置文件在此
+
+brew install jq
+brew install yq
+brew install kubectl
+brew install kubernetes-cli
+brew install chsrc
+
+brew install node@20
+brew link node@20
+
+brew install git
+brew install git-gui
+
+brew install --cast docker
+brew install podman
+brew install podman-desktop
+brew install podman-compose
+
+brew install gawk
+brew install tree
+brew install ugrep
+
+brew install wget
 brew install nmap
 brew install curl
+# vi ~/.zshrc
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+
+brew install iproute2mac  # 可以使用 `ip addr` 命令
+brew install telnet
+brew install --cask dbeaver-community  # DBeaver 数据库GUI客户端
+brew install tinyproxy
+
+brew deps -1 jbang   # 查看直接依赖
+brew install --ignore-dependencies jbang  # 忽略依赖并安装
+----
+
+
+## .zshrc 简化代理
+
+[source,shell]
+----
+# 检查阿里郎是否开启了网络加速，并自动设置代理相关的环境变量
+# 如果先开的命令行窗口，后变更的阿里郎网络加速，请命令手动执行命令 set_proxy
+function set_proxy() {
+    #nc -z 127.0.0.1 13659 >/dev/null 2>&1
+    lsof -n -iTCP:13659 -sTCP:LISTEN >/dev/null 2>&1
+    RTN=$?
+    if [ $RTN -eq 0 ] ; then
+       echo export ALL_PROXY=socks5h://127.0.0.1:13659
+            export ALL_PROXY=socks5h://127.0.0.1:13659
+    else
+       echo unset ALL_PROXY
+            unset ALL_PROXY
+    fi
+}
+set_proxy
 ----

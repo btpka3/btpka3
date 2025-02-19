@@ -1,0 +1,24 @@
+
+
+* link:https://www.tcpdump.org/[tcpdump]
+* link:https://www.tcpdump.org/manpages/tcpdump.1.html[tcpdump(1) man page]
+* link:https://www.tcpdump.org/manpages/pcap-filter.7.html[pcap-filter(7) man page]
+
+
+[source,shell]
+----
+sudo tcpdump -nn -C 1000 -W3 -w /tmp/capture -X -s0 -i eth0 tcp
+sudo tcpdump -i eth0  -nnvv -w tair.cap
+----
+
+
+[source,plain]
+----
+-s  snapshot length
+-X  分析时，额外以十六进制，ASCII方式输出，非常方便分析数据
+-nn 不进行端口名称的转换
+-vv 输出详细的报文信息
+-w  要写入的文件路径
+-C  限制文件大小
+-W  写入多少个文件
+----

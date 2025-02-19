@@ -117,14 +117,6 @@ java -version
 
 
 
-# jshell
-
-示例1
-```bash
-echo 'String.format("%06d", 19)' | jshell --feedback concise | sed -n '2p'
-```
-
-
 
 # GraalVM
 - [GraalVM Community Images](https://www.graalvm.org/latest/docs/getting-started/container-images/#graalvm-community-images)

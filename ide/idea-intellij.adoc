@@ -288,3 +288,134 @@ java.lang.IllegalStateException: This method is forbidden on EDT because it does
 	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:105)
 	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:92)
 ----
+
+
+
+## file and code Templates
+
+includes
+默认的 "File Header.java"
+
+Template text:
+[source,java]
+----
+/**
+ *
+ * @author dangqian.zll
+ * @date ${DATE}
+ */
+----
+
+
+
+## live template
+
+
+* 类的javadoc
+
+Abbreviation : "jd"
+description : "class javadoc"
+Template text:
+
+[source,java]
+----
+/**
+ *
+ * @author dangqian.zll
+ * @date $date$
+ */
+----
+
+应用在： Java: declaration
+
+variables :  date=`date()`
+
+
+* 增加 serialVersionUID
+
+Abbreviation : "sv"
+description : "serialVersionUID"
+Template text:
+
+[source,java]
+----
+private static final long serialVersionUID = 1L;
+----
+
+应用在： Java: declaration
+
+variables :  无
+
+* 增加 lombok
+
+Abbreviation : "d"
+description : "add lombok pojo annotation"
+Template text:
+
+[source,java]
+----
+@Data
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
+----
+
+应用在： Java: declaration
+
+variables :  无
+
+
+## Mybatis xml mapper 中 sql 高亮，语法校验
+
+Editor/Language Injections
+
+新增：
+* 类型：Xml Tag Injection
+* Name： 自定义，比如 "my : MyBatis3 sql|select|insert|update|delete|statement"
+* Language : SQL
+* XML Tag :
+** Local name : sql|select|insert|update|delete|statement, 选中 "Sub-tags"
+** Namespace : http://mybatis.org/dtd/mybatis-3-mapper.dtd
+* Advanced
+** Value pattern : 选中 "Single file"
+
+
+
+## spellcheck
+
+### project-level
+保存在 `.idea/dictionaries/${USERNAME}.xml` 中，比如: `.idea/dictionaries/default_user.xml`。
+示例
+[source,xml]
+----
+<component name="ProjectDictionaryState">
+  <dictionary name="default.user">
+    <words>
+      <w>lazada</w>
+      <w>yace</w>
+    </words>
+  </dictionary>
+</component>
+----
+
+
+### 自定义dic文件
+* link:https://www.jetbrains.com/help/idea/spellchecking.html#dictionaries[Dictionaries﻿]
+
+将
+示例： link:spellcheck.dic[spellcheck.dic]
+
+[source,shell]
+----
+# 操作系统层面
+mkdir -p ~/.idea/
+CUR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+ln -s "${CUR_DIR}/my.dic" ~/.idea/my.dic
+echo "${HOME}/.idea/my.dic"
+
+# idea intellij 层面 设置使用自定义 字典
+# Settings : Editor : Natural Languages : Spelling : Custom dictionaries : 新加一个 ~/.idea/my.dic
+
+# idea intellij 层面 重新校验 (快捷键: ⌥Option+⇧Shift+⌘Сmd+I)
+# 菜单: Code : Anaylyse Code : Run Inspection by Name... : "Typo"
+----

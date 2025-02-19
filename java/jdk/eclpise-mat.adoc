@@ -9,15 +9,16 @@ https://eclipse.dev/mat/[Eclipse MAT]
 
 [source,shell]
 ----
-vi /Applications/mat.app/Contents/Eclipse/MemoryAnalyzer.ini
+vi /Applications/MemoryAnalyzer.app/Contents/Eclipse/MemoryAnalyzer.ini
 # 设置使用的 JVM (17)
 # -vm 和值共各占一行，第二行指定jdk 的 bin 目录, 且这两行需要添加到 -vmargs 之前
 -vm
-/Users/zll/.sdkman/candidates/java/11.0.20-tem/bin
+/Users/zll/.sdkman/candidates/java/17.0.12-amzn/bin
+/Users/zll/.sdkman/candidates/java/11.0.24-amzn/bin
 
 # 修改可用最大内存
--Xms6g
--Xmx6g
+-Xms12g
+-Xmx12g
 ----
 
 第一次安装后，在GUI 窗口 菜单条: Eclipse Memory Analyzer : Settings : Memory Analyzer : 选中 【keep unreachable objects】

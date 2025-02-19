@@ -1,0 +1,8 @@
+
+* link:https://open.observability.cn/project/loongcollector/readme/#_top[什么是LoongCollector]
+* link:https://github.com/alibaba/loongcollector/issues?q=alpine[loongcollector]
+* lin:https://github.com/alibaba/loongcollector/releases[release]
+
+
+
+https://loongcollector-community-edition.oss-cn-shanghai.aliyuncs.com/2.0.0/loongcollector-<release_verison>.<os>-<arch>.tar.gz

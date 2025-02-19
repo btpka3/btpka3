@@ -1,5 +1,5 @@
 
-https://github.com/mikefarah/yq
+link:https://github.com/mikefarah/yq[yq]
 
 
 [source,shell]
@@ -21,7 +21,7 @@ find . -type f -name "pom.xml"  | xargs  -I{} -S 1024000 bash -c 'echo  "{} `yq 
 
 
 find . -type f -name "pom.xml" | xargs -I '{}'  bash -c 'echo -n {} ;  echo 111 ;'
- yq -o a '.project.parent.version'
+yq -o a '.project.parent.version'
 
 find . -type f -name "pom.xml" | xargs yq -o a '.project.parent.version'
 
@@ -31,12 +31,9 @@ ls *.markdown | xargs -I '{}'  bash -c 'mv {} `basename {} .markdown`.md'
 ----
 
 
-```shell
 
 
-```
 
- 
 
 
 [source,shell]

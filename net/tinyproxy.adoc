@@ -1,0 +1,93 @@
+
+* link:https://github.com/tinyproxy/tinyproxy[tinyproxy]
+* link:https://tinyproxy.github.io/[tinyproxy]
+[source,shell]
+----
+brew install tinyproxy
+ls -l  /opt/homebrew/opt/tinyproxy/
+vi /opt/homebrew/opt/tinyproxy/tinyproxy.conf
+cp /opt/homebrew/opt/tinyproxy/homebrew.mxcl.tinyproxy.plist /opt/homebrew/opt/tinyproxy/tinyproxy.plist
+vi /opt/homebrew/opt/tinyproxy/tinyproxy.plist
+----
+
+
+
+
+tinyproxy.conf
+
+[source,plain]
+----
+#Listen 0.0.0.0
+Port 13660
+Timeout 600
+#Allow 127.0.0.1
+Upstream socks5 127.0.0.1:13659
+----
+
+tinyproxy.plist
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>homebrew.mxcl.tinyproxy</string>
+    <key>LimitLoadToSessionType</key>
+    <array>
+        <string>Aqua</string>
+        <string>Background</string>
+        <string>LoginWindow</string>
+        <string>StandardIO</string>
+        <string>System</string>
+    </array>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/opt/homebrew/opt/tinyproxy/bin/tinyproxy</string>
+        <string>-d</string>
+        <string>-c</string>
+        <string>/etc/tinyproxy/tinyproxy.conf</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>WorkingDirectory</key>
+    <string>/opt/homebrew</string>
+</dict>
+</plist>
+----
+
+
+
+[source,shell]
+----
+brew services info tinyproxy
+brew services start tinyproxy --file=/opt/homebrew/opt/tinyproxy/tinyproxy.plist
+brew services stop tinyproxy
+# 将 类似 `tinyproxy -d -c tinyproxy.conf` 中的 指定自定义配置文件的参数添加下
+# 注意：该文件会在 brew services start/stop/restart 命令时重新覆盖，故不要修改该文件
+less ${HOME}/Library/LaunchAgents/homebrew.mxcl.tinyproxy.plist
+# 修改完成后，重新启动，以便加载最新配置
+brew services restart tinyproxy
+----
+
+
+
+[source,shell]
+----
+
+# 检查实际监听的端口，应当与 tinyproxy.conf 的保持一致
+PID=$(ps aux | grep tinyproxy | grep -v grep | awk '{print $2}')
+lsof -nP -iTCP -sTCP:LISTEN -a -p ${PID}
+
+IP=$(ip addr show en0| grep "inet "| awk '{print $2}' | awk -F'/' '{print $1}')
+#tinyproxy -d -c tinyproxy.conf
+unset ALL_PROXY
+export ALL_PROXY=${IP}:13660
+curl -v https://registry-1.docker.io/v2/
+docker rmi  docker.io/library/alpine:3.18
+docker pull docker.io/library/alpine:3.18
+docker run --rm -it docker.io/library/alpine:3.18 cat /etc/os-release
+----
+
+

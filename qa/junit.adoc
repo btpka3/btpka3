@@ -61,3 +61,67 @@ org.junit.jupiter.api.extension.RegisterExtension
 mvn -Dsurefire.failIfNoSpecifiedTests=false -Dtest="KeyCenterEncryptorTest#test03"                     -DclearText=123456 -am -pl g9ea-boot test
 mvn -Dsurefire.failIfNoSpecifiedTests=false -Dtest="com/alibaba/**/KeyCenterEncryptorTest.java#test03" -DclearText=123456 -am -pl g9ea-boot test
 ----
+
+
+## Parallel Execution/并发执行
+
+* link:https://junit.org/junit5/docs/snapshot/user-guide/#writing-tests-parallel-execution[Parallel Execution]
+* link:https://www.baeldung.com/junit-5-parallel-tests[Parallel Test Execution for JUnit 5]
+* link:https://stackoverflow.com/questions/43282798/in-junit-5-how-to-run-code-before-all-tests/51556718#51556718[In JUnit 5, how to run code before all tests]
+
+[source,java]
+----
+package xxx.yyy.zzz;
+import static org.junit.jupiter.api.extension.ExtensionContext.Namespace.GLOBAL;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import org.junit.jupiter.api.extension.BeforeAllCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+
+public class BeforeAllTestsExtension extends BasicTestClass
+        implements BeforeAllCallback, ExtensionContext.Store.CloseableResource {
+
+    /** Gate keeper to prevent multiple Threads within the same routine */
+    private static final Lock LOCK = new ReentrantLock();
+    /** volatile boolean to tell other threads, when unblocked, whether they should try attempt start-up.  Alternatively, could use AtomicBoolean. */
+    private static volatile boolean started = false;
+
+    @Override
+    public void beforeAll(final ExtensionContext context) throws Exception {
+        // lock the access so only one Thread has access to it
+        LOCK.lock();
+        try {
+            if (!started) {
+                started = true;
+                // Your "before all tests" startup logic goes here
+                // The following line registers a callback hook when the root test context is
+                // shut down
+                context.getRoot().getStore(GLOBAL).put("any unique name", this);
+
+                // do your work - which might take some time -
+                // or just uses more time than the simple check of a boolean
+            }
+        } finally {
+            // free the access
+            LOCK.unlock();
+        }
+    }
+
+    @Override
+    public void close() {
+        // Your "after all tests" logic goes here
+    }
+}
+----
+
+
+META-INF/services/org.junit.jupiter.api.extension.Extension
+
+[source,java]
+----
+xxx.yyy.zzz.BeforeAllTestsExtension
+----
+
+

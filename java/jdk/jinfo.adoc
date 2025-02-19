@@ -3,6 +3,9 @@
 
 [source,shell]
 ----
+# 查看启动时间
+ps -eo pid,lstart,cmd
+
 JAVA_PID=$(ps aux|grep java | grep org.apache.catalina.startup.Bootstrap|awk '{print $2}')
 /opt/taobao/java/bin/jstack ${JAVA_PID} > /tmp/jstack.txt
 grep localhost-startStop-1 jstack2.txt
@@ -161,4 +164,31 @@ grep localhost-startStop-1 jstack2.txt
 -XX:+TraceClassLoading      # 打印类加载信息
 
 
+----
+
+
+## xx
+
+[source,java]
+----
+// -XX:+UseContainerSupport
+// ognl '@java.lang.Runtime@getRuntime().availableProcessors()'
+public class CpuCore {
+    public static void main(String[] args) {
+        System.out.println(Runtime.getRuntime().availableProcessors());
+    }
+}
+----
+
+相关jvm开关: `-XX:+UseContainerSupport`, `-XX:ActiveProcessorCount=8`
+
+[source,shell]
+----
+mkdir /tmp/aaa
+vi /tmp/aaa/CpuCore.java
+javac /tmp/aaa/CpuCore.java
+
+# 在 docker desktop 中调整 cpu 核数，并多次运行，并确认输出结果。
+docker run -v /tmp/aaa:/tmp/aaa docker.io/library/amazoncorretto:11-alpine3.17-jdk \
+  sh -c "ls -l /tmp/aaa/ ; cd /tmp/aaa ; javac CpuCore.java ; java -cp . CpuCore "
 ----

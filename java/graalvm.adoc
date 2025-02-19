@@ -3,6 +3,13 @@
 https://www.graalvm.org/22.0/reference-manual/native-image/Options/
 
 
+* link:https://www.graalvm.org/22.1/reference-manual/native-image/DynamicProxy/[Dynamic Proxy in Native Image]
+* link:https://graalvm.github.io/native-build-tools/latest/maven-plugin.html[Maven plugin for GraalVM Native Image building]
+* link:https://www.graalvm.org/latest/reference-manual/native-image/guides/configure-with-tracing-agent/[Configure Native Image with the Tracing Agent]
+* link:https://www.graalvm.org/jdk23/reference-manual/native-image/guides/build-spring-boot-app-into-native-executable/[Build a Native Executable from a Spring Boot Application]
+* link:https://www.graalvm.org/latest/reference-manual/native-image/overview/Bundles/[Native Image Bundles]
+
+
 ## FIXME
 
 * 最常用的 Runtime AOP 机制还能使用么？
@@ -19,3 +26,11 @@ https://www.graalvm.org/22.0/reference-manual/native-image/Options/
 which native-image
 native-image --help
 ----
+
+
+|TRACEID=%X{EAGLEEYE_TRACE_ID}|EVENTID=%X{EVENT_ID}|CLUSTER=%X{CLUSTER_NAME}|EVENT=%X{EVENT_CODE}|BIZCODE=%X{MTEE_BIZ_CODE}
+|TRACEID=%g9{traceId}|EVENTID=%g9{eventId}|CLUSTER=%g9{cluster}|EVENT=%g9{eventCode}|BIZCODE=%g9{mteeBizCode}
+
+|%X{PERF_TEST}|%X{TRACE_ID}|%X{EVENT_ID}|%X{EVENT_CODE}|%X{MTEE_BIZ_CODE}|
+|%g9{yace}|%g9{traceId}|%g9{eventId}|%g9{eventCode}|%g9{mteeBizCode}|
+
