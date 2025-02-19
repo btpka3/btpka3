@@ -1,4 +1,0 @@
-
-* link:https://help.aliyun.com/zh/emr/emr-on-ecs/product-overview/what-is-e-mapreduce[什么是EMR on ECS]
-* link:https://help.aliyun.com/zh/emr/emr-on-ecs/user-guide/jindocache-overview[JindoCache概述]
-
