@@ -1,0 +1,14 @@
+
+
+
+
+## 端口转发 : java 远程debug
+
+[source,shell]
+----
+# 1. 给k8s容器内的java程序设置 远程debug信息： -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
+
+# 2. 给k8s容器开启一个端口转发
+kubectl port-forward xxx-deployment-5bb76987bb-nrtb5 8000:8000
+----
+

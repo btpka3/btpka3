@@ -93,3 +93,88 @@ call plug#end()
 #mkdir -p ~/.vim/pack/vendor/start
 ----
 
+
+
+## 修改vim配置文件
+link:https://github.com/ruanyl/bigvim/blob/master/vimrc[bigvim/vimrc]
+
+修改用户级别的 需要修改 `~/.vimrc`。修改全局的，
+需要修改 `/etc/vimrc` , 或者 `/etc/vim/vimrc` , 或者 `/etc/vim/vimrc.local`（可以通过 `:version` 看到）
+
+[source,vimrc]
+-----
+
+
+set syntax=on               " 开启：语法着色
+colors desert               " 设置着色主题
+
+set autoread                " 开启：文件被更新时自动载入
+" set nobackup              " 关闭：创建备份文件
+set nocompatible            " 不使用 vi 的键盘模式，而是使用 vim 的
+set number                  " 开启：显示行号
+
+"set noeb                   " 关闭：输入错误进行响铃提示
+
+set ruler                   " 开启：显示标尺
+set showcmd                 " 开启：显示输入的命令
+set cursorline              " 开启：高亮显示当前行
+" set magic
+set fileencodings=utf-8,gbk " 设置文件编码尝试顺序
+
+set expandtab               " 开启：用空格代替制表符
+" set noexpandtab           " 关闭：用空格代替制表符
+set tabstop=4               " 设置tab缩进的宽度
+set shiftwidth=4            " 固定缩进的宽度
+set softtabstop=4           " 固定缩进的宽度
+set fileformats=unix
+set hlsearch                " 高亮显示查找结果
+set formatoptions-=cro
+
+" set autoindent            " 开启：自动缩进
+set noautoindent            " 关闭：自动缩进
+" set smartindent           " 开启：智能对齐
+set nosmartindent           " 关闭：智能对齐
+set showmatch               " 高亮显示匹配的括号
+set matchtime=1             " 匹配括号高亮的时间（单位是十分之一秒）
+
+set paste                   " 开启：粘贴模式
+"set nopaste                " 关闭：粘贴模式
+
+set mouse=i                 " 开启：鼠标模式, 查看说明使用命令 `:help mouse`
+                            " ""  : 默认（即关闭模式）
+                            " "n" : Normal mode and Terminal modes, 不建议，否则只能光标点击确认位置，无法光标选择文本。
+                            " "v" : Visual mode
+                            " "i" : Insert mode    # 推荐
+                            " "c" : Command-line mode
+                            " "h" : all previous modes when editing a help file
+                            " "a" : all previous modes
+                            " "r" : for hit-enter and more-prompt prompt
+"set mouse=                 " 关闭：鼠标模式
+
+set wrap                    " 开启：换行
+"set nowrap                 " 关闭：换行
+
+set list                    " 开启：显示制表符
+" comment here
+-----
+
+
+## 主题/colorschema
+
+https://vimcolorschemes.com/
+
+https://github.com/catppuccin/nvim?tab=readme-ov-file
+
+
+[source,shell]
+----
+ls /usr/share/vim/vim91/colors/*.vim
+# vim 9.1 包含以下: (目录 vim91 是后两个数字代表其版本号)
+# blue        darkblue    default     delek       desert      elflord     evening     habamax     industry    koehler     lunaperche  morning     murphy      pablo       peachpuff   quiet       retrobox    ron         shine       slate       sorbet      torte       unokai      wildcharm   zaibatsu    zellner
+
+----
+
+[source,shell]
+----
+:colorscheme xxx     # 可以tab键显示候选值。
+----

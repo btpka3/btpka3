@@ -15,6 +15,30 @@
 * doc
 ** link:https://rocketmq.apache.org/[rocketmq]
 
+## docker
+
+[source,shell]
+----
+
+docker run -it --rm \
+  o-docker.alibaba-inc.com/docker.io/rocketmq:5.3.1 \
+  bash -l
+
+docker run -d \
+-p 10911:10911 -p 10909:10909 \
+-v `pwd`/data/broker/logs:/root/logs \
+-v `pwd`/data/broker/store:/root/store \
+-v `pwd`/data/broker/conf/broker.conf:/home/rocketmq/rocketmq-4.5.0/conf/broker.conf \
+--name rmqbroker \
+--link rmqnamesrv:namesrv \
+-e "NAMESRV_ADDR=namesrv:9876" \
+o-docker.alibaba-inc.com/docker.io/rocketmq:5.3.1 \
+sh mqbroker \
+-c /home/rocketmq/rocketmq-4.5.0/conf/broker.conf
+
+----
+
+
 ## SDK
 ### 旧：remoting 协议
 
@@ -59,7 +83,8 @@ link:https://rocketmq.apache.org/docs/4.x/bestPractice/06log/[Logging Confiturat
 
 #### 示例启动
 
-```shell
+[source,shell]
+----
 export ROCKETMQ_HOME=$HOME/Downloads/rocketmq-all-5.1.0-bin-release
 export NAMESRV_ADDR=localhost:9876
 cd $ROCKETMQ_HOME
@@ -69,16 +94,17 @@ cd $ROCKETMQ_HOME
 
 # 启动Broker+Proxy
 ./bin/mqbroker -n localhost:9876 --enable-proxy
-```
+----
 
 #### nameServer
 java 核心类：
 
-- org.apache.rocketmq.namesrv.[NamesrvStartup](https://github.com/apache/rocketmq/blob/bd7db7ec62164882ce6db101bacd038308648e02/namesrv/src/main/java/org/apache/rocketmq/namesrv/NamesrvStartup.java#L43) # main函数主类
-- org.apache.rocketmq.common.namesrv.[NamesrvConfig](https://github.com/apache/rocketmq/blob/bd7db7ec62164882ce6db101bacd038308648e02/common/src/main/java/org/apache/rocketmq/common/namesrv/NamesrvConfig.java#L19) # 配置项对应的java类
-- org.apache.rocketmq.remoting.netty.[NettyServerConfig](https://github.com/apache/rocketmq/blob/70480a1fa9aac397fa8c5dbcb352284ad118a891/remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyServerConfig.java#L19)
-    - listenPort : 10911
-- org.apache.rocketmq.remoting.netty.[NettyClientConfig](https://github.com/apache/rocketmq/blob/70480a1fa9aac397fa8c5dbcb352284ad118a891/remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyClientConfig.java#L23)
+* link:https://github.com/apache/rocketmq/blob/bd7db7ec62164882ce6db101bacd038308648e02/namesrv/src/main/java/org/apache/rocketmq/namesrv/NamesrvStartup.java#L43[org.apache.rocketmq.namesrv.NamesrvStartup] # main函数主类
+* link:https://github.com/apache/rocketmq/blob/bd7db7ec62164882ce6db101bacd038308648e02/common/src/main/java/org/apache/rocketmq/common/namesrv/NamesrvConfig.java#L19[org.apache.rocketmq.common.namesrv.NamesrvConfig] # 配置项对应的java类
+* https://github.com/apache/rocketmq/blob/70480a1fa9aac397fa8c5dbcb352284ad118a891/remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyServerConfig.java#L19[org.apache.rocketmq.remoting.netty.NettyServerConfig]
+** listenPort : 10911
+
+* link:https://github.com/apache/rocketmq/blob/70480a1fa9aac397fa8c5dbcb352284ad118a891/remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyClientConfig.java#L23[org.apache.rocketmq.remoting.netty.NettyClientConfig]
 
 配置文件由命令 mqnamesrv的参数 -c指定，格式是  properties 文件。
 ```properties
@@ -92,67 +118,70 @@ orderMessageEnable=           # 是否支持顺序消息，默认: false
 
 #### broker
 java 核心类：
-- org.apache.rocketmq.broker.[BrokerStartup](https://github.com/apache/rocketmq/blob/bd7db7ec62164882ce6db101bacd038308648e02/broker/src/main/java/org/apache/rocketmq/broker/BrokerStartup.java#L44)  # main函数主类
-- org.apache.rocketmq.common.[BrokerConfig](https://github.com/apache/rocketmq/blob/70480a1fa9aac397fa8c5dbcb352284ad118a891/common/src/main/java/org/apache/rocketmq/common/BrokerConfig.java#L26)   # 配置项对应的java类
-  - #aclEnable                              # 是否开启ACL权限控制
-- org.apache.rocketmq.remoting.netty.[NettyServerConfig](https://github.com/apache/rocketmq/blob/70480a1fa9aac397fa8c5dbcb352284ad118a891/remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyServerConfig.java#L19)
-  - listenPort : 10911
-- org.apache.rocketmq.remoting.netty.[NettyClientConfig](https://github.com/apache/rocketmq/blob/70480a1fa9aac397fa8c5dbcb352284ad118a891/remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyClientConfig.java#L23)
-- org.apache.rocketmq.store.config.[MessageStoreConfig](https://github.com/apache/rocketmq/blob/70480a1fa9aac397fa8c5dbcb352284ad118a891/store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java#L195)
-  - haListenPort: 10912
 
-- org.apache.rocketmq.acl.plain.PlainAccessData  #
-- org.apache.rocketmq.common.PlainAccessConfig
+* link:https://github.com/apache/rocketmq/blob/bd7db7ec62164882ce6db101bacd038308648e02/broker/src/main/java/org/apache/rocketmq/broker/BrokerStartup.java#L44[org.apache.rocketmq.broker.BrokerStartup]  # main函数主类
+* https://github.com/apache/rocketmq/blob/70480a1fa9aac397fa8c5dbcb352284ad118a891/common/src/main/java/org/apache/rocketmq/common/BrokerConfig.java#L26[org.apache.rocketmq.common.BrokerConfig]   # 配置项对应的java类
+** #aclEnable                              # 是否开启ACL权限控制
+* link:https://github.com/apache/rocketmq/blob/70480a1fa9aac397fa8c5dbcb352284ad118a891/remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyServerConfig.java#L19[org.apache.rocketmq.remoting.netty.NettyServerConfig]
+** listenPort : 10911
+* link:https://github.com/apache/rocketmq/blob/70480a1fa9aac397fa8c5dbcb352284ad118a891/remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyClientConfig.java#L23[org.apache.rocketmq.remoting.netty.NettyClientConfig]
+* link:https://github.com/apache/rocketmq/blob/70480a1fa9aac397fa8c5dbcb352284ad118a891/store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java#L195[org.apache.rocketmq.store.config.MessageStoreConfig]
+** haListenPort: 10912
+
+* org.apache.rocketmq.acl.plain.PlainAccessData  #
+* org.apache.rocketmq.common.PlainAccessConfig
 
 配置文件由命令 mqbroker的参数 -c指定，格式是  properties 文件。
 默认是： conf/broker.conf
 
-```properties
 
-```
 
 #### proxy
 java 核心类：
-- org.apache.rocketmq.proxy.ProxyStartup # main函数主类
-- org.apache.rocketmq.proxy.config.ProxyConfig # 配置文件对应的 java 类
+
+* org.apache.rocketmq.proxy.ProxyStartup # main函数主类
+* org.apache.rocketmq.proxy.config.ProxyConfig # 配置文件对应的 java 类
 
 配置文件由命令 mqproxy 的参数 -pc(--proxyConfigPath)指定，格式是  json 文件。
 jvm 系统属性: com.rocketmq.proxy.configPath
 默认配置文件: rmq-proxy.json
-```json
+[source,json]
+----
 {
   "rocketMQClusterName"  : "DefaultCluster",
   "grpcServerPort"       : 8081
 }
-```
+----
 
 
 #### 其他
-- $HOME/controller/controller.properties  # ControllerConfig#configStorePath
-- $HOME/namesrv/kvConfig.json             # NamesrvConfig#kvConfigPath
-- $HOME/namesrv/namesrv.properties        # NamesrvConfig#configStorePath
+* $HOME/controller/controller.properties  # ControllerConfig#configStorePath
+* $HOME/namesrv/kvConfig.json             # NamesrvConfig#kvConfigPath
+* $HOME/namesrv/namesrv.properties        # NamesrvConfig#configStorePath
 
 
-----------------------------------------------
 
-# client
 
-## java
+## client
 
-## rocketmq-spring
+### java
+
+#### rocketmq-spring
 github:
-[rocketmq-spring](https://github.com/apache/rocketmq-spring)
-  - maven: [org.apache.rocketmq:rocketmq-spring-boot-starter](https://search.maven.org/search?q=g:org.apache.rocketmq%20a:rocketmq-spring-boot-starter)
-  - [wiki](https://github.com/apache/rocketmq-spring/wiki/Send-Message)
-  - [rocketmq-spring-boot-samples](https://github.com/apache/rocketmq-spring/tree/master/rocketmq-spring-boot-samples)
+
+* link:https://github.com/apache/rocketmq-spring[rocketmq-spring]
+**  maven: link:https://search.maven.org/search?q=g:org.apache.rocketmq%20a:rocketmq-spring-boot-starter[org.apache.rocketmq:rocketmq-spring-boot-starter]
+** link:https://github.com/apache/rocketmq-spring/wiki/Send-Message[wiki]
+** link:https://github.com/apache/rocketmq-spring/tree/master/rocketmq-spring-boot-samples[rocketmq-spring-boot-samples]
 
 核心java类：
-- org.apache.rocketmq.spring.core.RocketMQTemplate
-  - #send
-  - #receive
-- org.apache.rocketmq.spring.autoconfigure.RocketMQProperties
-- org.apache.rocketmq.spring.core.RocketMQListener#onMessage
-- org.apache.rocketmq.spring.autoconfigure.RocketMQAutoConfiguration
+
+* org.apache.rocketmq.spring.core.RocketMQTemplate
+** #send
+** #receive
+* org.apache.rocketmq.spring.autoconfigure.RocketMQProperties
+* org.apache.rocketmq.spring.core.RocketMQListener#onMessage
+* org.apache.rocketmq.spring.autoconfigure.RocketMQAutoConfiguration
 
 示例配置
 ```properties
@@ -164,28 +193,30 @@ rocketmq.producer.retry-next-server=true
 rocketmq.producer.retry-times-when-send-failed=2
 ```
 
-## spring-cloud-starter-stream-rocketmq
+#### spring-cloud-starter-stream-rocketmq
 
 github
-- alibaba/spring-cloud-alibaba ：
-    - [Spring Cloud Alibaba RocketMQ Binder](https://github.com/alibaba/spring-cloud-alibaba/wiki/RocketMQ-en)
-        - maven: `com.alibaba.cloud:spring-cloud-stream-binder-rocketmq`
-        - maven: `com.alibaba.cloud:spring-cloud-starter-stream-rocketmq`
+
+* alibaba/spring-cloud-alibaba ：
+** link:https://github.com/alibaba/spring-cloud-alibaba/wiki/RocketMQ-en[Spring Cloud Alibaba RocketMQ Binder]
+*** maven GAV: `com.alibaba.cloud:spring-cloud-stream-binder-rocketmq`
+*** maven GAV: `com.alibaba.cloud:spring-cloud-starter-stream-rocketmq`
 
 核心java类
-- org.springframework.cloud.stream.binder.rabbit.properties.RabbitBinderConfigurationProperties  # prefix = "spring.cloud.stream.rabbit.binder"
-- org.springframework.cloud.stream.binder.rabbit.properties.RabbitBindingProperties
-- org.springframework.cloud.stream.binder.rabbit.properties.RabbitCommonProperties
-- org.springframework.cloud.stream.binder.rabbit.properties.RabbitConsumerProperties
-- org.springframework.cloud.stream.binder.rabbit.properties.RabbitExtendedBindingProperties      # prefix = "spring.cloud.stream.rabbit"
-- org.springframework.cloud.stream.binder.rabbit.properties.RabbitProducerProperties
+
+* org.springframework.cloud.stream.binder.rabbit.properties.RabbitBinderConfigurationProperties  # prefix = "spring.cloud.stream.rabbit.binder"
+* org.springframework.cloud.stream.binder.rabbit.properties.RabbitBindingProperties
+* org.springframework.cloud.stream.binder.rabbit.properties.RabbitCommonProperties
+* org.springframework.cloud.stream.binder.rabbit.properties.RabbitConsumerProperties
+* org.springframework.cloud.stream.binder.rabbit.properties.RabbitExtendedBindingProperties      # prefix = "spring.cloud.stream.rabbit"
+* org.springframework.cloud.stream.binder.rabbit.properties.RabbitProducerProperties
 
 
-----------------------------------------------
-## mqadmin
 
+### mqadmin
 
-```shell
+[source,shell]
+----
 
 #podman run -rm apache/rocketmq:4.9.4
 
@@ -217,13 +248,14 @@ cd $ROCKETMQ_HOME
 ./bin/mqadmin queryMsgByKey         -t mtee3_dispath -k 172.16.88.247_79_MTEE3_1692346077297_77
 # 根据offsetMsgId查询消息
 ./bin/mqadmin queryMsgById          --msgId AC1058F7004D6718465C5B024C7D001F
-```
+----
 
 
 
-## http api
+### http api
 
-```shell
+[source,shell]
+----
 ROCKETMQ_SERVER=http://11.167.75.235:8080
 MSG_ID=AC1058F7004D6718465C5B024C7D001F
 MQ_TOPIC=mtee3_dispatch
@@ -232,18 +264,18 @@ curl "${ROCKETMQ_SERVER}/message/viewMessage.query?msgId=${MSG_ID}&topic=${MQ_TO
   --compressed \
   -s \
   --insecure | jq -M -r '.data.messageView.messageBody' > /tmp/a.txt
+----
 
 
-```
+### 权限控制
+* 阿里云：云消息队列 RocketMQ版: 4.x系列: 开发参考：SDK参考：link:https://help.aliyun.com/zh/apsaramq-for-rocketmq/cloud-message-queue-rocketmq-4-x-series/developer-reference/three-modes-used-to-send-normal-messages?spm=a2c4g.11186623.0.0.31a837cekfr3SM[社区版TCP协议SDK（仅供开源用户上云使用）]
 
+* example : link:https://github.com/apache/rocketmq/blob/b18e564addbcff50165a5e1d9d4ab7db789d901b/example/src/main/java/org/apache/rocketmq/example/simple/AclClient.java#L45[AclClient]
+* org.apache.rocketmq.remoting.RPCHook
+* org.apache.rocketmq.acl.common.AclClientRPCHook
 
-## 权限控制
-- 阿里云：云消息队列 RocketMQ版: 4.x系列: 开发参考：SDK参考：[社区版TCP协议SDK（仅供开源用户上云使用）](https://help.aliyun.com/zh/apsaramq-for-rocketmq/cloud-message-queue-rocketmq-4-x-series/developer-reference/three-modes-used-to-send-normal-messages?spm=a2c4g.11186623.0.0.31a837cekfr3SM)：
+  maven GAV : `org.apache.rocketmq:rocketmq-acl`
 
-- example : [AclClient](https://github.com/apache/rocketmq/blob/b18e564addbcff50165a5e1d9d4ab7db789d901b/example/src/main/java/org/apache/rocketmq/example/simple/AclClient.java#L45)
-- org.apache.rocketmq.remoting.RPCHook
-- org.apache.rocketmq.acl.common.AclClientRPCHook
-  maven GAV : org.apache.rocketmq:rocketmq-acl
-- org.apache.rocketmq.client.producer.DefaultMQProducer#DefaultMQProducer(org.apache.rocketmq.remoting.RPCHook)
+* org.apache.rocketmq.client.producer.DefaultMQProducer#DefaultMQProducer(org.apache.rocketmq.remoting.RPCHook)
 
 

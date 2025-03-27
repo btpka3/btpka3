@@ -1,0 +1,44 @@
+
+
+
+[source,shell]
+----
+# 按照文件的大小排序
+find . -type f |xargs ls -l -h | sort -b -h -k5
+
+# 叶子目录
+find dir -type d | sort -r | awk 'a!~"^"$0{a=$0;print}' | sort
+# 查找 "md" 结尾的文件，并且路径不包含 "node_modules"、"_book"
+find . -type f \
+    -not -path "*/node_modules*" \
+    -and  -not -path "*/_book/*" \
+    -and -name "*.md"
+
+# 统计当前目录下目录的数量（不含隐藏目录和当前目录本身）
+find $PWD -maxdepth 1 -type d  ! \( -path '*/\.*' -o -path $PWD \)
+
+# 有多个java命令时，把
+
+MAX_JAVA=$(find /opt/taobao/install/ -type f -name java ! \( -path '*/jre/*' -a  -path '*/ajdk*' \) \
+-exec bash -c 'echo {} $({} -version 2>&1 | awk -F\" "/version/ {print \$2}" | awk -F. "{print \$1}")' \; \
+| sort -k 2 -n -r \
+| head -n 1 \
+| awk '{print $1}')
+# echo "with java version is : ${MAX_JAVA}"
+if [[ -n "${MAX_JAVA}"]] ; then
+    export JAVA_HOME="$(dirname $(dirname ${MAX_JAVA}))"
+    # 注意：左变量前后有刻意加分号，以便进行正则匹配
+    if [[ ":$PATH:" != *":$JAVA_HOME/bin:"* ]]; then
+        export PATH=$JAVA_HOME/bin:$PATH
+    fi
+fi
+
+
+
+MAX_JAVA=$(find /tmp -type f -name java ! \( -path '*/jre/*' -a  -path '*/ajdk*' \) \
+-exec bash -c 'echo {} $({} -version 2>&1 | awk -F\" "/version/ {print \$2}" | awk -F. "{print \$1}")' \; \
+| sort -k 2 -n -r \
+| head -n 1 \
+| awk '{print $1}')
+
+----

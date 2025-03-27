@@ -78,43 +78,6 @@ public class ChildService extends ParentService {
 
 
 
-# placeholder
-
-
-
-
-
-```xml
-    <context:property-placeholder
-        location="${spring.config.location:file:application.properties}"
-        system-properties-mode="ENVIRONMENT"
-        null-value="null"
-    />
-```
-
-- @org.springframework.context.annotation.PropertySource
-- @org.springframework.context.annotation.PropertySources
-- org.springframework.context.config.ContextNamespaceHandler
-- org.springframework.context.config.PropertyPlaceholderBeanDefinitionParser
-- org.springframework.context.support.PropertySourcesPlaceholderConfigurer
-- org.springframework.beans.factory.config.PropertyPlaceholderConfigurer  : @Deprecated
-- org.springframework.core.io.ResourceLoader
-- org.springframework.util.PropertyPlaceholderHelper#replacePlaceholders
-- org.springframework.util.PropertyPlaceholderHelper.PlaceholderResolver
-
-
-设置bean 属性的时候，是如何将 string 转成特定类型的？
-
-```plain
-# 使用 PropertyPlaceholderConfigurer 的例子
-org.springframework.beans.BeanWrapperImpl#setPropertyValue
-  #processLocalProprety()
-    .typeConverterDelegate
-      .propertyEditorRegistry
-        .overriddenDefaultEditors[org.springframework.core.io.Resource]
-         -> org.springframework.core.io.ResourceLoader : com.taobao.mbus.biz.spring.AsyncInitXmlWebApplicationContext
-```
-
 # init
 ```plain
 org.springframework.context.support.AbstractApplicationContext#refresh
@@ -221,40 +184,6 @@ AbstractAutowireCapableBeanFactory#destroyBean
 
 ```
 
-
-## BeanFactoryPostProcessor 的 顺序
-BFPP  : BeanFactoryPostProcessor
-BDRPP : BeanDefinitionRegistryPostProcessor
-
-1. 先调用 实现了 BeanDefinitionRegistryPostProcessor 的 BFPP
-    1. AbstractApplicationContext#beanFactoryPostProcessors 中所有实现了 BDRPP 接口的 BFPP，
-        这些对象 与 PriorityOrdered/Ordered 无关，按照编程的注册顺序来
-    1. beanFactory 中 所有实现了 BDRPP + PriorityOrdered 接口的 BFPP（及其依赖的bean）
-    .
-        这些对象 按照 PriorityOrdered 的优先级来
-    1. beanFactory 中 所有实现了 BDRPP + Ordered 接口的 BFPP（及其依赖的bean）.
-        这些对象 按照 Ordered 的优先级来。
-    1. 【递归】beanFactory 中 其他 BDRPP （未实现 PriorityOrdered/Ordered 接口）的 BFPP（及其依赖的bean）.
-        这些对象 的顺序不保障。
-        如果 在 BDRPP 中又引入了新的 BDRPP，则新引入的这一小批内部按照 PriorityOrdered/Ordered/无 排序后，整批排队后执行。
-1. 再调用 未实现 BDRPP 的 BFPP
-    1. AbstractApplicationContext#beanFactoryPostProcessors 中 未实现  BDRPP 接口的 BFPP ,
-        这些对象 与 PriorityOrdered/Ordered 无关，按照编程的注册顺序来
-    1. beanFactory 中 未实现 BDRPP, 但实现了 PriorityOrdered 接口的 BFPP.
-        这些对象 按照 PriorityOrdered 的优先级来
-    1. beanFactory 中 未实现 BDRPP, 但实现了 Ordered 接口的 BFPP（及其依赖的bean）.
-        这些对象 按照 Ordered 的优先级来
-    1. beanFactory 中 未实现 BDRPP/PriorityOrdered/Ordered 接口的 BFPP（及其依赖的bean）.
-        这些对象 的顺序不保障。
-1. 实例化并注册 BPP
-     1. beanFactory 中 实现了 PriorityOrdered 接口的 BPP（及其依赖的bean）
-     1. beanFactory 中 实现了 Ordered 接口的 BPP（及其依赖的bean）
-     1. beanFactory 中 未实现 PriorityOrdered/Ordered 接口的 BPP（及其依赖的bean）
-
-
-# Ordered + BeanPostProcessor 可以使用的特性
-
-- 作为 spring bean 来完成依赖注入
 
 
 

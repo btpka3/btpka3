@@ -216,7 +216,7 @@ tasks.named("bootJar") {
 - org.springframework.boot.SpringApplication#addBootstrapRegistryInitializer
 
 ## EnvironmentPostProcessor
-
+org.springframework.boot.env.EnvironmentPostProcessor
 
 ## Scan
 

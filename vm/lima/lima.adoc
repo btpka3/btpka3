@@ -1,0 +1,80 @@
+
+* link:https://github.com/lima-vm/lima[lima]
+* link:https://lima-vm.io/[lima-vm.io]
+
+
+containerd 是一个开源的容器运行时, 但其面向的用户不是 docker 镜像创建、部署的 业务开发的。
+link:https://github.com/containerd/nerdctl[nerdctl] 是提供了一套与 docker cli 几乎一致的替代命令行，且支持额功能。
+link:https://github.com/lima-vm/lima[lima] 提供了自动文件共享，端口转发、使用 containerd 的linux 虚拟机， 更偏向于 业务开发，但没有GUI窗口程序，只有CLI。
+
+link:https://rancherdesktop.io/[Rancher Desktop] 则提供GUI程序，并提供 容器管理和 k8s管理。也对接了 lima。
+
+
+
+
+## install
+
+[source,shell]
+----
+brew install lima
+
+# 启动方式一: 交互式命令行启动
+limactl start
+# 启动方式二: 明确指明参数
+limactl create --name=default template://docker
+limactl start default
+limactl list
+limactl stop default
+----
+
+
+## 常用命令
+
+[source,shell]
+----
+limactl --help
+
+# host 和 guest 之间复制文件
+# limactl copy SOURCE ... TARGET [flags]
+limactl copy default:/etc/os-release .
+
+# 创建 Lima 实例
+# limactl create FILE.yaml|URL [flags]
+limactl create --name=default template://docker --cpus=2 --memory=2
+
+# 删除 Lima 实例
+# limactl delete INSTANCE [INSTANCE, ...] [flags]
+
+# 管理磁盘
+limactl disk --help
+limactl disk create --help
+limactl disk create DISK --size SIZE [--format qcow2]
+limactl disk ls
+limactl disk delete XXX_DISK
+limactl disk resize DISK --size SIZE
+limactl disk unlock DISK [DISK, ...] [flags]
+
+limactl edit --help
+limactl edit INSTANCE|FILE.yaml [flags]
+
+# 显示诊断信息
+limactl info [flags]
+
+----
+
+
+## docker镜像
+
+[source,shell]
+----
+lima nerdctl --help
+
+# 构建docker镜像
+mkdir -p /tmp/demo-image
+
+cat > /tmp/demo-image/Dockerfile <<EOF
+FROM nginx
+RUN  echo "hello lima" > /usr/share/nginx/html/index.html
+EOF
+lima nerdctl build -t demo-image /tmp/demo-image
+----

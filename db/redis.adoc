@@ -1,9 +1,9 @@
-# 参考
+== 参考
 
 * [Running Redis in production ](http://shokunin.co/blog/2014/11/11/operational_redis.html)
 * [LUA 5.1](https://www.lua.org/manual/5.1/)
 
-# docker
+== docker
 
 ```
 
@@ -35,7 +35,7 @@ redis-cli
 redis-cli -h xxxHost --user default --pass xxxPassword
 ```
 
-# Cluster and Sentinel
+== Cluster and Sentinel
 
 每个 Redis 集群节点都要提供两个端口:
 
@@ -55,7 +55,7 @@ Redis Sentinel的作用: 使用一主多从模式保证高可用性。
 
 假如 host2 宕机了, 则由 A@host1, B1@host1, C@host3 共通构成一个完整的集群。
 
-# 安装
+== 安装
 
 1. 创建系统用户redis，及所需的目录
 
@@ -122,10 +122,38 @@ Redis Sentinel的作用: 使用一主多从模式保证高可用性。
     [root@localhost ~]# service redis start
     ```
 
----------------------------------------------------------------------------
+
 TODO 上下合并
 
+== 安装
+
+[source,shell]
+----
 # 安装
+brew install redis
+brew list redis
+redis-cli --version
+
+mkdir data
+curl -fsSL https://raw.githubusercontent.com/redis/redis/unstable/redis.conf -o redis.conf
+
+cat > users.acl <<EOF
+user default on >123456 ~* &* +@all
+EOF
+
+
+docker run \
+  --sysctl net.ipv4.ip_forward=1 \
+  -p 6379:6379 \
+  -v data:/data \
+  -v redis.conf:/etc/redis/redis.conf \
+  -v user.acl:/etc/redis/users.acl \
+  redis:7.4.2 redis-server /etc/redis/redis.conf
+
+
+
+redis-cli -h 127.0.0.1 --user default --pass 123456
+----
 
 1. 创建系统用户redis，及所需的目录
 
@@ -321,7 +349,7 @@ TODO 上下合并
 
 
 
-# scripting (LUA)
+## scripting (LUA)
 - [EVAL](https://redis.io/docs/manual/programmability/eval-intro/)
 - [lua-api](https://redis.io/docs/manual/programmability/lua-api/)
     - [cjson-library](https://redis.io/docs/manual/programmability/lua-api/#cjson-library)
@@ -358,3 +386,12 @@ TFCALL myFirstLibrary.hello 2 key1 key2 value1 value2 value2
 
 
 
+
+
+## redis-cli
+
+[source,shell]
+----
+# 检查服务端信息
+info server
+----

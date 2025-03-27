@@ -167,6 +167,14 @@ ll /etc/profile
 ll /etc/profile.d
 ----
 
+## source
+
+mysource.sh
+[source,shell]
+----
+
+----
+
 
 ## test
 

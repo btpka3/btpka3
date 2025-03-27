@@ -140,6 +140,41 @@ mvn help:all-profiles | grep "Profile Id:" | awk -F '[:(]' '{print $2}' | awk '{
 ----
 
 
+## properties
+
+* link:https://maven.apache.org/pom.html#Properties[properties]
+
+
+[source,shell]
+----
+${env.xxx}              # 引用环境变量 `xxx` 的值
+${project.xxx}          # 引用 pom.xml 中 `<project>` 下对应元素的值。
+                        # 比如 : ${project.version} => <project><version>1.0</version></project>
+
+${settings.xxx}         # 引用 settings.xml 中 `<settings>` 下对应元素的值。
+                        # 比如 : ${settings.offline} => <settings><offline>false</offline></settings>
+
+${xxx}                  # 引用 pom.xml 中 `<properties>` 下对应元素的值。
+----
+
+
+* lin:https://maven.apache.org/pom.html#The_Super_POM[Super POM]
+
+[source,shell]
+----
+${project.version}
+${project.basedir}                      # 当前 maven project/module 的路径，即当前 pom.xml 所在的目录
+${project.build.directory}              # ${project.basedir}/target
+${project.build.outputDirectory}        # ${project.build.directory}/classes
+${project.build.finalName}              # ${project.artifactId}-${project.version}
+${project.build.testOutputDirectory}    # ${project.build.directory}/test-classes
+${project.build.sourceDirectory}        # ${project.basedir}/src/main/java
+${project.build.testSourceDirectory}    # ${project.basedir}/src/test/java
+
+${settings.localRepository}
+----
+
+
 
 
 

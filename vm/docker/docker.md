@@ -776,7 +776,6 @@ https://192.168.99.100:443
 - google : [gcr.io](https://cloud.google.com/container-registry/)
 - Microsoft : [mcr.microsoft.com](https://mcr.microsoft.com/)
 - 阿里巴巴开源镜像站 : https://developer.aliyun.com/mirror
-- registry.k8s.io
 
 ```shell
 # docker.io

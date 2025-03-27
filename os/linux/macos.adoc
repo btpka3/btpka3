@@ -2,6 +2,9 @@
 
 [source,shell]
 ----
+# 列出已经安装的软件包
+brew list
+brew list --cask
 # 搜索指定的软件包
 brew search binutils
 # 查看给定软件包的信息
@@ -11,6 +14,8 @@ brew install binutils           # 提供 nm 等命令
 brew deps --graph binutils
 # 列出已安装的软件包的文件列表
 brew list binutils
+# 卸载已经安装的软件
+brew rm xxx
 # 由于 binutils 是 keg-only，故不会在 /opt/homebrew创建符号连接，不会默认启用该软件包的命令，因为会系统的toolchain 中相同的命令
 # 如果要使用，还需要手动修改 PATH
 echo 'export PATH="/opt/homebrew/opt/binutils/bin:$PATH"' >> ~/.zshrc
@@ -49,8 +54,8 @@ brew install ugrep
 brew install wget
 brew install nmap
 brew install curl
+
 # vi ~/.zshrc
-export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 
 brew install iproute2mac  # 可以使用 `ip addr` 命令
 brew install telnet
@@ -81,4 +86,19 @@ function set_proxy() {
     fi
 }
 set_proxy
+
+# curl
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+# 设置主题
+ZSH_THEME="candy"
+# 禁止多终端窗口共享命令历史
+unsetopt share_history
+
+----
+
+[source,shell]
+----
+man zshoptions
+# 检查当千zsh 启用的选项
+setopt
 ----

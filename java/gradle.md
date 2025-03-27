@@ -2,18 +2,6 @@
 [gradle](http://gradle.org/)
 
 
-# maven -> gradle
-
-```bash
-# 先通过 sdkman 安装 gradle （一次性）
-sdk install gradle 6.2.2
-
-# 项目级别：安装 gralde wrapper
-gradle wrapper --gradle-version 6.2.2 --distribution-type all
-
-# 修改 .gitignore , 确保 忽略 .gralde 目录
-```
-
 
 # SCOPE
 

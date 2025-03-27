@@ -1,0 +1,3 @@
+* link:https://help.aliyun.com/zh/ack/ack-managed-and-ack-dedicated/user-guide/use-ssh-to-connect-to-the-master-nodes-of-a-dedicated-kubernetes-cluster[通过SSH连接ACK专有集群的Master节点]
+* link:https://help.aliyun.com/zh/ack/ack-managed-and-ack-dedicated/user-guide/configure-dnat-to-expose-a-pod[使用网关DNAT规则直接访问Pod]
+

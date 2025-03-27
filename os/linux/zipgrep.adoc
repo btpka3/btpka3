@@ -1,8 +1,9 @@
 
 ## zipgrep
 
-```shell
-zipgrep ch.qos.logback.classic.joran.JoranConfigurator *.jar
+[source,shell]
+----
+zipgrep -o ch.qos.logback.classic.joran.JoranConfigurator *.jar
 find . -type f -name "*.jar"  -print0 | xargs -0 zipgrep -l "ch.qos.logback.classic.joran.JoranConfigurator"
 find . -type f -name "*.jar" -exec  zipgrep "ch.qos.logback.classic.joran.JoranConfigurator" {} \;
 
@@ -34,4 +35,4 @@ done
 -v 反选匹配结果，输出不匹配的行
 -w 匹配整词
 -x 匹配整行
-```
+----

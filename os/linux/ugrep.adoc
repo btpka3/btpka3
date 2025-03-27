@@ -5,10 +5,27 @@ link:https://github.com/Genivia/ugrep[ugrep]
 
 [source,shell]
 ----
-ugrep -z 'cache' *.jar
-ugrep -z                # also search zip/7z/tar/pax/cpio archives, tarballs and gz/Z/bz/bz2/lzma/xz/lz4/zstd/brotli compressed files
-ugrep -z -g"*.txt,*.md" # 只搜索压缩包中 给定 glob (txt,md) 文件。
-ugrep -z -g"^bak/"      # 不搜索bak目录下的文件
+######## 针对非压缩包
+# 在当前目录下 递归查找 文件名是 *.xml 且 文件内容包含 "<project" 的 文件
+ugrep -r -g"*.xml" "<project" .
+# 同上，但只输出匹配的文件
+ugrep -r -g"*.xml" -l "<project" .
+
+ugrep  -z -txml -l "<project" .
+
+
+######## 压缩包
+# 检查当前目录下 entry 路径包含 "MANIFEST.MF" 的压缩包
+ugrep "MANIFEST.MF"
+# 同上，但只输出匹配的 压缩包的文件名
+ugrep -l "MANIFEST.MF"
+
+# 输出压缩包中指定 entry/文件 的内容
+unzip -p courier-1.0.7-SNAPSHOT.jar "META-INF/MANIFEST.MF"
+# 在当前目录下的压缩包中搜搜，找出哪些压缩文件中包含 关键词 "Manifest-Version"
+ugrep -z            "Manifest-Version" .
+ugrep -z -g"*.MF"   "Manifest-Version" .  # FIXME: not work
+
 
 # 按照 loggerName == "xxx.yyy.zzz" 搜索。
 ugrep -z -P '([^\w\.\/]|")xxx\.yyy\.zzz([^\w\.\/]|")' *.jar

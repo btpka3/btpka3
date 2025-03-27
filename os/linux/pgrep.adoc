@@ -1,0 +1,19 @@
+pgrep :查找进程，
+pkill :给进程发送信号
+
+[source,shell]
+----
+# 如果有一个pid文件，则可以用该命令查找
+if pgrep -F something.pid; then
+    echo "Running"
+else
+    echo "Not running"
+fi
+
+if [ -d "/proc/${pid}" ]; then
+    echo "Running";
+else
+    echo "Not running";
+fi
+
+----

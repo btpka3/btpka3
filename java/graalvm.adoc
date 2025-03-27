@@ -9,6 +9,8 @@ https://www.graalvm.org/22.0/reference-manual/native-image/Options/
 * link:https://www.graalvm.org/jdk23/reference-manual/native-image/guides/build-spring-boot-app-into-native-executable/[Build a Native Executable from a Spring Boot Application]
 * link:https://www.graalvm.org/latest/reference-manual/native-image/overview/Bundles/[Native Image Bundles]
 
+* 替代产品： link:https://bell-sw.com/liberica-native-image-kit/[Liberica Native Image Kit]
+* link:https://github.com/graalvm/container[GraalVM Container Images]
 
 ## FIXME
 
@@ -33,4 +35,33 @@ native-image --help
 
 |%X{PERF_TEST}|%X{TRACE_ID}|%X{EVENT_ID}|%X{EVENT_CODE}|%X{MTEE_BIZ_CODE}|
 |%g9{yace}|%g9{traceId}|%g9{eventId}|%g9{eventCode}|%g9{mteeBizCode}|
+
+
+## Native Image Bundles
+
+link:https://www.graalvm.org/latest/reference-manual/native-image/overview/Bundles/[Native Image Bundles]
+
+*.nib 文件 是一个 JAR 文件
+
+[source,shell]
+----
+jar tf application.nib
+META-INF/MANIFEST.MF
+META-INF/nibundle.properties
+
+native-image --bundle-apply=application.nib -g
+----
+
+## GraalVM JavaScript and Node.js Runtime
+link:https://www.graalvm.org/jdk22/reference-manual/js/index.html[GraalVM JavaScript and Node.js Runtime]
+
+https://github.com/oracle/graaljs/releases/
+
+
+https://javanexus.com/blog/common-pitfalls-graalvm-java
+
+
+## Truffle
+
+link:https://www.graalvm.org/latest/graalvm-as-a-platform/language-implementation-framework/[Truffle Language Implementation Framework]
 

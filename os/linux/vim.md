@@ -19,31 +19,7 @@ alias vi=vim
 alias vi=vim
 ```
 
-# 修改vim配置文件
-修改用户级别的 需要修改 `~/.vimrc`。修改全局的，
-需要修改 `/etc/vimrc` , 或者 `/etc/vim/vimrc` , 或者 `/etc/vim/vimrc.local`（可以通过 `:version` 看到）
 
-```vim
-set nocompatible
-set number
-colors desert
-syntax on
-set ruler
-set showcmd
-set cursorline
-set fileencodings=utf-8,gbk
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set fileformats=unix
-set hlsearch
-set formatoptions-=cro
-set paste
-set mouse=i
-" set list
-" comment here
-```
 
 ## filetype
 
@@ -71,13 +47,7 @@ autocmd BufRead,BufNewFile build.gradle set syntax=groovy
 ```
 git clone git://github.com/darfink/vim-plist.git ~/.vim/bundle/vim-plist
 ```
-## colorschema
 
-```bash
-ll /usr/share/vim/vim74/colors
-# 或者在vim中
-:colo <tab>
-```
 
 ## 安装vba插件
 [largeFile](http://www.drchip.org/astronaut/vim/#LARGEFILE),

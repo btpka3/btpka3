@@ -89,3 +89,18 @@ from user u
 left join logins l on u.id = l.user_id
 group by u.id
 ----
+
+
+## 函数
+
+### 日期
+[source,sql]
+----
+-- %Y : 年
+-- %m : 月
+-- %d : 日
+-- %H : 时
+-- %i : 分
+-- %S : 秒
+select DATE_FORMAT(date,'%Y%m%d')
+----

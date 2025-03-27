@@ -15,6 +15,7 @@
 
 * link:https://help.aliyun.com/zh/sls/developer-reference/embed-console-pages-and-share-log-data[控制台内嵌及分享]
 * link:https://help.aliyun.com/zh/sls/user-guide/full-stack-observable-embedding[全栈可观测内嵌]
+* link:https://help.aliyun.com/zh/sls/user-guide/scenario-3-use-custom-roles-to-transfer-data-across-accounts[场景三：使用自定义角色完成跨账号数据流转]
 
 ## 安装
 

@@ -1,0 +1,8 @@
+
+
+javap 用来 反汇编 class 文件，生成 类的结构信息（方法，字段，字节码指令等），但不会完整输出源码
+
+[source,shell]
+----
+javap -c -v -p path/to/xxx.class
+----

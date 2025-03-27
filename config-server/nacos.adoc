@@ -14,9 +14,9 @@
   - sofastack
     - [sofa-jraft](https://github.com/sofastack/sofa-jraft)
       maven gav : `com.alipay.sofa:jraft-core`
-# port
+## port
 
-## 7848
+### 7848
 
 
 - com.alibaba.nacos.core.cluster.MemberUtil#DEFAULT_RAFT_OFFSET_PORT
@@ -49,11 +49,11 @@ com.alipay.sofa:jraft-core:
 ```
 
 
-## 7848
-## 8848
+### 7848
+### 8848
 alibaba nacos 默认端口 [HTTP 端口](https://github.com/alibaba/nacos/blob/8cd5a5ea0bfb7014523eb19ca72e28282a9155a2/naming/src/main/resources/application.properties#L16)。
 
-## 9848
+### 9848
 针对 GRPC SDK 服务端口
 com.alibaba.nacos.api.common.Constants#SDK_GRPC_PORT_DEFAULT_OFFSET = 1000
 com.alibaba.nacos.core.remote.grpc.GrpcSdkServer
@@ -65,7 +65,7 @@ com.alibaba.nacos.core.remote.grpc.BaseGrpcServer#[startServer](https://github.c
 2023-05-23 20:27:06,765 INFO Nacos GrpcSdkServer Rpc server started at port 9848 and tls config:{"sslProvider":"","enableTls":false,"mutualAuthEnable":false,"trustAll":false,"compatibility":true}
 ```
 
-## 9849
+### 9849
 集群模式下的 GRPC 服务端口
 
 com.alibaba.nacos.api.common.Constants#CLUSTER_GRPC_PORT_DEFAULT_OFFSET = 1001
@@ -80,7 +80,7 @@ com.alibaba.nacos.core.remote.grpc.GrpcClusterServer
 
 
 
-# java sdk : com.alibaba.nacos:nacos-client
+== java sdk : com.alibaba.nacos:nacos-client
 核心java类：
 - com.alibaba.nacos.api.NacosFactory
 - com.alibaba.nacos.api.config.ConfigService
@@ -94,7 +94,7 @@ com.alibaba.nacos.core.remote.grpc.GrpcClusterServer
 - com.alibaba.nacos.spring.core.env.NacosPropertySource
 - com.alibaba.nacos.api.config.listener.Listener
 
-# spring sdk : com.alibaba.nacos:nacos-spring-context
+== spring sdk : com.alibaba.nacos:nacos-spring-context
 
 maven GAV: com.alibaba.boot:nacos-config-spring-boot-starter:0.2.12
 maven GAV: com.alibaba.boot:nacos-discovery-spring-boot-starter:0.2.12
@@ -107,7 +107,7 @@ maven GAV: com.alibaba.boot:nacos-discovery-spring-boot-starter:0.2.12
 
 
 
-# spring cloud
+== spring cloud
 
 核心java类：
 - com.alibaba.cloud.nacos.NacosConfigAutoConfiguration               ⭕️
@@ -120,7 +120,7 @@ maven GAV: com.alibaba.boot:nacos-discovery-spring-boot-starter:0.2.12
 - com.alibaba.cloud.nacos.refresh.NacosContextRefresher  # 当判断配置信息有变更的时候，发布 RefreshEvent。
 
 
-# ERROR
+== ERROR
 
 
 ```
@@ -149,7 +149,17 @@ maven GAV: com.alibaba.boot:nacos-discovery-spring-boot-starter:0.2.12
 ## docker
 
 ```shell
-docker run --rm -it  -p 8848:8848 -p 9848:9848 -p 9849:9849 -p 7848:7848 -e MODE=standalone nacos/nacos-server:v2.2.3
+docker run --rm -it \
+ --platform=linux/amd64 \
+ -p 8848:8848 -p 9848:9848 -p 9849:9849 -p 7848:7848 \
+ -e MODE=standalone \
+ -e NACOS_AUTH_IDENTITY_KEY=nacos \
+ -e NACOS_AUTH_IDENTITY_VALUE=nacos \
+ -e NACOS_AUTH_TOKEN=SecretKey012345678901234567890123456789012345678901234567890123456789 \
+ nacos/nacos-server:v2.2.3
+
+# 浏览器访问
+http://127.0.0.1:8848/nacos
 ```
 
 
@@ -170,9 +180,9 @@ export NACOS_SERVERS="$(hostname):8848"
 /home/nacos/bin/docker-startup.sh
 ```
 
-# 本地验证
+== 本地验证
 
-## 查询
+=== 查询
 
 ```shell
 NACOS_ADDR=http://127.0.0.1:8848
@@ -186,7 +196,7 @@ group=gong9-mw
 curl -v "${NACOS_ADDR}${CONTEXT_ROOT}/v2/cs/config?dataId=${dataId}&group=${group}&namespaceId=${namespaceId}"
 ```
 
-## 更新
+=== 更新
 
 ```shell
 
@@ -215,7 +225,7 @@ curl -v "${NACOS_ADDR}${CONTEXT_ROOT}/v2/cs/config?dataId=${dataId}&group=${grou
 
 
 
-# data 目录
+== data 目录
 
 ```plain
 /home/nacos/data/config-data/${groupId}/${dataId}
@@ -236,9 +246,44 @@ curl -v "${NACOS_ADDR}${CONTEXT_ROOT}/v2/cs/config?dataId=${dataId}&group=${grou
 
 
 
-# alterntive
+== alterntive
 - [Togglz](https://www.togglz.org/)
 - spring cloud config
 - 阿里巴巴内部 : diamond / switch
 
 
+== open api
+
+link:https://nacos.io/docs/latest/manual/user/open-api/[Open API 手册]
+
+[source,shell]
+----
+
+# 查询命名空间列表
+curl -s mse-37471f90-nacos-ans.mse.aliyuncs.com:8848/nacos/v2/console/namespace/list|jq
+{
+  "code": 0,
+  "message": "success",
+  "data": [
+    {
+      "namespace": "",
+      "namespaceShowName": "public",
+      "namespaceDesc": null,
+      "quota": 10000,
+      "serviceCount": 6,
+      "configCount": 57,
+      "type": 0
+    },
+    {
+      "namespace": "22849680-322f-40da-9d74-4f1d34c8a037",
+      "namespaceShowName": "cn-hangzhou:mtee3",
+      "namespaceDesc": "cn-hangzhou:mtee3",
+      "quota": 10000,
+      "serviceCount": 14,
+      "configCount": 94,
+      "type": 2
+    }
+  ]
+}
+
+----

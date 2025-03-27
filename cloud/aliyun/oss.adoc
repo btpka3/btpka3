@@ -21,3 +21,10 @@ ossutil cp {} oss://uniface-tmp/dangqian.zll/{}
 ossutil cp ww_large_msg.txt oss://content-tmp/dangqian.zll/ww_large_msg.txt
 ----
 
+下载
+
+[source,shell]
+----
+wget https://gosspublic.alicdn.com/ossutil/v2/2.1.0/ossutil-2.1.0-linux-amd64.zip
+unzip ossutil-2.1.0-linux-amd64.zip
+----

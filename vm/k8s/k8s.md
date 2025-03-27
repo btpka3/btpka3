@@ -60,7 +60,7 @@ spec:
                       - containerPort: 80
 ```
 
-# context
+# context, config
 ```shell
 # 如果有多个 k8s 集群，比如 minikube, kind, 或者 远程k8s集群
 # 会有多个 context ， 即 ~/.kube 目录下有多个配置文件
@@ -69,6 +69,15 @@ kubectl config get-contexts
 
 # 可以通过该命令切换
 kubectl config use-context kind-kind
+
+kubectl config view
+
+# 确保下面命令能列出该表格中已经启用的 机器列表
+kubectl --kubeconfig ~/.kube/config_daily get node
+
+# 如果不想每次都指定 --kubeconfig 参数，可以设置下环境变量 KUBECONFIG
+export KUBECONFIG=~/.kube/config_daily
+
 ```
 
 
@@ -102,41 +111,6 @@ kubectl get node
 
 # 错误: ImagePullBackOff : 通过以下命令查看详情
 kubectl describe pod mtee3-deployment-774f644856-j8ghp
-```
-
-
-# 基础命令
-```shell
-kubectl get       # 获取资源列表
-  kubectl get ns           # namespace
-  kubectl get rc           # rc : replication controller
-  kubectl get nodes
-  kubectl get deployments
-  kubectl get replicasets
-  kubectl get pods
-  kubectl get events
-  kubectl get services
-
-kubectl describe  # 描述资源详情
-kubectl logs      # 获取 container 的日志
-kubectl exec      # 在 container 里执行命令
-
-kubectl proxy     # 开启一个代理，以便对给定的 Pod 进行 debug、交互。
-export POD_NAMES="$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')"
-echo Name of the Pod: $POD_NAMES
-curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/proxy/
-
-kubectl logs ${POD_NAME}
-kubectl exec "$POD_NAME" -- env
-kubectl exec -it $POD_NAME -- bash
-
-kubectl scale    # 扩缩容
-kubectl autoscale
-
-kubectl attach
-kubectl cp
-kubectl expose
-
 ```
 
 
@@ -244,16 +218,6 @@ kubectl cluster-info --context kind-kind
 
 # error
 ImagePullBackOff
-
-
-# java 远程debug
-
-```shell
-# 1. 给k8s容器内的java程序设置 远程debug信息： -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
-
-# 2. 给k8s容器开启一个端口转发
-kubectl port-forward xxx-deployment-5bb76987bb-nrtb5 8000:8000
-```
 
 
 

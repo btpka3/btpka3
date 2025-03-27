@@ -142,3 +142,29 @@ MacOS 的 Docker desktop ： Settings / Docker Engine 进行配置：
   }
 }
 ----
+
+
+## tag
+
+[source,shell]
+----
+docker image tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+docker image push IMAGE[:TAG]
+----
+
+## Manifest
+* Docker Image Manifest V1 : ❌ 已废弃。 2017-02-28, Docker v1.13开始不再支持
+* Docker Image Manifest V2 Schema1 : ❌ 已废弃。
+  临时版本，且兼容V1。
+* Docker Image Manifest V2 Schema2 :
+  支持多架构，可内容寻址。
+  可以通过 docker pull, docker push 即可升级到新版本。
+  "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+  "mediaType": "application/vnd.docker.container.image.v1+json",
+  "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+
+* OCI 格式： 基于 Docker Image Manifest V2 Schema 2 改造。
+  "mediaType": "application/vnd.oci.image.manifest.v1+json"
+  "mediaType": "application/vnd.oci.image.config.v1+json"
+  "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+

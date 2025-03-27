@@ -50,3 +50,18 @@ link:https://bbs.huaweicloud.com/blogs/281789[Git工作流中常见的三种分�
 
 
 
+## 远程仓库复制
+[source,shell]
+----
+# clone 新仓库
+git clone git@xxx-host.com:/xxx-group/xxx-repo2.git
+cd xxx-repo1
+
+# 强制推送到新远程
+git remote add tmp git@xxx-host.com:/xxx-group/xxx-repo1.git
+git fetch tmp
+git push -f origin tmp/master:master
+
+# 清理
+git remote remove tmp
+----

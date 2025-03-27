@@ -1,0 +1,11 @@
+
+* link:https://bell-sw.com/alpaquita-linux/[Alpaquita]
+
+
+Alpaquita 是基于 Alpine Linux 构建的。
+
+提供了 3种 额外的 malloc ，以便针对不同工作负载，以及更好的 JAVA支持。
+加强了了 musl libc。
+提供 了 musl,glibc 版本。
+
+

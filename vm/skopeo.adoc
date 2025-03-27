@@ -40,5 +40,7 @@ skopeo inspect \
     --override-arch=amd64 \
     docker://docker.io/library/eclipse-temurin:11-jdk-alpine
 
+# list tags
+skopeo list-tags --registry-token ${GH_TOKEN} docker://ghcr.io/${ORG}/${CONTAINER_IMG}
 ----
 
