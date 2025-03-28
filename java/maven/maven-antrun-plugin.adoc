@@ -126,7 +126,10 @@ apache ant 的 `ant` task 有以下属性可以配置:
 #### 验证命令
 [source,shell]
 ----
+# 观察 控制台 echo 输出内容
 mvn clean package
+# 确认有两个对应的jar包
+ls -l /tmp/*.jar
 ----
 
 #### 示例输出
