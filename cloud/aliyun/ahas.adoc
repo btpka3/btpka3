@@ -1,6 +1,0 @@
-
-
-* link:https://www.aliyun.com/product/ahas[应用高可用服务/Application High Availability Service/AHAS]
-* link:https://help.aliyun.com/zh/ahas/[应用高可用服务]
-* link:https://help.aliyun.com/zh/ahas/user-guide/what-is-a-feature-switch[什么是功能开关]
-目前，AHAS流量防护功能已全面迁移至MSE微服务治理，且费用也已归属到MSE微服务引擎
