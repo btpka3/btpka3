@@ -137,14 +137,14 @@ ls -l /tmp/*.jar
 ----
 [INFO] --- antrun:3.1.0:run (default) @ empty-app ---
 [INFO] Executing tasks
-[WARNING]      [echo] 000: var:{project.build.directory}                = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target
-[WARNING]      [echo] 000: var:{myDir}                                  = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target/my-dir
-[WARNING]      [echo] 000: var:{myBuildDir}                             = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target
-[WARNING]      [echo] 111: ${project.build.directory}                   = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target
-[WARNING]      [echo] 111: ${myDir}                                     = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target/my-dir
-[WARNING]      [echo] 111: ${myBuildDir}                                = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target
-[WARNING]      [echo] 222: ${project.build.directory}                   = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target
-[WARNING]      [echo] 222: ${myDir}                                     = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target/my-dir
-[WARNING]      [echo] 222: ${myBuildDir}                                = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target
+[WARNING]      [echo] 000: var:{project.build.directory}                = /tmp/empty-app/target
+[WARNING]      [echo] 000: var:{myDir}                                  = /tmp/empty-app/target/my-dir
+[WARNING]      [echo] 000: var:{myBuildDir}                             = /tmp/empty-app/target
+[WARNING]      [echo] 111: ${project.build.directory}                   = /tmp/empty-app/target
+[WARNING]      [echo] 111: ${myDir}                                     = /tmp/empty-app/target/my-dir
+[WARNING]      [echo] 111: ${myBuildDir}                                = /tmp/empty-app/target
+[WARNING]      [echo] 222: ${project.build.directory}                   = /tmp/empty-app/target
+[WARNING]      [echo] 222: ${myDir}                                     = /tmp/empty-app/target/my-dir
+[WARNING]      [echo] 222: ${myBuildDir}                                = /tmp/empty-app/target
 [INFO] Executed tasks
 ----
