@@ -203,3 +203,41 @@ fi
 
 ```
 
+
+
+## trap
+trap 属于bash内置命令，允许对捕获到的 SIGNAL，改变原有的处理动作，转而执行指定的动作。
+
+查看其帮助文档: `bash -c 'help trap'`.
+
+示例1
+
+[source,shell]
+----
+# trap  COMMAND  SIGNAL_DEFINATION
+trap 'echo -e "\nCTRL_C PRESSED"' SIGINT
+# 然后控制台按下快捷键 Ctrl+C, 会看到有 "CTRL_C PRESSED" 输出
+----
+
+示例2: waiterm
+
+[source,shell]
+----
+# waitterm
+#   wait TERM/INT signal.
+#   see: http://veithen.github.io/2014/11/16/sigterm-propagation.html
+waitterm() {
+    local PID
+    # any process to block
+    tail -f /dev/null &
+    PID="$!"
+    # setup trap, could do nothing, or just kill the blocker
+    trap "kill -TERM ${PID}" TERM INT
+    # wait for signal, ignore wait exit code
+    wait "${PID}" || true
+    # clear trap
+    trap - TERM INT
+    # wait blocker, ignore blocker exit code
+    wait "${PID}" 2>/dev/null || true
+}
+----

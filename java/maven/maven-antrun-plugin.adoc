@@ -5,12 +5,25 @@
 
 ## 如何执行多个target?
 
-核心思路： apache ant 的 `ant` task 有以下属性可以配置
+
+### 问题背景
+
+* Q1: maven-antrun-plugin 需要运行多套任务，任务之间大同小异，不想在 pom.xml 中写的太长，如何拆分成多个不同的外部 build.xml?
+* Q2: maven-antrun-plugin 有提供 `dependencyfilesets` 等 额外的 ant task, 但该task 只能在 pom.xml 中配置，不能在外部的 build.xml 中配置，如何解决？
+
+### 核心要点
+apache ant 的 `ant` task 有以下属性可以配置:
+
 * "inheritAll"  : 默认继承当前上下文里所有 property。 默认: "true"
 * "inheritRefs" : 默认继承当前上下文里所有 引用/reference. 默认: "false".
 
+两个都配置成 `true` 即可。
 
-pom.xml
+
+### 示例
+
+
+#### pom.xml
 
 [source,xml]
 ----
@@ -75,9 +88,7 @@ pom.xml
 </project>
 ----
 
-
-
-build1.xml
+#### build1.xml
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -94,8 +105,7 @@ build1.xml
 </project>
 ----
 
-
-build2.xml
+#### build2.xml
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -113,8 +123,25 @@ build2.xml
 ----
 
 
-验证命令
+#### 验证命令
 [source,shell]
 ----
 mvn clean package
+----
+
+#### 示例输出
+[source,plain]
+----
+[INFO] --- antrun:3.1.0:run (default) @ empty-app ---
+[INFO] Executing tasks
+[WARNING]      [echo] 000: var:{project.build.directory}                = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target
+[WARNING]      [echo] 000: var:{myDir}                                  = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target/my-dir
+[WARNING]      [echo] 000: var:{myBuildDir}                             = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target
+[WARNING]      [echo] 111: ${project.build.directory}                   = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target
+[WARNING]      [echo] 111: ${myDir}                                     = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target/my-dir
+[WARNING]      [echo] 111: ${myBuildDir}                                = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target
+[WARNING]      [echo] 222: ${project.build.directory}                   = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target
+[WARNING]      [echo] 222: ${myDir}                                     = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target/my-dir
+[WARNING]      [echo] 222: ${myBuildDir}                                = /Users/zll/data0/work/git-repo/ali/dangqian.zll/empty-app/.tmp/demo/target
+[INFO] Executed tasks
 ----
