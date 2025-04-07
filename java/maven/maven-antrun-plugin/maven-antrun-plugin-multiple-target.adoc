@@ -1,5 +1,5 @@
 
-## 如何执行多个target?
+## maven-antrun-plugin 如何执行多个target?
 
 ### 问题背景
 
@@ -14,7 +14,7 @@
 
 
 ### 核心要点
-apache ant 的 `ant` task 有以下属性可以配置:
+apache ant 的 link:https://ant.apache.org/manual/Tasks/ant.html[ant] task 有以下属性可以配置:
 
 * "inheritAll"  : 默认继承当前上下文里所有 property。 默认: "true"
 * "inheritRefs" : 默认继承当前上下文里所有 引用/reference. 默认: "false".
