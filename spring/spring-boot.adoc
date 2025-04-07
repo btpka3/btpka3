@@ -226,3 +226,225 @@ org.springframework.context.annotation.ClassPathBeanDefinitionScanner
 
 ## autoConfiguration
 org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener
+
+
+
+### Filter bean 自动被注册
+
+- 参考：`org.springframework.boot.web.servlet.ServletContextInitializerBeans#addAdaptableBeans`
+- 参考: link:https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-disable-registration-of-a-servlet-or-filter [Disable Registration of a Servlet or Filter]
+
+解法
+[source,java]
+----
+@Bean
+public FilterRegistrationBean filterRegistrationBean() throws Exception {
+    FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+    filterRegistrationBean.setEnabled(false);
+    filterRegistrationBean.setFilter(authenticationTokenFilterBean());
+    return filterRegistrationBean;
+}
+----
+
+
+### META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.replacements
+### META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+
+spring boot 3.4: 《link:https://docs.spring.io/spring-boot/reference/features/developing-auto-configuration.html#features.developing-auto-configuration.locating-auto-configuration-candidates[Creating Your Own Auto-configuration]》
+
+相比 `META-INF/spring.factories` 的优点
+
+* 按需加载
+* 无反射操作
+* 强类型检查
+
+相关类:
+
+. org.springframework.boot.autoconfigure.EnableAutoConfiguration#getCandidateConfigurations
+. org.springframework.boot.autoconfigure.AutoConfigurationImportSelector
+. org.springframework.boot.autoconfigure.AutoConfiguration        # spring boot 2.7 新增
+. org.springframework.boot.context.annotation.ImportCandidates    # spring boot 2.7 新增, 加载 "META-INF/spring/%s.imports" 文件
+. org.springframework.boot.autoconfigure.ImportAutoConfiguration
+
+哪些扩展点使用该机制?
+
+. org.springframework.boot.autoconfigure.AutoConfiguration
+. interface org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration
+
+
+[source,java]
+----
+package your.packages;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+
+@AutoConfiguration(  // ⭕️ 注意: 配置该注解
+    beforeName = "org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration",
+    afterName = "org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration"
+)
+@ConditionalOnClass(Xxx.class)
+public class MyAutoConfiguration {
+
+	// Auto-configured beans ...
+
+	@Configuration(proxyBeanMethods = false)
+	@ConditionalOnClass(SomeService.class)
+	public static class SomeServiceConfiguration {
+
+		@Bean
+		@ConditionalOnMissingBean
+		public SomeService someService() {
+			return new SomeService();
+		}
+	}
+}
+----
+
+module-info.java
+[source,java]
+----
+module your.packages {
+    provides org.springframework.boot.autoconfigure.AutoConfiguration
+        with your.packages.MyAutoConfiguration;
+}
+----
+
+
+### META-INF/spring.factories 中的类没启动
+
+* org.springframework.boot.autoconfigure.EnableAutoConfiguration
+* org.springframework.boot.autoconfigure.AutoConfigurationImportSelector
+* org.springframework.boot.autoconfigure.AutoConfiguration
+* org.springframework.core.io.support.SpringFactoriesLoader#loadFactories 条件断点
+* 开启 trace 日志
+* 使用 META-INF/spring.factories 的不足
+** 硬编码依赖：需要显式写明类的全限定名
+** 类加载开销：启动时需要全量加载所有配置类
+** Java模块化系统支持差。
+
+[source,properties]
+----
+logging.level.org.springframework.core.io.support.SpringFactoriesLoader= TRACE
+----
+
+META-INF/spring.factories
+----
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  xxx.yyy.MyAutoConfiguration
+----
+
+MyAutoConfiguration.java
+[source,java]
+----
+pakcage xxx.yyy;
+@Configuration // ⭕️ 注意: 配置该注解
+@ConditionalOnClass(Xxx.class)
+public class MyAutoConfiguration {
+   // ...
+}
+----
+
+
+### META-INF/spring/aot.factories
+
+
+
+
+### @ConditionalOnProperty 表达式不成立
+
+- link:https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-troubleshoot-auto-configuration[Troubleshoot Auto-configuration]
+- org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport
+- 开启 debug 日志
+
+[source,properties]
+----
+logging.level.org.springframework.core.io.support.SpringFactoriesLoader= TRACE
+----
+
+
+## @ConfigurationProperties 的顺序？
+
+- ConfigurationPropertiesBindingPostProcessor
+
+
+## @Bean BeanFactoryPostProcessor 初始化
+[source,java]
+----
+/**
+ * 注意：这个是 BeanDefinitionRegistryPostProcessor，故
+ * - 方法参数不能依赖 @ConfigurationProperties 类，因为它们尚未初始化好。
+ * - 方法必须是 static 类型。否则会有初始化问题。
+ */
+@Bean
+//@ConfigurationProperties("my.prefix") // 这个不管用
+static MapperScannerConfigurer mapperScannerConfigurer(ConfigurableEnvironment env) {
+    MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+    mapperScannerConfigurer.setSqlSessionFactoryBeanName("yourBeanName");
+    ConfUtils.bind(env, "my.prefix", mapperScannerConfigurer);
+    return mapperScannerConfigurer;
+}
+----
+
+## @Value 中的占位符何时处理的？
+- PropertySourcesPlaceholderConfigurer
+-- 是 BeanFactoryPostProcessor
+-- 最低优先级
+
+- 可以通过 `ApplicationContext.getEnvironment().resolvePlaceholders("${x.zz:999}"` 来取值
+- 可以通过 `new RelaxedDataBinder(environment.getPropertySources(), "spring.my").bind(new PropertySourcesPropertyValues(propertySources));`
+    来 binding 对象
+
+## 给 bean 起别名
+
+[source,java]
+----
+/**
+ * 起别名: jdbcTemplate -> jdbcTemplateSmeta
+ *
+ * @param reg
+ */
+@Autowired
+public void test(ConfigurableBeanFactory reg) {
+    reg.registerAlias("jdbcTemplate", "jdbcTemplateSmeta");
+    reg.registerAlias("jdbcTemplate", "jdbcTemplateMtee");
+}
+----
+
+
+## metrics
+
+### 记录日志
+
+- Meters
+
+[source,java]
+----
+@Component
+@ExportMetricWriter
+public class MyMetricWriter implements MetricWriter, Closeable {
+
+    private static final Log logger = LogFactory.getLog(MyMetricWriter.class);
+
+
+    @Override
+    public void increment(Delta<?> delta) {
+        // record increment to log
+    }
+
+    @Override
+    public void set(Metric<?> value) {
+        // record set metric to log
+    }
+
+    @Override
+    public void reset(String name) {
+        // Not implemented
+    }
+
+    @Override
+    public void close() {
+    /// ...
+    }
+}
+----
+
+

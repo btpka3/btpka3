@@ -75,6 +75,11 @@ BDRPP : BeanDefinitionRegistryPostProcessor
 .. beanFactory 中 实现了 Ordered 接口的 BPP（及其依赖的bean）
 .. beanFactory 中 未实现 PriorityOrdered/Ordered 接口的 BPP（及其依赖的bean）
 
+
+Q : 如何注册 BeanFactoryPostProcessor ?
+. 将自定义 BFPP 生成成 spring bean
+. 通过 `ConfigurableApplicationContext#addBeanFactoryPostProcessor(BeanFactoryPostProcessor)` 编程式注册。
+
 Q : BeanFactoryPostProcessor 中如何获取 获取 org.springframework.core.env.Environment ?
 
 [source,java]
@@ -100,6 +105,96 @@ public static class MyBfpp implements BeanFactoryPostProcessor {
 
 
 
+
+== 扩展点
+- `META-INF/spring.factories`
+- `META-INF/spring.handlers` : spring xml 配置文件自定义 namespace 的 handler
+- `META-INF/spring.schemas`  :
+- `META-INF/spring.components` : 由 spring-context-indexer 自动生成
+- `META-INF/ra.xml` : deployment descriptor for Java EE RAR File
+- `META-INF/aop.xml` : spring 使用 AspectJ 进行 aop 的相关配置
+
+== META-INF/spring.factories 的相关扩展点有哪些？
+
+参考：
+源码： link:https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-autoconfigure/src/main/resources/META-INF/spring.factories[META-INF/spring.factories]
+相关类: org.springframework.core.io.support.SpringFactoriesLoader
+
+
+. org.springframework.boot.autoconfigure.EnableAutoConfiguration
+  参考: org.springframework.boot.autoconfigure.AutoConfigurationImportSelector ,
+.. spring boot 2.6.x
+    在 AutoConfigurationImportSelector#getCandidateConfigurations 中通过 通过  SpringFactoriesLoader.loadFactoryNames(EnableAutoConfiguration.class) 加载相关实现。
+... link:https://github.com/spring-projects/spring-boot/blob/2.6.x/spring-boot-project/spring-boot-autoconfigure/src/main/resources/META-INF/spring.factories#L25[META-INF/spring.factories]
+... link:https://github.com/spring-projects/spring-boot/blob/2.6.x/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/AutoConfigurationImportSelector.java#L178[AutoConfigurationImportSelector.java]
+
+
+
+.. spring boot 2.7.x
+... link:https://github.com/spring-projects/spring-boot/blob/2.7.x/spring-boot-project/spring-boot-autoconfigure/src/main/resources/META-INF/spring.factories[META-INF/spring.factories] 中不再有 EnableAutoConfiguration 相关扩展。
+... link:spring-boot-project/spring-boot-autoconfigure/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports[META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports] 而是通过该方式提供依赖。
+... link:https://github.com/spring-projects/spring-boot/blob/2.7.x/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/AutoConfigurationImportSelector.java#L181[AutoConfigurationImportSelector.java] getCandidateConfigurations() 方法中仍然保留了 通过  SpringFactoriesLoader.loadFactoryNames(EnableAutoConfiguration.class) 加载相关实现。
+
+
+
+哪些类使用该机制?
+
+. org.springframework.context.ApplicationListener
+. org.springframework.boot.env.EnvironmentPostProcessor
+. org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitializationDetector
+. org.springframework.cloud.bootstrap.BootstrapConfiguration
+. org.springframework.boot.diagnostics.FailureAnalyzer
+. org.springframework.boot.env.PropertySourceLoader
+. org.springframework.boot.SpringApplicationRunListener
+. org.springframework.boot.context.config.ConfigDataLocationResolver
+. org.springframework.boot.context.config.ConfigDataLoader
+. org.springframework.beans.factory.generator.BeanRegistrationContributionProvider
+. org.springframework.context.ApplicationContextInitializer
+. org.springframework.boot.actuate.autoconfigure.ManagementContextConfiguration
+. org.springframework.boot.autoconfigure.AutoConfigurationImportListener
+. org.springframework.boot.autoconfigure.template.TemplateAvailabilityProvider
+. org.springframework.boot.sql.init.dependency.DatabaseInitializerDetector
+. org.springframework.boot.autoconfigure.AutoConfigurationImportFilter
+. org.springframework.boot.autoconfigure.service.connection.ConnectionDetailsFactory
+. org.springframework.core.io.ProtocolResolver
+
+
 == Ordered + BeanPostProcessor 可以使用的特性
 
 - 作为 spring bean 来完成依赖注入
+
+
+
+== @Configuration
+相关类
+
+. org.springframework.context.annotation.Configuration
+. org.springframework.context.annotation.ConfigurationClass
+. org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader
+. org.springframework.context.annotation.ConfigurationClassParser#retrieveBeanMethodMetadata # 解析 @Bean 相关方法。
+. org.springframework.context.annotation.ConfigurationClassPostProcessor
+. org.springframework.boot.autoconfigure.SharedMetadataReaderFactoryContextInitializer
+. org.springframework.context.config.ContextNamespaceHandler  : 注册  `<annotation-config>` 对应的处理类
+. org.springframework.context.annotation.AnnotationConfigBeanDefinitionParser
+. org.springframework.context.annotation.AnnotationConfigUtils#registerAnnotationConfigProcessors
+
+[source,plain]
+----
+org.springframework.context.config.ContextNamespaceHandler  : 注册  `<annotation-config>` 对应的处理类
+=> org.springframework.context.annotation.AnnotationConfigBeanDefinitionParser
+=> org.springframework.context.annotation.AnnotationConfigUtils#registerAnnotationConfigProcessors
+=> org.springframework.context.annotation.ConfigurationClassPostProcessor
+    => org.springframework.context.annotation.ConfigurationClassParser#parse
+        #processConfigurationClass
+        #doProcessConfigurationClass
+          #processImports
+            #retrieveBeanMethodMetadata # 解析 @Bean 相关方法。
+    => org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader#loadBeanDefinitions()
+
+spring-boot-autoconfigure : META-INF/spring.factories
+=> org.springframework.context.ApplicationContextInitializer
+=> org.springframework.boot.autoconfigure.SharedMetadataReaderFactoryContextInitializer  # 使用 AnnotationConfigUtils#registerAnnotationConfigProcessors 注册的 ConfigurationClassPostProcessor
+
+
+
+----

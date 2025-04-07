@@ -1,0 +1,21 @@
+
+
+module-info.java
+[source,java]
+----
+// 当前java模块的模块名称
+module your.packages {
+    // 当前java模块需要依赖的外部模块
+    requires orthers.packages;
+    // 当前java模块对外提供的package
+    exports your.packages.api;
+    // 当前java模块允许外部通过java反射操作的package。
+    opens your.packages.utils;
+    // 当前java模块消费的外部服务
+    uses orthers.packages.XxxService;
+    // 当前java模块对外提供的服务（类似SPI机制）
+    provides xxx.packages.XxxInterface
+        with your.packages.yyyClass;
+}
+----
+

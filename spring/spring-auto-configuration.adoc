@@ -1,0 +1,49 @@
+
+== spring boot 3.x
+
+[source,plain]
+----
+@org.springframework.boot.autoconfigure.SpringBootApplication
+=> org.springframework.boot.autoconfigure.AutoConfigurationExcludeFilter#getAutoConfigurations
+=> org.springframework.boot.context.annotation.ImportCandidates#load
+=> "META-INF/spring/%s.imports" : org.springframework.boot.autoconfigure.AutoConfiguration.class
+
+@org.springframework.boot.autoconfigure.ImportAutoConfiguration
+=> org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector#getCandidateConfigurations
+=> org.springframework.boot.context.annotation.ImportCandidates#load
+=> "META-INF/spring/%s.imports" : org.springframework.boot.autoconfigure.AutoConfiguration.class
+
+@org.springframework.boot.autoconfigure.EnableAutoConfiguration
+=> org.springframework.boot.autoconfigure.AutoConfigurationImportSelector#getCandidateConfigurations  # spring boot 3.x
+=> org.springframework.boot.context.annotation.ImportCandidates#load
+=> "META-INF/spring/%s.imports" : org.springframework.boot.autoconfigure.AutoConfiguration.class
+----
+
+. spring boot 3.x link:https://github.com/spring-projects/spring-boot/blob/3.0.x/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/AutoConfigurationImportSelector.java#L179[AutoConfigurationImportSelector#getCandidateConfigurations] 仅仅使用 ImportCandidates 加载 "META-INF/spring/%s.imports"
+
+== spring boot 2.7.x
+. spring boot 2.7.x link:https://github.com/spring-projects/spring-boot/blob/2.7.x/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/AutoConfigurationImportSelector.java#L183[AutoConfigurationImportSelector#getCandidateConfigurations] 同时使用 SpringFactoriesLoader 加载 "META-INF/spring.factories", 使用 ImportCandidates 加载 "META-INF/spring/%s.imports"
+
+[source,plain]
+----
+@org.springframework.boot.autoconfigure.SpringBootApplication
+=> org.springframework.boot.autoconfigure.AutoConfigurationExcludeFilter#getAutoConfigurations
+=> org.springframework.core.io.support.SpringFactoriesLoader#loadFactoryNames  # 旧方式 : "META-INF/spring.factories"
+=> org.springframework.boot.context.annotation.ImportCandidates#load           # 新方式 : "META-INF/spring/%s.imports"
+=> "META-INF/spring/%s.imports" : org.springframework.boot.autoconfigure.AutoConfiguration.class
+
+@org.springframework.boot.autoconfigure.ImportAutoConfiguration
+=> org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector#getCandidateConfigurations
+=> org.springframework.boot.context.annotation.ImportCandidates#load
+=> "META-INF/spring/%s.imports" : org.springframework.boot.autoconfigure.AutoConfiguration.class
+
+@org.springframework.boot.autoconfigure.SpringBootApplication
+=> @org.springframework.boot.autoconfigure.EnableAutoConfiguration
+=> org.springframework.boot.autoconfigure.AutoConfigurationImportSelector#getCandidateConfigurations  # spring boot 3.x
+=> org.springframework.boot.context.annotation.ImportCandidates#load
+=> "META-INF/spring/%s.imports" : org.springframework.boot.autoconfigure.AutoConfiguration.class
+----
+
+
+
+. spring boot 2.6.x link:https://github.com/spring-projects/spring-boot/blob/2.6.x/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/AutoConfigurationImportSelector.java#L178[AutoConfigurationImportSelector#getCandidateConfigurations] 仅使用 SpringFactoriesLoader 加载 "META-INF/spring.factories"
