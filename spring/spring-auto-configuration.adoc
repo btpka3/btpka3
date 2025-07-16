@@ -1,6 +1,9 @@
 
 == spring boot 3.x
 
+link:https://docs.spring.io/spring-boot/reference/features/developing-auto-configuration.html#features.developing-auto-configuration.locating-auto-configuration-candidates.deprecating[Creating Your Own Auto-configuration]
+
+
 [source,plain]
 ----
 @org.springframework.boot.autoconfigure.SpringBootApplication
@@ -36,6 +39,7 @@
 => org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector#getCandidateConfigurations
 => org.springframework.boot.context.annotation.ImportCandidates#load
 => "META-INF/spring/%s.imports" : org.springframework.boot.autoconfigure.AutoConfiguration.class
+org.springframework.context.annotation.ConfigurationClassParser#processImports 加载相关类
 
 @org.springframework.boot.autoconfigure.SpringBootApplication
 => @org.springframework.boot.autoconfigure.EnableAutoConfiguration

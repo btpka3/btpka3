@@ -72,5 +72,12 @@ public interface TLRestore {
 
 
 ## 环境变量
+* 优先级: _JAVA_OPTIONS > java命令行参数 > JAVA_TOOL_OPTIONS
+
+* _JAVA_OPTIONS
 * JAVA_TOOL_OPTIONS : link:https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/envvars002.html[The JAVA_TOOL_OPTIONS Environment Variable]
 
+* JDK_JAVA_OPTIONS
+* JDK_JAVAC_OPTIONS
+
+* JAVA_OPTS: apache tomcat 等java程序会使用

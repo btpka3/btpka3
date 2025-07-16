@@ -1,26 +1,28 @@
-[apline linux](https://www.alpinelinux.org/) 使用
-的是 [OpenRC](https://docs.alpinelinux.org/user-handbook/0.1a/Working/openrc.html)
+link:https://www.alpinelinux.org/[apline linux] 使用
+的是 link:https://docs.alpinelinux.org/user-handbook/0.1a/Working/openrc.html[OpenRC]
 作为 init service。
 
-# repo
-[Repositories](https://wiki.alpinelinux.org/wiki/Repositories)
+== repo
+link:https://wiki.alpinelinux.org/wiki/Repositories[Repositories]
 
-```shell
+[source,shell]
+----
 echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community/" >> /etc/apk/repositories
 echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing/"     >> /etc/apk/repositories
-```
-# docker
+----
+== docker
 
-```shell
-docker pull docker.io/library/alpine:3.18
+[source,shell]
+----
+podman pull docker.io/library/alpine:3.18
 docker run --rm -it docker.io/library/alpine:3.18 cat /etc/os-release
-```
+----
 
 
 
-# 支持 alpine 的包
+== 支持 alpine 的包
 
-可自行到 [这里](https://pkgs.alpinelinux.org/packages) 搜索。
+可自行到 link:https://pkgs.alpinelinux.org/packages[这里] 搜索。
 
 arm64已经与aarch64合并，因为aarch64和arm64指的是同一件事。
 
@@ -28,31 +30,32 @@ arm64已经与aarch64合并，因为aarch64和arm64指的是同一件事。
 - podman
 
 
-- jdk : aliababa
-  dragonwell : [alibabadragonwell/dragonwell:dragonwell-17.0.3.0.3.7_jdk-17.0.3-ga-alpine](https://hub.docker.com/layers/alibabadragonwell/dragonwell/dragonwell-17.0.3.0.3.7_jdk-17.0.3-ga-alpine/images/sha256-80c216958a8589e59bd769e8ed45b0268577bdb4896ca2c28e1a21f1e4438174?context=explore)
-- eclipse-temurin:8-jdk-alpine
-    - [eclipse-temurin:8-jdk-alpine](https://hub.docker.com/layers/library/eclipse-temurin/8-jdk-alpine/images/sha256-88faa301308c48dc55f3e94e518827bc22ee6b45d23377c85ad844fc673d9b6c?context=explore)
-    - [eclipse-temurin:11-jdk-alpine](https://hub.docker.com/layers/library/eclipse-temurin/11-jdk-alpine/images/sha256-b574575375b043cc24e26907b9a7ad3b51ee42614abcb34a5cc51196948ae5b5?context=explore)
-    - [eclipse-temurin:17-jdk-alpine](https://hub.docker.com/layers/library/eclipse-temurin/17-jdk-alpine/images/sha256-4f6f61ededa179586bd6679bb23c448bad317ca352ee253b6359650923e86c9a?context=explore)
+* jdk : aliababa
+  dragonwell : link:https://hub.docker.com/layers/alibabadragonwell/dragonwell/dragonwell-17.0.3.0.3.7_jdk-17.0.3-ga-alpine/images/sha256-80c216958a8589e59bd769e8ed45b0268577bdb4896ca2c28e1a21f1e4438174?context=explore[alibabadragonwell/dragonwell:dragonwell-17.0.3.0.3.7_jdk-17.0.3-ga-alpine]
+* eclipse-temurin:8-jdk-alpine
+** link:https://hub.docker.com/layers/library/eclipse-temurin/8-jdk-alpine/images/sha256-88faa301308c48dc55f3e94e518827bc22ee6b45d23377c85ad844fc673d9b6c?context=explore[eclipse-temurin:8-jdk-alpine]
+** link:https://hub.docker.com/layers/library/eclipse-temurin/11-jdk-alpine/images/sha256-b574575375b043cc24e26907b9a7ad3b51ee42614abcb34a5cc51196948ae5b5?context=explore[eclipse-temurin:11-jdk-alpine]
+** link:https://hub.docker.com/layers/library/eclipse-temurin/17-jdk-alpine/images/sha256-4f6f61ededa179586bd6679bb23c448bad317ca352ee253b6359650923e86c9a?context=explore[eclipse-temurin:17-jdk-alpine]
 
-- maven:
-      [maven:3.9.2-eclipse-temurin-11-alpine](https://hub.docker.com/layers/library/maven/3.9.2-eclipse-temurin-11-alpine/images/sha256-76573f73fa5c642bab4b4faad08ee949900e8f98e8dd1195b679326d1fffb521?context=explore)
+* maven:
+** link:https://hub.docker.com/layers/library/maven/3.9.2-eclipse-temurin-11-alpine/images/sha256-76573f73fa5c642bab4b4faad08ee949900e8f98e8dd1195b679326d1fffb521?context=explore[maven:3.9.2-eclipse-temurin-11-alpine]
 
-      ```shell
-      podman run -it --rm --name my-maven-project \
-           -v "$(pwd)":/data \
-           -v "${HOME}/.m2/repository":/usr/share/maven/ref/repository \
-           -v "${HOME}/.m2/settings.xml":/usr/share/maven/ref/settings.xml \
-           -w /data \
-           maven:3.9.2-eclipse-temurin-11-alpine \
-           mvn \
-               -Dautoconfig.skip=true \
-               -Denforcer.skip=true \
-               -Dmaven.test.skip \
-               clean install \
-               -am \
-               -pl sar
-      ```
+[source,shell]
+----
+podman run -it --rm --name my-maven-project \
+    -v "$(pwd)":/data \
+    -v "${HOME}/.m2/repository":/usr/share/maven/ref/repository \
+    -v "${HOME}/.m2/settings.xml":/usr/share/maven/ref/settings.xml \
+    -w /data \
+    maven:3.9.2-eclipse-temurin-11-alpine \
+    mvn \
+        -Dautoconfig.skip=true \
+        -Denforcer.skip=true \
+        -Dmaven.test.skip \
+        clean install \
+        -am \
+        -pl sar
+----
 
 
 
@@ -75,7 +78,7 @@ arm64已经与aarch64合并，因为aarch64和arm64指的是同一件事。
 | ceph-dev          | Y      | Y       |
 | s3fs-fuse         | Y      | Y       |
 
-# alpine/busybox
+== alpine/busybox
 
 ```bash
 podman run --rm -it alpine:latest sh
@@ -158,21 +161,21 @@ setup-timezone -z Asia/Shanghai
 
 ## 参考
 
-- [Building a modified kernel for Alpine Linux](https://strfry.org/blog/building-alpine-kernel.html)
+- link:https://strfry.org/blog/building-alpine-kernel.html[Building a modified kernel for Alpine Linux]
 
 
-# virtual box
+== virtual box
 
-see : https://linuxhint.com/install-alpine-linux-virtualbox/
-https://wiki.alpinelinux.org/wiki/VirtualBox_shared_folders
 
-How to mount a VirtualBox shared folder when the Guest OS boots
-https://gist.github.com/kentwait/ea49b270f4f7480541409c5ded093ec9
+** link:https://linuxhint.com/install-alpine-linux-virtualbox/
+** https://wiki.alpinelinux.org/wiki/VirtualBox_shared_folders
 
-How to add and delete Static Routes on macOS (persistently)
-https://www.analysisman.com/2020/11/macos-staticroutes.html
+** link:https://gist.github.com/kentwait/ea49b270f4f7480541409c5ded093ec9[How to mount a VirtualBox shared folder when the Guest OS boots]
 
-```shell
+** link:https://www.analysisman.com/2020/11/macos-staticroutes.html[How to add and delete Static Routes on macOS (persistently)]
+
+[source,shell]
+----
 # virtual box 中插入光盘 alpine 的标准版 ISO 后启动
 # 输入 `root` 完成登录
 
@@ -320,14 +323,15 @@ vi /home/admin/.config/containers/storage.conf
 graphroot = "/Users/zll/.local/share/containers/storage"
 
 Error: a network file system with user namespaces is not supported.  Please use a mount_program: backing file system is unsupported for this graph driver
-```
+----
 
 
-# dmidecode
+== dmidecode
 
-# sysstat
+== sysstat
 
-```bash
+[source,shell]
+----
 /usr/bin/cifsiostat
 /usr/bin/iostat
 /usr/bin/mpstat
@@ -338,4 +342,4 @@ Error: a network file system with user namespaces is not supported.  Please use 
 /usr/lib/sa/sa1
 /usr/lib/sa/sa2
 /usr/lib/sa/sadc
-```
+----

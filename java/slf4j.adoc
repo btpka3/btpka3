@@ -134,6 +134,11 @@ link:https://github.com/logfellow/logstash-logback-encoder/blob/logstash-logback
 
 
 
+== jul
+
+- java.util.logging.Handler
+-- link:https://tomcat.apache.org/tomcat-7.0-doc/api/org/apache/juli/FileHandler.html[org.apache.juli.FileHandler]  apache-tomcat 的实现
+
 
 
 

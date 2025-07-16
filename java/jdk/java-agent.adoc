@@ -18,3 +18,11 @@ Instrumentation
 -javaagent:<jarpath>[=<选项>]
 	加载 Java 编程语言代理, 请参阅 java.lang.instrument
 ----
+
+
+常见的 java agent 使用的框架:
+
+- link:https://arthas.aliyun.com/[alibaba arthas]
+- link:https://github.com/alibaba/jvm-sandbox[alibaba/jvm-sandbox]
+- jacoco
+

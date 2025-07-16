@@ -18,7 +18,9 @@ brew install \
     podman-compose
 
 sudo /usr/local/Cellar/podman/4.5.0/bin/podman-mac-helper install
-
+podman machine list
+podman machine stop
+podman machine rm
 # 注意：初始化maichine的时候，都要设置一下数据卷
 # 因为 当宿主机是 MacOS 时，docker 命令的相关数据卷挂在 在其完全虚拟机 Fedora CoreOS 中执行的，而不是在 MacOS 上执行的。
 podman machine init -v $HOME:$HOME --now --cpus=2 --memory=2048 --disk-size=30

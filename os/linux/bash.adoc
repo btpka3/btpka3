@@ -43,6 +43,14 @@ echo -e '\0101'         # 按8进制输出
 echo -e '\x41'          # 按16进制输出
 echo -e '\u41'
 
+# 当要输出的文本很长，需要换行，但不期望插入空格时，可仿照以下格式输出：
+# 注意：每一行的开始、结尾均不要有空格
+# 示例输出结果: "aaabbbccc"
+echo \
+"aaa"\
+"bbb"\
+"ccc"
+
 ----
 
 echo -e '\x41'
@@ -199,9 +207,39 @@ fi
 # test
 
 
-```shell
 
-```
+## kill
+
+[source,shell]
+----
+# 查看所有linux 信号
+kill -l
+# 2) SIGINT     # Ctrl+C
+# 3) SIGQUIT    # Ctrl+\
+# 9) SIGKILL    # 强制终止
+# 15) SIGTERM   # 可以被阻塞和处理， kill 命令默认是这个信号。
+# 19) SIGSTOP   # 停止程序的执行。但进程还未结束。该信号不可被阻塞、被处理、或忽略。
+
+# 检查 PID 是否存在。【推荐】
+if ps -p $PID > /dev/null
+then
+   echo "$PID is running"
+fi
+
+# 检查 PID 是否存在。 需要操作系统实现  procfs
+if test -d /proc/"$PID"/; then
+    echo "process exists"
+fi
+# 检查 PID 是否存在。【不推荐】如果进程存在，但没权限，其 $? 也会是 非0
+kill -0 $PID
+
+
+
+
+----
+
+## wait
+
 
 
 
@@ -273,6 +311,7 @@ tar -czvf - logs/ |split -b 1m - logs.tar.gz.
 
 # 只显示其中一个文件的内容
 unzip -p xxx.jar META-INF/MANIFEST.MF
+unzip -p ${JAVA_HOME}/lib/src.zip java.desktop/java/beans/Introspector.java
 
 # 只解压出其中一个文件
 unzip -j xxx.jar "sub-dir/eventDict.vm"   # 不创建子目录
@@ -291,6 +330,7 @@ tar -rf file.tar file1 file2 ...
 [source,shell]
 ----
 zip -r file.zip file1 file2 ...
+zip -r 
 #tar -uf file.tar file1 file2 ...
 tar -rf file.tar file1 file2 ...
 ----
@@ -313,7 +353,10 @@ tar -tjf file.tar.bz2
 #### list all
 [source,shell]
 ----
-  unzip file.zip -d outputDir
+  unzip file.zip -d outputDir    # 解压整个压缩包
+  unzip    file.zip in/archive/file1.txt in/archive/file2.txt -d outputDir  # 仅解压给定文件，会在输出目录中创建entry对应的目录层级
+  unzip -j file.zip in/archive/file1.txt in/archive/file2.txt -d outputDir  # 仅解压给定文件，不会在输出目录中创建entry对应的目录层级，而是将文件直接输出在输出目录的根目录中
+
   unzip -O GBK windows.zip       # 解压在Windows平台上创建的zip
   tar -xvf file.tar       -C outputDir # outputDir 必须先创建
   tar -xzvf file.tar.gz   -C outputDir # outputDir 必须先创建
@@ -363,4 +406,65 @@ zipnote -w commons-io-2.6.jar << EOF
 xxxx dfdfdf dff
 @ (comment above this line)
 EOF
+----
+
+
+== return and exit
+
+a.sh
+[source,shell]
+----
+#!/bin/bash
+
+echo 100
+./b.sh
+echo '==========b.sh :' $?
+echo 101
+./c.sh
+echo '==========c.sh :' $?
+echo 102
+----
+
+b.sh
+[source,shell]
+----
+#!/bin/bash
+
+function bbb(){
+  echo "211"
+  exit 2
+  echo "212"
+}
+echo "201"
+bbb
+echo "201"
+----
+
+c.sh
+[source,shell]
+----
+#!/bin/bash
+
+function ccc(){
+  echo "311"
+  exit 3
+  echo "312"
+}
+echo "301"
+ccc
+echo "301"
+----
+
+执行 a.sh 的输出
+[source,plain]
+----
+100
+201
+211
+==========b.sh : 2
+101
+301
+311
+==========c.sh : 3
+102
 ----

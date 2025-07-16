@@ -120,6 +120,59 @@ MacOS 的 Docker desktop ： Settings / Docker Engine 进行配置：
 }
 ----
 
+## mirror - 镜像加速
+
+|mirror domain                 |status  |mirror providr | desc|
+|------------------------------|--------|------------|---------|
+| <youId>.mirror.aliyuncs.com  |✅      |阿里云       ||
+| hub-mirror.c.163.com         |✅      |网易         ||
+| dockerproxy.com              |✅      |Docker Proxy||
+| 05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com              |✅      |华为云|https://support.huaweicloud.com/usermanual-swr/swr_01_0045.html|
+
+
+| mirror.baidubce.com          |🚫      |百度         |https://cloud.baidu.com/doc/CCE/s/Yjxppt74z|不稳定|
+| docker.mirrors.ustc.edu.cn   |🚫      |中科大       |不可用|
+| ccr.ccs.tencentyun.com       |🚫      |腾讯         |不可用|
+
+
+- ✅ 阿里云
+    - 加速域名: `<youId>.mirror.aliyuncs.com`
+    - 示例值: `3ibg8tk1.mirror.aliyuncs.com`
+    - 说明文档：阿里云: 容器镜像服务 ACR : 首页>容器镜像服务 ACR>镜像工具>官方镜像加速 : [官方镜像加速](https://help.aliyun.com/document_detail/60750.html)
+
+- ✅ 网易
+    - 加速域名: `hub-mirror.c.163.com`
+- ✅ Docker Proxy
+    - 加速域名: `dockerproxy.com`
+- ✅ 华为云
+    - 加速域名: `<xxx>.mirror.swr.myhuaweicloud.com`
+    - 示例值: `05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com`
+    - 说明文档： https://support.huaweicloud.com/usermanual-swr/swr_01_0045.html
+- 🚫 百度
+    - 加速域名: `mirror.baidubce.com`, 不稳定
+    - 说明文档： https://cloud.baidu.com/doc/CCE/s/Yjxppt74z|不稳定
+- 🚫 中科大
+    - 加速域名: `docker.mirrors.ustc.edu.cn`, 不可用
+- 🚫 腾讯云
+    - 加速域名: `ccr.ccs.tencentyun.com`, 不可用
+
+
+
+
+
+[source,shell]
+----
+# 从 docker hub 拉取镜像的完整命令
+podman pull docker.io/library/alpine:latest
+
+# 验证使用镜像拉取
+MIRROR=05f073ad3c0010ea0f4bc00b7105ec20.mirror.swr.myhuaweicloud.com
+podman pull ${MIRROR}/library/alpine:latest
+
+podman pull ccr.ccs.tencentyun.com/library/alpine:latest
+----
+
+
 ## 代理
 参考 link:tinyproxy.adoc[tinyproxy]
 

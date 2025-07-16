@@ -1,3 +1,6 @@
+:experimental:
+
+
 ## 参考
 
 * link:https://cn.dubbo.apache.org/zh-cn/index.html[apache dubbo]
@@ -206,18 +209,155 @@ FIXME: 如何禁用某个特定的SPI实现？
     - org.apache.dubbo.common.extension.ServicesLoadingStrategy : "META-INF/services/"  : 优先级最低， overridden = true
 
 ----
-FIXME: apache dubbo 有多少个 SPI ?
 
 
+SPI列表
+
+PS: 可以在 idea intellij : Edit : Find : Search Structurally... :
+基于 'class, interface & enums' ，再增加 '@SPI' 注解，scope="Project and Libraries" 进行搜索即可。
+
+搜素完的结果，可以全部选中，在按 相应的 'Copy | Paste Special : Copy Reference'  快捷键(MacOS上的是 kbd:[Alt+Shift+Cmd+C] ）复制出所有类名。
+
+
+[source,plain]
+----
+com.alibaba.dubbo.common.extension.ExtensionFactory
+com.alibaba.dubbo.container.page.PageHandler
+org.apache.dubbo.auth.spi.AccessKeyStorage
+org.apache.dubbo.auth.spi.Authenticator
+org.apache.dubbo.cache.CacheFactory
+org.apache.dubbo.common.compiler.Compiler
+org.apache.dubbo.common.config.configcenter.DynamicConfigurationFactory
+org.apache.dubbo.common.config.OrderedPropertiesProvider
+org.apache.dubbo.common.context.ApplicationExt
+org.apache.dubbo.common.context.ModuleExt
+org.apache.dubbo.common.convert.multiple.MultiValueConverter
+org.apache.dubbo.common.convert.Converter
+org.apache.dubbo.common.deploy.ApplicationDeployListener
+org.apache.dubbo.common.deploy.ModuleDeployListener
+org.apache.dubbo.common.extension.ExtensionFactory
+org.apache.dubbo.common.extension.ExtensionInjector
+org.apache.dubbo.common.infra.InfraAdapter
+org.apache.dubbo.common.json.JsonUtil
+org.apache.dubbo.common.lang.ShutdownHookCallback
+org.apache.dubbo.common.logger.LoggerAdapter
+org.apache.dubbo.common.serialize.MultipleSerialization
+org.apache.dubbo.common.serialize.Serialization
+org.apache.dubbo.common.ssl.CertProvider
+org.apache.dubbo.common.status.reporter.FrameworkStatusReporter
+org.apache.dubbo.common.status.StatusChecker
+org.apache.dubbo.common.store.DataStore
+org.apache.dubbo.common.threadpool.event.ThreadPoolExhaustedListener
+org.apache.dubbo.common.threadpool.manager.ExecutorRepository
+org.apache.dubbo.common.threadpool.ThreadPool
+org.apache.dubbo.common.url.component.param.DynamicParamSource
+org.apache.dubbo.common.utils.ParameterNameReader
+org.apache.dubbo.config.bootstrap.DubboBootstrapStartStopListener
+org.apache.dubbo.config.spring.context.DubboSpringInitCustomizer
+org.apache.dubbo.config.ConfigInitializer
+org.apache.dubbo.config.ConfigPostProcessor  # ⭕️
+org.apache.dubbo.config.ServiceListener
+org.apache.dubbo.metadata.definition.builder.TypeBuilder
+org.apache.dubbo.metadata.report.MetadataReportFactory
+org.apache.dubbo.metadata.MetadataParamsFilter
+org.apache.dubbo.metadata.ServiceNameMapping
+org.apache.dubbo.metrics.collector.MetricsCollector
+org.apache.dubbo.metrics.report.MetricsReporterFactory
+org.apache.dubbo.metrics.service.MetricsService
+org.apache.dubbo.metrics.service.MetricsServiceExporter
+org.apache.dubbo.monitor.MonitorFactory
+org.apache.dubbo.qos.api.BaseCommand
+org.apache.dubbo.qos.permission.PermissionChecker
+org.apache.dubbo.qos.probe.LivenessProbe
+org.apache.dubbo.qos.probe.ReadinessProbe
+org.apache.dubbo.qos.probe.StartupProbe
+org.apache.dubbo.registry.client.metadata.MetadataServiceURLBuilder
+org.apache.dubbo.registry.client.metadata.ServiceInstanceNotificationCustomizer
+org.apache.dubbo.registry.client.migration.MigrationAddressComparator
+org.apache.dubbo.registry.client.migration.PreMigratingConditionChecker
+org.apache.dubbo.registry.client.RegistryClusterIdentifier
+org.apache.dubbo.registry.client.ServiceDiscoveryFactory
+org.apache.dubbo.registry.client.ServiceInstanceCustomizer
+org.apache.dubbo.registry.integration.RegistryProtocolListener
+org.apache.dubbo.registry.integration.ServiceURLCustomizer
+org.apache.dubbo.registry.AddressListener
+org.apache.dubbo.registry.ProviderFirstParams
+org.apache.dubbo.registry.RegistryFactory
+org.apache.dubbo.registry.RegistryServiceListener
+org.apache.dubbo.remoting.api.connection.ConnectionManager
+org.apache.dubbo.remoting.api.pu.PortUnificationTransporter
+org.apache.dubbo.remoting.api.WireProtocol
+org.apache.dubbo.remoting.exchange.Exchanger
+org.apache.dubbo.remoting.http12.h1.Http1ServerTransportListenerFactory
+org.apache.dubbo.remoting.http12.h2.Http2ServerTransportListenerFactory
+org.apache.dubbo.remoting.http12.message.HttpMessageAdapterFactory
+org.apache.dubbo.remoting.http12.message.HttpMessageDecoderFactory
+org.apache.dubbo.remoting.http12.message.HttpMessageEncoderFactory
+org.apache.dubbo.remoting.http12.ExceptionHandler
+org.apache.dubbo.remoting.http3.Http3ServerTransportListenerFactory
+org.apache.dubbo.remoting.telnet.TelnetHandler
+org.apache.dubbo.remoting.transport.netty4.ChannelAddressAccessor
+org.apache.dubbo.remoting.websocket.WebSocketServerTransportListenerFactory
+org.apache.dubbo.remoting.ChannelHandler
+org.apache.dubbo.remoting.Codec
+org.apache.dubbo.remoting.Codec2
+org.apache.dubbo.remoting.Dispatcher
+org.apache.dubbo.remoting.Transporter
+org.apache.dubbo.rpc.cluster.filter.ClusterFilter
+org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder
+org.apache.dubbo.rpc.cluster.filter.InvocationInterceptorBuilder
+org.apache.dubbo.rpc.cluster.governance.GovernanceRuleRepository
+org.apache.dubbo.rpc.cluster.interceptor.ClusterInterceptor
+org.apache.dubbo.rpc.cluster.router.condition.matcher.pattern.ValuePattern
+org.apache.dubbo.rpc.cluster.router.condition.matcher.ConditionMatcherFactory
+org.apache.dubbo.rpc.cluster.router.mesh.route.MeshEnvListenerFactory
+org.apache.dubbo.rpc.cluster.router.mesh.util.TracingContextProvider
+org.apache.dubbo.rpc.cluster.router.state.StateRouterFactory
+org.apache.dubbo.rpc.cluster.Cluster
+org.apache.dubbo.rpc.cluster.ConfiguratorFactory
+org.apache.dubbo.rpc.cluster.LoadBalance
+org.apache.dubbo.rpc.cluster.Merger
+org.apache.dubbo.rpc.cluster.ProviderURLMergeProcessor
+org.apache.dubbo.rpc.cluster.RouterFactory
+org.apache.dubbo.rpc.cluster.RuleConverter
+org.apache.dubbo.rpc.executor.IsolationExecutorSupportFactory
+org.apache.dubbo.rpc.model.ApplicationInitListener
+org.apache.dubbo.rpc.model.BuiltinServiceDetector
+org.apache.dubbo.rpc.model.PackableMethodFactory
+org.apache.dubbo.rpc.model.ScopeModelInitializer
+org.apache.dubbo.rpc.protocol.dubbo.ByteAccessor
+org.apache.dubbo.rpc.protocol.injvm.ParamDeepCopyUtil
+org.apache.dubbo.rpc.protocol.tri.compressor.Compressor
+org.apache.dubbo.rpc.protocol.tri.compressor.DeCompressor
+org.apache.dubbo.rpc.protocol.tri.rest.argument.ArgumentConverter
+org.apache.dubbo.rpc.protocol.tri.rest.argument.ArgumentResolver
+org.apache.dubbo.rpc.protocol.tri.rest.filter.RestExtension
+org.apache.dubbo.rpc.protocol.tri.rest.filter.RestExtensionAdapter
+org.apache.dubbo.rpc.protocol.tri.rest.mapping.RequestMappingResolver
+org.apache.dubbo.rpc.protocol.tri.rest.openapi.OpenAPIExtension
+org.apache.dubbo.rpc.protocol.tri.route.RequestHandlerMapping
+org.apache.dubbo.rpc.protocol.tri.stream.ClientStreamFactory
+org.apache.dubbo.rpc.ExporterListener
+org.apache.dubbo.rpc.Filter
+org.apache.dubbo.rpc.HeaderFilter
+org.apache.dubbo.rpc.InvokerListener
+org.apache.dubbo.rpc.PathResolver
+org.apache.dubbo.rpc.PenetrateAttachmentSelector
+org.apache.dubbo.rpc.Protocol
+org.apache.dubbo.rpc.ProxyFactory
+org.apache.dubbo.rpc.ZoneDetector
+org.apache.dubbo.spring.security.jackson.ObjectMapperCodecCustomer
+org.apache.dubbo.validation.Validation
+----
 
 
 ### org.apache.dubbo.rpc.cluster.filter.ClusterFilter
 
 
 
-
+----
 hsf://30.196.226.97/com.alibaba.dangqian.HiService?REGISTRY_CLUSTER=GLOBAL&application=unknow_project_name&background=false&check=false&dubbo=2.0.2&dubbo.metadata.storage-type=remote&group=HSF&include_filter=-cluster-filter&include_router=-cluster-router&init=true&interface=com.alibaba.dangqian.HiService&interfaces=com.alibaba.dangqian.HiService,com.taobao.hsf.remoting.service.GenericService,com.taobao.hsf.remoting.service.EchoService,org.apache.dubbo.rpc.service.GenericService,com.alibaba.dubbo.rpc.service.GenericService&loadbalance=hsfrandom&logger=dubbo-to-hsf&mapping-type=metadata&maxWaitAddressTime=3000&metadata-type=remote&methods=sayHello,sayHi&mg=unknown&migration.delay=10&migration.force=false&migration.step=FORCE_INTERFACE&migration.threshold=0.0&pid=5411&protocol=hsf&proxy=jdk&reference.filter=-genericimpl,-cluster-filter&register-mode=interface&register.ip=30.196.226.97&registry-cluster-type=msha&release=&retries=0&revision=1.0.2-SNAPSHOT&router=-app,-condition,-standard-mesh-rule,-service,-tag,-cluster-router&scope=remote&side=consumer&sticky=false&timeout=300000&timestamp=1705542554802&url-merge-processor=hsf&ut=CENTER&version=1.0.0
-
+----
 
 
 
@@ -434,7 +574,9 @@ configs:
 
 ## triple 协议
 
-link:https://cn.dubbo.apache.org/zh-cn/overview/mannual/java-sdk/tasks/protocols/rest/[发布 REST 风格的服务]
+- link:https://cn.dubbo.apache.org/zh-cn/overview/mannual/java-sdk/tasks/protocols/rest/[发布 REST 风格的服务]
+- org.apache.dubbo.rpc.protocol.tri.TriplePathResolver
+- org.apache.dubbo.rpc.protocol.tri.TripleProtocol#link:https://github.com/apache/dubbo/blob/3.3/dubbo-rpc/dubbo-rpc-triple/src/main/java/org/apache/dubbo/rpc/protocol/tri/TripleProtocol.java#L98[getDefaultPort]
 
 [source,shell]
 ----
@@ -474,3 +616,419 @@ curl  \
 
 ----
 
+相关类:
+
+- org.apache.dubbo.rpc.protocol.tri.rest.mapping.Registration#mapping
+- org.apache.dubbo.rpc.protocol.tri.rest.mapping.RequestMapping#consumesCondition
+- org.apache.dubbo.rpc.protocol.tri.rest.mapping.condition.ConsumesCondition#match
+- org.apache.dubbo.rpc.protocol.tri.rest.mapping.condition.ServiceGroupVersionCondition
+
+[source,bash]
+----
+# 检查注册的路径
+vmtool -x 3 --action getInstances --className org.apache.dubbo.rpc.protocol.tri.rest.mapping.DefaultRequestMappingRegistry  \
+--express 'instances[0].tree.directPathMap.keySet().{ #this.toString() }'
+
+vmtool -x 3 -c 78a7fc27 --action getInstances --className org.apache.dubbo.rpc.protocol.tri.rest.mapping.DefaultRequestMappingRegistry  --express '
+#path="/com.alibaba.security.tenant.common.service.RequestService/request",
+#keyString=new org.apache.dubbo.rpc.protocol.tri.rest.util.KeyString(#path),
+instances[0].tree.directPathMap.get(#keyString)[0].value.mapping.customCondition
+'
+
+# dubbo.rpc.tri.resolve-fallback-to-default=false
+ognl -c 78a7fc27 '@org.apache.dubbo.rpc.protocol.tri.TripleProtocol@RESOLVE_FALLBACK_TO_DEFAULT'
+ognl -c 78a7fc27 '@org.apache.dubbo.rpc.protocol.tri.TripleProtocol@class.getField("RESOLVE_FALLBACK_TO_DEFAULT").setBoolean(null,false)'
+
+#
+
+ognl -c 78a7fc27 '
+#appModel=@org.apache.dubbo.rpc.model.ApplicationModel@defaultModel(),
+#conf=@org.apache.dubbo.common.config.ConfigurationUtils@getEnvConfiguration(#appModel),
+#conf.getClass().getName()
+'
+----
+
+
+[source,plain]
+----
+ts=2025-04-11 17:01:01.925;thread_name=DubboServerHandler-169.254.245.134:50051-thread-51;id=13763;is_daemon=true;priority=5;TCCL=com.alibaba.security.mtee.bundle.framework.core.loader.JiugongBundleClassLoader@33e3d49d;trace_id=a9fef58617443620618986475dd92f;rpc_id=9
+    @com.taobao.mbus.biz.message.impl.RequestServiceImpl.request()
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:566)
+        at com.taobao.mbus.biz.message.impl.hsf.HsfMessageSourceListener.invoke(HsfMessageSourceListener.java:78)
+        at com.sun.proxy.$Proxy159.request(null:-1)
+        at com.alibaba.security.tenant.common.service.RequestServiceDubboWrap3.invokeMethod(RequestServiceDubboWrap3.java:-1)
+        at org.apache.dubbo.rpc.proxy.javassist.JavassistProxyFactory$1.doInvoke(JavassistProxyFactory.java:89)
+        at org.apache.dubbo.rpc.proxy.AbstractProxyInvoker.invoke(AbstractProxyInvoker.java:100)
+        at org.apache.dubbo.config.invoker.DelegateProviderMetaDataInvoker.invoke(DelegateProviderMetaDataInvoker.java:55)
+        at org.apache.dubbo.rpc.protocol.InvokerWrapper.invoke(InvokerWrapper.java:56)
+        at org.apache.dubbo.rpc.filter.ClassLoaderCallbackFilter.invoke(ClassLoaderCallbackFilter.java:38)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.protocol.tri.rest.filter.RestExtensionExecutionFilter.lambda$invoke$0(RestExtensionExecutionFilter.java:79)
+        at org.apache.dubbo.rpc.protocol.tri.rest.filter.DefaultFilterChain.doFilter(DefaultFilterChain.java:62)
+        at org.apache.dubbo.rpc.protocol.tri.rest.filter.RestFilter.doFilter(RestFilter.java:28)
+        at org.apache.dubbo.rpc.protocol.tri.rest.filter.DefaultFilterChain.doFilter(DefaultFilterChain.java:58)
+        at org.apache.dubbo.rpc.protocol.tri.rest.filter.DefaultFilterChain.execute(DefaultFilterChain.java:51)
+        at org.apache.dubbo.rpc.protocol.tri.rest.filter.RestExtensionExecutionFilter.invoke(RestExtensionExecutionFilter.java:82)
+        at org.apache.dubbo.rpc.protocol.tri.rest.filter.RestFilterAdapter.invoke(RestFilterAdapter.java:36)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.protocol.tri.h12.HttpContextCallbackFilter.invoke(HttpContextCallbackFilter.java:37)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.protocol.dubbo.filter.TraceFilter.invoke(TraceFilter.java:80)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.TimeoutFilter.invoke(TimeoutFilter.java:45)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.monitor.support.MonitorFilter.invoke(MonitorFilter.java:109)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.ExceptionFilter.invoke(ExceptionFilter.java:55)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.AccessLogFilter.invoke(AccessLogFilter.java:120)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.GenericFilter.invoke(GenericFilter.java:222)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.protocol.tri.h12.HttpContextFilter.invoke(HttpContextFilter.java:50)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.ClassLoaderFilter.invoke(ClassLoaderFilter.java:54)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.EchoFilter.invoke(EchoFilter.java:41)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.metrics.filter.MetricsFilter.invoke(MetricsFilter.java:86)
+        at org.apache.dubbo.metrics.filter.MetricsProviderFilter.invoke(MetricsProviderFilter.java:37)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.ProfilerServerFilter.invoke(ProfilerServerFilter.java:66)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.ContextFilter.invoke(ContextFilter.java:191)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CallbackRegistrationInvoker.invoke(FilterChainBuilder.java:197)
+        at org.apache.dubbo.rpc.protocol.tri.h12.AbstractServerCallListener.invoke(AbstractServerCallListener.java:76)
+        at org.apache.dubbo.rpc.protocol.tri.h12.UnaryServerCallListener.onComplete(UnaryServerCallListener.java:50)
+        at org.apache.dubbo.rpc.protocol.tri.h12.http1.DefaultHttp11ServerTransportListener$AutoCompleteUnaryServerCallListener.onMessage(DefaultHttp11ServerTransportListener.java:120)
+        at org.apache.dubbo.remoting.http12.message.DefaultListeningDecoder.decode(DefaultListeningDecoder.java:42)
+        at org.apache.dubbo.rpc.protocol.tri.h12.DefaultHttpMessageListener.onMessage(DefaultHttpMessageListener.java:39)
+        at org.apache.dubbo.rpc.protocol.tri.h12.AbstractServerTransportListener.doOnData(AbstractServerTransportListener.java:183)
+        at org.apache.dubbo.rpc.protocol.tri.h12.AbstractServerTransportListener.lambda$onData$1(AbstractServerTransportListener.java:168)
+        at org.apache.dubbo.common.threadpool.serial.SerializingExecutor.run(SerializingExecutor.java:105)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+        at org.apache.dubbo.common.threadlocal.InternalRunnable.run(InternalRunnable.java:39)
+        at java.lang.Thread.run(Thread.java:991)
+----
+
+
+## 异步调用
+
+- com.alibaba.dubbo.rpc.support.RpcUtils#isAsync
+
+
+stack org.apache.dubbo.rpc.protocol.dubbo.DubboProtocol refer
+
+
+
+== dubbo-metrics
+- org.apache.dubbo.metrics.service.MetricsService
+- org.apache.dubbo.metrics.filter.MetricsFilter
+- org.apache.dubbo.metrics.event.MetricsEvent
+- org.apache.dubbo.metrics.event.MetricsEventMulticaster#addListener
+
+- link:https://cn.dubbo.apache.org/en/overview/mannual/java-sdk/reference-manual/merics/meter/[metrics]
+
+
+== thread-pool
+org.apache.dubbo.common.threadpool.ThreadPool
+
+link:https://cn.dubbo.apache.org/zh-cn/overview/mannual/java-sdk/tasks/framework/threading-model/[消费端线程模型，提供者端线程模型]
+
+
+## 配置
+
+[source,xml]
+----
+-Ddubbo.protocol.threads=500
+<!-- 能进700，并发500 ??? -->
+<dubbo:protocol name="dubbo" port="20880"
+                threads="500"
+                queues="200"
+                accepts="700"/>
+----
+
+link:https://cn.dubbo.apache.org/zh-cn/overview/mannual/java-sdk/reference-manual/config/properties/[配置项参考手册]
+
+- org.apache.dubbo.common.constants.CommonConstants#THREADS_KEY
+- org.apache.dubbo.common.constants.CommonConstants#DEFAULT_THREADS
+
+- org.apache.dubbo.common.config.Configuration
+- org.apache.dubbo.common.config.SystemConfiguration
+- org.apache.dubbo.config.ProtocolConfig
+- com.alibaba.dubbo.config.ProviderConfig # 获取 ProtocolConfig
+- org.apache.dubbo.rpc.protocol.tri.websocket.TripleEndpoint#onOpen
+- org.apache.dubbo.config.nested.TripleConfig
+- org.apache.dubbo.common.threadpool.manager.DefaultExecutorRepository#updateThreadpool
+- org.apache.dubbo.remoting.Dispatcher
+-- org.apache.dubbo.remoting.transport.dispatcher.all.AllDispatcher
+-- org.apache.dubbo.remoting.transport.dispatcher.direct.DirectDispatcher
+-- org.apache.dubbo.remoting.transport.dispatcher.execution.ExecutionDispatcher
+-- org.apache.dubbo.remoting.transport.dispatcher.message.MessageOnlyDispatcher
+-- org.apache.dubbo.remoting.transport.dispatcher.connection.ConnectionOrderedDispatcher
+- org.apache.dubbo.remoting.transport.dispatcher.WrappedChannelHandler#getSharedExecutorService()
+- org.apache.dubbo.common.threadpool.manager.ExecutorRepository
+- org.apache.dubbo.common.threadpool.manager.IsolationExecutorRepository
+
+- org.apache.dubbo.common.threadpool.ThreadPool # SPI
+- org.apache.dubbo.common.threadpool.support.fixed.FixedThreadPool # 默认实现
+- org.apache.dubbo.common.threadpool.support.cached.CachedThreadPool
+- org.apache.dubbo.common.threadpool.support.eager.EagerThreadPool
+- org.apache.dubbo.common.threadpool.support.limited.LimitedThreadPool
+
+-Ddubble.protocol.threads=400
+
+[source,yaml]
+----
+dubbo:
+  protocol:          # org.apache.dubbo.config.ProtocolConfig
+    name: dubbo
+    port: -1
+    dispatcher: all     # 服务端的线程模型
+                        # "all" （默认）, "direct", "execution", "message", "connection"
+    threadpool: fixed   # 线程池类型
+                        # "fixed"   : 固定大小的线程池类型，默认
+                        # "cached"  : 缓存线程池，根据需要创建新线程。
+                        # "limited" : 有限线程池，线程数有限，任务队列无限。
+                        # "eager"   : 优先创建新线程的线程池。
+    threads: 200        # 线程池大小
+    corethreads: 100    #
+    iothreads: 8        # IO线程数
+    queues: 500         # 任务队列长度
+    alive:100           # 毫秒, => ThreadPoolExecutor#keepAliveTime (这里是纳秒/ns)
+----
+
+初始化 dobbo provider 时的 URL
+[source,plain]
+----
+# org.apache.dubbo.common.threadpool.manager.IsolationExecutorRepository#createExecutor
+
+dubbo://30.170.132.110:20880/com.alibaba.dangqian.HiService?anyhost=true&application=unknown&background=false&bind.ip=30.170.132.110&bind.port=20880&channel.readonly.sent=true&codec=dubbo&deprecated=false&dubbo=2.0.2&dynamic=true&enable-empty-protection=true&executor-management-mode=isolation&file-cache=true&generic=false&group=HSF&heartbeat=60000&interface=com.alibaba.dangqian.HiService&methods=sayHello,sayHi&pid=42420&prefer.serialization=hessian2,fastjson2&release=3.3.3&revision=1.0.2-SNAPSHOT&service-name-mapping=true&side=provider&threadname=DubboServerHandler-30.170.132.110:20880&timeout=100&timestamp=1747315536723&version=1.0.0
+
+tri://192.168.10.125:50051/com.alibaba.dangqian.HiService?anyhost=true&application=unknown&background=false&bind.ip=192.168.10.125&bind.port=50051&deprecated=false&dubbo=2.0.2&dynamic=true&enable-empty-protection=true&executor-management-mode=isolation&file-cache=true&generic=false&group=HSF&interface=com.alibaba.dangqian.HiService&methods=sayHello,sayHi&pid=6783&prefer.serialization=hessian2,fastjson2&release=3.3.3&revision=1.0.2-SNAPSHOT&service-name-mapping=true&side=provider&threadname=DubboServerHandler-192.168.10.125:50051&threads=333&timeout=100&timestamp=1747329373016&version=1.0.0
+----
+
+[source,plain]
+----
+# 启动时，初始化好 DoubboConfig
+DubboBootstrap.getInstance().start()
+  org.apache.dubbo.config.deploy.DefaultApplicationDeployer#initialize
+    org.apache.dubbo.config.deploy.DefaultApplicationDeployer#loadApplicationConfigs
+      org.apache.dubbo.config.context.ConfigManager#loadConfigs
+        #refreshAll
+          org.apache.dubbo.config.AbstractConfig#refresh
+            #refreshWithPrefixes   # preferredPrefix="dubbo.protocols.dubbo"
+                                   # 多种配置合并
+              org.apache.dubbo.common.config.Environment#getConfigurationMaps()  # jvm属性,环境变量,appExternal,external,appConfig,DoubboConfig
+                org.apache.dubbo.config.context.ConfigConfigurationAdapter#<init>
+                  #getMetaData
+                    #appendAttributes
+              #assignProperties  # 将多种配置合并后，重新赋值到当前的 DoubboConfig 对象上
+# 声明dubbo provider时
+org.apache.dubbo.config.ServiceConfig#export()
+  #doExport()
+    #doExportUrls
+      #doExportUrlsFor1Protocol
+        #buildAttributes  # 为 service provider url 准备相关参数map
+          org.apache.dubbo.config.AbstractConfig#appendParameters(Map, ProtocolConfig)  # 将ProtocolConfig的值暴露到map里
+        #buildUrl  # 构建 service provider url
+          org.apache.dubbo.common.threadpool.manager.DefaultExecutorRepository#createExecutorIfAbsent
+            #createExecutor
+              org.apache.dubbo.common.threadpool.support.fixed.FixedThreadPool#getExecutor
+        #exportUrl
+          org.apache.dubbo.rpc.protocol.tri.TripleProtocol#export
+            org.apache.dubbo.common.threadpool.manager.DefaultExecutorRepository#createExecutorIfAbsent
+              org.apache.dubbo.common.threadpool.support.fixed.FixedThreadPool#getExecutor
+----
+
+[source,shell]
+----
+org.apache.dubbo.common.threadpool.manager.DefaultExecutorRepository#data
+
+#extensionLoader=#applicationModel.getExtensionDirector().getExtensionLoader(@org.apache.dubbo.common.threadpool.manager.ExecutorRepository@class),
+#executorRepository=#extensionLoader.getExtension("isolation")
+
+# key1 : "java.util.concurrent.ExecutorService"
+#  key11: "50051", "20880","unknown/org.apache.dubbo.metadata.MetadataServiceV2:2.0.0","unknown/org.apache.dubbo.metadata.MetadataService:1.0.0",
+#  value11 : ThreadPoolExecutor
+
+
+# HSF 使用的这个类
+org.apache.dubbo.common.threadpool.manager.DefaultExecutorRepository#data
+
+org.apache.dubbo.common.threadpool.manager.IsolationExecutorRepository
+
+vmtool -x 3 --action getInstances --className org.apache.dubbo.common.threadpool.manager.DefaultExecutorRepository --express 'instances.{#this.getClass().getName()}'
+
+
+# 实际的类型也是 IsolationExecutorRepository
+vmtool -x 3 --action getInstances --className org.apache.dubbo.common.threadpool.manager.DefaultExecutorRepository --express 'instances.{#this.getClass().getName()}'
+
+# 应该是 triple 协议+dubbo协议各自开了两个 fixed 的线程池
+vmtool -x 3 --action getInstances --className org.apache.dubbo.common.threadpool.manager.IsolationExecutorRepository --express 'instances.length'
+vmtool -x 3 --action getInstances --className org.apache.dubbo.common.threadpool.manager.IsolationExecutorRepository --express 'instances.{#this.getClass().getName()}'
+
+vmtool -x 3 --action getInstances --className org.apache.dubbo.common.threadpool.manager.IsolationExecutorRepository --express 'instances.{?#this.data.size()>0}.{#this.data.keySet()}'
+
+# 检查实际运行的信息
+vmtool -x 3 --action getInstances --className org.apache.dubbo.common.threadpool.manager.DefaultExecutorRepository  --express '
+instances
+.{?#this.data.size()>0}
+.{
+  #this.data["java.util.concurrent.ExecutorService"].entrySet()
+   .{? #this.getKey() == "50051" || #this.getKey() == "20880" }
+   .{
+      #{
+        "port"              : #this.getKey(),
+        "corePoolSize"      : #this.getValue().corePoolSize,
+        "maximumPoolSize"   : #this.getValue().maximumPoolSize,
+        "keepAliveTime"     : #this.getValue().keepAliveTime
+      }
+    }
+}[0]
+'
+
+vmtool -x 3 --action getInstances --className org.apache.dubbo.common.threadpool.manager.DefaultExecutorRepository  --express '
+instances
+.{?#this.data.size()>0}
+.{#this.data.keySet()}
+'
+
+# JVM 属性
+-Ddubbo.protocol.threads=500    # 对所有协议生效，比如: dubbo,tri
+-Ddubbo.protocols.dubbo.threads=500  # 对单个协议生效
+-Ddubbo.protocols.tri.threads=600    # 对单个协议生效
+----
+
+podman run --rm -it \
+ --platform=linux/amd64 \
+ -p 8848:8848 -p 9848:9848 -p 9849:9849 -p 7848:7848 \
+ -e MODE=standalone \
+ -e NACOS_AUTH_IDENTITY_KEY=nacos \
+ -e NACOS_AUTH_IDENTITY_VALUE=nacos \
+ -e NACOS_AUTH_TOKEN=SecretKey012345678901234567890123456789012345678901234567890123456789 \
+ o-docker.alibaba-inc.com/docker.io/nacos-server:v2.5.1
+
+-ea -Ddubbo.registry.address=nacos://nacos:nacos@127.0.0.1:8848
+-ea -Ddubbo.registry.address=nacos://nacos:nacos@127.0.0.1:8848 -Ddubbo.protocol.threads=333
+-Ddubbo.registry.address=nacos://127.0.0.1:8848 -Dgong9.mw.dubbo.jackson.type.whitelist=com.alibaba.fastjson
+
+
+
+
+
+:table-caption: fix
+[,cols="1,2"]
+.table1 title
+|===
+|prop       | fix
+
+|threads    | Y,200,ThreadPoolExecutor#corePoolSize,ThreadPoolExecutor#maximumPoolSize
+|queues     | Y,0, 小于0:MemorySafeLinkedBlockingQueue,等于0:SynchronousQueue,大于0:LinkedBlockingQueue
+
+|===
+
+:table-caption: cache
+[,cols="1,2"]
+.table1 title
+|===
+|prop       | cache
+
+|threads    | Y,Integer.MAX_VALUE,ThreadPoolExecutor#corePoolSize,ThreadPoolExecutor#maximumPoolSize
+|queues     | Y,0, 小于0:MemorySafeLinkedBlockingQueue,等于0:SynchronousQueue,大于0:LinkedBlockingQueue
+|corethreads| Y,0, 小于0:MemorySafeLinkedBlockingQueue,等于0:SynchronousQueue,大于0:LinkedBlockingQueue
+|alive      | Y,60000
+|===
+
+:table-caption: Eager
+[,cols="1,2"]
+.table1 title
+|===
+|prop       | Eager
+
+|threads    | Y,Integer.MAX_VALUE,ThreadPoolExecutor#corePoolSize,ThreadPoolExecutor#maximumPoolSize
+|queues     | Y,0, 小于0:MemorySafeLinkedBlockingQueue,等于0:SynchronousQueue,大于0:LinkedBlockingQueue
+|corethreads| Y,0, 小于0:MemorySafeLinkedBlockingQueue,等于0:SynchronousQueue,大于0:LinkedBlockingQueue
+|alive      | Y,60000
+|===
+
+:table-caption: limited
+[,cols="1,2"]
+.table1 title
+|===
+|prop       | limited
+
+|threads    | Y,200,ThreadPoolExecutor#corePoolSize,ThreadPoolExecutor#maximumPoolSize
+|queues     | Y,0, 小于0:MemorySafeLinkedBlockingQueue,等于0:SynchronousQueue,大于0:LinkedBlockingQueue
+|corethreads| Y,0, 小于0:MemorySafeLinkedBlockingQueue,等于0:SynchronousQueue,大于0:LinkedBlockingQueue
+|===
+
+
+
+== 获取发布的服务列表
+
+
+[source,shell]
+----
+# @see org.apache.dubbo.qos.command.impl.Ls
+sc -d org.apache.dubbo.config.bootstrap.DubboBootstrap
+ognl -c 4a83a74a '
+#dubboBootstrap=@org.apache.dubbo.config.bootstrap.DubboBootstrap@getInstance(),
+#applicationModel=#dubboBootstrap.getApplicationModel(),
+#frameworkModel=#applicationModel.getFrameworkModel(),
+#providerModels=#frameworkModel.getServiceRepository().allProviderModels(),
+#providerModels.{ #{"serviceKey": #this.serviceKey, "serviceUrls": #this.serviceUrls} }
+' -x 3
+----
+
+== 获取使用的注册中心列表
+
+[source,shell]
+----
+# 获取有多少个注册中心
+sc -d org.apache.dubbo.config.bootstrap.DubboBootstrap
+ognl -c 4a83a74a '
+#dubboBootstrap=@org.apache.dubbo.config.bootstrap.DubboBootstrap@getInstance(),
+#configManager=#dubboBootstrap.getConfigManager(),
+#configManager.configsCache
+' -x 3
+----
+
+
+== Q: 多classloader 的情况下，dubbo 从哪个classloader 查找扩展点？
+
+[source,plain]
+----
+# 加载扩展点 class
+org.apache.dubbo.common.extension.ExtensionLoader#loadExtensionClasses
+  #loadDirectory
+    #loadDirectoryInternal
+
+    // 1. 如果 loadingStrategy.preferExtensionClassLoader()==true (自带实现均是false)
+    //    且 ExtensionLoader.class.getClassLoader() != ClassLoader.getSystemClassLoader() 时,
+    //    则优先使用 ExtensionLoader.class 所在的 classloader.
+    // 2.1 如果要加载的 dubbo 内部 "special_spi.properties" 记录的类型，则【仅】使用 ExtensionLoader.class 所在的 classloader.
+    // 2.2 否则，继续使用 scopeModel.getClassLoaders(),
+    //     但如果 scopeModel.getClassLoaders() 是空值，则 从 ClassLoader.getSystemResources(fileName) 查找 文件并加载类。
+    
+
+org.apache.dubbo.rpc.model.ScopeModel#classLoaders
+  // FrameworkModel,ApplicationModel,ModuleModel
+  // 1. 优先使用 ScopeModel.class.getClassLoader() , 即dubbo 框架所在的 classloader
+
+
+
+
+# 创建/加载扩展点 对象
+org.apache.dubbo.rpc.cluster.filter.DefaultFilterChainBuilder#buildInvokerChain  中去加载 Filter 扩展点。
+org.apache.dubbo.rpc.model.ScopeModelUtil#getExtensionLoader :
+
+
+----
+
+== Q: 同JVM调用时，dubbo转换为 injvm 调用的位置是？

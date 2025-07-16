@@ -1,12 +1,18 @@
 
 * link:https://help.aliyun.com/zh/oss/user-guide/enable-transfer-acceleration#concept-1813960[传输加速]
 * link:https://help.aliyun.com/zh/oss/developer-reference/java-installation[安装SDK]
+* link:https://help.aliyun.com/zh/oss/developer-reference/installing-the-ossbrowser-2-0[ossborowser 2.0]
+* link:https://help.aliyun.com/zh/oss/use-cases/analysis-of-intermediate-link-agents-based-on-oss-logging-request-headers[基于OSS用户自定义日志字段分析中间链路代理]
 
 ## ossutil
 link:https://help.aliyun.com/zh/oss/developer-reference/install-ossutil[ossutil]
 
 [source,shell]
 ----
+# 安装
+sudo -v ; curl https://gosspublic.alicdn.com/ossutil/install.sh | sudo bash
+
+
 ossutil help config
 ossutil config  -e oss-cn-beijing.aliyuncs.com -i xxx -k xxx
 cat ~/.ossutilconfig

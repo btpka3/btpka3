@@ -345,3 +345,24 @@ JAVA_PID=$(ps aux|grep java | grep org.apache.catalina.startup.Bootstrap|awk '{p
 
 sc -d  com.taobao.eagleeye.EagleEye | awk 'BEGIN{FS="class-info"}{print "========"  $0}}'
 ----
+
+
+## http api
+
+link:https://arthas.aliyun.com/doc/http-api.html[Http API]
+
+[source,shell]
+----
+curl -v -X POST http://localhost:8563/api \
+    -H "Content-Type: application/json" \
+    -d '
+{
+  "action": "exec",
+  "requestId": "req112",
+  "consumerId": "955dbd1325334a84972b0f3ac19de4f7_2",
+  "command": "version",
+  "execTimeout": "10000"
+}
+' | jq
+
+----

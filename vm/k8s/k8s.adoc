@@ -12,3 +12,63 @@
 kubectl port-forward xxx-deployment-5bb76987bb-nrtb5 8000:8000
 ----
 
+== 探针/Probe
+
+启动探针 :  如果 periodSeconds 的值大于 initialDelaySeconds，则 initialDelaySeconds 将被忽略。默认是 0 秒，最小值是 0。
+- link:https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[配置存活、就绪和启动探针]
+- link:https://github.com/kubernetes/website/pull/48536[《Remove incorrect/vague explanation of probe config》]
+- link:https://github.com/kubernetes/website/issues/48519[《Wrong explanation of initialDelaySeconds in configuring Probes》 ]
+
+
+=== Startup Probe/启动探针
+作用：用于检测是否已经启动好了。
+如果配置了该探针，则只有该探针检测通过了，才会执行后续的 Rediness Probe(就绪探针) 和 Liveness Probe(存活探针)。
+该探针如果连续失败超过一定阈值，则会容器冲洗。
+
+建议：探针阻塞返回，通过 initialDelaySeconds + ((periodSeconds+timeoutSeconds) * failureThreshold) 大于启动最长耗时时间判定是否要kill掉再次重启。
+
+Q: periodSeconds 可以小于 timeoutSeconds 吗？
+link:https://github.com/kubernetes/kubernetes/pull/117915[WIP: kubelet: stop probe ticker from running while probe is executing]  根据这个, 答案是：不能。
+
+Q: 该探针是否应当长阻塞？直到超时或成功才返回？如果已经明显发现启动异常了，应当立即再次尝试重启，如何能避免空等很长时间？
+
+A: 应当长时间，+ 长超时时间
+
+举例：应用启动好 平均需要10分钟, 启动超过20分钟则应当重试。
+
+则
+建议 initialDelaySeconds=300s (5分钟)
+periodSeconds=960S  (16分钟，但因为failureThreshold=1，故只会触发1次)
+timeoutSeconds=900s (15分钟)
+failureThreshold=1
+
+探针应当检查进程是否启动中，如果属于未报错，单纯启动慢，则应当一直不返回，直到发现执行成功，失败。
+探针自身应当在 timeoutSeconds 时长内返回一个成功与否的结果，探针内部需要有超时逻辑。
+
+
+
+
+
+
+
+=== Liveness Probe/存活探针
+
+作用：用于检测应用是否还在运行。一旦该探针检测失败，会重启。
+会在 Startup Probe/启动探针 通过后持续运行。
+
+比如已经多次OOM了，CPU load 过高了， 或者有死锁发生等情形。
+
+Q: 该探针的该如何设计
+Q: 如何避免机器都在重启？造成服务雪崩？
+
+
+=== Readiness Probe/就绪探针
+作用：用于表达应用是否可以承接外部流量了。一旦该探针检测失败，将该容器从 k8s 的负载均衡中摘除。
+
+Q: dubbo 这种RPC框架是通过配置中心（nacos），让 client 直接与 server端的节点进行 点对点通信。
+如果 dubbo 服务对外服务，有必要再使用 k8s 的负载均衡么？
+dubbo server 端自身的健康检测机制是怎样实现的？比如 如何认定自身不可服务，需要更新 nacos，将其从provider列表中移除？
+dubbo 认定自身不可服务的逻辑是否可以复用，反馈到 k8s 的 Readiness Probe/就绪探针 中？
+
+Q: 该探针的该如何设计
+Q: 如何避免都被k8s负载均衡中摘除了，造成服务不可用？

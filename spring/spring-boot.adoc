@@ -390,8 +390,12 @@ static MapperScannerConfigurer mapperScannerConfigurer(ConfigurableEnvironment e
 -- 最低优先级
 
 - 可以通过 `ApplicationContext.getEnvironment().resolvePlaceholders("${x.zz:999}"` 来取值
-- 可以通过 `new RelaxedDataBinder(environment.getPropertySources(), "spring.my").bind(new PropertySourcesPropertyValues(propertySources));`
-    来 binding 对象
+- 可以通过 `new RelaxedDataBinder(environment.getPropertySources(), "spring.my").bind(new PropertySourcesPropertyValues(propertySources));` 来 binding 对象(Spring boot 1.x)
+
+- org.springframework.core.env.SystemEnvironmentPropertySource#getProperty :
+-- `.` 替换成 `_`
+-- `-` 替换成 `_`
+-- 转换成全大写
 
 ## 给 bean 起别名
 

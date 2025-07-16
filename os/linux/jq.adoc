@@ -235,13 +235,11 @@ json='
     "b2":["b201","b202"]
 }
 '
+
 echo "${json}" | jq -r '
-to_entries | map()
-[
-    |.[]
-    |select(.key | test( "^a"; "x"))
-    |from_entries
-]
+to_entries
+|map(select(.key | test( "^a"; "x")))
+|from_entries
 '
 ----
 
@@ -418,9 +416,9 @@ echo "$json" | jq -r '
 ----
 json='
 [
-    {"key": 1},
-    {"key": 2},
-    {"key": 1}
+    {"key": 1, "k":"aaa"},
+    {"key": 2, "k":"bbb"},
+    {"key": 1, "k":"ccc"}
 ]
 '
 
@@ -485,17 +483,29 @@ jq . fminified.json
 ## 压缩/minify
 [source,shell]
 ----
-# 字符串
+# 字符串 : 格式化
+echo '{ "foo": "bar" }' | jq
+# 字符串 : -c/ compact-output 输出，仍保留颜色高亮。 ⭕️ 推荐
+echo '{ "foo": "bar" }' | jq -c
+# 字符串 : 转换字符输出，无颜色高亮
 echo '{ "foo": "bar" }' | jq -r tostring
-echo '{ "foo": "bar" }' | jq -r tostring > minified.json
+echo '{ "foo": "bar" }' | jq -c > minified.json
 
 # 文件
-jq -r tostring file.json
-jq -r tostring file.json > minified.json
+cat > /tmp/a.json <<EOF
+{
+  "k1":"v1",
+  "k2":"v2"
+}
+EOF
+# 文件: 格式化，颜色高亮
+jq . /tmp/a.json
+# 文件: 压缩输出，颜色高亮, ⭕️ 推荐
+jq -c . /tmp/a.json
 ----
 
 
-## 多行JSON日志
+## 多行JSON日志(JSONL/JSONLine)
 
 [source,shell]
 ----
@@ -507,6 +517,15 @@ json='
 '
 
 echo "${json}" | jq -r 'select(.level == "INFO")|.count|tostring' | sort
+
+##### 排序
+json='
+    {"name":"zhang3", "age":40}
+    {"name":"li4",    "age":28}
+    {"name":"wang5",  "age":50}
+    {"name":"zhao6",  "age":18}
+'
+echo "${json}" | jq -c -s 'sort_by(.age) | .[]'
 ----
 
 
@@ -653,6 +672,19 @@ echo "${json}" | jq -c 'to_entries|.[]|{"room":.key} + .value[]| del(.hobbies) +
 # {"room":"x2","name":"333","hobby":"a202"}
 # {"room":"x2","name":"444","hobby":"b201"}
 # {"room":"x2","name":"444","hobby":"b202"}
+
+################ 示例4.
+
+json='
+{"nick":["aaa","bbb"],"hobbies":["111","222"]}
+'
+echo "${json}" | jq -c '{nick:.nick[],hobby:.hobbies[]}'
+# 输出:
+# {"nick":"aaa","hobby":"111"}
+# {"nick":"aaa","hobby":"222"}
+# {"nick":"bbb","hobby":"111"}
+# {"nick":"bbb","hobby":"222"}
+
 ----
 
 
@@ -767,3 +799,80 @@ echo "${headStr}${tsvStr}" | column -t -s $'\t'
 
 
 
+### 多文件处理
+
+[source,shell]
+----
+mkdir /tmp/demo
+cat > /tmp/demo/a1-a2.json <<EOF
+{
+  "k":"a3"
+}
+EOF
+
+cat > /tmp/demo/b1-b2.json <<EOF
+{
+  "k":"b3"
+}
+EOF
+
+# 将两个文件的内容合并成一个大数组
+jq -s '.' /tmp/demo/a1-a2.json /tmp/demo/b1-b2.json
+# 示例输出
+[
+  {
+    "k": "a3"
+  },
+  {
+    "k": "b3"
+  }
+]
+
+#
+
+
+jq '[input_filename, .k]' /tmp/demo/a1-a2.json /tmp/demo/b1-b2.json
+
+# 将从文件名中通过 named captures 提取成 n1,n2 两个属性，再配合文件内容中的 字段 k , 最终合并成长度为3的数组
+jq -c '[
+  ( input_filename
+    | capture("/(?<n1>[a-z0-9]+)-(?<n2>[a-z0-9]+)\\.json$")
+    | [.n1, .n2]
+  ),
+  .k
+]
+|flatten' \
+/tmp/demo/a1-a2.json /tmp/demo/b1-b2.json
+
+----
+
+
+[source,shell]
+----
+rm -fr /tmp/demo
+mkdir /tmp/demo
+cat > /tmp/demo/a.json <<EOF
+{
+  "n":["aaa","ccc"],
+  "k":"a3"
+}
+EOF
+
+cat > /tmp/demo/b.json <<EOF
+{
+  "n":["bbb"],
+  "k":"b3"
+}
+EOF
+
+
+jq -s -r '
+map(
+   {x:.n[],y:.k}
+   |[.x,.y]
+)
+| sort_by(.[0], .[1])
+| .[]
+| @tsv
+' /tmp/demo/*.json
+----

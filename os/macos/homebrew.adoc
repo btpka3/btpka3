@@ -15,6 +15,7 @@ brew --version
 # 安装 最新的 maven
 brew info maven
 brew install maven
+brew uninstall maven
 # 列出相关已经安装的软件列表。 注意：软件名称有 `@` 符号的，是独立名称。
 brew list --formula | grep python
 # 列出已经安装的版本列表

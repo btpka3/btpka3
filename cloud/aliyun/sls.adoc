@@ -222,3 +222,11 @@ SLS支持存储时序数据类型，并遵循Prometheus的定义规范和数据�
 
 
 
+
+
+## SPL
+
+
+- link:https://help.aliyun.com/zh/sls/spl-instruction[SPL指令]
+- link:https://help.aliyun.com/zh/sls/use-spl-to-collect-text-logs[使用SPL采集文本日志]
+

@@ -223,6 +223,7 @@ cat /etc/hosts
 [source,shell]
 ----
 jstatd -J-Djava.security.policy=/path/to/jstatd.all.policy  &
+
 ----
 
 然后就可以在其他主机上使用jvisulavm 查看远程的java运行信息了。
@@ -481,11 +482,18 @@ CSets（Collection Sets）：是一个要被 GC 的 region 的集合。 这些 r
 
 
 
+
 * link:https://github.com/openjdk/jmh[JMH]
 ** link:http://deepoove.com/jmh-visual-chart/[JMH Visual Chart]
 ** https://jmh.morethan.io/
 * link:https://www.baeldung.com/jvm-code-cache[Introduction to JVM Code Cache]
 
+
+java.lang.OutOfMemoryError: Metaspace
+HEAP : Young+Old
+NativeMemory : MetaSpace,Threads,CodeCache,DirectBuffer,GC,JNI,misc
+
+JVM 开关 `-XX:MaxMetaspaceSize` ,`-XX:MetaspaceSize=256M`
 
 
 #  StackOverflowError
@@ -561,3 +569,13 @@ JVM 开关 : `-XX:+UseWisp2`
 ----
 
 
+== 查看GC类型
+
+[source,shell]
+----
+# 查看GC信息: (Java <= 8)
+jmap -heap ${pid} | grep GC
+
+# 查看GC信息: (Java > 8)
+jhsdb jmap --heap --pid <pid> | grep GC
+----

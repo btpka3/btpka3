@@ -2,7 +2,15 @@
 
 
 ## alternative
-```txt
+
+查看端口监听情况，建议使用 ss ,lsof 命令。
+如果检查 给定端口是否能连接上，建议使用 nc 命令。
+
+
+
+
+[source,shell]
+----
 # 查看 网络连接
 netstat -a          # ss
 
@@ -20,4 +28,4 @@ netstat -g          # ip maddr
 
 # 统计网络发送情况，可以用以查看链接失败的数量
 netstat -s -tcp
-```
+---

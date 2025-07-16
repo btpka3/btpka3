@@ -424,7 +424,7 @@ tailf xxxFile | grep --line-buffered --color=auto xxxKeyWord
 
 ## 文本处理
 
-```
+```shell
 # append 多行到特定文件
 cat <<EOF | sudo tee -a /etc/hosts
 127.0.0.1 aaa
@@ -432,7 +432,11 @@ cat <<EOF | sudo tee -a /etc/hosts
 127.0.0.1 ccc
 EOF
 
-
+# h^[[32mell^[[39;49mo
+c=2  # 1-error, 2-info, 3-warn
+echo -e "h$(tput setaf $c)ell$(tput op)o" | tee /tmp/test.log
+# stdout 中保留颜色，但文件中移除颜色
+echo -e "h$(tput setaf $c)ell$(tput op)o"  | tee >(sed $'s/\033[[][^A-Za-z]*[A-Za-z]//g' > /tmp/test.log)
 ```
 
 ## date
@@ -896,7 +900,7 @@ awk -F '  +' '{print $3}' b.txt
 
 ## 大文件中查找并截取上下文
 
-```
+```shell
 # 查找，显示行号，限定最多显示几条
 grep -n -m 10 xxx /path/to/largeFile
 
@@ -992,11 +996,13 @@ It lets you execute a command that completely replaces the current process.
 bash                    # 确保当前是 bash
 rm -fr /tmp/file.txt    # 确保验证用的结果文件都是空的
 
+echo 000
 exec > /tmp/file.txt    # 开始 exec 命令，后续命令将替换到当前shell
 date                    # PS: exec 期间 命令，stdout上都不会有任何输出
 echo 111
 exit                    # 退出 exec 命令
 
+echo 222
 cat /tmp/file.txt       # 检查结果文件，发现内容是 exec 期间所有命令的 stdout
 Mon Jul  3 11:28:22 CST 2023
 111
@@ -1048,7 +1054,23 @@ source-highlight --out-format=esc -o STDOUT -i xxx.java
 
 ```
 
-
+# 数值计算
+```shell
+# ++x, x++	Pre and post-increment.
+# --x, x--	Pre and post-decrement.
+# +, -, *, /	Addition, subtraction, multiplication, division.
+# %, ** (or ^)	Modulo (remainder) and exponentiation.
+# &&, ||, !	Logical AND, OR, and negation.
+# &, |, ^, ~	Bitwise AND, OR, XOR, and negation.
+# <=, <, >, =>	Less than or equal to, less than, greater than, and greater than or equal to comparison operators.
+# ==, !=	Equality and inequality comparison operators.
+# =
+i=$((10/2))
+echo $i
+echo $((10/3))
+echo "2+3" | bc
+echo "10.0/3" | bc
+```
 
 # 参数个数
 

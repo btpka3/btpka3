@@ -311,23 +311,6 @@ mvn deploy:deploy-file \
 ## maven-toolchain-plugin
 [maven-toolchain-plugin](https://maven.apache.org/plugins/maven-toolchains-plugin/)
 
-## maven-dependency-plugin
-
-
-
-```bash
-# 清除本地缓存
-mvn dependency:purge-local-repository  -DsnapshotsOnly=true
-
-# 显示给定的jar是如何依赖进来的
-mvn dependency:tree -Dincludes=org.springframework:spring
-
-# 给定版本的jar包如何被仲裁/resolve 的？
-mvn help:effective-pom -Dverbose=true -pl xxx
-mvn help:effective-pom -Dverbose=true -Dartifact=commons-logging:commons-logging
-
-
-```
 
 ## maven-install-plugin
 

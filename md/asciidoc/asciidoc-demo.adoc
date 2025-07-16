@@ -9,7 +9,9 @@
 该文档是 {author}/{my-custom-document-attribute-1} 的学习笔记，记录了各种 asciidoc 的基础demo.
 
 // 示例 block macro
-image::sunset.jpg[Sunset]
+
+[#img-sunset,link=https://docs.asciidoctor.org/asciidoc/latest/macros/images/]
+image::https://docs.asciidoctor.org/asciidoc/latest/macros/_images/sunset.jpg[Sunset,200,100]
 
 // 示例 inline macro
 Click the button with the image:star.png[Star] to favorite the project.
@@ -594,6 +596,8 @@ link:xxx.html#xxxId[显示文本]
 |kbd:[Cmd+←]|光标移动到行首
 |kbd:[Cmd+→]|光标移动到行尾
 |kbd:[Cmd+\]]|导航：向前
+|kbd:[⌥ + ⇧ + ⌘ + C]|示例1
+|kbd:[Alt+Shift+Cmd+C]|示例2
 |===
 
 

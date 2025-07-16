@@ -1,0 +1,51 @@
+
+
+link:https://help.aliyun.com/zh/arms/application-monitoring/user-guide/manually-install-arms-agent-for-java-applications[手动安装探针]
+
+[source,shell]
+----
+mkdir -p /tmp/b/
+cd /tmp/b
+# 下载
+wget https://arms-apm-cn-hangzhou.oss-cn-hangzhou.aliyuncs.com/4.2.3/AliyunJavaAgent.zip -O AliyunJavaAgent-cn-hangzhou.zip
+wget https://arms-apm-cn-beijing.oss-cn-beijing.aliyuncs.com/4.2.3/AliyunJavaAgent.zip   -O AliyunJavaAgent-cn-beijing.zip
+
+#
+
+
+# 检查文件内容
+unzip AliyunJavaAgent-cn-hangzhou.zip -d AliyunJavaAgent-cn-hangzhou
+unzip AliyunJavaAgent-cn-beijing.zip  -d AliyunJavaAgent-cn-beijing
+
+zipinfo -1 AliyunJavaAgent-cn-beijing/AliyunJavaAgent/aliyun-java-agent.jar
+
+# 解压
+
+# 检查配置内容
+JAR=AliyunJavaAgent-cn-beijing/AliyunJavaAgent/aliyun-java-agent.jar
+unzip -p ${JAR} io/opentelemetry/javaagent/config/env/cloud_cn-beijing.properties
+unzip -p ${JAR} io/opentelemetry/javaagent/config/env/cloud_cn-hangzhou.properties
+unzip -p ${JAR} io/opentelemetry/javaagent/config/env/cloud_cn-shanghai.properties
+# 注意：从不同地域下载的jar包，至少该默认配置不同
+unzip -p ${JAR} io/opentelemetry/javaagent/config/default.properties
+
+
+
+> /tmp/a.txt
+
+grep . a.txt  \
+|grep -v -E META-INF \
+|grep -v -E '\.(so|jnilib|dylib|dll|a|html|renamed|template|gif|png|svg|classdata|kotlin_metadata|txt|lombok|class|proto)$' \
+|grep -v -E '/$' \
+|grep -v -E embedded-jars \
+|grep -v -E '^inst/test_' \
+
+AliyunJavaAgent
+
+unzip -p aliyun-java-agent.jar io/opentelemetry/javaagent/config/env/cloud_cn-guangzhou.properties
+
+
+-javaagent:/{user.workspace}/AliyunJavaAgent/aliyun-java-agent.jar
+-Darms.licenseKey=g5eyn4uqly@5e15efe3b4afb3b
+-Darms.appName=my-service
+----

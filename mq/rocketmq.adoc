@@ -225,6 +225,12 @@ export NAMESRV_ADDR=localhost:9876
 export NAMESRV_ADDR=11.167.75.235:9876
 cd $ROCKETMQ_HOME
 
+# 参考 org.apache.rocketmq.acl.common.SessionCredentials
+cat <<EOF | sudo tee -a ~/key
+AccessKey=xxx
+SecretKey=yyy
+EOF
+
 
 # 显示完整命令列表
 ./bin/mqadmin

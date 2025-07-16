@@ -5,6 +5,8 @@
 ----
 # 查看启动时间
 ps -eo pid,lstart,cmd
+java -X
+-Xbootclasspath/p:  # 替换JDK实现类
 
 JAVA_PID=$(ps aux|grep java | grep org.apache.catalina.startup.Bootstrap|awk '{print $2}')
 /opt/taobao/java/bin/jstack ${JAVA_PID} > /tmp/jstack.txt
@@ -14,11 +16,11 @@ grep localhost-startStop-1 jstack2.txt
 /opt/taobao/java/bin/java -XX:+PrintFlagsFinal -XX:+PrintFlagsInitial -version  # 打印出相 -XX 参数
 
 # 列出所有JVM属性
-/opt/taobao/java/bin/jinfo-sysprops ${JAVA_PID}
+/opt/taobao/java/bin/jinfo -sysprops ${JAVA_PID}
 
 # 列出所有开关值
 /opt/taobao/java/bin/jinfo -flags ${JAVA_PID}
-
+bootclasspath
 # 查看某个JVM实际运行的参数值
 /opt/taobao/java/bin/jinfo -flag MaxLabelRootDepth ${JAVA_PID}
 /opt/taobao/java/bin/jinfo -flag SoftRefLRUPolicyMSPerMB=1001  ${JAVA_PID}
@@ -78,15 +80,21 @@ grep localhost-startStop-1 jstack2.txt
 -XX:-CompactStrings # 关闭字符串压缩。默认是开启压缩的，全部是 ASCII 的字符串会使用单字节内存存储。减少 50% 内存
 -XX:CompilerDirectivesFile=file
 -XX:CompilerDirectivesPrint
--XX:ConcGCThreads=n     # ParallelGCThreads 的线程数量
+-XX:ConcGCThreads=n             # ParallelGCThreads 的线程数量
 -XX:+DisableAttachMechanism     # 禁止工具（jcmd,jstack,jmap,jinfo）连接上来。默认是允许的。
 -XX:+FailOverToOldVerifier
 
 
 -XX:LargePageSizeInBytes=4m     # heap使用的 page 的size
--XX:MaxDirectMemorySize=size    # java.nio 可以使用的最大内存
+-XX:MaxDirectMemorySize=size    # ⭕️ java.nio 可以使用的最大内存
 -XX:-MaxFDLimit                 # 禁止设置可打开文件的 soft limit 为 hard limit。默认是允许的。
--XX:NativeMemoryTracking=summary   # off/summary/detail , 申请大内存时打印输出。 可通过jcmd <pid> VM.native_memory 查看内存
+-XX:NativeMemoryTracking=summary   # ⭕️ off/summary/detail , 申请大内存时打印输出。 可通过jcmd <pid> VM.native_memory 查看内存
+                                   # https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/tooldescr007.html#BABIIIAC
+                                   # 需要下面命令输出详情，很长，无法看到调用堆栈
+                                   # /opt/taobao/java/bin/jcmd 23998 VM.native_memory detail scale=MB
+                                   # io.netty.util.internal.PlatformDependent#DIRECT_MEMORY_LIMIT
+                                   # netty 如果不同classloader多次加载，或者被shadded , 则JVM参数`-Dio.netty.maxDirectMemory` 的值可能会被double 使用
+                                   # io.netty.util.internal.PlatformDependent#DIRECT_MEMORY_COUNTER netty 使用的 direct memory
 -XX:ObjectAlignmentInBytes=alignment    #
 -XX:OnOutOfMemoryError=string
 -XX:+PerfDataSaveToFile
@@ -138,12 +146,16 @@ grep localhost-startStop-1 jstack2.txt
 –XX:MaxPermSize=n           # permanent generation 最大尺寸
 –XX:MinHeapFreeRatio=40     # heap 中每个 generation 最小空余内存，如果空余内存小于该百分比，就自动扩大内存。
 –XX:MaxHeapFreeRatio=70     # 如果空余内存多余该比例，则缩小内存。
-–XX:NewSize=n               # young generation 初始大小
+
+–XX:NewSize=n               # young generation 初始大小 .  young generation(Eden+Survivor*2)
+-XX:MaxNewSize=n            # young generation 最大大小 。
+
 –XX:NewRatio=n              # 用于分割 heap。
                             # old generation 是 young generation 的多少倍。
                             # server 模式默认为8，client 模式默认为 2
-–XX:SurvivorRatio=32        # 用于分割 young generation。按照默认值的话，Eden 和两个 Survivor 的比例为
-                            # 32:1:1
+–XX:SurvivorRatio=8         # 用于分割 young generation。按照默认值的话，Eden:SurvivorFrom:SurvivorFrom 比例
+                            # 默认: 8:1:1
+                            # 增加该值，将调大Eden的大小
 
 
 -XX:ErrorFile=${CATALINA_HOME}/logs/hs_err_pid%p.log

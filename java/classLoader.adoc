@@ -1,12 +1,13 @@
-# 概念
+== 概念
 双亲委派
 - 找类: 优先从父 classLoader 找
 - 加载: 优先从父 classLoader 加载，加载不到再从自己找
 
-# class lifecycle
+== class lifecycle
 https://www.artima.com/insidejvm/ed2/lifetype.html
 
-```plain
+[source,plain]
+----
 loading-> linking-> initialization->unloading.
 在使用一个class前，需要以下步骤都完成，每个步骤都会申请内存：
 1. The classes bytecodes need to be loaded and linked to resolve any static dependencies on other classes.
@@ -17,13 +18,13 @@ loading-> linking-> initialization->unloading.
         - resolution
 1. The class needs to be initialized.
 1. An instance of the class needs to be created.
-```
+----
 
 
 
-# 通用
-
-```plain
+== 通用
+[source,plain]
+----
 # JDK8
 bootstrap class loader                  # null : 加载 jvm核心类，比如 ${JRE_HOME}/lib/ 下的 jar，比如：rt.jar,resoures.jar, charasets.jar 等
   - sun.misc.Launcher$ExtClassLoader    # 加载 ${JRE_HOME}/lib/ext/ 下的 jar 包
@@ -33,9 +34,14 @@ bootstrap class loader                  # null : 加载 jvm核心类，比如 ${
 bootstrap class loader
   - jdk.internal.loader.ClassLoaders$PlatformClassLoade
     - jdk.internal.loader.ClassLoaders$AppClassLoader
-```
 
-# tomcat
+--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED
+--add-opens=java.base/java.nio=ALL-UNNAMED
+--add-opens=java.base/java.lang=ALL-UNNAMED
+
+----
+
+== tomcat
 - Apache Tomcat 9 : [Class Loader How-To](https://tomcat.apache.org/tomcat-9.0-doc/class-loader-howto.html)
 
 
@@ -46,20 +52,21 @@ CatalinaClassLoader             #
 WebAppClassLoader
 
 
-```plain
-       Bootstrap
+[source,plain]
+----
+       Bootstrap(null)
           |
-      Extention
+      Extention(jdk.internal.loader.ClassLoaders$PlatformClassLoader)
           |
          Common
           /    \
       Server   Shared
                 /    \
             WebApp1  WebApp2
-```
+----
 
 
-# pandora
+== pandora
 
 - LaunchedURLClassLoader  #
 - ModuleClassLoader      # pandora 的插件模块的classloader，负责隔离加载各个pandora插件下的类
@@ -67,8 +74,9 @@ WebAppClassLoader
 
 
 
-```plain
-                  Bootstrap
+[source,plain]
+----
+                  Bootstrap(null)
                    /    \                             \              \
          Application   PandoraContainerClassLoader    Module1(HSF) Module1(Metaq)
             |
@@ -80,14 +88,15 @@ WebAppClassLoader
             |
     SpringBootApplicaiton#main
 
-```
+----
 
 
 
 
-# Class#getDeclaredMethods 会触发 代码中 throw 的class 的类加载
+== Class#getDeclaredMethods 会触发 代码中 throw 的class 的类加载
 
-```java
+[source,java]
+----
 package com.alibaba.security.gong9.mw.commons.utils;
 
 import com.alibaba.security.gong9.mw.commons.Gong9MwException;
@@ -104,9 +113,10 @@ public class Aaa {
         });
     }
 }
-```
+----
 
-```java
+[source,java]
+----
 package com.alibaba.security.gong9.mw.commons.utils;
 
 import org.junit.jupiter.api.Test;
@@ -129,4 +139,18 @@ public class ClassLoaderTest {
         System.out.println("-------------------------- 3");
     }
 }
-```
+----
+
+
+[,cols="1,2"]
+.classloader
+|===
+| cl | clClass
+
+|ClassLoader.getPlatformClassLoader()
+|"jdk.internal.loader.ClassLoaders$PlatformClassLoader"
+
+|ClassLoader.getSystemClassLoader()
+|""
+|===
+

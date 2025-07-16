@@ -47,7 +47,87 @@ docker.io/library/eclipse-temurin:8-jdk-alpine sh
 
 ## 先运行，后 attach
 
+## 4.0
+[source,shell]
+----
+wget https://github.com/async-profiler/async-profiler/releases/download/v4.0/async-profiler-4.0-linux-x64.tar.gz
+tar zxvf async-profiler-4.0-linux-x64.tar.gz
+cd async-profiler-4.0-linux-x64
+./bin/asprof list "${JAVA_PID}"
+Basic events:
+  cpu
+  alloc
+  nativemem      # ⭕️ 4.0 新增
+  lock
+  wall
+  itimer
+  ctimer
+Java method calls:
+  ClassName.methodName
+Perf events:
+  cpu-clock
+  page-faults
+  context-switches
+  cycles
+  instructions
+  cache-references
+  cache-misses
+  branch-instructions
+  branch-misses
+  bus-cycles
+  L1-dcache-load-misses
+  LLC-load-misses
+  dTLB-load-misses
+  rNNN
+  pmu/event-descriptor/
+  mem:breakpoint
+  trace:tracepoint
+  kprobe:func
+  uprobe:path
 
+./bin/asprof -d 60 -e nativemem,alloc -f /home/admin/logs/async-profile-%t.$(hostname).%p.jfr "${JAVA_PID}"
+
+----
+## 3.0
+[source,shell]
+----
+wget https://github.com/async-profiler/async-profiler/releases/download/v3.0/async-profiler-3.0-linux-x64.tar.gz
+tar zxvf async-profiler-3.0-linux-x64.tar.gz
+cd async-profiler-3.0-linux-x64
+./bin/asprof list "${JAVA_PID}"
+Basic events:
+  cpu
+  alloc
+  lock
+  wall
+  itimer
+  ctimer
+Java method calls:
+  ClassName.methodName
+Perf events:
+  page-faults
+  context-switches
+  cycles
+  instructions
+  cache-references
+  cache-misses
+  branch-instructions
+  branch-misses
+  bus-cycles
+  L1-dcache-load-misses
+  LLC-load-misses
+  dTLB-load-misses
+  rNNN
+  pmu/event-descriptor/
+  mem:breakpoint
+  trace:tracepoint
+  kprobe:func
+  uprobe:path
+
+----
+
+
+## 2.9
 [source,shell]
 ----
 wget https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.9/async-profiler-2.9-linux-x64.tar.gz

@@ -445,3 +445,32 @@ jq -r '.data[]|"|"+.productCode +"|"+.ramCodes+"|"+.productName +"|"' .tmp/a.jso
 |dcdnservices|esa|边缘安全加速（ESA）|
 |gwlb|gwlb|网关型负载均衡|
 ----
+
+
+== cli
+link:https://help.aliyun.com/zh/cli/what-is-alibaba-cloud-cli[什么是阿里云CLI]
+
+[source,shell]
+----
+aliyun --help
+
+aliyun kms --help
+----
+
+== Credential
+
+- aliyun-java-sdk-core
+-- com.aliyuncs.auth.AlibabaCloudCredentials
+-- com.aliyuncs.auth.AlibabaCloudCredentialsProvider
+
+- com.aliyun.openservices:aliyun-log:
+-- com.aliyun.openservices.log.common.auth.CredentialsProvider
+-- com.aliyun.openservices.log.common.auth.Credentials
+- link:https://github.com/aliyun/credentials-java/blob/master/README-CN.md[com.aliyun:credentials-java]
+-- com.aliyun.credentials.Client
+
+=== sls
+[source,java]
+----
+
+----

@@ -18,7 +18,7 @@
 
 
 ## List
-## map : 映射成新元素
+### map : 映射成新元素
 
 [source,shell]
 ----
@@ -29,10 +29,30 @@
 watch xxxClass xxxMethod  '{target.getClass().getName(), params[0].getName(), returnObj==null?null:returnObj.{#this==null?"null":#this.getClass().getName()} }' -x 3
 ----
 
-## filter : 过滤
+### filter : 过滤
 [source,shell]
 ----
 #xxxList.{? #this instanceof ActionListener}
+----
+
+### flatten : 嵌套list打平成一层
+通过 OGNL 的 【Projecting Across Collections】来模拟循环，但需要先用一个临时变量变量（比如下面的 #l）来先引用 #this 以便防止报错。
+
+[source,shell]
+----
+# ⭕️：注意 下面的变量 `#l = #this,`
+ognl '
+#list={
+   {"aaa","bbb"},
+   {"ccc","ddd","eee"}
+},
+#flattenList ={},
+#list.{
+   #l = #this,
+   #flattenList.addAll(#l)
+},
+#flattenList
+'
 ----
 
 
@@ -43,4 +63,35 @@ watch xxxClass xxxMethod  '{target.getClass().getName(), params[0].getName(), re
 ----
 # 示例输出：@Long[40320]
 ognl '#fact = :[#this<=1? 1 : #this*#fact(#this-1)], #fact(8H).longValue()'
+----
+
+下面的case演示了 生成 gzipBase64 字符串，以及再解码的逻辑
+[source,shell]
+----
+ognl -c 36757ec4 '
+#getGzipBase64FromBytes = :[
+  #byteArrOut=new java.io.ByteArrayOutputStream(2048),
+  #gzipOut=new java.util.zip.GZIPOutputStream(#byteArrOut),
+  #gzipOut.write(#this),
+  #gzipOut.close(),
+  #gzipBytes=#byteArrOut.toByteArray(),
+  @java.util.Base64@getEncoder().encodeToString(#gzipBytes)
+],
+#getBytesFromGzipBase64 = :[
+  #gzipBytes=@java.util.Base64@getDecoder().decode(#this),
+  #byteArrIn = new java.io.ByteArrayInputStream(#gzipBytes),
+  #gzipIn=new java.util.zip.GZIPInputStream(#byteArrIn),
+  #plainBytes=#gzipIn.readAllBytes(),
+  #gzipIn.close(),
+  #plainBytes
+],
+new String(
+  #getBytesFromGzipBase64(
+    #getGzipBase64FromBytes(
+      "hello".getBytes("UTF-8")
+    )
+  ),
+  "UTF-8"
+)
+'
 ----

@@ -13,6 +13,9 @@ awk 有不同的实现，如果下面示例不可用，请尝试使用 gawk （G
 echo "aaa|bbb,ccc" | awk -F"[\|,]" '{print   $1 "___" $2 "___" $3 }'
 echo "aaa|bbb,ccc" | gawk -F"[|,]" '{printf("%s___%s___%s", $1, $2, $3)}'
 
+echo "aaallbbbllccc" | gawk -F"ll" '{printf("%s___%s___%s", $1, $2, $3)}'
+echo "aaal[bbbl[ccc" | gawk -F'l\\[' '{printf("%s___%s___%s", $1, $2, $3)}'
+
 # MacOS 上这样安装
 brew install gawk
 
@@ -314,11 +317,7 @@ class-info        com.taobao.eagleeye.EagleEye
 code-source       /tmp/ccc.jar
 classLoaderHash   68f952fe
 EOF
-gawk  ' BEGIN{RS="class-info"; ORS=""} { print "========\n" RS $0}'
-
-# 多行分割
-
-
+gawk  ' BEGIN{RS="class-info"; ORS=""} {  if(length($0) !=0){ print "========\n" RS $0}}'
 ----
 
 
@@ -355,7 +354,66 @@ gawk -v newVersion=3.3.3  '
 
 
 
-### 查找-多行
+### 查找过滤-多行
+link:https://www.gnu.org/software/gawk/manual/html_node/gawk-split-records.html[Record Splitting with gawk]
+
+[source,shell]
+----
+# 过滤出相关内容
+# 注意RS中使用 '^', '$' 时，总是匹配整个文件内容的开始和结尾。
+# 由于 awk 中不支持 non-capturing group, 故输出时，需要手动将处理
+
+cat <<EOF |
+"aaa" "a111"
+   a1
+   a2
+   a3
+"bbb" "b111"
+   b1
+   b2
+   b3
+"ccc" "c111"
+   c1
+   c2
+   c3
+EOF
+gawk  '
+BEGIN{RS="\n\""; ORS=""}
+{
+ if (match($0, "bbb|ccc")){
+   print  "========\n" (FNR == 1 ? "" : "\"") $0 "\n" }
+ }
+'
+----
+
+
+### 行统计-多行
+
+[source,shell]
+----
+# 过滤出相关内容,并按照行数去统计排序，找出TOP-n
+cat <<EOF |
+"aaa" "a111"
+   line-101
+   line-201
+   line-301
+"bbb" "b111"
+   line-301
+   line-401
+"ccc" "c111"
+   line-301
+   line-201
+   line-501
+EOF
+gawk  '
+BEGIN{RS="\n\""; ORS="";FS="\n"}
+{
+ if (match($0, "bbb|ccc")){
+   print (FNR == 1 ? "" : "\"") $0 "\n" }
+ }
+' | grep . | grep -E -v "^\"" | sort | uniq -c | sort -k1 -n -r
+----
+
 
 [source,shell]
 ----
@@ -639,6 +697,15 @@ $           # 匹配行尾
 \>          # 匹配一个词结尾后的空字符串，比如 `/stow\>/` 匹配 "stow", 但不匹配 "stowaway"
 \y          # 匹配一个词开头前、或结尾后的空字符串，用来表示一个词的边界
 \B          # 匹配词内匹配（不含开头与结尾）。比如 `/\Brat\B/` 匹配 "crate", 但不匹配 "dirty rat"
+----
+
+### 常用正则示例
+
+[source,shell]
+----
+# 提取更则分组, 但只支持贪婪限定符（Greedy quantifiers），不支持 Reluctant quantifiers
+echo aaa111ccc222ccc | gawk '{if(match($0, /aaa(.*)ccc/, arr)){ print arr[1] }}'
+
 ----
 
 

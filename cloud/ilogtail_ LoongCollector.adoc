@@ -6,3 +6,109 @@
 
 
 https://loongcollector-community-edition.oss-cn-shanghai.aliyuncs.com/2.0.0/loongcollector-<release_verison>.<os>-<arch>.tar.gz
+
+
+[source,shell]
+----
+podman run -it --rm sls-opensource-registry.cn-shanghai.cr.aliyuncs.com/loongcollector-community-edition/loongcollector:0.2.0 bash -l
+
+# docker 镜像内的安装目录是 `/usr/local/loongcollector`
+# 基于 CenterOS 7 创建的docker镜像
+cat /etc/os-release
+----
+
+== 目录结构
+
+[source,shell]
+----
+# 注意： docker 镜像内的也可能是 /usr/local/loongcollector 目录。
+/opt/loongcollector/loongcollector
+/opt/loongcollector/loongcollector_control.sh
+
+# 库文件
+/opt/loongcollector/*.so
+# 证书
+/opt/loongcollector/ca-bundle.crt
+
+# 配置文件目录
+/opt/loongcollector/conf
+# 自定义用户标识
+/opt/loongcollector/conf/user_defined_id
+# 采集配置文件
+/opt/loongcollector/conf/continuous_pipeline_config
+# 进程级文件
+/opt/loongcollector/conf/instance_config
+
+# checkpoint
+/opt/loongcollector/data/go_plugin_checkpoint
+/opt/loongcollector/data/exactly_once_checkpoint
+/opt/loongcollector/data/file_check_point
+
+# 容器路径映射
+/opt/loongcollector/data/docker_path_config.json
+
+# 未发送数据
+/opt/loongcollector/data/send_buffer_file_xxxxxxxxxxxx
+
+# Crash临时文件：
+/opt/loongcollector/data/backtrace.dat
+
+# 日志目录：
+/opt/loongcollector/log
+
+# 主要日志：
+/opt/loongcollector/log/loongcollector.log
+
+# Go插件日志：
+/opt/loongcollector/log/go_plugin.log
+
+# 日志库初始化日志：
+/opt/loongcollector/log/logger_initialization.log
+
+# Profile日志：
+/opt/loongcollector/log/snapshot
+
+# run目录：
+/opt/loongcollector/run
+
+# Pid文件：
+/opt/loongcollector/run/loongcollector.pid
+
+# inotify日志：
+/opt/loongcollector/run/inotify_watcher_dirs
+
+# 进程信息日志：
+/opt/loongcollector/run/app_info.json
+----
+
+
+
+== logtail 2.x
+
+[source,shell]
+----
+# ilogtail 2.x 的安装目录
+/usr/local/ilogtail/
+# 配置文件入口，配置 user_config_file_path,check_point_filename,config_server_address 等
+/usr/local/ilogtail/ilogtail_config.json
+# 软件程序的基本信息。比如 版本号，等
+/usr/local/ilogtail/app_info.json
+# 程序自身的日志输出
+/usr/local/ilogtail/ilogtail.LOG
+
+
+/opt/sls/ilogtail/checkpoint/docker_path_config.json
+/opt/sls/ilogtail/checkpoint/ilogtail_check_point
+# 各个采集配置的信息
+/opt/sls/ilogtail/checkpoint/user_log_config.json
+
+# 按照SLS配置自动生成的文件，内容有 采集日志的路径，首行正则，sls的project，logtail等
+/etc/ilogtail/config/enterprise/*
+
+# 用户自定义标识
+/etc/ilogtail/user_defined_id
+
+# 允许哪些阿里云账号采集
+/etc/ilogtail/users/*
+
+----

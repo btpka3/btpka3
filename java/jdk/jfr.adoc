@@ -12,6 +12,7 @@
 * link:https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/memleaks001.html[3.1 Debug a Memory Leak Using Java Flight Recorder]
 * link:https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/tooldescr004.html[2.4 How to Produce a Flight Recording]
 * https://www.oracle.com/java/technologies/javase/products-jmc8-downloads.html
+* https://www.oracle.com/java/technologies/javase/products-jmc9-downloads.html
 
 ## 安装 jmc/JDK Mission Control
 
@@ -19,6 +20,7 @@
 ----
 
 brew install --cask jdk-mission-control
+#brew install --cask temurin@17
 
 file /Applications/"JDK Mission Control.app"/Contents/MacOS/jmc
 
@@ -34,12 +36,62 @@ cat /Applications/"JDK Mission Control.app"/Contents/Info.plist
 </array>
 ...
 
+# ERROR2: The JVM shared library "/Library/Java/JavaVirtualMachines/21.0.4-graal/Contents/Home/lib/server/libjvm.dylib"  does not contain the JNI_CreateJavaVM symbol
+# 下面尝试不成功
+vi /Applications/JDK\ Mission\ Control.app/Contents/Eclipse/jmc.ini
+-vm
+/Users/zll/.sdkman/candidates/java/21.0.4-graal/bin/java
+
 # 调整 JVM 内存设置，过小或解析缓慢
 vi /Applications/JDK\ Mission\ Control.app/Contents/Eclipse/jmc.ini
-# 在 -vmargs 后面增加/修改以下配置
+# 1.1 在 -vmargs 后面增加/修改以下配置
+# 1.2 在 -vmargs 后面增加/修改以下配置
 -Xms6g
 -Xmx6g
 
+
+# 相关日志
+
+ls -l ${HOME}/.jmc/9.1.0/.logs/
+ls -l /Applications/JDK\ Mission\ Control.app/Contents/Eclipse/configuration/*.log
+
+# 尝试手动启动
+/Applications/JDK\ Mission\ Control.app/Contents/MacOS/jmc                                                      \
+-vm                                                                                                             \
+/Users/zll/.sdkman/candidates/java/21.0.4-graal/bin/java                                                        \
+-startup                                                                                                        \
+../Eclipse/plugins/org.eclipse.equinox.launcher_1.6.900.v20240613-2009.jar                                      \
+--launcher.library                                                                                              \
+../Eclipse/plugins/org.eclipse.equinox.launcher.cocoa.macosx.aarch64_1.2.1100.v20240722-2106                    \
+--launcher.appendVmargs                                                                                         \
+-ws                                                                                                             \
+cocoa                                                                                                           \
+-vmargs                                                                                                         \
+-XX:CompileCommand=exclude org.eclipse.jdt.internal.core.dom.rewrite.ASTRewriteAnalyzer::getExtendedRange       \
+-XX:+IgnoreUnrecognizedVMOptions                                                                                \
+-XX:+UnlockDiagnosticVMOptions                                                                                  \
+-XX:+DebugNonSafepoints                                                                                         \
+-XX:FlightRecorderOptions=stackdepth=128                                                                        \
+-XX:+FlightRecorder                                                                                             \
+-XX:StartFlightRecording=name=JMC_Default,maxsize=100m                                                          \
+-Djava.net.preferIPv4Stack=true                                                                                 \
+-Djdk.attach.allowAttachSelf=true                                                                               \
+--add-exports=java.xml/com.sun.org.apache.xerces.internal.parsers=ALL-UNNAMED                                   \
+--add-exports=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED                                              \
+--add-exports=java.management/sun.management=ALL-UNNAMED                                                        \
+--add-exports=java.management/sun.management.counter.perf=ALL-UNNAMED                                           \
+--add-exports=jdk.management.agent/jdk.internal.agent=ALL-UNNAMED                                               \
+--add-exports=jdk.attach/sun.tools.attach=ALL-UNNAMED                                                           \
+--add-opens=java.base/java.net=ALL-UNNAMED                                                                      \
+--add-opens=jdk.attach/sun.tools.attach=ALL-UNNAMED                                                             \
+-Dsun.java.command=JMC                                                                                          \
+--add-exports=java.desktop/sun.lwawt.macosx=ALL-UNNAMED                                                         \
+-XstartOnFirstThread                                                                                            \
+-Dorg.eclipse.swt.internal.carbon.smallFonts                                                                    \
+-debug
+
+.\eclipse.exe -vmargs --add-exports=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED”
+--add-exports=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED
 ----
 
 ## 启动时直接输出

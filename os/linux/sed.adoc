@@ -1,10 +1,87 @@
 
 - https://www.gnu.org/software/sed/manual/sed.html[sed, a stream editor]
 - https://docstore.mik.ua/orelly/unix/sedawk/appa_03.htm[Command Summary for sed]
+- link:https://pubs.opengroup.org/onlinepubs/9699919799/utilities/sed.html[sed]
 
+
+
+## 在前面插入
+
+[source,shell]
+----
+# 在第二行插入 "111\n", 注意:  GNU版本的 sed 才允许将要插入的文本放在 /i 的同一行
+cat <<EOF |
+aaa
+bbb
+ccc
+EOF
+sed '2i\
+111
+'
+
+cat <<EOF |
+aaa
+bbb
+ccc
+EOF
+sed -r '2i\
+111\n'
+
+
+
+# 在所有 "bbb" 前插入 "111\n"
+cat <<EOF |
+aaa
+bbb
+bbb
+ccc
+EOF
+sed '/bbb/i\
+111
+'
+----
+
+## 在前面插入
+
+[source,shell]
+----
+# 在第二行后插入 "111\n", 注意:  GNU版本的 sed 才允许将要插入的文本放在 /a 的同一行
+cat <<EOF |
+aaa
+bbb
+ccc
+EOF
+sed '2a\
+111
+'
+
+
+# 在所有 "bbb" 前插入 "111\n"
+cat <<EOF |
+aaa
+bbb
+bbb
+ccc
+EOF
+sed '/bbb/a\
+111
+'
+----
 
 
 ## 字符串替换
+
+[source,shell]
+----
+cat <<EOF |
+aaa
+bbb
+bbb
+ccc
+EOF
+sed 's/^bbb$/111/'
+----
+
 
 [source,shell]
 ----
@@ -21,17 +98,17 @@ sed -i '' 's/ AUTO_INCREMENT=[0-9]* / AUTO_INCREMENT=1 /g'  ddl.sql
 ----
 
 
-## 删除第一行
+## 删除
 
 [source,shell]
 ----
-cat <<EOF
+# 删除第一行
+cat <<EOF |
 aaa
 bbb
 ccc
 EOF
-
-sed  -i '1d' a.txt
+sed '1d'
 ----
 
 

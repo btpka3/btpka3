@@ -65,3 +65,55 @@ git push -f origin tmp/master:master
 # 清理
 git remote remove tmp
 ----
+
+== 远程仓库复制:子目录
+link:https://grantwinney.com/how-to-move-a-subdirectory-of-one-repo-into-its-own-repository/[Move a subdirectory into its own Git repo, with history]
+=== 方式1： 使用 git-filter-repo
+
+== filter-branch
+[source,shell]
+----
+cd ${your_git_repo}
+FILTER_BRANCH_SQUELCH_WARNING=1
+git filter-branch --subdirectory-filter the-sub-directory-to-keep
+----
+
+
+=== 方式2： 使用三方工具 git-filter-repo
+
+- link:https://github.com/newren/git-filter-repo[git-filter-repo]
+- link:https://www.mankier.com/1/git-filter-repo[git-filter-repo - Man Page]
+
+[source,shell]
+----
+# 前提：已经安装了 git 和 python3
+# 下载到 PATH 环境变量中一个子目录，并添加可执行权限
+wget -O ${HOME}/git-filter-repo https://raw.githubusercontent.com/newren/git-filter-repo/refs/heads/main/git-filter-repo
+chmod u+x ${HOME}/git-filter-repo
+
+cd ${your_git_repo}
+# 修改git代码仓库，只保留给定的子目录（含history）
+# 可通过 git log, 或gitk 确认
+# 然后可以将其推送到新git仓库
+git filter-repo --path risk-protocol
+----
+
+
+
+
+== sparse-checkout
+
+[source,shell]
+----
+# 生成 .git/info/sparse-checkout
+git sparse-checkout init
+# 打开
+git config core.sparseCheckout true
+# 关闭
+git sparse-checkout disable
+
+# 列出当前
+git sparse-checkout list
+git sparse-checkout set risk-protocol
+
+----

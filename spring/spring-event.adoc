@@ -52,7 +52,7 @@ org.springframework.context.ApplicationEvent
 |ApplicationFailedEvent                         |                   |                           |
 |ContextStoppedEvent                            |                   |                           |
 |ContextStartedEvent                            |                   |                           |
-|ContextClosedEvent                             |                   |                           |
+|ContextClosedEvent                             |✅                 |✅                         |
 
 |===
 

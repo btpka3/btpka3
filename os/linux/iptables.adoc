@@ -1,65 +1,74 @@
- 
 
 
-# 简介
+
+== 简介
 
 `iptables`，`ip6tables`是一个管理 pacakge 过滤和 NAT 的工具。
 用以建立、维护、检查 Linux Kernel 中 IPv4 和 IPv6 包过滤规则。
 
 其配置文件为 "/etc/sysconfig/iptables"
 
-* table
+*  table
++
 
-    Linux Kernel 中定义的的表。可包含多个 chain （预定义的、或自定义的）
-    
-    |table      |PREROUTING |INPUT  |FORWARD|OUTPUT |POSTROUTING| memo|
-    |-----------|-----------|-------|-------|-------|-----------|----|
-    |raw        | Y         |       |       | Y     |           |   |
-    |mangle     | Y         | Y     | Y     | Y     | Y         |   |
-    |nat        | Y         |       |       | Y     | Y         |   |
-    |filter     |           | Y     | Y     | Y     |           |   |
-    |security   |           | Y     | Y     | Y     |           |   |
-    
-    * filter
-    
-        默认 table。即如果没有通过 `-t` 明确指定，则使用该 table。
-        
-    * nat
-        
+Linux Kernel 中定义的的表。可包含多个 chain （预定义的、或自定义的）.
+`sudo cat /proc/net/ip_tables_names`
+
+** aaa
+** bbb
+
+[,cols="1,1,1,1,1,1,1"]
+.table1 title
+|===
+|table      |PREROUTING |INPUT  |FORWARD|OUTPUT |POSTROUTING| memo
+
+|raw        | Y         |       |       | Y     |           |
+|mangle     | Y         | Y     | Y     | Y     | Y         |
+|nat        | Y         |       |       | Y     | Y         |
+|filter     |           | Y     | Y     | Y     |           |
+|security   |           | Y     | Y     | Y     |           |
+|===
+
+** filter
+
+默认 table。即如果没有通过 `-t` 明确指定，则使用该 table。
+
+** nat
+
         当新建 connection 时会咨询该表。
-        
-    * mangle
-    
+
+** mangle
+
         在 kernel 2.4.17 以及之前版本，该表只包含 PREROUTING、OUTPUT 这两个 chain。
-    
-    * raw
-        
+
+** raw
+
         该表主要配合 NOTRACK target 处理不进行跟踪的 connection。
-        
-    * security
-    
+
+** security
+
         该表主要用于 Mandatory Access Control (MAC) 规则，比如 `SECMARK`，`CONNSECMARK` target
         MAC 又 Linux Security 模块实现（比如 SELinux）。该 `security` 在 `filter` 之后调用。
         允许在 filter 表中先启用任意的 Discretionary Access Control (DAC)，之后再启用 MAC 规则。
 
-    ```txt
-    0.0  RAW[PREROUTING] -> mangle[PREROUTING] -> nat[PREROUTING] -> <Routing-0>
-    1.0  mangle[FORWARD] -> filter[FORWARD]
-    1.1  mangle[INPUT] -> filter[INPUT] -> Local Process -> <Routing-1>
-         -> RAW[OUTPUT] -> mangle[OUTPUT] -> nat[OUTPUT] -> filter[OUTPUT] -> <Routing-2>
-    2.0  mangle[POSTROUTING] -> nat[POSTROUTING]
-    ```
+[source,plain]
+----
+0.0  RAW[PREROUTING] -> mangle[PREROUTING] -> nat[PREROUTING] -> <Routing-0>
+1.0  mangle[FORWARD] -> filter[FORWARD]
+1.1  mangle[INPUT] -> filter[INPUT] -> Local Process -> <Routing-1>
+        -> RAW[OUTPUT] -> mangle[OUTPUT] -> nat[OUTPUT] -> filter[OUTPUT] -> <Routing-2>
+2.0  mangle[POSTROUTING] -> nat[POSTROUTING]
+----
 
-* chain 
-    预定义的 chain 有 : `PREROUTING`、 `INPUT`、 `FORWARD`、 `OUTPUT`、 `POSTROUTING` 等
-    
-    
++
+** chain
+
+预定义的 chain 有 : `PREROUTING`、 `INPUT`、 `FORWARD`、 `OUTPUT`、 `POSTROUTING` 等
+
 可以定义多个表，每个表中可以包含预定义的 chain 和用户自定义的 chain。
 每个 chain 包含多个 rule (规则)。
 每个 rule 指定了要对匹配的 package 进行如何处理。该处理称之为 'target'，
 也可以跳转到同一个 table 中的其他 chain 进行处理。
-
-
 
 
 * rule
@@ -73,7 +82,8 @@
    可以是 `iptables-extensions` 中定义的 target。
    也可以是 `ACCEPT`, `DROP` 或 `RETURN` 这几个特殊值。
 
-```bash
+[source,shell]
+----
 iptables-save                               # 将 iptables 中的内容 dump 出来
 
 # man iptables
@@ -107,10 +117,10 @@ iptables --rename-chain old-chain new-chain # 重命名 chain
                             # 协议名可以是 tcp, udp, udplite, icmp, icmpv6, esp, ah, sctp, mh, all
                             # 也可是数值型的协议号，具体可参考 /etc/protocols
 
-[!] -s, --source address[/mask][,...] 
+[!] -s, --source address[/mask][,...]
                             # 指定来源地址
                             # address可以是网络名，主机名，或者网络ip地址（需要指定 /mask)、或普通IP地址
-                            
+
 [!] -d, --destination address[/mask][,...]
                             # 指定目标地址
 
@@ -126,19 +136,20 @@ iptables --rename-chain old-chain new-chain # 重命名 chain
 
 [!] -o, --out-interface name    # 指定数据目标网卡接口
                                 # 适用于要进入 FORWARD、 OUTPUT、 POSTROUTING 的数据
-    
+
 [!] -f, --fragment          # 指明该规则仅仅匹配第二个及以后 IPv4 fragments of fragmented packets。
 
 -c, --set-counters packets bytes    # 初始化规则匹配 package、byte 的计数器
 
 # man iptables-extensions
-```
+----
 
 
 
-## 如何 debug 规则?
+=== 如何 debug 规则?
 
-```bash
+[source,shell]
+----
 # TRACE
 iptables -t raw -A PREROUTING   -p tcp --destination 192.168.0.0/24 --dport 80 -j TRACE
 iptables -t raw -A OUTPUT       -p tcp --destination 192.168.0.0/24 --dport 80 -j TRACE
@@ -148,87 +159,101 @@ cat /var/log/kern.log | grep 'TRACE:'
 # LOG
 -j LOG --log-prefix "rule description"
 # 注意：在 docker container 中， iptables 的 LOG target 是不会记录日志的, 但是可以尝试 ulogd
+----
+
+- link:https://stackoverflow.com/questions/39632285/how-to-enable-logging-for-iptables-inside-a-docker-container[How to enable logging for iptables inside a Docker container?]
 
 
-```
 
-- [How to enable logging for iptables inside a Docker container?](https://stackoverflow.com/questions/39632285/how-to-enable-logging-for-iptables-inside-a-docker-container)
-https://blog.sleeplessbeastie.eu/2018/08/01/how-to-log-dropped-connections-from-iptables-firewall-using-netfilter-userspace-logging-daemon/
+== xx
 
-
-# xx
-
-```bash
+[source,shell]
+----
 iptables [-t table] COMMAND chain CRETIRIA -j ACTION
 
 # 查看定义规则的详细信息
 iptables -L -n -v
 
-# 拒绝来自 172.16.0.0/24 的请求 
+# 拒绝来自 172.16.0.0/24 的请求
 iptables -t filter -A INPUT -s 172.16.0.0/16 -p udp --dport 53 -j DROP
-```
-# COMMAND
+----
+== COMMAND
 
 
 
 
-## 链管理命令
+=== 链管理命令
 
 | `-P` |
 
 
 * `-P`
 
-# 通用匹配
+== 通用匹配
 
-|           |`-p tcp` |`-p udp` |`-p icmp`|memo|
-|-----------|---------|---------|---------|---|
-|`-s`       | Y       | Y       |         |指定目标端口|
-|`-d`       | Y       | Y       |         |指定源端口|
-|`-p`       | Y       |         |         |检查tcp的标志位：要坚持的、 必须为1的。比如 `--tcpflags syn,ack,fin,rst syn`|
-|`-i eth0`  |         |         | Y       |echo-request : 请求回显(一般用8 来表示)，echo-reply: 响应的数据包(一般用0来表示) |
-|`-o eth0`  |         |         | Y       |echo-request : 请求回显(一般用8 来表示)，echo-reply: 响应的数据包(一般用0来表示) |
+[,cols="1,1,1,1,1"]
+.通用匹配
+|===
+|           |`-p tcp` |`-p udp` |`-p icmp`|memo
 
+|`-s`       | Y       | Y       |         |指定目标端口
+|`-d`       | Y       | Y       |         |指定源端口
+|`-p`       | Y       |         |         |检查tcp的标志位：要坚持的、 必须为1的。比如 `--tcpflags syn,ack,fin,rst syn`
+|`-i eth0`  |         |         | Y       |echo-request : 请求回显(一般用8 来表示)，echo-reply: 响应的数据包(一般用0来表示)
+|`-o eth0`  |         |         | Y       |echo-request : 请求回显(一般用8 来表示)，echo-reply: 响应的数据包(一般用0来表示)
 
-
-
-# 扩展协议
-
-|               |`-p tcp` |`-p udp` |`-p icmp`|memo|
-|---------------|---------|---------|---------|---|
-|`--dport 21-23`| Y       | Y       |         |指定目标端口|
-|`--sport 80`   | Y       | Y       |         |指定源端口|
-|`--tcp-flags`  | Y       |         |         |检查tcp的标志位：要坚持的、 必须为1的。比如 `--tcpflags syn,ack,fin,rst syn`|
-|`--icmp-type`  |         |         | Y       |echo-request : 请求回显(一般用8 来表示)，echo-reply: 响应的数据包(一般用0来表示) |
+|===
 
 
-# 参考
+
+
+
+== 扩展协议
+
+[,cols="1,1,1,1,1"]
+.扩展协议
+|===
+|               |`-p tcp` |`-p udp` |`-p icmp`|memo
+
+|`--dport 21-23`| Y       | Y       |         |指定目标端口
+|`--sport 80`   | Y       | Y       |         |指定源端口
+|`--tcp-flags`  | Y       |         |         |检查tcp的标志位：要坚持的、 必须为1的。比如 `--tcpflags syn,ack,fin,rst syn`
+|`--icmp-type`  |         |         | Y       |echo-request : 请求回显(一般用8 来表示)，echo-reply: 响应的数据包(一般用0来表示)
+
+|===
+
+
+
+
+== 参考
 
 * `man iptables`
 * `man iptables-extensions`
-* [netfilter](http://netfilter.org/)
-* [iptables DNAT 与 iptables-save 详解 ](http://jafy00.blog.51cto.com/2594646/651856)
-* ![](http://linux-ip.net/nf/nfk-traversal.png)
-* ![](http://blog.51cto.com/attachment/201108/213457974.gif)
-* [NAT-HOWTO](https://www.netfilter.org/documentation/HOWTO/NAT-HOWTO.html)
-* [packet-filtering-HOWTO](https://www.netfilter.org/documentation/HOWTO/packet-filtering-HOWTO.html)
-* [appine-wall](https://wiki.alpinelinux.org/wiki/How-To_Alpine_Wall)
-* [linux内核将用BPF给iptables换心](https://baijiahao.baidu.com/s?id=1598167710178783742&wfr=spider&for=pc)
-* [Why is the kernel community replacing iptables with BPF?](https://cilium.io/blog/2018/04/17/why-is-the-kernel-community-replacing-iptables/)
+* link:http://netfilter.org/[netfilter]
+* link:http://jafy00.blog.51cto.com/2594646/651856[iptables DNAT 与 iptables-save 详解 ]
+* image::http://linux-ip.net/nf/nfk-traversal.png[nfk-traversal]
+* link:https://www.netfilter.org/documentation/HOWTO/NAT-HOWTO.html[NAT-HOWTO]
+* link:https://www.netfilter.org/documentation/HOWTO/packet-filtering-HOWTO.html[packet-filtering-HOWTO]
+* link:https://wiki.alpinelinux.org/wiki/How-To_Alpine_Wall[appine-wall]
+* link:https://baijiahao.baidu.com/s?id=1598167710178783742&wfr=spider&for=pc[linux内核将用BPF给iptables换心]
+* link:https://cilium.io/blog/2018/04/17/why-is-the-kernel-community-replacing-iptables/[Why is the kernel community replacing iptables with BPF?]
+* link:https://docs.docker.com/engine/network/packet-filtering-firewalls/[Packet filtering and firewalls]
 
-# iptables alternatives
-```txt
+== iptables alternatives
+[source,plain]
+----
 ipchain -> iptables -> nftables -> bpfilter
-```
+----
 
-- [nftables](https://netfilter.org/projects/nftables/)
+- link:https://netfilter.org/projects/nftables/[nftables]
 -  bpfilter
-- ipset 
+- ipset
 
 
-# snat
+== snat
 
-```shell
+[source,shell]
+----
 # 开启IP转发：临时
 echo 1 > /proc/sys/net/ipv4/ip_forward
 # 或者
@@ -243,8 +268,4 @@ sysctl -P
 
 # 非固定的出口IP
 iptalbes -t nat -A POSTROUTING -s 192.168.56.0/21 -o eth0 -j MASQUERADE
-
-
-
-
-```
+----

@@ -28,6 +28,8 @@ git config --global credential.helper 'cache --timeout=3600'   # 保存在内存
 git config credential.helper 'store --file=<path>'
 
 git clone --depth=1 git@github.com:spring-projects/spring-boot.git
+
+
 ```
 
 
@@ -72,6 +74,8 @@ git config --global color.ui auto                 # git命令下会使用红色�
 git config --global credential.helper cache       # 在 clone `https` 类型的URL时，可减少用户名密码输入次数
 git config --global core.quotepath false          # 在提交中文名称的文件时，不转义为 \350\256\256\346\200\273\347\273\223.xlsx
 git config --global core.ignorecase false         # 文件名区分大小写
+git config --global oh-my-zsh.hide-dirty 1        # 避免 macos里 zsh/oh-my-zsh 换目录太慢
+git config --global oh-my-zsh.hide-info 1         # 避免 macos里 zsh/oh-my-zsh 换目录太慢
 git config --list
 
 
@@ -182,6 +186,7 @@ git rm README
 git rm --cached xxFile  # 保留本地磁盘文件
 git mv file_from file_to
 git log
+git --no-pager log # 直接输出到控制台，不分页
 git log -n 1 origin/master..xxxBranch                                                       # 0d5ca7bd1c1c0aeb463d53d7e5dc318c16267b56
 git log -n 1 --walk-reflogs --grep-reflog=origin/master --pretty=tformat:"%H"               # 倒序查看历史中第一个包含 origin/master 分支的 commitId
 git ls-remote --pretty=tformat:"%H" git@xxx.com:xxx-org/xxx-app.git  refs/heads/master      # 在没有本地代码仓的情况下直接插线远程git仓库中给定的 对象的信息（比如最后一个commitId）
@@ -510,6 +515,8 @@ git push -f                         # 本地修改之后，强制提交
 
 ```bash
 git revert <commit-id>               # 该方法通过在最新commit之后新建一个commit来达到回滚的效果。
+
+git revert --no-commit d914dd573dbffcc861596f386a728d685d6987be..HEAD
 ```
 
 # 统计

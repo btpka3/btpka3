@@ -123,7 +123,8 @@ maven GAV: com.alibaba.boot:nacos-discovery-spring-boot-starter:0.2.12
 == ERROR
 
 
-```
+[source,plain]
+----
 "com.alibaba.nacos.client.Worker@10227" daemon prio=5 tid=0xf6 nid=NA runnable
   java.lang.Thread.State: RUNNABLE
 	 blocks localhost-startStop-1@2386
@@ -142,14 +143,15 @@ maven GAV: com.alibaba.boot:nacos-discovery-spring-boot-starter:0.2.12
 	  at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
 	  at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
 	  at java.lang.Thread.run(Thread.java:829)
-```
+----
 
 
 
 ## docker
 
-```shell
-docker run --rm -it \
+[source,shell]
+----
+podman run --rm -it \
  --platform=linux/amd64 \
  -p 8848:8848 -p 9848:9848 -p 9849:9849 -p 7848:7848 \
  -e MODE=standalone \
@@ -160,10 +162,11 @@ docker run --rm -it \
 
 # 浏览器访问
 http://127.0.0.1:8848/nacos
-```
+----
 
 
-```shell
+[source,shell]
+----
 # 手动使用外部 MySql 数据库
 docker run --rm -it  -p 8848:8848 -p 9848:9848 -p 9849:9849 -p 7848:7848 --entrypoint bash nacos/nacos-server:v2.2.3
 
@@ -178,13 +181,14 @@ export PREFER_HOST_MODE=hostname
 export NACOS_SERVERS="$(hostname):8848"
 
 /home/nacos/bin/docker-startup.sh
-```
+----
 
 == 本地验证
 
 === 查询
 
-```shell
+[source,shell]
+----
 NACOS_ADDR=http://127.0.0.1:8848
 CONTEXT_ROOT=/nacos
 NACOS_ADDR=http://nacos.default.svc.cluster.local:8848
@@ -194,11 +198,12 @@ dataId=gong9.mw.tddl.conf
 group=gong9-mw
 
 curl -v "${NACOS_ADDR}${CONTEXT_ROOT}/v2/cs/config?dataId=${dataId}&group=${group}&namespaceId=${namespaceId}"
-```
+----
 
 === 更新
 
-```shell
+[source,shell]
+----
 
 NACOS_ADDR=http://mse-32a46c30-nacos-ans.mse.aliyuncs.com
 CONTEXT_ROOT=/nacos
@@ -221,13 +226,14 @@ curl -s -X POST \
 
 # 读取
 curl -v "${NACOS_ADDR}${CONTEXT_ROOT}/v2/cs/config?dataId=${dataId}&group=${group}&namespaceId=${namespaceId}"
-```
+----
 
 
 
 == data 目录
 
-```plain
+[source,plain]
+----
 /home/nacos/data/config-data/${groupId}/${dataId}
 /home/nacos/data/naming/data/                                                   # empty
 /home/nacos/data/protocol/raft/naming_instance_metadata/log/000004.log
@@ -240,7 +246,7 @@ curl -v "${NACOS_ADDR}${CONTEXT_ROOT}/v2/cs/config?dataId=${dataId}&group=${grou
 /home/nacos/data/protocol/raft/naming_instance_metadata/log/OPTIONS-000009
 /home/nacos/data/protocol/raft/naming_instance_metadata/meta-data/raft_meta
 /home/nacos/data/protocol/raft/naming_instance_metadata/meta-data/snapshot/     # empty
-```
+----
 
 
 
@@ -286,4 +292,12 @@ curl -s mse-37471f90-nacos-ans.mse.aliyuncs.com:8848/nacos/v2/console/namespace/
   ]
 }
 
+----
+
+
+== arthas
+
+[source,shell]
+----
+# 获取有多少个注册中心
 ----

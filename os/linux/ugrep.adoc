@@ -11,7 +11,7 @@ ugrep -r -g"*.xml" "<project" .
 # 同上，但只输出匹配的文件
 ugrep -r -g"*.xml" -l "<project" .
 
-ugrep  -z -txml -l "<project" .
+ugrep -z -txml -l "<project" .
 
 
 ######## 压缩包
@@ -43,5 +43,20 @@ ugrep -z -P '(\x01[\x00-\xFF]{2}|")com\.aliyun\.tair\.core[\x00-\x1F"]' *.jar
 ----
 
 
+
+[source,shell]
+----
+# 查找所有 jar 包中，哪些文件包含给定字符串
+for jar in *.jar; do zipgrep -l "ch.qos.logback.classic.joran.JoranConfigurator" "${jar}" ; done
+
+
+# 按照压缩包里的文件名过滤jar包
+for jar in *.jar; do
+  unzip -l "${jar}" | grep  "com/alibaba/security/mtee/sup/common/SupLogger.class" > /dev/null
+  if [ $? = 0 ] ; then
+    echo ${jar}
+  fi
+done
+----
 
 

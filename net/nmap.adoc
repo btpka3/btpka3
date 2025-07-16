@@ -1,8 +1,9 @@
 
 
-# 端口扫描
+== 端口扫描
 
-```bash
+[source,shell]
+----
 brew install nmap
 
 # 通过能否连接来扫描端口
@@ -18,24 +19,24 @@ nmap -sT wazitang.cn
 # -sU 扫描 UDP端口
 # -Pn 绕过ping 检查，因为有些防火墙会禁止 ping
 nmap -Pn -sU 192.168.0.12
+----
 
 
-```
+== SSL server cipher suite
 
+link:https://svn.nmap.org/nmap/scripts/ssl-enum-ciphers.nse[ssl-enum-ciphers.nse]
 
-# SSL server cipher suite
-
-[ssl-enum-ciphers.nse](https://svn.nmap.org/nmap/scripts/ssl-enum-ciphers.nse)
-
-```bash
+[source,shell]
+----
 mkdir /tmp/aaa
 cd /tmp/aaa
 curl -fsSL https://svn.nmap.org/nmap/scripts/ssl-enum-ciphers.nse -o ssl-enum-ciphers.nse
 nmap --script ssl-enum-ciphers -p 443 sts.cn-hangzhou.aliyuncs.com
-```
+----
 
 output
-```plain
+[source,plain]
+----
 Starting Nmap 7.94 ( https://nmap.org ) at 2023-11-02 00:06 CST
 Nmap scan report for sts.cn-hangzhou.aliyuncs.com (101.37.132.1)
 Host is up (0.0040s latency).
@@ -87,6 +88,9 @@ PORT    STATE SERVICE
 |_  least strength: A
 
 Nmap done: 1 IP address (1 host up) scanned in 1.31 seconds
-```
+----
 
+
+== rmi-dumpregistry.nse
+https://nmap.org/nsedoc/scripts/rmi-dumpregistry.html
 

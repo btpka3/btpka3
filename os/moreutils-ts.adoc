@@ -1,0 +1,20 @@
+== ts
+ts: 可以在标准输出前 preappend 一个前缀
+
+[source,shell]
+----
+brew install moreutils
+
+echo "aaa" | ts '[%Y-%m-%d %H:%M:%S] : ' | tee -a /tmp/out.log
+
+demoFunc(){
+   echo "a1"
+   sleep 1
+   echo "a2"
+   sleep 1
+   echo "a2"
+}
+demoFunc | ts '[%Y-%m-%d %H:%M:%S] : ' | tee -a /tmp/out.log
+
+ls -l /  | ts '[%Y-%m-%d %H:%M:%S] : ' | tee -a /tmp/out.log
+----

@@ -5,7 +5,8 @@
 
 == docker
 
-```
+[source,shell]
+----
 
 docker pull redis:3.2.4
 
@@ -33,7 +34,7 @@ brew install redis
 redis-server
 redis-cli
 redis-cli -h xxxHost --user default --pass xxxPassword
-```
+----
 
 == Cluster and Sentinel
 
@@ -59,53 +60,59 @@ Redis Sentinel的作用: 使用一主多从模式保证高可用性。
 
 1. 创建系统用户redis，及所需的目录
 
-    ```bash
-    cd ~/Downloads
-    wget http://download.redis.io/releases/redis-3.0.3.tar.gz
-    tar xzf redis-3.0.3.tar.gz
-    cd redis-3.0.3
-    make
-    make PREFIX=/data0/soft/redis/redis-3.0.3 install
+[source,shell]
+----
+cd ~/Downloads
+wget http://download.redis.io/releases/redis-3.0.3.tar.gz
+tar xzf redis-3.0.3.tar.gz
+cd redis-3.0.3
+make
+make PREFIX=/data0/soft/redis/redis-3.0.3 install
 
-    [root@localhost ~]# adduser -r -m  -d /data/software/redis redis
-    [root@localhost ~]# passwd -l redis
+[root@localhost ~]# adduser -r -m  -d /data/software/redis redis
+[root@localhost ~]# passwd -l redis
 
-    [root@localhost ~]# mkdir /data/store/redis
-    [root@localhost ~]# chown -R redis:redis /data/store/redis
+[root@localhost ~]# mkdir /data/store/redis
+[root@localhost ~]# chown -R redis:redis /data/store/redis
 
-    [root@localhost ~]# mkdir /data/outputs/log/redis
-    [root@localhost ~]# chown -R redis:redis /data/outputs/log/redis
+[root@localhost ~]# mkdir /data/outputs/log/redis
+[root@localhost ~]# chown -R redis:redis /data/outputs/log/redis
+----
 
-    ```
 1. 从[Redis官网](http://redis.io/download)下载所需的安装包，或者查看文件共享：`\\10.1.10.212\share\java\redis\`
    。放到 `/data/tmp/` 目录下，并解压：
 
-    ```bash
-    [root@localhost ~]# mkdir /data/tmp
-    [root@localhost ~]# scp root@10.1.10.212:/data/share/java/redis/redis-2.8.7.tar.gz /data/tmp
-    [root@localhost ~]# tar zxvf /data/tmp/redis-2.8.7.tar.gz -C /data/software/redis/
-    [root@localhost ~]# chown -R redis:redis /data/software/redis/
-    ```
+[source,shell]
+----
+[root@localhost ~]# mkdir /data/tmp
+[root@localhost ~]# scp root@10.1.10.212:/data/share/java/redis/redis-2.8.7.tar.gz /data/tmp
+[root@localhost ~]# tar zxvf /data/tmp/redis-2.8.7.tar.gz -C /data/software/redis/
+[root@localhost ~]# chown -R redis:redis /data/software/redis/
+----
+
 1. 编译
 
-    ```bash
-    [root@localhost ~]# su - redis
-    [redis@localhost ~]$ cd /data/software/redis/redis-2.8.7/
-    [redis@localhost redis-2.8.7]$ make
-    ```
+[source,shell]
+----
+su - redis
+cd /data/software/redis/redis-2.8.7/
+[redis@localhost redis-2.8.7]$ make
+----
 1. 修改配置文件
 
-    ```bash
-    [root@localhost ~]# /data/software/redis/redis-2.8.7/redis.conf
-      daemonize yes
-      pidfile /data/store/redis/redis.pid
-      port 6379
-      dir /data/store/redis/
-    ```
+[source,shell]
+----
+[root@localhost ~]# /data/software/redis/redis-2.8.7/redis.conf
+    daemonize yes
+    pidfile /data/store/redis/redis.pid
+    port 6379
+    dir /data/store/redis/
+----
 
 1. 从[这里](init.d.redis)下载Redis的init.d脚本至 `/etc/init.d/redis`，修改后并启用
 
-    ```bash
+[source,shell]
+----
     [root@localhost ~] vi /etc/init.d/redis
       exec="/data/software/redis/redis-2.8.7/src/redis-server"
       pidfile="/data/store/redis/redis.pid"                                                                 # 应当与redis.conf中的配置保持一致
@@ -115,12 +122,14 @@ Redis Sentinel的作用: 使用一主多从模式保证高可用性。
     [root@localhost ~]# chkconfig --add redis
     [root@localhost ~]# chkconfig --list redis
     [root@localhost ~]# chkconfig --level 345 redis on
-    ```
+----
+
 1. 启动
 
-    ```bash
-    [root@localhost ~]# service redis start
-    ```
+[source,shell]
+----
+[root@localhost ~]# service redis start
+---
 
 
 TODO 上下合并
@@ -394,4 +403,42 @@ TFCALL myFirstLibrary.hello 2 key1 key2 value1 value2 value2
 ----
 # 检查服务端信息
 info server
+----
+
+== key
+
+
+
+link:https://redis.io/docs/latest/develop/tools/cli/[Redis CLI]
+
+redis-cli 命令中 ，如果是 双引号 包含的字符串，则支持以下转义字符.
+[source,shell]
+----
+\" - double-quote
+\n - newline
+\r - carriage return
+\t - horizontal tab
+\b - backspace
+\a - alert
+\\ - backslash
+\xhh - any ASCII character represented by a hexadecimal number (hh)
+----
+
+如果是 单引号 包含的字符串，则支持以下转义字符.
+[source,shell]
+----
+\' - single quote
+\\ - backslash
+----
+
+
+- link:https://redis.io/docs/latest/commands/cluster-keyslot/[CLUSTER KEYSLOT]
+- link:https://redis.io/blog/redis-clustering-best-practices-with-keys/[Redis Clustering Best Practices With Multiple Keys]
+
+[source,shell]
+----
+CLUSTER KEYSLOT key001
+CLUSTER KEYSLOT key002
+CLUSTER KEYSLOT version001
+CLUSTER KEYSLOT version001{key001}
 ----

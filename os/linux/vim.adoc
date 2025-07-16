@@ -156,6 +156,12 @@ set wrap                    " 开启：换行
 
 set list                    " 开启：显示制表符
 " comment here
+
+set encoding=utf-8
+set fileencodings=utf-8,ucs-bom,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+set helplang=en
+set termencoding=utf-8
+
 -----
 
 

@@ -1,0 +1,104 @@
+
+## classlaoder
+
+### jdk
+### tomcat
+### spring,spring-boot
+### pandora
+### 自定义
+
+## SPI
+- Q1: `META-INF/service/*` 什么时候扫描的?
+- Q2: 实现类何时加载的 `Class.forName(String,boolean,ClassLoader)` ?
+- Q3: 实现类的实例对象何时 new/创建的 ?
+- Q4: 多次循环时，是否会重复扫描，重复类创建?
+- Q4: 多classloder时如何处理的？与TCCL啥关系？
+
+
+### jdk-serviceLoader
+
+- 在遍历 ServiceLoader 时，针对每个实现类，都先loadClass,
+- 当循环内调用 `Provider#get()`, 会创建对应的实例对象， 如果多次调用 则会创建多个对象。
+
+[source,java]
+----
+// META-INF/service/${接口名}, 文件内容每行：一个实现类
+// load时 通过 TCCL 查找、加载
+// 只加载一次，若要重新加载，需要重新调用 load 完整再走一遍流程
+// 如果重新load，则会重新创建对应的对象，并不会使用之前创建好的对象
+
+import java.util.ServiceLoader;
+ServiceLoader<XxxSpiInterface> serviceLoader = ServiceLoader.load(XxxSpiInterface.class);
+// 只能循环遍历处理
+for(XxxSpiInterface impl : serviceLoader) { // ⭕️， 一次：扫描 META-INF/service/${接口名}; 多次: 类加载+创建实例对象
+    impl.doSomething();
+}
+----
+
+### spring,spring-boot
+
+* List<String> org.springframework.core.io.support.SpringFactoriesLoader#loadFactories(Class,ClassLoader)
+加载 META-INF/spring.factories 中的类
+但仅仅提供了 String 的类名，而类加载、对象实例的创建，需要调用方自行处理。
+
+* org.springframework.boot.context.annotation.ImportCandidates
+"META-INF/spring/%s.imports"
+但仅仅提供了 String 的类名，而类加载、对象实例的创建，需要调用方自行处理。
+
+
+### pandora
+
+### dubbo
+
+link:https://cloud.tencent.com/developer/article/2337426[Dubbo源码篇05---SPI神秘的面纱---使用篇]
+
+[source,java]
+----
+// META-INF/service/${接口名}, 文件内容每行：key=实现类名
+// laod时 通过 TCCL 查找、加载
+// 只加载一次，若要重新加载，需要重新调用 load 完整再走一遍流程
+// 如果重新load，则会重新创建对应的对象，并不会使用之前创建好的对象
+
+import org.apache.dubbo.common.extension.ExtensionLoader;
+ServiceLoader<XxxSpiInterface> serviceLoader = ServiceLoader.load(XxxSpiInterface.class);
+
+package com.alibaba.security.gong9.mw.pandora.hsf.impl.dubbo.config;
+
+import org.apache.dubbo.common.config.Configuration;
+import org.apache.dubbo.common.config.ConfigurationUtils;
+import org.apache.dubbo.common.config.Environment;
+import org.apache.dubbo.rpc.model.ApplicationModel;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import static org.apache.dubbo.rpc.Constants.H2_SETTINGS_RESOLVE_FALLBACK_TO_DEFAULT_KEY;
+
+/**
+ * @author dangqian.zll
+ * @date 2025/4/14
+ */
+public class G9EnvironmentConfigurationTest {
+
+    @Test
+    public void x() {
+        ApplicationModel applicationModel = ApplicationModel.defaultModel();
+        ExtensionLoader<XxxSpiInterface> extensionLoader = applicationModel.getExtensionLoader(XxxSpiInterface.class);
+
+        // 使用方式一: 全部遍历处理
+        List<XxxSpiInterface> implList = extensionLoader.getLoadedExtensionInstances()
+        for(XxxSpiInterface impl : implList){
+            impl.doSomething();
+        }
+
+        // 使用方式二: 只获取特定的一个实现实例，并调用。这种相比JDK的省去了遍历的消耗。
+        // 在调用 getExtension(String) 时，才去（1）实现类的类加载（2）创建实现类的实例对象。
+        // Q: 什么时需要用这种机制？
+        // A: dubbo 支持 按照url参数过去 Adaptive 动态选在实现类，比如 根据duboo请求的URL的参数选择对应的功能。
+        XxxSpiInterface impl = extensionLoader.getExtension(alias);
+        impl.doSomething();
+    }
+}
+----
+
+
+### 如何自行设计
