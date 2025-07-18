@@ -48,6 +48,21 @@ link:https://bbs.huaweicloud.com/blogs/281789[Git工作流中常见的三种分�
 
 ** Hot fix分支：热修复分支，生产环境发现新Bug时创建的临时分支，问题验证通过后，合并到Master和Develop分支。
 
+[source,plain]
+----
+maseter ⭕️（v0.1) →→→→→ ⭕️(v0.2) →→→→→→→→→→→→→→→ ⭕️(v1.0)
+         ↘            ↗                        ↗
+Hotfix    ↘ →→→→→→→→→ ⭕️                      ↗
+           ↘            ↘                    ↗
+Release     ↘            ↘           ⭕️ →→→ ⭕️
+             ↘            ↘        ↗         ↘
+Develop       ⭕️ →→→ ⭕️ →→→ ⭕️ →→→ ⭕️ →→→→→→→→ ⭕️
+               ↘      ↘          ↗
+Feature1        ↘      ⭕️ →→→→ ⭕️
+                 ↘
+Feature2          ⭕️ →→→ ⭕️ →→→ ⭕️ →→→ ⭕️
+----
+
 
 
 ## 远程仓库复制
@@ -117,3 +132,116 @@ git sparse-checkout list
 git sparse-checkout set risk-protocol
 
 ----
+
+
+== git gc
+
+
+[source,shell]
+----
+# 对本地git仓库 .git/objects 进行清理
+# - 压缩对象文件：多个小文件合并成大文件，减少文件系统的碎片化
+# - 删除无用的引用
+# - 删除 dangling objects : 清楚悬挂对象（没有应用的提交、树、文件）
+git gc
+
+# 深度优化，慢
+git gc --aggressive
+
+# 删除【今天】以前的所有没有被引用的对象
+git gc --prune=now
+# 删除【两周】以前的所有没有被引用的对象
+git gc --prune=2.weeks.ago
+# 根据 `git --no-pager config list | grep gc` 相关配置，自动判断此次是否需要执行 gc
+git gc --auto
+----
+
+
+== git grep
+
+[source,shell]
+----
+# 在当前 HEAD 索引中的文件中查找
+git grep xxxSearchStringInFile
+# 在当前 HEAD 索引中的 js 文件中查找
+git grep xxxSearchStringInFile -- "*.js"
+
+# 在给定 tag 的索引中的文件中查找
+git grep xxxSearchStringInFile v1.0
+# 在给定 commit 的索引中的文件中查找
+git grep xxxSearchStringInFile <xxxCommitHash>
+
+# 显示行号
+git grep -n ...
+# 忽略大小写
+git grep -i ...
+# 排除某些内容
+git grep -v ...
+# 查找内容是正则表达式
+git grep -e ...
+# 显示匹配行的上下文（前后各10行）
+git grep -C 10 ...
+----
+
+
+== git config
+
+具体配置项参考 link:https://git-scm.com/docs/git-config[git-config]
+
+[source,shell]
+----
+# 列出合并后的最终本地配置
+git --no-pager config list
+# 列出全局配置
+git --no-pager config list --global
+
+# 获取配置项的值
+git --no-pager config get user.name
+# 设置本地配置项的值
+git --no-pager config set user.name btpka3
+# 设置全局配置项的值
+git --no-pager config set  --global user.name btpka3
+----
+
+建议配置
+
+[source,shell]
+----
+git config set --global user.name    btpka3
+git config set --global user.email   btpka3@163.com
+
+# 当输出的内容一个屏幕可以完全显示时不pager，直接全部输出。
+# 验证 :
+# git log -n 1   # 只显示1个提交历史时，直接输出内容并退出
+# git log -n 50  # 显示过多的提交历史时，1屏显示不完，则进行pager，此时仍在less程序内，不退出。
+git config set --global core.pager   "less -F"
+
+# 无论内容多少，完全不pager
+git config set --global core.pager   cat
+----
+
+
+
+== git worktree
+
+需要频繁切换分支时，可通过该命令检出多份分支到不同目录来同时工作。
+
+[source,shell]
+----
+# 列出所有的 worktree
+git worktree list
+# 清理无效的 worktree
+git worktree prune
+
+# 检出一个新的分支到不同的目录，然后多开IDE到该目录下工作，仍可保留当前IDE在当前目录工作
+git worktree add ../feature-dir feature-branch
+
+# 开发修复完成后，可以删除临时的 worktree
+git worktree remove ../feature-dir
+----
+
+
+
+
+
+== DCO/CLA
