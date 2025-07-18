@@ -12,6 +12,7 @@ lsof -nP +L1 -p xxxPid
 lsof -n -i :8080                               # 获取哪些进程在使用（监听/访问）8080端口
 lsof -n -iTCP:13659 -sTCP:LISTEN               # 获取哪些进程在使用 监听 13659 端口
 lsof -nP -iTCP -sTCP:LISTEN -a -p 15008        # 获取进程 15008 监听的TCP 端口
+sudo lsof -nP -iTCP:53 -iUDP:53                # 哪些进程在在使用（监听/访问）TPC,UDP 的 53 端口
 lsof -iUDP                                     # 按UDP过滤
 
 lsof +D /home/admin/logs/                      # 递归查询哪些文件被打开使用。慢。
@@ -22,7 +23,7 @@ lsof +D /home/admin/logs/                      # 递归查询哪些文件被打�
 
 lsof 默认都是将所列的选项进行 OR（或）拼接的。除了 -u , -p, -g, -c, -s 选项值有 ^ （取反）时。
 
-[source,plain]
+[source,shell]
 ----
 lsof -a             # AND, 表示两个参数都必须满足时才显示结果
 lsof -b             # 避免使用 会Block的 kernel函数，比如：lstat(2), readlink(2), and stat(2).
