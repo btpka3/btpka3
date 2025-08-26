@@ -157,7 +157,7 @@ public static class MyBfpp implements BeanFactoryPostProcessor {
 . org.springframework.boot.autoconfigure.AutoConfigurationImportFilter
 . org.springframework.boot.autoconfigure.service.connection.ConnectionDetailsFactory
 . org.springframework.core.io.ProtocolResolver
-
+. org.springframework.web.context.ContextLoaderListener
 
 == Ordered + BeanPostProcessor 可以使用的特性
 

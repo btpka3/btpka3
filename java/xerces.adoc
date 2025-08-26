@@ -1,0 +1,18 @@
+
+
+link:https://xerces.apache.org/[Apache Xerces]
+
+
+
+== which maven GAV ?
+
+org.apache.xerces:xml-apis
+
+xerces:xmlParserAPIs
+xerces:xercesImpl
+xerces:xerces
+
+xml-apis:xmlParserAPIs
+xml-apis:xml-apis
+
+- ❓❓❓ 新项目应该禁止依赖  xerces ？

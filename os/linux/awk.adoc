@@ -408,11 +408,100 @@ EOF
 gawk  '
 BEGIN{RS="\n\""; ORS="";FS="\n"}
 {
- if (match($0, "bbb|ccc")){
-   print (FNR == 1 ? "" : "\"") $0 "\n" }
- }
+  if (match($0, "bbb|ccc")){
+    print (FNR == 1 ? "" : "\"") $0 "\n"
+  }
+}
 ' | grep . | grep -E -v "^\"" | sort | uniq -c | sort -k1 -n -r
 ----
+
+
+[source,shell]
+----
+# 过滤出相关内容,并按照行数去统计排序，找出TOP-n
+cat <<EOF |
+ts="111" "1111"
+   aaa
+   aaa
+   aaa
+ts="222" "2222"
+   bbb
+   bbb
+   bbb
+ts="333" "3333"
+   bbb
+   bbb
+   bbb
+ts="444" "4444"
+   aaa
+   aaa
+   aaa
+ts="555" "5555"
+   ccc
+   ccc
+ts="666" "666"
+   aaa
+   aaa
+   aaa
+
+
+EOF
+gawk '
+BEGIN{RS="\nts=";ORS="";}
+{
+  # 移除首行，只保留堆栈
+  stack = $0;
+  n = index(stack, "\n")
+  if(n > 0){
+    stack=substr(stack, n+1 )
+  }
+  # 移除行尾空白
+  stack=gensub(/\s+$/, "", "g", stack)
+  arr[stack] ++
+}
+END {
+  PROCINFO["sorted_in"] = "@val_num_desc";
+  for (stack in arr){
+    print  "====== : " arr[stack] "\n" stack "\n"
+  }
+}
+'
+
+
+
+
+grep -v -F "Command execution times exceed limit" /tmp/a.txt | \
+grep -v -F "Affect(class count:" | \
+awk '
+BEGIN{RS="\nts=";ORS="";}
+{
+  # 移除首行，只保留堆栈
+  stack = $0;
+  n = index(stack, "\n")
+  if(n > 0){
+    stack=substr(stack, n+1 )
+  }
+  # 移除行尾空白
+  stack=gensub(/\s+$/, "", "g", stack)
+  arr[stack] ++
+}
+END {
+  PROCINFO["sorted_in"] = "@val_num_desc";
+  for (stack in arr){
+    print  "====== : " arr[stack] "\n" stack "\n"
+  }
+}
+'
+
+/tmp/a.txt | head -n 50 |
+print  "====== : [" n "] :\n" stack "\n"
+----
+
+
+
+
+
+
 
 
 [source,shell]
@@ -469,7 +558,7 @@ CONTENT='
 STACK_FILE=/tmp/stack.log.2023-02-03_23:30:40
 echo $CONTENT > $STACK_FILE
 
-cat $STACK_FILE | grep BLOCKED | awk '
+cat $STACK_FILE | grep BLOCKED | gawk '
 {
     if(match($0, /^"[^"]*" [^ ]+ \w+ on ([^ ]+) owned by "[^"]*" Id=([^ ]+)$/, arr)){
         lock     = arr[1]
@@ -478,7 +567,7 @@ cat $STACK_FILE | grep BLOCKED | awk '
     }
 }
 ' | sort | uniq |
-awk '
+gawk '
 {
     if(match($0, /(.*) (.*)/, arr)){
         threadId=arr[1]

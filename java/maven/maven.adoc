@@ -218,3 +218,7 @@ find . -type f  -name "*.java" \
     | grep \.java \
     | xargs -I {} -S 10240 sh -c 'f="{}"; iconv -f UTF-8 -t GBK ${f} > ${f}.tmp ; mv ${f}.tmp ${f}'
 ----
+
+
+== site
+

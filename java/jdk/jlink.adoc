@@ -1,0 +1,10 @@
+jlink 可以自定义运行环境，只打包所需的模块。
+
+[source,shell]
+----
+jlink \
+--moudle-path ${JAVA_HOME}/jmods \
+--add-modules java.base,java.sql.java.logging \
+-- out my-jdk-path
+--compress 2
+----

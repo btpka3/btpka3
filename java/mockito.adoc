@@ -7,7 +7,7 @@
 * import static org.mockito.Mockito.*; 该 package 中提供了不少常用的静态测试方法。
 * mockito link:https://asolntsev.github.io/en/2020/07/11/mockito-static-methods/[支持静态方法 mock]， link:https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#static_mocks[Mocking static methods]
 
-
+* link:https://github.com/mockito/mockito/releases/tag/v5.0.0[v5.0.0]
 
 
 
@@ -349,15 +349,47 @@ public class EnvUtilsTest {
 }
 ----
 
+== mockito-inline
+
+参考 link:https://github.com/mockito/mockito/releases/tag/v5.0.0[v5.0.0] 的说明。
+
+mockito 4.x 基于JDK8， 默认是通过创建sub class来实现mock，  从 2.7.6 开始提供了基于 "inline bytecode" 的实现方式，但默认没开启。
+需要增加依赖 mockito-inline 进行开启。
+
+mockito-inline 传递依赖了 mockito-core。 mockito-inlin内部没有class文件，只有两个 mockito的 配置文件
+
+Jar内文件: /mockito-extensions/org.mockito.plugins.MemberAccessor
+[source,java]
+----
+member-accessor-module
+----
+
+Jar内文件: /mockito-extensions/org.mockito.plugins.MockMaker
+[source,java]
+----
+mock-maker-inline
+----
+
+而 mockito 5.x 基于JDK11，且将默认实现就替换成了 "inline bytecode" 模式，且也不在提供 mockito-inline 这个jar包。
+如果用户还是需要使用基于 sub class的实现模式，则新提供了 mockito-subclass 这个jar包。
+
+
+
+== mock private/私有方法
+
+link:https://github.com/mockito/mockito/wiki/Mockito-And-Private-Methods[Mockito And Private Methods]
+
+- 故要么修改被测试对象的源码，修改对应方法的修饰符，将 private 替换 public,protected，或删除。 以便更好测试。
+- 在单侧类中 创建一个被测试类的子类，子类中没有额外业务逻辑，仅仅改变父类中相关方法的访问权限。
+- 要么就不要mock私有方法。
+
+
+
+
 
 
 // ----------------------------- 注释
 
-
-[source,java]
-----
-
-----
 
 
 

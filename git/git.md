@@ -284,6 +284,8 @@ git checkout tags/tag-name
 # Branch
 
 ```bash
+# 从给定 commitId 创建 branch
+git checkout -b NEW_BRANCH_NAME COMMIT_ID
 # 新建分支
 git branch branch-name
 # 检出远程分支

@@ -1,0 +1,37 @@
+
+
+
+
+== idea
+
+* idea intellij 中先安装 `Plugin DevKit` 插件
+* link:https://plugins.jetbrains.com/docs/intellij/enabling-internal.html[Enabling Internal Mode] 启用 internal model, 再重启
+* idea intellij : Tools : View PSI Structure of Current File...
+
+
+
+== pmd
+
+* link:https://docs.pmd-code.org/latest/pmd_userdocs_extending_writing_rules_intro.html#discovering-the-ast[Introduction to writing PMD rules] : Discovering the AST
+* link:https://docs.pmd-code.org/apidocs/pmd-java/7.16.0/net/sourceforge/pmd/lang/java/ast/JavaNode.html[net.sourceforge.pmd.lang.java.ast.JavaNode]
+* link:https://docs.pmd-code.org/latest/pmd_userdocs_extending_ast_dump.html[Creating XML dump of the AST]
+
+[source,shell]
+----
+pmd ast-dump --help
+
+cd /tmp
+cat <<EOF > Foo.java
+import org.apache.commons.lang.StringUtils;
+public class Foo {
+  int a;
+  public static void main(String[]args){
+    System.out.println(StringUtils.isEmpty("aaa"));
+    System.out.println(org.apache.commons.lang.StringUtils.isEmpty("sss"));
+  }
+}
+EOF
+
+pmd ast-dump --format xml --language java --file Foo.java > Foo.xml
+vi Foo.xml
+----

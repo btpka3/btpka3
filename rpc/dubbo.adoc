@@ -221,7 +221,7 @@ PS: 可以在 idea intellij : Edit : Find : Search Structurally... :
 
 [source,plain]
 ----
-com.alibaba.dubbo.common.extension.ExtensionFactory
+com.alibaba.dubbo.common.extension.ExtensionFactory  # @Deprecated
 com.alibaba.dubbo.container.page.PageHandler
 org.apache.dubbo.auth.spi.AccessKeyStorage
 org.apache.dubbo.auth.spi.Authenticator
@@ -235,7 +235,7 @@ org.apache.dubbo.common.convert.multiple.MultiValueConverter
 org.apache.dubbo.common.convert.Converter
 org.apache.dubbo.common.deploy.ApplicationDeployListener
 org.apache.dubbo.common.deploy.ModuleDeployListener
-org.apache.dubbo.common.extension.ExtensionFactory
+org.apache.dubbo.common.extension.ExtensionFactory   # @@Deprecated
 org.apache.dubbo.common.extension.ExtensionInjector
 org.apache.dubbo.common.infra.InfraAdapter
 org.apache.dubbo.common.json.JsonUtil
@@ -1015,7 +1015,7 @@ org.apache.dubbo.common.extension.ExtensionLoader#loadExtensionClasses
     // 2.1 如果要加载的 dubbo 内部 "special_spi.properties" 记录的类型，则【仅】使用 ExtensionLoader.class 所在的 classloader.
     // 2.2 否则，继续使用 scopeModel.getClassLoaders(),
     //     但如果 scopeModel.getClassLoaders() 是空值，则 从 ClassLoader.getSystemResources(fileName) 查找 文件并加载类。
-    
+
 
 org.apache.dubbo.rpc.model.ScopeModel#classLoaders
   // FrameworkModel,ApplicationModel,ModuleModel
@@ -1032,3 +1032,9 @@ org.apache.dubbo.rpc.model.ScopeModelUtil#getExtensionLoader :
 ----
 
 == Q: 同JVM调用时，dubbo转换为 injvm 调用的位置是？
+
+== HSF: RPCFilter
+- com.taobao.hsf.invocation.filter.RPCFilter
+- com.taobao.hsf.filter.HSFFilterChainBuilder
+
+

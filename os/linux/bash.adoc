@@ -279,6 +279,13 @@ waitterm() {
     wait "${PID}" 2>/dev/null || true
 }
 ----
+== PID
+
+[source,shell]
+----
+# 获取当前shell进程的 PID
+echo "current PID=$$"
+----
 
 
 
@@ -330,7 +337,7 @@ tar -rf file.tar file1 file2 ...
 [source,shell]
 ----
 zip -r file.zip file1 file2 ...
-zip -r 
+zip -r
 #tar -uf file.tar file1 file2 ...
 tar -rf file.tar file1 file2 ...
 ----
@@ -346,6 +353,7 @@ tar -f file.tar --delete file1 file2 ...
 unzip -Z -1 file.zip
 zipinfo -1 file.zip
 tar -tf file.tar | sort | uniq
+tar -tf file.tgz
 tar -tzf file.tar.gz
 tar -tjf file.tar.bz2
 ----
@@ -467,4 +475,36 @@ echo "301"
 311
 ==========c.sh : 3
 102
+----
+
+
+== source 和 变量
+
+source `.` 是在当前shell执行其脚本内容。会继承当前的变量。
+而 直接执行 `./xxx.sh` 脚本，则是新启动shell进程，无法访问调用者中声明的局部变量，但可以通过将变量暴露成环境变量来透传。
+
+[source,shell]
+----
+DIR=/tmp/demo-bash-source
+rm -fr ${DIR}
+mkdir -p ${DIR}
+cd ${DIR}
+
+cat <<EOF > appctl.sh
+#!/bin/bash
+MY_ENV=MY_ENV_001
+. ./setenv.sh
+EOF
+
+cat <<EOF > setenv.sh
+#!/bin/bash
+echo "====== setenv.sh: MY_ENV=\${MY_ENV}"
+EOF
+
+chmod u+x *.sh
+./appctl.sh
+# 用 source 命令，setenv.sh 可以访问 appctl.sh 中定义的变量
+# 但如果 `. ./setenv.sh` 替换成 `./setenv.sh` ,
+#   则是新启动了一个shell进程，则无法访问appctl.sh 中定义的变量。
+#   此时如果 appctl.sh 中 `export MY_ENV` 将其暴露成环境变量，则setenv.sh 可以访问 环境变量 MY_ENV
 ----

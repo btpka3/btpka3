@@ -221,3 +221,8 @@ docker image push IMAGE[:TAG]
   "mediaType": "application/vnd.oci.image.config.v1+json"
   "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
 
+
+
+== build multi-platform images
+
+

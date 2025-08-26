@@ -1,0 +1,5 @@
+
+link:https://plantuml.com/[PlantUML]
+
+
+建议的文件后缀: `.puml`, `.plantuml`

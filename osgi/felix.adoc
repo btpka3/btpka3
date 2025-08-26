@@ -5,8 +5,8 @@
 
 ## quick start
 
-
-```sh
+[source,shell]
+----
 java -Dfelix.config.properties=file:/path/to/config.properties -jar ./bin/felix.jar
 
 # 查看帮助
@@ -29,12 +29,12 @@ felix:resolve
 help obr:repos
 
 # 查看使用的哪个 obr 仓库
-# 默认显示的是 http://felix.apache.org/obr/ 
+# 默认显示的是 http://felix.apache.org/obr/
 # 浏览器访问该网址的话，可以看到下面主要有个 `releases.xml` 文件
 obr:repos list
 
 # 列出 OSGi Bundle Repository (OBR) 中有的 bundle
-obr:list 
+obr:list
 obr:list -v "Apache Felix Bundle Repository"
 obr:info "Apache Felix Bundle Repository"@1.6.6
 
@@ -46,4 +46,4 @@ obr:javadoc /tmp "Apache Felix Bundle Repository"@1.6.6
 
 # 从 obr 仓库下载并安装给定的 bundle
 obr:deploy "Apache Felix Bundle Repository"@1.6.6
-```
+----

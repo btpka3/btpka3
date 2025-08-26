@@ -1,0 +1,28 @@
+
+* link:https://pmd.github.io/[pmd]
+
+* link:https://maven.apache.org/plugins/maven-pmd-plugin/[maven-pmd-plugin]
+** link:https://github.com/apache/maven-pmd-plugin/blob/master/src/main/resources/rulesets/java/maven-pmd-plugin-default.xml[/rulesets/java/maven-pmd-plugin-default.xml]
+
+* link:https://docs.pmd-code.org/latest/pmd_userdocs_making_rulesets.html[Making rulesets]
+* link:https://github.com/pmd/pmd/blob/main/pmd-java/src/main/resources/category/java/codestyle.xml[category/java/codestyle.xml]
+* link:https://docs.pmd-code.org/latest/pmd_userdocs_3rdpartyrulesets.html[3rd party rulesets]
+** link:https://github.com/alibaba/p3c[alibaba/p3c]
+
+* link:https://docs.pmd-code.org/latest/pmd_userdocs_extending_writing_xpath_rules.html[Writing XPath rules]
+
+
+
+== install
+[source,shell]
+----
+# MacOS
+brew install --ignore-dependencies  pmd
+
+
+
+----
+
+
+
+

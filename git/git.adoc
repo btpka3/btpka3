@@ -245,3 +245,99 @@ git worktree remove ../feature-dir
 
 
 == DCO/CLA
+
+
+
+[source,shell]
+----
+# -s 在 commit message 中增加 "Signed-off-by:"
+git commit -s -m "xxx commit message"
+
+# 通过rebase 增加 "Signed-off-by:"
+git rebase HEAD~1 --signoff
+git push —-force-with-lease origin
+----
+
+
+== refSpec
+
+link:https://git-scm.com/book/en/v2/Git-Internals-The-Refspec[10.5 Git Internals - The Refspec]
+
+
+`.git/config` 中列出了响应的远程仓库，通常远程仓库名称是 "origin",
+其中 fetch 值的格式是: `+<src>:<dst>`, 其中前缀 加号是可选的。
+加号表示 即便不是 fast-forward 也从更新 reference。
+其中 `<src>` 表示的是远程代码仓库本地的 的 reference 前缀
+其中 `<dest>` 表示的是本地代码仓库 的 reference 前缀
+src,dest 可至多包含一个 `*` 通配符， 且 src/dest 要么同时有，要么同时没有。
+
+[source,plain]
+----
+[remote "origin"]
+        url = git@gitlab.alibaba-inc.com:mtee-bundle/jiugong-container.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+----
+
+
+[source,shell]
+----
+# add origin 如果不指定分支，默认会fetch所有分支
+git remote add origin git@xxx.com:xxx-group/xxx-repo.git
+
+# 列出所有本地仓库的 reference
+git show-ref
+
+# 以下三个命令等同，git 会将他们都扩展成 `refs/remotes/origin/master`
+git log origin/master
+git log remotes/origin/master
+git log refs/remotes/origin/master
+
+# tag 的 完整格式是 `refs/tags/<tag>`
+
+# 如果想只fetch 一个分支，可以用以下格式:
+# 将远程代码仓库的 master 分支 fetch 到本地的 refs/remotes/origin/master
+git fetch origin master:refs/remotes/origin/master
+
+# 推送本地 src 到远程仓库的 dst
+git push <repository> <src>:<dst>
+# 删除远程分支，因为未指定本地分支
+git push <repository> :<dst>
+----
+
+
+
+
+== bisect
+
+二分查找法定位 哪个commit 引入了bug
+
+[source,shell]
+----
+git bisect start
+git bisect start -- src/
+
+# 标记 哪个commit是有问题的
+git bisect bad        # 标记当前 HEAD
+git bisect bad <bad-commit-hash>
+
+git bisect good
+
+git bisect reset
+git bisect skip        # 跳过当前提交
+
+git bisect run ./test-script.sh
+----
+
+
+== log
+定位首次引入，删除某个字符串的commit
+
+[source,shell]
+----
+# 基础搜索（仅显示commit信息）
+git log -S"target_string" -- path/to/file
+# 显示详情（详细显示commit diff）
+git log -S"target_string" -p -- path/to/file
+# 处理重命名/移动
+git log --follow -S"target_string" -- path/to/file
+----

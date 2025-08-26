@@ -3,5 +3,66 @@
 * link:https://github.com/grpc/grpc-java[grpc-java]
 * link:https://github.com/grpc/grpc/blob/master/doc/command_line_tool.md[grpc_cli]
 * link:https://github.com/fullstorydev/grpcurl[grpcurl]
+* link:https://protobuf.dev/programming-guides/proto3/[Language Guide (proto 3)]
 
+gRPC 默认使用 protobuf 进行序列化，但不强制，可以自定义替换相关的序列化方法。
+
+
+== 数据类型
+=== 标量/scalar
+
+- double
+- int32
+- int64
+- uint32
+- uint64
+- sint32
+- sint64
+- fixed32
+- fixed64
+- sfixed32
+- sfixed64
+- bool
+- string
+- bytes
+
+== 枚举
+
+[source,java]
+----
+enum Corpus {
+  CORPUS_UNSPECIFIED = 0;
+  CORPUS_UNIVERSAL = 1;
+  CORPUS_WEB = 2;
+  CORPUS_IMAGES = 3;
+  CORPUS_LOCAL = 4;
+  CORPUS_NEWS = 5;
+  CORPUS_PRODUCTS = 6;
+  CORPUS_VIDEO = 7;
+}
+----
+
+- map<key_type, value_type>;
+
+
+
+
+== Any
+[source,java]
+----
+import "google/protobuf/any.proto";
+message ErrorStatus {
+  string message = 1;
+  repeated google.protobuf.Any details = 2;
+}
+----
+
+
+== empty
+
+[source,java]
+----
+rpc WhoAreYou(google.protobuf.Empty) returns (Whoami) {
+}
+----
 

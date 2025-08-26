@@ -69,6 +69,57 @@ mvn -Dsurefire.failIfNoSpecifiedTests=false -Dtest="com/alibaba/**/KeyCenterEncr
 * link:https://www.baeldung.com/junit-5-parallel-tests[Parallel Test Execution for JUnit 5]
 * link:https://stackoverflow.com/questions/43282798/in-junit-5-how-to-run-code-before-all-tests/51556718#51556718[In JUnit 5, how to run code before all tests]
 
+
+=== junit-platform.properties
+
+先配置 `src/test/resources/junit-platform.properties` 文件，配置相关参数:
+
+[source,shell]
+----
+# https://junit.org/junit5/docs/snapshot/user-guide/#writing-tests-parallel-execution-config-properties
+# https://www.baeldung.com/junit-5-parallel-tests
+
+# false|true
+junit.jupiter.execution.parallel.enabled = true
+
+# 1.0
+junit.jupiter.execution.parallel.config.dynamic.factor = 2
+
+# same_thread|concurrent
+junit.jupiter.execution.parallel.mode.default = concurrent
+
+# same_thread|concurrent
+junit.jupiter.execution.parallel.mode.classes.default = concurrent
+
+# dynamic|fixed|custom
+junit.jupiter.execution.parallel.config.strategy=dynamic
+
+# 256 + ${junit.jupiter.execution.parallel.config.dynamic.factor} * cores
+# junit.jupiter.execution.parallel.config.dynamic.max-pool-size-factor
+
+# true|false
+junit.jupiter.execution.parallel.config.dynamic.saturate=true
+
+# No default value
+# junit.jupiter.execution.parallel.config.fixed.parallelism
+
+# 256 + ${unit.jupiter.execution.parallel.config.fixed.parallelism}
+# junit.jupiter.execution.parallel.config.fixed.max-pool-size
+
+# true|false
+junit.jupiter.execution.parallel.config.fixed.saturate=true
+
+# No default value
+#junit.jupiter.execution.parallel.config.custom.class=
+----
+
+⭕️：如果有多个maven module，想公用一个该配置文件，则可以
+- 声明一个 独立的maven module（比如： base-test-project），提供 `src/main/resources/junit-platform.properties`
+- 其他 maven moudle 再使用 scope=test 依赖该 base-test-project。
+
+
+== junit5 : 扩展点
+
 [source,java]
 ----
 package xxx.yyy.zzz;
@@ -129,3 +180,20 @@ xxx.yyy.zzz.BeforeAllTestsExtension
 
 == 常见工具类
 org.junit.platform.commons.util.ReflectionUtils
+
+== 同时运行 junit4 + junit5
+
+同时依赖 org.junit.jupiter:junit-jupiter-engine, org.junit.vintage:junit-vintage-engine
+
+[source,xml]
+----
+<project>
+<properties>
+<junit-version>4.13.2</junit-version>
+        <junit5.version>5.12.2</junit5.version>
+</properties>
+</project>
+----
+
+
+

@@ -1,0 +1,8 @@
+* link:https://www.w3.org/TR/xpath-31/[XML Path Language (XPath) 3.1]
+* link:https://www.w3.org/TR/xpath-functions-31/[XPath and XQuery Functions and Operators 3.1]
+
+
+[source,shell]
+----
+
+----

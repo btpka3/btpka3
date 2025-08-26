@@ -67,6 +67,18 @@ jad -c 5e950bde Clz_EVENTPREPROCESS_alsc_zhuzhancaip_common_mtee_sns_unify_check
 ## tt
 由于并不总是能 通过 类的静态成员变量，一层一层找到要分析的目标java 对象，可以使用 tt 来监控一次调用流后，根据调用中的相关信息，找到目标对象，并执行相关动作。
 
+
+== monitor
+
+可以监控给定方法的调用次数、成功次数、失败次数、平均RT、失败率
+
+[source,shell]
+----
+monitor xxx.pkg.XxxClass xxxMethod 
+----
+
+
+
 ## 使用总结
 
 ### 构造函数

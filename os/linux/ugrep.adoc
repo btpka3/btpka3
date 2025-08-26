@@ -5,12 +5,16 @@ link:https://github.com/Genivia/ugrep[ugrep]
 
 [source,shell]
 ----
+# AMD64
+wget https://nightly.link/Genivia/ugrep/workflows/autobuild-static/master/ugrep_amd64_d624720_2507021907.zip
+# ARM64
+wget https://nightly.link/Genivia/ugrep/workflows/autobuild-static/master/ugrep_arm64_d624720_2507021907.zip
+
 ######## 针对非压缩包
 # 在当前目录下 递归查找 文件名是 *.xml 且 文件内容包含 "<project" 的 文件
 ugrep -r -g"*.xml" "<project" .
 # 同上，但只输出匹配的文件
 ugrep -r -g"*.xml" -l "<project" .
-
 ugrep -z -txml -l "<project" .
 
 
@@ -19,12 +23,30 @@ ugrep -z -txml -l "<project" .
 ugrep "MANIFEST.MF"
 # 同上，但只输出匹配的 压缩包的文件名
 ugrep -l "MANIFEST.MF"
+# 不包含
+ugrep -L "MANIFEST.MF"
+
+ugrep -z -g"*.MF,*.jar,*.MF" "Manifest-Version"
 
 # 输出压缩包中指定 entry/文件 的内容
 unzip -p courier-1.0.7-SNAPSHOT.jar "META-INF/MANIFEST.MF"
-# 在当前目录下的压缩包中搜搜，找出哪些压缩文件中包含 关键词 "Manifest-Version"
-ugrep -z            "Manifest-Version" .
-ugrep -z -g"*.MF"   "Manifest-Version" .  # FIXME: not work
+# ✅ 在当前目录下的压缩包中内的文件内容中搜索，找出哪些压缩文件中包含 关键词 "Manifest-Version"
+# ugrep 会先吧 *.jar 当做普通文件，再检查magic number时才认为是 zip 压缩包，进而按压缩包处理。
+ugrep -z  "Manifest-Version"
+# ❌ 但如果使用 -g , 则默认不会搜索 *.jar, 需要手动添加.
+# 注意：需要 压缩文件 和 里面的entry同时匹配 -g 参数。
+ugrep -z -g"*.MF" "Manifest-Version"
+# 可以增加 `--stats` 进行问题排查
+ugrep -z --stats -g"*.MF" "Manifest-Version"
+# ✅ 增加 -g"*.jar" 后OK
+ugrep -z -g"*.jar,*.MF" "Manifest-Version"
+# ❌ 如果有子目录，且-g参数有按路径过滤，则 "*.jar" 要替换成 "**/*.jar". WHY ?
+ugrep -z -g"*.jar,META-INF/*" "Manifest-Version"
+# ✅
+ugrep -z -g"**/*.jar,META-INF/*" "Manifest-Version"
+
+# 按照压缩包里entry查找，忽略文件内容
+ugrep -z -l -g "**/*.jar,META-INF/services/javax.xml.*" ""
 
 
 # 按照 loggerName == "xxx.yyy.zzz" 搜索。

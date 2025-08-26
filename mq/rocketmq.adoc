@@ -107,14 +107,16 @@ java 核心类：
 * link:https://github.com/apache/rocketmq/blob/70480a1fa9aac397fa8c5dbcb352284ad118a891/remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyClientConfig.java#L23[org.apache.rocketmq.remoting.netty.NettyClientConfig]
 
 配置文件由命令 mqnamesrv的参数 -c指定，格式是  properties 文件。
-```properties
+
+[source,properties]
+----
 rocketmqHome=                 # RocketMQ主目录，默认用户主目录
 namesrvAddr=                  # NameServer地址
 kvConfigpath=                 # kv配置文件路径，包含顺序消息主题的配置信息
 configStorePath=              # NameServer配置文件路径，建议使用-c指定NameServer配置文件路径
 clusterTest=                  # 是否支持集群测试，默认: false
 orderMessageEnable=           # 是否支持顺序消息，默认: false
-```
+----
 
 #### broker
 java 核心类：

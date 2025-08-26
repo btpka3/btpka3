@@ -1,0 +1,25 @@
+
+
+
+== meta programming
+
+
+link:https://groovy-lang.org/metaprogramming.html[Runtime and compile-time metaprogramming]
+
+
+Q: `getProperty` 和 getter 哪个先调用？
+A1: 直接调用方法时，是直接走getter，不走 `getProperty`。
+A2: 如果直接访问属性名，则走 `getProperty`，该方法内部如果有调用 `metaClass.hasProperty()`, 则会进一步调用 getter。
+
+参考: testGetter.groovy
+
+[source,shell]
+----
+
+groovy testGetter.groovy
+
+// println "aaa=" + myObj.getXxx();
+// println "bbb=" + myObj.xxx;
+// println "bbb=" + myObj.zzz;
+// println "bbb=" + myObj.yyy;
+----

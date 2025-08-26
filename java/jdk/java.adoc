@@ -81,3 +81,37 @@ public interface TLRestore {
 * JDK_JAVAC_OPTIONS
 
 * JAVA_OPTS: apache tomcat 等java程序会使用
+
+
+== 方法签名
+
+
+
+:table-caption: 基本类型对应的符号
+[#my-tbl1,cols="1,2"]
+.table1 title
+|===
+|符号 | Java类型
+
+| Z     | boolean
+| B     | byte
+| C     | char
+| S     | short
+| I     | int
+| J     | long
+| F     | float
+| D     | double
+| L     | 对象引用
+|===
+
+
+如果是 `JJ` 则表示2个 long 类型的参数
+如果是 `[I` 则表示 `int[]`
+
+
+方法描述符格式i
+- `()V` : 无参数，返回 void
+- `(JI)I` : 参数为 `(long,int)`, 返回int
+- `(Ljava/lang/String;)V` : 参数为 String 对象, 返回 void
+- `((JILjava/util/List;)D` : 参数为 `(long, int, List)` 对象, 返回 double
+

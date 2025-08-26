@@ -4,6 +4,109 @@
 - link:https://pubs.opengroup.org/onlinepubs/9699919799/utilities/sed.html[sed]
 
 
+== 选择匹配的行
+
+
+[source,shell]
+----
+# 未设置行号范围，则是所有航： 替换所有行 "hi" -> world
+cat <<EOF |
+aaa hi
+bbb hi
+ccc hi
+EOF
+sed 's/hi/world/'
+
+# 按行号选择： 替换第2行 "hi" -> world
+cat <<EOF |
+aaa hi
+bbb hi
+ccc hi
+EOF
+sed '2s/hi/world/'
+
+# 按行号选择： 替换第2~4行 "hi" -> world
+cat <<EOF |
+aaa hi
+bbb hi
+ccc hi
+ddd hi
+eee hi
+EOF
+sed '2,4s/hi/world/'
+
+# 按行号选择：取反：替换第2~4行以外的行 "hi" -> world
+cat <<EOF |
+aaa hi
+bbb hi
+ccc hi
+ddd hi
+eee hi
+EOF
+sed '2,4!s/hi/world/'
+
+# 替换最后一行 "hi" -> world
+cat <<EOF |
+aaa hi
+bbb hi
+ccc hi
+EOF
+sed '$s/hi/world/'
+
+# 按正则：在包含 "b" 行中：替换 "hi" -> world
+cat <<EOF |
+aaa hi
+bbb hi
+ccc hi
+EOF
+sed '/b/s/hi/world/'
+
+# 按正则：在不包含 "b" 行中：替换 "hi" -> world
+cat <<EOF |
+aaa hi
+bbb hi
+ccc hi
+EOF
+sed '/b/!s/hi/world/'
+
+# basename
+
+cat <<EOF |
+/WEB-INF/lib/a.jar
+/WEB-INF/lib/b.jar
+/WEB-INF/lib/c.jar
+EOF
+sed 's!.*/!!'
+#说明：前一行 s 后面的 ! 是 正则的分界符，如果使用 '\' 作为分界符，就需要对路径分隔符做转义
+#sed 's/.*\///'
+
+
+
+# 按正则：注意: {}()?+ 这种正则里常用的字符，使用时需要加 '\' 前缀才能表达正则的含义，没有该前缀就表示其字符本身。
+cat <<EOF |
+aaa hi
+bbb{}()?+ hi
+ccc hi
+EOF
+sed '/^b\+{}()?+ hi$/s/hi/world/'
+
+# GNU sed 扩展: 按照 first~step 选择行: 1~2 表示选择所有奇数行
+cat <<EOF |
+aaa hi
+bbb hi
+ccc hi
+ddd hi
+eee hi
+EOF
+sed '1~2s/hi/world/'
+
+
+
+
+----
+
+
+
 
 ## 在前面插入
 

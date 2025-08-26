@@ -1,0 +1,7 @@
+- link:https://github.com/paul-hammant/qdox[adox]
+- link:https://cloud.tencent.com/developer/article/1610562[qdox]
+
+- 竞品
+-- link:https://github.com/javaparser/javaparser[javaparser]
+
+QDox 用于java源码解析。

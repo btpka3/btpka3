@@ -3,21 +3,26 @@
 * link:https://protobuf.dev/[protobuf]
 * proto 3 : link:https://protobuf.dev/programming-guides/proto3/#scalar[Scalar Value Types]
 * link:https://github.com/ascopes/protobuf-maven-plugin[io.github.ascopes:protobuf-maven-plugin]
+* link:https://github.com/google/protobuf-gradle-plugin[protobuf-gradle-plugin]
+* link:https://github.com/fullstorydev/grpcurl[grpcurl]
+* link:https://stackoverflow.com/questions/31029675/protoc-not-generating-service-stub-files/31031346#31031346[protoc not generating service stub files]
+* link:https://stackoverflow.com/questions/53976614/protoc-command-not-generating-all-base-classes-java[protoc command not generating all base classes (java)]
 
-
-
+* Q: protobuf vs. link:https://fory.apache.org/[Apache Fory]
 
 [source,shell]
 ----
 brew install protobuf
+brew install protoc-gen-grpc-java
 protoc --version
 protoc --help
 
-mkdir -p /tmp/demo-proto/{src,out}
+mkdir -p /tmp/demo-proto/{src,client-out,server-out}
 
 cat <<EOF >/tmp/demo-proto/src/a.proto
 syntax = "proto3";
 option java_multiple_files = true;
+option java_generic_services = true;
 package org.apache.dubbo.springboot.demo.idl;
 
 message GreeterRequest {
@@ -32,6 +37,114 @@ service Greeter{
 }
 EOF
 
-protoc --java_out=/tmp/demo-proto/out --proto_path=/tmp/demo-proto
-protoc --java_out=/tmp/demo-proto/out -I=/tmp/demo-proto /tmp/demo-proto/src/a.proto
+# 生成 java 文件
+protoc \
+    --java_out=/tmp/demo-proto/client-out \
+    --grpc-java_out=/tmp/demo-proto/server-out \
+    -I=/tmp/demo-proto \
+    /tmp/demo-proto/src/a.proto
+
+find /tmp/demo-proto/server-out -type f
+----
+
+
+== grpcurl
+
+[source,shell]
+----
+# 列出服务列表
+grpcurl -plaintext localhost:9999 list
+# 列出方法列表
+grpcurl -plaintext localhost:9999 list me.test.first.spring.boot.test.grpc.idl.RequestService
+# 详细描述服务
+grpcurl -plaintext localhost:9999 describe me.test.first.spring.boot.test.grpc.idl.RequestService
+# 详细描述方法
+grpcurl -plaintext localhost:9999 describe me.test.first.spring.boot.test.grpc.idl.RequestService.request
+# 详细描述消息
+grpcurl -plaintext localhost:9999 describe me.test.first.spring.boot.test.grpc.idl.Resp
+
+# 调用方法（无参）
+grpcurl -plaintext localhost:9999 me.test.first.spring.boot.test.grpc.idl.RequestService.hi
+# 调用方法（一个参数）
+grpcurl -plaintext \
+    -d '{"name": "wang5"}' \
+    localhost:9999  \
+    me.test.first.spring.boot.test.grpc.idl.RequestService.request
+----
+
+
+== protobuf-maven-plugin
+
+- link:https://ascopes.github.io/protobuf-maven-plugin/generate-mojo.html[protobuf-maven-plugin]
+- link:https://repo1.maven.org/maven2/io/grpc/protoc-gen-grpc-java/1.73.0/[io.grpc:protoc-gen-grpc-java]
+
+[source,xml]
+----
+<build>
+    <extensions>
+        <extension>
+            <groupId>kr.motd.maven</groupId>
+            <artifactId>os-maven-plugin</artifactId>
+            <version>1.7.1</version>
+        </extension>
+    </extensions>
+    <plugins>
+        <plugin>
+            <groupId>io.github.ascopes</groupId>
+            <artifactId>protobuf-maven-plugin</artifactId>
+            <configuration>
+                <binaryMavenPlugins>
+                    <binaryMavenPlugin>
+                        <groupId>io.grpc</groupId>
+                        <artifactId>protoc-gen-grpc-java</artifactId>
+                        <version>1.73.0</version>
+                        <type>exe</type>
+                        <classifier>${os.detected.classifier}</classifier>
+                    </binaryMavenPlugin>
+                </binaryMavenPlugins>
+            </configuration>
+
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>add-source</id>
+                    <phase>generate-sources</phase>
+                    <goals>
+                        <goal>add-source</goal>
+                    </goals>
+                    <configuration>
+                        <sources>
+                            <source>src/main/java</source>
+                            <source>target/generated-sources/protobuf</source>
+                        </sources>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+    <pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>io.github.ascopes</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>3.1.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.6.0</version>
+            </plugin>
+        </plugins>
+    </pluginManagement>
+</build>
 ----
