@@ -419,3 +419,15 @@ echo "${HOME}/.idea/my.dic"
 # idea intellij 层面 重新校验 (快捷键: ⌥Option+⇧Shift+⌘Сmd+I)
 # 菜单: Code : Anaylyse Code : Run Inspection by Name... : "Typo"
 ----
+
+
+== disable inspections
+
+Editor/Inspections:java
+
+[source,java]
+----
+Java/Java language level migration aids/Java 5/ Raw use of parameterized class
+Java/Javadoc/Javadoc declaration problems :          Severity=> Consideration
+Spring/Spring Core/Code:Incrorrect autowiring in Spring bean components
+----

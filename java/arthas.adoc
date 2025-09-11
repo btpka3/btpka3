@@ -74,7 +74,7 @@ jad -c 5e950bde Clz_EVENTPREPROCESS_alsc_zhuzhancaip_common_mtee_sns_unify_check
 
 [source,shell]
 ----
-monitor xxx.pkg.XxxClass xxxMethod 
+monitor xxx.pkg.XxxClass xxxMethod
 ----
 
 
@@ -378,3 +378,34 @@ curl -v -X POST http://localhost:8563/api \
 ' | jq
 
 ----
+
+
+== retransform
+
+[source,shell]
+----
+f=/path/to/a.class
+md5sum $f
+cp  /tmp/a.class
+
+gzip /tmp/a.class
+base64 /tmp/a.class.gz
+
+# copy base64 to remote server
+base64 -d a.txt > a.class.gz
+gunzip a.class.gz
+md5sum a.class
+
+# artahs
+
+sc -d xxx.xxx.Xxx
+retransform -c 6532d835 /path/to/a.class
+
+retransform -l
+retransform -d 1
+----
+
+
+
+
+

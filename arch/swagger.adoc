@@ -12,6 +12,10 @@
 ** link:https://github.com/swagger-api/swagger-ui[swagger-ui]
 ** link:https://github.com/swagger-api/swagger-editor[swagger-editor]
 
+* AsyncAPI
+** link:https://v2.asyncapi.com/docs/reference/specification/v2.6.0[AsyncAPI 2.x]
+** link:https://www.asyncapi.com/docs/reference/specification/v3.0.0[AsyncAPI 3.x]
+
 ## swagger
 
 swagger 定了一个类似 WSDL (描述 基于SOAP/XML格式的

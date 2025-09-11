@@ -1,11 +1,20 @@
 
 
+不使用 groovy
+函数编程，
+API优先。
+
+
 
 * 事件
 一个业务领域（Domain）
 不再对标成一个 java class,
 不要再去通过 代码模板去生成 生成完整的 java/groovy 代码，
 再去运行态编译。
+
+
+
+
 
 
 * 事件scope
@@ -106,4 +115,3 @@ ctx?.userPostCount ?: getUserPostCount(userId)
 
 ----
 ----
-

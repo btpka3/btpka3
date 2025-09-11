@@ -1,6 +1,15 @@
 
 * http://commons.apache.org/proper/commons-ognl/language-guide.html[ognl]
 
+apache ognl 已经 冬眠(dormant) , 不活动开发了。
+替代品： link:https://github.com/orphan-oss/ognl/[ognl:ognl], link:http://search.maven.org/artifact/ognl/ognl[版本列表].
+
+link:https://github.com/orphan-oss/ognl/blob/main/docs/LanguageGuide.md[Language Guide]
+
+== 竞品
+- link:https://docs.spring.io/spring-framework/reference/core/expressions.html[Spring EL]
+- link:https://github.com/mvel/mvel[MVEL]
+- link:https://docs.jboss.org/seam/2.0.3.CR1/reference/en-US/html/elenhancements.html[JBoss EL]
 
 ## 调用静态方法
 [source,shell]

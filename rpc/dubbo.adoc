@@ -1038,3 +1038,5 @@ org.apache.dubbo.rpc.model.ScopeModelUtil#getExtensionLoader :
 - com.taobao.hsf.filter.HSFFilterChainBuilder
 
 
+
+

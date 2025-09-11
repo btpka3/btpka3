@@ -1,0 +1,18 @@
+
+
+rm 命令用来删除文件，但不足以防止数据被恢复。
+shred 命令是用于安全地擦除硬盘上的数据。
+shred是通过多次随机覆盖目标文件的内容，以确保数据被彻底删除。
+
+[source,shell]
+----
+shred -n 3  # 次数，默认3次
+shred -u    # 覆盖收删除文件（包含重命名和截断）
+shred -v    # 显示详细操作过程
+shred -z    # 最后一次覆盖使用全零，隐藏 shred 操作痕迹
+shred -f    # 强制操作，自动更改权限，以确保可写
+shred --random-source=/path/to/file
+                # 指定随机数来源（默认: /dev/urandom）
+shred --remove  # 等同于 `-u` 控制删除行为（支持 unlink,wipe,wipesync模式）
+
+----

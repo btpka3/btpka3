@@ -348,6 +348,8 @@ echo $(( num1+num2 ))       # 报错
 
 ## 字符串处理
 
+Manipulating Strings](https://tldp.org/LDP/abs/html/string-manipulation.html)
+
 [String Manipulation in Bash](https://www.baeldung.com/linux/bash-string-manipulation)
 ### 转义
 

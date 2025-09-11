@@ -1,0 +1,57 @@
+
+
+* link:https://github.com/logrotate/logrotate[logrotate]
+* link:https://linux.die.net/man/8/logrotate[man page: logrotate]
+
+默认配置文件：/etc/logrotate.conf
+可以自定义切分配置文件目录: /etc/logrotate.d
+
+
+[source,shell]
+----
+/home/admin/cai/logs/*.log {
+    # 对于转存后的文件进行压缩
+    compress
+    # 启用延迟压缩，当有些程序无法通知到，且在转存时仍然会持续写入时使用，启用该命令后，会在下次转存时才进行压缩。
+    delaycompress
+    # 转存时，截断原有日志文件。当有些程序无法通知到，且在转存时仍然会持续写入时使用。
+    copytruncate
+    # 如果没有日志文件，则认为是OK的，不打印error消息。
+    missingok
+    # 如果文件是空的，则不转存
+    notifempty
+    # 转存后的文件，生成超过该天数，则删除
+    maxage 7
+    # 保留多少个转存前的日志文件
+    rotate 30
+    # 日文文件超过该大小时，将转存。
+    size 100M
+    # 转存后文件使用日期格式后缀。
+    dateext
+    # 转存后文件使用指定的日期格式。格式参考 strftime 函数， 只有  %Y, %m, Td, %s 可用。
+    dateformat -%Y-%m-%d-%s
+    # 转存后文件的权限
+    create 640 admin admin
+    maxage
+
+    # 转存前执行的脚本
+    prerotate
+        # 要执行的sh脚本
+    endscript
+
+    # 转存后执行的脚本
+    postrotate
+        # 要执行的sh脚本
+    endscript
+
+
+    firstaction
+        # 要执行的sh脚本
+    endscript
+
+    lastaction
+        # 要执行的sh脚本
+    endscript
+
+}
+----

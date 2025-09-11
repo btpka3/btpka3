@@ -1,5 +1,7 @@
 
 
+link:https://issues.apache.org/jira/browse/GROOVY-11712?filter=-2[GROOVY-11712: CallSiteClassLoader loadClass using className level lock]
+
 
 == meta programming
 

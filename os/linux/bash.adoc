@@ -139,6 +139,12 @@ v=aaa111bbb111ccc
 echo ${v//111/222}                  # stdout 输出: "aaa222bbb222ccc"
 echo ${v}                           # stdout 输出: "aaa111bbb111ccc"
 
+# 要替换在字符包含特殊字符，可以使用 $'...' 方式
+v='aaa ${APP} bbb ${APP} ccc'
+app=xxx
+echo ${v//$'${APP}'/${app}}        # stdout 输出: "aaa xxx bbb xxx ccc"
+
+
 str="aaa
 bbb"
 echo "$str"                         # 有换行

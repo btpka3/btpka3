@@ -1,0 +1,19 @@
+
+
+== RestTemplate vs. WebClient vs. RestClient
+
+
+:table-caption: RestTemplate vs. WebClient vs. RestClient
+[,cols="1,1,1,1"]
+.table1 RestTemplate vs. WebClient vs. RestClient
+|===
+|                               |RestTemplate   |WebClient  | RestClient
+
+|Spring Version                 | 3.0           | 5.0       | 6.1
+|Servlet Stack(syncronous)      | ✅            | ❓         | ✅
+|Reactive Stack(Asynchronous)   | 🚫            | ✅         | 🚫
+|Flunt & Functional API         | 🚫            | ✅         | ✅
+| Declarative HTTP interface    | ✅            | ✅         | ✅
+|                               |     |使用 Spring WebFlux|没使用 Spring WebFlux、 Project Reactor
+|===
+
