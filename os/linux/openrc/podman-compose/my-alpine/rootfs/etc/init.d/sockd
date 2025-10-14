@@ -1,0 +1,20 @@
+#!/sbin/openrc-run
+#
+# startup script for sockd daemon
+#
+
+depend() {
+    # ⭕️ docker 环境内，无需独立的网络服务
+    #need net
+    after firewall
+    provide sockd
+    use dns
+}
+
+command=/usr/sbin/sockd
+pidfile=/var/run/${SVCNAME}.pid
+command_args="${SOCKD_OPTS}"
+
+start_pre() {
+    $command -V
+}

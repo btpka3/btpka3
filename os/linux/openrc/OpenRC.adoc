@@ -1,0 +1,151 @@
+OpenRC 是一个基于依赖关系的初始化系统, 对标的程序有 systemd。其程序是 `/sbin/init` 。
+
+- link:https://github.com/OpenRC/openrc[OpenRC]
+- alpine linux 文档： link:https://docs.alpinelinux.org/user-handbook/0.1a/Working/openrc.html[OpenRC]
+- gentoo linux 文档： link:https://wiki.gentoo.org/wiki/OpenRC#Files[OpenRC]
+- https://openrc.net/
+- link:https://manpages.debian.org/testing/openrc/openrc-run.8.en.html[openrc-run.8]
+
+
+
+
+[source,shell]
+----
+# podman 运行
+podman run --rm -it o-docker.alibaba-inc.com/docker.io/alpine:3.21.3 sh -l
+
+
+
+# alpine
+apk add openrc
+touch /run/openrc/softlevel
+
+# 查看汇总信息（当前运行级别
+rc-status
+# 显示所有崩溃服务的列表。
+rc-status -c
+# 列出所有可用的运行级别 : boot,default,nonetwork,shutdown,sysinit
+rc-status --list
+# 列出服务列表
+rc-status --servicelist
+
+############ 运行级别
+
+# 查看预设的运行级别
+ls -l /etc/runlevels
+
+
+# 创建自定义运行级别: office
+# 自定义的运行级别希望集成default下的服务，并对少数进行调整。
+# 可以使用 `rc-update -s` 选项来完成。
+
+mkdir -p /etc/runlevels/office
+# 将default运行级别堆叠到office运行级别
+rc-update -s add default office
+# 将myvpn服务添加到office运行级别
+rc-update add myvpn office
+
+
+# 查看相关配置文件
+cat /etc/rc.conf
+ls -l /etc/conf.d
+
+# 启动服务
+rc-service sshd start
+# 停止
+rc-service sshd stop
+
+# 自定义的额外命令，比如这里的 "show", 具体定义需要参考 /etc/init.d/hwclock 中的定义。
+rc-service hwclock show
+
+
+# 当前运行级别: 查看服务列表
+rc-update show -v
+# 指定运行级别(这里是default): 添加默认启动的服务
+rc-update add sshd default
+# 当前运行级别: 添加默认启动的服务
+rc-update add sshd
+# 当前运行级别: 移除默认启动的服务
+rc-update delete sshd
+# 所有运行级别: 移除服务
+rc-update delete chronyd -a
+
+----
+
+
+== 配置文件
+
+[source,shell]
+----
+# 配置文件查找优先级。假设:
+# base      : 基础服务名称
+# ext       : 扩展名
+# runlevel  : 运行级别
+
+/etc/conf.d/${base}.${runlevel}
+/etc/conf.d/${base}
+/etc/conf.d/${base}.${ext}.${runlevel}
+/etc/conf.d/${base}.${ext}
+----
+
+
+
+== 示例 init.d 脚本
+
+[source,shell]
+----
+#!/sbin/openrc-run
+
+description="xxx"
+
+depend()
+{
+	after clock
+	before bootmisc logger
+	keyword -prefix -systemd-nspawn -vserver
+}
+start()
+{
+  ebegin ""
+  ewarn ""
+  eend ""
+  return 0
+}
+----
+
+
+== 示例 init.d 脚本
+
+[source,shell]
+----
+#!/sbin/openrc-run
+
+description="xxx"
+rc_need="!net net.eth0"
+
+depend()
+{
+	after clock
+	before bootmisc logger
+	keyword -prefix -systemd-nspawn -vserver
+}
+start()
+{
+  ebegin ""
+  ewarn ""
+  eend ""
+  return 0
+}
+----
+
+
+[source,shell]
+----
+ * You are attempting to run an openrc service on a
+ * system which openrc did not boot.
+ * You may be inside a chroot or you may have used
+ * another initialization system to boot this system.
+ * In this situation, you will get unpredictable results!
+ * If you really want to do this, issue the following command:
+ * touch /run/openrc/softlevel
+----

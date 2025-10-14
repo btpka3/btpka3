@@ -1,0 +1,13 @@
+# https://docs.docker.com/compose/compose-file/
+
+services:
+  my-alpine:
+    container_name: my-alpine-0
+    build: ./my-alpine
+    hostname: my-alpine-0
+    privileged: true
+    tty: true
+    #command: sh -c "sleep 31536000"
+    cap_add:
+        - ALL
+    network_mode: host
