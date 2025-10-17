@@ -2,7 +2,7 @@
 [source,shell]
 ----
 brew install python@3.13
-brew install python@3.11
+brew install python@3.6
 # 删除当前版本的软链接
 brew unlink python@3.13
 # 重新链接到要用的版本

@@ -1,0 +1,311 @@
+- github : link:https://github.com/notpeter/dante[notpeter/dante]
+- Dante : link:https://www.inet.no/dante/[Dante - A free SOCKS server]
+- link:[https://www.inet.no/dante/doc/1.4.x/config/server.html[Minimal server configuration]
+- link:https://www.inet.no/dante/doc/1.4.x/sockd.conf.5.html[SOCKD.CONF]
+- link:https://www.inet.no/dante/doc/1.4.x/socksify.1.html[SOCKSIFY]
+
+
+
+== install
+===  MacOs
+[source,shell]
+----
+brew install dante
+
+# 客户端程序
+# /opt/homebrew/bin/socksify
+which socksify
+man socksify
+
+
+# /opt/homebrew/sbin/sockd
+which sockd
+sockd --version
+
+mkdir ~/.dante
+# 创建配置文件，内容参考后面的说明。
+vi ~/.dante/sockd.conf
+# 检查配置文件, 如果报错，则请检查配置中设置的error日志里（/tmp/sockd.errlog）的信息。
+sockd -V -f ~/.dante/sockd.conf ; echo $?
+
+# 启动服务
+sudo sockd -f ~/.dante/sockd.conf -p ~/.dante/sockd.pid
+----
+
+===  alpine
+
+link:https://pkgs.alpinelinux.org/packages?name=*dante*&branch=edge&repo=&arch=x86_64&origin=&flagged=&maintainer=[*dante*]
+
+[source,shell]
+----
+apk add dante-server
+----
+
+=== AlmaLinux
+
+[source,shell]
+----
+# 启用EPEL仓库
+dnf install epel-release
+# 安装
+dnf install dante-server
+# 检查RPM包 安装的内容
+rpm -ql dante-server
+
+# 检查默认生效的配置，默认只有一行: "logoutput: stderr"
+grep -v "^#" /etc/sockd.conf
+
+# 默认提供的 服务启动配置文件
+cat /usr/lib/systemd/system/sockd.service
+----
+
+/usr/lib/systemd/system/sockd.service
+
+[source,shell]
+----
+[Unit]
+Description=Dante SOCKS server
+After=syslog.target network.target network-online.target
+Documentation=man:sockd(8) man:sockd.conf(5)
+Wants=network-online.target
+
+[Service]
+Type=forking
+#EnvironmentFile=/etc/sockd.conf
+PIDFile=/run/sockd.pid
+ExecStart=/usr/sbin/sockd -D -p /run/sockd.pid
+
+[Install]
+WantedBy=multi-user.target
+----
+
+
+=== 源码安装
+link:https://www.inet.no/dante/download.html[download]
+
+比如 AliOS 7.x 等默认仓库里没有 link:https://www.rpmfind.net/linux/rpm2html/search.php?query=dante-server&submit=Search+...&system=&arch=x86_64[dante-server]、 epel-release， 且glibc 等版本也比较低，无法安装二进制版本。
+
+[source,shell]
+----
+# 下载
+wget https://www.inet.no/dante/files/dante-1.4.4.tar.gz
+tar zxvf dante-1.4.4.tar.gz
+cd dante-1.4.4
+# 查看安装手册
+cat INSTALL
+
+# 查看配置选项
+./configure --help
+# 进行配置
+./configure # --prefix=xxxPATH --exec-prefix=PATH
+# 示例输出（末尾的内容）:
+                     Configure status:
+
+Client:            Enabled
+Server:            Enabled
+Preloading:        Enabled
+Libwrap:           Disabled, tcpd.h missing
+BSD Auth:          Disabled, usable bsd_auth.h not found
+PAM:               Disabled, security/pam_appl.h missing
+GSSAPI:            Not found/disabled
+KRB5:              Not found/disabled
+SASL:              Not found/disabled
+UPNP:              Not found/disabled
+Compatability:     issetugid setproctitle strlcpy strvis
+
+                     Modules:
+
+redirect:          Not found
+bandwidth:         Not found
+ldap:              Not found
+pac:               Not found
+
+
+
+# 编译
+make ; echo $?
+
+# 编译检查
+make check ; echo $?
+# 安装
+# 默认安装到 `/usr/local/bin`, `/usr/local/man`
+sudo make install ; echo $?
+
+# 安装检查
+ll /usr/local/sbin/sockd                    # 主程序
+ll /usr/local/lib/libsocks*                 # 动态库、静态库
+ll /usr/local/share/man/man1/socksify.1     # man手册
+ll /usr/local/share/man/man5/sockd.conf.5
+ll /usr/local/share/man/man5/sock.conf.5
+
+sockd -h
+----
+
+
+
+
+== 配置
+
+link:https://github.com/notpeter/dante/blob/main/dante/example/sockd.conf[/etc/sockd.conf]
+
+[source,shell]
+----
+
+#################### logging
+errorlog:  syslog stdout /var/log/sockd.errlog
+logoutput: syslog stdout /var/log/sockd.log
+# 0 - 无debug日志
+# 1 - 少量debug日志
+# 2 - 详细debug日志
+debug: 0
+
+#################### dns resolution
+resolveprotocol: udp # default
+
+
+# server端如果需要使用root特权时（比如访问 /etc/passwd ，应该使用哪个用户（默认：root），
+# 以及不需要使用root特权时，应该使用哪个用户
+user.privileged    : root
+user.notprivileged : socks
+
+
+internal: 127.0.0.2 port = 1080
+external: 127.0.0.2
+
+
+#################### Client communication routing (first matched route is used)
+route {
+    from: 0.0.0.0/0 to: 0.0.0.0/0 via: 192.0.2.1 port = 1080
+    proxyprotocol: socks_v4 socks_v5 http_v1.0
+    method: none
+    command: connect
+    protocol: tcp
+}
+
+
+#################### Authentication
+
+# 设置支持的认证方式
+# - "none"
+# - "username"
+# - "rfc931"
+# - "pam.address"
+# - "pam.username"
+# - "bsdauth"
+# - "gssapi"
+clientmethod: none
+socksmethod: none
+
+
+#gssapi.enctype: clear integrity confidentiality
+#gssapi.keytab: FILE:/etc/sockd.keytab
+#gssapi.servicename: rcmd
+
+#################### SOCKS client access rules
+
+# 示例配置
+client block {
+    from: 192.0.2.22/24 to: 0.0.0.0/0
+    log: error
+    method: authmethod
+    user: baduser
+    group: socksuser
+}
+
+client pass {
+    # ...
+}
+socks block {
+    # 针对 internal 侧的 command: "bind", "connect", "udpassociate"
+    # 针对 external 侧的 command: "bindreply", "udpreply"
+    command: bind connect udpassociate # bindreply udpreply
+    # 当 commond是 "bind", "connect", "udpassociate" 时，from的值是 internal 侧的网址，否则是 external 侧的网址
+    from: 0.0.0.0/0 to: 0.0.0.0/0
+    log: error # connect disconnect iooperation
+    socksmethod: xxx
+    user: baduser
+    group: socksusers
+    bandwidth: 102400 #100kbps
+}
+socks pass {
+    # ...
+}
+
+route {
+    from: 0.0.0.0/0 to: 0.0.0.0/0 via: 192.0.2.1 port = 1080
+    proxyprotocol: socks_v4 socks_v5
+    method: authmethod
+}
+
+
+#block access to socks server from 192.0.2.22 (exception for pass rule below)
+client block {
+        #block connections from 192.0.2.22/32
+        from: 192.0.2.22/24 to: 0.0.0.0/0
+        log: error # connect disconnect
+}
+
+#allow connections from local network (192.0.2.0/24)
+client pass {
+        from: 192.0.2.0/24 to: 0.0.0.0/0
+	    log: error # connect disconnect
+}
+
+#################### SOCKS command rules
+#block communication with www.example.org
+socks block {
+       from: 0.0.0.0/0 to: www.example.org
+       command: bind connect udpassociate
+       log: error # connect disconnect iooperation
+}
+
+#generic pass statement - bind/outgoing traffic
+socks pass {
+       from: 0.0.0.0/0 to: 0.0.0.0/0
+       command: bind connect udpassociate
+       log: error # connect disconnect iooperation
+}
+
+#block incoming connections/packets from ftp.example.org
+socks block {
+       from: 0.0.0.0/0 to: ftp.example.org
+       command: bindreply udpreply
+       log: error # connect disconnect iooperation
+}
+
+#generic pass statement for incoming connections/packets
+socks pass {
+       from: 0.0.0.0/0 to: 0.0.0.0/0
+       command: bindreply udpreply
+       log: error # connect disconnect iooperation
+}
+
+----
+
+server端示例配置 : ~/.dante/sockd.conf
+
+[source,shell]
+----
+errorlog:  stdout /tmp/sockd.errlog
+logoutput: stdout /tmp/sockd.log
+
+internal: 127.0.0.2 port = 1080
+external: 127.0.0.2
+
+user.privileged: root
+user.notprivileged: zll
+
+clientmethod: none
+socksmethod: none
+
+client pass {
+    from: 0.0.0.0/0 to: 0.0.0.0/0
+    log: error connect disconnect
+}
+
+socks pass {
+    from: 0.0.0.0/0 to: 0.0.0.0/0
+    command: bind connect udpassociate
+    log: error connect disconnect iooperation
+}
+----

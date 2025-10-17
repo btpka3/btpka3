@@ -45,6 +45,7 @@ RUN \
     #   /etc/rc.conf && \
     #sed -i 's/cgroup_add_service /# cgroup_add_service /g' /lib/rc/sh/openrc-run.sh && \
     #sed -i 's/VSERVER/DOCKER/Ig' /lib/rc/sh/init.sh && \
+    touch /root/.vimrc && \
     mkdir -p /run/openrc/ && \
     touch /run/openrc/softlevel && \
     mkdir -p /root/.ssh && \

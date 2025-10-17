@@ -1,4 +1,4 @@
-http://cbonte.github.io/haproxy-dconv/configuration-1.5.html
+https://docs.haproxy.org/3.2/intro.html
 
 http://serverfault.com/questions/401040/maximizing-tcp-connections-on-haproxy-load-balancer
 

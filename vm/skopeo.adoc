@@ -15,6 +15,14 @@ skopeo login quay.io
 skopeo login registry.internal.company.com
 skopeo copy docker://quay.io/buildah/stable docker://registry.internal.company.com/buildah
 
+# copy 到本地目录
+mkdir -p ${HOME}/docker-images
+skopeo copy \
+  --src-no-creds \
+  --multi-arch all \
+docker://docker.io/library/almalinux:9.6 dir:${HOME}/docker-images/almalinux
+
+
 # 如果当前命令执行的机器的CPU架构（比如 arm64 ） 与 docker 镜像的CPU架构（比如 amd64）不同，
 # 则需要指定 --override-os, --override-arch
 skopeo inspect \

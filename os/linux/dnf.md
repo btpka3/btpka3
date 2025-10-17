@@ -25,6 +25,7 @@ dnf provides /bin/bash
 dnf info nano
 # 安装软件包
 dnf install nano
+dnf install epel-release
 # 升级软件包
 dnf update systemd
 # 检查系统软件包的更新

@@ -1,0 +1,110 @@
+
+== socks protocol version 5
+- link:https://www.rfc-editor.org/rfc/rfc1928.html[SOCKS Protocol Version 5]
+- link:https://www.rfc-editor.org/rfc/rfc1929.html[Username/Password Authentication for SOCKS V5]
+- link:https://www.rfc-editor.org/rfc/rfc1961.html[GSS-API Authentication Method for SOCKS Version 5]
+- link:https://www.rfc-editor.org/rfc/rfc3089.html[A SOCKS-based IPv6/IPv4 Gateway Mechanism]
+- link:https://www.rfc-editor.org/rfc/rfc931.html[Authentication Server]
+
+
+
+
+== java
+
+link:https://docs.oracle.com/javase/8/docs/technotes/guides/net/proxies.html[Java Networking and Proxies]
+
+
+
+=== JVM 属性
+
+通过JVM属性，则只能要么全部都启用，要么全部都不启用。
+
+[source,shell]
+----
+# JVM 属性 - HTTP
+http.proxyHost      # 代理服务器的主机名
+http.proxyPort      # 代理服务器的端口
+http.nonProxyHosts  # 不进行代理的主机列表。多值使用 "|" 分隔。可以用 "*" 开头、结尾
+
+# JVM 属性 - HTTPS
+https.proxyHost      # 代理服务器的主机名
+https.proxyPort      # 代理服务器的端口
+http.nonProxyHosts   # 不进行代理的主机列表。多值使用 "|" 分隔。可以用 "*" 开头、结尾
+
+# JVM 属性 - FTP
+ftp.proxHost
+ftp.proxyPort
+ftp.nonProxyHosts
+
+# JVM 属性 - SOCKS
+socksProxyHost
+socksProxyPort
+#socksNonProxyHosts=localhost|127.*|[::1]|0.0.0.0|[::0]
+socksNonProxyHosts=localhost|127.0.0.1|127.0.0.1|[::1]|0.0.0.0|[::0]
+
+
+# 如果同时设置，则 HTTP > SOCKS
+----
+
+
+=== 编程式
+[source,java]
+----
+java.net.Proxy#NO_PROXY
+java.net.Proxy.Type#DIRECT
+java.net.Proxy.Type#HTTP
+java.net.Proxy.Type#SOCKS
+
+// 使用SOCKS代理
+SocketAddress addr = new InetSocketAddress("127.0.0.2", 1080);
+Proxy proxy = new Proxy(Proxy.Type.SOCKS, addr);
+// 不使用代理
+Proxy proxy = Proxy.NO_PROXY;
+
+URL url = new URL("http://java.example.org/");
+URLConnection conn = url.openConnection(proxy);
+
+----
+
+
+
+
+
+
+
+== demo : 代理服务器
+
+[source,shell]
+----
+# MacOS : 为本地 loopback 网卡增加一个额外的 回环地址 127.0.0.2 (重启失效)
+sudo ifconfig lo0 alias 127.0.0.2 up
+ping 127.0.0.2
+
+# 通过 OpenSSH 简单搭建一个临时 SOCKS 代理服务器
+ssh xxxUser@127.0.0.1 -C -f -N -g -D 127.0.0.2:2020
+lsof -n -i :2020
+
+######################## 测试1: 目标服务是公网HTTP服务
+# 测试: 不用代理
+export -n ALL_PROXY
+curl -v https://www.baidu.com/
+
+# 测试: 使用代理
+export ALL_PROXY=socks5h://127.0.0.2:2020
+curl -v https://www.baidu.com/
+
+######################## 测试2: 目标服务是本地 TCP服务
+# 先启动java TCP 服务器
+# https://github.com/btpka3/btpka3.github.com/blob/master/java/jdk/TestJDK/hello/src/test/java/me/test/jdk/java/nio/NioEchoServer.java
+
+# 测试: 不用代理
+# 连接上后，输入 "aaa.111" 回车
+nc 127.0.0.1 9999
+
+# 测试: 使用代理
+# 连接上后，输入 "aaa.111" 回车
+nc -X 4 -x 127.0.0.2:1080 127.0.0.1 9999
+
+----
+
+

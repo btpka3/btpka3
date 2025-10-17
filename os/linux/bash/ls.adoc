@@ -13,6 +13,8 @@ ls -t
 
 # 显示完整时间
 ls -l -full-time
+
+ll -h --time=atime --full-time -t app.log*
 ----
 
 

@@ -35,6 +35,7 @@ ll ~/Library/Containers/com.docker.docker/Data/log/host/
 
 [source,shell]
 ----
+# 可用于将不含操作系统，只含普通目录、文件的 docker镜像内copy文件到host
 DOCKER_IMAGE=docker.io/otel/opentelemetry-collector-contrib:0.96.0
 FILE_IN_IMAGE=//etc/otelcol-contrib/config.yaml
 

@@ -29,7 +29,7 @@
 - [k3d](https://k3d.io/)
 - [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
 - [higress](https://github.com/alibaba/higress)
-- [OpenKruise](https://openkruise.io/docs/user-manuals/cloneset/)
+- [OpenKruise](https://openkruise.io/docs/user-manuals/cloneset/) ， Alibaba 开源，k8s的一个标准扩展
 - [K8S集群内Pod如何与本地网络打通实现debug](https://cloud.tencent.com/developer/article/1836304)
 - [Telepresence](https://github.com/telepresenceio/telepresence)  # 个人开发机与k8s集群网络互联
 - [Ambassador Cloud](https://www.getambassador.io/products/ambassador-cloud)

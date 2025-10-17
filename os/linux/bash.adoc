@@ -514,3 +514,33 @@ chmod u+x *.sh
 #   则是新启动了一个shell进程，则无法访问appctl.sh 中定义的变量。
 #   此时如果 appctl.sh 中 `export MY_ENV` 将其暴露成环境变量，则setenv.sh 可以访问 环境变量 MY_ENV
 ----
+
+
+
+== 父子进程
+[source,shell]
+----
+
+# (1) 新窗口: 开启新的bash进程
+bash -l
+# (1.1) 检查当前shell进程ID
+echo $$
+
+# 开启后台任务 （FIXME: 是否需要 nohup ?)
+bash -c "while true; do date  >> /tmp/a.log ; sleep 2 ; done" &
+
+# 列出所有后台任务
+jobs -l
+
+# ⭕️ 查看后台任务父进程ID，此时应该是 当前bash进程ID
+ps -o ppid= ${xxxJobPid}
+
+# 退出
+exit
+
+# 仍在持续输出，后台任务还在进行
+tailf /tmp/a.log
+
+# ⭕️ 再次查看后台任务父进程ID，此时就已经变成 1 了。
+ps -o ppid= ${xxxJobPid}
+----

@@ -1,5 +1,7 @@
 
 
+link:https://linux.die.net/man/1/nc[nc]
+
 == 端口扫描
 
 [source,shell]

@@ -81,3 +81,13 @@ cat ~/.docker/config.json
   }
 }
 ----
+
+
+## 如何从只有 普通 目录/文件的 镜像内 将文件copy 到host ?
+
+[source,shell]
+----
+podman pull xxxImage
+xxxImageId=$(podman create ${xxxImage})
+docker cp ${xxxImageId}:/path/to/file .
+----

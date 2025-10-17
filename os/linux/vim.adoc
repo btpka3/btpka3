@@ -98,6 +98,16 @@ call plug#end()
 ## 修改vim配置文件
 link:https://github.com/ruanyl/bigvim/blob/master/vimrc[bigvim/vimrc]
 
+加载顺序
+- /etc/vim/vimrc
+- /etc/vim/vimrc.local
+- 以下二选一
+-- `~/.vimrc`
+-- `/usr/share/vim/vim*/defaults.vim` : 如果前两个配置文件中没有配置 "let g:skip_defaults_vim = 1" 且 `~/.vimrc` 不存在时加载
+
+故配置生效的顺序是越靠后越优先。
+
+
 修改用户级别的 需要修改 `~/.vimrc`。修改全局的，
 需要修改 `/etc/vimrc` , 或者 `/etc/vim/vimrc` , 或者 `/etc/vim/vimrc.local`（可以通过 `:version` 看到）
 
@@ -161,6 +171,11 @@ set encoding=utf-8
 set fileencodings=utf-8,ucs-bom,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set helplang=en
 set termencoding=utf-8
+
+# 如果没有下面这一行，还会继续加载 /usr/share/vim/vim*/defaults.vim
+# 会造成这里的部分配置被覆盖，比如 最终启用的 mouse=a ,而非预期的 mouse=i
+# 或者创建一个 ${HOME}/.vimrc 文件，哪怕内容为空也可以。
+let g:skip_defaults_vim = 1
 
 -----
 

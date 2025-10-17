@@ -156,6 +156,39 @@ json='{
 echo "$json" | jq -r '.classLoaders[]|.classes[]|select(.size > 10)'
 ----
 
+
+[source,shell]
+----
+# 字符串包含
+
+cat > /tmp/a.json <<EOF
+{"id":"a","value":"{\"k1\":\"v1\"}"}
+{"id":"b","value":"{\"k2\":\"v2\"}"}
+{"id":"c","value":"{\"k3\":\"v3\"}"}
+EOF
+
+jq 'select(.value|contains("v1"))' /tmp/a.json
+jq 'select(.value|contains("\"k2\":\"v2\""))' /tmp/a.json
+----
+
+
+
+[source,shell]
+----
+# 解析内嵌字符串 JSON
+
+cat > /tmp/a.json <<EOF
+{"id":"a","value":"{\"k1\":\"v1\"}"}
+{"id":"b","value":"{\"k2\":\"v2\"}"}
+{"id":"c","value":"{\"k3\":\"v3\"}"}
+EOF
+
+jq '.value|fromjson' /tmp/a.json
+----
+
+
+
+
 ## any/all
 等价于java的 Stream#anyMatch,Stream#allMatch,
 

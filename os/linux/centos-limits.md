@@ -140,6 +140,8 @@ sudo su admin -c "whoami ; ulimit -n"
 # admin
 # 655350
 
+# 显示给定进程的 父进程ID
+ps -o ppid= ${xxxPid}
 
 sudo bash -c "
                    echo whoami=\$(whoami)   ID=\$$   UID=\$UID   PPID=\$PPID   ulimit-n=\$(ulimit -n);   ps -o user= -o comm= -p \$PPID;   pstree -aup \$$ ;

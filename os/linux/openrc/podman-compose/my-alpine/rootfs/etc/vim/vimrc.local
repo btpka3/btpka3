@@ -1,0 +1,23 @@
+set nocompatible
+set number
+colors desert
+syntax on
+set ruler
+set showcmd
+set cursorline
+set fileencodings=utf-8,gbk
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set fileformats=unix
+set hlsearch
+set formatoptions-=cro
+set paste
+set mouse=i
+" comment here
+
+" 如果没有下面这一行，还会继续加载 /usr/share/vim/vim*/defaults.vim
+" 会造成这里的部分配置被覆盖，比如 最终启用的 mouse=a ,而非预期的 mouse=i
+# 或者创建一个 ${HOME}/.vimrc 文件，哪怕内容为空也可以。
+let g:skip_defaults_vim = 1

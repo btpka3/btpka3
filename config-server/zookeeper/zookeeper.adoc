@@ -1,8 +1,23 @@
 
 
+- link:https://zookeeper.apache.org/doc/r3.9.3/zookeeperAdmin.html#sc_configuration[ZooKeeper Administrator's Guide]
+- github link:https://github.com/apache/zookeeper[apache/zookeeper]
+
+== install
+
+[source,shell]
+----
+wget https://mirrors.aliyun.com/apache/zookeeper/zookeeper-3.9.4/apache-zookeeper-3.9.4-bin.tar.gz
+----
+
+
+
+
+
+
 == zoo.cfg
 
-link:https://zookeeper.apache.org/doc/r3.9.3/zookeeperAdmin.html#sc_configuration[ZooKeeper Administrator's Guide]
+
 
 [source,shell]
 ----
@@ -291,3 +306,143 @@ curl -s http://${ZK_ADMIN_SERVER_ADDR}:${ZK_ADMIN_SERVER_PORT}/commands/wchp | j
 curl -s http://${ZK_ADMIN_SERVER_ADDR}:${ZK_ADMIN_SERVER_PORT}/commands/mntr | jq
 
 ----
+
+
+== zkCli.sh
+
+[source,shell]
+----
+# 查看帮助文档
+./bin/zkCli.sh help
+
+
+ZK_ADDR=mse-b08b8562-zk.mse.aliyuncs.com
+./bin/zkCli.sh -timeout 3000 -server ${ZK_ADDR}
+
+# 创建持久节点
+create /persistent_node
+
+# 创建短暂节点
+create -e /ephemeral_node mydata
+
+# 创建 persistent-sequential 节点
+create -s /persistent_sequential_node mydata
+
+# create the container node.When the last child of a container is deleted,the container becomes to be deleted
+create -c /container_node mydata
+
+create /test
+create /test/dangqian
+set    /test/dangqian aaa
+get    /test/dangqian
+
+----
+
+使用用户名、密码登录
+[source,shell]
+----
+
+################### 服务器端配置
+cp conf/zoo_sample.cfg  conf/zoo.cfg
+# 增加以下配置，并重启zookeeper 服务器
+vi conf/zoo.cfg
+
+# 启用 Digest 认证
+authProvider.1=org.apache.zookeeper.server.auth.DigestAuthenticationProvider
+# 强制客户端使用 SASL 认证
+#requireClientAuthScheme=sasl
+#sessionRequireClientSASLAuth=true
+
+#zookeeper.sasl.client=true
+#zookeeper.sasl.clientconfig=Client
+#zookeeper.sasl.client.username=xxxUser
+
+
+################### 通过 zkCli.sh 创建 Digest 认证用户：
+# 以管理员身份连接（无需密码）
+./bin/zkCli.sh -server zk-host:2181
+
+# 创建用户 "user1"，密码 "pass123"
+create /authdigest user1:pass123  # 或使用 addauth digest 命令
+
+################### 配置客户端的 JAAS 文件
+
+cat <<EOF > /tmp/jaas.conf
+Client {
+  org.apache.zookeeper.server.auth.DigestLoginModule required
+  username="user1"
+  password="pass123";
+};
+EOF
+
+
+CLIENT_JVMFLAGS="-Djava.security.auth.login.config=/tmp/jaas.conf -Dzookeeper.fips-mode=false" \
+ZK_ADDR=mse-b08b8562-zk.mse.aliyuncs.com  \
+./bin/zkCli.sh -timeout 3000 -server ${ZK_ADDR}
+----
+
+
+
+== arthas
+[source,shell]
+----
+# 获取 使用的 zookeeper 的 connectString
+vmtool -x 2 --action getInstances --className com.alibaba.security.mtee.sup.monitor.service.ZkClient --express '
+#curator=instances[0].curatorFramework,
+#zookeeper=#curator.getZookeeperClient().getZooKeeper(),
+#zookeeper.cnxn.hostProvider.serverAddresses +""
+'
+
+# 获取 zookeeper 客户端 配置
+# curatorFramework => zookeeper => zkClientConfig
+vmtool -x 3 --action getInstances --className com.alibaba.security.mtee.sup.monitor.service.ZkClient --express '
+#curator=instances[0].curatorFramework,
+#zookeeper=#curator.getZookeeperClient().getZooKeeper(),
+#zkClientConfig=#zookeeper.getClientConfig(),
+#zkClientConfig.getProperty("zookeeper.sasl.clientconfig")
+'
+
+chrootPath
+----
+
+
+
+
+
+
+== 认证
+
+[source,plain]
+----
+org.apache.zookeeper.server.auth.AuthenticationProvider
+  org.apache.zookeeper.server.auth.SASLAuthenticationProvider
+  org.apache.zookeeper.server.auth.EnsembleAuthenticationProvider
+  org.apache.zookeeper.server.auth.IPAuthenticationProvider
+  org.apache.zookeeper.server.auth.DigestAuthenticationProvider
+  org.apache.zookeeper.server.auth.X509AuthenticationProvider
+  org.apache.zookeeper.server.auth.ServerAuthenticationProvider
+----
+
+
+== zookeeper-contrib-zooinspector
+
+link:https://github.com/apache/zookeeper/tree/master/zookeeper-contrib/zookeeper-contrib-zooinspector[zookeeper-contrib-zooinspector]
+
+ZooInspector是一个基于Java Swing的zookeeper客户端程序。
+main入口类: org.apache.zookeeper.inspector.ZooInspector
+
+
+== Apache curator
+link:https://curator.apache.org/[Apache curator]
+
+
+[source,shell]
+----
+
+# 建议使用
+org.apache.curator.framework.CuratorFramework
+# CuratorZookeeperClient 是个低级API，不建议直接使用，建议使用
+org.apache.curator.CuratorZookeeperClient
+----
+
+

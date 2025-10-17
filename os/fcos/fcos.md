@@ -1,18 +1,21 @@
 # 参考
 - [Fedora CoreOS](https://fedoraproject.org/coreos/)。
+- [Red Hat Enterprise Linux CoreOS (RHCOS)](https://docs.redhat.com/en/documentation/openshift_container_platform/4.8/html/architecture/architecture-rhcos),
+    - [RHCOS images creation(download)](https://www.ibm.com/docs/en/cic/1.2.3?topic=images-rhcos-creationdownload)
+    - [RHCOS image mirror](https://mirror.openshift.com/pub/openshift-v4/s390x/dependencies/rhcos/)
 - [CoreOS Installer](https://coreos.github.io/coreos-installer/)
 - [coreos/mkpasswd-container](https://github.com/coreos/mkpasswd-container)
 - [cloud-init](https://cloudinit.readthedocs.io/) :
   注意：[coreos/coreos-cloudinit](https://github.com/coreos/coreos-cloudinit) 已经废弃，
   改为[canonical/cloud-init](https://github.com/canonical/cloud-init) 提供。
   而 [Fedora Packages](https://packages.fedoraproject.org/pkgs/cloud-init/cloud-init/)是由
-    
-- 安装[kuboard](https://kuboard.cn/install/install-k8s-dashboard.html#%E5%AE%89%E8%A3%85)  
+
+- 安装[kuboard](https://kuboard.cn/install/install-k8s-dashboard.html#%E5%AE%89%E8%A3%85)
 
 * packages repo: [packages.fedoraproject.org](https://packages.fedoraproject.org/)
    - [cloud-init](https://packages.fedoraproject.org/pkgs/cloud-init/cloud-init/) 提供 cloud-init 命令
    - [moby-engine](https://packages.fedoraproject.org/pkgs/moby-engine/moby-engine/) 提供开源版本的 docker 命令
-      注意：docker官网的安装命令 [Install Docker Engine](https://docs.docker.com/engine/install/)  
+      注意：docker官网的安装命令 [Install Docker Engine](https://docs.docker.com/engine/install/)
 - [containerd](https://github.com/containerd/containerd) 开源版本的 container runtime
     - [getting-started.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)
     - [https://containerd.io/](https://containerd.io/)
@@ -310,7 +313,7 @@ Tracker: https://github.com/coreos/fedora-coreos-tracker
 Discuss: https://discussion.fedoraproject.org/tag/coreos
 
 Last login: Fri Jul 21 12:48:52 2023 from 192.168.56.1
-[dangqian.zll@localhost ~]$ 
+[dangqian.zll@localhost ~]$
 Broadcast message from Zincati at Fri 2023-07-21 14:42:37 UTC:
 New update 38.20230625.3.0 is available and has been deployed.
 If permitted by the update strategy, Zincati will reboot into this update when
@@ -348,7 +351,7 @@ OSTREE_VERSION='38.20230430.3.1'
 State: busy
 AutomaticUpdatesDriver: Zincati
   DriverState: active; found update on remote: 38.20230625.3.0
-Transaction: deploy --lock-finalization --skip-branch-check revision=e841d77aadb875bb801ac845a0d9b8a70b4224bdeb15e7d6c5bff1da932c0301 --disallow-downgrade 
+Transaction: deploy --lock-finalization --skip-branch-check revision=e841d77aadb875bb801ac845a0d9b8a70b4224bdeb15e7d6c5bff1da932c0301 --disallow-downgrade
   Initiator: caller :1.29
 Deployments:
 ● fedora:fedora/x86_64/coreos/stable
@@ -416,13 +419,13 @@ Deployments:
 ```plain
 
 [dangqian.zll@localhost ~]$ sudo dnf install kubelet
-Fedora 38 - x86_64                                                                                                                                                                                                    5.4 MB/s |  83 MB     00:15    
-Fedora 38 openh264 (From Cisco) - x86_64                                                                                                                                                                              410  B/s | 2.5 kB     00:06    
-Fedora Modular 38 - x86_64                                                                                                                                                                                            1.0 MB/s | 2.8 MB     00:02    
-Fedora 38 - x86_64 - Updates                                                                                                                                                                                          2.6 MB/s |  29 MB     00:11    
-Fedora Modular 38 - x86_64 - Updates                                                                                                                                                                                  673 kB/s | 2.1 MB     00:03    
-Kubernetes                                                                                                                                                                                                             66 kB/s | 177 kB     00:02    
-Fedora 38 - x86_64 - Updates Archive                                                                                                                                                                                  890 kB/s |  45 MB     00:51    
+Fedora 38 - x86_64                                                                                                                                                                                                    5.4 MB/s |  83 MB     00:15
+Fedora 38 openh264 (From Cisco) - x86_64                                                                                                                                                                              410  B/s | 2.5 kB     00:06
+Fedora Modular 38 - x86_64                                                                                                                                                                                            1.0 MB/s | 2.8 MB     00:02
+Fedora 38 - x86_64 - Updates                                                                                                                                                                                          2.6 MB/s |  29 MB     00:11
+Fedora Modular 38 - x86_64 - Updates                                                                                                                                                                                  673 kB/s | 2.1 MB     00:03
+Kubernetes                                                                                                                                                                                                             66 kB/s | 177 kB     00:02
+Fedora 38 - x86_64 - Updates Archive                                                                                                                                                                                  890 kB/s |  45 MB     00:51
 Dependencies resolved.
 ======================================================================================================================================================================================================================================================
  Package                                                              Architecture                                         Version                                                     Repository                                                Size
@@ -443,28 +446,28 @@ Total download size: 20 M
 Installed size: 102 M
 Is this ok [y/N]: y
 Downloading Packages:
-(1/5): libnetfilter_cthelper-1.0.0-23.fc38.x86_64.rpm                                                                                                                                                                  22 kB/s |  22 kB     00:01    
-(2/5): libnetfilter_cttimeout-1.0.0-21.fc38.x86_64.rpm                                                                                                                                                                 22 kB/s |  23 kB     00:01    
-(3/5): libnetfilter_queue-1.0.5-4.fc38.x86_64.rpm                                                                                                                                                                      27 kB/s |  28 kB     00:01    
-(4/5): conntrack-tools-1.4.7-1.fc38.x86_64.rpm                                                                                                                                                                        428 kB/s | 228 kB     00:00    
-(5/5): 49e46174a716325c333a575df9c990b0e237616e7c78537580d7e14204eca1d0-kubelet-1.27.4-0.x86_64.rpm                                                                                                                   6.4 MB/s |  20 MB     00:03    
+(1/5): libnetfilter_cthelper-1.0.0-23.fc38.x86_64.rpm                                                                                                                                                                  22 kB/s |  22 kB     00:01
+(2/5): libnetfilter_cttimeout-1.0.0-21.fc38.x86_64.rpm                                                                                                                                                                 22 kB/s |  23 kB     00:01
+(3/5): libnetfilter_queue-1.0.5-4.fc38.x86_64.rpm                                                                                                                                                                      27 kB/s |  28 kB     00:01
+(4/5): conntrack-tools-1.4.7-1.fc38.x86_64.rpm                                                                                                                                                                        428 kB/s | 228 kB     00:00
+(5/5): 49e46174a716325c333a575df9c990b0e237616e7c78537580d7e14204eca1d0-kubelet-1.27.4-0.x86_64.rpm                                                                                                                   6.4 MB/s |  20 MB     00:03
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Total                                                                                                                                                                                                                 3.7 MB/s |  20 MB     00:05     
-Fedora 38 - x86_64                                                                                                                                                                                                    1.6 MB/s | 1.6 kB     00:00    
+Total                                                                                                                                                                                                                 3.7 MB/s |  20 MB     00:05
+Fedora 38 - x86_64                                                                                                                                                                                                    1.6 MB/s | 1.6 kB     00:00
 Importing GPG key 0xEB10B464:
  Userid     : "Fedora (38) <fedora-38-primary@fedoraproject.org>"
  Fingerprint: 6A51 BBAB BA3D 5467 B617 1221 809A 8D7C EB10 B464
  From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-38-x86_64
 Is this ok [y/N]: y
 error: can't create transaction lock on /usr/share/rpm/.rpm.lock (Read-only file system)
-Fedora 38 - x86_64 - Updates                                                                                                                                                                                          1.6 MB/s | 1.6 kB     00:00    
+Fedora 38 - x86_64 - Updates                                                                                                                                                                                          1.6 MB/s | 1.6 kB     00:00
 Importing GPG key 0xEB10B464:
  Userid     : "Fedora (38) <fedora-38-primary@fedoraproject.org>"
  Fingerprint: 6A51 BBAB BA3D 5467 B617 1221 809A 8D7C EB10 B464
  From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-38-x86_64
 Is this ok [y/N]: y
 error: can't create transaction lock on /usr/share/rpm/.rpm.lock (Read-only file system)
-Kubernetes                                                                                                                                                                                                            1.0 kB/s | 975  B     00:00    
+Kubernetes                                                                                                                                                                                                            1.0 kB/s | 975  B     00:00
 Importing GPG key 0x3E1BA8D5:
  Userid     : "Google Cloud Packages RPM Signing Key <gc-team@google.com>"
  Fingerprint: 3749 E1BA 95A8 6CE0 5454 6ED2 F09C 394C 3E1B A8D5
@@ -484,12 +487,12 @@ Key import failed (code 2). Failing package is: kubelet-1.27.4-0.x86_64
 The downloaded packages were saved in cache until the next successful transaction.
 You can remove cached packages by executing 'dnf clean packages'.
 Error: GPG check FAILED
-[dangqian.zll@localhost ~]$ 
+[dangqian.zll@localhost ~]$
 ```
 
 
 # k8s
-https://dev.to/carminezacc/creating-a-kubernetes-cluster-with-fedora-coreos-36-j17 
+https://dev.to/carminezacc/creating-a-kubernetes-cluster-with-fedora-coreos-36-j17
 
 - [Install Kubernetes v1.25.4 on Fedora CoreOS 37 with ignition, ansible and kubeadm](https://pvamos.github.io/fcos-k8s/)
 - kubernetes: [入门/生产环境](https://kubernetes.io/zh-cn/docs/setup/production-environment/)
@@ -501,7 +504,7 @@ https://dev.to/carminezacc/creating-a-kubernetes-cluster-with-fedora-coreos-36-j
 
 ```shell
 # 先确保 docker 正常work
-docker images 
+docker images
 docker run hello-world
 
 sudo setenforce 0
@@ -533,7 +536,7 @@ route -n
 
 
 sudo rpm-ostree install python3 libselinux-python3 ansible nmap telnet iproute-tc
-sudo rpm-ostree install kubelet kubeadm kubectl 
+sudo rpm-ostree install kubelet kubeadm kubectl
 kubelet --version
 kubeadm version
 kubectl version
@@ -556,7 +559,7 @@ netstat -pnlt | grep 6443
 # ori-codkerd : https://github.com/Mirantis/cri-dockerd
 # 安装 docker-ce 时需要安装 ori-codkerd
 wget https://github.com/Mirantis/cri-dockerd/releases/download/v0.3.4/cri-dockerd-0.3.4-3.fc36.x86_64.rpm
-rpm -ivh cri-dockerd-0.3.4-3.fc36.x86_64.rpm 
+rpm -ivh cri-dockerd-0.3.4-3.fc36.x86_64.rpm
 systemctl enable cri-docker
 systemctl start cri-docker
 systemctl status cri-docker
@@ -564,7 +567,7 @@ ll -l /var/run/cri-dockerd.sock
 
 
 # 打印默认的 kubeadm init 参数
-kubeadm config print init-defaults 
+kubeadm config print init-defaults
 
 
 # containerd : /var/run/containerd/containerd.sock
@@ -700,12 +703,12 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 Then you can join any number of worker nodes by running the following on each as root:
 
 kubeadm join 10.0.2.15:6443 --token iq0dmy.6hn6wxc0ma21n7j7 \
-	--discovery-token-ca-cert-hash sha256:19cfb8ed771e5c78bb75d13dd349e36011356d57f7f1f4c30cbb5d21c43f775c 
+	--discovery-token-ca-cert-hash sha256:19cfb8ed771e5c78bb75d13dd349e36011356d57f7f1f4c30cbb5d21c43f775c
 ```
 
 
 # k8s 问题
- 
+
 ## Q1: sandbox image of the container runtime is inconsistent with that used by kubeadm
 
 ```shell
@@ -724,7 +727,7 @@ W0725 13:12:50.480698    4672 checks.go:835] detected that the sandbox image "re
 ```
 修改后需要 `sudo systemctl restart containerd`
 
-其他参考 
+其他参考
 - [重载沙箱（pause）镜像](https://kubernetes.io/zh-cn/docs/setup/production-environment/container-runtimes/#override-pause-image-containerd)
 - [问题“The connection to the server....:6443 was refused - did you specify the right host or port?”的处理！](https://blog.csdn.net/sinat_28371057/article/details/109895159)
 
