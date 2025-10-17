@@ -1,8 +1,0 @@
-
-
-== idea intellij
-
-[source,plain]
-----
-Edit -> Find -> Evalueate Json path Expression
-----

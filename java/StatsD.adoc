@@ -1,3 +1,0 @@
-
-* github : link:https://github.com/statsd/statsd[statsd/statsd]
-* link:https://blog.csdn.net/liuxiao723846/article/details/109036280[statsD介绍、安装和使用]
