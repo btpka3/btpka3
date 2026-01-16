@@ -196,6 +196,9 @@ ts=2023-08-21 09:56:10;thread_name=arthas-command-execute;id=1dd;is_daemon=true;
 ## org.apache.dubbo.rpc.Invoker
 
 ### org.apache.dubbo.rpc.protocol.injvm.InjvmInvoker
+link:https://cn.dubbo.apache.org/zh-cn/overview/mannual/java-sdk/tasks/framework/more/local-call/[本地调用]
+
+
 ## org.apache.dubbo.rpc.cluster.ClusterInvoker
 
 
@@ -207,7 +210,150 @@ FIXME: 如何禁用某个特定的SPI实现？
     - org.apache.dubbo.common.extension.DubboInternalLoadingStrategy : "META-INF/dubbo/internal/" , overridden = false
     - org.apache.dubbo.common.extension.DubboLoadingStrategy : "META-INF/dubbo/" , overridden = true
     - org.apache.dubbo.common.extension.ServicesLoadingStrategy : "META-INF/services/"  : 优先级最低， overridden = true
+----
 
+SPI 未加载如何排查
+
+[source,shell]
+----
+# 检查加载的 org.apache.dubbo.rpc.Filter 的信息
+ognl -c 3dabd7a4 '
+#frameworkModel=@org.apache.dubbo.rpc.model.FrameworkModel@defaultInstance,
+#applicationModel = #frameworkModel.defaultAppModel,
+#moduleModel=#applicationModel.pubModuleModels[0],
+#extensionLoader=#moduleModel.getExtensionLoader(@org.apache.dubbo.rpc.Filter@class),
+#extensionLoader.cachedInstances
+'
+
+
+
+# 尝试重新加载相关实现类，
+# 观察 ExtensionLoader#getExtension, #createExtension(), #loadExtensionClasses, #loadDirectory, #loadDirectoryInternal 的逻辑
+# 注意：有使用TCCL
+# 此外，请注意使用 ScopeModel#addClassLoader  添加自定义的classLoader
+ognl -c 3dabd7a4 '
+#frameworkModel=@org.apache.dubbo.rpc.model.FrameworkModel@defaultInstance,
+#applicationModel = #frameworkModel.defaultAppModel,
+#moduleModel=#applicationModel.pubModuleModels[0],
+#extensionLoader=#moduleModel.getExtensionLoader(@org.apache.dubbo.rpc.Filter@class),
+#extensionLoader.getExtension("jiugongThreadLocalHolderFilter")
+'
+
+ognl -c 3dabd7a4 '
+#frameworkModel=@org.apache.dubbo.rpc.model.FrameworkModel@defaultInstance,
+#applicationModel = #frameworkModel.defaultAppModel,
+#moduleModel=#applicationModel.pubModuleModels[0],
+#extensionLoader=#moduleModel.getExtensionLoader(@org.apache.dubbo.rpc.Filter@class),
+#extensionLoader.loadExtensionClasses()
+'
+
+
+org.apache.dubbo.rpc.model.FrameworkModel#getAllInstances
+ognl -c 3dabd7a4 '
+#frameworkModel=@org.apache.dubbo.rpc.model.FrameworkModel@defaultModel(),
+#applicationModel = #frameworkModel.defaultApplication(),
+#moduleModel=#applicationModel.getModuleModels()[0],
+#moduleModel.getClassLoaders().{toString()}
+'
+
+ognl -c 3dabd7a4 '
+#getModuleModelInfo = :[ #{
+  "toString": #this.toString(),
+  "classLoaders": #this.getClassLoaders().{toString()}
+} ],
+
+#getApplicationModelInfo = :[ #{
+  "toString": #this.toString(),
+  "classLoaders": #this.getClassLoaders().{toString()},
+  "moduleModels" : #this.getModuleModels().{#getModuleModelInfo(#this)}
+} ],
+
+#getFrameworkModelInfo = :[ #{
+  "toString": #this.toString(),
+  "classLoaders": #this.getClassLoaders().{toString()},
+  "applicationModel" : #this.getApplicationModels().{#getApplicationModelInfo(#this)}
+} ],
+
+#frameworkModelList = @org.apache.dubbo.rpc.model.FrameworkModel@getAllInstances(),
+
+#frameworkModelList.{#getFrameworkModelInfo(#this)}
+
+' -x 2
+
+
+# 显示所有 Model 信息
+ognl -c 3dabd7a4 '
+#getModuleModelInfo = :[ #{
+  "toString": #this.toString(),
+  "classLoaders": #this.getClassLoaders().{toString()}
+} ],
+
+#getApplicationModelInfo = :[ #{
+  "toString": #this.toString(),
+  "classLoaders": #this.getClassLoaders().{toString()},
+  "moduleModels" : #this.getModuleModels().{#getModuleModelInfo(#this)}
+} ],
+
+#getFrameworkModelInfo = :[ #{
+  "toString": #this.toString(),
+  "classLoaders": #this.getClassLoaders().{toString()},
+  "applicationModels" : #this.getApplicationModels().{#getApplicationModelInfo(#this)}
+} ],
+
+#frameworkModelList = @org.apache.dubbo.rpc.model.FrameworkModel@getAllInstances(),
+#info = #frameworkModelList.{#getFrameworkModelInfo(#this)},
+#info[0]["applicationModels"][0]
+' -x 6
+
+@com.alibaba.fastjson2.JSON@toJSONString(#info)
+
+vmtool -x 3 --action getInstances --className org.apache.dubbo.rpc.model.FrameworkModel  --express 'instances.{toString()}'
+vmtool -x 3 --action getInstances --className org.apache.dubbo.rpc.model.ApplicationModel  --express 'instances.{
+  {
+    toString(),
+    getClassLoaders().{toString()}
+  }
+}'
+#applicationModel.
+#applicationModel.
+vmtool -x 3 --action getInstances --className org.apache.dubbo.rpc.model.ModuleModel  --express 'instances.{
+toString()}'
+
+
+vmtool -x 3 --action getInstances --className org.apache.dubbo.rpc.model.ModuleModel  --express 'instances.getClassLoaders().{toString()}'
+
+
+
+
+
+watch org.apache.dubbo.common.extension.ExtensionLoader loadResource 'params[2].toString()'
+ognl -c 3dabd7a4 '@org.apache.dubbo.common.extension.ExtensionLoader@specialSPILoadingStrategyMap'
+# - org.apache.dubbo.common.extension.DubboInternalLoadingStrategy
+# - org.apache.dubbo.common.extension.DubboLoadingStrategy
+# - org.apache.dubbo.common.extension.ServicesLoadingStrategy
+watch org.apache.dubbo.common.extension.ExtensionLoader loadDirectoryInternal target.scopeModel.getClassLoaders().{toString()}
+
+# 检查 何时调用的初始化
+stack org.apache.dubbo.common.extension.ExtensionLoader getExtensionName '
+    params.size()==0
+&& params[0].getClass().getName()=="java.lang.Class"
+&& params[0].getName()=="org.apache.dubbo.rpc.Filter"
+'
+
+# 检查是否兼容 老的 com.alibaba.* 的 接口
+ognl -c 73c4ca2f '@org.apache.dubbo.common.compact.Dubbo2CompactUtils@enabled'
+ognl -c 3dabd7a4 '@org.apache.dubbo.common.compact.Dubbo2CompactUtils@setEnabled(false)'
+
+# ScopeModel 有父子关系。
+ognl -c 56743d02 '
+#frameworkModel=@org.apache.dubbo.rpc.model.FrameworkModel@defaultInstance,
+#applicationModel = #frameworkModel.defaultAppModel,
+#moduleModel=#applicationModel.pubModuleModels[0],
+{
+  #applicationModel.parent==#frameworkModel,
+  #moduleModel.parent==#applicationModel
+}
+'
 ----
 
 
@@ -622,6 +768,7 @@ curl  \
 - org.apache.dubbo.rpc.protocol.tri.rest.mapping.RequestMapping#consumesCondition
 - org.apache.dubbo.rpc.protocol.tri.rest.mapping.condition.ConsumesCondition#match
 - org.apache.dubbo.rpc.protocol.tri.rest.mapping.condition.ServiceGroupVersionCondition
+- org.apache.dubbo.rpc.protocol.tri.h12.http1.DefaultHttp11ServerTransportListener
 
 [source,bash]
 ----
@@ -651,19 +798,23 @@ ognl -c 78a7fc27 '
 
 [source,plain]
 ----
-ts=2025-04-11 17:01:01.925;thread_name=DubboServerHandler-169.254.245.134:50051-thread-51;id=13763;is_daemon=true;priority=5;TCCL=com.alibaba.security.mtee.bundle.framework.core.loader.JiugongBundleClassLoader@33e3d49d;trace_id=a9fef58617443620618986475dd92f;rpc_id=9
-    @com.taobao.mbus.biz.message.impl.RequestServiceImpl.request()
-        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)
-        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+ts=2025-11-20 11:53:19.220;thread_name=DubboServerHandler-172.16.68.179:50051-thread-485;id=2741;is_daemon=true;priority=5;TCCL=com.alibaba.security.mtee.bundle.framework.core.loader.JiugongBundleClassLoader@21da2663;trace_id=ac16d42617636107992163524d6c7a;rpc_id=0
+    @com.alibaba.security.green.ext.mtee.service.ContentCustomAppHandlerImpl.isMatch()
+        at com.taobao.mbus.biz.app.DefaultAppHandlerImpl.isMatch(DefaultAppHandlerImpl.java:111)
+        at com.taobao.mbus.biz.app.AppEventServiceImpl.handleAppEvent(AppEventServiceImpl.java:137)
+        at com.taobao.mbus.biz.message.impl.RequestServiceImpl.request(RequestServiceImpl.java:127)
+        at jdk.internal.reflect.GeneratedMethodAccessor2919.invoke(null:-1)
         at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
         at java.lang.reflect.Method.invoke(Method.java:566)
         at com.taobao.mbus.biz.message.impl.hsf.HsfMessageSourceListener.invoke(HsfMessageSourceListener.java:78)
-        at com.sun.proxy.$Proxy159.request(null:-1)
-        at com.alibaba.security.tenant.common.service.RequestServiceDubboWrap3.invokeMethod(RequestServiceDubboWrap3.java:-1)
+        at com.sun.proxy.$Proxy261.request(null:-1)
+        at com.alibaba.security.tenant.common.service.RequestServiceDubboWrap2.invokeMethod(RequestServiceDubboWrap2.java:-1)
         at org.apache.dubbo.rpc.proxy.javassist.JavassistProxyFactory$1.doInvoke(JavassistProxyFactory.java:89)
         at org.apache.dubbo.rpc.proxy.AbstractProxyInvoker.invoke(AbstractProxyInvoker.java:100)
         at org.apache.dubbo.config.invoker.DelegateProviderMetaDataInvoker.invoke(DelegateProviderMetaDataInvoker.java:55)
         at org.apache.dubbo.rpc.protocol.InvokerWrapper.invoke(InvokerWrapper.java:56)
+        at io.opentelemetry.javaagent.instrumentation.mse.traffic.dubbo.apache.ApacheDubboInboundFilter.invoke(ApacheDubboInboundFilter.java:85)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
         at org.apache.dubbo.rpc.filter.ClassLoaderCallbackFilter.invoke(ClassLoaderCallbackFilter.java:38)
         at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
         at org.apache.dubbo.rpc.protocol.tri.rest.filter.RestExtensionExecutionFilter.lambda$invoke$0(RestExtensionExecutionFilter.java:79)
@@ -679,6 +830,11 @@ ts=2025-04-11 17:01:01.925;thread_name=DubboServerHandler-169.254.245.134:50051-
         at org.apache.dubbo.rpc.protocol.dubbo.filter.TraceFilter.invoke(TraceFilter.java:80)
         at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
         at org.apache.dubbo.rpc.filter.TimeoutFilter.invoke(TimeoutFilter.java:45)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at com.alibaba.jiugong.service.dubbo.filter.ThreadLocalHolderFilter.invoke(ThreadLocalHolderFilter.java:59)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at io.opentelemetry.javaagent.shaded.instrumentation.apachedubbo.v2_7.TracingFilter.invoke(TracingFilter.java:55)
+        at io.opentelemetry.javaagent.instrumentation.apachedubbo.v2_7.OpenTelemetryServerFilter.invoke(OpenTelemetryServerFilter.java:37)
         at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
         at org.apache.dubbo.monitor.support.MonitorFilter.invoke(MonitorFilter.java:109)
         at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
@@ -697,9 +853,13 @@ ts=2025-04-11 17:01:01.925;thread_name=DubboServerHandler-169.254.245.134:50051-
         at org.apache.dubbo.metrics.filter.MetricsFilter.invoke(MetricsFilter.java:86)
         at org.apache.dubbo.metrics.filter.MetricsProviderFilter.invoke(MetricsProviderFilter.java:37)
         at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.tracing.filter.ObservationReceiverFilter.invoke(ObservationReceiverFilter.java:59)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
         at org.apache.dubbo.rpc.filter.ProfilerServerFilter.invoke(ProfilerServerFilter.java:66)
         at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
         at org.apache.dubbo.rpc.filter.ContextFilter.invoke(ContextFilter.java:191)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at io.opentelemetry.javaagent.instrumentation.mse.auth.interceptor.ApacheDubboAuthProviderFilter.invoke(ApacheDubboAuthProviderFilter.java:30)
         at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
         at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CallbackRegistrationInvoker.invoke(FilterChainBuilder.java:197)
         at org.apache.dubbo.rpc.protocol.tri.h12.AbstractServerCallListener.invoke(AbstractServerCallListener.java:76)
@@ -709,11 +869,29 @@ ts=2025-04-11 17:01:01.925;thread_name=DubboServerHandler-169.254.245.134:50051-
         at org.apache.dubbo.rpc.protocol.tri.h12.DefaultHttpMessageListener.onMessage(DefaultHttpMessageListener.java:39)
         at org.apache.dubbo.rpc.protocol.tri.h12.AbstractServerTransportListener.doOnData(AbstractServerTransportListener.java:183)
         at org.apache.dubbo.rpc.protocol.tri.h12.AbstractServerTransportListener.lambda$onData$1(AbstractServerTransportListener.java:168)
+          // ⭕️ 实际的类是: org.apache.dubbo.rpc.protocol.tri.h12.http1.DefaultHttp11ServerTransportListener
+          //    初始化路径：
+          //       org.apache.dubbo.rpc.protocol.tri.TripleHttp2Protocol#configurerHttp1Handlers
+          //        org.apache.dubbo.remoting.http12.netty4.h1.NettyHttp1ConnectionHandler
         at org.apache.dubbo.common.threadpool.serial.SerializingExecutor.run(SerializingExecutor.java:105)
         at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
         at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
         at org.apache.dubbo.common.threadlocal.InternalRunnable.run(InternalRunnable.java:39)
         at java.lang.Thread.run(Thread.java:991)
+----
+
+
+[source,plain]
+----
+# HTTP rest 初始化路径
+org.apache.dubbo.remoting.api.pu.AbstractPortUnificationServer#doOpen0
+  new org.apache.dubbo.remoting.transport.netty4.NettyPortUnificationServerHandler()
+
+org.apache.dubbo.remoting.transport.netty4.NettyPortUnificationServerHandler#decode
+  #detectProtocol
+    org.apache.dubbo.rpc.protocol.tri.TripleHttp2Protocol#configServerProtocolHandler
+      #configurerHttp1Handlers
+
 ----
 
 
@@ -1032,6 +1210,86 @@ org.apache.dubbo.rpc.model.ScopeModelUtil#getExtensionLoader :
 ----
 
 == Q: 同JVM调用时，dubbo转换为 injvm 调用的位置是？
+
+配置项 dubbo.consumer.injvm=true/false 已经被废弃了，
+dubbo.consumer.scope=local/remote
+
+具体代码参考：
+[source,plain]
+----
+org.apache.dubbo.config.ReferenceConfig#shouldJvmRefer
+org.apache.dubbo.rpc.protocol.injvm.InjvmProtocol#isInjvmRefer
+----
+
+示例调用堆栈
+
+[source,plain]
+----
+java.lang.RuntimeException: ✅This is not error, please check stack trace to verify remote or local invocation
+        at com.alibaba.security.gong9.mw.demo.service.hsf.provider.HelloServiceImpl.sayHello(HelloServiceImpl.java:58)
+        at com.alibaba.security.gong9.mw.demo.service.hsf.provider.HelloServiceImplDubboWrap0.invokeMethod(HelloServiceImplDubboWrap0.java)
+        at org.apache.dubbo.rpc.proxy.javassist.JavassistProxyFactory$1.doInvoke(JavassistProxyFactory.java:89)
+        at org.apache.dubbo.rpc.proxy.AbstractProxyInvoker.invoke(AbstractProxyInvoker.java:100)
+        at org.apache.dubbo.config.invoker.DelegateProviderMetaDataInvoker.invoke(DelegateProviderMetaDataInvoker.java:55)
+        at org.apache.dubbo.rpc.protocol.InvokerWrapper.invoke(InvokerWrapper.java:56)
+        at io.opentelemetry.javaagent.instrumentation.mse.traffic.dubbo.apache.ApacheDubboInboundFilter.invoke(ApacheDubboInboundFilter.java:85)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.ClassLoaderCallbackFilter.invoke(ClassLoaderCallbackFilter.java:38)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.protocol.tri.rest.filter.RestFilterAdapter.invoke(RestFilterAdapter.java:38)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.protocol.tri.h12.HttpContextCallbackFilter.invoke(HttpContextCallbackFilter.java:37)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.protocol.dubbo.filter.TraceFilter.invoke(TraceFilter.java:80)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.TimeoutFilter.invoke(TimeoutFilter.java:45)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at io.opentelemetry.javaagent.shaded.instrumentation.apachedubbo.v2_7.TracingFilter.invoke(TracingFilter.java:55)
+        at io.opentelemetry.javaagent.instrumentation.apachedubbo.v2_7.OpenTelemetryServerFilter.invoke(OpenTelemetryServerFilter.java:37)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.monitor.support.MonitorFilter.invoke(MonitorFilter.java:109)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at com.alibaba.security.gong9.mw.pandora.hsf.impl.dubbo.eagleye.G9EagleEyeProviderFilter.invoke(G9EagleEyeProviderFilter.java:37)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.ExceptionFilter.invoke(ExceptionFilter.java:55)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.AccessLogFilter.invoke(AccessLogFilter.java:120)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.GenericFilter.invoke(GenericFilter.java:222)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.protocol.tri.h12.HttpContextFilter.invoke(HttpContextFilter.java:50)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.ClassLoaderFilter.invoke(ClassLoaderFilter.java:54)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.EchoFilter.invoke(EchoFilter.java:41)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.metrics.filter.MetricsFilter.invoke(MetricsFilter.java:86)
+        at org.apache.dubbo.metrics.filter.MetricsProviderFilter.invoke(MetricsProviderFilter.java:37)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.ProfilerServerFilter.invoke(ProfilerServerFilter.java:66)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.filter.ContextFilter.invoke(ContextFilter.java:191)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at io.opentelemetry.javaagent.instrumentation.mse.auth.interceptor.ApacheDubboAuthProviderFilter.invoke(ApacheDubboAuthProviderFilter.java:30)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:349)
+        at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CallbackRegistrationInvoker.invoke(FilterChainBuilder.java:197)
+        at org.apache.dubbo.rpc.protocol.tri.h12.AbstractServerCallListener.invoke(AbstractServerCallListener.java:76)
+        at org.apache.dubbo.rpc.protocol.tri.h12.UnaryServerCallListener.onComplete(UnaryServerCallListener.java:50)
+        at org.apache.dubbo.rpc.protocol.tri.h12.http2.GenericHttp2ServerTransportListener$Http2StreamingDecodeListener.onClose(GenericHttp2ServerTransportListener.java:206)
+        at org.apache.dubbo.remoting.http12.message.DefaultListeningDecoder.close(DefaultListeningDecoder.java:47)
+        at org.apache.dubbo.remoting.http12.message.StreamingDecoder$DefaultFragmentListener.onClose(StreamingDecoder.java:60)
+        at org.apache.dubbo.remoting.http12.message.LengthFieldStreamingDecoder.deliver(LengthFieldStreamingDecoder.java:135)
+        at org.apache.dubbo.remoting.http12.message.LengthFieldStreamingDecoder.close(LengthFieldStreamingDecoder.java:81)
+        at org.apache.dubbo.rpc.protocol.tri.h12.http2.GenericHttp2ServerTransportListener.onDataCompletion(GenericHttp2ServerTransportListener.java:148)
+        at org.apache.dubbo.rpc.protocol.tri.h12.http2.GenericHttp2ServerTransportListener.onDataCompletion(GenericHttp2ServerTransportListener.java:50)
+        at org.apache.dubbo.rpc.protocol.tri.h12.AbstractServerTransportListener.doOnData(AbstractServerTransportListener.java:184)
+        at org.apache.dubbo.rpc.protocol.tri.h12.AbstractServerTransportListener.lambda$onData$1(AbstractServerTransportListener.java:168)
+        at org.apache.dubbo.common.threadpool.serial.SerializingExecutor.run(SerializingExecutor.java:105)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+        at org.apache.dubbo.common.threadlocal.InternalRunnable.run(InternalRunnable.java:39)
+        at java.base/java.lang.Thread.run(Thread.java:991)
+----
 
 == HSF: RPCFilter
 - com.taobao.hsf.invocation.filter.RPCFilter

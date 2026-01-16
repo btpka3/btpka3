@@ -851,52 +851,6 @@ curl "https://registry.cn-hangzhou.aliyuncs.com/v2/google_containers/$TARGET_NS_
 ```
 
 
-# docker in docker
-
-- [How To Run Docker in Docker Container [3 Easy Methods]](https://devopscube.com/run-docker-in-docker/)
-- [_/docker](https://hub.docker.com/_/docker)
-- [How to use Podman inside of a container](https://www.redhat.com/sysadmin/podman-inside-container)
-- [quay.io/podman/stable](https://quay.io/repository/podman/stable)
-
-DinD (Docker in Docker)
-
-```shell
-# 准备网络
-docker network create       \
-    -d bridge               \
-    --gateway 192.168.1.1   \
-    --subnet 192.168.1.0/24 \
-    dockerNet
-
-# 启动 daemon 实例
-docker run --privileged -it --rm \
-           --network dockerNet --network-alias docker \
-           -e DOCKER_TLS_CERTDIR=/certs \
-           -v some-docker-certs-ca:/certs/ca \
-           -v some-docker-certs-client:/certs/client \
-           docker:latest
-# Connect to it from a second container
-docker run -it --rm --network dockerNet \
-	-e DOCKER_TLS_CERTDIR=/certs \
-	-v some-docker-certs-client:/certs/client:ro \
-	docker:latest sh
-
-# 在第二个容器中执行以下命令
-docker version
-docker run -it --rm docker.io/library/alpine:3.17.3 date
-docker run -it --rm --entrypoint /bin/sh docker.io/library/alpine:3.17.3 -l
-docker run -it --rm --entrypoint /bin/sh docker.io/library/alpine:3.17.3 -c date
-```
-
-PinP(Podman in Podman)
-[quay.io/podman/stable](https://quay.io/repository/podman/stable?tab=info)
-
-```shell
-#export PS1='\[\033[01;33m\]\u@\h\[\033[01;31m\] \W\$\[\033[00m\] '
-podman run --security-opt label=disable --user podman \
-  --device /dev/fuse quay.io/podman/stable \
-  podman run alpine echo hello
-```
 
 ## docker hub
 

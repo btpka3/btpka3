@@ -432,3 +432,13 @@ Java/Javadoc/Javadoc declaration problems :          Severity=> Consideration
 Spring/Spring Core/Code:Incrorrect autowiring in Spring bean components
 ----
 
+
+
+
+== Format
+
+- link:https://www.jetbrains.com/help/idea/command-line-formatter.html[Format files from the command line]
+- link:https://github.com/diffplug/spotless/tree/main/plugin-maven#intellij-idea[sptless:IntelliJ IDEA]
+
+
+

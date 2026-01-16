@@ -1,8 +1,8 @@
 
 
 ## install on MacOS
-
-```bash
+[source,shell]
+----
 # vi ~/.bash_profile
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias chrome-canary="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
@@ -12,48 +12,55 @@ chrome \
     --headless \
     --disable-gpu\
     --remote-debugging-port=9222
-```
+----
 
 ## install on centos
 
 1. vi `/etc/yum.repos.d/google-chrome.repo`
++
+[source,shell]
+----
+[google-chrome]
+name=google-chrome
+baseurl=http://dl.google.com/linux/chrome/rpm/stable/$basearch
+enabled=1
+gpgcheck=0
+gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
+----
++
 
-    ```
-    [google-chrome]
-    name=google-chrome
-    baseurl=http://dl.google.com/linux/chrome/rpm/stable/$basearch
-    enabled=1
-    gpgcheck=0
-    gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
-    ```
 1.  Installing Chrome Web Browser
-
-    ```
-    yum info google-chrome-stable
-    yum install google-chrome-stable
-    ```
++
+[source,shell]
+----
+yum info google-chrome-stable
+yum install google-chrome-stable
+----
++
 
 1. test
-
-    ```bash
-    docker exec -it my-chrome bash
-    google-chrome --no-sandbox --headless --disable-gpu --dump-dom http://news.163.com
-    google-chrome --no-sandbox --headless --disable-gpu --screenshot --window-size=500,1200 http://192.168.0.41:64444/docker/chrome-headless/test.html
-    google-chrome --no-sandbox --headless --disable-gpu --print-to-pdf http://news.163.com
-    ```
-
++
+[source,shell]
+----
+docker exec -it my-chrome bash
+google-chrome --no-sandbox --headless --disable-gpu --dump-dom http://news.163.com
+google-chrome --no-sandbox --headless --disable-gpu --screenshot --window-size=500,1200 http://192.168.0.41:64444/docker/chrome-headless/test.html
+google-chrome --no-sandbox --headless --disable-gpu --print-to-pdf http://news.163.com
+----
++
 
 
 
 ## install on ubuntu
 
 ### 参考
-* [3rd Party Repository: Google Chrome](https://www.ubuntuupdates.org/ppa/google_chrome?dist=stable)
-* [ttf-mscorefonts-installer](https://packages.debian.org/sid/all/ttf-mscorefonts-installer/download)
+* link:https://www.ubuntuupdates.org/ppa/google_chrome?dist=stable[3rd Party Repository: Google Chrome]
+* link:https://packages.debian.org/sid/all/ttf-mscorefonts-installer/download[ttf-mscorefonts-installer]
 
 ### 字体来源
 
-```text
+[source,plain]
+----
 
 # MacOS
 /Library/Fonts/
@@ -62,61 +69,65 @@ chrome \
 # 如何转换ttc 文件为其他格式文件？
 使用 http://fontforge.github.io/  : File > Generate Fonts
 
-
-```
+----
 
 ### 安装
-1. 基础安装 
+1. 基础安装
++
 
-    ```bash
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
-    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-    sudo apt-get update
-    sudo apt-get install google-chrome-stable
-    # 列出系统字体
-    fc-list | sort
-    more /etc/fonts/fonts.conf
-    apt-cache search font
-    apt-cache search font | grep lcd
-    dpkg-query -l | grep font
-   
-    apt-cache search typekityu
-    apt-get install apt-transport-https
- 
-    apt-get install -y fonts-noto fonts-noto-cjk
- 
-    #DEBIAN_FRONTEND=noninteractive apt-get install -y ttf-mscorefonts-installer
-    #https://askubuntu.com/questions/829247/cannot-install-the-package-ttf-mscorefonts-installer
-    #https://gist.github.com/melvincabatuan/26f3ac4ace4be3a8b48d85a1b3250982
-    wget -O /tmp/ttf-mscorefonts-installer_3.6_all.deb http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb 
-    dpkg -i ttf-mscorefonts-installer_3.6_all.deb
-    dpkg-query -L ttf-mscorefonts-installer
- 
-    apt-get install -y fonts-horai-umefont
-    apt-get install -y ttf-ubuntu-font-family
-    apt-get install -y fonts-ubuntu-font-family-console
-    apt-get install -y fonts-droid-fallback
-    apt-get install -y fonts-wqy-microhei
-    apt-get install -y fonts-roboto
-    apt-get install -y xfonts-wqy wqy-zenhei wqy-microhei
-    apt-get install -y fonts-arphic-uming fonts-arphic-uka
-    apt-get install -y fonts-unfonts-core fonts-unfonts-extra
-    apt-get install -y gsfonts gsfonts-x11
- 
-    # 手动重建字体 cache
-    fc-cache -f -v
- 
-    man fonts.conf
-    more /etc/fonts/fonts.conf
-    #more /etc/fonts/local.conf
-    #more /etc/fonts/language-selector.conf
-    ```
+[source,shell]
+----
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+sudo apt-get update
+sudo apt-get install google-chrome-stable
+# 列出系统字体
+fc-list | sort
+more /etc/fonts/fonts.conf
+apt-cache search font
+apt-cache search font | grep lcd
+dpkg-query -l | grep font
+
+apt-cache search typekityu
+apt-get install apt-transport-https
+
+apt-get install -y fonts-noto fonts-noto-cjk
+
+#DEBIAN_FRONTEND=noninteractive apt-get install -y ttf-mscorefonts-installer
+#https://askubuntu.com/questions/829247/cannot-install-the-package-ttf-mscorefonts-installer
+#https://gist.github.com/melvincabatuan/26f3ac4ace4be3a8b48d85a1b3250982
+wget -O /tmp/ttf-mscorefonts-installer_3.6_all.deb http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb
+dpkg -i ttf-mscorefonts-installer_3.6_all.deb
+dpkg-query -L ttf-mscorefonts-installer
+
+apt-get install -y fonts-horai-umefont
+apt-get install -y ttf-ubuntu-font-family
+apt-get install -y fonts-ubuntu-font-family-console
+apt-get install -y fonts-droid-fallback
+apt-get install -y fonts-wqy-microhei
+apt-get install -y fonts-roboto
+apt-get install -y xfonts-wqy wqy-zenhei wqy-microhei
+apt-get install -y fonts-arphic-uming fonts-arphic-uka
+apt-get install -y fonts-unfonts-core fonts-unfonts-extra
+apt-get install -y gsfonts gsfonts-x11
+
+# 手动重建字体 cache
+fc-cache -f -v
+
+man fonts.conf
+more /etc/fonts/fonts.conf
+#more /etc/fonts/local.conf
+#more /etc/fonts/language-selector.conf
+----
+
++
 
 1. ubuntu 所携带的字体
 
     docker 默认安装
-
-    ```text
++
+[source,plain]
+----
     # fc-list | sort # 列出系统字体
     /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf: DejaVu Sans:style=Bold
     /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf: DejaVu Sans:style=Book
@@ -140,10 +151,13 @@ chrome \
     /usr/share/fonts/truetype/liberation/LiberationSerif-BoldItalic.ttf: Liberation Serif:style=Bold Italic
     /usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf: Liberation Serif:style=Italic
     /usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf: Liberation Serif:style=Regular
-    ```
-    vs 开发人员日常环境
+----
++
 
-    ```text
+vs. 开发人员日常环境
++
+[source,plain]
+----
     # fc-list | sort  # 列出系统字体
     /usr/share/fonts/opentype/noto/NotoSansCJK.ttc: Noto Sans CJK JP,Noto Sans CJK JP Black:style=Black,Regular
     /usr/share/fonts/opentype/noto/NotoSansCJK.ttc: Noto Sans CJK JP,Noto Sans CJK JP Bold:style=Bold,Regular
@@ -189,14 +203,14 @@ chrome \
     /usr/share/fonts/truetype/arphic/uming.ttc: AR PL UMing HK:style=Light
     /usr/share/fonts/truetype/arphic/uming.ttc: AR PL UMing TW MBE:style=Light
     /usr/share/fonts/truetype/arphic/uming.ttc: AR PL UMing TW:style=Light
- 
+
         /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf: DejaVu Sans:style=Bold
         /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf: DejaVu Sans Mono:style=Bold
         /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf: DejaVu Sans Mono:style=Book
         /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf: DejaVu Sans:style=Book
         /usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf: DejaVu Serif:style=Bold
         /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf: DejaVu Serif:style=Book
- 
+
     /usr/share/fonts/truetype/freefont/FreeMonoBoldOblique.ttf: FreeMono:style=Bold Oblique,получерен наклонен,Negreta cursiva,tučné kurzíva,fed kursiv,Fett-Kursiv,Έντονα Πλάγια,Negrita Cursiva,Lihavoitu Kursivoi,Gras Italique,Félkövér dőlt,Grassetto Corsivo,Vet Cursief,Halvfet Kursiv,Pogrubiona kursywa,Negrito Itálico,gros oblic,Полужирный Курсив,Tučná kurzíva,Fet Kursiv,Kalın İtalik,huruf tebal miring,жирний похилий,polkrepko ležeče,treknais slīpraksts,pusjuodis pasvirasis,Lodi etzana,धृष्ट-तिरछा
     /usr/share/fonts/truetype/freefont/FreeMonoBold.ttf: FreeMono:style=Bold,получерен,negreta,tučné,fed,Fett,Έντονα,Negrita,Lihavoitu,Gras,Félkövér,Grassetto,Vet,Halvfet,Pogrubiony,Negrito,gros,Полужирный,Fet,Kalın,huruf tebal,жирний,polkrepko,treknraksts,pusjuodis,đậm,Lodia,धृष्ट
     /usr/share/fonts/truetype/freefont/FreeMonoOblique.ttf: FreeMono:style=Oblique,наклонен,cursiva,kurzíva,kursiv,Πλάγια,Kursivoitu,Italique,Dőlt,Corsivo,Cursief,Kursywa,Itálico,oblic,Курсив,İtalik,huruf miring,похилий,ležeče,slīpraksts,pasvirasis,nghiêng,Etzana,तिरछा
@@ -227,7 +241,7 @@ chrome \
     /usr/share/fonts/truetype/horai-umefont/ume-tms3.ttf: Ume Mincho S3,梅明朝S3:style=Regular
     /usr/share/fonts/truetype/horai-umefont/ume-ugo4.ttf: Ume UI Gothic,梅UIゴシック:style=Regular
     /usr/share/fonts/truetype/horai-umefont/ume-ugo5.ttf: Ume UI Gothic O5,梅UIゴシックO5:style=Medium
-    
+
         /usr/share/fonts/truetype/liberation/LiberationMono-BoldItalic.ttf: Liberation Mono:style=Bold Italic
         /usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf: Liberation Mono:style=Bold
         /usr/share/fonts/truetype/liberation/LiberationMono-Italic.ttf: Liberation Mono:style=Italic
@@ -244,7 +258,7 @@ chrome \
         /usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf: Liberation Serif:style=Bold
         /usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf: Liberation Serif:style=Italic
         /usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf: Liberation Serif:style=Regular
- 
+
     /usr/share/fonts/truetype/msttcorefonts/Andale_Mono.ttf: Andale Mono:style=Regular,Normal,obyčejné,Standard,Κανονικά,Normaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta
     /usr/share/fonts/truetype/msttcorefonts/andalemo.ttf: Andale Mono:style=Regular,Normal,obyčejné,Standard,Κανονικά,Normaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta
     /usr/share/fonts/truetype/msttcorefonts/arialbd.ttf: Arial:style=Bold,Negreta,tučné,fed,Fett,Έντονα,Negrita,Lihavoitu,Gras,Félkövér,Grassetto,Vet,Halvfet,Pogrubiony,Negrito,Полужирный,Fet,Kalın,Krepko,đậm,Lodia
@@ -368,14 +382,15 @@ chrome \
     /usr/share/fonts/type1/gsfonts/p052024l.pfb: URW Palladio L:style=Bold Italic
     /usr/share/fonts/type1/gsfonts/s050000l.pfb: Standard Symbols L:style=Regular
     /usr/share/fonts/type1/gsfonts/z003034l.pfb: URW Chancery L:style=Medium Italic
-    ```
- 
+----
++
 
 
 
 ## headless
 
-```bash
+[source,shell]
+----
 # download Jessie Frazelle seccomp profile for Chrome.
 wget -O ~/chrome.json https://raw.githubusercontent.com/jfrazelle/dotfiles/master/etc/docker/seccomp/chrome.json
 
@@ -386,17 +401,17 @@ docker run --name my-chrome \
     --security-opt seccomp=$HOME/chrome.json \
     justinribeiro/chrome-headless
 
-```
+----
 
 ## see
-* [Support Chrome Sandboxing on Ubuntu](https://github.com/SeleniumHQ/docker-selenium/issues/487#issuecomment-302342772)
-* [addyosmani/headless.md](https://gist.github.com/addyosmani/5336747)
-* [Getting Started with Headless Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome)
-* [justinribeiro/chrome-headless](https://hub.docker.com/r/justinribeiro/chrome-headless/)
+* link:https://github.com/SeleniumHQ/docker-selenium/issues/487#issuecomment-302342772[Support Chrome Sandboxing on Ubuntu]
+* link:https://gist.github.com/addyosmani/5336747[addyosmani/headless.md]
+* link:https://developers.google.com/web/updates/2017/04/headless-chrome[Getting Started with Headless Chrome]
+* link:(https://hub.docker.com/r/justinribeiro/chrome-headless/[justinribeiro/chrome-headless]
 
 
 
-## net::ERR_CERT_DATABASE_CHANGED 
+## net::ERR_CERT_DATABASE_CHANGED
 
 升级macOS之后，访问https网站经常不定期出现『ERR_NETWORK_CHANGED』和『ERR_CERT_DATABASE_CHANGED』的报错，无法正常加载网页。
 其实这个报错，是支付宝安全控件引起的。
@@ -404,7 +419,8 @@ docker run --name my-chrome \
 
 
 
-```bash
+[source,shell]
+----
 # 第一种办法：停用支付宝的安全控件
 sudo launchctl remove com.alipay.DispatcherService
 
@@ -415,5 +431,28 @@ sudo rm -rf ~/Library/LaunchAgents/com.alipay.adaptor.plist && \
 sudo rm -rf ~/Library/LaunchAgents/com.alipay.refresher.plist && \
 sudo rm -rf ~/Library/Internet\ Plug-Ins/aliedit.plugin && \
 sudo rm -rf ~/Library/Internet\ Plug-Ins/npalicdo.plugin
-```
+----
 
+
+
+
+== chrome协议地址
+
+link:https://superuser.com/a/1402013[How can you modify URL predictions on chrome?]
+
+[source,shell]
+----
+# 只读: 列出 URL 地址栏少量输入时预测的要访问的网址,
+# 删除：在url地址栏输入相关词时，可以点击预测网址最后的❌，或按快捷键删除。 快捷键如下:
+#      Windows : Shift+Delete,
+#      MacOS   : Shift+FN+Delete
+# 上述数据保存在 sqllite 数据中, 数据库地址如下
+#      Windows : C:\Users\{username}\AppData\Local\Google\Chrome\User Data\Default
+#      MacOS   : /Users/{username}/Library/Application Support/Google/Chrome/Default
+# 可以通过 相关数据库工具 修改其中的内容，比如  DBeaver,
+# 要查看 History 这个文件/数据库，表: keyword_search_terms,
+chrome://predictors/
+
+#
+
+----

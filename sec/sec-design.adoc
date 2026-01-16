@@ -58,13 +58,14 @@ public class UserPostCountGetter implement Supplier<Optional<Long>> {
         this.p = p;
     }
     public Optional<Long> get(){
-        String userId = p.getCachedProp("userId")
+        // findClass("xxxEvent").getCache().get(userId) ?: findClass("xxxEvent").getProperty(userId)
+        String userId = p.currentEvent().getCachedProp("userId")
            .orElse(null);
         if( userId == null){
             return Optional.empty();
         }
 
-        return p.get("func")
+        return p.funcRegistry()
           .get("queryUserPostCountByUserId")
           .apply(userId);
     }
@@ -115,3 +116,18 @@ ctx?.userPostCount ?: getUserPostCount(userId)
 
 ----
 ----
+
+
+== 代码要求
+- FIXME: 强制使用 link:https://github.com/diffplug/spotless/tree/main/plugin-maven[spotless-maven-plugin] 进行代码格式化
+- FIXME: 如何使用 link:https://spring.io/projects/spring-modulith[spring modulith] ?
+- FIXME: 如何使用 link:https://www.archunit.org/[archunit] ?
+- FIXME: 如何使用 link:https://github.com/google/error-prone[google error-prone] ?
+- FIXME: 如何使用 link:https://jte.gg/[jte: Java Template Engine¶] with spring ?
+** link:https://spring.io/blog/2024/03/22/reflectionless-templates-with-spring[Reflectionless Templates With Spring]
+- FIXME: 如何使用 SpotBugs,findbugs?
+- 强制使用 link:https://jspecify.dev/[jspecify]
+- 如何使用 link:https://lvc.github.io/japi-compliance-checker/[Java API Compliance Checker]
+- 如何使用 link:https://revapi.org/revapi-site/main/index.html[Revapi]
+- 如何使用 link:https://karaf.apache.org/[Apache Karaf] ⭕️⭕️⭕️
+

@@ -1,0 +1,43 @@
+link:https://www.jsonrpc.org/[JSON-RPC]
+
+link:https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/schema/2025-11-25/schema.json[json schema]
+
+== 示例
+
+[source,text]
+----
+# client -> server
+--> {"jsonrpc": "2.0", "method": "subtract", "params": [42, 23], "id": 1}
+# server <-server
+<-- {"jsonrpc": "2.0", "result": 19, "id": 1}
+----
+
+
+== reqeuset
+
+[source,json]
+----
+{
+    "jsonrpc": "2.0",       // 固定值
+    "method" : "xxxMethod", // 要调用的方法名
+    "params" : null,        // 方法的入参, 无参数时可忽略。
+    "id"     : "xxxId",     // 用来标识此次请求ID, number/string
+                            // 针对 Model Context Protocol-MCP 这个应用场景，当 id字段缺失时，表示是一个 通知消息 Notification,
+                            // 且不允许接收方进行回复。
+}
+----
+
+== response
+[source,json]
+----
+{
+    "jsonrpc": "2.0",       // 固定值
+    "error" :  {            // 异常信息。如果没有异常，则不能有该字段，
+        "code" : -32700,    // 错误码，integer，
+        "message" : "",     // 异常概要消息
+        "data" : null       // 异常相关详细数据
+    },
+    "result" : null,        // 方法的返回值
+    "id"     : "xxxId",     // 用来标识此次请求ID
+}
+----

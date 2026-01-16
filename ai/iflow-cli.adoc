@@ -1,0 +1,26 @@
+* link:https://cli.iflow.cn/[心流CLI-iFlow CLI]
+
+
+== 安装
+
+[source,shell]
+----
+# =========== 官方版
+
+# 安装
+npm i -g @iflow-ai/iflow-cli@latest
+# 启动
+iflow
+# 卸载
+npm uninstall -g @iflow-ai/iflow-cli
+
+
+# =========== iflow for aone : 需要阿里内网
+# 安装
+npm install -g @ali/iflow-cli --registry=https://registry.anpm.alibaba-inc.com
+# 启动， iflow 或 iflow-aone 命令
+iflow
+
+
+
+----

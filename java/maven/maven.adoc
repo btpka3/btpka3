@@ -222,3 +222,25 @@ find . -type f  -name "*.java" \
 
 == site
 
+
+== repo
+
+有哪些软件提供了 maven repo的能力?
+
+* software:
+** link:https://jfrog.com/artifactory/[JFrog Artifactory]
+** link:https://www.sonatype.com/products/sonatype-nexus-repository[Sonatype Nexus repository]
+** link:https://archiva.apache.org/[Apache Archiva], 不要用，已不再开发。
+* SAAS:
+** link:https://help.aliyun.com/zh/yunxiao/user-guide/what-is-a-product-repository[阿里云-云效-制品仓库]
+** GitHub Packages
+** Azure Artifacts
+
+
+
+== settings.xml
+
+* link:https://maven.apache.org/settings.html[settings]
+* link:https://maven.apache.org/ref/3.9.11/maven-settings/settings.html[maven Settings]
+
+== plugin-registry.xml

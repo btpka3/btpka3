@@ -30,3 +30,14 @@ git clone git@gitlab.com:antora/demo/docs-site.git
 ----
 
 
+
+== Q: 如何将 markdown 转换成 asciidoc ?
+
+link:https://pandoc.org/[pandoc]
+[source,shell]
+----
+brew install pandoc
+
+# markdown -> asciidoc
+pandoc -o output.adoc input.md
+----

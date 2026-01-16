@@ -189,11 +189,29 @@ org.junit.platform.commons.util.ReflectionUtils
 ----
 <project>
 <properties>
-<junit-version>4.13.2</junit-version>
+        <junit-version>4.13.2</junit-version>
         <junit5.version>5.12.2</junit5.version>
 </properties>
 </project>
 ----
 
 
+== engine
+JUnit Vintage : 运行junit3,junit4 已经不推荐
+JUnit Jupiter : 运行junit5
+
+link:https://docs.junit.org/6.0.0/release-notes.html[junit 6]
+
+* 使用JDK17
+
+== report
+
+* link:https://maven.apache.org/surefire/maven-surefire-report-plugin/report-mojo.html[maven-surefire-report-plugin]  生成HTML格式的报告
+* link:https://allurereport.org/[Allure Report]
+
+* link:https://github.com/ota4j-team/open-test-reporting[Open Test Reporting]
+* cli
+** org.opentest4j.reporting.cli.ReportingCli
+** org.opentest4j.reporting.cli.HtmlReportCommand
+** `new DefaultHtmlReportWriter().writeHtmlReport(xmlFiles, targetFile);`
 

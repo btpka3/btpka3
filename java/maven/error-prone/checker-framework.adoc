@@ -1,0 +1,50 @@
+
+link:https://checkerframework.org/[The Checker Framework]
+
+静态代码分析工具
+
+== 支持的功能特性
+* null检查
+
+
+== 示例配置
+
+[source,xml]
+----
+<profile>
+    <id>checkerframework</id>
+    <!-- If you omit the activation block, run mvn with "-P checkerframework" to run checkers. -->
+    <activation>
+    <jdk>[1.8,)</jdk>
+    </activation>
+    <build>
+    <plugins>
+        <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+            <fork>true</fork> <!-- Must fork or else JVM arguments are ignored. -->
+            <annotationProcessorPaths>
+            <path>
+                <groupId>org.checkerframework</groupId>
+                <artifactId>checker</artifactId>
+                <version>3.52.1</version>
+            </path>
+            </annotationProcessorPaths>
+            <annotationProcessors>
+            <!-- Add all the checkers you want to enable here -->
+            <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
+            </annotationProcessors>
+            <compilerArgs>
+            <arg>-Xmaxerrs</arg>
+            <arg>10000</arg>
+            <arg>-Xmaxwarns</arg>
+            <arg>10000</arg>
+            <!-- <arg>-Awarns</arg> --> <!-- -Awarns turns type-checking errors into warnings. -->
+            </compilerArgs>
+        </configuration>
+        </plugin>
+    </plugins>
+    </build>
+</profile>
+----

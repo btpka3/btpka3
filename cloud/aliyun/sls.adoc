@@ -230,3 +230,17 @@ SLS支持存储时序数据类型，并遵循Prometheus的定义规范和数据�
 - link:https://help.aliyun.com/zh/sls/spl-instruction[SPL指令]
 - link:https://help.aliyun.com/zh/sls/use-spl-to-collect-text-logs[使用SPL采集文本日志]
 
+
+
+## SLS 公网流量定位
+
+link:sls.console.aliyun.com/lognext/app/lens/sls
+CloudLens for SLS : 左侧【全局概览】 : 图表【外网流量/分钟】三个竖点 : 预览查询语句 : 查询分析
+
+[source,plain]
+----
+内网的查询语句:    * | select promql_query_range('sum(sum_over_time(logstore_intranet_inflow_bytes{project=~".*", logstore=~".*"}[59s]))') from metrics limit 1000
+外网的查询语句： * | select promql_query_range('sum(sum_over_time(logstore_internet_inflow_bytes{project=~".*", logstore=~".*"}[59s]))') from metrics limit 1000
+
+TIP: 一个是"intranet", 一个是 "internet"
+----

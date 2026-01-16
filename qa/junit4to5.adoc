@@ -12,7 +12,18 @@ junit4 的限制：
 
 
 
+
+
 === 如何升级？
+
+请优先尝试使用 link:https://docs.openrewrite.org/running-recipes/popular-recipe-guides/migrate-from-junit-4-to-junit-5[openrewrite: Migrate to JUnit 5 from JUnit 4]
+[source,shell]
+----
+mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
+  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:3.12.0 \
+  -Drewrite.activeRecipes=org.openrewrite.java.spring.boot2.SpringBoot2JUnit4to5Migration
+
+----
 
 === pom.xml
 

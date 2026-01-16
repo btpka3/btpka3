@@ -17,6 +17,26 @@ mvnDebug org.apache.maven.plugins:maven-enforcer-plugin:3.5.0:enforce -Denforcer
 
 ----
 
+== 常用规则列表
+
+=== 内置规则
+[source,plain]
+----
+banDynamicVersions      # 禁用最新版本  版本号range `[`,`(` 开头，"LATEST"/"RELEASE", "*-SNAPSHOT"
+bannedDependencies      # 禁用某些依赖
+bannedPlugins           # 禁用
+dependencyConvergence   # 依赖的版本号一致，不冲突。可以发现然后并用 dependencyManagement 来处理
+
+requireSameVersions     # 多个依赖的版本号需要一致
+----
+
+=== extra-enforcer-rules
+[source,plain]
+----
+banDuplicateClasses     # 禁用重复类
+enforceBytecodeVersion  # 要求依赖满足class字节码的版本要求
+banCircularDependencies # 要求禁止循环依赖
+----
 
 ## 堆栈
 实例化 org.apache.maven.enforcer.rules.dependency.BannedDependencies

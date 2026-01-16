@@ -28,7 +28,7 @@ gRPC 默认使用 protobuf 进行序列化，但不强制，可以自定义替�
 
 == 枚举
 
-[source,java]
+[source,protobuf]
 ----
 enum Corpus {
   CORPUS_UNSPECIFIED = 0;
@@ -48,7 +48,7 @@ enum Corpus {
 
 
 == Any
-[source,java]
+[source,protobuf]
 ----
 import "google/protobuf/any.proto";
 message ErrorStatus {
@@ -60,9 +60,92 @@ message ErrorStatus {
 
 == empty
 
-[source,java]
+[source,protobuf]
 ----
 rpc WhoAreYou(google.protobuf.Empty) returns (Whoami) {
+};
+----
+
+
+== io.grpc.ClientInterceptor
+
+link:https://grpc.io/docs/guides/interceptors/[Interceptors]
+
+client side:
+
+[source,java]
+----
+public class HeaderClientInterceptor implements ClientInterceptor {
+    @Override
+    public <ReqT, RespT> ClientCall<ReqT, RespT> interceptCall(
+        MethodDescriptor<ReqT, RespT> method,
+        CallOptions callOptions,
+        Channel next
+        ) {
+        return new SimpleForwardingClientCall<ReqT, RespT>(next.newCall(method, callOptions)) {
+            @Override
+            public void start(Listener<RespT> responseListener, Metadata headers) {
+                headers.put(CUSTOM_HEADER_KEY, "customRequestValue");
+                super.start(
+                    new SimpleForwardingClientCallListener<RespT>(responseListener) {
+                        @Override
+                        public void onHeaders(Metadata headers) {
+                            logger.info("header received from server:" + headers);
+                            super.onHeaders(headers);
+                        }
+                    },
+                    headers
+                );
+            }
+        };
+    }
+}
+
+public class DemoClient {
+    public void demo1(){
+        ClientInterceptor interceptor = new HeaderClientInterceptor();
+        Channel channel = ClientInterceptors.intercept(originChannel, interceptor);
+        GreeterGrpc.GreeterBlockingStub blockingStub = GreeterGrpc.newBlockingStub(channel);
+        HelloRequest request = null;
+         HelloReply response = blockingStub.sayHello(request);
+    }
 }
 ----
+
+server side:
+
+[source,java]
+----
+public class HeaderServerInterceptor implements ServerInterceptor {
+  @Override
+  public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(
+      ServerCall<ReqT, RespT> call,
+      final Metadata requestHeaders,
+      ServerCallHandler<ReqT, RespT> next
+  ) {
+    logger.info("header received from client:" + requestHeaders);
+    return next.startCall(new SimpleForwardingServerCall<ReqT, RespT>(call) {
+      @Override
+      public void sendHeaders(Metadata responseHeaders) {
+        responseHeaders.put(CUSTOM_HEADER_KEY, "customRespondValue");
+        super.sendHeaders(responseHeaders);
+      }
+    }, requestHeaders);
+  }
+}
+
+public class DemoServer {
+    public void demo1(){
+        Server server = Grpc.newServerBuilderForPort(PORT, InsecureServerCredentials.create())
+            .addService(ServerInterceptors.intercept(new GreeterImpl(), new HeaderServerInterceptor()))
+            .build()
+            .start();
+
+        // ...
+        server.shutdown().awaitTermination(30, TimeUnit.SECONDS);
+    }
+}
+----
+
+
 

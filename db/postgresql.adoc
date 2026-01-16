@@ -248,6 +248,7 @@ brew install postgresql
 brew services info postgresql
 # 启动数据库
 brew services start postgresql
+brew services stop postgresql
 ll /opt/homebrew/var/log/    # 苹果M1~M3芯片
 ll /usr/local/var/           # Intel芯片???
 # 连接数据库

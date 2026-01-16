@@ -5,5 +5,14 @@
 
 [source,shell]
 ----
+wget https://github.com/jattach/jattach/releases/download/v2.2/jattach-macos.zip
+
+curl -fsSL https://github.com/jattach/jattach/releases/download/v2.2/jattach-macos.zip -o /tmp/jattach-macos.zip
+unzip /tmp/jattach-macos.zip  -d /tmp
+mv /tmp/jattach $HOME
+
+jattach $PID properties
+
+
 
 ----

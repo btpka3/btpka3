@@ -423,7 +423,7 @@ A: 可以使用 XxxAware，
 
 - 入口: org.springframework.beans.factory.support.ConstructorResolver#instantiateUsingFactoryMethod
       # createArgumentArray
-核心代码: org.springframework.beans.factory.support.DefaultListableBeanFactory
+核心代码: org.springframework.beans.factory.support.DefaultListableBeanFactory   提供 List，Set 类型的bean
     #resolveDependency(DependencyDescriptor,String,Set<String>,TypeConverter)
     #doResolveDependency   # 获取 @Value 的原始值，并处理 placeholder
 org.springframework.beans.factory.annotation.QualifierAnnotationAutowireCandidateResolver#extractValue  # 获取 @Value 的原始值——尚未处理 placeholder 和类型转换

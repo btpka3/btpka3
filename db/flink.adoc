@@ -419,3 +419,8 @@ org.apache.flink.table.functions.BuiltInFunctionDefinitions # 系统内置函数
 |1.15.0        | 11 recommended, 8 deprecated | |
 |1.18.0        | 17 Experimental supported    | |
 |===
+
+
+## MiniCluster
+
+* https://nightlies.apache.org/flink/flink-docs-stable/api/java/org/apache/flink/runtime/minicluster/MiniCluster.html

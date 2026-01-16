@@ -1,0 +1,15 @@
+link:https://mina.apache.org/mina-project/[Apache Mina]
+
+[source,plain]
+----
+# maven 依赖
+org.apache.mina:mina-transport-serial:2.2.4
+org.apache.mina:mina-legal:2.2.4
+org.apache.mina:mina-example:2.2.4
+org.apache.mina:mina-integration-jmx:2.2.4
+org.apache.mina:mina-integration-xbean:2.2.4
+org.apache.mina:mina-integration-beans:2.2.4
+org.apache.mina:mina-statemachine:2.2.4
+org.apache.mina:mina-filter-compression:2.2.4
+org.apache.mina:mina-transport-apr:2.2.4
+----

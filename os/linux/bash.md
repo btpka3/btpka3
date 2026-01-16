@@ -532,7 +532,10 @@ find . -type f -name "pom.xml" | xargs -I{} -S 1024000 bash -c 'echo "{}___{}"'
 ## ls
 
 
-```basSecurityUtil.trimSqlh
+```bash
+
+ls -lt --full-time  /home/admin/mteebundle/logs/app.log*
+
 # 按照最后访问时间的先后顺序显示
 ll -h --time=atime --full-time -rt core*
     # mtime : 最后修改时间（仅限文件内容）

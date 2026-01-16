@@ -5,6 +5,7 @@ link:https://help.aliyun.com/zh/arms/application-monitoring/user-guide/manually-
 - link:https://help.aliyun.com/zh/arms/application-monitoring/user-guide/trace-query[调用链路查询]
 - link:https://help.aliyun.com/zh/arms/application-monitoring/developer-reference/use-trace-explorer-to-query-traces[调用链分析查询用法说明]
 - link:https://help.aliyun.com/zh/arms/application-monitoring/developer-reference/trace-explorer-parameters[调用链分析参数说明]
+- link:[ARMS支持的Trace上下文传播协议]
 
 
 [source,shell]

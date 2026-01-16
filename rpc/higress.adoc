@@ -3,6 +3,8 @@
 * link:https://github.com/alibaba/higress[higress]
 * link:https://higress.cn/[文档]
 
+阿里巴巴内部版本的名称为 Zetta
+
 ## 安装——docker compose
 [source,shell]
 ----

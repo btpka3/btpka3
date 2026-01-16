@@ -1,0 +1,53 @@
+
+- [spring shell 参考手册](https://docs.spring.io/spring-shell/docs/)
+  [2.1.x](https://docs.spring.io/spring-shell/docs/2.1.x/site/reference/htmlsingle/)
+
+* org.springframework.shell.boot.SpringShellProperties
+
+== 如何如何自定义全局处理 DemoCommand 的返回值和异常？
+* org.springframework.shell.ResultHandler
+** org.springframework.shell.result.DefaultResultHandler 返回值将转换成 Object#toString()
+** org.springframework.shell.result.ThrowableResultHandler 处理抛出的异常
+   如果是交互模式，则stout直接输出。
+   如果是非交互模式，
+
+* org.springframework.shell.Shell#run  调用并通过 ResultHandlerService#run 处理返回值 和异常
+* org.springframework.shell.boot.SpringShellAutoConfiguration
+* org.springframework.shell.result.GenericResultHandlerService#getResultHandler # 查找使用哪个 ResultHandler
+* org.springframework.shell.result.ResultHandlerConfig 注册多种自带的 ResultHandler 类型的bean
+* org.springframework.shell.boot.SpringShellAutoConfiguration#resultHandlerService 会将 类型为 ResultHandler 的bean 自动注册。
+
+
+== exit code
+
+spring shell 默认将 org.springframework.shell.command.CommandExecution.CommandParserExceptionsException 映射 exit code 为2
+其他异常为1，无异常为0.
+
+* org.springframework.boot.ExitCodeExceptionMapper  # spring boot 的扩展点
+** org.springframework.boot.SpringApplication#getExitCodeFromMappedException
+   spring boot 获取 ExitCodeExceptionMapper 类型的bean， 获取第一个非0的作为 exit code
+
+** org.springframework.shell.boot.ExitCodeAutoConfiguration.ShellExitCodeExceptionMapper
+* org.springframework.shell.exit.ExitCodeMappings
+* org.springframework.shell.command.CommandRegistration#getExitCode
+* org.springframework.shell.boot.CommandCatalogAutoConfiguration#defaultCommandCatalogCustomizer
+  将自定义的 CommandRegistration 注册 到 org.springframework.shell.command.CommandCatalog
+
+[source,java]
+----
+@Bean
+public CommandRegistration myGloableExitCodeRegistration(){
+    CommandRegistration.builder()
+        .withExitCode()
+            .map(ParameterValidationException.class, 2)
+            .map(MyException.class, 3)
+            .map(t -> {
+                if (t instanceof MyException) {
+                    return ((MyException) t).getCode();
+                }
+                return 1;
+            })
+            .and()
+        .build(); // ⚠️，该方式必须要有 commands,targetSpec 等参数配置，全局的话，还是请实现 ExitCodeExceptionMapper。
+}
+----

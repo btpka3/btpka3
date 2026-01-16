@@ -5,11 +5,29 @@
 
 默认配置文件：/etc/logrotate.conf
 可以自定义切分配置文件目录: /etc/logrotate.d
+可执行程序: /usr/sbin/logrotate
+[source,shell]
+----
+rpm -qa|grep logrotate
+rpm -ql logrotate
+sudo cat /etc/cron.daily/logrotate
+man logrotate.conf
+man logrotate
 
+logrotate -v
+# 检查配置
+sudo logrotate -v /etc/logrotate.conf
+
+# 真正执行
+sudo logrotate /etc/logrotate.conf
+----
+
+自定义配置文件： /etc/logrotate.d/tengine
 
 [source,shell]
 ----
 /home/admin/cai/logs/*.log {
+    su admin admin
     # 对于转存后的文件进行压缩
     compress
     # 启用延迟压缩，当有些程序无法通知到，且在转存时仍然会持续写入时使用，启用该命令后，会在下次转存时才进行压缩。

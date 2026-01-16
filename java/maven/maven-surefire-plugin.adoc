@@ -1,0 +1,16 @@
+
+
+link:https://maven.apache.org/surefire/maven-surefire-plugin/test-mojo.html[surefire:test]
+
+
+:table-caption: 表格
+[#my-tbl1,cols="1,1,1,1,1"]
+.跳过测试
+|===
+|JVM属性                         | 编译 | 单元测试运行 | 集成测试运行 | 备注
+
+|`-Dmaven.test.skip=true`       | ❌ | ❌ | ❌ |
+|`-Dmaven.test.skip.exec=true`  | ✅ | ❌ | ❌ | 不推荐，请使用 `-DskipTests`, `-DskipITs`
+|`-DskipTests=true`             | ✅ | ❌ | ❓ | failsafe 3.0.0 之后会移除该支持，至此该属性将仅仅影响单元测试是否执行。但实测仍然影响集成测试。故无法跳过单元测试，仅仅执行集成测试。
+|`-DskipITs=true`               | ✅ | ❓ | ❌ |
+|===

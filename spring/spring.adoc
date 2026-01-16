@@ -198,3 +198,13 @@ spring-boot-autoconfigure : META-INF/spring.factories
 
 
 ----
+
+
+== Background Initialization
+spring framework 6.2 : 《link:https://docs.spring.io/spring-framework/reference/6.2/core/beans/java/composing-configuration-classes.html#beans-java-startup-background[Background Initialization]》
+
+
+github issuse : link:https://github.com/spring-projects/spring-framework/issues/13410[Parallel bean initialization during startup [SPR-8767]]
+
+
+spring 的这种异步方式需要  需要要修改配置 `@Bean(bootstrap=BACKGROUND)` ，不支持默认全量开启。

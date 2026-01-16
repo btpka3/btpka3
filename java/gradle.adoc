@@ -1,6 +1,16 @@
 
 
+## show dependencies
+[source,bash]
+----
+# 显示根project的依赖
+./gradlew dependencies
+# 显示根子模块 first-oss 的依赖, 最开始的冒号 `:` 代表根project
+./gradlew :first-oss:dependencies
+----
 ## exclude dependencies
+
+
 
 
 ## proxy
@@ -11,10 +21,17 @@
 org.gradle.jvmargs=-DsocksProxyHost\=127.0.0.1 -DsocksProxyPort\=1080 -DhttpProxyHost\=127.0.0.1 -DhttpProxyPort\=13659
 #org.gradle.jvmargs=-DsocksProxyHost\=127.0.0.1 -DsocksProxyPort\=1080 -DhttpProxyHost\=127.0.0.1 -DhttpProxyPort\=1081 -DhttpsProxyHost\=127.0.0.1 -DhttpsProxyPort\=1081
 
+
+./gradlew clean -DsocksProxyHost=127.0.0.1 DsocksProxyPort=13659
+
 ----
 
+
+
+
 ## gradle wrapper
-```bash
+[source,bash]
+----
 # 先通过 sdkman 安装 gradle （一次性）
 sdk install gradle
 
@@ -23,7 +40,7 @@ touch settings.gradle
 gradle wrapper --distribution-type all
 
 # 修改 .gitignore , 确保 忽略 .gralde 目录
-```
+----
 
 ## 单元测试
 [source,shell]

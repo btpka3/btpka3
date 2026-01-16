@@ -2,8 +2,8 @@
 
 
 
-* [Systemd - wikipedia](* http://zh.wikipedia.org/wiki/Systemd)
-* [Chapter 6. Managing Services with systemd](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/chap-Managing_Services_with_systemd.html)
+* link:http://zh.wikipedia.org/wiki/Systemd[Systemd - wikipedia]
+* link:https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/chap-Managing_Services_with_systemd.html[Chapter 6. Managing Services with systemd]
 
 Systemd 是 sysvinit 的一个替代。它和ubuntu的upstart是竞争对手。
 systemd的目标是：尽可能启动更少进程；
@@ -15,8 +15,8 @@ systemd使用了Linux专属技术，不再顾及POSIX兼容。
 
 systemctl 是 systemd 的主要命令。
 
-
-```bash
+[source,shell]
+----
 # 查看默认启动级别
 systemctl get-default
 systemctl set-default multi-user.target
@@ -42,17 +42,20 @@ systemctl enable crond.service
 ln -s '/usr/lib/systemd/system/crond.service' '/etc/systemd/system/multi-user.target.wants/crond.service'
 
 tree /etc/systemd/system
-```
+----
 
-## 常用命令
+== 常用命令
 
-```
-systemctl                                       #
+[source,shell]
+----
+systemctl                                       # 列出所有
 systemctl list-units --type=service
 systemctl list-units --type=service --state=active 2>/dev/null
 
 less /var/log/messages                          # 查看详细错误日志
 journalctl                                      # 查看日志
+journalctl -xe
+systemctl status                                # 查看状态: "degraded"-有部分服务失败; "loaded", "failed"
 systemctl --failed                              # 检查启动失败的服务
 systemctl status network.service
 
@@ -73,45 +76,59 @@ systemctl restart name.service
 systemctl try-restart name.service
 systemctl reload name.service
 systemctl daemon-reload
-```
+----
 
-## Available systemd Unit Types
+== Available systemd Unit Types
 
-| Unit Type      | File Extension | Description                                                             |
-|----------------|----------------|-------------------------------------------------------------------------|
-| Service unit   | .service       | A system service.                                                       |
-| Target unit    | .target        | A group of systemd units.                                               |
-| Automount unit | .automount     | A file system automount point.                                          |
-| Device unit    | .device        | A device file recognized by the kernel.                                 |
-| Mount unit     | .mount         | A file system mount point.                                              |
-| Path unit      | .path          | A file or directory in a file system.                                   |
-| Scope unit     | .scope         | An externally created process.                                          |
-| Slice unit     | .slice         | A group of hierarchically organized units that manage system processes. |
-| Snapshot unit  | .snapshot      | A saved state of the systemd manager.                                   |
-| Socket unit    | .socket        | An inter-process communication socket.                                  |
-| Swap unit      | .swap          | A swap device or a swap file.                                           |
-| Timer unit     | .timer         | A systemd timer.                                                        |
+:table-caption: Unit Types
+[#tbl_unit_types,cols="1,1,4"]
+|===
+|Unit Type  | File Extension | Description
 
-## Load path when running in system mode (--system)
+| Service unit   | .service       | A system service.
+| Target unit    | .target        | A group of systemd units.
+| Automount unit | .automount     | A file system automount point.
+| Device unit    | .device        | A device file recognized by the kernel.
+| Mount unit     | .mount         | A file system mount point.
+| Path unit      | .path          | A file or directory in a file system.
+| Scope unit     | .scope         | An externally created process.
+| Slice unit     | .slice         | A group of hierarchically organized units that manage system processes.
+| Snapshot unit  | .snapshot      | A saved state of the systemd manager.
+| Socket unit    | .socket        | An inter-process communication socket.
+| Swap unit      | .swap          | A swap device or a swap file.
+| Timer unit     | .timer         | A systemd timer.
+|===
 
-| Path                    | Description                 |
-|-------------------------|-----------------------------|
-| /etc/systemd/system     | Local configuration         |
-| /run/systemd/system     | Runtime units               |
-| /usr/lib/systemd/system | Units of installed packages |
+== Load path when running in system mode (`--system`)
 
-## Load path when running in user mode (--user)
+:table-caption: Log path in system mode
+[#tbl_log_path_system,cols="1,2"]
+|===
+|Path | Description
 
-| Path                       | Description                 |
-|----------------------------|-----------------------------|
-| $HOME/.config/systemd/user | User configuration          |
-| /etc/systemd/user          | Local configuration         |
-| /run/systemd/user          | Runtime units               |
-| /usr/lib/systemd/user      | Units of installed packages |
+| /etc/systemd/system     | Local configuration
+| /run/systemd/system     | Runtime units
+| /usr/lib/systemd/system | Units of installed packages
+|===
 
-## 参考
+== Load path when running in user mode (`--user`)
 
-```bash
+:table-caption: Log path in user mode
+[#tbl_log_path_user,cols="1,2"]
+|===
+|Path | Description
+
+| $HOME/.config/systemd/user | User configuration
+| /etc/systemd/user          | Local configuration
+| /run/systemd/user          | Runtime units
+| /usr/lib/systemd/user      | Units of installed packages
+|===
+
+
+== 参考
+
+[source,shell]
+----
 man systemctl
 man systemd-system.conf
 man systemd.directives
@@ -127,15 +144,15 @@ man systemd.swap
 man systemd.resource-control
 
 man journalctl
-```
+----
 
 配置文件路径
 
-```text
+[source,shell]
+----
 /etc/systemd/system/*
 /run/systemd/system/*
 /usr/lib/systemd/system/*
-...
 
 $XDG_CONFIG_HOME/systemd/user/*
 $HOME/.config/systemd/user/*
@@ -145,11 +162,12 @@ $XDG_RUNTIME_DIR/systemd/user/*
 $XDG_DATA_HOME/systemd/user/*
 $HOME/.local/share/systemd/user/*
 /usr/lib/systemd/user/*
-```
+----
 
-## 文件格式
+== 文件格式
 
-```
+[source,ini]
+----
 [Unit]
 
 Description=xxx
@@ -182,55 +200,64 @@ RequiredBy=
 WantedBy=
 Also=
 DefaultInstance=
-```
+----
 
-# @ 符号
+== `@` 符号
 
-参考 : [1](https://superuser.com/questions/393423/the-symbol-and-systemctl-and-vsftpd)
+参考 : link:https://superuser.com/questions/393423/the-symbol-and-systemctl-and-vsftpd[1]
 
-1. `vi /etc/systemd/system/echo@.service`
+. `vi /etc/systemd/system/echo@.service`
++
+[source,shell]
+----
+[Unit]
+Description=Echo '%I'
 
-    ```
-    [Unit]
-    Description=Echo '%I'
+[Service]
+Type=oneshot
+ExecStart=/bin/echo %i
+StandardOutput=syslog
+----
++
 
-    [Service]
-    Type=oneshot
-    ExecStart=/bin/echo %i
-    StandardOutput=syslog
-    ```
+. 运行1
++
+[source,shell]
+----
+systemctl start echo@foo.service
+journalctl -n10    # 可以看到 echo 输出 "foo"
+----
++
 
-2. 运行1
+. 运行2
++
+[source,shell]
+----
+systemctl start echo@bar.service
+journalctl -n10    # 可以看到 echo 输出 "bar"
 
-    ```bash
-    systemctl start echo@foo.service
-    journalctl -n10    # 可以看到 echo 输出 "foo"
-    ```
+man systemd.unit
+man systemd-system.conf
+----
++
 
-3. 运行1
 
-    ```bash
-    systemctl start echo@bar.service
-    journalctl -n10    # 可以看到 echo 输出 "bar"
-
-    man systemd.unit
-    man systemd-system.conf
-    ```
-
-# foo.service.d 目录
+== foo.service.d 目录
 
 `man systemd.unit` 如果有一个systemcl 的配置文件 `foo.service`， 则可能会有一个 `foo.service.d/` 目录。
 该目录下所有 `*.conf` 会在加载 `foo.service` 之后读取。
 
-```text
+[source,shell]
+----
 /usr/lib/systemd/system/docker.service
 /etc/systemd/system/docker.service.d/10-machine.conf
 /etc/systemd/system/docker.service.d/http-proxy.conf
-```
+----
 
-# journalctl
+== journalctl
 
-```bash
+[source,shell]
+----
 # 跳转到末尾
 # journalctl 使用 less 作为内容读取工具，故可以使用 -e （less 的参数）直接跳转到末尾
 journalctl -e
@@ -255,14 +282,13 @@ journalctl -x \
     -u docker.service
 
 journalctl -u docker.service |grep "Action="
-```
+----
 
 # machinectl
 
-```bash
-
+[source,shell]
+----
 machinectl list
 machinectl list-images
 machinectl statu xxx
-
-```
+----

@@ -39,7 +39,7 @@ com.alipay.sofa:jraft-core:
 - com.alipay.sofa.jraft.RaftServiceFactory#createAndInitRaftNode
 - com.alipay.sofa.jraft.core.[NodeImpl](https://github.com/sofastack/sofa-jraft/blob/322935562b910d415e25493c6ebe6f76713f55b2/jraft-core/src/main/java/com/alipay/sofa/jraft/core/NodeImpl.java#L1091)
   - #serverId ，示例值： `30.196.226.115:7848`
-- com.alipay.sofa.jraft.rpc.impl.GrpcClient.#[newChannel](https://github.com/sofastack/sofa-jraft/blob/322935562b910d415e25493c6ebe6f76713f55b2/jraft-extension/rpc-grpc-impl/src/main/java/com/alipay/sofa/jraft/rpc/impl/GrpcClient.java#L212)
+- com.alipay.sofa.jraft.rpc.impl.GrpcClient.#link:https://github.com/sofastack/sofa-jraft/blob/322935562b910d415e25493c6ebe6f76713f55b2/jraft-extension/rpc-grpc-impl/src/main/java/com/alipay/sofa/jraft/rpc/impl/GrpcClient.java#L212[newChannel]
 
 ```plain
 2023-05-23 20:19:46,155 INFO Node <naming_persistent_service/30.196.226.115:7848> init, term=0, lastLogId=LogId [index=0, term=0], conf=30.196.226.115:7848,11.161.45.192:7848, oldConf=.
@@ -51,14 +51,15 @@ com.alipay.sofa:jraft-core:
 
 ### 7848
 ### 8848
-alibaba nacos 默认端口 [HTTP 端口](https://github.com/alibaba/nacos/blob/8cd5a5ea0bfb7014523eb19ca72e28282a9155a2/naming/src/main/resources/application.properties#L16)。
+alibaba nacos 默认端口 link:https://github.com/alibaba/nacos/blob/8cd5a5ea0bfb7014523eb19ca72e28282a9155a2/naming/src/main/resources/application.properties#L16[HTTP 端口]。
 
 ### 9848
 针对 GRPC SDK 服务端口
 com.alibaba.nacos.api.common.Constants#SDK_GRPC_PORT_DEFAULT_OFFSET = 1000
 com.alibaba.nacos.core.remote.grpc.GrpcSdkServer
-com.alibaba.nacos.core.remote.[BaseRpcServer](https://github.com/alibaba/nacos/blob/8cd5a5ea0bfb7014523eb19ca72e28282a9155a2/core/src/main/java/com/alibaba/nacos/core/remote/BaseRpcServer.java#L60)
-com.alibaba.nacos.core.remote.grpc.BaseGrpcServer#[startServer](https://github.com/alibaba/nacos/blob/8cd5a5ea0bfb7014523eb19ca72e28282a9155a2/core/src/main/java/com/alibaba/nacos/core/remote/grpc/BaseGrpcServer.java#L91)
+link:https://github.com/alibaba/nacos/blob/8cd5a5ea0bfb7014523eb19ca72e28282a9155a2/core/src/main/java/com/alibaba/nacos/core/remote/BaseRpcServer.java#L60[com.alibaba.nacos.core.remote.BaseRpcServer]
+
+link:(https://github.com/alibaba/nacos/blob/8cd5a5ea0bfb7014523eb19ca72e28282a9155a2/core/src/main/java/com/alibaba/nacos/core/remote/grpc/BaseGrpcServer.java#L91)[com.alibaba.nacos.core.remote.grpc.BaseGrpcServer#startServer]
 
 ```plain
 # ${nacos_home}/log/remote.log
@@ -300,4 +301,59 @@ curl -s mse-37471f90-nacos-ans.mse.aliyuncs.com:8848/nacos/v2/console/namespace/
 [source,shell]
 ----
 # 获取有多少个注册中心
+----
+
+
+== 本地缓存/cache
+${HOME}/snapshots/nacos/config
+
+== 日志/log
+
+${HOME}/logs/nacos/config.log
+${HOME}/logs/nacos/naming.log
+${HOME}/logs/nacos/remote.log
+
+
+[source,plain]
+----
+# 关键词 `[notify-context]` : 有更新，不涉及listener
+2025-12-17 21:27:02.861 INFO [nacos.client.config.listener.task-0:c.a.n.c.c.i.CacheData] [fixed-mse-329fed52-nacos-ans.mse.aliyuncs.com_8848] [notify-context] dataId=com.alibaba.security.tenant.common.service.RequestService, group=mapping,tenant=, md5=e18312c9af3aaaadce61974208efb5f1
+
+# 关键词 `[notify-ok]` : 通知更新, 含单个 listener 信息
+2025-12-17 21:27:02.861 INFO [nacos.client.config.listener.task-0:c.a.n.c.c.i.CacheData] [fixed-mse-329fed52-nacos-ans.mse.aliyuncs.com_8848] [notify-ok] dataId=com.alibaba.security.tenant.common.service.RequestService, group=mapping,tenant=, md5=e18312c9af3aaaadce61974208efb5f1, listener=org.apache.dubbo.metadata.store.nacos.NacosMetadataReport$NacosConfigListener@35184f3a ,job run cost=0 millis.
+
+# 关键词 `[publish-single]` : 发布服务
+2025-12-17 21:26:27.033 INFO [DubboSaveMetadataReport-thread-1:c.a.n.c.c.i.ClientWorker] [fixed-mse-329fed52-nacos-ans.mse.aliyuncs.com_8848] [publish-single] ok, dataId=com.your.company.XxxService:2.0.0:HSF:provider:jiugong-container, group=dubbo, tenant=
+----
+
+
+
+
+
+
+
+
+
+== 获取所有配置
+
+[source,shell]
+----
+# cacheMap.value() 的key 的格式是 "${dataId}+${group}+${tenant}"
+
+sc -d com.alibaba.security.gong9.mw.pandora.diamond.impl.nacos.NacosFactoryInstance
+ognl -c 429b83ba '
+#cs =@com.alibaba.security.gong9.mw.pandora.diamond.impl.nacos.NacosFactoryInstance@getGlobalConfigService(),
+#cs.namespace,
+#cs.worker.cacheMap.value.keySet(),
+#cacheData = #cs.worker.cacheMap.value.get("com.alibaba.vbs.generic.hsf.dataid+vbs+8b833a04-ea54-4ef3-ab54-04c885ca4e20"),
+#cacheData.listeners
+{
+#cacheData.envName,
+#cacheData.dataId,
+#cacheData.group,
+#cacheData.tenant,
+#cacheData.content
+}
+'
+
 ----

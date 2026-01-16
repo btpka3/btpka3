@@ -1,0 +1,112 @@
+link:https://www.mojohaus.org/versions/versions-maven-plugin/index.html[versions/versions-maven-plugin]
+
+
+
+
+== 引入
+
+[source,xml]
+----
+<project>
+<properties>
+    <maven.version.rules>file://${project.basedir}/rules.xml</maven.version.rules>
+</properties>
+<build>
+    <pluginManagement>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>versions-maven-plugin</artifactId>
+            <version>2.20.1</version>
+        </plugin>
+    </pluginManagement>
+</build>
+</project>
+----
+
+== rules.xml
+
+[source,xml]
+----
+<ruleset xmlns="https://www.mojohaus.org/VERSIONS/RULE/3.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://www.mojohaus.org/VERSIONS/RULE/3.0.0 https://www.mojohaus.org/versions/versions-model/xsd/rule-3.0.0.xsd">
+    <ignoreVersions>
+        <ignoreVersion type="regex">999.9-not-exist.*</ignoreVersion>
+        <ignoreVersion type="regex">999-not-exist.*</ignoreVersion>
+        <ignoreVersion type="regex">999-not-exit.*</ignoreVersion>
+        <ignoreVersion type="regex">99-not-exist.*</ignoreVersion>
+        <ignoreVersion type="regex">99.0-does-not-exist.*</ignoreVersion>
+        <ignoreVersion type="regex">999-NOT-EXIST.*</ignoreVersion>
+        <ignoreVersion type="regex">999-notexist.*</ignoreVersion>
+        <ignoreVersion type="regex">999\.9-not-exist.*</ignoreVersion>
+        <ignoreVersion type="regex">9999\.0-empty-to-avoid-conflict-with-guava.*</ignoreVersion>
+        <ignoreVersion type="regex">99\.9\.9-EMPTY.*</ignoreVersion>
+        <ignoreVersion type="regex">.*preview.*</ignoreVersion>
+        <ignoreVersion type="regex">.*BETA.*</ignoreVersion>
+        <ignoreVersion type="regex">.*Beta.*</ignoreVersion>
+        <ignoreVersion type="regex">.*beta.*</ignoreVersion>
+        <ignoreVersion type="regex">.*Alpha.*</ignoreVersion>
+        <ignoreVersion type="regex">.*alpha.*</ignoreVersion>
+        <ignoreVersion type="regex">.*Dev.*</ignoreVersion>
+    </ignoreVersions>
+    <rules>
+        <rule groupId="org.apache.maven.plugins" artifactId="versions-maven-plugin">
+            <ignoreVersions>
+                <ignoreVersion type="range">(,2.20.1]</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+        <rule groupId="antlr" artifactId="antlr">
+            <ignoreVersions>
+                <ignoreVersion type="exact">20030911</ignoreVersion>
+                <ignoreVersion type="regex">3.0.*</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+        <rule groupId="commons-codec" artifactId="commons-codec">
+            <ignoreVersions>
+                <ignoreVersion type="exact">20041127.091804</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+        <rule groupId="commons-io" artifactId="commons-io">
+            <ignoreVersions>
+                <ignoreVersion type="exact">20030203.000550</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+        <rule groupId="commons-pool" artifactId="commons-pool">
+            <ignoreVersions>
+                <ignoreVersion type="regex">2003.*</ignoreVersion>
+                <ignoreVersion type="regex">2002.*</ignoreVersion>
+            </ignoreVersions>
+
+        </rule>
+        <rule groupId="org.jacoco" artifactId="jacoco-maven-plugin">
+            <ignoreVersions>
+                <ignoreVersion type="regex">.*TPP</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+    </rules>
+</ruleset>
+----
+
+
+== 使用
+
+[source,shell]
+----
+# 依赖
+# 显示可用的依赖更新
+mvn versions:display-dependency-updates
+# 聚合报告, 默认生成 target/reports/dependency-updates-aggregate-report.html
+mvn versions:dependency-updates-aggregate-report
+
+mvn versions:update-property
+mvn versions:use-latest-versions
+
+
+# 插件
+# 聚合报告, 默认生成 target/reports/plugin-updates-aggregate-report.html
+mvn versions:plugin-updates-aggregate-report
+mvn versions:display-plugin-updates
+
+mvn org.codehaus.mojo:versions-maven-plugin:dependency-updates-aggregate-report
+mvn versions:dependency-updates-aggregate-report
+mvn versions:update-property
+----

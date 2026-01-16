@@ -1,0 +1,8 @@
+
+
+link:https://docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-starter-docs.html[spring-ai : MCP Server Boot Starter]
+
+[source,plain]
+----
+@org.springaicommunity.mcp.annotation.McpTool
+----

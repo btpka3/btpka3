@@ -25,3 +25,15 @@ groovy testGetter.groovy
 // println "bbb=" + myObj.zzz;
 // println "bbb=" + myObj.yyy;
 ----
+
+
+== maven
+* link:https://docs.groovy-lang.org/latest/html/documentation/tools-groovyc.html#section-gmavenplus[GMavenPlus]
+** link:https://groovy.github.io/GMavenPlus/plugin-info.html[GMavenPlus]
+** link:https://github.com/groovy/GMavenPlus/wiki[GMavenPlus Wiki]
+* link:https://github.com/groovy/groovy-eclipse/wiki/Groovy-Eclipse-Maven-plugin[Groovy Eclipse Maven plugin]
+
+** link:https://groovy.jfrog.io/ui/packages?name=groovy-eclipse-compiler&type=packages[groovy-eclipse-compiler]
+** link:https://groovy.jfrog.io/ui/packages?name=groovy-eclipse-batch&type=packages[groovy-eclipse-batch]
+** link:https://groovy.jfrog.io/ui/native/plugins-release/org/codehaus/groovy/groovy-eclipse-integration/[groovy-eclipse-integration]
+** link:https://github.com/groovy/groovy-eclipse/wiki/5.9.0-Release-Notes[groovy-eclipse/5.9.0 Release Notes/Update Sites]

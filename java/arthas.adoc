@@ -380,18 +380,20 @@ curl -v -X POST http://localhost:8563/api \
 ----
 
 
-== retransform
+== retransform 热更新类
 
 [source,shell]
 ----
 f=/path/to/a.class
 md5sum $f
-cp  /tmp/a.class
+cp $f /tmp/a.class
 
 gzip /tmp/a.class
 base64 /tmp/a.class.gz
 
 # copy base64 to remote server
+cd /tmp
+vi /tmp/a.txt
 base64 -d a.txt > a.class.gz
 gunzip a.class.gz
 md5sum a.class
@@ -405,6 +407,23 @@ retransform -l
 retransform -d 1
 ----
 
+
+== 函数（伪Lambda表达式）
+
+Pseudo-Lambda Expressions ： `#functionName = :[ ... ]`
+
+
+[source,shell]
+----
+ognl '#fact = :[#this<=1? 1 : #this*#fact(#this-1)], #fact(8H).longValue()'
+----
+
+
+== arthas-spring-boot-starter
+
+link:https://github.com/alibaba/arthas/blob/master/arthas-agent-attach/src/main/java/com/taobao/arthas/agent/attach/ArthasAgent.java[com.taobao.arthas.agent.attach.ArthasAgent]
+
+从自身 arthas-packagging-*.jar 中把 arthas-bin.zip 解压到 arthasHome 或 临时目录
 
 
 

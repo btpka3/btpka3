@@ -1,0 +1,86 @@
+* link:https://docs.openrewrite.org/[OpenReWrite]
+* link:https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-maven-project-without-modifying-the-build[Running Rewrite on a Maven project without modifying the build]
+*  类似功能可以对比 : link:https://github.com/adoptium/emt4j[Eclipse Migration Toolkit for Java (EMT4J)]
+
+
+
+vs. link:https://github.com/diffplug/spotless/tree/main/plugin-maven[spotless]
+
+[source,shell]
+----
+# 使用配置的recipe，并进行本地修改
+mvn rewrite:run
+# 使用配置的recipe，并进行本地修改。
+# 但不再fork maven 声明周期，适用于 CI 工作流，可配合其他maven goal 一起批量完成。
+mvn rewrite:runNoFork
+# 尝试运行，但不修改，如果发现需要修改的，则console输出警告日志
+mvn rewrite:dryRun
+# 尝试运行，但不修改，如果发现需要修改的，则console输出警告日志。
+# 但不再fork maven 声明周期，适用于 CI 工作流，可配合其他maven goal 一起批量完成。
+mvn rewrite:dryRunNoFork
+# 生成一个可以使用 recipe 的报告
+mvn rewrite:discover
+# 生成 typetable 以支持单个包的多个版本
+mvn rewrite:typetable
+
+# ⭕️ 再不修改pom.xml的情况下运行
+# Migrate to Java 21
+mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
+  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:3.12.0 \
+  -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava21
+
+# Use SLF4J Parameterized Logging
+mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
+  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-logging-frameworks:3.10.0 \
+  -Drewrite.activeRecipes=org.openrewrite.java.logging.slf4j.ParameterizedLogging
+
+----
+
+
+
+== rewrite.yml
+* link:https://docs.openrewrite.org/reference/yaml-format-reference[Declarative YAML format]
+* link:https://github.com/openrewrite/rewrite/blob/241e146a8996a917a8a460b27d17136108b3d50a/rewrite-core/openrewrite.json#L32-L75[rewrite.yml的jsonSchema]
+
+
+[source,yaml]
+----
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: me.test.DemoRecipe1
+displayName: 个人测试OpenRewrite的Recipe
+description: bala bala 描述
+tags:
+  - demo
+estimatedEffortPerOccurrence: PT15M
+causesAnotherCycle: false
+#exclusions:
+#preconditions:
+#  - org.openrewrite.text.Find:
+#      find: 1
+#  - org.openrewrite.FindSourceFiles:
+#      filePattern: "**/*.java"
+recipeList:
+  - org.openrewrite.text.ChangeText:
+     toText: 2
+
+---
+type: specs.openrewrite.org/v1beta/style
+name: com.yourorg.YesTabsNoStarImports
+styleConfigs:
+  - org.openrewrite.java.style.TabsAndIndentsStyle:
+      useTabCharacter: true
+  - org.openrewrite.java.style.ImportLayoutStyle:
+      classCountToUseStarImport: 9999
+----
+
+
+== Moderne CLI
+link:https://docs.moderne.io/user-documentation/moderne-cli/getting-started/cli-intro/[Getting started with the Moderne CLI]
+
+[source,shell]
+----
+brew install moderneinc/moderne/mod
+mod --version
+mod config
+----

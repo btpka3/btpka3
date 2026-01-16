@@ -227,3 +227,133 @@ docker image push IMAGE[:TAG]
 == build multi-platform images
 
 
+
+
+
+== Sidecar
+Sidecar 容器与主应用容器紧密关联、运行在同一 Pod 中的辅助容器，其核心作用是为主体应用提供各类支撑性服务，且无需修改主应用的代码逻辑，实现 “功能解耦” 与 “能力扩展” 的双重目标。具体而言，Sidecar 容器可承担以下几类关键角色：
+
+* 日志收集：通过共享文件系统数据卷，业务主容器负责写入日志文件，sidecar容器负责读取日志文件
+* 监控: Prometheus Exporter 等在 sidecar 容器启动服务端口，业务主容器向该端口上报监控指标数据
+* 代理: Envoy 代理业务主容器的网络，处理流量拦截、加密、协议转换（HTTP 与 gRPC 转换等），简化主应用的网络通信逻辑。
+
+* 服务网格集成：作为 Service Mesh 架构的核心组件（如 Istio、Linkerd 中的 Proxy 容器），负责拦截主应用的网络流量，实现流量控制、服务发现、熔断降级、灰度发布等网络治理功能。
+* 健康探活: 主动检查主应用或关联组件的运行状态，如定期发送检测请求、监控端口可用性等，及时反馈异常状态并触发相应处理机制。
+* 辅助性数据操作: 包括但不限于为主体应用拷贝配置文件、下载依赖资源、同步数据等，减少主应用在非业务逻辑上的资源消耗。
+
+在 Kubernetes 中，同一个 Pod 内的主容器（Main Container）和 Sidecar 容器 共享同一个 IP 地址和网络命名空间。
+
+每个 Pod 拥有一个唯一的 IP 地址，该 IP 由 Kubernetes 的网络插件（如 CNI）分配。
+所有容器共享 Pod 的网络命名空间，包括：
+
+* 同一个 IP 地址。
+* 同一个端口空间（容器间不能绑定相同端口）。pod内 业务主容器和sidecar容器通过 localhost:port 的方式相互通信，通过数据卷共享数据。
+* 同一网络设备（如 eth0）。
+
+但以下资源不共享：
+
+* 进程空间
+* 文件系统
+* 内存等
+
+
+=== 用 docker 启用共享IP的 sidecar
+
+在 Docker 中，可以通过 --network=container:<主容器名> 让多个容器共享同一个网络命名空间（包括 IP 地址和端口空间），从而实现类似 Kubernetes 的 Sidecar 容器共享 IP 的效果。以下是具体实现方法：
+[source,shell]
+----
+# 启动主容器
+docker run -d --name main-container your-main-image
+# 启动 Sidecar 容器并共享主容器的网络命名空间
+docker run -d --name sidecar-container \
+  --network container:main-container \
+  your-sidecar-image
+
+# 查看主容器的 IP
+docker inspect --format='{{.NetworkSettings.IPAddress}}' main-container
+
+# 查看 Sidecar 容器的 IP（与主容器相同）
+docker inspect --format='{{.NetworkSettings.IPAddress}}' sidecar-container
+----
+
+=== 用 docker-compose 启用共享IP的 sidecar
+
+[source,yaml]
+----
+version: '3'
+services:
+  main:
+    image: main-app:latest
+    ports:
+      - "8080:8080"  # 主容器暴露端口
+
+  sidecar:
+    image: sidecar-app:latest
+    network_mode: "service:main"  # 共享 main 容器的网络命名空间
+    depends_on:
+      - main  # 确保 main 先启动
+----
+
+
+
+
+
+== docker in docker
+
+- link:https://devopscube.com/run-docker-in-docker/[How To Run Docker in Docker Container [3 Easy Methods]]
+- link:https://hub.docker.com/_/docker[_/docker]
+- link:https://www.redhat.com/sysadmin/podman-inside-container[How to use Podman inside of a container]
+- link:https://quay.io/repository/podman/stable[quay.io/podman/stable]
+
+DinD (Docker in Docker)
+
+[source,shell]
+----
+# 准备网络
+docker network create       \
+    -d bridge               \
+    --gateway 192.168.1.1   \
+    --subnet 192.168.1.0/24 \
+    dockerNet
+
+# 启动 daemon 实例
+docker run --privileged -it --rm \
+           --network dockerNet --network-alias docker \
+           -e DOCKER_TLS_CERTDIR=/certs \
+           -v some-docker-certs-ca:/certs/ca \
+           -v some-docker-certs-client:/certs/client \
+           docker:latest
+# Connect to it from a second container
+docker run -it --rm --network dockerNet \
+	-e DOCKER_TLS_CERTDIR=/certs \
+	-v some-docker-certs-client:/certs/client:ro \
+	docker:latest sh
+
+# 在第二个容器中执行以下命令
+docker version
+docker run -it --rm docker.io/library/alpine:3.17.3 date
+docker run -it --rm --entrypoint /bin/sh docker.io/library/alpine:3.17.3 -l
+docker run -it --rm --entrypoint /bin/sh docker.io/library/alpine:3.17.3 -c date
+----
+
+== PinP(Podman in Podman)
+
+link:https://quay.io/repository/podman/stable?tab=info[quay.io/podman/stable]
+
+[source,shell]
+----
+
+#export PS1='\[\033[01;33m\]\u@\h\[\033[01;31m\] \W\$\[\033[00m\] '
+podman run --security-opt label=disable --user podman \
+  --device /dev/fuse quay.io/podman/stable \
+  podman run alpine echo hello
+
+
+podman run --privileged -it --rm quay.io/podman/stable sh
+
+# 在 docker 容器内运行
+
+podman run --rm -it docker.io/alpine:latest echo aaa
+podman run --rm -it o-docker.alibaba-inc.com/docker.io/alpine:3.21.3 echo aaa
+
+----

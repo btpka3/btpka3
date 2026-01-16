@@ -3,12 +3,13 @@
 - link:https://www.jooq.org/[jooq]
 - link:https://www.jooq.org/notes[The jOOQ Release Note History]
 - link:https://www.jooq.org/download/support-matrix-jdk[Version Support Matrix (JDK)]
-
-
+- link:https://github.com/jOOQ/jOOQ[github :JOOQ]
+- link:https://github.com/jOOQ/jOOQ/issues/16426[jOOQ does not use custom converter/binding for spatial types in dynamic queries]
+- link:https://blog.jooq.org/why-you-should-use-jooq-with-code-generation/[Why You Should Use jOOQ With Code Generation]
 
 == JDK
-- JDK8 : [3.8,3.14]   last v3.14.16 @2022
+- JDK8  : [3.8,3.14]  last v3.14.16 @2022
 - JDK11 : [3.15,3.16] last v3.16.23 @2022
-- JDK17 : [3.17,3.19] last v3.19.25 @2025
-- JDK21 : [3.20,3.21] last v3.20.6 @2025
+- JDK17 : [3.17,3.19] last v3.19.29 @2025
+- JDK21 : [3.20,3.21] last v3.20.10 @2025
 

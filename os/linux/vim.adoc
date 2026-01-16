@@ -199,3 +199,35 @@ ls /usr/share/vim/vim91/colors/*.vim
 ----
 :colorscheme xxx     # 可以tab键显示候选值。
 ----
+
+
+== folding/折叠
+
+
+
+[source,shell]
+----
+
+
+:set filetype=json
+:syntax on
+:set foldmethod=syntax
+
+
+# 字母含义: 'o'-open, 'c'-close
+zf # 进行折叠
+zo # 展开折叠
+zc # 进行折叠
+zM # 全文：进行折叠
+zR # 全文：展开折叠
+za # toggle, 折叠/取消折叠
+
+
+
+:set foldmethod=manual    # 手动折叠。
+:set foldmethod=indent    # 按缩进折叠
+:set foldmethod=syntax    # 按语法文件里描述的折叠方式折叠
+:set foldmethod=marker    # 按特定标识符。比如注释里 `{{{` 和 `}}}` 是一个可折叠的
+:set foldmethod=expr      #
+
+----

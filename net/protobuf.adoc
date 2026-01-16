@@ -9,6 +9,7 @@
 * link:https://stackoverflow.com/questions/53976614/protoc-command-not-generating-all-base-classes-java[protoc command not generating all base classes (java)]
 
 * Q: protobuf vs. link:https://fory.apache.org/[Apache Fory]
+* Q: protobuf vs. link:https://github.com/EsotericSoftware/kryo[kryo]
 
 [source,shell]
 ----

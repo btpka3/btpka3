@@ -76,7 +76,7 @@ println "getZ01()   = " + myObj.getZ01();
 println "getZ02()   = " + myObj.getZ02();
 
 
-/*  grppvy testGetter.groovy : 输出:
+/*  groovy testGetter.groovy : 输出:
 x01        = x01-1:hasProperty=true
 @x01       = x01-1
 x02        = x02-2:hasProperty=true

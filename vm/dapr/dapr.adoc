@@ -1,0 +1,34 @@
+* link:https://docs.dapr.io/zh-hans/concepts/overview/[Dapr文档库]
+* link:https://docs.dapr.io/zh-hans/developing-applications/sdks/java/[Dapr Java SDK]
+* link:https://docs.dapr.io/zh-hans/operations/hosting/self-hosted/self-hosted-airgap/[操作指南：在离线或隔离环境中运行Dapr]
+* link:https://docs.dapr.io/zh-hans/developing-applications/building-blocks/workflow/workflow-features-concepts/#workflow-determinism-and-code-restraints[工作流/工作流重放]
+* link:https://learn.microsoft.com/zh-cn/azure/architecture/patterns/event-sourcing[事件溯源模式]
+
+[source,shell]
+----
+brew install dapr/tap/dapr-cli
+dapr -h
+
+# 无docker运行
+dapr init --slim
+
+dapr run --app-id myapp --dapr-http-port 3500
+# 离线安装，
+wget https://github.com/dapr/installer-bundle/releases/download/v1.16.0/daprbundle_darwin_arm64.tar.gz
+tar zxvf daprbundle_darwin_arm64.tar.gz
+#cd daprbundle
+dapr init --from-dir ./daprbundle
+----
+
+
+== Q&A
+* Q: 普通HTTP REST的微服务【必须】需要 dapr sidecar 转换成 gRPC 来调用吗？什么情况下可以直连？
+* Q: 直接提供的 gRPC 服务，可以不经过 dapr sidecar 直接被其他使用者调用吗？
+* Q: TCP 协议的服务，比如zookeeper, mysql 等有必要经过 dapr sidecar ，额外增加封装吗？
+* Q: 哪些能力推荐将其转换成 dapr sidecar? 哪些不转换，保证业务开发的简便性、快速扩缩容等能力的同时，还尽量提高性能（比如rt），减少不必要的 dapr sidecar的网络消耗？
+* Q: 如何自定义一套组件，然后提供自定义的 dapr sidecar docker镜像？
+* Q: 如何查看dapr sidecar 有哪些组件？有哪些API？这些API的成功率，rt等监控信息？
+
+
+
+

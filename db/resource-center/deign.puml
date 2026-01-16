@@ -1,0 +1,14 @@
+@startuml
+'skinparam maxMessageSize 120
+autonumber
+
+participant 资源发布者 as rp
+participant 资源中心   as rc
+participant 资源使用者 as ru
+
+rp -> rc : 发布 event1:v1（含分批信息）
+rc -> rc : 筛选出满足条件资源使用者（by应用、集群、分组、环境、批次等），\n更新其应当使用 event1:v1
+rc ->> ru : 筛选出尚未使该资源的使用者，并通知。
+ru -> ru: 检查本地状态、并加载 event1:v1
+ru -> rc : 上报本地加载的资源和状态
+@enduml

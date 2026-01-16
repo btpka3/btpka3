@@ -439,10 +439,47 @@ link:https://curator.apache.org/[Apache curator]
 [source,shell]
 ----
 
+###### curator-framework-5.8.0.jar
 # 建议使用
 org.apache.curator.framework.CuratorFramework
+
+###### curator-client-5.8.0.jar
 # CuratorZookeeperClient 是个低级API，不建议直接使用，建议使用
 org.apache.curator.CuratorZookeeperClient
+
+##### curator-recipes-5.8.0.jar
+org.apache.curator.framework.recipes.barriers.DistributedBarrier
+org.apache.curator.framework.recipes.cache.CuratorCache
+org.apache.curator.framework.recipes.leader.LeaderLatchListener
+org.apache.curator.framework.recipes.locks.Locker
+org.apache.curator.framework.recipes.nodes.PersistentNodeListener
+org.apache.curator.framework.recipes.queue.QueueConsumer
+org.apache.curator.framework.recipes.shared.SharedValue
+org.apache.curator.framework.recipes.watch.PersistentWatcher
+
+
+###### curator-x-discovery-5.8.0.jar
+org.apache.curator.x.discovery.ServiceDiscovery
 ----
 
 
+== spring cloud zookeeper
+
+link:https://spring.io/projects/spring-cloud-zookeeper[Spring Cloud Zookeeper]
+
+[source,shell]
+----
+###### spring-cloud-zookeeper-core-4.3.0.jar
+org.springframework.cloud.zookeeper.CuratorFactory
+org.springframework.cloud.zookeeper.ZookeeperAutoConfiguration
+org.springframework.cloud.zookeeper.ZookeeperProperties
+
+
+###### spring-cloud-zookeeper-discovery-4.3.0.jar
+org.springframework.cloud.zookeeper.discovery.ZookeeperDiscoveryClient
+    # 实现了: org.springframework.cloud.client.discovery.DiscoveryClient
+org.springframework.cloud.zookeeper.serviceregistry.ZookeeperServiceRegistry
+org.springframework.cloud.zookeeper.discovery.configclient.ZookeeperConfigServerBootstrapper
+    # 实现了: org.springframework.boot.BootstrapRegistryInitializer
+
+----

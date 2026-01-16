@@ -12,6 +12,7 @@
 * link:https://docs.pmd-code.org/latest/pmd_userdocs_extending_writing_xpath_rules.html[Writing XPath rules]
 
 
+相比 checker-framework, google-error-prone, spotbugs, 目前个人更推荐PMD (文档全)
 
 == install
 [source,shell]

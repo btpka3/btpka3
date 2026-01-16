@@ -341,3 +341,9 @@ git log -S"target_string" -p -- path/to/file
 # 处理重命名/移动
 git log --follow -S"target_string" -- path/to/file
 ----
+
+
+== 大文件存储
+* Git-LFS: git 官方的大文件解决方案，但发展缓慢，配置复杂、失败时需整体重新上传。
+* DVC : AI社区的一个版本管理方案，支持 pielien,metrics 等AI相关工作量和度量能力，但需分别使用 git,dvc命令，操作复杂。
+

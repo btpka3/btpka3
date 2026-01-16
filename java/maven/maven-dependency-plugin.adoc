@@ -1,5 +1,6 @@
 
 
+link:https://maven.apache.org/plugins/maven-dependency-plugin/[maven-dependency-plugin]
 
 ## maven-dependency-plugin
 
@@ -15,4 +16,6 @@ mvn dependency:tree -Dincludes=org.springframework:spring
 # 给定版本的jar包如何被仲裁/resolve 的？
 mvn help:effective-pom -Dverbose=true -pl xxx
 mvn help:effective-pom -Dverbose=true -Dartifact=commons-logging:commons-logging
+
+
 ----

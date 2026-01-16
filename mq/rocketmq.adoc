@@ -15,7 +15,7 @@
 * doc
 ** link:https://rocketmq.apache.org/[rocketmq]
 
-## docker
+== docker
 
 [source,shell]
 ----
@@ -39,13 +39,16 @@ sh mqbroker \
 ----
 
 
-## SDK
-### 旧：remoting 协议
+== SDK
+=== 旧：remoting 协议
 
 典型接口：
 
+* org.apache.rocketmq.common.message.Message
 * org.apache.rocketmq.client.consumer.DefaultMQPushConsumer
+* org.apache.rocketmq.client.producer.MQProducer
 * org.apache.rocketmq.client.producer.DefaultMQProducer
+* org.apache.rocketmq.client.producer.SendResult
 
 [source,xml]
 ----
@@ -58,14 +61,49 @@ sh mqbroker \
 
 link:https://rocketmq.apache.org/docs/4.x/bestPractice/06log/[Logging Confituration]
 
-### 新：gRpc 协议
+[source,java]
+----
+public class Demo{
+    void send01(){
+        MQProducer producer = new DefaultMQProducer("producer_group_1");
+        producer.start();
+        Message msg = new Message(
+            "xxxTopic",
+            new String[]{"TagA", "TagB"},
+            "msgKey1",
+            "hello world".getBytes(StandardCharsets.UTF_8)
+        );
+        SendResult sendResult = producer.send(msg);
+        producer.shutdown();
+    }
+    void receive01(){
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("consumer_group_1");
+        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
+        consumer.subscribe("TopicTest", "TagA || TagC || TagD");
+        consumer.registerMessageListener((List<MessageExt> msgs, ConsumeOrderlyContext context)-> {
+            context.setAutoCommit(false);
+            // ...
+            return ConsumeOrderlyStatus.SUCCESS;
+        });
+        consumer.start();
+    }
+}
+----
+
+
+=== 新：gRpc 协议
 
 典型接口：
 
-- org.apache.rocketmq.client.apis.ClientServiceProvider
-- org.apache.rocketmq.client.apis.producer.Producer
-- org.apache.rocketmq.client.apis.ClientServiceProvider
-- org.apache.rocketmq.client.apis.consumer.PushConsumer
+* rocketmq-client-java.jar!apache/rocketmq/v2/service.proto
+* org.apache.rocketmq.client.apis.message.Message
+* org.apache.rocketmq.client.apis.ClientServiceProvider
+* org.apache.rocketmq.client.apis.producer.Producer
+* org.apache.rocketmq.client.java.impl.producer.ProducerImpl
+* org.apache.rocketmq.client.apis.ClientServiceProvider
+* org.apache.rocketmq.client.apis.consumer.PushConsumer
+* org.apache.rocketmq.client.apis.producer.SendReceipt
+* org.apache.rocketmq.client.java.hook.MessageInterceptor
 
 
 [source,xml]
@@ -77,11 +115,61 @@ link:https://rocketmq.apache.org/docs/4.x/bestPractice/06log/[Logging Confiturat
 </dependency>
 ----
 
-## server
+[source,java]
+----
+public class Demo {
+    void send01() {
+        ClientConfiguration clientConfiguration = ClientConfiguration.newBuilder()
+                .setEndpoints("127.0.0.1:8082")
+                .setCredentialProvider(new StaticSessionCredentialsProvider("ak1", "sk1"))
+                .enableSsl(false)
+                .build();
+        Producer producer = provider.newProducerBuilder()
+                .setClientConfiguration(clientConfiguration)
+                // 可选但推荐，预计要发送的topic列表，如果提前设置，则可以prefetch消息的路由信息
+                .setTopics("topic1","topic2")
+                .build();
+        final Message message = provider.newMessageBuilder()
+                .setTopic("topic1")
+                .setTag("TagA")
+                .setKeys("msgKey1")
+                .setBody("hello world".getBytes(StandardCharsets.UTF_8))
+                .build();
+        final SendReceipt sendReceipt = producer.send(message);
+        producer.close();
+    }
+    void receive01() {
+        ClientConfiguration clientConfiguration = ClientConfiguration.newBuilder()
+            .setEndpoints("127.0.0.1:8082")
+            .setCredentialProvider(new StaticSessionCredentialsProvider("ak1", "sk1"))
+            .enableSsl(false)
+            .build();
+        ClientServiceProvider provider = ClientServiceProvider.loadService();
+        SimpleConsumer consumer = provider.newSimpleConsumerBuilder()
+            .setClientConfiguration(clientConfiguration)
+            .setConsumerGroup(consumerGroup)
+            .setAwaitDuration(Duration.ofSeconds(30))
+            .setSubscriptionExpressions(Collections.singletonMap(
+                topic, new FilterExpression("TagA", FilterExpressionType.TAG))
+            )
+            .build();
 
-### 5.x
+        final List<MessageView> messages = consumer.receive(16, Duration.ofSeconds(15));
+        for (MessageView message : messages) {
+            final MessageId messageId = message.getMessageId();
+            // ...
+            consumer.ack(message);
+        }
+    }
+}
+----
 
-#### 示例启动
+
+== server
+
+=== 5.x
+
+==== 示例启动
 
 [source,shell]
 ----
@@ -96,7 +184,7 @@ cd $ROCKETMQ_HOME
 ./bin/mqbroker -n localhost:9876 --enable-proxy
 ----
 
-#### nameServer
+==== nameServer
 java 核心类：
 
 * link:https://github.com/apache/rocketmq/blob/bd7db7ec62164882ce6db101bacd038308648e02/namesrv/src/main/java/org/apache/rocketmq/namesrv/NamesrvStartup.java#L43[org.apache.rocketmq.namesrv.NamesrvStartup] # main函数主类
@@ -118,7 +206,7 @@ clusterTest=                  # 是否支持集群测试，默认: false
 orderMessageEnable=           # 是否支持顺序消息，默认: false
 ----
 
-#### broker
+==== broker
 java 核心类：
 
 * link:https://github.com/apache/rocketmq/blob/bd7db7ec62164882ce6db101bacd038308648e02/broker/src/main/java/org/apache/rocketmq/broker/BrokerStartup.java#L44[org.apache.rocketmq.broker.BrokerStartup]  # main函数主类
@@ -138,7 +226,7 @@ java 核心类：
 
 
 
-#### proxy
+==== proxy
 java 核心类：
 
 * org.apache.rocketmq.proxy.ProxyStartup # main函数主类
@@ -156,7 +244,7 @@ jvm 系统属性: com.rocketmq.proxy.configPath
 ----
 
 
-#### 其他
+==== 其他
 * $HOME/controller/controller.properties  # ControllerConfig#configStorePath
 * $HOME/namesrv/kvConfig.json             # NamesrvConfig#kvConfigPath
 * $HOME/namesrv/namesrv.properties        # NamesrvConfig#configStorePath
@@ -164,11 +252,11 @@ jvm 系统属性: com.rocketmq.proxy.configPath
 
 
 
-## client
+== client
 
-### java
+=== java
 
-#### rocketmq-spring
+==== rocketmq-spring
 github:
 
 * link:https://github.com/apache/rocketmq-spring[rocketmq-spring]
@@ -186,16 +274,18 @@ github:
 * org.apache.rocketmq.spring.autoconfigure.RocketMQAutoConfiguration
 
 示例配置
-```properties
+
+[source,properties]
+----
 rocketmq.producer.send-message-timeout=3000
 rocketmq.producer.compress-message-body-threshold=4096
 rocketmq.producer.max-message-size=4194304
 rocketmq.producer.retry-times-when-send-async-failed=0
 rocketmq.producer.retry-next-server=true
 rocketmq.producer.retry-times-when-send-failed=2
-```
+----
 
-#### spring-cloud-starter-stream-rocketmq
+==== spring-cloud-starter-stream-rocketmq
 
 github
 
@@ -215,7 +305,7 @@ github
 
 
 
-### mqadmin
+=== mqadmin
 
 [source,shell]
 ----
@@ -260,7 +350,7 @@ EOF
 
 
 
-### http api
+=== http api
 
 [source,shell]
 ----
@@ -275,7 +365,7 @@ curl "${ROCKETMQ_SERVER}/message/viewMessage.query?msgId=${MSG_ID}&topic=${MQ_TO
 ----
 
 
-### 权限控制
+=== 权限控制
 * 阿里云：云消息队列 RocketMQ版: 4.x系列: 开发参考：SDK参考：link:https://help.aliyun.com/zh/apsaramq-for-rocketmq/cloud-message-queue-rocketmq-4-x-series/developer-reference/three-modes-used-to-send-normal-messages?spm=a2c4g.11186623.0.0.31a837cekfr3SM[社区版TCP协议SDK（仅供开源用户上云使用）]
 
 * example : link:https://github.com/apache/rocketmq/blob/b18e564addbcff50165a5e1d9d4ab7db789d901b/example/src/main/java/org/apache/rocketmq/example/simple/AclClient.java#L45[AclClient]
@@ -285,5 +375,163 @@ curl "${ROCKETMQ_SERVER}/message/viewMessage.query?msgId=${MSG_ID}&topic=${MQ_TO
   maven GAV : `org.apache.rocketmq:rocketmq-acl`
 
 * org.apache.rocketmq.client.producer.DefaultMQProducer#DefaultMQProducer(org.apache.rocketmq.remoting.RPCHook)
+
+
+== 新 gRPC协议 相关hook
+
+=== org.apache.rocketmq.client.java.hook.MessageInterceptor
+
+
+----
+// 配置: consumer side
+org.apache.rocketmq.client.java.impl.ClientImpl#<init>
+  org.apache.rocketmq.client.java.hook.CompositedMessageInterceptor#<init>
+
+// producer side
+org.apache.rocketmq.client.java.impl.producer.ProducerImpl#send
+  org.apache.rocketmq.client.java.message.PublishingMessageImpl#<init>
+  #send0
+    org.apache.rocketmq.client.java.message.GeneralMessageImpl#<init>
+    #doBefore
+      org.apache.rocketmq.client.java.hook.CompositedMessageInterceptor#doBefore
+    org.apache.rocketmq.client.java.impl.ClientManagerImpl#sendMessage  // ⭕️
+      org.apache.rocketmq.client.java.rpc.RpcClientImpl#sendMessage
+        apache.rocketmq.v2.MessagingServiceGrpc.MessagingServiceFutureStub#sendMessage
+                  // ⭕️ 该类是通过 rocketmq-client-java.jar!apache/rocketmq/v2/service.proto 自动生成的
+    #doAfter
+      org.apache.rocketmq.client.java.hook.CompositedMessageInterceptor#doAfter
+
+----
+
+
+== 旧 remoting协议相关hook
+
+=== org.apache.rocketmq.remoting.RPCHook
+
+netty 层面 处理 remoteAddr 和 RemotingCommand 的相关扩展点，较少使用。
+
+
+注册
+
+[source,plain]
+----
+// provider side
+org.apache.rocketmq.client.producer.DefaultMQProducer#<init>  # 构造函数传入 RPCHook
+  org.apache.rocketmq.client.impl.producer.DefaultMQProducerImpl#<init>
+
+org.apache.rocketmq.client.impl.producer.DefaultMQProducerImpl#start
+  #getOrCreateMQClientInstance
+    org.apache.rocketmq.client.impl.factory.MQClientInstance#<init>
+      org.apache.rocketmq.client.impl.MQClientAPIImpl#<init>
+        org.apache.rocketmq.remoting.RemotingService#registerRPCHook
+
+----
+
+调用
+
+[source,plain]
+----
+org.apache.rocketmq.client.impl.MQClientAPIImpl#sendMessage
+  #sendMessageSync
+    org.apache.rocketmq.remoting.netty.NettyRemotingClient##invokeSync  // ⭕️
+      com.alibaba.rocketmq.remoting.netty.NettyRemotingClient#doBeforeRequests
+        com.alibaba.rocketmq.remoting.RPCHook#doBeforeRequest
+----
+
+
+
+
+=== org.apache.rocketmq.client.hook.SendMessageHook
+
+[source,plain]
+----
+// 注册 - apache rocketmq
+
+com.taobao.metaq.client.MetaProducer#init
+  #registerHooks
+  com.alibaba.rocketmq.client.impl.producer.DefaultMQProducerImpl#registerSendMessageHook
+  com.taobao.metaq.client.util.HookServiceLoadUtil#loadAllHooks
+
+// 调用 - apache rocketmq
+# com.alibaba.security.gong9.mw.pandora.metaq.impl.rocketmq.DefaultIMetaProducer#send
+com.taobao.metaq.client.MetaProducer#send
+  com.alibaba.rocketmq.client.producer.DefaultMQProducer#send
+    com.alibaba.rocketmq.client.impl.producer.DefaultMQProducerImpl#send
+      #sendDefaultImpl
+        #selectOneMessageQueue
+        #sendKernelImpl
+        #executeSendMessageHookBefore   // ⭕️
+        com.alibaba.rocketmq.client.impl.MQClientAPIImpl#sendMessage
+        #executeSendMessageHookAfter    // ⭕️
+----
+
+
+=== org.apache.rocketmq.client.hook.ConsumeMessageHook
+
+[source,plain]
+----
+
+// 注册 - apache recketmq : push
+org.apache.rocketmq.client.consumer.DefaultMQPushConsumer#<init>
+  org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl#registerConsumeMessageHook
+        // ⚠️ 这里是硬编码注册，如果想自定义扩展，可以后续自行调用 DefaultMQPushConsumer#registerConsumeMessageHook。
+
+// 调用 - apache recketmq : push
+org.apache.rocketmq.client.impl.consumer.PullMessageService#run
+org.apache.rocketmq.client.impl.consumer.PullMessageService#pullMessage
+org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl#pullMessage
+org.apache.rocketmq.client.impl.consumer.PullAPIWrapper#pullKernelImpl
+org.apache.rocketmq.client.consumer.PullCallback#onSuccess
+  org.apache.rocketmq.client.impl.consumer.ConsumeMessageConcurrentlyService#submitConsumeRequest
+    org.apache.rocketmq.client.impl.consumer.ConsumeMessageConcurrentlyService$ConsumeRequest#run
+      org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl#executeHookAfter
+
+// 注册 - apache recketmq : pull
+org.apache.rocketmq.client.consumer.DefaultLitePullConsumer#start
+  #setTraceDispatcher()
+    org.apache.rocketmq.client.impl.consumer.DefaultLitePullConsumerImpl#registerConsumeMessageHook
+        // ⚠️ 这里是硬编码注册，如果想自定义扩展，
+        // 只能通过反射获取 DefaultLitePullConsumer#defaultLitePullConsumerImpl, 在调用 DefaultLitePullConsumerImpl#registerConsumeMessageHook
+
+
+// 注册 - alibaba metaq : pull
+com.taobao.metaq.client.MetaPullConsumer#<init>
+  com.taobao.metaq.client.impl.MetaPullConsumerImpl#<init>
+       // ⚠️ 这里是硬编码注册，如果想自定义扩展，
+       // 可以后续自行调用 MetaPullConsumer#getMetaPullConsumerImpl().registerConsumeMessageHook()
+
+// 调用 - alibaba metaq : pull
+com.taobao.metaq.client.MetaPullConsumer#pullBlockIfNotFound
+
+// 注册 - alibaba metaq : push
+com.taobao.metaq.client.MetaPushConsumer#<init>
+  com.taobao.metaq.client.impl.MetaPushConsumerImpl#<init>
+com.taobao.metaq.client.MetaPushConsumer#start
+  com.taobao.metaq.client.impl.MetaPushConsumerImpl#start
+    #init
+      #registerHooks
+        com.alibaba.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl#registerConsumeMessageHook
+             // ⚠️ 这里是硬编码注册，如果想自定义扩展，可稍后通过以下方式自定义编程实现。
+             // MetaPushConsumer#getMetaPushConsumerImpl().getDefaultMQPushConsumerImpl().registerConsumeMessageHook()
+
+
+// 鹰眼相关实现：
+com.taobao.metaq.trace.core.hook.MetaQSendMessageHookImpl
+
+com.taobao.metaq.trace.core.hook.MetaQConsumeMessageHookImpl
+
+  #consumeMessageBefore
+    com.taobao.metaq.trace.core.sub.MetaQConsumeMessageTraceLog#consumeMessageBefore
+      #recordSingleMsgBeforeConsume
+        com.taobao.eagleeye.EagleEye#setRpcContext
+        com.taobao.eagleeye.EagleEye#rpcServerRecv
+  #consumeMessageAfter
+    com.taobao.metaq.trace.core.sub.MetaQConsumeMessageTraceLog#consumeMessageAfter
+      com.taobao.eagleeye.EagleEye#rpcServerSend
+      #recordSingleMsgBeforeConsume
+        com.taobao.eagleeye.EagleEye#setRpcContext
+        com.taobao.eagleeye.EagleEye#rpcServerRecv
+----
+
 
 

@@ -194,25 +194,6 @@ mvn -N io.takari:maven:wrapper -Dmaven=3.6.1
 ```
 
 
-## versions-maven-plugin
-[Versions Maven Plugin](https://www.mojohaus.org/versions-maven-plugin/index.html)
-
-引入
-
-```xml
-<plugin>
-    <groupId>org.codehaus.mojo</groupId>
-    <artifactId>versions-maven-plugin</artifactId>
-    <version>2.11.0</version>
-</plugin>
-```
-
-
-使用
-```bash
-mvn versions:display-dependency-updates
-```
-
 ## maven-jdeps-plugin
 [maven-jdeps-plugin](https://github.com/apache/maven-jdeps-plugin)
 [Guide to Using Toolchains](https://maven.apache.org/guides/mini/guide-using-toolchains.html)
@@ -681,8 +662,6 @@ daemon.xml
 
 # plugins
 
-# com.google.errorprone:error_prone_core
-errorprone : [Installation](https://errorprone.info/docs/installation)
 
 # Dependency-Check
 [Dependency-Check](https://jeremylong.github.io/DependencyCheck/dependency-check-maven/index.html) 主要用于检查 OWASP 中的风险依赖

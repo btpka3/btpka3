@@ -189,7 +189,7 @@ mysource.sh
 
 ----
 
-
+/
 ## test
 
 [source,shell]
@@ -367,22 +367,21 @@ tar -tjf file.tar.bz2
 #### list all
 [source,shell]
 ----
-  unzip file.zip -d outputDir    # 解压整个压缩包
-  unzip    file.zip in/archive/file1.txt in/archive/file2.txt -d outputDir  # 仅解压给定文件，会在输出目录中创建entry对应的目录层级
-  unzip -j file.zip in/archive/file1.txt in/archive/file2.txt -d outputDir  # 仅解压给定文件，不会在输出目录中创建entry对应的目录层级，而是将文件直接输出在输出目录的根目录中
+unzip file.zip -d outputDir    # 解压整个压缩包
+unzip    file.zip in/archive/file1.txt in/archive/file2.txt -d outputDir  # 仅解压给定文件，会在输出目录中创建entry对应的目录层级
+unzip -j file.zip in/archive/file1.txt in/archive/file2.txt -d outputDir  # 仅解压给定文件，不会在输出目录中创建entry对应的目录层级，而是将文件直接输出在输出目录的根目录中
 
-  unzip -O GBK windows.zip       # 解压在Windows平台上创建的zip
-  tar -xvf file.tar       -C outputDir # outputDir 必须先创建
-  tar -xzvf file.tar.gz   -C outputDir # outputDir 必须先创建
-  tar -xjvf file.tar.bz2  -C outputdir # outputDir 必须先创建
-  tar -xJvf file.tar.xz   -C outputdir # outputDir 必须先创建
-  gzip -d file.txt.gz     # 生成 file.txt
+unzip -O GBK windows.zip       # 解压在Windows平台上创建的zip
+tar -xvf file.tar       -C outputDir # outputDir 必须先创建
+tar -xzvf file.tar.gz   -C outputDir # outputDir 必须先创建
+tar -xjvf file.tar.bz2  -C outputdir # outputDir 必须先创建
+tar -xJvf file.tar.xz   -C outputdir # outputDir 必须先创建
+gzip -d file.txt.gz     # 生成 file.txt
 
-  rar x xxx.rar /path/to/extract
+rar x xxx.rar /path/to/extract
 
-  # 解压分割的多个文件
-  cat newFilePrefix.* | tar -xzvf -C outputDir
-
+# 解压分割的多个文件
+cat newFilePrefix.* | tar -xzvf -C outputDir
 ----
 #### 解压特定的文件
 
@@ -543,4 +542,128 @@ tailf /tmp/a.log
 
 # ⭕️ 再次查看后台任务父进程ID，此时就已经变成 1 了。
 ps -o ppid= ${xxxJobPid}
+----
+
+
+== pipe 的 exit code
+
+You can reference the value of a document attribute using
+the syntax `+{name}+`, where `name` is the attribute name.
+
+
+
+[cols="1,1,1", options="header"]
+|===
+|场景 |默认行为 |`set -o pipefail`
+
+| `false \| true \| true`
+|0 (最后一个命令)
+|1 (第一个失败)
+
+|`true \| true \| false`
+|1 (最后一个命令)
+|1 (最后一个失败)
+
+|`true \| false \| true`
+|0 (最后一个命令)
+|1 (中间失败)
+
+|`false \| false \| true`
+|0 (最后一个命令)
+|1 (第一个失败)
+
+|===
+[source,shell]
+----
+#!/bin/bash
+# pipe管道默认以最后一个命令的 exit code为准，但可以通过 `set -o pipefail` 设置最靠右的exit-code!=0 的命令的 exit code
+
+echo "=========================================="
+echo "演示 1: 默认行为 (不使用 pipefail)"
+echo "=========================================="
+
+# 情况1: 中间命令失败，最后一个成功
+echo "测试: false | true | true"
+false | true | true
+echo "Exit code: $?"                # 实际: 0
+echo ""
+
+# 情况2: 第一个命令失败，最后一个成功
+echo "测试: false | echo 'middle' | true"
+false | echo 'middle' | true
+echo "Exit code: $?"                # 实际: 0
+echo ""
+
+# 情况3: 所有命令都成功
+echo "测试: true | true | true"
+true | true | true
+echo "Exit code: $?"                # 实际: 0
+echo ""
+
+# 情况4: 最后一个命令失败
+echo "测试: true | true | false"
+true | true | false
+echo "Exit code: $?"                # 实际: 1
+echo ""
+
+echo "=========================================="
+echo "演示 2: 使用 set -o pipefail"
+echo "=========================================="
+
+set -o pipefail
+
+# 情况1: 中间命令失败，最后一个成功
+echo "测试: false | true | true"
+false | true | true
+echo "Exit code: $?"                # 实际: 1
+echo ""
+
+# 情况2: 第一个命令失败，最后一个成功
+echo "测试: false | echo 'middle' | true"
+false | echo 'middle' | true
+echo "Exit code: $?"                # 实际: 1
+echo ""
+
+# 情况3: 所有命令都成功
+echo "测试: true | true | true"
+true | true | true
+echo "Exit code: $?"                # 实际: 0
+echo ""
+
+# 情况4: 最后一个命令失败
+echo "测试: true | true | false"
+true | true | false
+echo "Exit code: $?"                # 实际: 1
+echo ""
+
+# 情况5: 多个命令失败
+echo "测试: false | false | true"
+false | false | true
+echo "Exit code: $?"                # 实际: 1
+echo ""
+
+echo "=========================================="
+echo "演示 3: 实际应用场景"
+echo "=========================================="
+
+# 场景1: 查找文件并处理
+echo "场景1: 查找不存在的文件并处理"
+set +o pipefail  # 关闭 pipefail
+ls /nonexistent 2>/dev/null | grep "test" | head -n 1
+echo "默认行为 Exit code: $?"       # 实际: 0
+
+set -o pipefail   # 开启 pipefail
+ls /nonexistent 2>/dev/null | grep "test" | head -n 1
+echo "pipefail 行为 Exit code: $?"  # 实际: 1
+echo ""
+
+# 场景2: 命令链处理
+echo "场景2: 命令链处理"
+set +o pipefail
+cat /nonexistent 2>/dev/null | sort | uniq
+echo "默认行为 Exit code: $?"       # 实际: 0
+
+set -o pipefail
+cat /nonexistent 2>/dev/null | sort | uniq
+echo "pipefail 行为 Exit code: $?"  # 实际: 1
 ----

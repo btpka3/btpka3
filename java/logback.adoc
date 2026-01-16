@@ -24,7 +24,10 @@ logback.xml
 
 ## 使用 spring placeholder
 
-* org.springframework.boot.logging.logback.LogbackLoggingSystem
+* org.springframework.boot.logging.AbstractLoggingSystem
+   #getSpringConfigLocations  在标准配置文件的基础上，还通过增加 "-spring" 关键来查找相关配置文件，比如 "logback-spring.xml".
+* org.springframework.boot.logging.logback.LogbackLoggingSystem#getStandardConfigLocations
+  默认使用 "logback-test.groovy", "logback-test.xml", "logback.groovy", "logback.xml" 进行初始化。
 * org.springframework.boot.context.logging.LoggingApplicationListener
 * org.springframework.boot.SpringApplicationRunListener
 * org.springframework.boot.logging.AbstractLoggingSystem#getSpringInitializationConfig
@@ -106,6 +109,24 @@ ognl -c 32ac360d '@org.slf4j.LoggerFactory@getLogger("ROOT").aai.getAppender("xx
 ----
 
 ## StatusListener
+
+[source,shell]
+----
+# 输出logback 内部状态
+ognl -c 6dfba8fd  -x 3 '
+#context=new java.util.HashMap(),
+#context.put("appKey","xx"),
+#context.put("appSecret","xx"),
+
+#openId="4398621042106",
+
+@com.alibaba.security.uniface.i18n.ApplicationContextHolder@applicationContext
+     .getBean(@com.taobao.baichuan.openaccount.api.OpenAccountQueryService@class)
+     .getOpenAccountById(#context,#openId)
+'
+----
+
+
 ## LoggerContextListener
 
 
@@ -141,3 +162,6 @@ public class PropertyWrapperForScripts {
 -----
 
 
+
+
+## 如何确认哪些appender 输出了统一个
