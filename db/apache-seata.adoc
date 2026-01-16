@@ -1,5 +1,0 @@
-
-
-* link:https://seata.apache.org/[Apache Seata]
-* link:https://seata.apache.org/zh-cn/docs/overview/what-is-seata/[Seata 是什么?]
-

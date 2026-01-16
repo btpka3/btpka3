@@ -1,5 +1,0 @@
-
-
-* link:https://infinispan.org/[infinispan.org]
-* link:https://github.com/infinispan/infinispan[infinispan]
-

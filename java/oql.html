@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<title>参考</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_参考">参考</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OQL : Object Query Language</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://wiki.eclipse.org/MemoryAnalyzer/OQL">MemoryAnalyzer/OQL</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Fdoc%2Forg%2Feclipse%2Fmat%2Fparser%2Fmodel%2FInstanceImpl.html">org.eclipse.mat.parser.model.InstanceImpl</a></p>
+</li>
+<li>
+<p>帮助文档: Memory Analyzer</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Reference</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Freference%2Foqlsyntax.html&amp;cp%3D54_4_2">OQL Syntax</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Freference%2Fpropertyaccessors.html">Property Accessors</a>。 需要重点关注，里面有说明如何访问 field, property, method 以及 build in funciton 。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Fdoc%2Findex.html">API Reference</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://help.eclipse.org/latest/topic/org.eclipse.mat.ui.help/doc/org/eclipse/mat/snapshot/ISnapshot.html">org.eclipse.mat.snapshot.ISnapshot</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Concepts</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://help.eclipse.org/latest/index.jsp?topic=/org.eclipse.mat.ui.help/concepts/dominatortree.html">Dominator Tree</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>源码mirror <a href="https://github.com/blacelle/org.eclipse.mat">blacelle/org.eclipse.mat</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/blacelle/org.eclipse.mat/blob/31a98ec7894450198b4c1d8ef86dc10fc490b4d8/plugins/org.eclipse.mat.api/src/org/eclipse/mat/snapshot/model/IObject.java">org.eclipse.mat.snapshot.model.IObject</a></p>
+</li>
+<li>
+<p><a href="https://github.com/blacelle/org.eclipse.mat/blob/master/plugins/org.eclipse.mat.api/src/org/eclipse/mat/snapshot/model/GCRootInfo.java">org.eclipse.mat.snapshot.model.GCRootInfo</a></p>
+</li>
+<li>
+<p><a href="https://github.com/blacelle/org.eclipse.mat/blob/31a98ec7894450198b4c1d8ef86dc10fc490b4d8/plugins/org.eclipse.mat.api/src/org/eclipse/mat/snapshot/ISnapshot.java">org.eclipse.mat.snapshot.ISnapshot</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>请勿参考，与 eclipse MemoryAnalyzer 的 OQL 语法不完全一致。
+<a href="https://cr.openjdk.java.net/~sundar/8022483/webrev.01/raw_files/new/src/share/classes/com/sun/tools/hat/resources/oqlhelp.html">Object Query Language (OQL)</a></p>
+</li>
+<li>
+<p>java.lang.ref.Finalizer</p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/u014365523/article/details/127513012">JVM垃圾回收的java.lang.ref.Finalizer</a></p>
+</li>
+<li>
+<p><a href="https://www.oracle.com/technical-resources/articles/javase/finalization.html">How to Handle Java Finalization&#8217;s Memory-Retention Issues</a></p>
+</li>
+<li>
+<p><a href="https://www.baeldung.com/java-finalize">A Guide to the finalize Method in Java</a></p>
+</li>
+<li>
+<p><a href="https://www.javamadesoeasy.com/2015/05/finalize-method-in-java-10-salient.html">finalize method in java - 13 salient features, force jvm to run garbage collection</a></p>
+</li>
+<li>
+<p><a href="https://www.baeldung.com/jvm-parameters">Guide to the Most Important JVM Parameters</a></p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/Dongguabai/article/details/114391877">开启String去重XX:+UseStringDeduplication的利与弊</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_oql_vs_sql">OQL vs. SQL</h2>
+<div class="sectionbody">
+<table id="my-tbl1" class="tableblock frame-all grid-all stretch">
+<caption class="title">OQL (Memory Analyzer) versus SQL (MAT/Calcite) 1. OQL (Memory Analyzer) versus SQL (MAT/Calcite)</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Topic</th>
+<th class="tableblock halign-left valign-top">OQL</th>
+<th class="tableblock halign-left valign-top">SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">普通语法</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sql" data-lang="sql">SELECT s FROM java.lang.String s</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sql" data-lang="sql">SELECT s.this FROM "java.lang.String" s</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">内建函数</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sql" data-lang="sql">SELECT
+  toString(s),
+  classof(s),
+  s.@objectAddress,
+  s.@usedHeapSize,
+  s.@retainedHeapSize
+FROM java.lang.String s</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sql" data-lang="sql">SELECT
+  toString(s.this),
+  getType(s.this),
+  getAddress(s.this),
+  shallowSize(s.this),
+  retainedSize(s.this)
+FROM "java.lang.String" s</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">更多函数</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sql" data-lang="sql">SELECT
+  h,
+  h[0:-1].size(),
+  h.table,
+  h.table.@length,
+  h.modCount,
+  h.getField("modCount")
+FROM java.util.HashMap h</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sql" data-lang="sql">SELECT
+  h.this,
+  getSize(h.this),
+  h.this['table'],
+  LENGTH(h.this['table']),
+  h.this['modCount'],
+  getField(h.this,'modCount')
+FROM "java.util.HashMap" h</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">多行注释</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>/* multi-line comment */</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>/* multi-line comment */</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">单行注释</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>// comment</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>-- comment</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JOIN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">不支持，可被模拟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">支持</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LIMIT,OFFSET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">不支持，可被模拟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">支持</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ORDER BY</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">不支持，通过GUI上的表头进行排序</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">支持</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GROUP BY</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">不支持，可被模拟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">支持</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">COUNT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">不支持，可被模拟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">支持</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MAX,MIN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">不支持，通过GUI上的表头进行排序后查看第一个值</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">支持</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVG,SUM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">不支持</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">支持</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_eclipse_mat_概念模型">Eclipse MAT 概念模型</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>使用 Eclipse MAT 的，尤其是想要使用 OQL 查询时，需要了解其概念模型。</p>
+</div>
+<div class="paragraph">
+<p>Eclipse MAT 的源码仓库是 <code>git.eclipse.org/c/mat/org.eclipse.mat.git</code>
+但不方便浏览，这里是在github上的一个代码镜像仓库 : <a href="https://github.com/blacelle/org.eclipse.mat">blacelle/org.eclipse.mat</a>。</p>
+</div>
+<div class="paragraph">
+<p>主要的概念位于 java package <code>org.eclipse.mat.snapshot.model</code> 下面。</p>
+</div>
+<div class="paragraph">
+<p>javadoc 参考 ：
+<a href="https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Fdoc%2Forg%2Feclipse%2Fmat%2Fsnapshot%2Fmodel%2Fpackage-summary.html">这里</a>。</p>
+</div>
+<div class="paragraph">
+<p>源码参考（代码镜像仓库）： <a href="https://github.com/blacelle/org.eclipse.mat/blob/31a98ec7894450198b4c1d8ef86dc10fc490b4d8/plugins/org.eclipse.mat.api/src/org/eclipse/mat/snapshot/model/IObject.java">这里</a>。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>接口/interface</p>
+<div class="ulist">
+<ul>
+<li>
+<p>org.eclipse.mat.snapshot.model.IObject</p>
+<div class="ulist">
+<ul>
+<li>
+<p>org.eclipse.mat.snapshot.model.IArray</p>
+<div class="ulist">
+<ul>
+<li>
+<p>org.eclipse.mat.snapshot.model.IPrimitiveArray</p>
+</li>
+<li>
+<p>org.eclipse.mat.snapshot.model.IObjectArray</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>org.eclipse.mat.snapshot.model.IClass</p>
+</li>
+<li>
+<p>org.eclipse.mat.snapshot.model.IInstance</p>
+<div class="ulist">
+<ul>
+<li>
+<p>org.eclipse.mat.snapshot.model.IClassLoader</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>org.eclipse.mat.snapshot.model.IStackFrame  : ???</p>
+</li>
+<li>
+<p>org.eclipse.mat.snapshot.model.IThreadStack : ???</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>类/class</p>
+<div class="ulist">
+<ul>
+<li>
+<p>org.eclipse.mat.snapshot.model.GCRootInfo</p>
+</li>
+<li>
+<p>org.eclipse.mat.snapshot.model.ObjectReference</p>
+<div class="ulist">
+<ul>
+<li>
+<p>org.eclipse.mat.snapshot.model.NamedReference</p>
+<div class="ulist">
+<ul>
+<li>
+<p>org.eclipse.mat.snapshot.model.PseudoReference</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>org.eclipse.mat.snapshot.model.FieldDescriptor</p>
+<div class="ulist">
+<ul>
+<li>
+<p>org.eclipse.mat.snapshot.model.Field</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_示例">示例</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sql" data-lang="sql">-- ========================== 按类名查询对象
+-- 按照类名 查询出 new 出来的 实例
+-- 默认查询出 className , Shallow heap, Retained Heap
+SELECT distinct * FROM org.springframework.web.context.support.XmlWebApplicationContext
+-- 下面的查询等同于上面的
+SELECT * FROM ${snapshot}.getClassesByName("org.springframework.web.context.support.XmlWebApplicationContext", false)
+SELECT * FROM "java\.lang\..*"  -- 可以使用正则表达式查询
+select s from java.lang.String s where s.value.@length &gt;= 1024
+
+
+-- INSTANCEOF
+-- INSTANCEOF + 类名
+-- INSTANCEOF + 类地址
+-- 只能查询 类、抽象类，不能查询 interface
+-- 即 不能查询 org.springframework.context.ApplicationContext
+-- 等同于查询  IObject.@clazz.@getSuperClass() 递归包含 a.b.XxxClass
+SELECT * FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext
+-- 下面的语句与上面的等同
+SELECT * FROM ${snapshot}.getClassesByName("org.springframework.context.support.AbstractApplicationContext", true)
+-- 下面的语句与上面的等同。 OBJECTS 出现在 SELECT 语句中时，不能再有其他查询字段。
+SELECT OBJECTS s FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+
+-- 按照 对象的地址 查询
+SELECT * FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+where toHex(s.@objectAddress) = "0x5638aca30"
+
+SELECT OBJECTS s FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s WHERE s.@clazz.@name = "org.springframework.context.support.ClassPathXmlApplicationContext"
+SELECT * FROM INSTANCEOF java.lang.ref.Reference
+SELECT * FROM INSTANCEOF java.lang.ClassLoader
+
+-- OBJECTS : 询对应的类实例
+-- OBJECTS + 类名  =&gt; 类实例
+--， 通常 一个 class 只被 父子classloader 加载一次。
+-- 查询出的对象下面有： class(参考 IObject#getClass(), 比如值是 java.lang), super, classloader, init_block
+-- OBJECTS 可以应用于函数 classof() 的返回值
+-- 可以用该方法查询出给定的 class 被不同classloader 加载了多少次。
+-- 比如下面的查询仅仅有一个结果，因为 java.lang.String 是jdk自带的，只被加载一次。
+SELECT * FROM OBJECTS java.lang.String
+SELECT * FROM OBJECTS "^org\.springframework\.context\.support\.Abstract.*"
+
+select distinct objects s.@clazz.@classLoaderId from ch.qos.logback.classic.AsyncAppender s
+
+
+
+
+-- 按照对象地址查询
+SELECT * FROM OBJECTS 0x6b4c5e658
+
+
+-- OBJECTS 可以查询 interface （也是任意 java类：注解、枚举等）
+SELECT * FROM OBJECTS org.springframework.context.ApplicationContext
+SELECT * FROM OBJECTS org.springframework.stereotype.Component
+SELECT * FROM OBJECTS org.springframework.http.HttpMethod
+
+-- OBJECTS + 对象ID数组  =&gt; 对象列表(平铺)
+-- dominators 函数返回的是 对象ID数组，
+-- 通过 OBJECTS dominators(s) 的方式，可以将 对象ID数组展开，并转换成对应的 对象
+SELECT OBJECTS dominators(s) FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+
+
+-- ========================== 按类地址查询对象
+-- 可以通过 【类视图】by Name (正则): `.*${类全限定名}.*` 找到对应的 地址
+-- 参考: @objectAddress
+SELECT * FROM 0x5679618b0
+SELECT * FROM 0x5679618b0,0x5679618b1
+SELECT * FROM INSTANCEOF 0x5679618b0
+
+-- ========================== 按对象 id 查询对象
+-- 参考: @objectId
+SELECT * FROM 20815
+SELECT * FROM 20815,20975
+
+-- ========================== 按 用子查询/类对象 查询
+-- IMPLEMENTS 左变量是任意对象 或者 对象ID, 右变量只能是 eclipse MAT 的相关接口
+SELECT * FROM (
+  SELECT * FROM java.lang.Class c WHERE
+   c IMPLEMENTS org.eclipse.mat.snapshot.model.IClass
+)
+-- 该查询效果与上面的等同
+SELECT * FROM ${snapshot}.getClasses()
+
+
+-- ==========================AS RETAINED SET
+-- 查询给定对象传递引用的对象。
+SELECT AS RETAINED SET * FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+where toHex(s.@objectAddress) = "0x5638aca30"
+
+
+
+-- 查询所有 classloader 的名称
+select toString(cl.name) from instanceof java.lang.ClassLoader cl where cl.name !=null
+-- 查询所有实例化的 classloader 的class的全限定名
+select distinct cl.@clazz.@name from instanceof java.lang.ClassLoader cl
+-- 按照给定的 classloader 加载的对象
+SELECT * FROM ${snapshot}.getClasses() s WHERE s.@clazz.@classLoaderId = 0
+
+
+-- 按照 文件描述符ID（File Descriptor ID） 找到哪个 FileOutputStream 在向其写入内容，以便再定位哪块程序写入该文件
+select s from java.io.FileOutputStream s where s.fd.fd=409
+select s.@outboundReferences from java.io.FileOutputStream s where s.fd.fd=142
+select inbounds(s) from java.io.FileOutputStream s where s.fd.fd=142
+
+-- 查询出所有的 GC Root 根对象
+-- 参考 org.eclipse.mat.snapshot.ISnapshot#getGCRoots() 方法，返回值是 int[]
+SELECT objects s FROM OBJECTS ${snapshot}.@GCRoots s
+-- 与上面等同，但作为子查询
+select * from objects (SELECT objects s FROM OBJECTS ${snapshot}.@GCRoots s)
+-- 下面的查询展示的一堆 对象ID
+SELECT * FROM OBJECTS ${snapshot}.@GCRoots s
+-- 根据单个对象id查询 GCRootInfo的类型（2048=UNREACHABLE）
+SELECT t.@type FROM OBJECTS ${snapshot}.getGCRootInfo(1853404) t
+
+-- 查询出 特定java类型的 GCROOT
+SELECT a
+FROM OBJECTS ( SELECT OBJECTS s FROM OBJECTS ${snapshot}.@GCRoots s  ) a
+WHERE (a.@clazz.@name = "java.util.HashMap$Node")
+
+
+-- ========================== 模拟 LIMIT,OFFSET
+
+SELECT eval(
+    (SELECT * FROM OBJECTS ( SELECT s, s.value AS val FROM java.lang.String s ) v)
+) [3] FROM OBJECTS 0
+
+-- 查询第1个元素（下标从0开始）
+SELECT objects eval(
+    (SELECT * FROM OBJECTS (
+        SELECT * FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext
+    ))
+)[1] FROM OBJECTS 0
+-- 查询第3~5的元素（下标从0开始）
+SELECT objects eval(
+    (SELECT * FROM OBJECTS (
+        SELECT * FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext
+    ))
+)[3:5] FROM OBJECTS 0
+
+-- ========================== 模拟 GROUP BY
+-- 按照 new 的类名分组，折叠展示对应的实例列表
+SELECT
+  c.clazzName AS clazzName,
+  (
+    SELECT OBJECTS s
+    FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+    WHERE s.@clazz.@name = c.clazzName
+  ) AS objs
+FROM OBJECTS (
+    /* 查询出 AbstractApplicationContext 类型的对象的 className */
+    SELECT DISTINCT s.@clazz.@name AS clazzName FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+) c
+
+
+-- ========================== 模拟 COUNT
+-- 按照 new 的类名分组，折叠展示对应的实例数量
+SELECT
+    z.clazzName         AS clazzName,
+    z.objs              AS objs,
+    z.objs.@length      AS count
+FROM OBJECTS ( eval(
+(
+    SELECT
+    c.clazzName AS clazzName,
+    (
+        SELECT OBJECTS s
+        FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+        WHERE s.@clazz.@name = c.clazzName
+    ) AS objs
+    FROM OBJECTS (
+        /* 查询出 AbstractApplicationContext 类型的对象的 className */
+        SELECT DISTINCT s.@clazz.@name AS clazzName FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s
+    ) c
+)
+)) z
+
+
+-- 按照 类名 统计 GCROOT的数量
+SELECT
+    z.clazzName         AS clazzName,
+    z.objs              AS objs,
+    z.objs.@length      AS count
+FROM OBJECTS ( eval(
+(
+    SELECT
+    c.clazzName AS clazzName,
+    (
+        SELECT OBJECTS s
+        FROM OBJECTS (SELECT objects n FROM OBJECTS ${snapshot}.@GCRoots n) s
+        WHERE s.@clazz.@name = c.clazzName
+    ) AS objs
+    FROM OBJECTS (
+        SELECT DISTINCT s.@clazz.@name AS clazzName FROM OBJECTS (SELECT objects n FROM OBJECTS ${snapshot}.@GCRoots n) s
+    ) c
+)
+)) z
+
+/*
+unreachable ：java.util.HashMap$Node 中 key 的 class 和数量
+*/
+SELECT
+    z.keyClassName      AS keyClassName,
+    z.objs              AS objs,
+    z.objs.@length      AS count
+FROM OBJECTS ( eval(
+(
+
+select
+  c.keyClassName as keyClassName,
+  (
+   SELECT OBJECTS a
+	  FROM OBJECTS ( SELECT OBJECTS s FROM OBJECTS ${snapshot}.@GCRoots s  ) a
+    WHERE (a.@clazz.@name = "java.util.HashMap$Node")
+    AND a.key.@clazz.@name = c.keyClassName
+  ) as objs
+from objects (
+  SELECT DISTINCT a.key.@clazz.@name as keyClassName
+	FROM OBJECTS ( SELECT OBJECTS s FROM OBJECTS ${snapshot}.@GCRoots s  ) a
+  WHERE (a.@clazz.@name = "java.util.HashMap$Node")
+) c
+
+)
+)) z
+
+/*
+GCRoot 的 java.util.HashMap$Node 只能看到其引用的对象，看不到 谁曾创建/应用这些对象。
+故需要 从 非GCROOT 的对象里找。
+*/
+select *
+from java.util.HashMap$Node n
+where n.@GCRootInfo = null
+and n.key.@clazz.@name = "java.util.concurrent.ThreadPoolExecutor$Worker"
+
+
+-- ========================== 模拟 CROSS JOIN
+
+-- 查询结果：obj：GCRoot对象
+-- 查询结果：gcRootType：成功GcRoot的原因，
+-- （SYSTEM_CLASS=2,NATIVE_STATIC=8,THREAD_OBJ=256,UNREACHABLE=2048）
+-- 右值: rv : right value: 是单个 IObject 对象
+-- 左值: lf : left value : 是 GCRootInfo[] 数组，相当一个子查询 `(SELECT ...) AS lv`
+-- 最顶层的 `FROM OBJECTS` 会将其打平: (IObject, GCRootInfo[]) =&gt; (IObject, GCRootInfo)
+SELECT
+    a.rv        AS obj,
+    a.lv.@type  AS gcRootType
+FROM OBJECTS (
+    SELECT
+        ${snapshot}.getObject(r)     AS rv,
+        ${snapshot}.getGCRootInfo(r) AS lv
+    FROM OBJECTS ${snapshot}.@GCRoots r
+) a
+;
+
+-- 类似 IN 操作符
+SELECT
+    objects a.rv
+FROM OBJECTS (
+    SELECT
+        classLoader AS rv,
+        (select appender from ch.qos.logback.classic.AsyncAppender appender where appender.@clazz.@classLoaderId = classLoader.@objectId) AS lv
+    FROM com.alibaba.security.mtee.bundle.framework.core.loader.JiugongBundleClassLoader classLoader
+) a
+where a.lv != null</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_查询对象的_字段field">查询对象的 字段（field）</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>这里指的是原生class上声明的 field。</p>
+</div>
+<div class="paragraph">
+<p>比如 <code>java.util.HashMap</code> 的  <code>loadFactor</code> 字段,
+<code>java.lang.String</code> 的  <code>value</code> 字段。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sql" data-lang="sql">select [&lt;alias&gt;.]&lt;field&gt;.&lt;field&gt;.&lt;field&gt; from a.b.XxxClass &lt;alias&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_查询对象的_属性attribute">查询对象的 属性（attribute）</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>这里不是指原生class上声明的 getter， 原生class上的getter 里的代码也不可能在 eclipse MAT 的 JVM 上去执行。
+即不能调用  <code>java.lang.Throwable</code> 上的 getter <code>getMessage()</code></p>
+</div>
+<div class="paragraph">
+<p>这里指的是对应类型 对应的 getter，且不是只原生class上声明的 getter，
+而是根据 OQL 查询出的对象映射的对应的 MAT 设计的类型上 getter</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sql" data-lang="sql">select [&lt;alias&gt;.]@&lt;attribute&gt; from a.b.XxxClass &lt;alias&gt;</code></pre>
+</div>
+</div>
+<table id="my-tbl2" class="tableblock frame-all grid-all stretch">
+<caption class="title">OQL (Memory Analyzer) versus SQL (MAT/Calcite) 2. 映射类型的属性列表</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">OQL查询的对象类型</th>
+<th class="tableblock halign-left valign-top">映射后的类型</th>
+<th class="tableblock halign-left valign-top">映射后类型可用的属性（getter）</th>
+<th class="tableblock halign-left valign-top">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="11"><p class="tableblock">任意对象</p></td>
+<td class="tableblock halign-left valign-top" rowspan="11"><p class="tableblock">IObject</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">objectId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">snapshot对象的ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">objectAddress</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">snapshot对象的地址</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">class</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>当前对象在 Eclipse MAT 的概念中的实现类（比如 概念 IClass 的实现类是 ClassImpl） ,
+示例值：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>普通对象时的值 :  <code>class org.eclipse.mat.parser.model.InstanceImpl</code></p>
+</li>
+<li>
+<p>类对象时的值   :  <code>class org.eclipse.mat.parser.model.ClassImpl</code></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sql" data-lang="sql">-- 示例：查询出普通对象，得到该对象的映射类型是: "org.eclipse.mat.parser.model.InstanceImpl"
+SELECT s.@class.@name FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clazz</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>当前对象所属的 java class 的 类对象. 等同于函数调用 <code>classof(object)</code>。
+示例值：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>普通对象的值: <code>java.lang.Class [id=0x57d3dfb30;name=org.springframework.context.support.ClassPathXmlApplicationContext]</code></p>
+</li>
+<li>
+<p>类对象的值： <code>java.lang.Class [id=0x560004bf8;name=java.lang.Class]</code></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sql" data-lang="sql">-- 示例：用抽象类查询普通对象，然后后去实现类的完整类名, 得到 "org.springframework.context.support.ClassPathXmlApplicationContext"
+SELECT s.@clazz.@name FROM INSTANCEOF org.springframework.context.support.AbstractApplicationContext s</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">outboundReferences</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">该对象引用的所有对象，包含对应的 IClass， 字段， 数组entry等</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">usedHeapSize</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shallow heap size</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">retainedHeapSize</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">retained heap size</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">technicalName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">类名+对象地址</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">classSpecificName</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">displayName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">拼接显示 technicalName+classSpecificName</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">snapshot</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">包含当前对象的 snapshot, 也可以用 <code>${snapshot}</code> 表示</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Class 对象</p></td>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">IClass</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">classLoaderId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">classLoader 的 ID (对应于IObject#objectId)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">classLoaderAddress</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">classLoader 对象实例的地址 (对应于IObject#objectAddress)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">任意数组</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IArray</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">数组的长度</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primitive array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IPrimitiveArray</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">valueArray</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">该数组的值</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reference array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IObjectArray</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">referenceArray</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">数组中对象的 地址列表，可以使用 OBJECTS 找到对应的 对象。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Classloader 对象</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IClassLoader</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">definedClasses</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">该 classloader 定义的class</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Reference 对象</p></td>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">ObjectReference</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">引用的 的 IObject 对象</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">objectId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">引用的 的 IObject 对象的id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">objectAddress</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">引用的 的 IObject 对象的地址</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Named Reference</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NamedReference</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用来描述引用的 字段（field）名称，或者 array 的下标。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_查询对象的_方法method">查询对象的 方法（method）</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>与 属性（attribute） 一样，都指的是 映射后的 类型（IClass、	IObject等）上的方法</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sql" data-lang="sql">select [&lt;alias&gt;.]@&lt;method&gt; from a.b.XxxClass &lt;alias&gt;</code></pre>
+</div>
+</div>
+<table id="my-tbl3" class="tableblock frame-all grid-all stretch">
+<caption class="title">OQL (Memory Analyzer) versus SQL (MAT/Calcite) 3. 映射类型的方法列表</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">OQL查询的对象类型</th>
+<th class="tableblock halign-left valign-top">映射后的类型</th>
+<th class="tableblock halign-left valign-top">映射后类型可用的方法（method）</th>
+<th class="tableblock halign-left valign-top">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">${snapshot}</p></td>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">ISnapshot</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">getClasses()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回所有class 的集合</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">getClassesByName(String name, boolean includeSubClasses)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回 class 的集合</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Class 对象</p></td>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">IClass</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hasSuperClass()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">判断是否有父类</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">isArrayType()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">判断是否是数组类型</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">任意对象</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IObject</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">getObjectAddress()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primitive array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IPrimitiveArray</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">getValueAt(int index)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">按下标获取对应的元素</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array，List</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]</code> or List</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">get(int index)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">按下标获取对应的元素</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_内建_oql_函数">内建 OQL 函数</h2>
+<div class="sectionbody">
+<table id="my-tbl4" class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">函数</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>toHex(number)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">将数值转换成十六进制字符串</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>toString(object)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">将对象转换成字符串，如果对象是 java.lang.String 的话，就返回其内容。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dominators(object)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">查询出给定对象 直接引用的 对象。格式 数组，元素内容：对象ID。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dominatorof(object)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">查询出哪些对象 直接引用了 给定的对象</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>outbounds(object)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">查询出 给定对象 直接、间接引用的所有对象</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>inbounds(object)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">查询出哪些对象 直接、间接引用了 给定的对象</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>classof(object)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">给定对象的class</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>eval(expression)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Eclipse MAT 1.4 后的实验性质的功能。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-01-16 08:59:46 UTC
+</div>
+</div>
+</body>
+</html>

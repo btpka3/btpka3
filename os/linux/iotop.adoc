@@ -1,6 +1,0 @@
-
-
-
-## 参考
-* link:http://guichaz.free.fr/iotop/[iptop]
-

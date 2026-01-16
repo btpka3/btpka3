@@ -1,7 +1,0 @@
-
-* link:https://learn.microsoft.com/zh-cn/microsoft-cloud/dev/dev-proxy/concepts/what-is-openapi-specp[什么是 OpenAPI 规范]
-* link:https://openapi.xiniushu.com/introduction[OpenAPI 规范（中文版）]
-
-* link:https://help.aliyun.com/zh/sdk/product-overview/alibaba-cloud-sdk[阿里云SDK]
-* link:https://github.com/aliyun/darabonba[darabonba]
-

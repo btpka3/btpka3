@@ -1,8 +1,0 @@
-
-
-link:https://quay.io/repository/fedora/fedora-coreos?tab=tags[fedora-coreos]
-
-[source,shell]
-----
-podman pull quay.io/fedora/fedora-coreos:44.20251014.91.0
-----

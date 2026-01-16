@@ -1,8 +1,0 @@
-
-
-## 网络连接失败溯源
-
-https://serverfault.com/a/885825/91958[Linux: tracking the source of netstat -s "failed connection attempts"]
-
-
-

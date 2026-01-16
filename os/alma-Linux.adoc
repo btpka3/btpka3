@@ -1,9 +1,0 @@
-link:https://almalinux.org/[almalinux]
-
-
-[source,shell]
-----
-almalinux
-podman run --rm docker://o-docker.alibaba-inc.com/docker.io/almalinux:8.10
-podman run --rm -it o-docker.alibaba-inc.com/docker.io/almalinux:8.10 sh -l
-----

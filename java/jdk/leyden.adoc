@@ -1,1 +1,0 @@
-link:https://openjdk.org/projects/leyden/[Project Leyden]
