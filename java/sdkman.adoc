@@ -1,11 +1,50 @@
 
-link:https://sdkman.io/install[sdkman]
+*  link:https://sdkman.io/install[sdkman]
+* link:https://github.com/sdkman/sdkman-cli-native/releases[sdkman cli native:release]
+
+
 
 ## install
 [source,shell]
 ----
 curl -s "https://get.sdkman.io" | bash
+# 查看版本
+sdk verison
 
+
+# 本地安装的sdkman 版本太低，且 `sdk selfupdate force` 失败时：
+
+# 当前安装目录
+CUR_DIR=${HOME}/.sdkman
+# 备份目录
+BAK_DIR=${HOME}/.sdkman_bak
+# 临时新目录
+NEW_DIR=${HOME}/.sdkman_new
+
+# （1）先备份
+cp -r "${CUR_DIR}" "${BAK_DIR}"
+
+# （2）在新安装到临时新目录（比如： "$HOME/.sdkman_new"），且设置让其不要更新 shell 脚本 "rcupdate=false"， 并更新 ~/.zshrc , ~/.bashrc.
+export SDKMAN_DIR="${NEW_DIR}" && curl -s "https://get.sdkman.io?rcupdate=false" | bash
+
+# （3）安装完成后，把 candidates 以外 的目录进行替换
+# 原安装目录仅保留 candidates 目录，其他删除目录，然后再把新安装的copy过来。
+find ${CUR_DIR} -mindepth 1 -maxdepth 1  -type d ! -name candidates -exec rm -fr {} \;
+find ${NEW_DIR} -mindepth 1 -maxdepth 1  -type d ! -name candidates -exec cp -r {} ${CUR_DIR} \;
+
+# （4）最后新开shell窗口验证ok后，清理临时目录和备份目录
+cp -fr "${NEW_DIR}" "${BAK_DIR}"
+
+
+# 获取可用软件名称列表
+curl -v https://api.sdkman.io/2/candidates/all
+
+SDKMAN_VERSION=5.20.0
+SDKMAN_PLATFORM=darwinarm64
+curl -fsSL "https://api.sdkman.io/2/broker/download/native/install/${SDKMAN_VERSION}/${SDKMAN_PLATFORM}" \
+  -o "$HOME/.sdkman/tmp/sdkman-native-${SDKMAN_NATIVE_VERSION}.zip"
+
+# https://api.sdkman.io/2/broker/download/native/install/5.20.0/darwinarm64
 ----
 
 ## configuration
@@ -61,6 +100,15 @@ else
     unset SDKMAN_OFFLINE_MODE
 fi
 unset old_sdkman_offline_mode
+----
+
+[source,shell]
+----
+cat ~/.sdkman/etc/config
+
+# INTERNET NOT REACHABLE!
+# https://api.sdkman.io/2/healthcheck
+curl --insecure --location --connect-timeout ${sdkman_curl_connect_timeout} --max-time ${sdkman_curl_max_time} "${SDKMAN_CANDIDATES_API}/healthcheck"
 ----
 
 

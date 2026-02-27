@@ -1,0 +1,30 @@
+
+* link:https://github.com/modelscope/modelscope[modelscope]
+* link:https://www.modelscope.cn/home[modelscope.cn]
+
+
+
+[source,shell]
+----
+mkdir -p ~/data0/soft/modelscope
+cd ~/data0/soft/modelscope
+uv venv
+
+# 手动激活（一次性）
+source .venv/bin/activate
+# 通过 direnv 每次自动进入该目录就 激活 .envrc
+echo "source .venv/bin/activate" .envrc
+direnv allow .
+
+
+uv tool install modelscope --with setuptools==80.8.0
+
+
+modelscope download --help
+modelscope download --model="Qwen/Qwen3-Coder-Next" #--local_dir ./model-dir
+# 如果不指定 --local_dir， --cache_dir， 下面是一个默认的下载目录。
+# /Users/zll/.cache/modelscope/hub/models/Qwen/Qwen3-Coder-Next
+
+ollama run modelscope.cn/Qwen/Qwen3-Coder-Next
+ollama run  Qwen/Qwen3-Coder-Next-GGUF
+----

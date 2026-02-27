@@ -472,6 +472,8 @@ FROM OBJECTS (
 where a.lv != null
 
 
+-- 按线程名称查找线程，再查找被引用对象集合
+SELECT * FROM instanceof java.lang.Thread   t where toString(t.name) = "pool-168-thread-1"
 ----
 
 

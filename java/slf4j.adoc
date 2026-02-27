@@ -143,3 +143,54 @@ link:https://github.com/logfellow/logstash-logback-encoder/blob/logstash-logback
 
 
 
+
+
+== log4j 1.x
+https://logging.apache.org/log4j/1.x/manual.html
+
+https://github.com/apache/logging-log4j1
+
+[source,shell]
+----
+# 代码面向的是 slf4 (org.slf4j.Logger), 先确认定的logger的classs名称
+# log4j = org.slf4j.impl.Log4jLoggerAdapter
+#  则 org.slf4j.impl.Log4jLoggerAdapter.logger 的类型是 org.apache.log4j.Logger
+ognl -c 37999b51 '@com.alibaba.metrics.reporter.bin.zigzag.LongDZBP@logger.getClass().getName()'
+ognl -c 37999b51 '@com.alibaba.metrics.reporter.bin.zigzag.LongDZBP@logger.logger.getClass().getProtectionDomain().codesource.location.file'
+
+ognl -c 37999b51 '@com.alibaba.metrics.reporter.bin.zigzag.LongDZBP@logger.logger.repository'
+ognl -c 37999b51 '@com.alibaba.metrics.reporter.bin.zigzag.LongDZBP@logger.logger.repository.configurationFile'
+ognl -c 37999b51 '@com.alibaba.metrics.reporter.bin.zigzag.LongDZBP@logger.logger.repository.isConfigured()'
+
+ognl -c 37999b51 '@com.alibaba.metrics.reporter.bin.zigzag.LongDZBP@logger.logger.getAllAppenders()'
+
+# 持续查看自身、上级 parent 的 aai
+ognl -c 37999b51 '
+#slf4jLogger = @com.alibaba.metrics.reporter.bin.zigzag.LongDZBP@logger,
+#log4jLogger=#slf4jLogger.logger,
+#log4jLogger.parent.aai
+'
+#/home/admin/logs/metrics/metrics-info.log
+
+# log4j 1.x 初始化用到JVM属性
+
+log4j.configuration
+
+相关类
+
+
+org.apache.log4j.Logger#getLogger
+  => org.apache.log4j.LogManager
+    => org.apache.log4j.helpers.Loader#getResource
+    => org.apache.log4j.helpers.OptionConverter#selectAndConfigure
+
+# 检查是否有通过JVM属性自定义配置 log4j 1.x 的配置路径，有的话检查加载的位置
+sysprop log4j.configuration
+ognl -c 37999b51 '@org.apache.log4j.helpers.Loader@getResource(new java.net.URL(System.getProperty("log4j.configuration")))'
+
+# 检查约定的配置文件加载位置
+ognl -c 37999b51 '@org.apache.log4j.helpers.Loader@getResource("log4j.xml")'
+ognl -c 37999b51 '@org.apache.log4j.helpers.Loader@getResource("log4j.properties")'
+
+#
+----

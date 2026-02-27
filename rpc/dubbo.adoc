@@ -133,7 +133,7 @@ ts=2023-08-21 09:56:10;thread_name=arthas-command-execute;id=1dd;is_daemon=true;
         at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CallbackRegistrationInvoker.invoke(FilterChainBuilder.java:196)
         at org.apache.dubbo.rpc.protocol.ReferenceCountInvokerWrapper.invoke(ReferenceCountInvokerWrapper.java:78)
         at org.apache.dubbo.rpc.cluster.support.AbstractClusterInvoker.invokeWithContext(AbstractClusterInvoker.java:383)
-        at org.apache.dubbo.rpc.cluster.support.FailoverClusterInvoker.doInvoke(FailoverClusterInvoker.java:80)
+        at org.apache.dubbo.rpc.cluster.support.FailoverClusterInvoker.doInvoke(FailoverClusterInvoker.java:80)  // ⭕️： 默认会失败重试，总计最多调用3次
         at org.apache.dubbo.rpc.cluster.support.AbstractClusterInvoker.invoke(AbstractClusterInvoker.java:344)
         at org.apache.dubbo.rpc.cluster.router.RouterSnapshotFilter.invoke(RouterSnapshotFilter.java:46)
         at org.apache.dubbo.rpc.cluster.filter.FilterChainBuilder$CopyOfFilterChainNode.invoke(FilterChainBuilder.java:334)
@@ -155,7 +155,7 @@ ts=2023-08-21 09:56:10;thread_name=arthas-command-execute;id=1dd;is_daemon=true;
         at org.apache.dubbo.rpc.cluster.support.wrapper.ScopeClusterInvoker.invoke(ScopeClusterInvoker.java:169)
         at org.apache.dubbo.registry.client.migration.MigrationInvoker.invoke(MigrationInvoker.java:284)
         at org.apache.dubbo.rpc.proxy.InvocationUtil.invoke(InvocationUtil.java:57)
-        at org.apache.dubbo.rpc.proxy.InvokerInvocationHandler.invoke(InvokerInvocationHandler.java:75)
+        at org.apache.dubbo.rpc.proxy.InvokerInvocationHandler.invoke(InvokerInvocationHandler.java:75) // ⭕️ 通过 consumer 代理对象内部的 开始进行调用链路。
         at com.alibaba.security.openapi.service.MetaServiceDubboProxy2.getRiskTagList(MetaServiceDubboProxy2.java:-1)
         at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)
         at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)

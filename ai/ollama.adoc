@@ -9,20 +9,82 @@
 
 # ollama
 brew install ollama
+ollama --version
+
 ollama serve
 # 查看模型信息
 ollama show qwen2.5:7b
 ollama pull qwen2.5:7b
+ollama pull qwen2.5-coder:7b
+
+ollama rm qwen3-coder-next
 # 模型下载的目录
 tree ~/.ollama/models
-ollama run  qwen2.5:7b
+
+# 运行默认会直接进入交互模式
+ollama run qwen2.5:7b
+/?
+/bye
+
+# 如果运行成功，下面的命令会返回 "Ollama is running"
+curl http://localhost:11434/
+# /api  : 是 Ollama 自己的 API
+curl -s http://localhost:11434/api/tags | jq
+curl -s -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"model":"qwen2.5-coder:7b","verbose":false}' \
+  http://localhost:11434/api/show | jq .capabilities
+
+# /v1   : 是 OpenAI 兼容的API
+# 列出运行的模型
+curl -s http://localhost:11434/v1/models | jq
+{
+  "object": "list",
+  "data": [
+    {
+      "id": "qwen2.5:7b",
+      "object": "model",
+      "created": 1736135792,
+      "owned_by": "library"
+    }
+  ]
+}
+# 测试 Chat API（替换 your-model 为已 pull 的模型，如 llama3）
+curl -s http://localhost:11434/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "qwen2.5:7b",
+    "messages": [{"role": "user", "content": "你是谁呀"}]
+  }' | jq
+
+
 # 查看本地模型
 ollama list
-# 查看运行中的模型
+# 查看运行中的模型. 其中 PROCESSOR 会提示是运行在 CPU 上还是GPU上。
 ollama ps
 # 复制模型
 ollama copy model_1 model_2
 # 删除模型
 ollama rm model_1
+
+# 运行 ollama 保存的模型
+## 警告："Qwen/Qwen3-Coder-Next" 需要 51GB
+ollama run qwen2.5:7b
+ollama run qwen2.5-coder:7b
+ollama stop qwen3-coder-next
+
+# 运行 modelscope 保存的模型.
+# FIXME : Error: pull model manifest: 400: No supported GGUF file can be found in the specified repository.
+# ollama run modelscope.cn/Qwen/Qwen3-Coder-Next-GGUF
 ----
 
+本地通过 ollama 启动模型后，需要 将 OpenClaw 的模型提供商配置为 OpenAI 兼容格式，并指向 `http://localhost:11434/v1`
+
+
+
+
+== cloud
+* link:https://docs.ollama.com/cloud[Cloud Models]
+* link:https://ollama.com/search?c=cloud[Cloud Models] : 带有 "cloud" 标签的模型是会嗲用远程 ollama 模型服务的。
+* link:https://docs.ollama.com/faq#how-do-i-disable-ollama%E2%80%99s-cloud-features[How do I disable Ollama’s cloud features?]
+但可 `vi ~/.ollama/server.json` 通过设置 "disable_ollama_cloud" 为 true 来禁用。 或者环境变量 "OLLAMA_NO_CLOUD=1" 来禁用。

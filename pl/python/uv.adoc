@@ -1,0 +1,108 @@
+
+* link:https://github.com/astral-sh/uv[uv]
+* link:https://docs.astral.sh/uv/[uv]
+* Homebrew Formulae : link:https://formulae.brew.sh/formula/uv[uv]
+
+
+
+## install
+
+[source,shell]
+----
+brew install uv
+----
+
+## project
+
+
+
+[source,shell]
+----
+# 创建一个 python 项目
+uv init example
+# 添加依赖
+uv add ruff
+
+#
+uv run ruff check
+uv lock
+uv sync
+
+----
+
+## 依赖
+
+
+[source,shell]
+----
+uv pip install "transformers[torch]"
+----
+
+
+
+
+## script
+
+
+
+[source,shell]
+----
+echo 'import requests; print(requests.get("https://astral.sh"))' > example.py
+
+uv add --script example.py requests
+
+uv run example.py
+----
+
+## Tools
+uvx 类似 pipx ,安装并执行一个 python package 提供的命令行工具。
+
+[source,shell]
+----
+
+uvx pycowsay 'hello world!'
+
+# 安装工具
+uv tool install ruff
+ruff --version
+----
+
+
+## python 版本
+
+[source,shell]
+----
+# 列出 本地可远程的 python 版本列表
+uv python list
+uv python list --only-installed
+
+# 安装给定的版本
+uv python install 3.10 3.11 3.12
+
+uv venv --python 3.12.0
+# 当前目录拱顶使用python 的版本
+uv python pin 3.11
+
+# 更新
+uv python upgrade 3.12
+uv python upgrade
+----
+
+python 安装示例目录
+
+[source,shell]
+----
+# uv 安装的 python 示例目录
+${HOME}/.local/share/uv/python/cpython-3.13.11-macos-aarch64-none/bin/python3.13
+# uv 安装的 python 后，把大版本软件到这个位置
+${HOME}/.local/bin/python3.13
+
+# homebrew 安装目录
+/opt/homebrew/bin/python3.13
+
+----
+
+
+
+## uv.lock
+保存依赖香关单版本信息

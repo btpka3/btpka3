@@ -224,6 +224,8 @@ git config set --global core.pager   cat
 
 == git worktree
 
+只能适用于 同个代码仓库, 推荐用于多分支开发。
+
 需要频繁切换分支时，可通过该命令检出多份分支到不同目录来同时工作。
 
 [source,shell]
@@ -240,6 +242,58 @@ git worktree add ../feature-dir feature-branch
 git worktree remove ../feature-dir
 ----
 
+=== 选择建议
+
+[cols="1,1,1,1", options="header"]
+|===
+| 方式 | 适用场景 | 优点 | 缺点
+
+| Submodule
+| 依赖第三方库、工具
+| 版本固定、独立管理
+| 需要额外初始化步骤
+
+| Subtree
+| 需要深度集成外部代码
+| 代码直接合并、无额外配置
+| 历史记录可能复杂
+
+| Worktree
+| 同时开发多个功能分支
+| 共享 `.git` 目录、节省空间
+| 仅适用于同一仓库的不同分支
+|===
+
+== git subtree
+
+[source,shell]
+----
+# 添加 subtree
+git subtree add --prefix=<本地路径> <外部仓库URL> <分支>
+
+# 更新 subtree
+git subtree pull --prefix=<本地路径> <外部仓库URL> <分支>
+
+# 提交 subtree 的更改到外部仓库
+git subtree push --prefix=<本地路径> <外部仓库URL> <分支>
+----
+
+
+== git submodule
+相比 worktree 限定于单个代码仓库， git submodule 可以让多个代码仓库 组合使用。
+但所有模块都是共用 根目录的 .git 目录（ `.git/modules` ）
+
+[source,shell]
+----
+# 更新所有 submodule
+git submodule update --remote
+
+# 拉取 submodule 的最新代码
+git submodule foreach git pull origin master
+
+# 查看 submodule 状态
+git submodule status
+----
 
 
 

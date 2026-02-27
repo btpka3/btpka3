@@ -521,6 +521,37 @@ a=a1,b=b1
 a=a2,b=b2
 ----
 
+## 修改文件
+[source,shell]
+----
+# 通过临时文件修改
+FILE=/tmp/a.json
+TMP_FILE=/tmp/_tmp.json
+cat > $FILE <<EOF
+{
+  "k1":"v1",
+  "k2":["v1"],
+  "k/3": "v1",
+  "k4": {
+    "k1":"v1",
+    "k2":"v1"
+  }
+}
+EOF
+jq . $FILE
+
+jq '.k1="v2"'       $FILE > $TMP_FILE && mv $TMP_FILE $FILE
+jq '.k2 += ["v2"]'  $FILE > $TMP_FILE && mv $TMP_FILE $FILE
+jq '."k/3" = "v2"'  $FILE > $TMP_FILE && mv $TMP_FILE $FILE
+# JSONObject 修改字段
+jq '.k4.k1 = "v2"'  $FILE > $TMP_FILE && mv $TMP_FILE $FILE
+# JSONObject 新增字段
+jq '.k4.k3 = "v2"'  $FILE > $TMP_FILE && mv $TMP_FILE $FILE
+# JSONObject 删除字段
+jq 'del(.k4.k2)'    $FILE > $TMP_FILE && mv $TMP_FILE $FILE
+----
+
+
 
 ## pretty
 

@@ -1,0 +1,215 @@
+link:https://pnpm.io/[pnpm]
+
+[source,shell]
+----
+brew install pnpm
+pnpm setup
+pnpm add -g clawhub
+----
+
+
+
+
+== 📦 npm / Yarn / pnpm 综合对比（2024 最新版）
+
+💡 一句话定位
+
+npm：Node.js 官方标配，生态最稳。 其中 npx 是 Node.js 的一个工具，用于执行 Node.js 包中的命令行工具，它是随 Node.js 一起安装的（Node.js 8.2.0+ 版本内置）。
+
+Yarn：创新先锋（PnP/插件化），适合深度定制
+
+pnpm：空间与速度双优，现代 Monorepo 首选。
+其中 pnpx 是 `pnpm dlx` 的别名。
+
+
+
+=== 🌐 核心定位与背景
+[cols="1,1,1,2,2", options="header"]
+|===
+| 工具 | 起源 | 维护方 | 当前主流版本 | 关键演进
+
+| npm
+| 2010 年
+| OpenJS Foundation (Node.js 官方)
+| v10+
+| 随 Node.js 预装，持续优化速度/安全/Workspaces
+
+| Yarn
+| 2016 年 (Classic) → 2020 年 (Berry)
+| Meta → 社区 (Yarn Maintainers)
+| Classic: 1.22 (归档)+Berry: 4.x
+| Berry 重构：PnP 模式、插件架构、零安装
+
+| pnpm
+| 2017 年
+| Zoltan Kochan + 社区
+| v8.x
+| 内容寻址存储、严格 node_modules、Monorepo 优化
+|===
+
+=== 🔬 核心机制深度对比
+[cols="1,1,1,1", options="header"]
+|===
+| 维度 | npm | Yarn Berry | pnpm
+
+| 存储策略
+| 每项目独立 node_modules（扁平化）
+| PnP 模式（默认）：无 node_modules，.pnp.cjs 映射依赖+可选 node_modules 模式
+| 内容寻址 Store + 符号链接+~/.pnpm-store 全局缓存 → 项目 node_modules 为硬链接/符号链接
+
+| 磁盘占用
+| ⚠️ 高（重复依赖多项目冗余）
+| ✅ 低（PnP 无 node_modules）
+| ✅✅ 极低（硬链接共享，节省 50%+ 空间）
+
+| 安装速度
+| ✅ 快（v7+ 并行下载+缓存优化）
+| ✅ 快（PnP 避免解压）
+| ✅✅ 最快（硬链接瞬时创建，缓存复用率高）
+
+| 依赖隔离
+| ⚠️ 宽松（允许“幽灵依赖”）
+| ✅ 严格（PnP 禁止未声明依赖）
+| ✅✅ 最严格（符号链接结构杜绝幽灵依赖）
+
+| 锁文件
+| package-lock.json (JSON)
+| yarn.lock (Berry 为紧凑格式)
+| pnpm-lock.yaml (YAML，人类可读)
+
+| Monorepo 支持
+| ✅ Workspaces (基础)
+| ✅✅ 顶级（Constraints、Task Runner、Protocol）
+| ✅✅ 顶级（pnpm-workspace.yaml、workspace:* 协议、高效依赖提升）
+
+| 安全性
+| npm audit + 签名验证
+| Zero-Installs（提交 lockfile 避免重装）
+| 严格隔离 + pnpm audit
+
+| 生态兼容性
+| ✅✅ 100%（所有工具链原生支持）
+| ⚠️ PnP 需工具链适配（Webpack/Vite 需插件）
+| ✅ 高（v7+ 模拟标准 node_modules，兼容性大幅提升）
+|===
+
+=== 🖥️ 常用命令速查表
+[cols="2,1,1,1", options="header"]
+|===
+| 操作 | npm | Yarn Berry | pnpm
+
+| 初始化
+| npm init -y
+| yarn init -2
+| pnpm init
+
+| 安装依赖
+| npm install
+| yarn install
+| pnpm install
+
+| 添加包
+| npm add pkg
+| yarn add pkg
+| pnpm add pkg
+
+| 运行脚本
+| npm run dev
+| yarn dev
+| pnpm dev
+
+| 卸载包
+| npm remove pkg
+| yarn remove pkg
+| pnpm remove pkg
+
+| 全局安装
+| npm install -g pkg
+| yarn global add pkg
+| pnpm add -g pkg
+
+| 查看过期
+| npm outdated
+| yarn outdated
+| pnpm outdated
+
+| Monorepo 安装
+| npm install -w pkg
+| yarn workspaces focus pkg
+| pnpm -F pkg install
+|===
+
+[NOTE]
+.pnpm 独有亮点命令
+pnpm dlx pkg：临时运行包（替代 npx，更快）
+pnpm import：从 npm/yarn lockfile 迁移
+pnpm patch：安全修改依赖源码
+
+
+=== 📊 选型决策指南
+[cols="2,1,2", options="header"]
+|===
+| 场景 | 推荐工具 | 理由
+
+| ✅ 新手入门 / 简单项目
+| npm
+| 零配置、文档全、无兼容风险
+
+| ✅ 大型 Monorepo (Vue/Nuxt 项目)
+| pnpm
+| Vue 3/Nuxt 3/Vite 官方推荐；空间节省显著；依赖隔离严格
+
+| ✅ 需要极致构建速度 (CI/CD)
+| pnpm
+| 硬链接安装速度碾压；缓存复用率高
+
+| ✅ 深度定制工作流 (插件/约束)
+| Yarn Berry
+| Constraints 强制规范；Task Runner 内置；PnP 减少 I/O
+
+| ✅ 团队已深度使用 Yarn Classic
+| 评估迁移
+| Classic 已归档；建议迁移到 Berry 或 pnpm
+
+| ⚠️ 避免使用
+| Yarn Classic (1.x)
+| 已停止维护；安全风险；性能落后
+|===
+
+=== ⚠️ 关键注意事项
+
+不要混用
+❌ 同一项目中切换工具（如 npm install 后 yarn add）→ 锁文件冲突、依赖树损坏
+✅ 团队统一工具 + .nvmrc/.tool-versions 锁定版本
+Yarn PnP 兼容性
+需确认构建工具支持（Vite ≥4.3, Webpack 需 pnp-webpack-plugin）
+临时方案：yarn config set nodeLinker node-modules 切回 node_modules 模式
+pnpm 严格模式
+旧项目迁移可能报“缺少依赖”错误 → 用 pnpm add -D missing-pkg 补全声明
+通过 public-hoist-pattern 配置兼容特殊工具（如 ESLint 插件）
+全局命令路径
+三者全局 bin 目录不同：
+npm bin -g / yarn global bin / pnpm bin -g
+确保 PATH 包含对应路径（nvm 用户需在 shell 配置中添加）
+
+=== 🌟 2024 趋势总结
+[cols="1,1,1,1", options="header"]
+|===
+| 工具 | 优势 | 挑战 | 社区动向
+
+| npm
+| 官方背书、零学习成本
+| 创新速度慢于社区
+| 持续优化（v10+ 支持 overrides/workspaces）
+
+| Yarn
+| PnP 革命性设计、插件生态
+| PnP 兼容门槛高
+| Berry 聚焦企业级场景（Meta 内部深度使用）
+
+| pnpm
+| 速度+空间+安全三优
+| 旧项目迁移需调整
+| 增长最快：Vue/Nuxt/Element Plus 官方推荐；GitHub Stars 超 Yarn Berry
+|===
+

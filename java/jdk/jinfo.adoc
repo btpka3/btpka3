@@ -209,3 +209,29 @@ javac /tmp/aaa/CpuCore.java
 docker run -v /tmp/aaa:/tmp/aaa docker.io/library/amazoncorretto:11-alpine3.17-jdk \
   sh -c "ls -l /tmp/aaa/ ; cd /tmp/aaa ; javac CpuCore.java ; java -cp . CpuCore "
 ----
+
+
+## Caused by: java.lang.OutOfMemoryError: unable to create native thread: possibly out of memory or process/resource limits reached
+[source,shell]
+----
+JAVA_HOME=/opt/taobao/java
+PATH=$JAVA_HOME/bin:$PATH
+
+JAVA_PID=$(ps aux|grep java | grep org.apache.catalina.startup.Bootstrap|awk '{print $2}')
+
+# 检查目标进程的 limits
+cat /proc/${JAVA_PID}/limits
+
+# 输出机器的内存信息
+free -h
+# 输出目标进程的jvm选项配置
+jinfo -flags $JAVA_PID
+
+# 输出目标进程的实际内存使用情况
+jstat -gc $JAVA_PID
+jmap -histo $JAVA_PID
+
+# 最后，连同上面的命令和输出，丢给AI
+# 可用 native memory  = 
+----
+

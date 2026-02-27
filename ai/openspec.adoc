@@ -1,0 +1,26 @@
+* link:https://openspec.dev/[openspec]
+
+
+[source,shell]
+----
+npm install -g @fission-ai/openspec@latest
+openspec --version
+openspec --help
+
+
+openspec init
+openspec view
+
+# 修改提案
+openspec change
+
+openspec archive
+openspec spec
+openspec config
+openspec schema
+openspec validate
+openspec show
+openspec feedback
+openspec status
+openspec instructions
+----

@@ -41,6 +41,14 @@ ll /tmp/podman.sock
 如果报错命令 `docker-credential-desktop` 找不到
 则修改 `vi ~/.docker/config.json`  , 将 `credsStore` 替换为 `credStore`
 
+## 搜索镜像
+
+[source,shell]
+----
+podman search --help
+podman search --help
+----
+
 
 ## podman VS. docker
 

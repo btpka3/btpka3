@@ -10,6 +10,7 @@
 |                               |RestTemplate   |WebClient  | RestClient
 
 |Spring Version                 | 3.0           | 5.0       | 6.1
+|Spring Boot Version            | 1             | 2         | 3
 |Servlet Stack(syncronous)      | ✅            | ❓         | ✅
 |Reactive Stack(Asynchronous)   | 🚫            | ✅         | 🚫
 |Flunt & Functional API         | 🚫            | ✅         | ✅

@@ -1,1 +1,11 @@
 link:https://visualvm.github.io/[VisualVM]
+
+
+[source,shell]
+----
+file /Applications/VisualVM.app/Contents/Info.plist
+vi /Applications/VisualVM.app/Contents/Info.plist
+
+# 修改 visualvm_jdkhome=/Users/zll/.sdkman/candidates/java/21.0.4-graal
+vi /Applications/VisualVM.app/Contents/Resources/visualvm/etc/visualvm.conf
+----

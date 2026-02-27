@@ -19,8 +19,29 @@ npm uninstall -g @iflow-ai/iflow-cli
 # 安装
 npm install -g @ali/iflow-cli --registry=https://registry.anpm.alibaba-inc.com
 # 启动， iflow 或 iflow-aone 命令
-iflow
+iflow --version
+
+# 自动分析您的代码库并生成项目文档
+/init
+# 清空对话历史
+/clear
+# 清空对话历史
+/cleanup-history
+/about
+/language
+/update
+/memory show
+/memory add 这个项目的测试覆盖率要求是 80% 以上
+/memory refresh
 
 
 
+~/.iflow/
+~/.iflow/settings.json
+~/.iflow/IFLOW.md
+
+~/.iflow-aone/AGENTS.md
+
+# 类似 .gitignore 让 IFlow CLI 忽略相关文件
+.iflowignore
 ----

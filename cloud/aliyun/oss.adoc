@@ -25,6 +25,7 @@ accessKeySecret=yyy
 ossutil ls oss://uniface-tmp
 ossutil cp {} oss://uniface-tmp/dangqian.zll/{}
 ossutil cp ww_large_msg.txt oss://content-tmp/dangqian.zll/ww_large_msg.txt
+ossutil stat oss://bundle-repository/log/dangqian.zll/hello.txt
 ----
 
 下载

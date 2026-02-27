@@ -224,6 +224,8 @@ e079ad66e67b /bin/sh -c #(nop) COPY dir:92a8a991992e9a488… 235kB
 77a9401bd813 /bin/sh -c #(nop) COPY dir:f0bcb2a510eef53a7… 16.4MB
 2eb37d403188 /bin/sh -c #(nop)  ENV JAVA_HOME=/opt/java/o… 0B
 
+# ----------------------- 检查远程docker仓库的镜像信息
+docker manifest inspect nginx:latest
 # ----------------------- image
 docker search <image>                   # 在docker index中搜索image
 docker manifest inspect docker.io/library/alpine:3.17.3   # 检查镜像是否存在于远程registry 中
@@ -237,6 +239,8 @@ docker push <image|repository>:TAG      # 同上,但指定一个tag
 docker inspect <image|container>        # 查看image或container的底层信息
 docker rmi <image...>                   # 删除一个或多个image
 docker tag src_image:tag target_image:tag # 给指定的 image 分配一个新的tag
+
+
 
 
 docker run <image> <command>            # 使用image创建container并执行相应命令，然后停止

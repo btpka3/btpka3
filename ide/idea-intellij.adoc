@@ -442,3 +442,19 @@ Spring/Spring Core/Code:Incrorrect autowiring in Spring bean components
 
 
 
+
+
+== Remote Development
+
+Ultimate 版本才支持 ，不能免费使用。
+
+如何使用
+
+* 启动远程 IDE：在远程服务器上安装并运行 link:https://www.jetbrains.com/remote-development/gateway/[IntelliJ IDEA Gateway]
+* 本地连接：打开本地 IntelliJ IDEA，选择 "Remote Development" → "SSH"
+* 配置连接：输入远程服务器地址、端口、用户名和密码/密钥
+* 开始开发：连接成功后，就像在本地一样开发
+
+系统要求
+* 远程服务器需要支持图形界面（用于后端 IDE）
+* 本地需要安装 JetBrains Client（包含在主 IDE 中）

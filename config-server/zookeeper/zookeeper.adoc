@@ -319,6 +319,9 @@ curl -s http://${ZK_ADMIN_SERVER_ADDR}:${ZK_ADMIN_SERVER_PORT}/commands/mntr | j
 ZK_ADDR=mse-b08b8562-zk.mse.aliyuncs.com
 ./bin/zkCli.sh -timeout 3000 -server ${ZK_ADDR}
 
+# 列出对应相关路径列表
+ls /
+
 # 创建持久节点
 create /persistent_node
 

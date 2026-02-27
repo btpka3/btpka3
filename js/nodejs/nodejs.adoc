@@ -134,15 +134,7 @@ brew install node
 ----
 
 
-## npm
 
-[source,shell]
-----
-npm ls      # 显示当前的依赖树
-
-npm install -g available-versions
-releases angular    # 查看 angular 发布的所有版本
-----
 
 ### 私有 registry
 

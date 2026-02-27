@@ -1,0 +1,251 @@
+* link:https://openclaw.ai/[OpenClaw]
+* link:https://clawhub.ai/[clawhub]
+
+* github : link:https://github.com/openclaw/openclaw[OpenClaw]
+* 阿里云: https://www.aliyun.com/activity/ecs/clawdbot
+* link:https://developer.aliyun.com/article/1709772[OpenClaw（原 Clawdbot）钉钉对接保姆级教程 手把手教你打造自己的 AI 助手]
+* link:https://news-openclaw.smzdm.com/docs/zh-CN/tools/web
+
+曾用名: Cloawdbot
+
+? Malotbot, Moltbook
+
+## 安装
+https://developer.aliyun.com/article/1711222
+
+[source,shell]
+----
+# 安装 && 更新
+curl -fsSL https://openclaw.ai/install.sh | bash
+
+# 重新进入配置向导
+openclaw onboard --install-daemon
+openclaw onboard --mode local  # local|remote
+openclaw onboard \
+  --non-interactive  \
+  --accept-risk \
+  --auth-choice openai-api-key  \
+  --token xxx \
+  --token-provider idealab
+
+openclaw configure --help
+openclaw configure --section model
+
+# 查看 OpenClaw 运行状态
+openclaw status
+
+
+# 健康检查
+openclaw health
+# 诊断问题
+openclaw doctor
+
+
+
+# 检查gateway 状态
+openclaw models status
+openclaw gateway status
+openclaw gateway install
+openclaw gateway start
+openclaw gateway stop
+openclaw gateway restart
+
+# 浏览器访问 http://127.0.0.1:18789/， 如果提示连接失败，则通过下面的命令重新打开浏览器
+# 获取 Web UI 访问链接
+openclaw dashboard
+
+# 手动前台运行gateway
+openclaw gateway --port 18789 --verbose
+openclaw doctor --fix
+
+
+# 更新到最新版本
+openclaw update
+# 卸载
+openclaw uninstall
+# 安全审计
+openclaw security audit --deep
+
+# 权限700, 保存秘钥
+~/.openclaw
+~/.openclaw/openclaw.json
+~/.openclaw/.env            # OPENAI_API_KEY
+~/.openclaw/identity/*
+~/.openclaw/credentials/
+~/.openclaw/agents/main/sessions   # sessions
+
+----
+
+
+
+
+## 模型
+[source,shell]
+----
+# 显示所有模型 provider
+/models
+# 显示给定 provider 的所有模型
+/models ollama all
+
+/models
+# 切换模型
+/model <provider/model>
+
+
+openclaw models --help
+openclaw models status
+openclaw models list
+
+# 会话窗口中临时切换模型
+/status model=qwen-portal/coder-model
+# 修改配置，永久配置
+cat ~/.openclaw/config.json
+----
+
+
+
+
+##  channels
+
+
+
+[source,shell]
+----
+# 列出已安装、配置的 channel
+openclaw channels list
+
+# 对接钉钉
+openclaw plugins install https://github.com/soimy/clawdbot-channel-dingtalk.git
+# 更新
+openclaw plugins update dingtalk
+
+# TODO 创建 钉钉机器人
+
+# 修改  $.plugins.installs.dingtalk 下面的配置项
+vi ~/.openclaw/openclaw.json
+
+openclaw config --help
+
+# 或饿着通过命令修改：
+openclaw config set channels.dingtalk.enabled true
+openclaw config set channels.dingtalk.clientId 你的 Client ID
+openclaw config set channels.dingtalk.clientSecret 你的 Client Secret
+openclaw config set channels.dingtalk.robotCode Robot Code (与 Client ID 相同)
+openclaw config set channels.dingtalk.corpId 你的corpId
+openclaw config set channels.dingtalk.agentId Agent ID
+openclaw config set channels.dingtalk.dmPolicy open
+openclaw config set channels.dingtalk.groupPolicy open
+openclaw config set channels.dingtalk.messageType markdown
+openclaw config set channels.dingtalk.debug false
+
+# 示例: 向JSON Arrary 中增加配置
+local_model=ollama/qwen2.5-coder:7b
+new_fallbacks=$(openclaw config get --json agents.defaults.model.fallbacks | jq -r ".+[\"${local_model}\"]|tostring")
+echo $new_fallbacks
+
+
+# 配置完成后重启
+openclaw gateway restart
+----
+
+
+* Signal : https://signal.org/,  https://github.com/AsamK/signal-cli
+
+## agents
+
+[source,shell]
+----
+openclaw agents --help
+openclaw agents set-identity --emoji 👄
+
+#👨‍🌾👄
+----
+
+
+## 上下文
+
+[source,shell]
+----
+/status         # 快速查看”我的窗口有多满？” + 会话设置
+/context list   # 注入了什么 + 大致大小（每个文件 + 总计）
+/context detail # 更深入的分解：每个文件、每个工具 schema 大小、每个 Skills 条目大小和系统提示词大小。
+/usage tokens   # 在正常回复后附加每次回复的使用量页脚。
+/compact        # 将较旧的历史总结为紧凑条目以释放窗口空间
+
+----
+
+
+## 浏览器
+
+
+[source,shell]
+----
+openclaw browser --help
+openclaw browser --browser-profile openclaw status
+openclaw browser --browser-profile openclaw start
+openclaw browser --browser-profile openclaw open https://www.taobao.com
+openclaw browser --browser-profile openclaw snapshot
+----
+
+
+## clawhub
+[source,shell]
+----
+npx clawhub@latest install openspec
+----
+
+
+## 其他 XxxClaw
+
+### IronClaw
+https://github.com/nearai/ironclaw
+
+www.ironclaw.com
+
+rust 实现，
+
+### MiniClaw
+https://github.com/8421bit/MiniClaw
+
+### maxClaw
+
+link:https://maxclaw.ai[MaxClaw]
+
+MiniClaw 的云端 AIG agent。
+
+### tinyclaw
+
+* https://github.com/warengonzaga/tinyclaw
+* https://tinyclaw.ai/
+
+
+### zeroclaw
+* https://github.com/zeroclaw-labs/zeroclaw
+* https://zeroclawlabs.ai/
+
+
+### PicoClaw
+link:https://github.com/sipeed/picoclaw[PicoClaw]
+
+
+[source,shell]
+----
+# 网络上下载的程序提示 Apple could not verify “xxx” is free of malware that may harm your Mac or compromise your privacy.
+# 检查 该文件是否有 com.apple.quarantine 这个属性
+xattr -l ~/Downloads/picoclaw-darwin-arm64
+
+# 移除该标签
+xattr -d com.apple.quarantine ~/Downloads/picoclaw-darwin-arm64
+
+mv ~/Downloads/picoclaw-darwin-arm64 picoclaw
+
+picoclaw --help
+
+# 初始化
+picoclaw onboard
+
+picoclaw status
+
+~/.picoclaw/config.json
+~/.picoclaw/workspace
+----

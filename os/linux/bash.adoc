@@ -59,11 +59,28 @@ echo -e '\x41'             # OUTPUTS: A
 echo -e '\u03B1'           # OUTPUTS: α
 echo -e '\U1F413 <= \U1F1EB\U1F1F7' # OUTPUTS 🐓 <= 🇫🇷
 
+## showArg
+[source,shell]
+----
+showArg(){
+  echo "参数数量: $#"
+  echo "参数列表:"
+  local i=1
+  for arg in "$@"; do
+    echo "  参数 $i: '$arg'"
+    ((i++))
+  done
+}
+mySh(){
+    showArg $1
+}
+mySh 'aaa bbb -Dc="c1  c2" ddd'
+----
 
 
 
 ## Shell Parameter Expansion
-https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
+https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion-1
 
 [source,shell]
 ----
@@ -331,6 +348,18 @@ unzip -j xxx.jar "sub-dir/eventDict.vm"   # 不创建子目录
 unzip    xxx.jar "sub-dir/eventDict.vm"   # 创建子目录
 zip -d file.zip "to/be/deteted/in/zipfile1" "to/be/deteted/in/zipfile2"
 zip -r file.zip file1 file2 ...
+
+# 压缩包内单文件替换
+zip -u xxx.zip file  # 但若文件时间未变，可能不更新
+# zip 没有替换选项，等同于先删除，再添加
+zip -d archive.zip "path/to/file"       # 删除
+zip archive.zip "config/app.properties" # 添加，不支持指定entry路径，故需要于entry相同的目录结构。
+
+# 将本地 settings.json 添加为 ZIP 内 myapp/config/settings.json
+#-C dir path：切换到 dir 目录，将 path（相对于 dir）添加到归档
+#要求：/path/to/base/dir/myapp/config/settings.json 必须存在
+#适用场景：已有目录结构，或配合 ln -s 创建软链接（需注意 jar 默认不跟随软链接）
+jar uf app.zip -C /path/to/base/dir myapp/config/settings.json
 ----
 
 ### add/新增

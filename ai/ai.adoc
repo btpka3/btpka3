@@ -149,3 +149,12 @@ link:https://code.claude.com/docs/en/plugins-reference#skills[Claude code: plugi
 * link:https://openllm.com/[openllm]
 
 * link:https://www.bentoml.com/[bentoml]
+
+
+== browser/浏览器
+
+link:https://github.com/n4ze3m/page-assist[page-assist]
+
+
+
+

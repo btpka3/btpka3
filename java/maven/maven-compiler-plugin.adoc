@@ -1,0 +1,5 @@
+
+
+
+JAVA_PID=$(ps aux|grep java | grep org.apache.catalina.startup.Bootstrap|awk '{print $2}')
+cat /proc/${JAVA_PID}/limits

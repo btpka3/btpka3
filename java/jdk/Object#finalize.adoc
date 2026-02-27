@@ -1,8 +1,10 @@
 
 
 ## Object#finalize
-
+## java.lang.ref.Finalizer
 ## java.lang.ref.Cleaner
+## jdk.internal.ref.CleanerFactory
+线程名: "Common-Cleaner"
 
 用来替换 Object#finalize, 具体用法
 

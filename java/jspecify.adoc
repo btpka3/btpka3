@@ -9,7 +9,8 @@
 [source,java]
 ----
 /**
- *  该package 下相关返回值 可能会是null的话，会用 @Nullalbe 标记提示的。即默认都是有 @NonNull 。
+ *  仅限当前 package 下相关返回值 可能会是null的话，会用 @Nullalbe 标记提示的。即默认都是有 @NonNull 。
+ *  注意：子package不会集成该配置。
  *
  */
 @NullMarked

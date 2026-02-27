@@ -27,7 +27,11 @@ mvn rewrite:typetable
 # Migrate to Java 21
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:3.12.0 \
-  -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava21
+  -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava21,org.openrewrite.java.migrate.UpgradePluginsForJava21
+
+# 更新插件到jdk21
+mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
+  -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradePluginsForJava21
 
 # Use SLF4J Parameterized Logging
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
@@ -83,4 +87,18 @@ link:https://docs.moderne.io/user-documentation/moderne-cli/getting-started/cli-
 brew install moderneinc/moderne/mod
 mod --version
 mod config
+
+# 登录
+mod config moderne login
+
+# .moderne/cli
+mod config recipes moderne sync
 ----
+
+
+
+== recipe
+* link:https://docs.openrewrite.org/authoring-recipes/writing-a-java-refactoring-recipe[Writing a Java refactoring recipe]
+* link:https://github.com/openrewrite/rewrite-apache/blob/main/src/main/java/org/openrewrite/apache/maven/shared/MavenSharedStringUtils.java[rewrite-apache]
+* link:https://docs.openrewrite.org/recipes/java/dependencies/adddependency[Add Gradle or Maven dependency]
+** link:https://github.com/openrewrite/rewrite-java-dependencies/blob/main/src/main/java/org/openrewrite/java/dependencies/AddDependency.java[AddDependency]

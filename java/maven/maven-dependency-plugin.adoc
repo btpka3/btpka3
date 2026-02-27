@@ -7,8 +7,15 @@ link:https://maven.apache.org/plugins/maven-dependency-plugin/[maven-dependency-
 
 [source,shell]
 ----
-# 清除本地缓存
+# 清除本地缓存, 如果运行在maven项目之外，则仅处理手动指定的依赖，故不能对整个maven 本地仓库进行处理
+du -h -d 0 ~/.m2/repository             # 检查本地 maven repo 的大小
+find ~/.m2/repository -type f -name "*SNAPSHOT.jar"    # 产看本地的快照版本的jar包
 mvn dependency:purge-local-repository  -DsnapshotsOnly=true
+
+# 可以通过该命令删除整个maven 本地仓库下快照目录，
+# 注意：如果末尾是 `\;`, 会报错： find: /Users/zll/.m2/repository/com/taobao/scsku/scsku/1.0.1-SNAPSHOT: No such file or directory
+find ~/.m2/repository  -type d -name "*SNAPSHOT" -exec rm -fr {} +
+
 
 # 显示给定的jar是如何依赖进来的
 mvn dependency:tree -Dincludes=org.springframework:spring

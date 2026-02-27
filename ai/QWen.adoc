@@ -1,13 +1,14 @@
-
+* link:https://chat.qwen.ai/
+* link:https://github.com/QwenLM/Qwen3[Qwen3]
+* link:https://qwen.readthedocs.io/zh-cn/latest/[Qwen]
 * link:https://tongyi.aliyun.com/[通义千问]
 * link:https://www.aliyun.com/product/bailian[阿里云百炼]
 * link:https://help.aliyun.com/zh/model-studio/use-cases/model-training-best-practices[自定义模型最佳实践]
 * link:https://github.com/QwenLM/Qwen[Qwen]
-* link:https://github.com/QwenLM/Qwen2.5[Qwen2.5]
 * link:https://github.com/QwenLM/Qwen-Agent[Qwen-Agent]
 * link:https://github.com/alibaba/spring-ai-alibaba[spring-ai-alibaba]
-
 * link:https://huggingface.co/Qwen/Qwen2.5-7B-Instruct-GGUF
+* link:https://github.com/huggingface/transformers/blob/main/i18n/README_zh-hans.md[transformers]
 
 ## install
 
@@ -15,8 +16,16 @@
 ----
 # python >=3.10
 brew install pyenv
+# 查看帮助文档
+pyenv help
 pyenv help global
+# 列出本地已经安装的 python 版本
+pyenv versions
+# 检查当前环境使用的 python 版本
+pyenv version
+# 安装一个给定版本的 python
 pyenv install 3.13
+# 设置全局版本
 pyenv global 3.13
 
 python3 -m pip install transformers -U
@@ -24,7 +33,6 @@ python3 -m pip install transformers -U
 python3 -m pip install mlx-lm
 
 pip install vllm
-
 ----
 
 ## 术语
@@ -40,3 +48,5 @@ link:https://huggingface.co/docs/hub/en/gguf
 link:https://github.com/ggerganov/ggml/blob/master/docs/gguf.md
 
 * GGML: Generic Game Model Library / GigaGram Machine Learning
+
+

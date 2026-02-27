@@ -154,3 +154,51 @@ public class ClassLoaderTest {
 |""
 |===
 
+
+
+== 如何及时释放？
+* ✅ 必须做的
+** 为每个会话/用户创建独立的 ClassLoader，不要复用
+** 定期清理不再使用的 ClassLoader（如会话超时）
+** 显式调用 ClassLoader.close()（Java 7+）
+** 清理 ThreadLocal（特别是线程池场景）
+** 使用 WeakReference 缓存 Class 对象
+** 设置合理的 JVM 参数：-XX:+ClassUnloading -XX:+UseG1GC
+
+*  ❌ 避免做的
+** 不要将用户定义的类引用放到静态变量中
+** 不要在全局缓存中保存 ClassLoader 的引用
+** 不要让线程池线程持有 ClassLoader 的引用
+** 不要使用强引用缓存动态加载的类, 比如通过反射获取Method等对象，并保持强引用
+** 避免 ThreadLocal 强引用，不清理。
+
+
+[source,java]
+----
+public class ClassLoaderMonitor {
+    public static void checkClassLoaderLeak() {
+        // 使用 Java Management API 检查
+        ClassLoadingMXBean loadingBean = ManagementFactory.getClassLoadingMXBean();
+        System.out.println("Loaded class count: " + loadingBean.getLoadedClassCount());
+        System.out.println("Total loaded class count: " + loadingBean.getTotalLoadedClassCount());
+        System.out.println("Unloaded class count: " + loadingBean.getUnloadedClassCount());
+    }
+
+    // 使用 VisualVM 或 JConsole 分析堆内存
+    // 查找 ClassLoader 实例数量和类型
+}
+----
+
+类卸载的核心条件
+Java 中类和 ClassLoader 能被卸载，必须同时满足以下条件：
+
+1. ClassLoader 实例没有任何强引用
+所有对该 ClassLoader 的引用必须都被清除
+常见泄漏点：静态集合、ThreadLocal、缓存
+
+2. 该 ClassLoader 加载的所有 Class 实例无强引用
+加载的类对象实例、Class 对象本身都不能有强引用
+包括反射缓存、动态代理等
+
+3. 触发 GC
+在满足前两个条件后，需要调用 System.gc() (FullGC) 或等待 JVM 自动 GC

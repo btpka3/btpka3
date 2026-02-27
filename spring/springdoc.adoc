@@ -1,0 +1,6 @@
+
+* link:https://springdoc.org/[springdoc]
+* link:https://github.com/springdoc/springdoc-openapi-demos/[demos-source]
+* link:https://demos.springdoc.org/demo-spring-boot-3-webmvc/swagger-ui/index.html[demos-ui]
+swargger
+springfox

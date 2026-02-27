@@ -110,6 +110,13 @@ public interface XxxMapper {
 ## debug
 如果要查看生成的动态sql，需要配置 mapper 的  package 的 logger 的 日志级别==DEBUG
 
+[source,shell]
+----
+
+@see org.apache.ibatis.logging.Log
+
+----
+
 
 ## MyBatis Generator
 

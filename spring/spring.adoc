@@ -208,3 +208,69 @@ github issuse : link:https://github.com/spring-projects/spring-framework/issues/
 
 
 spring 的这种异步方式需要  需要要修改配置 `@Bean(bootstrap=BACKGROUND)` ，不支持默认全量开启。
+
+
+== @ComponentScan
+ClassPathScanningCandidateComponentProvider
+
+扫描流程触发顺序
+答案：会先触发 getResources()，然后才触发 loadClass()
+
+
+. 调用 ClassLoader.getResources("basePackage")
+. 获取所有匹配的 .class 文件资源（通过 ASM 读取字节码）
+. 解析字节码，检查是否包含 @Component 等注解
+. 如果需要加载类，才调用 ClassLoader.loadClass()
+=== 完整流程示例
+
+假设有：
+
+[source,java]
+----
+@Component
+public class ChildClass extends ParentClass { }
+
+@Component
+public class ParentClass extends GrandParentClass { }
+----
+
+Spring 处理流程：
+
+|===
+| 步骤 | 操作 | 触发方法 | 说明
+
+| 1
+| 扫描 `ChildClass.class`
+| `getResources()`
+| 发现子类
+
+| 2
+| 解析 `ChildClass` 字节码
+| -
+| ASM 读取，发现父类名 `ParentClass`
+
+| 3
+| 查找 `ParentClass.class`
+| `getResources()`
+| 根据父类名查找资源
+
+| 4
+| 解析 `ParentClass` 字节码
+| -
+| ASM 读取，发现爷爷类名 `GrandParentClass`
+
+| 5
+| 查找 `GrandParentClass.class`
+| `getResources()`
+| 继续向上查找
+
+| 6
+| 递归解析
+| -
+| 直到 Object 或条件满足
+
+| 7
+| 条件评估（如需要）
+| `loadClass()`
+| 仅在特定条件下触发
+|===
