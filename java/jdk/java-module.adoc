@@ -19,3 +19,32 @@ module your.packages {
 }
 ----
 
+
+
+不建议创建 src/test/java/module-info.java
+此时可以 设置 maven-compiler-plugin 的 useModulePath=false
+[source,xml]
+----
+
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <executions>
+        <execution>
+            <id>default-testCompile</id>
+            <phase>test-compile</phase>
+            <goals>
+                <goal>testCompile</goal>
+            </goals>
+            <configuration>
+                <compilerArgs>
+                    <arg>--enable-preview</arg>
+                </compilerArgs>
+                <useModulePath>false</useModulePath>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+----
+
+配置 maven properties: surefire.useModulePath=false

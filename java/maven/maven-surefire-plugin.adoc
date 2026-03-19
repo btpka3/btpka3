@@ -14,3 +14,14 @@ link:https://maven.apache.org/surefire/maven-surefire-plugin/test-mojo.html[sure
 |`-DskipTests=true`             | ✅ | ❌ | ❓ | failsafe 3.0.0 之后会移除该支持，至此该属性将仅仅影响单元测试是否执行。但实测仍然影响集成测试。故无法跳过单元测试，仅仅执行集成测试。
 |`-DskipITs=true`               | ✅ | ❓ | ❌ |
 |===
+
+
+== 不编译，仅测试
+
+[source,shell]
+----
+# 先编译
+mvn ... package
+# 后运行单元测试
+mvn jacoco:prepare-agent surefire:test -Dtest=YourTestClass -pl my-maven-module
+----

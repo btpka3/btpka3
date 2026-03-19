@@ -1,0 +1,9 @@
+* link:https://copaw.agentscope.io/docs/intro[CoPaw]
+* github : link:https://github.com/agentscope-ai/CoPaw[CoPaw]
+
+
+[source,shell]
+----
+curl -fsSL https://copaw.agentscope.io/install.sh | bash
+----
+1

@@ -25,6 +25,8 @@ limactl create --name=default template://docker
 limactl start default
 limactl list
 limactl stop default
+# 进入虚拟机
+lima shell containerd
 ----
 
 

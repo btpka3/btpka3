@@ -1,0 +1,200 @@
+* link:https://spring.io/projects/spring-modulith[spring modulith]
+* link:https://github.com/xmolecules/jmolecules[jMolecules]
+* link:https://www.archunit.org/[archunit]
+
+
+
+
+## 作用
+它的核心作用是帮助开发者在保持“单体应用”部署简单性的同时，获得接近“微服务”的代码结构和架构约束力，防止代码库退化成难以维护的“大泥球（Big Ball of Mud）”。
+
+1. 强制架构约束（Architecture Enforcement）
+这是它最核心的功能。在传统的单体应用中，任何包都可以随意引用任何其他包，随着时间推移，依赖关系会变得错综复杂。
+
+模块定义：允许你通过简单的注解（如 @ApplicationModule）或目录结构来定义逻辑模块。
+依赖规则：你可以定义模块间的访问规则（例如：模块 A 只能访问模块 B 的公开 API，不能访问其内部实现）。
+自动验证：在单元测试或 CI/CD 流水线中，它可以自动扫描代码并失败构建，如果检测到违反了预设的模块依赖规则。这从源头上杜绝了循环依赖和非法跨模块调用。
+2. 生成架构文档（Automated Documentation）
+架构文档往往滞后于代码，但 Spring Modulith 可以基于源代码实时生成最新的架构视图：
+
+依赖图：自动生成模块间的依赖关系图（支持 PlantUML, Mermaid 等格式），让你一目了然地看到系统结构。
+组件概览：列出每个模块包含的 Spring Bean、实体类、事件监听器等。
+实时更新：只要代码提交，文档即刻更新，确保文档与代码永远同步。
+3. 简化模块间通信（Eventing Support）
+在模块化设计中，模块之间应该松耦合。Spring Modulith 提供了一套增强的事件机制：
+
+领域事件发布：提供了更语义化的 API 来发布和应用领域事件（Domain Events）。
+事务一致性：确保事件只在当前事务成功提交后才被发布，避免数据不一致。
+外部化支持：虽然主要用于单体内部，但它也为将来将某些模块拆分为独立微服务（通过消息队列通信）做好了铺垫，因为代码层面的事件交互模式是相似的。
+4. 辅助重构与演进（Evolutionary Architecture）
+很多团队面临“是从单体开始还是直接上微服务”的抉择。Spring Modulith 提供了第三条路：
+
+起步简单：像普通 Spring Boot 应用一样开发和部署，没有分布式系统的复杂性（网络延迟、分布式事务、服务发现等）。
+平滑拆分：由于模块边界清晰且依赖受控，当某个模块需要独立扩展时，将其拆分为独立的微服务变得非常容易，因为它的接口和依赖已经是隔离好的。
+
+
+[cols="1,3,3,3", options="header"]
+|===
+| 痛点 | 传统单体 (Without Modulith) | 微服务 (Microservices) | *Spring Modulith*
+
+| 代码耦合
+| 极易产生循环依赖，变成“大泥球”
+| 低耦合（通过网络边界强制）
+| *低耦合（通过编译/测试时检查强制）*
+
+| 部署复杂度
+| 低（一个 Jar 包）
+| 高（需编排多个服务）
+| *低（一个 Jar 包）*
+
+| 开发体验
+| 本地调试简单，但后期维护难
+| 本地调试复杂（需启动多个服务）
+| *本地调试简单，且结构清晰*
+
+| 架构腐化
+| 难以察觉，直到系统无法维护
+| 较难发生（物理隔离）
+| *通过自动化测试防止腐化*
+|===
+
+一句话概括：
+如果你想要微服务的清晰架构和可维护性，但又不想承担微服务的运维复杂度和开发成本，那么 Spring Modulith 是目前 Java/Spring 生态中的最佳实践工具。
+
+
+
+## 声明 moudule
+
+### 使用默认约定
+
+只要你添加了 @EnableModulith (或在测试中使用 @Modulith) 注解,
+Spring Modulith 就会扫描 com.example.myapp 下的所有一级子包，并将 order 和 customer 识别为两个独立的模块。
+
+[source,plain]
+----
+com.example.myapp
+├── order                 <-- 【模块 1】: order 模块 (自动识别)
+│   ├── OrderService.java
+│   ├── Order.java
+│   └── internal          <-- 内部实现包 (外部不可见)
+│       └── OrderRepositoryImpl.java
+│
+├── customer              <-- 【模块 2】: customer 模块 (自动识别)
+│   ├── CustomerService.java
+│   └── Customer.java
+│
+└── MyAppApplication.java <-- 启动类 (通常在根包或单独包)
+----
+
+
+
+### 使用 @ApplicationModule 注解
+
+[source,java]
+----
+// 文件位置：com/example/myapp/order/package-info.java
+@ApplicationModule(
+    name = "订单管理模块", // 自定义显示名称
+    description = "负责处理订单创建、支付和发货流程",
+    allowedDependencies = { "customer" },    // 显式声明本模块只允许依赖 customer 模块
+    packages = {                             // 显式定义包含哪些包（较少用，通常靠扫描）
+        "com.example.myapp.order.api",
+        "com.example.myapp.order.events"
+    }
+)
+package com.example.myapp.order;
+
+import org.springframework.modulith.ApplicationModule;
+----
+
+
+
+
+
+== 反射逃逸
+
+ApplicationModules#verify() 的核心原理不是在运行时通过 Java 的类加载器或反射来监控调用，而是在测试阶段（构建时/单元测试运行时）进行的静态字节码分析。
+
+
+A. 核心依赖：ArchUnit
+Spring Modulith 底层深度集成了 ArchUnit（一个用于架构测试的 Java 库）。ArchUnit 能够读取编译后的 .class 文件（字节码），将其解析为抽象语法树（AST）模型。
+
+B. 工作流程
+扫描类路径：verify() 方法会扫描当前 Classpath 下所有的 .class 文件。
+构建模块模型：根据包命名规则（如 com.example.order）和 @ApplicationModule 注解，将类映射到具体的逻辑模块中。
+识别依赖关系：
+它会分析字节码中的常量池（Constant Pool）、方法签名、字段类型、注解信息等。
+如果类 A 的字节码中引用了类 B（例如：new B(), B b, void method(B param), extends B, @Autowired B），ArchUnit 就会记录一条 A -> B 的依赖边。
+应用规则引擎：
+Spring Modulith 内置了一组规则（Rules）：
+模块隔离规则：模块 A 只能访问模块 B 的公开 API（非 internal 包）。
+循环依赖检查：确保模块图是有向无环图（DAG）。
+Spring 特定规则：检查 Spring Bean 的注入是否符合模块边界。
+断言结果：如果发现任何违反规则的依赖边（例如：order.internal.OrderRepoImpl 被 customer.CustomerService 引用了），测试立即失败并抛出详细的错误报告。
+关键点：这个过程完全基于代码结构（Structure），而不是代码执行（Execution）。即使你的代码从未运行过，只要编译成了 class 文件，它就能被检测到。
+
+
+=== 通过反射（Reflection）的使用能被检测到吗？
+
+情况 A：硬编码的反射字符串（无法检测 ❌）
+
+[source,java]
+----
+// 在 customer 模块中
+public class CustomerService {
+    public void doSomething() throws Exception {
+        // 这里虽然逻辑上依赖了 order 模块的类，但字节码中没有 "OrderService" 的类型引用
+        String className = "com.example.myapp.order.OrderService";
+        Class<?> clazz = Class.forName(className);
+        Object instance = clazz.getDeclaredConstructor().newInstance();
+    }
+}
+----
+
+情况 B：类型安全的反射 / 字面量类引用（可以检测 ✅）
+如果你的反射代码中直接使用了 Class 对象或类型字面量，它是可以被检测到的。
+
+[source,java]
+----
+// 在 customer 模块中
+public class CustomerService {
+    public void doSomething() throws Exception {
+        // 这里字节码中明确包含了对 OrderService 类型的引用
+        Class<?> clazz = com.example.myapp.order.OrderService.class;
+        // 或者
+        Object instance = com.example.myapp.order.OrderService.class.getDeclaredConstructor().newInstance();
+    }
+}
+----
+
+#### 如何防止“反射逃逸”？
+
+既然硬编码的反射可以绕过检查，那么如何保证架构的纯洁性？Spring Modulith 和社区通常建议以下策略：
+
+* 策略 1：禁止在生产代码中使用 Class.forName(String)
+制定开发规范，禁止在业务逻辑中使用字符串形式的类名加载。这是最根本的解决方法。
+
+*  策略 2：使用 ArchUnit 自定义规则增强检测
+你可以编写额外的 ArchUnit 规则，专门扫描那些调用了 Class.forName、Method.invoke 等反射方法的代码，并强制要求这些调用必须符合模块规则，或者干脆禁止在某些模块中使用反射。
+
+[source,java]
+----
+java
+// 伪代码示例：禁止在非基础设施模块中使用 Class.forName
+ArchRule noStringBasedReflection = methods()
+    .that().areDeclaredInAnyPackage("..myapp..")
+    .and().areNotDeclaredInAnyPackage("..myapp.infrastructure..") // 允许工具包使用
+    .should().notCallMethod(Class.class, "forName", String.class);
+----
+
+* 策略 3：依赖注入优于反射
+Spring 的核心优势就是依赖注入（DI）。
+
+错误做法：手动用反射实例化其他模块的 Bean。
+正确做法：通过构造函数注入 @Autowired。
+如果是跨模块调用，必须通过公开接口注入。
+Spring Modulith 会检查 @Autowired 的字段的类型是否合法。如果注入的目标类在 internal 包中，测试会直接失败。
+
+* 策略 4：运行时保护（进阶）
+虽然 verify() 是静态的，但如果你极度担心反射逃逸，可以在运行时结合 Spring AOP 或自定义 ClassLoader 进行拦截，但这通常会带来性能损耗且实现复杂，一般不推荐作为首选方案。绝大多数团队依靠“静态检查 + 代码审查”就足以杜绝此类问题。
+

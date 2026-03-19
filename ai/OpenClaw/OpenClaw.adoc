@@ -227,6 +227,8 @@ MiniClaw 的云端 AIG agent。
 ### PicoClaw
 link:https://github.com/sipeed/picoclaw[PicoClaw]
 
+Go 语言实现。
+
 
 [source,shell]
 ----
@@ -249,3 +251,6 @@ picoclaw status
 ~/.picoclaw/config.json
 ~/.picoclaw/workspace
 ----
+
+### CLI-Anything
+link:https://github.com/HKUDS/CLI-Anything[CLI-Anything]

@@ -1,0 +1,47 @@
+* link:https://docs.docker.com/build/concepts/overview/#install-buildx[buildx]
+* link:https://docs.docker.com/reference/cli/docker/buildx/[docker buildx]
+
+
+== docker
+
+构建多CPU架构的docker镜像
+
+[source,shell]
+----
+# 创建一个支持多平台的 builder
+docker buildx create --name multiarch-builder --use
+# 初始化并启动（自动下载 qemu-user-static 等）
+docker buildx inspect --bootstrap
+----
+
+编写多阶段 Dockerfile（可选但推荐）
+确保你的构建逻辑兼容目标架构（避免硬编码路径/二进制）。例如
+
+[source,dockerfile]
+----
+FROM --platform=$BUILDPLATFORM golang:1.22 AS builder
+ARG TARGETOS TARGETARCH
+RUN go env -w GOOS=$TARGETOS GOARCH=$TARGETARCH
+COPY . /app
+WORKDIR /app
+RUN go build -o myapp
+
+FROM alpine:3.20
+COPY --from=builder /app/myapp /usr/local/bin/
+CMD ["myapp"]
+----
+
+构建并推送多架构镜像
+
+[source,shell]
+----
+# 检查版本
+docker --version
+docker buildx version
+# --push : 必须：只有推送到 registry 才能生成 manifest list（本地 --load 仅支持单架构）
+docker buildx build \
+  --platform linux/amd64,linux/arm64,linux/arm/v7 \
+  --tag your-registry/your-image:latest \
+  --push \
+  .
+----

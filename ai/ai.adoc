@@ -1,6 +1,10 @@
 
 
 
+https://github.com/shareAI-lab/learn-claude-code
+
+link:https://github.com/siteboon/claudecodeui[Claude Code UI]
+
 
 ## ollama
 
@@ -158,3 +162,68 @@ link:https://github.com/n4ze3m/page-assist[page-assist]
 
 
 
+
+== SKILL vs. RULS
+RULE : 刚性底线，不允许出错。
+SKILL: 可容忍模糊的场景。
+ 相同功能命中多个SKILL时，会只选一个？还是merge多个结果？这个依赖于AI 系统架构设计 以及 调度器（Orchestrator/Router） 的实现方式，
+
+=== 路由模式 (Routing / Selection) —— “只选一个”
+这是目前最主流的模式（如 LangChain 的 AgentExecutor 默认行为、Function Calling 标准流程）。
+
+* 工作机制：
+** LLM 作为“路由器”，分析用户意图。
+** LLM 从可用的 Skill 列表中选择最合适的一个（例如：用户问天气，就选 get_weather，不选 get_news）。
+** 系统执行该 Skill，并将结果返回给 LLM 生成最终回复。
+
+* 优点：
+** 成本低：只调用一次 API 或执行一次代码。
+** 速度快：串行执行，延迟低。
+** 逻辑清晰：避免了结果冲突（例如两个技能给出了不同的答案，谁是对的？）。
+
+* 缺点：
+**  单点故障：如果选错技能，或者该技能执行失败，任务就失败了。
+** 信息局限：可能遗漏其他技能提供的补充视角。
+** 适用场景：意图明确、技能之间互斥的任务（如：查天气 vs 查股票，通常不需要同时查）。
+
+
+
+=== 并行聚合模式 (Parallel Execution & Merging) —— "Merge 多个结果”
+当多个技能都能提供有价值的信息，或者为了提高准确率时，系统会设计为并行执行并合并结果。
+
+* 工作机制：
+** LLM 识别出当前任务需要多角度信息，或者不确定哪个技能最好。
+** 调度器同时调用多个相关 Skill（例如：用户问“某公司怎么样”，同时调用 get_stock_price、get_recent_news、get_company_profile）。
+** 所有技能执行完毕后，将所有结果拼接在一起，作为上下文再次喂给 LLM。
+*** LLM 综合所有信息进行总结回答。
+
+* 如何实现 Merge：
+** 上下文拼接：直接将 Skill A 的输出和 Skill B 的输出放入 Prompt：“根据以下信息回答问题：[Skill A 结果]... [Skill B 结果]..."。
+** 投票机制 (Voting)：如果是分类或判断类任务（如三个不同的情感分析模型），可以让 LLM 对多个结果进行“投票”或取多数派。
+** 反思与修正 (Refinement)：让 LLM 对比不同技能的结果，如果发现冲突（例如股价数据不一致），LLM 可以发起新一轮查询或依据可信度权重进行裁决。
+
+* 优点：
+** 鲁棒性强：一个技能失败不影响整体。
+** 信息全面：能提供更立体、多维度的回答。
+** 减少幻觉：通过多源验证（Cross-Verification）提高准确性。
+
+* 缺点：
+** 成本高：调用了多次 API。
+** 延迟高：取决于最慢的那个技能。
+** Token 消耗大：需要处理大量返回数据。
+
+* 适用场景：复杂调研、需要交叉验证的事实性问题、模糊意图探索。
+
+=== 级联/链式模式 (Chaining / Sequential) —— “先 A 后 B"
+这不是简单的 Merge，而是利用前一个 Skill 的结果作为下一个 Skill 的输入。
+
+* 工作机制：
+** 执行 Skill A。
+** LLM 分析 Skill A 的结果，决定是否需要执行 Skill B，并将 A 的结果传给 B。
+** 最终合并整个链条的上下文。
+
+* 例子：用户问“帮我分析这家公司的风险”。
+** Step 1: 调用 search_company 获取公司名。
+** Step 2: 用公司名调用 get_financial_report 获取财报。
+** Step 3: 用财报数据调用 risk_analysis_model 进行分析。
+** Result: 最终答案是最后一步的输出，但隐含了前面所有步骤的信息流。

@@ -3,3 +3,68 @@
 
 JAVA_PID=$(ps aux|grep java | grep org.apache.catalina.startup.Bootstrap|awk '{print $2}')
 cat /proc/${JAVA_PID}/limits
+
+
+
+## MRJAR - Multi-Release JAR
+
+注意：MRJAR 的 META-INF/MANIFEST.MF 中必须有 设置 Multi-Release: true
+
+[source,xml]
+----
+<properties>
+        <maven.compiler.release>8</maven.compiler.release>
+        <maven.compiler.testRelease>21</maven.compiler.testRelease>
+</properties>
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.14.1</version>
+    <executions>
+        <execution>
+            <id>compile-java-8</id>
+            <goals>
+                <goal>compile</goal>
+            </goals>
+            <configuration>
+                <release>8</release>
+            </configuration>
+        </execution>
+        <execution>
+            <id>compile-java-9</id>
+            <phase>compile</phase>
+            <goals>
+                <goal>compile</goal>
+            </goals>
+            <configuration>
+                <release>9</release>
+                <compileSourceRoots>
+                    <compileSourceRoot>${project.basedir}/src/main/java9</compileSourceRoot>
+                </compileSourceRoots>
+                <multiReleaseOutput>true</multiReleaseOutput>
+            </configuration>
+        </execution>
+        <!--
+        <execution>
+            <id>test-compile</id>
+            <phase>test-compile</phase>
+            <goals>
+                <goal>testCompile</goal>
+            </goals>
+            <configuration>
+                <release>21</release>
+            </configuration>
+        </execution>
+        -->
+    </executions>
+    <configuration>
+        <annotationProcessorPaths>
+            <path>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </path>
+        </annotationProcessorPaths>
+    </configuration>
+</plugin>
+----

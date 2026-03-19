@@ -724,6 +724,26 @@ configs:
 - org.apache.dubbo.rpc.protocol.tri.TriplePathResolver
 - org.apache.dubbo.rpc.protocol.tri.TripleProtocol#link:https://github.com/apache/dubbo/blob/3.3/dubbo-rpc/dubbo-rpc-triple/src/main/java/org/apache/dubbo/rpc/protocol/tri/TripleProtocol.java#L98[getDefaultPort]
 
+- org.apache.dubbo.rpc.protocol.tri.transport.TripleHttp2ClientResponseHandler#channelRead0 # 读取http请求
+- org.apache.dubbo.rpc.protocol.tri.servlet.TripleFilter#doFilter          # 基于 java servlet 相关API 判断该切换 http2(含grpc) 还是 http1
+- org.apache.dubbo.rpc.protocol.tri.TripleHttp2Protocol#configServerProtocolHandler 检查选择 http1,http2
+- org.apache.dubbo.rpc.protocol.tri.TripleHttp2Protocol#buildHttp2MultiplexHandler  初始化 netty 的 ChannelPipeline , 增加 NettyHttp2ProtocolSelectorHandler
+- org.apache.dubbo.remoting.http12.netty4.h2.NettyHttp2ProtocolSelectorHandler 基于 请求头 "Content-Type: application/grpc" 来判断到底是 grpc 协议解析，还是 http2 解析。 并动态的 将 NettyHttp2FrameHandler 加入的 netty 的 pipeline 并移除自身。
+
+- org.apache.dubbo.rpc.protocol.tri.rest.mapping.RestRequestHandlerMapping#getRequestHandler 对收到 http 进行解析，处理配置
+- org.apache.dubbo.rpc.protocol.tri.rest.RestHttpMessageCodec  解析http request body
+
+- org.apache.dubbo.rpc.protocol.tri.Http2ProtocolDetector  协议检测
+- org.apache.dubbo.remoting.transport.netty4.NettyPortUnificationServerHandler#detectProtocol 协议检测
+- org.apache.dubbo.remoting.http12.netty4.h1.NettyHttp1ConnectionHandler            处理 http1 请求
+- org.apache.dubbo.rpc.protocol.tri.h12.http1.DefaultHttp11ServerTransportListener  处理 http1 请求
+- org.apache.dubbo.remoting.http12.netty4.h1.NettyHttp1Codec#doWriteHeader          设置 http response header "connection: keep-alive", 但没有设置 响应头: "Keep-Alive: timeout=60, max=100", 该头属于非标准扩展。
+ Netty废弃 HttpHeaderNames.KEEP_ALIVE 是为了遵循HTTP/1.1标准，推荐使用 Connection: keep-alive 标准头部。如果需要控制连接参数，建议使用Netty的 IdleStateHandler 或其他应用层机制。
+- org.apache.dubbo.rpc.protocol.tri.servlet.TripleFilter#determineHttp2ServerTransportListenerFactory
+- org.apache.dubbo.remoting.http12.h2.Http2ServerTransportListenerFactory
+-- org.apache.dubbo.rpc.protocol.tri.h12.http2.GenericHttp2ServerTransportListenerFactory
+-- org.apache.dubbo.rpc.protocol.tri.h12.grpc.GrpcHttp2ServerTransportListenerFactory
+
 [source,shell]
 ----
 cat > /tmp/data.json <<EOF

@@ -56,6 +56,11 @@ find . -ctime +7    # 按状态变更时间（天级别）：7天前状态变更
 find . -mmin  -7    # 按修改时间（分钟级）：7分钟内修改的文件
 find . -mmin  +7    # 按修改时间（分钟级）：7分钟前修改的文件
 
+find ~/mteebundle/logs -type f  -name "app.log*" -atime +1 -exec  ls -lh --time=atime --full-time {} \;
+find ~/mteebundle/logs -type f  -name "app.log*" -atime +1 -delete
+
+
+
 # 按权限搜索
 find . -perm 644    # 权限为644的文件
 find . -user admin  # 用户 admin 所有的

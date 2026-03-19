@@ -51,3 +51,13 @@ public CommandRegistration myGloableExitCodeRegistration(){
         .build(); // ⚠️，该方式必须要有 commands,targetSpec 等参数配置，全局的话，还是请实现 ExitCodeExceptionMapper。
 }
 ----
+
+
+== xx
+
+----
+java -jar xxx.jar help
+java -jar xxx.jar help xxx-command
+java -jar xxx.jar xxx-command
+----
+

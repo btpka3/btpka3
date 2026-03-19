@@ -1,13 +1,51 @@
 * https://openjfx.cn/
-* javafx theme
-    * [.line-through]#link:https://guigarage.com/aerofx/[aerofx]#
-    * [.line-through]#link:https://github.com/guigarage/AquaFX[AquaFX]#
-    * [.line-through]#link:https://guigarage.com/flatter/[AquaFX]#
-    * [.line-through]#link:https://github.com/JFXtras/jfxtras-styles[jfxtras-styles]#
-    * [.line-through]#link:https://guigarage.com/flatter/[AquaFX]#
-    * https://github.com/palexdev/MaterialFX
+* https://openjfx.io/
+
+
+* javafx theme ，UI组件库
+
+** link:https://github.com/mhrimaz/AwesomeJavaFX[AwesomeJavaFX]  👍🏻 各种JavaFX组件库的索引，自身并不提供。
+
+** link:https://github.com/JFXtras/jfxtras-styles[jfxtras-styles]
+** link:https://github.com/controlsfx/controlsfx[ControlsFX]
+** link:https://github.com/fair-acc/chart-fx[chart-fx]
+** link:https://github.com/palexdev/MaterialFX[MaterialFX]
+
+
+** link:https://github.com/sshahine/JFoenix[JFoenix]  超5年未更新
+** link:https://github.com/kordamp/bootstrapfx[BootstrapFX] 超5年未更新
+** link:https://github.com/beryx/jfxgauge[JFXGauge] 超7年未更新
+** link:https://github.com/HanSolo/medusa[Medusa]  超5年未更新
+** link:https://github.com/simonwo/tilefx[TileFX]   超5年未更新
 
 
 
 
+** 商业组件
+** DevExpress JavaFX
+** Infragistics Ultimate UI for JavaFX
+** JIDE Software (Commons & Charts)
 
+
+** 已经不维护
+*** link:https://github.com/guigarage/AquaFX[AquaFX]
+*** link:https://guigarage.com/aerofx/[aerofx]
+*** link:https://github.com/guigarage/DataFX[DataFX]
+
+
+== javafx-maven-archetypes
+link:https://github.com/openjfx/javafx-maven-archetypes[javafx-maven-archetypes]
+
+== javafx-maven-plugin
+link:https://github.com/openjfx/javafx-maven-plugin[javafx-maven-plugin]
+
+== javafx-maven-plugin (zenjava)
+link:https://github.com/javafx-maven-plugin/javafx-maven-plugin[javafx-maven-plugin]
+
+
+== OpenJFX
+OpenJFX 是 JavaFX 参考实现的开源项目名称。
+
+link:https://openjdk.org/projects/openjfx/[OpenJFX]
+
+link:https://openjfx.io/javadoc/25/[openjfx javadoc]

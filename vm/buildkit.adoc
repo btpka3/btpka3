@@ -1,0 +1,91 @@
+https://github.com/moby/buildkit
+
+
+https://docs.docker.com/build/buildkit/
+
+* link:https://cloud.tencent.com.cn/developer/article/1803396[下一代镜像构建工具 Buildkit 简介]
+* link:https://github.com/genuinetools/img[genuinetools/img]
+* link:https://github.com/GoogleContainerTools/kaniko[kaniko] 已经不维护了。
+
+[source,shell]
+----
+buildctl --version
+buildctl --help
+
+
+# 设置 BuildKit 地址
+export BUILDKIT_HOST=docker-container://colima
+# 或者
+export BUILDKIT_HOST=unix:///Users/$USER/.colima/default/docker.sock
+
+buildctl build ...\
+  --output type=image,name=docker.io/username/image,push=true \
+  --export-cache type=inline \
+  --import-cache type=registry,ref=docker.io/username/image
+
+
+# 指定远程 BuildKit daemon 地址
+buildctl --addr <address> build ...
+# --addr tcp://buildkit.company.com:1234                # 示例：远程 TCP 连接
+# --addr unix:///var/run/buildkit/buildkitd.sock        # 示例：Unix Socket
+# --addr docker-container://buildkitd build             # 示例：Docker 容器中的 BuildKit
+# --addr kubernetes://buildkitd:1234?namespace=default  # 示例：连接到 Kubernetes Pod 中的 BuildKit
+
+
+
+# 构建当前目录下的 Dockerfile
+buildctl build \
+  --frontend=dockerfile.v0 \
+  --local context=. \
+  --local dockerfile=.
+
+# 输出到远程仓库
+buildctl build \
+  --frontend=dockerfile.v0 \
+  --local context=. \
+  --local dockerfile=. \
+  --output type=image,name=registry.company.com/myapp:latest,push=true
+
+----
+
+
+
+== 启动远程 BuildKit Daemon
+
+[source,shell]
+----
+# 方式一：以 Docker 容器方式 方式启动
+# 在远程服务器启动 BuildKit daemon
+docker run -d \
+  --name buildkitd \
+  --privileged \
+  -p 1234:1234 \
+  -v buildkit-cache:/var/lib/buildkit \
+  moby/buildkit:latest \
+  --addr tcp://0.0.0.0:1234 \
+  --allow-insecure-entitlement network.host \
+  --allow-insecure-entitlement security.insecure
+
+# 方式二：使用 Colima 来启动
+brew install colima
+colima start
+colima start --with-buildkit
+
+# 方式三：使用 lima 来启动
+brew install lima
+limactl start template://buildkit
+lima shell buildkit-vm
+# 安装 BuildKit
+curl -sSL https://get.docker.com | sh
+sudo apt update
+sudo apt install -y containerd.io
+sudo systemctl daemon-reload
+sudo systemctl enable buildkit
+sudo systemctl start buildkit
+# 设置 SSH 端口转发
+ssh -L 1234:localhost:1234 lima@buildkit-vm &
+# 设置环境变量
+export BUILDKIT_HOST=tcp://localhost:1234
+
+# 方式三：使用 docker desktop
+----

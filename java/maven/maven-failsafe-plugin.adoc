@@ -135,3 +135,72 @@ mvn failsafe:integration-test -Dit.test=DemoCommandIT#testJarExecution
 如何跳过测试？请参考 link:maven-surefire-plugin[maven-surefire-plugin] 相关总结。
 
 
+
+== 只运行集成测试，不触发编译
+
+[source,shell]
+----
+# 先编译
+mvn ... clean package
+
+# 后运行集成测试, 可能需要执行 -pl
+mvn jacoco:prepare-agent failsafe:integration-test failsafe:verify -Dit.test=YourXxxIT
+----
+
+
+== 并发运行
+
+[source,xml]
+----
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-failsafe-plugin</artifactId>
+    <configuration>
+        <!-- 按类并行 -->
+        <parallel>classes</parallel>
+        <!-- 使用 CPU 核心数 * 1.5，向上取整 -->
+        <perCoreThreadCount>1.5</perCoreThreadCount>
+        <!-- 确保测试失败时构建失败 -->
+        <failIfNoTests>true</failIfNoTests>
+    </configuration>
+</plugin>
+----
+
+并发安全问题如何解决？
+
+1. 数据层隔离（最核心的方案）
+方案 A：每个测试类使用独立的 Schema/Database
+方案 B：事务回滚 + 唯一前缀
+方案 C：Flyway/Liquibase 多 Schema 支持
+
+2. 网络端口隔离
+使用随机端口，避免硬编码端口
+
+
+3. 文件系统隔离
+
+使用临时目录, 不要写入固定路径。
+
+
+4. 静态变量与单例污染
+
+尽量避免在业务代码或测试代码中使用可变的静态状态。
+如果必须使用，在 @BeforeAll 重置状态，或在 @AfterAll 清理状态。
+使用 ThreadLocal 存储线程隔离的状态。
+
+
+5. 外部服务限流与锁
+如果测试依赖真实的第三方 API（有频率限制）或共享的消息队列：请使用 信号量控制、分布式锁 控制。
+
+
+三、最佳实践总结
+
+1. 策略选择：优先使用 <parallel>classes</parallel>。这比 methods 更安全，因为类内部的初始化逻辑（@BeforeClass）通常是串行的。
+2. 基础设施即代码 (IaC)：强烈推荐使用 Testcontainers。
+  它可以为每个测试类动态启动一个短暂的 Docker 容器（DB, MQ, Redis）。
+  虽然启动有开销，但 Testcontainers 支持 容器复用 (Reuse) 和 Cached Images，能大幅降低开销，同时实现完美的环境隔离。
+3. 随机化一切：端口、文件路径、数据库 Schema 名称、用户 ID 等，全部动态生成。
+4. CI/CD 调优：
+  在 CI 环境中，根据机器核数动态调整 threadCount。
+  增加 JVM 堆内存 (-Xmx)，因为并发运行会消耗更多内存。
+

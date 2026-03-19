@@ -486,3 +486,17 @@ org.springframework.cloud.zookeeper.discovery.configclient.ZookeeperConfigServer
     # 实现了: org.springframework.boot.BootstrapRegistryInitializer
 
 ----
+
+
+
+== 管理端工具
+
+- ZooInspector
+link:https://central.sonatype.com/artifact/org.apache.zookeeper/zookeeper-contrib-zooinspector[zookeeper-contrib-zooinspector],
+link:https://github.com/apache/zookeeper/blob/master/zookeeper-contrib/zookeeper-contrib-zooinspector/src/main/java/org/apache/zookeeper/inspector/ZooInspector.java[ZooInspector.java]
+ 不是 fat jar，需要配合zookeeper 其他jar包才能运行， 故无法通过类似 `java -cp ./zookeeper-contrib-zooinspector-3.9.5.jar org.apache.zookeeper.inspector.ZooInspector` 这种方式来访问。
+
+- link:https://github.com/vran-dev/PrettyZoo[PrettyZoo] 个人项目，已经不再维护。 是基于 Apache Curator + JavaFX 开发图形化管理软件。
+
+
+

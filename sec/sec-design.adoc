@@ -121,6 +121,8 @@ ctx?.userPostCount ?: getUserPostCount(userId)
 == 代码要求
 - FIXME: 强制使用 link:https://github.com/diffplug/spotless/tree/main/plugin-maven[spotless-maven-plugin] 进行代码格式化
 - FIXME: 如何使用 link:https://spring.io/projects/spring-modulith[spring modulith] ?
+    link:https://github.com/xmolecules/jmolecules[jMolecules]
+
 - FIXME: 如何使用 link:https://www.archunit.org/[archunit] ?
 - FIXME: 如何使用 link:https://github.com/google/error-prone[google error-prone] ?
 - FIXME: 如何使用 link:https://jte.gg/[jte: Java Template Engine¶] with spring ?

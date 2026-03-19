@@ -89,3 +89,6 @@ public class ATest {
             .andShould().dependOnClassesThat().resideInAnyPackage("java.lang");
 }
 ----
+
+
+
