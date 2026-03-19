@@ -1,1 +1,0 @@
-[CoreDNS](https://coredns.io/)

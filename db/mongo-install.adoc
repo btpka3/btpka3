@@ -1,0 +1,425 @@
+=== 参考
+
+* http://www.infoq.com/cn/articles/nosql-performance-test[NoSQL性能测试白皮书]
+* http://www.csdn.net/article/2012-11-15/2811920-mongodb-quan-gong-lue[MongoDB核心贡献者：不是MongoDB不行，而是你不懂！]
+* http://www.csdn.net/article/2015-01-14/2823551[MongoDB：逐渐变得无关紧要]
+* http://www.oschina.net/translate/goodbye-mongodb-hello-postgresql?from=20150322[再见 MongoDB，你好 PostgreSQL]
+
+== 安装
+
+=== docker
+
+....
+mkdir -p /Users/zll/tmp/my-mongo/db
+mkdir -p /Users/zll/tmp/my-mongo/configdb
+touch /Users/zll/tmp/my-mongo/mongod.conf
+
+
+docker pull mongo:3.2.10
+docker run -d \
+    --name my-mongo \
+    -p 27017:27017 \
+    -v /Users/zll/tmp/my-mongo/mongod.conf:/etc/mongod.conf \
+    -v /Users/zll/tmp/my-mongo/db:/data/db \
+    -v /Users/zll/tmp/my-mongo/configdb:/data/configdb \
+    mongo:3.2.10
+
+docker exec -it my-mongo bash
+
+db.help()
+db.<collection>.help()
+show dbs
+use <db>
+show collections
+show users
+....
+
+=== ubuntu
+
+see http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/[here]
+
+[source,bash]
+----
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org   # 安装最新版
+
+sudo apt-get install -y \
+    mongodb-org=2.6.1 \
+    mongodb-org-server=2.6.1 \
+    mongodb-org-shell=2.6.1 \
+    mongodb-org-mongos=2.6.1 \
+    mongodb-org-tools=2.6.1          # 安装特定版本
+
+
+# 之后更新时总会自动更新mongodb的版本，可以使用以下命令固定版本号
+echo "mongodb-org hold"        | sudo dpkg --set-selections
+echo "mongodb-org-server hold" | sudo dpkg --set-selections
+echo "mongodb-org-shell hold"  | sudo dpkg --set-selections
+echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
+echo "mongodb-org-tools hold"  | sudo dpkg --set-selections
+
+# 防止开机自启动
+echo manual | sudo tee /etc/init/mongod.override
+# rm  /etc/init/mongod.override  # 允许开机自启动
+
+# 启停
+sudo service mongod start
+sudo service mongod stop
+----
+
+=== 连接到数据库
+
+....
+mongo
+....
+
+=== CentOS
+
+centos 安装参考http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat-centos-or-fedora-linux/[这里]
+
+==== 环境准备
+
+....
+echo never >/sys/kernel/mm/transparent_hugepage/enabled
+echo never >/sys/kernel/mm/transparent_hugepage/defrag
+....
+
+==== 安装 mongodb 3.0
+
+使用yum 安装有点冲突问题，先使用 CentOS 7 的预编译的二进制包进行解压安装，参考http://docs.mongodb.org/manual/tutorial/install-mongodb-on-linux/[这里]
+
+[arabic]
+. 下载、解压
++
+....
+mkdir -p /usr/local/mongo
+tar zxvf mongodb-linux-x86_64-rhel70-3.0.0.tgz -C /usr/local/mongo
+....
+. 配置环境变量 `vi /etc/profile.d/xxx.sh` :
++
+....
+export MONGO_HOME=/usr/local/mongo/mongodb-linux-x86_64-rhel70-3.0.0
+export PATH=$MONGO_HOME/bin:$PATH
+....
+. 创建运行所需的用户
++
+....
+useradd mongod
+....
+. 创建 systemd 所需的 service 文件 `vi /usr/lib/systemd/system/mongod.service`
++
+....
+[Unit]
+Description=MongoDB Server
+After=network.target
+
+[Service]
+User=mongod
+Group=mongod
+Type=forking
+
+PIDFile=/data0/mongod/mongod.pid
+ExecStartPre=
+ExecStart=/usr/bin/mongod -f /etc/mongod.conf
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+WorkingDirectory=/data0/mongod
+Restart=always
+
+LimitFSIZE=infinity
+LimitCPU=infinity
+LimitAS=infinity
+LimitNOFILE=64000
+LimitRSS=infinity
+LimitNPROC=64000
+
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+....
+
+==== 安装 mongodb 2.6
+
+[arabic]
+. 新建 yum 的仓库配置文件
++
+[source,bash]
+----
+vi /etc/yum.repos.d/mongodb.repo
+----
++
+文件内容如下：
++
+[source,ini]
+----
+[mongodb]
+name=MongoDB Repository
+baseurl=http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/
+gpgcheck=0
+enabled=1
+----
+. 查看可用版本
++
+[source,bash]
+----
+yum --showduplicates list mongodb-org       # 查看可用的版本
+yum install mongodb-org-2.6.6               # 明确指定版本号并安装
+----
+. 修改配置文件
++
+[source,bash]
+----
+df -h                                      # 根据磁盘状况，规划数据存储目录，日志目录。
+mkdir -p /home/mongod/log                  # 创建日志目录
+mkdir -p /home/mongod/db                   # 创建数据目录
+chown -R mongod:mongod /home/mongod        # 修改属主
+chmod 700 /home/mongod                     # 修改权限
+
+vi /etc/mongod.conf                        # 修改配置文件
+----
++
+修改以下配置项：
++
+[source,ini]
+----
+logpath=/home/mongod/log/mongod.log        # 日志路径。（默认：/var/log/mongodb/mongod.log）
+dbpath=/home/mongod/db                     # 数据目录。（默认：/var/lib/mongo）
+#bind_ip=127.0.0.1                         # 注释掉该行，以便监听所有网卡
+httpinterface=true                         # 开启HTTP接口，端口为28017。注意：线上环境请不要开启（保持被注释的状态）。
+----
+. 启动并检查
++
+[source,bash]
+----
+chkconfig --list mongod
+service mongod restart
+service mongod status
+----
+
+== 单机配置
+
+/etc/mongod.conf
+
+....
+net:
+    port: 27017
+    #bindIp: 127.0.0.1
+
+processManagement:
+    pidFilePath: /home/mongod/mongod.pid
+    fork: true
+
+storage:
+    dbPath: /home/mongod/data
+    directoryPerDB: true
+
+systemLog:
+    destination: file
+    path : /home/mongod/log/mongodb.log
+    logAppend: true
+
+security:
+    authorization: enabled
+....
+
+== 配置复制
+
+[arabic]
+. 配置好每台服务器的hostname，并确保每个节点都可以用主机名ping到任意其他节点。比如：修改每个节点的上的 `/etc/hosts`
++
+....
+192.168.101.81 s81
+192.168.101.82 s82
+192.168.101.83 s83
+192.168.101.85 s85
+....
+. 在其中一台服务器上创建管理员用户。该服务器应当没有启用认证。使用命令 `mongo` 登录 mongo shell：
++
+[source,js]
+----
+use admin
+db.createUser( {
+    user: "siteUserAdmin",
+    pwd: "siteUserAdmin",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+});
+db.createUser( {
+    user: "siteRootAdmin",
+    pwd: "siteRootAdmin",
+    roles: [ { role: "root", db: "admin" } ]
+});
+
+db.auth("siteRootAdmin", "siteRootAdmin");      // 认证
+
+show users;
+db.getUsers();                               // 获取当前数据库中的用户
+
+// 对当前数据库中的用户 "siteRootAdmin"，授予不同数据库的不同权限
+db.grantRolesToUser(
+  "siteRootAdmin",
+  [
+    { role: "read",      db: "db1" },
+    { role: "readWrite", db: "db2" }
+  ]
+);
+
+use test;                     // 为 test 数据库创建用户
+db.createUser( {
+    user: "testUser",
+    pwd: "testUser",
+    roles: [ { role: "dbOwner", db: "test" } ]
+});
+----
+. 停止所有的 mongod
++
+[source,bash]
+----
+service mongod stop
+----
+. 创建一个 keyfile，用于 replica set。
++
+[source,bash]
+----
+openssl rand -base64 741 > /home/mongod/mongodb-keyfile
+chown mongod:mongod /home/mongod/mongodb-keyfile
+chmod 600 /home/mongod/mongodb-keyfile
+----
+. 将 keyfile 复制到规划的 replica set 中的其他服务器上
++
+[source,bash]
+----
+scp -P 2222 /home/mongod/mongodb-keyfile root@192.168.101.85:/home/mongod/mongodb-keyfile
+ssh -p 2222 root@192.168.101.85 chown mongod:mongod /home/mongod/mongodb-keyfile
+ssh -p 2222 root@192.168.101.85 chmod 600 /home/mongod/mongodb-keyfile
+----
+. 修改每一个 mongodb 的配置文件，设置 replica 参数
++
+[source,bash]
+----
+vi /etc/mongod.conf
+----
++
+修改以下配置项：
++
+[source,ini]
+----
+replSet=rs_lizi
+keyFile=/home/mongod/mongodb-keyfile
+----
+. 启动每一个 mongod
++
+[source,bash]
+----
+service mongod start
+----
+. 使用 `mongo` 命令连接到最开始创建管理员的 mongod 节点上
++
+[source,sql]
+----
+use admin
+db.auth("siteRootAdmin", "<password>");
+----
+. 在 replica set 的每个节点上运行以下命令：
++
+[source,js]
+----
+rs.initiate()
+----
+. 检查：在 replica set 的每个节点上运行以下命令：
++
+[source,js]
+----
+rs.conf()
+----
++
+该命令会显示 replica set 配置对象的信息，会类似显示以下信息：
++
+[source,js]
+----
+{
+    "_id" : "rs_lizi",
+    "version" : 1,
+    "members" : [
+        {
+            "_id" : 0,
+            "host" : "s85:27017"
+        }
+    ]
+}
+----
+. 添加剩余的节点到 replica set 中
++
+[source,js]
+----
+rs.add("s85")
+----
+
+=== 添加仲裁者（Arbiter）
+
+[arabic]
+. 在上述所有对 `/etc/mongod.conf` 修改的基础上，再修改以下设置
++
+[source,yaml]
+----
+storage:
+    smallFiles: true
+    journal:
+        enabled: false
+----
+. 启动仲裁者节点
++
+[source,bash]
+----
+service mongod start
+----
+. 在主节点上执行命令，加入仲裁者节点
++
+[source,js]
+----
+rs_lizi:PRIMARY> rs.addArb("s81")
+{ "ok" : 1 }
+rs_lizi:PRIMARY> rs.conf()
+    {
+        "_id" : "rs_lizi",
+    "version" : 6,
+    "members" : [
+        {
+            "_id" : 0,
+            "host" : "s82:27017"
+        },
+        {
+            "_id" : 1,
+            "host" : "s85:27017"
+        },
+        {
+            "_id" : 2,
+            "host" : "s81:27017",
+            "arbiterOnly" : true               // 注意此行。
+        }
+    ]
+}
+----
+
+== backup
+
+....
+# 备份单个数据库， test1 是 dbOwner
+mongodump   --host=192.168.0.12             \
+            --port=27017                    \
+            --username test1                \
+            --password test1                \
+            --db test                       \
+            --out .
+....
+
+== CURD
+
+....
+// https://docs.mongodb.com/manual/reference/method/db.collection.insert/
+db.ss.insert({name:"zhang3",age:18});
+
+db.ss.find();
+....

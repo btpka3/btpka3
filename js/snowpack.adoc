@@ -1,0 +1,13 @@
+== 构建工具
+
+* https://www.snowpack.dev/[Snowpack]
+* https://vitejs.dev/[vite]
+* https://esbuild.github.io/[esbuild]
+* https://rollupjs.org/guide/en/[rollup]
+* webpack
+* https://www.parceljs.cn/getting_started.html[Parcel]
+* https://wmr.dev[WMR]
+
+== 参考
+
+* https://blog.csdn.net/GetIdea/article/details/121997897?[++[++译++]++Vue官方成员：Vite生态发展的怎么样了]

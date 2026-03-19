@@ -1,0 +1,37 @@
+== libvirt
+
+* https://libvirt.org/macos.html[libvirt]
+** https://libvirt.org/drvqemu.html[QEMU/KVM/HVF hypervisor driver]
+** https://libvirt.org/drvvbox.html[VirtualBox hypervisor driver]
+* fedora coreos :
+** 《https://docs.fedoraproject.org/en-US/fedora-coreos/provisioning-libvirt/[Provisioning Fedora CoreOS on libvirt]》
+** 《https://docs.fedoraproject.org/en-US/fedora-coreos/tutorial-updates/[Tutorials/Testing Fedora CoreOS updates]》
+
+[source,shell]
+----
+brew install libvirt
+----
+
+== virt-manager
+
+https://ports.macports.org/port/virt-manager/[virt-manager]
+
+[source,shell]
+----
+brew install libvirt
+brew install virt-manager
+
+libvirtd
+# 如果要开启启动（不建议在 MacOS 上开启），执行以下命令
+brew services start libvirt
+
+virt-install
+virsh reboot xxxVmName
+virsh start  xxxVmName
+virsh -c lxc:///        list --all
+virsh -c qemu:///system list --all
+
+virt-manager
+virt-viewer
+virt-install
+----

@@ -1,0 +1,1 @@
+https://docs.travis-ci.com/user/environment-variables#Default-Environment-Variables[Default Environment Variables]

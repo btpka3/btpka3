@@ -1,0 +1,48 @@
+== icon font
+
+* http://sc.chinaz.com/info/130228237055.htm[30个免费网页图标字体以及使用方法]
+* http://www.gbtags.com/tools/icon/20120829-free-icon-fonts-for-web-ui/[最新的超棒免费图标字体(icon font)收集]
+* https://icomoon.io/[IcoMoon]
+* http://www.iconfont.cn[阿里巴巴矢量图标库]
+* http://elusiveicons.com/[Elusive Icons]
+* http://mfglabs.github.io/mfglabs-iconset/[MFG Labs Web Icon Set]
+* http://zurb.com/playground/foundation-icons[Foundation Icon Fonts]
+* https://fortawesome.github.com/Font-Awesome/[Font-Awesome]
+* https://pictonic.co/free[pictonic Icons]
+* http://adamwhitcroft.com/batch/[Batch Icons]
+* link:somerandomdude.com/work/iconic/[Iconic Icon Set]
+* http://kudakurage.com/ligature_symbols/[Ligature Symbols]
+* http://pfefferle.github.io/openwebicons/[OpenWeb Icons]
+
+'''''
+
+* http://sandbox.runjs.cn/show/cq4fv9sd[google materials font]
+
+== font
+
+* 思源黑体 - https://sourceforge.net/projects/source-han-sans.adobe/[Source Han Sans] https://www.zhihu.com/question/24639343[思源黑体 (Source Han Sans) 的各个版本有什么不同？]
+* font-family: "`Helvetica Neue`", Helvetica, Arial, sans-serif;
+
+== svg
+
+[arabic]
+. 使用 https://icomoon.io/[icomoon] 在线管理图标字体。并导出单个svg图片使用。
+. [line-through]#使用 http://fontforge.github.io/[fontforge] 提取单个svg文件#。
+
+== 等宽字体
+
+* noto 字体
+* ubuntu mono
+* 文泉驿正黑
+* Inconsolata
+* Pragmata Pro
+* Source Code Pro
+* https://be5invis.github.io/Iosevka/inziu.html[Inziu Iosevka]
+
+[source,text]
+----
+abcdefghijklmnopqrstuvwxyz 0123456789 (){}[]
+ABCDEFGHIJKLMNOPQRSTUVWXYZ +-*/= .,;:!? #&$%@|^
+中华人民共和国
+11223344556677
+----

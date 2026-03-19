@@ -1,0 +1,54 @@
+=== 工具
+
+* http://yeoman.io/[yeoman]
+* gulp
+* grunt
+
+=== 参考
+
+* 《https://github.com/johnpapa/angular-styleguide[Angular Style Guide]》
+* 《http://blog.jobbole.com/78946/[AngularJS开发人员最常犯的10个错误]》
+* 《https://www.airpair.com/angularjs/posts/top-10-mistakes-angularjs-developers-make[The Top 10 Mistakes AngularJS Developers Make]》
+* 《http://www.oschina.net/translate/15-directives-to-extend-your-angular-js-apps[推荐 15 个 Angular.js 应用扩展指令]》
+* 《http://www.oschina.net/translate/angular-1-and-angular-2-coexistence?from=20150913[Angular 1 和 Angular 2 集成：无缝升级的方法]》
+
+==== 使用 WebStorm/ IDEA 自动补全功能
+
+[arabic]
+. 下载 https://github.com/johnpapa/angular-styleguide/blob/master/a1/assets/webstorm-angular-live-templates/webstorm-angular-live-templates.xml?raw=true[webstorm-angular-live-templates.xml]
+. 将下载的xml文件移动到 `~/.IntelliJIdea15/config/templates/` 目录下
+. 重启 IDEA Intellj
+. 之后就可以在编辑 js 文件时， 通过 `ngapp++<++tab++>++` 来快速使用模板了。
+
+==== $http 提交 form data
+
+[source,js]
+----
+controller: ['$http', "$httpParamSerializerJQLike", function ($http, $stateParams, $httpParamSerializerJQLike) {
+    // 微信:统一下单, 并准备JS API 支付所需的参数
+    $http.post(appConfig.apiPath + '/testZll/testBuy', {
+        count: $scope.count,
+        price: $scope.price
+    }, {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        transformRequest: $httpParamSerializerJQLike
+    }).then(function (resp) {
+        //
+    });
+}]
+----
+
+== 参考
+
+* 《https://medium.com/@vayvala/why-you-shouldn-t-use-angular-material-4ffb937ef232#.87o02z8tm[Why you shouldn’t use Angular Material today]》 需要翻墙。 主要原因为：
+[arabic]
+. 最小化的css，js文件尺寸仍然过大——总共560KB.
+. 缺少过多的组件： Collapsible content、Pagination、Breadcrumbs、Table、Badge、Vertical or two-handle slider、Responsive footer and navbar、Parallax、Scroll spy
+. 组件不灵活，难定制
+. bug多 该作者推荐使用 http://materializecss.com/[Materialize Css] 或者 https://www.polymer-project.org/[Polymer]
+
+=== service vs. factory vs.provider
+
+see http://stackoverflow.com/a/34202483/533317[here] image:http://i.stack.imgur.com/CkdHl.png[service vs. factory vs.provider]

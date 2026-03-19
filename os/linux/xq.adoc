@@ -1,0 +1,6 @@
+https://github.com/sibprogrammer/xq
+
+[source,shell]
+----
+brew install xq
+----

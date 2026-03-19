@@ -1,0 +1,37 @@
+Linux 下监控网络流量的工具、命令 1. iftop
+
+....
+参考[这里](http://blog.csdn.net/gaojinshan/article/details/40781241)
+
+```bash
+yum install iftop
+iftop -i eth1
+```
+....
+
+[arabic]
+. iptraf-ng 实时局域网IP监控
++
+[source,bash]
+----
+# 缺点，看不到PID
+yum install iptraf-ng  
+----
+. nethogs
++
+[source,bash]
+----
+yum install nethogs
+nethogs
+----
+. tcptrack
+. nload
+. iostat 输入/输出统计
+. ifstat
+. watch ifconfig
+. watch cat /proc/net/dev
+. bwm-ng
+. Monitorix
+. `ss -l -p -n`
++
+ss from the iproute2 package (which is similar to netstat)

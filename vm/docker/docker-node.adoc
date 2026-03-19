@@ -1,0 +1,16 @@
+=== 参考
+
+* https://docs.docker.com/engine/reference/commandline/node/[docker node]
+
+=== 示例
+
+[source,bash]
+----
+docker node demote      #
+docker node inspect     # 
+docker node ls          # 列出 swarm 中所有的节点
+docker node promote     #
+docker node ps
+docker node rm
+docker node update
+----

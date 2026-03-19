@@ -1,0 +1,3 @@
+== 微信测试号
+
+* http://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login[登录入口]

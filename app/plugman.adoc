@@ -1,0 +1,5 @@
+[line-through]#https://dev.bukkit.org/bukkit-plugins/plugman/[plugman], https://github.com/r-clancy/PlugMan[@github]#
+
+== cordova-plugman
+
+cordova-plugman 在 github 上https://github.com/apache/cordova-plugman/[镜像]

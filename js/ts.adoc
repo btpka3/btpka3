@@ -1,0 +1,3 @@
+== TypeScript TypeScript Language Specification
+
+http://www.typescriptlang.org/Handbook[Handbook] 英文原文请参考 https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md[这里] ——

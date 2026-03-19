@@ -1,1 +1,0 @@
-See [btpka3@gitbook](https://btpka3.gitbooks.io/btpka3/content/).

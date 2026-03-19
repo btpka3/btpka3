@@ -1,0 +1,19 @@
+安装
+
+安装qq国际版 http://appdb.winehq.org/objectManager.php?sClass=version&iId=29398[see]
+
+[source,bash]
+----
+0. Download from http://proxy.imqq.com/QQIntl2.0.exe
+
+1. winetricks ie7 riched20  msctf vcrun2005 cjkfonts
+
+2. run the installer
+----
+
+卸载
+
+[source,bash]
+----
+wine uninstaller
+----

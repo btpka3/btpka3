@@ -1,0 +1,5 @@
+支付宝服务窗
+
+* https://fuwu.alipay.com/platform/main.htm[home@alipay]、
+* https://fuwu.alipay.com/platform/doc.htm[doc@alipay]
+* https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.wcvHor&treeId=53&articleId=103537&docType=1[doc]

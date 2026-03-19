@@ -1,0 +1,24 @@
+* http://www.jianshu.com/notebooks/71714/latest[GitHub推荐库]
+* icon && font
+** https://icomoon.io/app[icomoon.io]
+** http://iconfont.cn[阿里巴巴矢量图标库]
+* 前端库
+** http://libs.useso.com/[360网站卫士常用前端公共库CDN服务]
+** http://jscdn.upai.com/[又拍云]
+** https://cdnjs.com/[cdnjs.com]
+** http://www.cdnjs.net/[cdnjs.net]
+** http://www.jsdelivr.com/[jsdelivr.com]
+** http://developer.baidu.com/wiki/index.php?title=docs/cplat/libs[百度开放服务平台——CDN公共库]
+** http://lib.sinaapp.com/[SAE]
+** http://www.asp.net/ajax/cdn[Microsoft ASP.net CDN]
+** http://www.freecdn.cn/
+* hybird app
+** http://clouda.baidu.com/[Clouda{plus}]
+* UI 工具
+** https://isux.tencent.com/[isux资讯]
+** http://www.isux.us/[isux] 将静态效果图串联起来。
+* 图片占位符
+** http://www.placehold.it/[placehold.it]
+** http://lorempixel.com/[lorempixel.com]
+* JS CDN
+** https://unpkg.com/[unpkg.com]

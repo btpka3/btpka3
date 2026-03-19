@@ -1,1 +1,0 @@
-[Apache Ignite](https://ignite.apache.org/)
