@@ -456,3 +456,109 @@ chrome://predictors/
 #
 
 ----
+
+
+== profile
+
+列出多少个 profile
+
+chrome 没有命令行可以列出有多少个 profile，但 MacOS上可以通过以下命令列出有多少profile。
+
+[source,shell]
+----
+python3 -c "
+import json, os
+path = os.path.expanduser('~/Library/Application Support/Google/Chrome/Local State')
+with open(path) as f:
+    data = json.load(f)
+profiles = data.get('profile', {}).get('info_cache', {})
+for name, info in profiles.items():
+    print(f'{name}: {info.get(\"name\", \"Default\")}')
+"
+----
+
+示例输出值:
+[source,plain]
+----
+Default: btpka3
+Profile 2: tmp1
+Profile 3: tmp2
+Profile 5: xss
+----
+
+用特定 profile 启动
+[source,shell]
+----
+
+
+open -a "Google Chrome" --args --profile-directory="Profile 5" \
+  --disable-web-security --user-data-dir="$HOME/Library/Application Support/Google/Chrome" \
+  --remote-debugging-port=9223
+----
+
+
+== plugins
+=== 👎 XSwitch
+* link:https://chromewebstore.google.com/detail/xswitch-v3/dgocjnalnkkghhpdfgjinkhjigkggjdg?hl=en-US&utm_source=ext_sidebar[XSwitch-v3]
+* link:https://github.com/yize/xswitch[github: xswitch]
+* link:https://chromewebstore.google.com/detail/xswitch/odibcfohggadoanpbhmpcgiebpjpafnl?hl=en-US&utm_source=ext_sidebar[xswitch]
+
+转发后端请求。
+
+=== CORS Unblock
+
+https://chromewebstore.google.com/detail/cors-unblock/lfhmikememgdcahcdlaciloancbhjino?hl=en-US&utm_source=ext_sidebar
+
+
+== AppleScript 操作 Chrome 的原理
+这跟 Chrome DevTools Protocol（CDP，即 debug 协议）无关。
+原理是 Chrome 自己实现了 AppleScript 字典（Apple Event / OSA Suite），主动暴露了一组可被脚本调用的接口。可以查看它暴露了什么： 窗口属性、标签页等。
+其中关键的是 execute javascript 命令——这是 Chrome 自己提供的 AppleScript 接口，相当于在标签页的控制台里执行 JS。
+
+[source,plain]
+----
+  ┌───────────────────────────────┬──────────┬─────────────────────────────────────────────────────────────────────────┐
+  │             场景              │ 能否读取 │                                  原因                                   │
+  ├───────────────────────────────┼──────────┼─────────────────────────────────────────────────────────────────────────┤
+  │ Chrome 页面 DOM 文本          │ ✅       │ Chrome 暴露了 execute javascript，等同于在控制台执行 JS，能访问完整 DOM │
+  ├───────────────────────────────┼──────────┼─────────────────────────────────────────────────────────────────────────┤
+  │ Chrome 页面 <canvas> 内的文字 │ ❌       │ Canvas 是像素画布，innerText 拿不到。需要截图 + OCR                     │
+  ├───────────────────────────────┼──────────┼─────────────────────────────────────────────────────────────────────────┤
+  │ 其他浏览器（Safari）          │ ✅       │ Safari 也有自己的 AppleScript 字典，支持 do JavaScript                  │
+  ├───────────────────────────────┼──────────┼─────────────────────────────────────────────────────────────────────────┤
+  │ 其他浏览器（Firefox）         │ ❌       │ Firefox 没有暴露 AppleScript 字典                                       │
+  └───────────────────────────────┴──────────┴─────────────────────────────────────────────────────────────────────────┘
+----
+
+对于通用 GUI 程序，macOS 有另一套机制叫 Accessibility API（辅助功能），通过 System Events 可以读取。
+需要在 系统设置 → 隐私与安全 → 辅助功能 中授权才能用。
+
+[source,plain]
+----
+
+  这两套机制的对比：
+
+  ┌───────────────────┬────────────────────────────────┬──────────────────────────────────────────────────────────┬────────────────────────────────────────────────────────┐
+  │       机制        │              原理              │                         适用范围                         │                        能读什么                        │
+  ├───────────────────┼────────────────────────────────┼──────────────────────────────────────────────────────────┼────────────────────────────────────────────────────────┤
+  │ AppleScript 字典  │ 应用主动暴露接口               │ 只有实现了字典的应用（Chrome、Safari、Finder、Pages 等） │ 应用自己决定暴露什么，Chrome 暴露了 execute javascript │
+  ├───────────────────┼────────────────────────────────┼──────────────────────────────────────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Accessibility API │ 系统级辅助功能，读取 UI 控件树 │ 几乎所有 GUI 程序                                        │ 菜单、按钮文字、输入框内容等原生 UI 控件               │
+  └───────────────────┴────────────────────────────────┴──────────────────────────────────────────────────────────┴────────────────────────────────────────────────────────┘
+
+  你举的那些例子
+
+  ┌────────────────────────┬───────────────────────┬───────────────────────────────┬─────────────────────────┐
+  │          场景          │   AppleScript 字典    │       Accessibility API       │        能拿到吗         │
+  ├────────────────────────┼───────────────────────┼───────────────────────────────┼─────────────────────────┤
+  │ Chrome DOM 文本        │ ✅ execute javascript │      ❌ 看不到 DOM 内部       │ ✅ 靠 Chrome 自己的接口 │
+  ├────────────────────────┼───────────────────────┼───────────────────────────────┼─────────────────────────┤
+  │ HTML Canvas 中的文字   │ ❌ 像素，JS 也拿不到  │              ❌               │ ❌ 需要截图+OCR         │
+  ├────────────────────────┼───────────────────────┼───────────────────────────────┼─────────────────────────┤
+  │ 图片预览中图片里的文字 │          ❌           │ ❌ 只能看到"一个图片视图控件" │ ❌ 需要 OCR             │
+  ├────────────────────────┼───────────────────────┼───────────────────────────────┼─────────────────────────┤
+  │ 游戏窗口中的文字       │          ❌           │      ❌ 游戏通常自绘渲染      │ ❌ 需要截图+OCR         │
+  └────────────────────────┴───────────────────────┴───────────────────────────────┴─────────────────────────┘
+
+  总结： 当时能读到 "Hello World" 不是什么通用魔法，纯粹是因为 Chrome 自己暴露了 execute javascript 这个 AppleScript 命令，本质上等同于在 F12 控制台里执行了 document.getElementById('app').innerText。
+----
