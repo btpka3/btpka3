@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>页面 B</title>
+  <style>
+    :host {
+      display: block;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .b-title {
+      color: #d32f2f;
+      font-size: 20px;
+      margin-bottom: 12px;
+      font-weight: bold;
+    }
+    .b-desc {
+      color: #333;
+      font-size: 14px;
+      background: #fff3e0;
+      padding: 12px;
+      border-radius: 6px;
+      border-left: 4px solid #ff9800;
+      margin-bottom: 12px;
+    }
+    .b-btn {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-right: 8px;
+    }
+    .b-btn:hover {
+      background-color: #388E3C;
+    }
+    .b-info {
+      margin-top: 12px;
+      padding: 8px 12px;
+      background: #e8f5e9;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+  <div class="b-title">页面 B（通过 Shadow DOM 嵌入）</div>
+  <p class="b-desc">
+    这是 B 的内容，通过 <code>fetch() + Shadow DOM</code> 加载并注入。
+    B 的样式完全隔离，不受主页面 A 的 CSS 影响。
+  </p>
+
+  <details class="b-info" id="b-info" style="display:block; background:#f5f5f5; border-left-color:#9e9e9e; margin-bottom:16px;">
+    <summary style="cursor:pointer; font-weight:bold; color:#555;">⚠️ Shadow DOM 注入脚本的注意事项（展开查看）</summary>
+    <div style="margin-top:10px; font-size:12px; line-height:1.8; color:#444;">
+      <p><strong>问题现象：</strong>通过 <code>fetch()</code> 加载外部完整 HTML 并注入 Shadow DOM 后，被嵌入页面（如本文件）中的按钮点击事件不生效，脚本中的 <code>document.getElementById()</code> 找不到 Shadow DOM 内的元素。</p>
+
+      <p><strong>原因分析：</strong></p>
+      <ol style="margin-left:20px;">
+        <li><code>innerHTML</code> 插入的 <code>&lt;script&gt;</code> 标签不会被浏览器执行，这是浏览器的安全设计——只有 HTML parser 解析时遇到的脚本才会执行。</li>
+        <li>即使通过 <code>createElement('script')</code> 手动创建并追加脚本，脚本中的 <code>document</code> 仍然指向主页面 document，无法访问 Shadow DOM 内的 DOM 节点。</li>
+      </ol>
+
+      <p><strong>解决方案（在宿主页面 shadow-dom-embed.html 中实现）：</strong></p>
+      <ol style="margin-left:20px;">
+        <li><strong>样式注入</strong>：将 <code>&lt;style&gt;</code> 通过 <code>appendChild</code> 插入 Shadow DOM，CSS 正常生效。</li>
+        <li><strong>DOM 注入</strong>：将 <code>&lt;body&gt;</code> 内容通过 <code>DocumentFragment</code> 克隆后插入。</li>
+        <li><strong>脚本执行</strong>：手动 <code>createElement('script')</code> 创建新脚本并追加到 Shadow DOM，浏览器会执行它。</li>
+        <li><strong>作用域修复</strong>：在目标脚本之前注入 shim，劫持 <code>document.getElementById</code> / <code>document.querySelector</code> 等方法，让它们先查 Shadow DOM，再 fallback 到主 document。</li>
+      </ol>
+    </div>
+  </details>
+
+  <button class="b-btn" id="btn-b-alert">弹出提示</button>
+  <button class="b-btn" id="btn-b-info" style="background-color:#2196F3;">显示信息</button>
+  <div class="b-info" id="b-log" style="display:none;"></div>
+
+  <script>
+    (function() {
+      // 弹出提示
+      document.getElementById('btn-b-alert').addEventListener('click', function() {
+        alert('你点击了 B 的按钮！（Shadow DOM 方案）');
+      });
+
+      // 显示信息
+      var logEl = document.getElementById('b-log');
+      document.getElementById('btn-b-info').addEventListener('click', function() {
+        logEl.style.display = logEl.style.display === 'none' ? 'block' : 'none';
+        logEl.textContent = '当前时间：' + new Date().toLocaleString('zh-CN');
+      });
+    })();
+  </script>
+</body>
+</html>

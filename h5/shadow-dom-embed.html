@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>页面 A - 内嵌 HTML 示例（Shadow DOM + Object）</title>
+  <style>
+    /* A 的样式 */
+    body {
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .a-title {
+      color: blue;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .a-desc {
+      color: gray;
+      font-size: 16px;
+    }
+    h2 {
+      color: #333;
+      font-size: 18px;
+      margin-top: 30px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 8px;
+    }
+    /* Shadow DOM 挂载点容器 */
+    #host-b {
+      margin-top: 15px;
+      padding: 20px;
+      border: 2px dashed #4CAF50;
+      background: #fff;
+      border-radius: 8px;
+    }
+    /* Object 容器 */
+    #host-c-wrapper {
+      margin-top: 15px;
+      border: 2px dashed #2196F3;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="a-title">页面 A（主页面）</h1>
+  <p class="a-desc">这是 A 的内容，使用蓝色标题和灰色正文。下方演示两种内嵌独立 HTML 的方案。</p>
+
+  <!-- 方案一：Shadow DOM 嵌入 host-b.html -->
+  <h2>方案一：Shadow DOM（加载 host-b.html）</h2>
+  <div id="host-b">加载中...</div>
+
+  <!-- 方案二：Object 嵌入 host-c.html -->
+  <h2>方案二：&lt;object&gt; 标签（加载 host-c.html）</h2>
+  <div id="host-c-wrapper">
+    <object type="text/html" data="host-c.html" style="width:100%; height:300px; border:none;"></object>
+  </div>
+
+  <script>
+    // === 方案一：通过 fetch 加载 host-b.html 并注入 Shadow DOM ===
+    (async function loadShadowDOM() {
+      const host = document.getElementById('host-b');
+      const shadow = host.attachShadow({ mode: 'open' });
+
+      try {
+        // 加载同目录下的 host-b.html
+        const response = await fetch('./host-b.html');
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        const htmlB = await response.text();
+
+        // 解析完整 HTML，提取 <head> 和 <body> 内容
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlB, 'text/html');
+
+        // 1. 注入 <head> 中的 <style>（innerHTML 插入的 style 会生效）
+        doc.head.querySelectorAll('style').forEach(el => {
+          shadow.appendChild(el.cloneNode(true));
+        });
+
+        // 2. 注入 <body> 中的 DOM 内容
+        const bodyFragment = document.createDocumentFragment();
+        Array.from(doc.body.childNodes).forEach(node => {
+          bodyFragment.appendChild(node.cloneNode(true));
+        });
+        shadow.appendChild(bodyFragment);
+
+        // 3. 注入 shim：让脚本中的 document.getElementById 等方法能查 Shadow DOM
+        //    原理：在执行目标脚本前，临时覆盖 document 的查询方法
+        const shimScript = document.createElement('script');
+        shimScript.textContent = `
+          (function() {
+            var shadowRoot = ${JSON.stringify(shadow.host.id)};
+            var _doc = document;
+            var _root = document.getElementById(shadowRoot).shadowRoot;
+            // 劫持 document.getElementById
+            var _origGetElementById = document.getElementById.bind(document);
+            document.getElementById = function(id) {
+              return _root.getElementById(id) || _origGetElementById(id);
+            };
+            // 劫持 document.querySelector / querySelectorAll
+            var _origQS = document.querySelector.bind(document);
+            var _origQSA = document.querySelectorAll.bind(document);
+            document.querySelector = function(sel) {
+              return _root.querySelector(sel) || _origQS(sel);
+            };
+            document.querySelectorAll = function(sel) {
+              return _root.querySelectorAll(sel) || _origQSA(sel);
+            };
+          })();
+        `;
+        shadow.appendChild(shimScript);
+
+        // 4. 手动执行 <head> 和 <body> 中的 <script>
+        const executeScripts = (container) => {
+          container.querySelectorAll('script').forEach(oldScript => {
+            const newScript = document.createElement('script');
+            if (oldScript.src) {
+              newScript.src = oldScript.src;
+            } else {
+              newScript.textContent = oldScript.textContent;
+            }
+            Array.from(oldScript.attributes).forEach(attr => {
+              newScript.setAttribute(attr.name, attr.value);
+            });
+            shadow.appendChild(newScript);
+            oldScript.remove();
+          });
+        };
+        executeScripts(shadow);
+      } catch (err) {
+        shadow.innerHTML = `<p style="color:red;">加载 host-b.html 失败：${err.message}</p>`;
+        console.error('Shadow DOM 加载失败:', err);
+      }
+    })();
+  </script>
+</body>
+</html>

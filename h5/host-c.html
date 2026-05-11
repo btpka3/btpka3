@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>页面 C</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #e3f2fd;
+    }
+    .c-title {
+      color: #1565c0;
+      font-size: 20px;
+      margin-bottom: 12px;
+      font-weight: bold;
+      padding: 16px 20px 0;
+    }
+    .c-desc {
+      color: #333;
+      font-size: 14px;
+      background: #ffffff;
+      padding: 12px;
+      border-radius: 6px;
+      border-left: 4px solid #2196F3;
+      margin: 12px 20px;
+    }
+    .c-btn {
+      padding: 10px 20px;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 0 20px 12px;
+    }
+    .c-btn:hover {
+      background-color: #1976D2;
+    }
+    .c-log {
+      margin: 0 20px 16px;
+      padding: 10px 12px;
+      background: #fff;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #555;
+      min-height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="c-title">页面 C（通过 &lt;object&gt; 嵌入）</div>
+  <p class="c-desc">
+    这是 C 的内容，通过 <code>&lt;object&gt;</code> 标签加载。
+    与 Shadow DOM 不同，<code>&lt;object&gt;</code> 创建独立的 browsing context，
+    JS 也是完全隔离的。
+  </p>
+  <button class="c-btn" id="btn-c-log">记录时间</button>
+  <button class="c-btn" id="btn-c-clear" style="background-color:#f44336;">清空日志</button>
+  <div class="c-log" id="c-log">点击下方按钮开始记录...</div>
+
+  <script>
+    (function() {
+      var logEl = document.getElementById('c-log');
+      var logs = [];
+
+      function renderLogs() {
+        logEl.textContent = logs.length ? logs.join('\n') : '点击下方按钮开始记录...';
+      }
+
+      document.getElementById('btn-c-log').addEventListener('click', function() {
+        logs.push('[' + logs.length + '] ' + new Date().toLocaleTimeString('zh-CN'));
+        renderLogs();
+      });
+
+      document.getElementById('btn-c-clear').addEventListener('click', function() {
+        logs.length = 0;
+        renderLogs();
+      });
+    })();
+  </script>
+</body>
+</html>

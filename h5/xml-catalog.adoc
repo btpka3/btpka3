@@ -1,0 +1,38 @@
+
+
+https://xmlcatalogs.org/
+
+
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog"
+         prefer="system">
+
+  <system systemId="http://www.w3.org/2001/XMLSchema.xsd" uri="schemas/xsd/XMLSchema.xsd"/>
+  <public publicId="-//W3C//DTD XHTML 1.0 Strict//EN" uri="dtd/xhtml1-strict.dtd"/>
+  <rewriteSystem systemIdStartString="https://example.com/schemas/" rewritePrefix="local-schemas/"/>
+
+  <!-- 1. 精确映射单个 URL -->
+  <uri name="https://maven.apache.org/xsd/build-cache-config-1.2.0.xsd"
+       uri="file:///Users/zll/.idea_schemas/build-cache-config-1.2.0.xsd"/>
+
+  <!-- 2. 批量映射（推荐用于同一域名下的多个 Schema） -->
+  <rewriteURI uriStartString="https://maven.apache.org/xsd/"
+              rewritePrefix="file:///Users/zll/.idea_schemas/maven-xsd/"/>
+
+  <!-- 3. 链式引用其他 catalog 文件 -->
+  <nextCatalog catalog="project-local-catalog.xml"/>
+
+</catalog>
+
+----
+
+== 命令: xmlcatalog
+[source,shell]
+----
+brew install libxml2
+xmlcatalog --help
+which xmlcatalog
+----

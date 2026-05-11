@@ -39,10 +39,150 @@
 * Source Code Pro
 * https://be5invis.github.io/Iosevka/inziu.html[Inziu Iosevka]
 
+* ⭕️ https://fontsource.org/fonts/maple-mono[Maple mono/枫糖单体]
+** https://github.com/subframe7536/maple-font
+
+[source,plain]
+----
+Features
+`Ligature` 是指连字，比如
+
+
+!= → ≠
+<= → ≤
+=> → ⇒
+=== → ≡
+针对编程而言，不推荐使用连字。
+
+* Ligature: Default version with ligatures (Maple Mono)
+* No-Ligature: Default version without ligatures (Maple Mono NL)
+* Normal-Ligature: --normal preset with ligatures (Maple Mono Normal)
+* ⭕️ Normal-No-Ligature: --normal preset without ligatures (Maple Mono Normal NL)
+
+Format and Glyph Set
+* Variable: Minimal version, smoothly change font weight by variable
+* TTF: Minimal version, ttf format [Recommend!]
+* OTF: Minimal version, otf format
+* WOFF2: Minimal version, woff2 format, for small size on web pages
+* NF: Nerd-Font patched version, add icons for terminal (With -NF suffix)
+* CN: Chinese version, embed with Chinese and Japanese glyphs (With -CN suffix)
+* ⭕️ NF-CN: Full version, embed with icons, Chinese and Japanese glyphs (With -NF-CN suffix)
+
+Font Hint
+* AutoHint: 用于低屏幕分辨率（<1080P）
+* ⭕️ unhinted: 用于高屏幕分辨率, 高分屏使用 AutoHint 的会造成闪烁。
+----
+
+
+
+
+* ⭕️ link:https://github.com/be5invis/Sarasa-Gothic[Sarasa-Gothic/更纱黑体]
+  Sarasa Mono CL
+
+
+[source,plain]
+----
+* Style dimension
+** Latin/Greek/Cyrillic character set being Inter
+*** ⭕️ Quotes (“”) are full width —— Gothic
+*** Quotes (“”) are narrow —— UI
+** Latin/Greek/Cyrillic character set being Iosevka
+*** Em dashes (——) are full width —— Mono
+*** Em dashes (——) are half width —— Term
+*** No ligature, Em dashes (——) are half width —— Fixed
+* Orthography dimension
+** ⭕️ CL: Classical orthography
+** SC, TC, J, K, HC: Regional orthography, following Source Han Sans notations.
+   (注：SC=简体中文, TC=繁体中文, J=日文, K=韩文, HC=香港中文)
+----
+
+
 [source,text]
 ----
-abcdefghijklmnopqrstuvwxyz 0123456789 (){}[]
-ABCDEFGHIJKLMNOPQRSTUVWXYZ +-*/= .,;:!? #&$%@|^
 中华人民共和国
-11223344556677
+abcdefghijklmnopqrstuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+0123456789 (){}[]
++ - * / = .,;:!? #&$%@|^
+----
+
+
+* Style dimension
+** Latin/Greek/Cyrillic character set being Inter
+*** ⭕️ Quotes (“”) are full width —— Gothic
+*** Quotes (“”) are narrow —— UI
+** Latin/Greek/Cyrillic character set being Iosevka
+*** Em dashes (——) are full width —— Mono
+*** Em dashes (——) are half width —— Term
+*** No ligature, Em dashes (——) are half width —— Fixed
+* Orthography dimension
+** ⭕️ CL: Classical orthography
+** SC, TC, J, K, HC: Regional orthography, following Source Han Sans notations.
+   (注：SC=简体中文, TC=繁体中文, J=日文, K=韩文, HC=香港中文)
+
+[source,plain]
+----
+ 字形风格维度
+
+  西文/希腊文/西里尔文字符集为 Inter 时：
+
+  ┌────────┬─────────────────────┐
+  │  变种  │        说明         │
+  ├────────┼─────────────────────┤
+  │ Gothic │ ⭕️ 引号（""）为全角 │
+  ├────────┼─────────────────────┤
+  │ UI     │ 引号（""）为半角    │
+  └────────┴─────────────────────┘
+
+  西文/希腊文/西里尔文字符集为 Iosevka（等宽）时：
+
+  ┌───────┬────────────────────────────┐
+  │ 变种  │            说明            │
+  ├───────┼────────────────────────────┤
+  │ Mono  │ 破折号（——）为全角         │
+  ├───────┼────────────────────────────┤
+  │ Term  │ 破折号（——）为半角         │
+  ├───────┼────────────────────────────┤
+  │ Fixed │ 无连字，破折号（——）为半角 │
+  └───────┴────────────────────────────┘
+
+  字形标准维度
+
+  ┌──────┬──────────────────┐
+  │ 标识 │       说明       │
+  ├──────┼──────────────────┤
+  │ CL   │ ⭕️ 古典字形      │
+  ├──────┼──────────────────┤
+  │ SC   │ 简体中文（大陆） │
+  ├──────┼──────────────────┤
+  │ TC   │ 繁体中文（台湾） │
+  ├──────┼──────────────────┤
+  │ HC   │ 繁体中文（香港） │
+  ├──────┼──────────────────┤
+  │ J    │ 日文             │
+  ├──────┼──────────────────┤
+  │ K    │ 韩文             │
+  └──────┴──────────────────┘
+
+  ▎ ⭕️ 标记的是你可能最关注的选项：日常中文开发场景一般选 Gothic + CL 或 Gothic + SC；终端场景选 Mono + SC。
+
+
+  ┌───────────────────┬─────────────────────┬────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │    Chrome 设置    │        建议         │                                                            理由                                                            │
+  ├───────────────────┼─────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Standard font     │ ✅ Sarasa Gothic SC │ 网页默认字体，更纱黑体作为无衬线字体用在这里没问题                                                                         │
+  ├───────────────────┼─────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Sans-serif font   │ ✅ Sarasa Gothic SC │ 这是它的本职，完美匹配                                                                                                     │
+  ├───────────────────┼─────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Fixed-width font  │ ✅ Sarasa Mono SC   │ 等宽变体，专为代码/终端场景设计                                                                                            │
+  ├───────────────────┼─────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Serif font        │ ❌ 不建议           │ 更纱黑体没有衬线变体，设了也是"假衬线"，遇到明确指定 font-family: serif 的网页会显得不协调。建议保持系统默认或用宋体类字体 │
+  ├───────────────────┼─────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Mathematical font │ ❌ 不建议           │ 更纱黑体不包含完整的数学符号集，保持默认即可                                                                               │
+  └───────────────────┴─────────────────────┴────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+   Gothic 还是 UI？
+
+  - Gothic SC — 引号全角，适合中文阅读体验更沉浸
+  - UI SC — 引号半角，混合中英文内容时视觉更紧凑，更适合工具类/后台类网页
 ----
