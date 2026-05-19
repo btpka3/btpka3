@@ -128,9 +128,6 @@ su -
 curl -sL https://deb.nodesource.com/setup | sudo bash -
 su -
 nvm install v0.10.34
-
-# macOs 使用 HomeBrew 安装
-brew install node
 ----
 
 
@@ -230,3 +227,79 @@ npm install -g newman
 
 
 ----
+
+
+== 多版本安装node
+
+=== homebrew 👎🏻
+
+不推荐，只能单版本。
+
+[source,shell]
+----
+# macOs 使用 HomeBrew 安装
+brew install node
+
+# 更更新 ~/.zshrc ，将 /opt/homebrew/Cellar/node/25.9.0_2/bin 目录添加到 PATH 里
+if [ -L /opt/homebrew/bin/node ]; then
+  _NODE_BIN_DIR="$(cd "$(dirname "$(readlink -f /opt/homebrew/bin/node)")" && pwd)"
+  if [ -d "$_NODE_BIN_DIR" ]; then
+    # Add the directory where global npm/tnpm packages install executables
+    case ":$PATH:" in
+      *:"$_NODE_BIN_DIR":*) ;;
+      *) export PATH="$_NODE_BIN_DIR:$PATH" ;;
+    esac
+  fi
+  unset _NODE_BIN_DIR
+fi
+----
+
+
+=== ⭕️⭕️⭕️👍🏻👍🏻👍🏻 fnm / Fast Node Manager
+
+link:https://github.com/Schniz/fnm[github : fnm]
+Rust 编写，速度极快（比 nvm 快 10-40 倍）
+
+兼容 nvm 命令语法，迁移成本低
+支持 .node-version, .nvmrc 自动切换
+
+[source,shell]
+----
+brew install fnm
+fnm --help
+fnm list-remote --help
+# 默认安装到 ~/.local/share/fnm/node-versions/
+fnm list-remote --lts
+fnm install --lts
+
+fnm list
+fnm default
+
+# .zshrc 最后安装该命令
+eval "$(fnm env --use-on-cd)"
+
+# .nvmrc 文件的内容很简单，就只有个 node 版本号, 比如 : "24.15.0", "v24.15.0", "lts/iron"（不区分大小写，但约定全小写）
+----
+
+
+
+
+=== nvm (Node Version Manager)
+https://github.com/nvm-sh/nvm
+
+[source,shell]
+----
+brew install nvm
+----
+
+
+=== volta
+https://github.com/volta-cli/volta
+
+=== mise (原名 rtx)
+https://github.com/jdx/mise
+
+=== n
+https://github.com/tj/n
+
+

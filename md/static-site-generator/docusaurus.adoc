@@ -1,0 +1,18 @@
+https://docusaurus.io/
+
+Docusaurus 是 Meta（Facebook）开源的静态站点生成器，基于 React + MDX，主要用于文档站。
+
+支持 `*.md`, `*.mdx` 文件。
+
+可通过 配合插件使用 asciidoc.
+
+## asciidoc
+
+* link:https://github.com/asciidoc-js/docusaurus-asciidoc[github : @asciidoc-js/docusaurus-asciidoc]
+* link:https://www.npmjs.com/package/@asciidoc-js/docusaurus-asciidoc[npm : @asciidoc-js/docusaurus-asciidoc]
+
+
+## 搜索
+
+搜索输入框输入文本后，有提示 "The search index is only available when you run Docusaurus build!"， 该如何完成搜索的验证？
+是 @easyops-cn/docusaurus-search-local 的已知限制——搜索索引只在 build 时生成。需要用 npm run serve（服务构建产物）来验证搜索。

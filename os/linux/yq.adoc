@@ -45,7 +45,7 @@ yq -V
 xml='
 <project>
   <profiles>
-    <profile><id>aaa</id></profile>
+    <profile><id name="zhang3">aaa</id></profile>
     <profile><id>bbb</id></profile>
     <profile><id>ccc</id></profile>
   </profiles>
@@ -53,8 +53,15 @@ xml='
 '
 echo $xml > /tmp/a.xml
 
+# 如果仅仅高亮颜色输出到控制台，则建议使用 bat 命令
+
 # test 1 :  worked
-echo $xml | yq eval -p xml -o json '.project.profiles.profile[].id'
+
+# ✅： 使用 jq 支持的 【Alternative operator: //】 来执行替换命令，类似 try...catch
+cat /tmp/a.xml | yq eval -p xml -o json '.project.profiles.profile[].id | .["+content"] // .'
+
+# ❎ ： 只输出了 "aaa"
+cat /tmp/a.xml | yq eval -p xml -o json '.project.profiles.profile[].id.+content'
 # test 2 :  worked
 yq eval -p xml -o json '.project.profiles.profile[].id' < /tmp/a.xml
 ----

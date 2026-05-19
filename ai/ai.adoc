@@ -1,9 +1,15 @@
 
 
 
-https://github.com/shareAI-lab/learn-claude-code
+* https://github.com/shareAI-lab/learn-claude-code
 
-link:https://github.com/siteboon/claudecodeui[Claude Code UI]
+* link:https://github.com/siteboon/claudecodeui[Claude Code UI]
+
+* link:https://github.com/karpathy/autoresearch[karpathy/autoresearch] :
+端到端的自主科研 Agent 自动化训练， 遵循 “修改-训练-评估-决策” 闭环，
+能从用户输入的一个原始研究想法开始，自动完成从文献检索到论文撰写的完整流程
+
+* link:https://openai.com/zh-Hans-CN/index/harness-engineering/[harness-engineering]
 
 
 ## ollama
@@ -76,6 +82,7 @@ link:https://modelcontextprotocol.io/docs/getting-started/intro[What is the Mode
 === /tools/list
 
 发现有哪些可以使用的工具。
+应用初始化时， 会向注册的每个 mcp 服务其发送该请求，确认有哪些 工具可用。
 
 [source,json]
 ----
@@ -134,6 +141,25 @@ Skills是2025年10月由Anthropic在Claude Code上推出的特性，后于同年
 link:https://code.claude.com/docs/en/plugins-reference#skills[Claude code: plugins reference : skills]
 
 
+skill 与 知识 的边界划分
+
+=== SKILL 负责不可变的问题排查步骤，确保不遗漏关键环节：
+
+* 定位 ClassLoader - 找到 JiugongBundleClassLoader 的 hash
+* 验证日志绑定 - 检查 slf4j 绑定到 logback（而非其他实现）
+* 检查配置生效 - 确认 bundle_logback.xml 被正确加载
+* 手动触发测试 - 绕过业务代码，直接测试日志链路
+* 诊断常见问题 - IncompatibleClassChangeError、StackOverflowError 等
+
+===  知识承载（可变上下文）
+知识负责易变的环境信息和参考材料
+
+* 九宫APP命名规范、日志路径约定
+* 各团队阿里云主账号对照表
+* 常见错误案例及解决方案
+* 依赖版本矩阵（slf4j/logback 推荐版本）
+
+
 == cli
 * link:https://cli.iflow.cn/[心流CLI-iFlow CLI]
 * link:https://code.claude.com/docs/en/cli-reference[claude cli]
@@ -162,11 +188,152 @@ link:https://github.com/n4ze3m/page-assist[page-assist]
 
 
 
+== 记忆/知识
+* 应用层建立向量数据库或用户画像库。
+** 显式记忆：将重要的用户偏好、关键事实（如“用户喜欢用 Python"、“项目截止日期是下周五”）提取出来，存入结构化数据库（SQL/NoSQL）。每次新会话开始时，先读取这些信息注入 Prompt。
+** 隐式记忆：将历史对话切片并向量化存入向量数据库。当用户再次提问时，不仅检索外部知识库，也检索“历史对话库”，找回相关的过往交流内容。
+
+* 解决“长对话中的遗忘”：优化上下文管理策略
+当对话轮数过多，超过模型的上下文窗口（Context Window）限制时，必须采取策略：
+
+** **滑动窗口 **(Sliding Window)：只保留最近的 N 轮对话，丢弃最早的对话。简单但容易丢失早期关键设定。
+** **摘要压缩 **(Summarization)：定期调用一个小模型，将之前的长对话总结成一段简短的“剧情提要”，用摘要代替原始对话放入上下文。这样既保留了核心信息，又节省了 Token。
+** 关键信息锚点：在对话过程中，实时识别并提取关键实体（人名、时间、任务状态），将其维护在一个独立的“状态对象”中，始终附带在 Prompt 里，不受对话长度影响。
+
+* 架构层面的“记忆分层”
+成熟的 AI 产品通常会设计三层记忆架构：
+
+短期记忆：当前的 Context Window，处理即时交互。
+长期记忆：向量数据库，存储历史交互和外部知识，按需检索。
+工作记忆/状态机：结构化的变量（如当前任务进度、用户设置），确保核心逻辑不丢失。
+
+
+== 本地记忆/知识
+一、核心架构设计：分层记忆模型
+不要把所有东西都塞进一个数据库。本地智能体的记忆应分为三层：
+
+* 短期记忆 (Short-term)：当前对话上下文（由 LLM 上下文窗口管理）。
+* 长期语义记忆 (Long-term Semantic)：聊天中的知识点、事实、概念（使用向量数据库）。
+* 长期情景/结构化记忆 (Long-term Episodic/Structured)：用户画像、偏好、系统配置、关键事件（使用轻量级关系型/文档数据库 + 总结技能）。
+
+二、推荐的技术栈与程序 (本地部署版)
+1. 向量数据库 (用于存储“相关知识”和“聊天知识点”)
+这是实现 RAG（检索增强生成）的核心，用于回答“我记得以前说过什么？”或“关于这个主题我知道什么？”。
+
+** 首选推荐：ChromaDB (Local Mode)
+  特点：纯 Python 编写，默认就在本地运行，无需启动独立服务器进程（也可以选服务端模式）。对开发者极其友好，适合嵌入到本地脚本中。
+  适用：存储聊天片段、文档切片。
+  优势：安装简单 (pip install chromadb)，支持持久化存储到本地磁盘。
+
+** 备选推荐：LanceDB
+特点：基于磁盘的向量库，速度极快，内存占用极低。非常适合资源有限的本地机器。
+优势：可以直接查询 Parquet 文件，适合处理大量历史日志。
+** 进阶推荐：Qdrant (Docker 本地版)
+特点：性能最强，支持复杂的过滤查询（如“只查找上周关于 Python 的对话”）。
+部署：通过 docker run 一键在本地启动。
+
+2. 结构化数据库 (用于存储“用户画像”、“偏好”、“系统信息”)
+
+向量数据库不擅长存精确的属性（如 name: "Alice", preference: "dark_mode"），需要传统数据库。
+
+** 首选推荐：SQLite
+特点：零配置，单文件数据库，Python 原生支持。
+用途：
+users 表：存储静态画像（姓名、职业、角色设定）。
+preferences 表：存储动态偏好（喜欢简短回答、讨厌表情包、常用编程语言）。
+system_config 表：存储本地路径、API Key 配置等。
+
+** 备选推荐：JSON Files / YAML
+特点：人类可读，直接编辑。
+用途：如果数据量很小（仅个人使用），直接用 profile.json 和 prefs.yaml 最简单，配合 Pydantic 进行校验。
+
+3. 编排框架 (作为“大脑”协调记忆)
+你需要一个框架来调度上述数据库和 LLM。
+
+** LangChain / LangGraph
+技能：提供现成的 Memory 模块（ConversationBufferWindowMemory, VectorStoreRetrieverMemory）。
+优势：生态最丰富，有很多现成的本地 Loader 和 Embedding 接口。
+**  LlamaIndex
+技能：专注于数据索引和检索，其 Memory 模块对“从聊天中提取知识并存储”做得非常好。
+优势：比 LangChain 更轻量，更适合构建知识库驱动的代理。
+** AutoGen / CrewAI
+技能：多智能体协作。可以专门派一个“记忆管理员”智能体负责整理聊天记录。
+
+
+三、关键 Skills (智能体需要具备的能力)
+
+为了让记忆“活”起来，你不能只是被动存储，必须赋予智能体以下 Tools/Skills：
+
+** Skill 1: extract_entities_and_facts (实体与事实提取)
+触发时机：每次对话结束或每 N 轮对话。
+功能：调用一个小模型（如本地的 Llama-3-8B 或 Phi-3）分析当前对话。
+输出示例：
+[source,json]
+----
+{
+  "user_profile_updates": {"favorite_language": "Rust"},
+  "new_knowledge": ["用户正在学习 Rust 的所有权机制"],
+  "important_events": ["用户计划下周五发布项目"]
+}
+----
+
+动作：将提取到的数据写入 SQLite (画像) 或 ChromaDB (知识)。
+
+** Skill 2: summarize_conversation (对话摘要/压缩)
+触发时机：当短期上下文即将溢出，或每天深夜定时任务。
+功能：将长段的聊天记录压缩成一段简短的“剧情提要”。
+动作：将原始记录归档到冷存储（本地文件系统），将“摘要”存入向量数据库，以便未来检索时能快速回顾背景。
+
+** Skill 3: semantic_search_memory (语义记忆检索)
+触发时机：用户提问涉及历史内容时（如“我上次说的那个项目怎么样了？”）。
+功能：
+将用户问题转化为向量。
+在 ChromaDB/LanceDB 中搜索相似的历史片段。
+同时在 SQLite 中查询相关的用户偏好。
+动作：将检索结果拼接到 Prompt 中，让 AI 基于记忆回答。
+
+** Skill 4: update_user_profile (动态画像修正)
+触发时机：检测到用户明确表达偏好变化时。
+功能：对比新旧偏好，执行 SQL UPDATE 操作。
+逻辑：确保画像不会无限膨胀，保持最新状态。
+
+
+五、本地运行的额外建议
+隐私与安全：
+
+所有数据（.db, chroma_db/ 文件夹）都应加密存储或在受保护的目录下。
+如果使用本地 LLM (如 Ollama, LM Studio)，确保它们绑定在 localhost，不对外网开放。
+模型选择：
+
+Embedding 模型：推荐使用 bge-small-zh-v1.5 (中文效果好且小) 或 all-MiniLM-L6-v2 (英文通用，极快)。
+推理模型：对于提取知识和总结，不需要超大模型。Qwen2.5-7B-Instruct 或 Llama-3-8B 在本地显卡上就能飞快运行，足以胜任“记忆管理员”的角色。
+定期清理 (Garbage Collection)：
+
+本地磁盘空间有限。编写一个定时脚本，删除超过一定时间（如 1 年前）且未被标记为“重要”的聊天向量记录，或者将它们压缩归档到冷备份文件中。
+总结
+要在本地构建智能体记忆：
+
+存事实/偏好：用 SQLite (快、准、结构化)。
+存知识/聊天：用 ChromaDB 或 LanceDB (语义搜索)。
+管流程：用 LangChain 或 LlamaIndex 编排。
+做提取：用一个小的本地 LLM 作为“后台线程”，不断从对话中提炼信息写入上述数据库。
+
 
 == SKILL vs. RULS
 RULE : 刚性底线，不允许出错。
 SKILL: 可容忍模糊的场景。
  相同功能命中多个SKILL时，会只选一个？还是merge多个结果？这个依赖于AI 系统架构设计 以及 调度器（Orchestrator/Router） 的实现方式，
+
+RULE:
+* 必须每次都携带,拼接用户问题，并发送给AI大模型。否则AI会因为窗口大小，忘记最早的规则的约定。
+* 规则如果太多，可以：
+（1）先用小模型对用户的问题进行分类，再按分类去加载所需的部分规则。但需要对规则预进行分类。
+（2）将规则文件像知识那样生成 检索增强生成 (RAG, Retrieval-Augmented Generation) , 用户提问后，先到规则知识库 RAG中查找所需的规则，再拼接规则和用户问题给到AI大模型。
+
+
+
+
+
 
 === 路由模式 (Routing / Selection) —— “只选一个”
 这是目前最主流的模式（如 LangChain 的 AgentExecutor 默认行为、Function Calling 标准流程）。
@@ -227,3 +394,242 @@ SKILL: 可容忍模糊的场景。
 ** Step 2: 用公司名调用 get_financial_report 获取财报。
 ** Step 3: 用财报数据调用 risk_analysis_model 进行分析。
 ** Result: 最终答案是最后一步的输出，但隐含了前面所有步骤的信息流。
+
+
+== 模型微调/Fine-tuning
+
+=== 第一阶段：准备工作
+
+1. 硬件与环境要求
+** 显卡：推荐 NVIDIA GPU，显存 ≥ 16GB（RTX 3090/4090 最佳）。如果是 8GB 显存，只能微调极小的模型（如 Qwen-1.5B, Phi-3）或使用极低精度。
+** 系统：Linux (Ubuntu) 体验最好，Windows (WSL2) 也可行。
+** 软件栈：Python 3.10+, PyTorch, CUDA。
+
+2.选择基座模型
+根据你的显存和业务需求选择：
+
+** 中文能力强：Qwen2.5 (阿里), Yi-1.5 (零一万物), ChatGLM3/4 (智谱)。
+** 通用能力强：Llama 3 / 3.1 (Meta), Mistral。
+** 建议：初学者首选 Qwen2.5-7B-Instruct 或 Llama-3-8B-Instruct，生态好，教程多。
+
+3. 安装 LLaMA Factory
+这是目前最简单的入口，支持一键安装和 WebUI 可视化操作。
+
+[source,bash]
+----
+# 克隆仓库
+git clone --depth 1 https://github.com/hiyouga/LLaMA-Factory.git
+cd LLaMA-Factory
+
+# 安装依赖 (推荐使用 venv 或 conda 虚拟环境)
+pip install -e ".[torch,metrics]"
+# 如果需要 Flash Attention 加速 (推荐 N 卡用户)，确保已安装 cuda 工具包后执行:
+# pip install -e ".[torch,metrics,flash-attn]"
+----
+
+=== 第二阶段：数据准备（最关键的一步）
+
+微调的效果 70% 取决于数据质量。你需要将专业知识转化为 指令微调格式 (Instruction Format)。
+
+1. 数据格式标准
+LLaMA Factory 默认支持 alpaca 格式（JSONL）。每条数据包含三个字段：
+
+** instruction: 用户的指令/问题。
+** input: 可选的上下文/输入内容（若无则留空）。
+** output: 模型应有的完美回答。
+
+示例 (my_data.jsonl)：
+
+[source,json]
+----
+{"instruction": "作为资深律师，请解释什么是'善意取得'？", "input": "", "output": "善意取得是指无处分权人将不动产或者动产转让给受让人的，所有权人有权追回；除法律另有规定外，符合下列情形的，受让人取得该不动产或者动产的所有权：(一) 受让人受让该不动产或者动产时是善意..."}
+{"instruction": "根据公司的《员工手册》第 5 条，迟到超过 30 分钟怎么处理？", "input": "", "output": "根据公司规定，迟到超过 30 分钟视为旷工半天，扣除当日双倍工资，并需在部门会议上做口头检讨。"}
+{"instruction": "帮我优化这段 Python 代码，使其符合 PEP8 规范。", "input": "def my_func(a,b):\n    return a+b", "output": "def my_func(a, b):\n    return a + b"}
+----
+
+
+2. 数据清洗与增强技巧
+** 去重：删除完全重复的问答对。
+** 多样性：不要只有一种提问方式。同一个知识点，尝试用“什么是..."、“请解释..."、“简述..."等多种问法。
+思维链 (CoT)：对于复杂推理任务，在 output 中不仅给答案，还要写出推理过程（"首先...其次...因此..."），这能显著提升模型的逻辑能力。
+** 负样本：如果可能，加入一些“我不知道”或“这超出了我的范围”的回答，防止模型胡编乱造。
+
+3. 注册数据集
+
+在 LLaMA-Factory/data/dataset_info.json 文件中添加你的数据集配置：
+[source,json]
+----
+"my_legal_data": {
+    "file_name": "my_data.jsonl",
+    "file_sha1": "这里填文件的 sha1 校验码 (可选，用于验证完整性)",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output"
+    }
+}
+----
+
+
+=== 第三阶段：执行微调 (LoRA)
+你可以使用 命令行 或 WebUI。推荐先用 WebUI 熟悉参数，再用命令行跑大规模任务。
+方法 A：使用 WebUI (可视化，适合调试)
+
+1. 启动服务
++
+[source,bash]
+----
+llamafactory-cli webui
+----
+
+1. 浏览器打开 http://localhost:7860。
+1. 配置步骤：
+Model: 选择下载好的基座模型路径 (如 /models/Qwen2.5-7B-Instruct)。
+Finetuning Type: 选择 lora。
+Dataset: 勾选你刚才注册的 my_legal_data。
+Max Length: 设置最大序列长度 (如 2048 或 4096，受显存限制)。
+Batch Size: 根据显存调整 (如 2 或 4)。
+Learning Rate: LoRA 通常设为 1e-4 或 5e-5。
+Epochs: 小数据集跑 3-5 轮，大数据集跑 1-2 轮。
+Template: 选择对应模型的模板 (如 qwen, llama3)，必须选对，否则乱码。
+1.  点击 Start 开始训练。
+
+方法 B：使用命令行 (适合生产/脚本化)
+
+创建一个 train_lora.sh 脚本：
+[source,bash]
+----
+llamafactory-cli train \
+    --stage sft \
+    --do_train \
+    --model_name_or_path /path/to/Qwen2.5-7B-Instruct \
+    --dataset my_legal_data \
+    --template qwen \
+    --finetuning_type lora \
+    --lora_target all \
+    --output_dir ./saves/qwen2.5-7b/lora/my_legal_v1 \
+    --overwrite_cache \
+    --per_device_train_batch_size 2 \
+    --gradient_accumulation_steps 4 \
+    --lr_scheduler_type cosine \
+    --logging_steps 10 \
+    --warmup_ratio 0.1 \
+    --save_steps 100 \
+    --learning_rate 5e-5 \
+    --num_train_epochs 3.0 \
+    --plot_loss \
+    --fp16 \
+    --ddp_timeout 180000000
+----
+
+关键参数解析：
+
+** `--lora_target all`: 对模型所有线性层进行 LoRA 适配（效果通常比只调 attention 层好）。
+** `--gradient_accumulation_steps`: 显存不够时，增大此值等效于增大 batch size。
+** `--fp16`: 开启半精度训练，节省显存。
+
+=== 第四阶段：验证与合并
+训练完成后，你会得到一组 LoRA 权重文件（通常是 adapter_model.safetensors 和 adapter_config.json）。
+
+1. 快速验证 (不合并)
+你可以直接加载基座模型 + LoRA 适配器进行测试，无需合并文件。
+
+[source,shell]
+----
+llamafactory-cli chat \
+    --model_name_or_path /path/to/Qwen2.5-7B-Instruct \
+    --adapter_name_or_path ./saves/qwen2.5-7b/lora/my_legal_v1 \
+    --template qwen \
+    --finetuning_type lora
+----
+此时输入专业问题，观察回答是否符合预期。如果效果不好，回到第二阶段调整数据。
+
+2. 导出合并 (部署用)
+
+为了部署方便（减少加载逻辑，提高推理速度），通常将 LoRA 权重合并回基座模型，生成一个新的独立模型。
+
+[source,shell]
+----
+llamafactory-cli export \
+    --model_name_or_path /path/to/Qwen2.5-7B-Instruct \
+    --adapter_name_or_path ./saves/qwen2.5-7b/lora/my_legal_v1 \
+    --template qwen \
+    --finetuning_type lora \
+    --export_dir ./models/Qwen2.5-7B-Legal-Merged \
+    --export_size 2 \
+    --export_legacy_format False
+----
+生成的 ./models/Qwen2.5-7B-Legal-Merged 就是一个完整的、可以直接用于推理的新模型。
+
+
+=== 第五阶段：避坑指南与最佳实践
+* 灾难性遗忘 (Catastrophic Forgetting)：
+
+**  现象：微调后模型变聪明了，但不会写诗了，或者听不懂通用指令了。
+** 解决：在训练数据中混合 10%-20% 的通用数据（如 Alpaca 通用数据集、COIG 等），让模型在学习专业知识的同时不忘本。
+
+* 过拟合 (Overfitting)：
+
+** 现象：训练集 Loss 很低，但换个问法就不会了，或者只会背诵训练数据。
+** 解决：
+*** 增加数据多样性。
+*** 减少 Epoch 次数（通常 2-3 轮足矣）。
+*** 降低 Learning Rate。
+
+* 显存爆炸 (OOM)：
+** 解决：
+*** 减小 per_device_train_batch_size。
+*** 增大 gradient_accumulation_steps。
+*** 减小 max_length (裁剪过长的数据)。
+*** 使用 --flash_attn (如果显卡支持)。
+*** 使用 --deepspeed (多卡场景)。
+
+* 评估指标：
+
+** 不要只看 Loss 曲线。人工抽检是最可靠的。
+** 构建一个小型的“测试集”（不在训练集中），每次微调完都跑一遍，对比回答质量。
+
+
+
+== java embbed LLM
+
+java如何内嵌小规格的大模型？
+
+[cols="1,2,2,2", options="header"]
+|===
+| 方案 | 适用场景 | 优点 | 缺点
+
+| *1. DJL + HuggingFace Transformers*
+| 通用 NLP 任务
+| Java 原生支持好，生态丰富
+| 内存占用较高
+
+| *2. ONNX Runtime + Optimum*
+| 推理加速、低延迟
+| 跨平台、高性能、量化支持好
+| 需转换模型格式
+
+| *3. llama.cpp / llm4j 绑定*
+| 本地运行 LLaMA/Qwen 等
+| 极低内存、CPU/GPU 均支持
+| JNI 调用，调试稍复杂
+
+| *4. Spring AI + Ollama 本地服务*
+| 快速原型开发
+| 开发体验最好，解耦清晰
+| 需额外运行 Ollama 进程
+
+| *5. Deep Java Library (DJL) + TensorRT*
+| GPU 服务器部署
+| 极致推理速度
+| 仅 NVIDIA GPU，配置复杂
+|===
+
+
+
+== LLM Wiki
+RAW: 原始资料 (只读) -> 结构化wiki (包含 .md 文件、反向链接以及概念分类)
+
+每次问答后都更新 wiki.
+定时对wiki进行健康检查和更新。
+对wiki可以制定相关规则，比如达到一定规模后提出复杂问题。

@@ -915,6 +915,41 @@ org.apache.dubbo.remoting.transport.netty4.NettyPortUnificationServerHandler#dec
 ----
 
 
+
+示例异常堆栈。
+
+输出error日志的地方: org.apache.dubbo.rpc.protocol.tri.h12.AbstractServerTransportListener#logError
+
+arthas :
+watch org.apache.dubbo.rpc.protocol.tri.rest.support.basic.FallbackArgumentResolver resolveValue \
+    '{params[0], new String(params[1].inputStream().readAllBytes(), "UTF-8"), throwExp}'  'throwExp!=null' -n 5  -x 3
+
+[source,plain]
+----
+logger:org.apache.dubbo.rpc.protocol.tri.h12.AbstractServerTransportListener
+msg:
+[DUBBO] An error occurred while processing the http request with DefaultHttp11ServerTransportListener, Http1Request{method='POST', path='/com.alibaba.security.tenant.common.service.RequestService/request', contentType='application/json'}, method=com.alibaba.security.tenant.common.service.RequestService.request(String, Map), dubbo version: 3.3.3, current host: 172.16.133.12, error code: 99-0. This may be caused by , go to https://dubbo.apache.org/faq/99/0 to find instructions.
+org.apache.dubbo.rpc.protocol.tri.rest.RestException: Name for argument of type [class java.lang.String] not specified, and parameter name information not available via reflection. Ensure that the compiler uses the -parameters flag
+	at org.apache.dubbo.rpc.protocol.tri.rest.mapping.meta.NamedValueMeta.name(NamedValueMeta.java:59)
+	at org.apache.dubbo.rpc.protocol.tri.rest.support.basic.FallbackArgumentResolver.doResolveValue(FallbackArgumentResolver.java:118)
+	at org.apache.dubbo.rpc.protocol.tri.rest.support.basic.FallbackArgumentResolver.resolveValue(FallbackArgumentResolver.java:73)
+	at org.apache.dubbo.rpc.protocol.tri.rest.argument.NamedValueArgumentResolverSupport.resolve(NamedValueArgumentResolverSupport.java:45)
+	at org.apache.dubbo.rpc.protocol.tri.rest.argument.AbstractArgumentResolver.resolve(AbstractArgumentResolver.java:28)
+	at org.apache.dubbo.rpc.protocol.tri.rest.argument.CompositeArgumentResolver.resolve(CompositeArgumentResolver.java:76)
+	at org.apache.dubbo.rpc.protocol.tri.rest.RestHttpMessageCodec.decode(RestHttpMessageCodec.java:87)
+	at org.apache.dubbo.remoting.http12.message.HttpMessageDecoder.decode(HttpMessageDecoder.java:56)
+	at org.apache.dubbo.remoting.http12.message.DefaultListeningDecoder.decode(DefaultListeningDecoder.java:41)
+	at org.apache.dubbo.rpc.protocol.tri.h12.DefaultHttpMessageListener.onMessage(DefaultHttpMessageListener.java:39)
+	at org.apache.dubbo.rpc.protocol.tri.h12.AbstractServerTransportListener.doOnData(AbstractServerTransportListener.java:183)
+	at org.apache.dubbo.rpc.protocol.tri.h12.AbstractServerTransportListener.lambda$onData$1(AbstractServerTransportListener.java:168)
+	at org.apache.dubbo.common.threadpool.serial.SerializingExecutor.run(SerializingExecutor.java:105)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.dubbo.common.threadlocal.InternalRunnable.run(InternalRunnable.java:39)
+	at java.base/java.lang.Thread.run(Thread.java:991)
+----
+
+
 ## 异步调用
 
 - com.alibaba.dubbo.rpc.support.RpcUtils#isAsync

@@ -562,3 +562,12 @@ https://chromewebstore.google.com/detail/cors-unblock/lfhmikememgdcahcdlaciloanc
 
   总结： 当时能读到 "Hello World" 不是什么通用魔法，纯粹是因为 Chrome 自己暴露了 execute javascript 这个 AppleScript 命令，本质上等同于在 F12 控制台里执行了 document.getElementById('app').innerText。
 ----
+
+
+== cookie 追踪
+
+- chrome://flags ： 设置 privacy-sandbox = Disabled
+- chrome://settings/adPrivacy : 三个选项都关闭。
+- chrome://settings/cookies ： 选择"阻止第三方 Cookie"  FIXME： 影响？
+- AdBlock 插件
+- uBlock Origin  插件： 不只是广告拦截，它能基于规则列表直接阻止第三方追踪请求、Cookie 设置脚本的加载，从源头上解决问题，比单纯禁用 Cookie 更有效

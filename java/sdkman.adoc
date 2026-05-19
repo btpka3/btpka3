@@ -69,7 +69,11 @@ sdkman_auto_complete=true
 #sdkman_auto_selfupdate=true
 #sdkman_auto_update=true
 #sdkman_checksum_enable=true
+sdkman_pager_enabled=false
 ----
+
+* sdkman_pager_enabled 用于控制是否分页，推荐设置为false
+
 
 ## 代理
 
@@ -116,6 +120,9 @@ curl --insecure --location --connect-timeout ${sdkman_curl_connect_timeout} --ma
 
 [source,shell]
 ----
+# sdkman 等命令直接 输出，不进入交互模式
+PAGER=cat
+
 sdk install maven
 sdk install gradle 8.10.2
 

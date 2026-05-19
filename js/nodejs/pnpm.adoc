@@ -3,11 +3,64 @@ link:https://pnpm.io/[pnpm]
 [source,shell]
 ----
 brew install pnpm
+
 pnpm setup
+
+# 相关配置文件在 ~/.npmrc
+cat ~/.npmrc
+registry=https://registry.anpm.alibaba-inc.com
+
+
+# 列出全局安装的组件
+pnpm list -g --depth=0
+
+# 确认 pnpm 全局安装的路径
+#pnpm config get global-bin-dir
+pnpm root -g
+ls -l $(pnpm root -g)
+
+
 pnpm add -g clawhub
+pnpm add -g skills
+pnpm add -g @openai/codex
+pnpm add -g @anthropic-ai/claude-code
+
+# 检查是否有可用更新, 然后可以使用 `pnpm add -g xxx` 来更新
+pnpm outdated -g
+
+# pnpm 自更新
+pnpm self-update
 ----
 
 
+== .npmrc
+[source,shell]
+----
+# comment
+# 默认使用阿里内网源
+registry=https://registry.anpm.alibaba-inc.com
+
+# @asciidoctor 包走官方源（内网镜像不全）
+@asciidoctor:registry=https://registry.npmjs.org
+
+# 不保存 peerDependencies
+auto-install-peers=false
+
+# 忽略 scripts 执行（安全加固）
+ignore-scripts=true
+
+# 安装时不生成 lock 文件
+lockfile=false
+
+# pnpm 全局 bin 目录
+global-bin-dir=/usr/local/bin
+
+# pnpm store 路径（可换到空间更大的磁盘）
+store-dir=/data0/pnpm-store
+
+# 代理
+proxy=http://proxy.example.com:8080 https-proxy=http://proxy.example.com:8080
+----
 
 
 == 📦 npm / Yarn / pnpm 综合对比（2024 最新版）
@@ -213,3 +266,11 @@ npm bin -g / yarn global bin / pnpm bin -g
 | 增长最快：Vue/Nuxt/Element Plus 官方推荐；GitHub Stars 超 Yarn Berry
 |===
 
+
+
+== 本地 http 服务器
+
+[source,shell]
+----
+pnpx http-server .
+----

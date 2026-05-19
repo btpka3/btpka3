@@ -1,0 +1,604 @@
+* link:https://maven.apache.org/extensions/maven-build-cache-extension/[maven-build-cache-extension]
+* link:https://github.com/apache/maven-build-cache-extension/blob/maven-build-cache-extension-1.2.2/pom.xml#L375[github]
+* link:https://maven.apache.org/resolver/[Apache Maven Artifact Resolver]
+
+## maven extension vs. plugin
+
+Extension 是给 Maven "装新的器官"，Plugin 是让 Maven "做新的动作"。
+
+Extension（扩展） 的核心作用是改变 Maven 自身的构建行为和能力，它在构建生命周期的极早期就被加载，主要用途包括：
+
+* 引入新的打包类型 — 例如支持 .war、.ear 或其他自定义格式
+* 提供自定义的 artifact handler 或 lifecycle mapping — 让 Maven 识别新的项目类型
+* 扩展 Repository 传输协议 — 例如支持 s3://、gcs:// 等非标准协议
+* 修改类加载器行为 — 在构建开始前注入自定义的类或资源
+
+|===
+| 维度 | Extension | Plugin
+
+| 加载时机
+| 构建极早期，项目模型解析之前
+| 生命周期阶段到达时
+
+| 作用
+| 扩展 Maven 核心能力（新协议、新打包类型等）
+| 执行具体构建任务（编译、测试、打包等）
+
+| 声明位置
+| `<build><extensions>`
+| `<build><plugins>`
+
+| 是否可绑定 goal
+| 否，没有 goal 概念
+| 是，通过 goal 绑定到 phase
+
+| 典型场景
+| wagon 传输扩展、自定义 lifecycle mapping
+| 编译、测试、代码生成、部署
+|===
+
+## .mvn/maven-build-cache-config.xml
+
+curl -s https://maven.apache.org/extensions/maven-build-cache-extension/maven-build-cache-config.xml
+
+
+[source,shell]
+----
+
+
+tree $HOME/.m2/build-cache
+
+
+$HOME/.m2/build-cache/${xxxVersion}/${groupId}/${artifactId}/${hash}/local/buildinfo.xml
+$HOME/.m2/build-cache/${xxxVersion}/${groupId}/${artifactId}/${hash}/local/${finalName}-sources.jar
+$HOME/.m2/build-cache/${xxxVersion}/${groupId}/${artifactId}/${hash}/local/${finalName}.jar
+
+# jvm 属性，可以配置在 .mvn/maven.config 中
+-Dmaven.build.cache.enabled=true
+# 可选：指定本地缓存目录（默认 ~/.m2/build-cache）
+-Dmaven.build.cache.localRepo=${user.home}/.m2/build-cache
+
+----
+
+== 注意事项
+
+=== mvn 命令直接执行的 goal 需要绑定 maven 生命周期，否则缓存失效。
+
+示例命令: `mvn clean package docker:build`
+
+可以参考下面的示例，将其绑定 maven 生命周期
+[source,xml]
+----
+<plugin>
+    <groupId>com.spotify</groupId>
+    <artifactId>docker-maven-plugin</artifactId>
+    <version>${docker.plugin.version}</version>
+    <executions>
+        <execution>
+            <id>my-build</id>
+            <phase>package</phase>
+            <goals>
+                <goal>build</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+----
+
+
+== buildinfo.xml
+
+=== 示例
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<build xsi:schemaLocation="http://maven.apache.org/BUILD-CACHE-BUILD/1.2.0 https://maven.apache.org/xsd/build-cache-build-1.2.0.xsd"
+    xmlns="http://maven.apache.org/BUILD-CACHE-BUILD/1.2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <cacheImplementationVersion>v1.1</cacheImplementationVersion>
+  <final>false</final>
+  <hashFunction>SHA-256</hashFunction>
+  <buildTime>2026-04-14T18:01:51.108</buildTime>
+  <buildServer>30.166.51.139</buildServer>
+  <scm>
+    <sourceBranch>refs/heads/slf4j2</sourceBranch>
+    <revision>9454df8ae401cf9d5522eb6a0902d5ef699a8c73</revision>
+  </scm>
+  <goals>
+    <goal>test</goal>
+  </goals>
+  <artifact>
+    <groupId>com.alibaba.security.gong9.log</groupId>
+    <artifactId>gong9-log-api-context</artifactId>
+    <version>0.13.0-slf4j2-SNAPSHOT</version>
+    <type>jar</type>
+    <fileName>gong9-log-api-context.jar</fileName>
+    <filePath>target/classes</filePath>
+    <isDirectory>true</isDirectory>
+  </artifact>
+  <attachedArtifacts>
+    <attachedArtifact>
+      <groupId>com.alibaba.security.gong9.log</groupId>
+      <artifactId>gong9-log-api-context</artifactId>
+      <version>0.13.0-slf4j2-SNAPSHOT</version>
+      <classifier>mvn-cache-ext-extra-output-1</classifier>
+      <type>zip</type>
+      <fileName>gong9-log-api-context-mvn-cache-ext-extra-output-1.zip</fileName>
+      <fileHash>97a66d96d6901d64930cad10dbd28604de4044e3e277027383f54d43b45476ab</fileHash>
+      <fileSize>33930</fileSize>
+      <filePath>target/surefire-reports</filePath>
+    </attachedArtifact>
+  </attachedArtifacts>
+  <executions>
+    <execution>
+      <executionKey>default-test:test:test:maven-surefire-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugin.surefire.SurefireMojo</mojoClassName>
+      <properties>
+        <property name="additionalClasspathDependencies" tracked="false">[]</property>
+        <property name="additionalClasspathElements" tracked="false">{}</property>
+        <property name="argLine" tracked="false">-Denforcer.skip=true -Dautoconfig.skip=true -Dfile.encoding=UTF-8 @{argLine}</property>
+        <property name="childDelegation" tracked="false">false</property>
+        <property name="classesDirectory" tracked="false">target/classes</property>
+        <property name="classpathDependencyExcludes" tracked="false">{}</property>
+        <property name="classpathDependencyScopeExclude" tracked="false">null</property>
+        <property name="consoleOutputReporter" tracked="false">null</property>
+        <property name="debugForkedProcess" tracked="false">null</property>
+        <property name="dependenciesToScan" tracked="false">{}</property>
+        <property name="disableXmlReport" tracked="false">null</property>
+        <property name="enableAssertions" tracked="false">true</property>
+        <property name="enableOutErrElements" tracked="false">true</property>
+        <property name="enableProcessChecker" tracked="false">null</property>
+        <property name="enablePropertiesElement" tracked="false">true</property>
+        <property name="encoding" tracked="false">null</property>
+        <property name="environmentVariables" tracked="false">{}</property>
+        <property name="excludeJUnit5Engines" tracked="false">{}</property>
+        <property name="excludedEnvironmentVariables" tracked="false">{}</property>
+        <property name="excludedGroups" tracked="false">null</property>
+        <property name="excludes" tracked="false">[]</property>
+        <property name="excludesFile" tracked="false">null</property>
+        <property name="failIfNoSpecifiedTests" tracked="false">true</property>
+        <property name="failIfNoTests" tracked="false">false</property>
+        <property name="failOnFlakeCount" tracked="false">0</property>
+        <property name="forkCount" tracked="false">1</property>
+        <property name="forkNode" tracked="false">null</property>
+        <property name="forkedProcessExitTimeoutInSeconds" tracked="false">30</property>
+        <property name="forkedProcessTimeoutInSeconds" tracked="false">0</property>
+        <property name="groups" tracked="false">null</property>
+        <property name="includeJUnit5Engines" tracked="false">{}</property>
+        <property name="includes" tracked="false">[]</property>
+        <property name="includesFile" tracked="false">null</property>
+        <property name="jdkToolchain" tracked="false">null</property>
+        <property name="junitArtifactName" tracked="false">junit:junit</property>
+        <property name="jvm" tracked="false">null</property>
+        <property name="objectFactory" tracked="false">null</property>
+        <property name="parallel" tracked="false">null</property>
+        <property name="parallelOptimized" tracked="false">true</property>
+        <property name="parallelTestsTimeoutForcedInSeconds" tracked="false">0.0</property>
+        <property name="parallelTestsTimeoutInSeconds" tracked="false">0.0</property>
+        <property name="perCoreThreadCount" tracked="false">true</property>
+        <property name="printSummary" tracked="false">true</property>
+        <property name="promoteUserPropertiesToSystemProperties" tracked="false">true</property>
+        <property name="properties" tracked="false">{}</property>
+        <property name="redirectTestOutputToFile" tracked="false">false</property>
+        <property name="reportFormat" tracked="false">brief</property>
+        <property name="reportNameSuffix" tracked="false">null</property>
+        <property name="reportsDirectory" tracked="false">target/surefire-reports</property>
+        <property name="rerunFailingTestsCount" tracked="false">0</property>
+        <property name="reuseForks" tracked="false">true</property>
+        <property name="runOrder" tracked="false">filesystem</property>
+        <property name="runOrderRandomSeed" tracked="false">null</property>
+        <property name="runOrderStatisticsFileChecksum" tracked="false">null</property>
+        <property name="shutdown" tracked="false">exit</property>
+        <property name="skip" tracked="false">false</property>
+        <property name="skipAfterFailureCount" tracked="false">0</property>
+        <property name="skipExec" tracked="false">false</property>
+        <property name="skipTests" tracked="false">false</property>
+        <property name="statelessTestsetInfoReporter" tracked="false">null</property>
+        <property name="statelessTestsetReporter" tracked="false">null</property>
+        <property name="suiteXmlFiles" tracked="false">{}</property>
+        <property name="systemProperties" tracked="false">null</property>
+        <property name="systemPropertiesFile" tracked="false">null</property>
+        <property name="systemPropertyVariables" tracked="false">null</property>
+        <property name="tempDir" tracked="false">surefire</property>
+        <property name="test" tracked="false">null</property>
+        <property name="testClassesDirectory" tracked="false">target/test-classes</property>
+        <property name="testFailureIgnore" tracked="false">false</property>
+        <property name="testNGArtifactName" tracked="false">org.testng:testng</property>
+        <property name="testSourceDirectory" tracked="false">src/test/java</property>
+        <property name="threadCount" tracked="false">0</property>
+        <property name="threadCountClasses" tracked="false">0</property>
+        <property name="threadCountMethods" tracked="false">0</property>
+        <property name="threadCountSuites" tracked="false">0</property>
+        <property name="trimStackTrace" tracked="false">false</property>
+        <property name="useFile" tracked="false">true</property>
+        <property name="useManifestOnlyJar" tracked="false">true</property>
+        <property name="useModulePath" tracked="false">true</property>
+        <property name="useSystemClassLoader" tracked="false">true</property>
+        <property name="useUnlimitedThreads" tracked="false">false</property>
+        <property name="workingDirectory" tracked="false">/Users/zll/data0/work/git-repo/ali/mtee-bundle/gong9-log/gong9-log-api-context</property>
+      </properties>
+    </execution>
+
+  </executions>
+  <projectsInputInfo>
+    <checksum>697dbbed35254d9e35ccc142ea15121aac2a23abb3f133dc85eb0391c2ddedd9</checksum>
+    <items>
+      <item type="pom" hash="8745ba9d2ef31cc0327c04aba863ae76bffb11f6207b8c243fce401913015599">&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  ... # 太长，省略，是 effective pom 的内容。
+  &lt;/build>
+&lt;/project>
+</item>
+      <item type="file" hash="d1a84b9db9925b5044f5dcf845d6538e1e67ab74358ed433868e482626140092" content="text/plain" isText="yes" charset="UTF-8" eol="LF">src/main/java/com/alibaba/security/gong9/log/api/context/AbstractILoggingEventValueSupplier.java</item>
+      <item type="file" hash="84d21e66cab445c8335470d8d89813843225351b8bedfc6cf9ab8febe54587d5" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/test/java/com/alibaba/security/gong9/log/api/context/ValueSupplierServiceTest.java</item>
+      <item type="dependency" hash="bfa0cc0e1c1d159022f86c7d1e44d0444565e8e4e3d1ec2d92da51fddb880846">com.alibaba.security.gong9.semconv:gong9-semconv-log:jar</item>
+    </items>
+  </projectsInputInfo>
+</build>
+
+----
+
+=== 解析
+
+[source,plain]
+----
+<build><artifact>
+<build><attachedArtifacts>                          # 记录了配置的 附属产物
+<build><executions><execution>                      # 记录各个maven 插件的相关信息，和属性值，
+                                                    # tracked=true 表示在 build-cache-report.xml 的 reconciles/reconcile 里有声明，值有变化就缓存失效。
+                                                    # tracked=false 则表示值的变动不会触发缓存失效
+<build><executions><execution><properties><property> # 记录的是 mojo 字段的 toString() 的值，但如果字段类型是复杂POJO对象，且没有重写 toString(),
+                                                     # 记录的值则会 是 `${类名}@${hashcode}` , 比如 spotless-maven-plugin 的 com.diffplug.spotless.maven.SpotlessCheckMojo 的 `java` 字段记录的值如下：
+                                                     # <property name="java" tracked="false">com.diffplug.spotless.maven.java.Java@188ae8d2</property>
+                                                     # 故这中字段则不能在 maven-build-cache-config.xml 设置到 reconciles/reconcile 里。
+<build><projectsInputInfo><items><item type="pom">  # 记录了 effective pom ，故如果 maven profile 影响了依赖的jar包,plugin的版本，会触发这里的变动
+<build><projectsInputInfo><items><item type="file"> # 通常记录了 src 目录下 相关源文件。
+----
+
+
+== build-cache-report.xml
+
+* link:https://maven.apache.org/extensions/maven-build-cache-extension/build-cache-report.html[BuildCacheReport]
+
+build-cache-report.xml 在 Maven Session 结束时 生成。
+
+本地保存路径： ${项目根目录}/target/maven-incremental/cache-report.{buildId}.xml
+注意：即便是 多 maven module 项目，也只是保存在 项目根目录的 target/maven-incremental 目录下。
+远程缓存路径： ${cacheUrl}/v1.1/{groupId}/{artifactId}/{buildId}/build-cache-report.xml  ???
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<cacheReport xsi:schemaLocation="http://maven.apache.org/BUILD-CACHE-REPORT/1.2.0 https://maven.apache.org/xsd/build-cache-report-1.2.0.xsd"
+    xmlns="http://maven.apache.org/BUILD-CACHE-REPORT/1.2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <projects>
+    <project>
+      <groupId>com.alibaba.security.gong9.semconv</groupId>
+      <artifactId>gong9-semconv-log</artifactId>
+      <checksum>bfa0cc0e1c1d159022f86c7d1e44d0444565e8e4e3d1ec2d92da51fddb880846</checksum>
+      <checksumMatched>false</checksumMatched>
+      <lifecycleMatched>false</lifecycleMatched>
+      <source>BUILD</source>
+    </project>
+  </projects>
+</cacheReport>
+
+----
+
+== maven-build-cache-config.xml
+
+对应的java 类是：org.apache.maven.buildcache.xml.config.Configuration
+但该类是动态生成的，在github上没有该源码的
+（./target/generated-sources/modello/org/apache/maven/buildcache/xml/config/Configuration.java），
+具体参考 modello-maven-plugin 插件的 link:https://github.com/apache/maven-build-cache-extension/blob/maven-build-cache-extension-1.2.2/pom.xml#L375[配置]
+
+
+=== 示例
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8" ?>
+<cache xmlns="http://maven.apache.org/BUILD-CACHE-CONFIG/1.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/BUILD-CACHE-CONFIG/1.2.0 https://maven.apache.org/xsd/build-cache-config-1.2.0.xsd">
+
+    <configuration>
+        <enabled>true</enabled>
+        <hashAlgorithm>SHA-256</hashAlgorithm>
+        <validateXml>true</validateXml>
+        <remote enabled="false">
+            <url>http://host:port</url>
+        </remote>
+        <local>
+            <maxBuildsCached>3</maxBuildsCached>
+        </local>
+        <projectVersioning adjustMetaInf="true"/>
+        <attachedOutputs>
+            <preservePermissions/>
+            <dirNames>
+                <dirName>jacoco.exec</dirName>
+                <dirName>surefire-reports</dirName>
+                <dirName>failsafe-reports</dirName>
+                <!-- ${project.basedir}/src/main/javagen -->
+                <dirName>../src/main/javagen</dirName>
+            </dirNames>
+        </attachedOutputs>
+    </configuration>
+
+    <input>
+        <global>
+            <!-- 如果未指定 glob 的值，则默认是  "*" -->
+            <glob>
+                {*.java,*.groovy,*.yaml,*.yml,*.svcd,*.proto,*assembly.xml,assembly*.xml,*logback.xml,*.vm,*.ini,*.jks,*.properties,*.sh,*.bat,*.properties}
+            </glob>
+            <includes>
+                <!-- -->
+                <!-- 默认情况下，包含 src/main/java 和 src/main/resources) -->
+                <!-- 在这个示例中，则包含整个 src 目录，比如： src/main/assembly or src/main/groovy -->
+                <include>src/</include>
+            </includes>
+            <excludes>
+                <!-- We don't want a static "hash" pom resolution (it would conflict the will to adjust the version in the manifest), -->
+                <!-- we exclude this specific file (as it is already by default since it is not in an include folder -->
+                <!-- The need to rebuild a project based on the pom is already computed with some intelligence by the extension. -->
+                <exclude>pom.xml</exclude>
+                <!-- Also excluding everything located in this project specific folder -->
+                <exclude>src/main/javagen/**</exclude>
+            </excludes>
+        </global>
+        <plugins>
+            <plugin artifactId="codegen" excludeDependencies="false">
+                <effectivePom>
+                    <excludeProperties>
+                        <excludeProperty>111</excludeProperty>
+                    </excludeProperties>
+                </effectivePom>
+                <dirScan mode="auto">
+                    <excludes>
+                        <exclude tagName="outputDirectory"/>
+                        <exclude tagName="directory"/>
+                    </excludes>
+                    <tagScanConfigs>
+                        <tagScanConfig tagName="someProperty" glob="*.java" recursive="false"/>
+                    </tagScanConfigs>
+                </dirScan>
+                <executions>
+                    <execution>
+                        <execIds>
+                            <execId>1</execId>
+                            <execId>2</execId>
+                        </execIds>
+                        <dirScan mode="auto">
+                            <includes>
+                                <include tagName="protolocation" recursive="false" glob="*.proto"/>
+                            </includes>
+                        </dirScan>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin artifactId="maven-surefire-plugin">
+                <effectivePom>
+                    <excludeProperties>
+                        <excludeProperty>argLine</excludeProperty>
+                    </excludeProperties>
+                </effectivePom>
+            </plugin>
+        </plugins>
+    </input>
+
+<!--    <output>-->
+<!--        <includes>-->
+<!--            &lt;!&ndash; 标准编译产物（默认已包含，可省略） &ndash;&gt;-->
+<!--            <include>target/classes/**</include>-->
+<!--            <include>target/test-classes/**</include>-->
+<!--            <include>target/*.jar</include>-->
+
+<!--            &lt;!&ndash; 自定义产物 &ndash;&gt;-->
+<!--            <include>target/jacoco.exec</include>-->
+<!--            <include>target/surefire-reports/**</include>-->
+<!--            <include>target/failsafe-reports/**</include>-->
+<!--            <include>target/site/**</include>-->
+<!--        </includes>-->
+
+<!--        &lt;!&ndash; 排除绝对路径或机器敏感文件 &ndash;&gt;-->
+<!--        <excludes>-->
+<!--            <exclude>target/maven-status/**</exclude>-->
+<!--            <exclude>target/checkstyle-cachefile</exclude>-->
+<!--        </excludes>-->
+<!--    </output>-->
+
+
+    <executionControl>
+        <!-- 忽略缓存状态，也始终执行 -->
+        <runAlways>
+            <plugins>
+                <!-- <plugin artifactId="maven-failsafe-plugin"/> -->
+            </plugins>
+            <executions>
+                <execution artifactId="maven-deploy-plugin">
+                    <execIds>
+                        <execId>my-execution-id</execId>
+                    </execIds>
+                </execution>
+            </executions>
+            <goalsLists>
+                <goalsList artifactId="maven-install-plugin">
+                    <goals>
+                        <goal>install</goal>
+                    </goals>
+                </goalsList>
+                <goalsList artifactId="maven-deploy-plugin">
+                    <goals>
+                        <goal>deploy</goal>
+                    </goals>
+                </goalsList>
+            </goalsLists>
+        </runAlways>
+        <!-- 哪些 plugin/execution/goal 不影响生成的产物，如果变化的部分仅仅是这些，则忽略。  -->
+        <ignoreMissing>
+            <!--<plugins></plugins>-->
+            <!--<executions></executions>-->
+            <!--<goalsLists></goalsLists>-->
+        </ignoreMissing>
+        <!--   -->
+        <reconcile> <!-- class: Reconcile -->
+            <plugins> <!-- class: GoalReconciliation -->
+                <plugin artifactId="maven-compiler-plugin" goal="compile">
+                    <reconciles> <!-- class : List<TrackedProperty> -->
+                        <reconcile propertyName="xxxPropertyName" skipValue="xxxSkipValue" defaultValue="xxxDefaultValue">xxxValue</reconcile>
+                        <reconcile propertyName="source"/>
+                        <reconcile propertyName="target"/>
+                        <reconcile propertyName="debug"/>
+                        <reconcile propertyName="debuglevel"/>
+                    </reconciles>
+                </plugin>
+            </plugins>
+        </reconcile>
+    </executionControl>
+</cache>
+----
+
+
+
+=== 解析
+
+[source,plain]
+----
+<cache><configuration>
+<cache><configuration><attachedOutputs>             # target/ 下哪些的目录（非标准产物）需要作为 添加额外需要缓存的内容, 比如缓存 classes 目录、jacoco 报告、生成的代码等，通过 目录路径 + glob 过滤， 然后将目录 zip 打包后作为附加产物缓存
+<cache><configuration><attachedOutputs><dirNames>dirName>
+相对于 target/ 目录的
+配置                                    实际路径
+<dirName>classes</dirName>              ${project.basedir}/target/classes
+<dirName glob="jacoco.xml"></dirName>   ${project.basedir}/target/jacoco.xml（空值表示 target 目录本身）
+<dirName>../src/main/javagen</dirName>  ${project.basedir}/src/main/javagen（跳出 target 目录）
+
+<cache><input>
+<cache><input><plugins><plugin>                     # 控制插件级别的输入计算规则配置
+<cache><input><plugins><plugin><effectivePom><excludeProperties>
+会影响 buildinfo.xml 中 <item type="pom"> 的内容（即影响  effective pom  的内容）, 被排除的 属性不会作为 effective pom 的内容，不影响缓存命中。
+
+<cache><input><plugins><plugin><dirScan>
+控制插件配置中引用的目录如何扫描。某些插件的配置属性指向一个目录，但只需要扫描其中的特定文件。
+比如 protoc-maven-plugin 的 protoBaseDirectory 指向一个目录，但只需要扫描 .proto 文件：
+<plugin artifactId="protoc-maven-plugin">
+    <dirScan mode="auto">
+        <tagScanConfigs>
+            <tagScanConfig tagName="protoBaseDirectory" recursive="false" glob="{*.proto}"/>
+        </tagScanConfigs>
+    </dirScan>
+</plugin>
+
+
+<cache><input><plugins><plugin><executions><execution>
+针对 maven 插件某个 execution 的更新粒度配置，配置基本上同上。
+
+
+
+<cache><output>                                     # Maven 的附加 artifacts 。 正则表达式 pattern 匹配 artifacts 文件名，
+<cache><output><includes><include>
+<cache><output><excludes><exclude>
+
+<cache><executionControl><runAlways>                # 始终执行执行的 maven 插件，execution，goal
+<cache><executionControl><runAlways><plugins>
+<cache><executionControl><runAlways><executions>
+<cache><executionControl><runAlways><goalsLists>
+<cache><executionControl><ignoreMissing>            # 哪些 maven 插件，execution，goal 可以被完全忽略（即不影响构建产物）
+<cache><executionControl><ignoreMissing><plugins>
+<cache><executionControl><ignoreMissing><executions>
+<cache><executionControl><ignoreMissing><goalsLists>
+
+<cache><executionControl><reconcile><plugins><plugin>
+<cache><executionControl><reconcile><plugins><plugin><reconciles><reconcile>
+设置 要追踪 maven 插件的 mojo 类的哪些 java 字段名的值是否变化。
+未声明的 字段名，其值的变化不影响缓存是否失效。
+对应于 buildinfo.xml  <build><executions><execution> 下 tracked=true 的元素。
+● propertyName 是对应 goal 的 Mojo 类的字段名。
+注意：不完全等同于 pom.xml 中该 maven 插件 <configuration> 下的 xml 元素名的值，但有一定的映射关系。
+
+比如 mvn test命令对应的 maven-surefire-plugin 插件的 org.apache.maven.plugin.surefire.SurefireMojo 类， 上面示例就只得是跟踪 SurefireMojo#skip 字段（声明在父类中）的值。
+但如果值是 "true" 时，则不会触发缓存失效。因为此次没执行 单元测试，不会影响构建产物的生成。
+● skipValue ： Mojo 的字段的哪个值可以忽略，不会影响mvn 构建产物。
+● defaultValue : 说明其默认值。
+SurefireMojo 的 skip 字段有通过 @Parameter(property = "maven.test.skip", defaultValue = "false") protected boolean skip; 注解声明默认值，故这种可以不声明 defaultValue.
+但如果字段类型对象型，没有通过 @Parameter注解设置默认值，且 该Mojo内部程序逻辑 是将 null 和 "xxx" 认为等同的 时，
+如果仅仅声明 <reconcile propertyName="myProp" /> , 未说明其默认值。
+实际首次未设置时， maven-build-cache-extension 则首次计算该字段值是 会认为是 null，
+后面有更新成新值 "xxx",  maven-build-cache-extension 会认为其值变更成了 "xxx", 就会触发缓存失效。
+此时就可以通过  声明 defaultValue 来避免了 ： <reconcile propertyName="myProp" defaultValue="xxx" />。
+● 文本值 ： 根据源码解析，虽然允许 <reconcile propertyName="myProp">xxxx</reconcile>设置元素的文本块内容，但这部分程序里还没用到。
+
+<cache><executionControl><reconcile><plugins><plugin><logs>、<nologs>
+哪些 Mojo 插件的属性值是否要被记录到 buildinfo.xml 的 <build><executions><execution><properties> 中， 不参与 缓存命中判断，只控制"记不记"。
+如果该属性已经用 <reconciles><reconcile> 配置了，则一定会记录到  buildinfo.xml 中。
+----
+
+
+
+=== reconciles/reconcile
+
+Maven 构建缓存的核心逻辑是：如果项目输入（源码、依赖、插件配置等）没有变化，就复用之前的构建产物。但有些插件属性会受命令行参数影响，例如 -Dmaven.compiler.source=17。这类属性的值在不同构建之间可能不同，但缓存键（cache key）计算时可能并未完全捕捉到这些差异。
+
+reconcile 机制就是用来解决这个问题的——它会在缓存恢复时，对比当前构建的插件属性值与缓存中记录的值，如果发现关键属性不一致，就判定缓存不可用，从而触发重新构建。
+
+[source,xml]
+----
+<reconcile logAllProperties="true">
+  <plugins>
+    <plugin groupId="org.apache.maven.plugins"
+            artifactId="maven-compiler-plugin"
+            goal="compile">
+      <reconciles>
+        <reconcile propertyName="source"
+                   skipValue="${maven.compiler.source}"
+                   defaultValue="1.8"/>
+        <reconcile propertyName="target"
+                   skipValue="${maven.compiler.target}"
+                   defaultValue="1.8"/>
+      </reconciles>
+    </plugin>
+  </plugins>
+</reconcile>
+----
+
+每个 `<reconcile>`` 子元素有三个属性：
+
+* propertyName（必填）：要追踪的插件属性名称，对应插件 Mojo 中的参数名。
+
+* skipValue（可选）：当属性值等于 skipValue 时，跳过对该属性的比对。
+  这通常用于处理未解析的占位符——如果属性值仍然是 `${maven.compiler.source}`` 这样的表达式（说明用户没有在命令行或 POM 中显式设置），
+  就跳过比对，因为此时值没有实际意义。
+
+* defaultValue（可选）：当属性值为 null（即插件未显式配置该属性）时，使用的默认值参与比对。
+  这确保即使属性未在 POM 中声明，也能有一个基准值来判断缓存是否匹配。
+
+
+
+
+
+== xsd
+
+[source,shell]
+----
+# idea intellij 不支持使用 jar包中的xsd
+# https://maven.apache.org/xsd/build-cache-config-1.2.0.xsd
+# =>
+# jar:/Users/zll/.m2/repository/org/apache/maven/extensions/maven-build-cache-extension/1.2.2/maven-build-cache-extension-1.2.2.jar!build-cache-config-1.2.0.xsd
+mkdir -p ~/.xml_catalog
+unzip -p /Users/zll/.m2/repository/org/apache/maven/extensions/maven-build-cache-extension/1.2.2/maven-build-cache-extension-1.2.2.jar \
+  build-cache-config-1.2.0.xsd > ~/.xml_catalog/build-cache-config-1.2.0.xsd
+ll ~/.xml_catalog/build-cache-config-1.2.0.xsd
+
+vi ~/.xml_catalog/catalog.xml
+----
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <!-- 1. 精确映射单个 URL -->
+    <uri name="https://maven.apache.org/xsd/build-cache-config-1.2.0.xsd"
+         uri="file:///Users/zll/.xml_catalog/build-cache-config-1.2.0.xsd"/>
+</catalog>
+----

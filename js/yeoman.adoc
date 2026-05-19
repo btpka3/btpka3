@@ -1,0 +1,6 @@
+link:https://yeoman.io/[yeoman]
+
+[source,shell]
+----
+pnpm install -g yo
+----

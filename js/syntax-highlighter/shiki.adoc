@@ -1,0 +1,16 @@
+link:https://shiki.style/[Shiki]
+
+
+Shiki 基于 TextMate 语法（VS Code 同款），通过 WASM 加载 Oniguruma 正则引擎来解析代码。这意味着它直接使用 VS Code 的语言定义文件，高亮结果与编辑器完全一致，对复杂语法（如嵌套模板字符串、JSX、类型注解）的识别更精准。
+
+Shiki 定位是服务端/构建时高亮（SSG）。在 Astro、VitePress、Nuxt Content 等场景下，HTML 生成阶段就完成着色，客户端拿到的是纯静态 markup，零运行时开销。代价是依赖 WASM 和较大的 npm 包体积，且不适用于需要浏览器端动态高亮的场景。
+
+
+Shiki 目前由 Anthony Fu 等人活跃维护，主题直接复用 VS Code 生态（任意 .json 主题文件都能用），语言支持也随 VS Code 扩展自然增长。Facebook 的 Docusaurus、Lexical，以及日本的 Zenn 平台都已从 Prism 迁移到 Shiki。
+
+
+对于动态切换主题， Shiki 提供了两种 dark/light 切换方案：
+
+方案一：CSS 变量模式（推荐）： 生成两套css
+
+方案二：双主题同时生成： 生成两套颜色硬编码的html

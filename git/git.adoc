@@ -201,6 +201,9 @@ git --no-pager config get user.name
 git --no-pager config set user.name btpka3
 # 设置全局配置项的值
 git --no-pager config set  --global user.name btpka3
+
+# 禁止文件名是中文时使用类似 `\345\273\272` 的转义，而是直接显示中文
+git config --global core.quotepath false
 ----
 
 建议配置
@@ -380,6 +383,34 @@ git bisect reset
 git bisect skip        # 跳过当前提交
 
 git bisect run ./test-script.sh
+----
+
+== diff
+[source,shell]
+----
+
+# 使用 git 内置的 diff 工具展示
+git diff
+
+# 配置 git difftool 命令使用 自定义的 diff 工具，这里是 `vimdiff`
+git config --global diff.tool vimdiff
+git difftool   # 使用自定义的diff工具：vimdiff 对比，
+
+# 在 vimdiff 中
+za    # 切换折叠/展开
+zc    # 折叠:光标处代码块
+zo    # 展开:光标处代码块
+zM    # 全部折叠
+zR    # 全部展开
+zm    # 折叠更深一层
+zr    # 展开更深一层
+:10,50fold  # 折叠第 10-50 行
+V           # 选取，再 zf - 折叠选中区域
+:q          # 退出当前窗口
+:qa         # 退出所有窗口
+:qa!        # 不修改并全部退出
+ctrl+W      # 连按两次：把光标在左右两个窗口中切换
+
 ----
 
 

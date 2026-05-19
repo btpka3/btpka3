@@ -12,9 +12,11 @@
 [source,shell]
 ----
 mvn enfocer:enforce
-mvn org.apache.maven.plugins:maven-enforcer-plugin:3.5.0:enforce -Denforcer.rules=requireReleaseDeps -Denforcer.failFast=true
-mvnDebug org.apache.maven.plugins:maven-enforcer-plugin:3.5.0:enforce -Denforcer.rules=requireReleaseDeps -Denforcer.failFast=true
+mvn org.apache.maven.plugins:maven-enforcer-plugin:3.6.2:enforce -Denforcer.rules=requireReleaseDeps -Denforcer.failFast=true
+mvnDebug org.apache.maven.plugins:maven-enforcer-plugin:3.6.2:enforce -Denforcer.rules=requireReleaseDeps -Denforcer.failFast=true
 
+# 跳过 enforcer
+mvn -Denforcer.skip=true ...
 ----
 
 == 常用规则列表

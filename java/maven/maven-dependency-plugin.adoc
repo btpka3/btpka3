@@ -25,4 +25,12 @@ mvn help:effective-pom -Dverbose=true -pl xxx
 mvn help:effective-pom -Dverbose=true -Dartifact=commons-logging:commons-logging
 
 
+# 下载本地 jar 包到本地maven仓库
+mvn dependency:get \
+  -DgroupId=net.sourceforge.plantuml \
+  -DartifactId=plantuml \
+  -Dversion=1.2026.2 \
+  -Dtransitive=false
+
+ll ~/.m2/repository/net/sourceforge/plantuml/plantuml/1.2026.2/plantuml-1.2026.2.jar
 ----

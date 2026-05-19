@@ -1,0 +1,13 @@
+* link:https://open-sandbox.ai/[open-sandbox]
+* link:https://github.com/alibaba/OpenSandbox[github: alibaba/OpenSandbox]
+
+* 竞品
+** MacOS : link:https://theapplewiki.com/wiki/Dev:Seatbelt[Seatbelt],
+    link:https://developer.apple.com/documentation/security/app_sandbox[Apple Developer Documentation : Sandbox Design Guide] ,
+    link:https://developer.apple.com/documentation/bundleresources/entitlements[Entitlements Reference] ,
+    `man sandbox-exec`, `man sandboxd`, `man sandbox_init`, `man sandbox_free_error`,
+
+
+** Linux : link:https://github.com/containers/bubblewrap[bubblewrap]
+
+OpenSandbox 是阿里巴巴开源的面向 AI 应用的通用沙箱平台，提供多语言 SDK、统一的沙箱 API 以及 Docker/Kubernetes 运行时。该项目已入选 CNCF Landscape，采用 Apache 2.0 开源协议。

@@ -1,5 +1,7 @@
-https://github.com/openai/openai-openapi
+* https://github.com/openai/openai-openapi
 
+* link:https://developers.openai.com/api/docs[文档] 需科学上网
+* link:https://developers.openai.com/api/reference/overview[HTTP API 参考]
 
 
 [source,shell]
@@ -34,4 +36,392 @@ curl -s \
   "${OPENAI_BASE_URL}/chat/completions" | jq
 
 ----
+
+== HTTP API
+
+=== /v1/models : 列出所有模型
+
+=== /v1/responses : 获取模型响应
+[source,shell]
+----
+curl ${OPENAI_BASE_URL}/responses \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -d '{
+    "model": "qwen3-coder-plus",
+    "input": "Tell me a three sentence bedtime story about a unicorn."
+  }'
+
+----
+[source,json]
+----
+# 示例返回值
+{
+  "id": "resp_67ccd2bed1ec8190b14f964abc0542670bb6a6b452d3795b",
+  "object": "response",
+  "created_at": 1741476542,
+  "status": "completed",
+  "completed_at": 1741476543,
+  "error": null,
+  "incomplete_details": null,
+  "instructions": null,
+  "max_output_tokens": null,
+  "model": "gpt-5.4",
+  "output": [
+    {
+      "type": "message",
+      "id": "msg_67ccd2bf17f0819081ff3bb2cf6508e60bb6a6b452d3795b",
+      "status": "completed",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "In a peaceful grove beneath a silver moon, a unicorn named Lumina discovered a hidden pool that reflected the stars. As she dipped her horn into the water, the pool began to shimmer, revealing a pathway to a magical realm of endless night skies. Filled with wonder, Lumina whispered a wish for all who dream to find their own hidden magic, and as she glanced back, her hoofprints sparkled like stardust.",
+          "annotations": []
+        }
+      ]
+    }
+  ],
+  "parallel_tool_calls": true,
+  "previous_response_id": null,
+  "reasoning": {
+    "effort": null,
+    "summary": null
+  },
+  "store": true,
+  "temperature": 1.0,
+  "text": {
+    "format": {
+      "type": "text"
+    }
+  },
+  "tool_choice": "auto",
+  "tools": [],
+  "top_p": 1.0,
+  "truncation": "disabled",
+  "usage": {
+    "input_tokens": 36,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 87,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 123
+  },
+  "user": null,
+  "metadata": {}
+}
+----
+
+
+=== 根据 response_id 获取模型响应
+
+GET /responses/{response_id}
+
+[source,shell]
+----
+curl ${OPENAI_BASE_URL}/responses/resp_abc123 \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $OPENAI_API_KEY"
+----
+
+
+=== 根据 response_id 删除模型响应
+
+DELETE /responses/{response_id}
+
+[source,shell]
+----
+curl -X DELETE ${OPENAI_BASE_URL}/responses/resp_abc123 \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $OPENAI_API_KEY"
+----
+
+=== 根据 response_id 获取原始输入
+
+GET /responses/{response_id}/input_items
+
+[source,shell]
+----
+curl ${OPENAI_BASE_URL}/responses/resp_abc123/input_items \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OPENAI_API_KEY"
+----
+
+
+
+[source,json]
+----
+{
+  "object": "list",
+  "data": [
+    {
+      "id": "msg_abc123",
+      "type": "message",
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "Tell me a three sentence bedtime story about a unicorn."
+        }
+      ]
+    }
+  ],
+  "first_id": "msg_abc123",
+  "last_id": "msg_abc123",
+  "has_more": false
+}
+----
+
+=== 获取给定输入的 token 数量
+POST /responses/input_tokens
+
+[source,shell]
+----
+curl -X POST ${OPENAI_BASE_URL}/responses/input_tokens \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $OPENAI_API_KEY" \
+    -d '{
+      "model": "gpt-5",
+      "input": "Tell me a joke."
+    }'
+----
+
+[source,json]
+----
+{
+  "object": "response.input_tokens",
+  "input_tokens": 11
+}
+----
+
+
+=== 终止响应
+
+POST /responses/{response_id}/cancel
+
+[source,shell]
+----
+curl -X POST ${OPENAI_BASE_URL}/responses/resp_123/cancel \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $OPENAI_API_KEY"
+----
+
+=== 压缩一个响应
+
+POST /responses/compact
+
+[source,shell]
+----
+curl -X POST ${OPENAI_BASE_URL}/responses/compact \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $OPENAI_API_KEY" \
+    -d '{
+      "model": "gpt-5.1-codex-max",
+      "input": [
+        {
+          "role": "user",
+          "content": "Create a simple landing page for a dog petting café."
+        },
+        {
+          "id": "msg_001",
+          "type": "message",
+          "status": "completed",
+          "content": [
+            {
+              "type": "output_text",
+              "annotations": [],
+              "logprobs": [],
+              "text": "Below is a single file, ready-to-use landing page for a dog petting café:..."
+            }
+          ],
+          "role": "assistant"
+        }
+      ]
+    }'
+----
+
+=== 会话
+==== 创建一个会话
+POST /conversations
+==== 获取一个会话
+GET /conversations/{conversation_id}
+==== 更新一个会话
+POST /conversations/{conversation_id}
+==== 删除一个会话
+DELETE /conversations/{conversation_id}
+
+
+
+=== 将输入文本转换成大模型理解的 高维数值向量
+
+/embeddings
+
+输出: 数学向量（浮点数组）
+用于: 检索、相似度、聚类、路由
+
+=== 对话
+
+
+[cols="1,2,2"]
+|===
+| 维度 | +/v1/chat/completions+ | +/v1/completions+
+| *定位* | 多轮对话 / 指令遵循 / 智能体交互 | 单轮文本续写 / 基础语言建模
+| *输入结构* | +messages+ 数组（含 +role+ 字段） | +prompt+ 字符串或字符串数组
+| *支持模型* | GPT-3.5-Turbo、GPT-4、GPT-4o、o1/o3 等所有现代模型 | 仅旧版 Base 模型（如 +ada+、+babbage+、+curie+、+davinci+、+davinci-002+）
+| *高级能力* | ✅ 系统提示词、工具调用、视觉输入、JSON模式、结构化输出、多模态 | ❌ 无原生支持，需手动拼接特殊 Token 模拟
+| *官方状态* | 🟢 *强烈推荐使用*，持续迭代优化 | 🔴 *已弃用（Legacy）*，不再上架新模型，旧模型将逐步下线
+| *典型场景* | 聊天机器人、RAG问答、Agent工作流、代码助手 | 历史项目兼容、简单文本续写、老模型微调推理
+|===
+
+
+=== 创建会话补全
+
+POST /v1/chat/completions
+
+[source,shell]
+----
+curl ${OPENAI_BASE_URL}/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -d '{
+    "model": "VAR_chat_model_id",
+    "messages": [
+      {
+        "role": "developer",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Hello!"
+      }
+    ],
+    "audio":{
+      "format": "wav",
+      "voice": "alloy"
+    },
+    "frequency_penalty": 1.0,
+    "logit_bias": 0,
+    "logprobs": true,
+    "max_completion_tokens": 1024,
+    "metadata": {},
+    "modalities": ["text", "audio"],
+    "n": 1,
+    "parallel_tool_calls": true,
+    "prediction":{
+        "content":"",
+        "type": "content"
+    },
+    "presence_penalty": 0,
+    "prompt_cache_key": "",
+    "prompt_cache_retention": "in-memory",
+    "reasoning_effort": "minimal"
+    "response_format": {
+        "type": "text"
+    },
+    "safety_identifier": "string",
+    "service_tier": "default",
+    "stop": ["\n"],
+    "store": true,
+    "stream": false,
+    "stream_options": {
+      "include_obfuscation": false,
+      "include_usage":true
+    },
+    "temperature":0,
+    "tool_choice": "auto"
+    "tools": [{
+        "type": "function",
+        "function": {
+            "name": "run_cli_command",
+            "description": "",
+            "strict": true,
+            "parameters": {}
+    }],
+    "top_p": 0,
+    "verbosity": "low",
+    "web_search_options": {
+        "search_context_size": "low",
+        "user_location":  {
+            "approximate": {
+                "city":"",
+                "country":"",
+                "region":"",
+                "timezone":""
+            },
+            "type": "approximate"
+        }
+    }
+  }'
+
+----
+
+
+示例返回值
+
+[source,json]
+----
+{
+  "id": "chatcmpl-B9MBs8CjcvOU2jLn4n570S5qMJKcT",
+  "object": "chat.completion",
+  "created": 1741569952,
+  "model": "gpt-5.4",
+  "choices": [
+    {
+      "index": 0,
+      "finish_reason": "stop",  // "stop",
+                                // "length",
+                                // "tool_calls",
+                                // "content_filter",
+                                // "function_call" : deprecated
+      "message": {
+        "role": "assistant",
+        "content": "Hello! How can I assist you today?",
+        "refusal": null,
+        "annotations": [],
+        "audio" : {
+            "id":"",
+            "data":"",
+            "expires_at":0,
+            "transcript":""
+        },
+        "tool_calls": [{
+            "id":"",
+            "type":"function",
+            "function": {
+                "name":"",
+                "arguments":""
+            }
+        }]
+      },
+      "logprobs": null
+    }
+
+  ],
+  "usage": {
+    "prompt_tokens": 19,
+    "completion_tokens": 10,
+    "total_tokens": 29,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "service_tier": "default"
+}
+----
+
+
+== openai java sdk
+
+link:https://github.com/openai/openai-java[open-java sdk]
+
 

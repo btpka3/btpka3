@@ -1,1 +1,63 @@
+https://www.aliyun.com/product/apsaradb/lindorm
 
+== vs 其他数据库
+
+Lindorm 各引擎对应的开源对标
+
+|===
+| Lindorm 引擎 | 最接近的开源方案 | 功能对齐度 | 说明
+
+| Lindorm 宽表引擎
+| Apache HBase / Apache Cassandra
+| ~70-80%
+| 兼容 HBase API 和 Cassandra CQL，但自研存储引擎 LindormFile 在压缩比、吞吐上远超原生 HBase
+
+| Lindorm 搜索索引
+| Apache Solr / Elasticsearch
+| ~60-70%
+| 支持全文检索，但深度集成宽表，二级索引能力更强
+
+| Lindorm 时序引擎
+| InfluxDB / Apache IoTDB
+| ~70%
+| 兼容 OpenTSDB 协议，高压缩比时序存储是核心卖点
+
+| Lindorm 流引擎
+| Apache Kafka / Pulsar
+| ~60%
+| 轻量级消息队列能力，不是主打方向
+
+| Lindorm 文件引擎
+| HDFS
+| ~50%
+| 兼容 HDFS API，主打冷热分离
+
+| Lindorm SQL
+| Apache Phoenix / Calcite
+| ~70%
+| 兼容 MySQL 协议的多模 SQL 层
+|===
+
+
+最大程度上功能对齐的开源组合
+如果你想用纯开源方案最大程度复现 Lindorm 的能力，推荐这个技术栈组合：
+
+* 核心组合：Apache HBase + Apache Phoenix + Elasticsearch + Apache IoTDB
+
+* HBase：宽表存储基座，Lindorm 宽表引擎的直接开源对标
+* Phoenix：提供 SQL 层，兼容 JDBC，对应 Lindorm SQL
+* Elasticsearch：全文检索和二级索引，对应 Lindorm 搜索索引
+* IoTDB：时序数据存储，对应 Lindorm 时序引擎
+
+增强组合（可选）：
+
+* Apache Cassandra：如果更需要高可用和多机房部署能力
+* Apache Calcite：如果想自建统一 SQL 网关
+* DataX / Flink CDC：多源数据同步
+
+Lindorm 相比开源方案的核心差异
+* 存算分离架构：Lindorm 原生支持计算和存储独立扩缩容，开源 HBase 是存算一体的
+* 多模统一：一套系统支持宽表/时序/搜索/文件，开源方案需要多套系统拼凑
+* 极致压缩：自研压缩算法，时序数据压缩比可达 10:1 到 30:1
+* Serverless：按需计费、自动弹性，开源方案需要自己对接 K8s
+* 全局二级索引：宽表上的二级索引能力远超原生 HBase

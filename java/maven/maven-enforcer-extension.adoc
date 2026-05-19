@@ -1,0 +1,11 @@
+* link:https://maven.apache.org/enforcer/maven-enforcer-extension/index.html[maven-enforcer-extension]
+* link:https://maven.apache.org/enforcer/maven-enforcer-plugin/[Maven Enforcer Plugin]
+* link:https://github.com/apache/maven-enforcer[github]
+
+FIXME: 通过 extension 机制，如何增加额外的依赖， 比如使用 link:https://www.mojohaus.org/extra-enforcer-rules/[extra-enforcer-rules] ？
+暂不同推荐使用该 extension。
+
+== .mvn/enforcer-extension.xml
+[source,xml]
+----
+----

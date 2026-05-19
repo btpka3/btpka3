@@ -1,7 +1,9 @@
 
-* link:https://stedolan.github.io/jq/manual/[jq Manual]
-* xq
-* yq
+* ⭕️ link:https://stedolan.github.io/jq/manual/[jq Manual]
+* link:https://github.com/sibprogrammer/xq[xq]  : 类似jq，但处理 xml/html
+* ⭕️ link:https://github.com/mikefarah/yq[yq]  : 类似jq，但处理 yaml,json.xml.csv.toml,hcl,properties
+* link:https://github.com/eiiches/jackson-jq[jackson-jq] : java 版本的 jq，需要配合 jackson 使用。但优先建议使用 JsonPath
+
 
 [source,shell]
 ----
@@ -29,14 +31,17 @@ json='{"x":[
     {"t":"a","name":"a1","age":11},
     {"t":"b","name":"b1","age":21},
     {"t":"a","name":"a2","age":12},
-    {"t":"b","name":"b2","age":22}
+    {"t":"b","name":"b2","age":22},
+    {"t":"b","age":33}
 ]}'
-echo "$json" | jq -r -c '.x[].name'
+# 注意： 这里使用了 【Alternative operator: //】 操作符
+echo "$json" | jq -r -c '.x[] | .name // "UNKNOWN" '
 # 输出
 a1
 b1
 a2
 b2
+UNKNOWN
 
 echo "$json" | jq -r -c '[.x[].name]'
 # 输出

@@ -389,6 +389,19 @@ public class Hi {
 NOTE: The header is optional.
 --
 . item2
++
+item2_content1
+
+.. item2_1
++
+item2_1_content1
+.. item2_2
++
+item2_2_content1
++
+item2_content2
+
+. item3
 
 
 // 示例6：列表元素为复杂内容：不要文本，仅显示block.
@@ -403,6 +416,30 @@ print("one")
 ----
 print("two")
 ----
+
+
+// 示例7： 用单独一行加号`+` 继续前后一个列表项。 使用空行表示列表项结束。 注意下面 `父1_内容2` 的渲染后的缩进级别。
+
+.list7 title
+
+. 父1
+
++
+父1_内容1
+
+.. 子A
+
++
+子A 的说明。
+
+.. 子B
++
+子B 的说明。
+
++
+父1_内容2
+
+. 父2
 
 
 
@@ -668,3 +705,35 @@ public class Hi {
 ** 下标: H~2~O
 ** 上标: E=mc^2^
 ** 上标、下标中如果需要空格，需要使用 `+{sp}+`, 示例：Deep Creek Lake.^[citation{sp}needed]^
+
+
+== plantuml
+
+
+
+== Mermaid
+
+link:https://mermaid.ai/web/[mermaid.ai]
+
+=== 流程图
+
+[mermaid,format="svg"]
+....
+graph TD
+    A[开始] --> B{判断}
+    B -->|是| C[处理 1]
+    B -->|否| D[处理 2]
+    C --> E[结束]
+    D --> E
+....
+
+=== 时序图
+
+[mermaid,format="svg"]
+....
+sequenceDiagram
+    participant User
+    participant System
+    User->>System: 登录请求
+    System-->>User: 登录成功
+....

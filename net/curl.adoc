@@ -25,6 +25,7 @@ curl -v https://www.baidu.com/
 
 
 # 跟随302跳转
+-L
 
 # 禁止显示进度条
 -s

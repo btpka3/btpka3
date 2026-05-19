@@ -1,0 +1,34 @@
+link:https://bun.sh/[bun]
+
+Bun 是一个全能 JavaScript 工具包，旨在作为 Node.js 的高性能替代品。它基于 JavaScriptCore（WebKit 引擎）构建，而非 V8，在启动速度和执行速度上都有显著优势。
+四大核心组件
+1. JavaScript 运行时 (Runtime)
+
+** 启动速度比 Node.js 快 3 倍
+** 原生兼容 Node.js 和 Web API
+** 零配置支持 TypeScript、JSX、TSX
+
+2. 包管理器 (Package Manager)
+
+** 比 npm/yarn/pnpm 快达 30 倍
+** 支持 workspaces
+**  消除 phantom dependencies 问题
+
+3. 测试运行器 (Test Runner)
+
+** 兼容 Jest API (bun test)
+** 内置代码覆盖率、快照测试
+** 支持并发执行
+4. 打包器 (Bundler)
+
+可替代 Vite/esbuild
+支持浏览器、Bun、Node.js 目标构建
+内置 TypeScript、JSX、CSS 支持
+
+
+[source,shell]
+----
+pnpm install -g bun
+pnpm approve-builds -g
+----
+

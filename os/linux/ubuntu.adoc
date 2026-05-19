@@ -178,6 +178,7 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB3E94ADBE1229CF
 sudo apt update
 sudo apt -y install code
 
+
 #sudo apt-cache search gedit
 #sudo apt-get install gedit
 #sudo apt-get install gedit-plugins
@@ -189,6 +190,16 @@ sudo apt -y install code
 
 # 移除旧的 文本编辑器 leafpad
 sudo apt-get remove leafpad
+
+# 会显示很多内容
+apt search git
+# 列出名称是 git 开头的
+apt list 'git*'
+# 列出名称是 包含 git 的
+apt list '*git*'
+
+# 用 dpkg 查已安装的相关包
+dpkg -l | grep git
 ----
 
 === 配置

@@ -1,0 +1,213 @@
+* link:https://github.com/nousresearch/hermes-agent[Github: Hermes Agents]
+
+* link:https://hermes-agent.nousresearch.com/[官网]
+
+自进化：
+(1) 每次聊天完成后，会对聊天记录进行复盘，更新 skill, 知识。
+(2) 基于强化学习（RL）进行模型训练：数据合成，质量筛选，RL训练环境构建，小规模实验、正式训练、及自动化评估
+
+
+
+== install
+[source,shell]
+----
+curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash
+----
+
+
+== usage
+[source,shell]
+----
+hermes version
+hermes model          # Choose your LLM provider and model
+hermes tools          # Configure which tools are enabled
+hermes gateway setup  # Set up messaging platforms
+hermes config set     # Set individual config values
+hermes config set terminal.backend docker  # 设置沙箱
+# 安装
+hermes setup          # Or run the full setup wizard to configure everything at once
+# 更新
+hermes update
+# 卸载
+hermes uninstall
+# 手动卸载
+rm -f  ~/.local/bin/hermes
+rm -rf ~/.hermes/hermes-agent
+rm -rf ~/.hermes
+
+
+#
+hermes chat -q "Hello"
+----
+
+== 快捷键
+
+[source,plain]
+----
+Enter                   # 发送消息
+Alt+Enter or Ctrl+J     # 换行、多行输入
+Alt+V                   # 给终端发送图片（来自剪切板）
+Ctrl+V                  # 开始、停止 记录语音
+Ctrl+C                  # 中断agent，如果两秒内连按2次则强制退出
+Ctrl+D                  # 退出终端
+Ctrl+Z                  # 挂起（仅限linux）并切换到后台，后续可以shell中使用 fg 命令将其切换到前台
+Tab                     # 自动补全
+----
+
+== 斜杠命令
+
+[source,shell]
+----
+/help
+/model
+/tools
+/skills browse
+/background <prompt>
+/personality pirate
+/skin
+/voice on
+/voice tts
+/reasoning high
+/title My Session
+/save                   # 保存会话
+
+/update
+
+#qwen3.6-plus
+----
+
+
+== 配置
+[source,plain]
+----
+~/.hermes/SOUL.md
+~/.hermes/audio_cache
+~/.hermes/auth.json
+~/.hermes/auth.lock
+~/.hermes/bin
+~/.hermes/config.yaml
+~/.hermes/cron
+~/.hermes/hermes-agent
+~/.hermes/hooks
+~/.hermes/image_cache
+~/.hermes/logs
+~/.hermes/memories
+~/.hermes/pairing
+~/.hermes/sandboxes
+~/.hermes/sessions
+~/.hermes/skills
+~/.hermes/state.db
+~/.hermes/state.db-shm
+~/.hermes/state.db-wal
+----
+
+== ~/.hermes/config.yaml
+[source,yaml]
+----
+model:
+  default: Qwen3.6-Plus-DogFooding      # 默认模型
+  provider: custom                      # 模型提供者类型。设为 "auto" 时自动从凭据检测
+  base_url: https://xxx.com/openai/v1   # API 端点 URL
+  api_key: xxx                          # API 密钥
+  api_mode: anthropic_messages          # 协议模式：chat_completions / anthropic_messages / codex_responses / bedrock_converse
+  context_length: 4096                  # 总上下文窗口（输入+输出 token 合计）。不设则自动检测
+  max_tokens: 10200000                  # 单次响应最大输出 token 数。不设则使用模型原生上限
+  key_env: xxx                          # 认证相关： 指定从哪个环境变量读取 API Key（如 key_env: "DASHSCOPE_API_KEY"）
+  api_key_env: xxx                      # key_env 的别名（文档中两者都用）
+  ollama_num_ctx: 32768                  # 覆盖 Ollama 的 num_ctx 参数，用于控制本地 Ollama 服务器的上下文大小。不设则自动探测
+quick_commands:
+  ${xxxCommand}:
+    type: exec              # "exec" | "alias"
+    command: systemctl status hermes-agent
+custom_providers:                       # 会话中可以通过  /model custom:local:qwen-2.5 切换模型
+  - name: local
+    base_url: http://localhost:8080/v1
+    # 本地不需要 api_key
+  - name: work
+    base_url: https://gpu-server.internal.corp/v1
+    key_env: CORP_API_KEY
+    api_mode: chat_completions
+  - name: 完整配置属性示例
+    base_url: https://demo-server.internal.corp/v1
+    api_key: xxx                # 直接硬编码 API Key（不推荐）
+    key_env: xxx                # 环境变量名（推荐），也支持 api_key_env / apiKeyEnv
+    api_mode: chat_completions  # 协议模式：chat_completions / anthropic_messages / codex_responses
+    transport: chat_completions # 协议模式（同上）（旧版，等价于 api_mode）
+    model: xxx                  # 默认模型 ID
+    default_model: xxx          # 默认模型 ID(同上)
+    context_length: 4096        # provider 级别的默认: 上下文窗口
+    rate_limit_delay: 0         # provider 级别的默认: 请求间隔延迟
+    request_timeout_seconds: 60 # 请求超时时间
+    models:                     # 多模型字典，每个模型可设独立 context_length
+      qwen3.5:27b:
+        context_length: 32768
+        timeout_seconds: 60          # 该模型的请求超时（仅 providers 字典格式使用）
+        stale_timeout_seconds: 300   # 该模型的 stale/陈旧 超时
+      deepseek-r1:70b:
+        context_length: 65536
+----
+
+
+== hermes-agent 与 Claude CLI / Claude Code 差异对比
+
+=== 核心定位
+
+*hermes-agent*: 通用跨平台 AI Agent，强调自我进化、多模型支持、跨渠道部署。
+*Claude Code / Claude CLI*: IDE 内编码助手，专注软件开发场景的深度集成。
+
+=== 详细对比表
+
+[cols="3,1,1", options="header"]
+|===
+|维度 | hermes-agent | Claude Code / Claude CLI
+
+|模型绑定
+|模型无关，支持 200+ 模型（OpenRouter/OpenAI/Anthropic 等）
+|绑定 Anthropic Claude 模型
+
+|部署形态
+|Gateway + TUI，支持 Telegram/Discord/Slack/WhatsApp 等多渠道接入
+|CLI / IDE 插件
+
+|工具系统
+|约 50 个自注册工具 + Markdown Skill 系统 + 自动生成 Skill
+|LSP/AST 深度集成，代码感知能力强
+
+|记忆系统
+|FTS5 全文搜索 + Honcho 辩证用户建模 + 跨会话 LLM 摘要
+|基于 Markdown 的记忆，无原生 IDE 插件
+
+|并行能力
+|支持生成最多 3 个隔离子代理并行工作
+|单线程执行
+
+|调度能力
+|内置 Cron 调度，支持自然语言定时任务
+|无
+
+|后端支持
+|Local / Docker / SSH / Singularity / Modal 六种后端
+|本地终端
+
+|工程深度
+|终端命令为主，无 AST/LSP 感知
+|深度软件工程专业集成
+
+|自我进化
+|自动从经验创建 Skill，使用中自我改进
+|无
+
+|安全机制
+|正则威胁检测、Secret 自动移除、手动审批门
+|硬件沙箱、供应商锁定
+
+|适用场景
+|多通道对话部署、通用任务自动化
+|专业软件开发
+|===
+
+=== 总结
+
+hermes-agent 胜在 *通用性、多模型、跨平台、自我进化*。
+
+Claude Code 胜在 *编码深度、AST/LSP 集成、开发体验*。

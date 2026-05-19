@@ -2,3 +2,13 @@
 https://rust-lang.org/
 
 link:https://doc.rust-lang.org/book/[The Rust Programming Language]
+link:https://doc.rust-lang.org/cargo/[Cargo]
+
+
+[source,shell]
+----
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup --version
+rustup toolchain install stable
+rustup self uninstall
+----

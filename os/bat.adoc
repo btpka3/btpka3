@@ -1,0 +1,40 @@
+link:https://github.com/sharkdp/bat[bat]
+
+bat 是  cat(1) 的 clone 产品，但增加了语法高亮着色。
+
+[source,shell]
+----
+brew install bat
+
+xml='
+<project>
+  <profiles>
+    <profile><id name="zhang3">aaa</id></profile>
+    <profile><id name="li4">bbb</id></profile>
+    <profile><id name="wang5">ccc</id></profile>
+  </profiles>
+</project>
+'
+echo $xml > /tmp/a.xml
+
+# 命令行
+bat --language xml /tmp/a.xml
+bat --paging=never --style=numbers,grid,changes  --language xml /tmp/a.xml
+# --style :
+#   default         : 默认，启用推荐的组件
+#   full            : 启用所有组件
+#   auto            : 同 default
+#   plain           : 禁用所有组件，故显示文本内容
+#   changes         : 显示 git 修改
+#   header          : 显示文件头
+#   header-filename : 在文本内容前显示文件名
+#   header-filesize : 在文本内容前显示文件大小
+#   grid            : 在文本周围显示垂直、水平线
+#   rule            : 用水平线区分多个文件
+#   numbers         : 显示行号
+#   snip            : ???
+bat --paging=never --style=plain --language xml /tmp/a.xml
+# 通过  --color=always  可以避免管道过滤时丢失 ANSI 颜色转义码
+bat --paging=never --style=plain --language xml --color=always /tmp/a.xml | grep id
+
+----

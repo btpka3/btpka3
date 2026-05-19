@@ -1,0 +1,24 @@
+* link:https://docs.astro.build/zh-cn/getting-started/[astro]
+* link:https://starlight.astro.build/zh-cn/guides/customization/[starlight主题]
+* link:https://astro.build/themes/[themes]
+
+
+Astro 是一个现代静态站点生成框架，核心设计理念是群岛架构（Islands Architecture）——页面默认输出纯静态 HTML、零 JavaScript，只在需要交互的"岛屿"组件上加载对应 JS。这让它在构建以内容为中心的站点（文档、博客、营销页）时性能非常出色。
+
+内容格式支持情况：
+
+Markdown 是原生内置支持的，包括 YAML frontmatter、GitHub 风格语法（表格、任务列表、删除线等）。Astro 还提供了 Content Collections（内容集合）特性，可以为 Markdown/MDX 文件定义 Zod 模式校验，带来类型安全和自动生成的查询 API。
+MDX 通过官方插件 @astrojs/mdx 支持，允许在 Markdown 中直接导入和使用 JSX 组件，实现更丰富的内容表达。
+
+
+AsciiDoc 没有官方原生支持，但社区已有解决方案：
+
+link:https://github.com/shishkin/astro-asciidoc[shishkin/astro-asciidoc] （shishkin 维护的社区插件）可将 .adoc 文件作为页面渲染
+link:https://github.com/sransara/astro-adocx[sransara/astro-adocx] 是另一个社区包。
+GitHub 上曾有 RFC（#1013）讨论官方支持 AsciiDoc 用于技术写作，但目前仍处于社区驱动阶段。
+
+
+Astro 的另一个亮点是框架无关的组件支持——你可以在一个页面中混用 React、Vue、Svelte、Preact、SolidJS 等组件，并独立控制每个组件的水合策略（客户端加载时机）。
+
+
+Starlight

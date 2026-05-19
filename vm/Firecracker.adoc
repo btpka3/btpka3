@@ -1,0 +1,147 @@
+ link:https://firecracker-microvm.github.io/[Firecracker]
+
+[source,plain]
+----
+┌─────────────────────────────────────────────┐
+│          Spring AI 控制面 (Java)              │
+│  - 接收用户请求                               │
+│  - 调度 Agent 任务                            │
+│  - 管理租户配额、鉴权                         │
+│  - WebSocket/SSE 流式返回结果                  │
+└──────────────┬──────────────────────────────┘
+               │ Docker API (java-docker-api / REST)
+               ▼
+┌─────────────────────────────────────────────┐
+│        Docker Engine (同一台或集群)            │
+│                                             │
+│  ┌─────────────┐  ┌─────────────┐           │
+│  │ 租户A 容器   │  │ 租户B 容器   │  ...      │
+│  │ gVisor runsc│  │ gVisor runsc│           │
+│  │ 只读根文件系统│  │ 只读根文件系统│          │
+│  │ 资源配额     │  │ 资源配额     │           │
+│  │ 无网络/受限  │  │ 无网络/受限  │           │
+│  └─────────────┘  └─────────────┘           │
+└─────────────────────────────────────────────┘
+----
+
+[source,shell]
+----
+# 一、系统要求
+# 检查 KVM 是否可用：
+lsmod | grep kvm
+[ -r /dev/kvm ] && [ -w /dev/kvm ] && echo "OK" || echo "FAIL"
+# 授权当前用户访问 KVM：
+# 方式一：通过用户授权
+sudo setfacl -m u:${USER}:rw /dev/kvm
+# 方式二：通过 kvm 组授权
+sudo usermod -aG kvm ${USER}
+
+
+# 二、获取 Firecracker 二进制
+ARCH="$(uname -m)"
+release_url="https://github.com/firecracker-microvm/firecracker/releases"
+latest=$(basename $(curl -fsSLI -o /dev/null -w %{url_effective} ${release_url}/latest))
+curl -L ${release_url}/download/${latest}/firecracker-${latest}-${ARCH}.tgz | tar -xz
+mv release-${latest}-$(uname -m)/firecracker-${latest}-${ARCH} firecracker
+
+# 三、准备内核和 rootfs
+ARCH="$(uname -m)"
+release_url="https://github.com/firecracker-microvm/firecracker/releases"
+latest_version=$(basename $(curl -fsSLI -o /dev/null -w %{url_effective} ${release_url}/latest))
+CI_VERSION=${latest_version%.*}
+
+# 下载内核
+latest_kernel_key=$(curl "http://spec.ccfc.min.s3.amazonaws.com/?prefix=firecracker-ci/$CI_VERSION/$ARCH/vmlinux-&list-type=2" \
+    | grep -oP "(?<=<Key>)(firecracker-ci/$CI_VERSION/$ARCH/vmlinux-[0-9]+\.[0-9]+\.[0-9]{1,3})(?=</Key>)" \
+    | sort -V | tail -1)
+wget "https://s3.amazonaws.com/spec.ccfc.min/${latest_kernel_key}"
+
+# 下载 Ubuntu rootfs
+latest_ubuntu_key=$(curl "http://spec.ccfc.min.s3.amazonaws.com/?prefix=firecracker-ci/$CI_VERSION/$ARCH/ubuntu-&list-type=2" \
+    | grep -oP "(?<=<Key>)(firecracker-ci/$CI_VERSION/$ARCH/ubuntu-[0-9]+\.[0-9]+\.squashfs)(?=</Key>)" \
+    | sort -V | tail -1)
+ubuntu_version=$(basename $latest_ubuntu_key .squashfs | grep -oE '[0-9]+\.[0-9]+')
+wget -O ubuntu-$ubuntu_version.squashfs.upstream "https://s3.amazonaws.com/spec.ccfc.min/$latest_ubuntu_key"
+
+# 制作 ext4 rootfs（含 SSH key）
+unsquashfs ubuntu-$ubuntu_version.squashfs.upstream
+ssh-keygen -f id_rsa -N ""
+cp id_rsa.pub squashfs-root/root/.ssh/authorized_keys
+mv id_rsa ./ubuntu-$ubuntu_version.id_rsa
+sudo chown -R root:root squashfs-root
+truncate -s 1G ubuntu-$ubuntu_version.ext4
+sudo mkfs.ext4 -d squashfs-root -F ubuntu-$ubuntu_version.ext4
+
+
+# 四、启动 Firecracker
+# 终端 1：启动 Firecracker 进程
+API_SOCKET="/tmp/firecracker.socket"
+sudo rm -f $API_SOCKET
+sudo ./firecracker --api-sock "${API_SOCKET}" --enable-pci
+
+# 终端 2：通过 API 配置 MicroVM
+API_SOCKET="/tmp/firecracker.socket"
+TAP_DEV="tap0"
+TAP_IP="172.16.0.1"
+MASK_SHORT="/30"
+
+# 1. 配置网络 TAP
+sudo ip link del "$TAP_DEV" 2>/dev/null || true
+sudo ip tuntap add dev "$TAP_DEV" mode tap
+sudo ip addr add "${TAP_IP}${MASK_SHORT}" dev "$TAP_DEV"
+sudo ip link set dev "$TAP_DEV" up
+sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+sudo iptables -P FORWARD ACCEPT
+HOST_IFACE=$(ip -j route list default | jq -r '.[0].dev')
+sudo iptables -t nat -D POSTROUTING -o "$HOST_IFACE" -j MASQUERADE || true
+sudo iptables -t nat -A POSTROUTING -o "$HOST_IFACE" -j MASQUERADE
+
+# 2. 设置日志
+sudo curl -X PUT --unix-socket "${API_SOCKET}" \
+    --data '{"log_path":"./firecracker.log","level":"Debug","show_level":true,"show_log_origin":true}' \
+    "http://localhost/logger"
+
+# 3. 设置内核
+KERNEL="./$(ls vmlinux* | tail -1)"
+sudo curl -X PUT --unix-socket "${API_SOCKET}" \
+    --data "{\"kernel_image_path\":\"${KERNEL}\",\"boot_args\":\"console=ttyS0 reboot=k panic=1\"}" \
+    "http://localhost/boot-source"
+
+# 4. 设置根文件系统
+ROOTFS="./$(ls *.ext4 | tail -1)"
+sudo curl -X PUT --unix-socket "${API_SOCKET}" \
+    --data "{\"drive_id\":\"rootfs\",\"path_on_host\":\"${ROOTFS}\",\"is_root_device\":true,\"is_read_only\":false}" \
+    "http://localhost/drives/rootfs"
+
+# 5. 设置网络接口
+sudo curl -X PUT --unix-socket "${API_SOCKET}" \
+    --data "{\"iface_id\":\"net1\",\"guest_mac\":\"06:00:AC:10:00:02\",\"host_dev_name\":\"$TAP_DEV\"}" \
+    "http://localhost/network-interfaces/net1"
+
+# 6. 启动 MicroVM
+sleep 0.015
+sudo curl -X PUT --unix-socket "${API_SOCKET}" \
+    --data '{"action_type":"InstanceStart"}' \
+    "http://localhost/actions"
+
+
+
+# SSH 进入 MicroVM
+KEY_NAME=./$(ls *.id_rsa | tail -1)
+ssh -i $KEY_NAME root@172.16.0.2 "ip route add default via 172.16.0.1 dev eth0"
+ssh -i $KEY_NAME root@172.16.0.2 "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
+ssh -i $KEY_NAME root@172.16.0.2
+
+# 五、使用配置文件启动（免 API）
+sudo ./firecracker --api-sock /tmp/firecracker.socket --config-file vm_config.json
+
+# 七、生产环境：使用 Jailer
+# 生产环境不应直接运行 firecracker，而应通过 jailer 设置 cgroup 和 namespace 隔离：
+sudo ./jailer \
+  --id my-microvm \
+  --exec-file ./firecracker \
+  --uid 1234 --gid 1234 \
+  --chroot-base-dir /srv/jailer \
+  --node 0 \
+  --api-sock /tmp/firecracker.socket
+----

@@ -15,6 +15,13 @@ https://developer.aliyun.com/article/1711222
 
 [source,shell]
 ----
+
+pnpm list -g
+pnpm add -g clawhub
+pnpm add -g openclaw
+pnpm remove -g clawhub
+pnpm remove -g openclaw
+
 # 安装 && 更新
 curl -fsSL https://openclaw.ai/install.sh | bash
 
@@ -53,6 +60,7 @@ openclaw gateway restart
 # 浏览器访问 http://127.0.0.1:18789/， 如果提示连接失败，则通过下面的命令重新打开浏览器
 # 获取 Web UI 访问链接
 openclaw dashboard
+
 
 # 手动前台运行gateway
 openclaw gateway --port 18789 --verbose
@@ -103,6 +111,13 @@ cat ~/.openclaw/config.json
 ----
 
 
+## plugins
+
+[source,shell]
+----
+openclaw plugins
+openclaw plugins uninstall  dingtalk
+----
 
 
 ##  channels
@@ -254,3 +269,122 @@ picoclaw status
 
 ### CLI-Anything
 link:https://github.com/HKUDS/CLI-Anything[CLI-Anything]
+
+
+### JVS Claw
+link:https://github.com/jvsclaw/jvs-claw[JVS Claw]
+
+
+### 阿里云 : 轻量应用服务器 （Simple Application Server）
+link:https://www.aliyun.com/product/swas[轻量应用服务器 （Simple Application Server）]
+
+需要配套购买 阿里云上的百炼的模型 token
+
+### 钉钉悟空
+
+link:https://www.dingtalk.com/wukong[钉钉悟空]
+
+### HiClaw
+
+link:https://github.com/alibaba/hiclaw[HiCaw]
+link:https://hiclaw.io/[HiClaw]
+开源，可自己部署。
+"Team版的OpenClaw", 基于  OpenClaw 开发。
+
+
+### CoPaw : 阿里系,个人版
+
+link:https://github.com/agentscope-ai/CoPaw[CoPaw]
+开源，可自己部署。
+是阿里通义实验室于2026年2月开源的一款桌面智能体（Agent）工具。
+
+开发语言主要是 python , TypeScript.
+
+
+###  HiClaw : 阿里系,Team版
+
+HiClaw 是一个开源的多智能体（Multi-Agent）协作系统，由阿里 Higress 社区推出，旨在通过“Manager-Worker”架构实现透明、可控且安全的人机协同任务处理 24。它被定位为 OpenClaw 的“团队版”，允许用户像指挥真人团队一样，通过即时通讯工具协调多个 AI Agent 完成复杂项目。
+
+需要安装 docker desktop， 尚未适配好 podman.
+
+link:https://hiclaw.io/[HiClaw]
+
+[source,shell]
+----
+bash <(curl -sSL https://higress.ai/hiclaw/install.sh)
+----
+
+### JVS  : 阿里系
+
+https://jvsclaw.aliyun.com/
+OpenClaw极简版, 无影云,云端免部署,云电脑预装环境,仅支持创建一个云端Bot,无法多Agent协同.
+
+### AutoResearchClaw
+
+
+### 阿里云: RdsClaw
+https://www.aliyun.com/activity/database/rdsclaw
+
+
+=== 沙箱隔离
+
+1. Docker 容器隔离 这是最成熟的方案。每个 Agent 任务启动一个独立容器，拥有独立的文件系统、进程空间、网络命名空间。可以限制 CPU、内存、磁盘 IO，还能设置只读文件系统 + 临时层（overlayfs），任务结束后容器销毁，不留痕迹。
++
+性能方面，Docker 容器的启动时间在现代机器上通常是 秒级（1-3 秒），不是瓶颈。真正的影响因素：
++
+如果需要每次拉基础镜像，首次会慢（可以通过本地缓存 image 解决）
+容器内安装依赖（pip/npm/apt）会增加时间
+计算密集型任务本身耗时，和是否沙箱无关
+
+2. link:https://firecracker-microvm.github.io/[Firecracker] / link:https://gvisor.dev/[gVisor] / link:https://katacontainers.io/[Kata Containers]（轻量虚拟机） 比 Docker 更强的隔离级别，每个任务一个微型 VM，内核级隔离。适合多租户场景（不同用户的任务互相隔离）。Firecracker 启动约 125ms，但运维复杂度高，一般企业级平台（如 AWS Lambda）用这个。
+
+3. 操作系统级隔离
+Linux namespaces + cgroups：Docker 底层就是这套，可以直接用 unshare、systemd-run 等方式轻量实现
+seccomp / AppArmor / SELinux：限制系统调用和文件访问权限
+chroot / pivot_root：限制文件系统访问范围
+网络命名空间 + iptables：限制网络访问
+
+4. 语言运行时沙箱
+* Python：restrictedpython、sys.modules 注入、禁用 os/subprocess 等危险模块
+* Node.js：vm2（已弃用）、Node.js --no-eval、自定义 require 拦截
+* Java：SecurityManager（已废弃）、自定义 ClassLoader 限制
+这类方案隔离性较弱，适合不需要执行 shell 命令的场景（比如纯代码分析、数据处理）。
+
+5. WebAssembly（WASM）沙箱 WASM 本质是沙箱虚拟机，默认无法访问文件系统、网络、进程。通过 WASI（WebAssembly System Interface）可以有选择地授予权限。启动极快（毫秒级），适合轻量计算任务。生态还在发展中。
+
+6. 云函数 / Serverless 沙箱 AWS Lambda、阿里云 FC 等，天然自带隔离，按调用计费。适合不需要本地资源访问的场景。
+
+
+|===
+| 方案 | 启动时间 | 隔离级别 | 适用场景
+
+| Docker
+| 1-3s
+| 进程级
+| 通用，最推荐
+
+| Firecracker
+| ~125ms
+| 内核级
+| 多租户、高安全
+
+| Linux namespaces
+| <1s
+| 进程级
+| 轻量定制
+
+| WASM
+| <10ms
+| 虚拟机级
+| 轻量计算
+
+| 语言沙箱
+| 0
+| 弱
+| 纯逻辑执行
+
+| Serverless
+| 100ms-几s
+| 内核级
+| 云端场景
+|===

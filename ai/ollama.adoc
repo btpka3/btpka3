@@ -81,10 +81,19 @@ ollama stop qwen3-coder-next
 本地通过 ollama 启动模型后，需要 将 OpenClaw 的模型提供商配置为 OpenAI 兼容格式，并指向 `http://localhost:11434/v1`
 
 
-
+== tag/标签
 
 == cloud
 * link:https://docs.ollama.com/cloud[Cloud Models]
 * link:https://ollama.com/search?c=cloud[Cloud Models] : 带有 "cloud" 标签的模型是会嗲用远程 ollama 模型服务的。
 * link:https://docs.ollama.com/faq#how-do-i-disable-ollama%E2%80%99s-cloud-features[How do I disable Ollama’s cloud features?]
 但可 `vi ~/.ollama/server.json` 通过设置 "disable_ollama_cloud" 为 true 来禁用。 或者环境变量 "OLLAMA_NO_CLOUD=1" 来禁用。
+
+== thinking
+== vision
+== tools
+== embedding
+
+
+
+

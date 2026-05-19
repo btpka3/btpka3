@@ -171,3 +171,24 @@ org.springframework.integration.channel.DirectChannel
 * EncodingPayloadTransformer
 * DecodingTransformer
 * CodecMessageConverter
+
+
+== JdbcLockRegistry
+
+
+org.springframework.integration.jdbc.lock.DefaultLockRepository#acquire
+
+执行sql,会将过期的锁记录的 client_id 更新成自己的，如果没更新到，则会插入。
+
+[source,sql]
+----
+UPDATE %sLOCK SET CLIENT_ID=?, CREATED_DATE=? WHERE REGION=? AND LOCK_KEY=? AND (CLIENT_ID=? OR CREATED_DATE<?)
+----
+
+
+
+JdbcLockRegistry 没有内置的自动续期（心跳续约）机制。
+Spring Integration 文档明确指出该实现是“简单数据库锁”，适用于短时任务，不保证长连接存活。
+
+RedisLockRegistry： 支持锁的自动续期，后台线程定期 SET key value EX。
+ZooKeeperLockRegistry 支持锁的自动续期，利用 ZK Session 机制自动续期

@@ -1,0 +1,3 @@
+https://java.agentscope.io/en/intro.html
+
+https://github.com/agentscope-ai/agentscope-java

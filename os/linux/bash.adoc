@@ -1,5 +1,38 @@
 
 
+## 判断当前shell
+[source,shell]
+----
+# 1. 查看当前进程的 shell
+# 输出如：/bin/bash 或 /usr/bin/zsh
+# 注意：这是登录 shell，不一定是当前正在运行的 shell
+echo $SHELL
+
+# 2. 查看当前实际运行的 shell（推荐）
+# 输出如：bash / zsh / fish / dash
+ps -p $$ -o comm=
+
+# 3. 读取 /proc 信息
+# 输出如：/usr/bin/bash
+readlink /proc/$$/exe
+
+# 4. 利用 shell 内置变量
+# 输出如：bash / zsh / -bash（带 - 表示登录 shell）
+echo $0
+
+----
+
+## 系统剪切板
+[source,shell]
+----
+man pbcopy
+man pbpaste
+# 内容 -> 剪切板(pasteboard, Clipboard)
+echo "hello" | pbcopy
+# 剪切板内容 -> 输出
+pbpaste
+----
+
 
 ## 文件信息
 

@@ -36,8 +36,12 @@ brew install kubectl
 brew install kubernetes-cli
 brew install chsrc
 
-brew install node@20
-brew link node@20
+# 本地解析 rpm 文件
+brew install rpm
+
+# 不推荐通过 brew 安装 node ，推荐使用 fnm 安装
+# brew install node@20
+# brew link node@20
 
 brew install git
 brew install git-gui
@@ -64,6 +68,8 @@ brew install tinyproxy
 
 brew deps -1 jbang   # 查看直接依赖
 brew install --ignore-dependencies jbang  # 忽略依赖并安装
+
+brew install ripgrep
 ----
 
 
@@ -102,3 +108,8 @@ man zshoptions
 # 检查当千zsh 启用的选项
 setopt
 ----
+
+
+==  修改 hosts
+* link:https://switchhosts.app/zh[SwitchHosts]
+* link:https://www.easyhosts.cn/zh/[EasyHosts]

@@ -175,6 +175,10 @@ podman pull ccr.ccs.tencentyun.com/library/alpine:latest
 
 
 ## 代理
+* link:https://1ms.run[1ms.run]
+
+`docker pull docker.1ms.run/nginx``
+
 参考 link:tinyproxy.adoc[tinyproxy]
 
 注意：由于macos上的docker engine 实际也是运行在一个镜像里的，故代理服务器地址不能是 127.0.0.1，这里的30.166.33.108就是个人电脑（宿主机）的局域网IP。
@@ -355,5 +359,41 @@ podman run --privileged -it --rm quay.io/podman/stable sh
 
 podman run --rm -it docker.io/alpine:latest echo aaa
 podman run --rm -it o-docker.alibaba-inc.com/docker.io/alpine:3.21.3 echo aaa
+
+----
+
+
+== 数据卷
+
+[source,shell]
+----
+### 1. 使用 docker inspect（最准确）
+# 查看完整挂载信息（JSON 格式）
+docker inspect <容器名或ID> | jq '.[].Mounts'
+
+# 简洁格式化输出（需安装 jq）
+docker inspect --format='{{range .Mounts}}类型: {{.Type}} | 源路径: {{if .Source}}{{.Source}}{{else}}<匿名卷>{{end}} | 容器路径: {{.Destination}} | 读写: {{.RW}}{{"\n"}}{{end}}' <容器名或ID>
+
+
+### 2. 进入容器内部查看
+docker exec <容器名> mount | grep -E 'type (ext4|xfs|overlay|tmpfs)'
+docker exec <容器名> df -h
+----
+
+
+== 容器相关信息检查
+
+[source,shell]
+----
+#======================= 检查 entrypoint/cmd
+# 容器外
+docker inspect <容器名或ID> --format='{{.Config.Entrypoint}}'
+docker inspect <容器名或ID> --format='{{.Config.Cmd}}'
+# 容器内
+cat /proc/1/cmdline | tr '\0' ' ' && echo
+ps -p 1 -o args=
+# 示例输出：
+/usr/bin/python3 /usr/lib/systemd/systemd init syslog-ng sshd crond staragentctl vipsrv common_vm    # inner
+/usr/bin/python /usr/lib/systemd/system.py init crond kubeone                                        # outter
 
 ----

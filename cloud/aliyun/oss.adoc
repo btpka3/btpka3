@@ -35,3 +35,9 @@ ossutil stat oss://bundle-repository/log/dangqian.zll/hello.txt
 wget https://gosspublic.alicdn.com/ossutil/v2/2.1.0/ossutil-2.1.0-linux-amd64.zip
 unzip ossutil-2.1.0-linux-amd64.zip
 ----
+
+[source,shell]
+----
+# 获取所有oss对象实例链接的endpoint 和 ak
+vmtool -x 3 --action getInstances --className com.aliyun.oss.OSSClient  --express 'instances.{endpoint}'
+----

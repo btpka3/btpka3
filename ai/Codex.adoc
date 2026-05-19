@@ -1,0 +1,59 @@
+* link:https://developers.openai.com/codex/cli[CodeX-CLI]
+
+
+[source,shell]
+----
+pnpm i -g @openai/codex
+
+~/.codex/config.toml
+~/.codex/history.jsonl
+~/.codex/installation_id
+~/.codex/log/
+~/.codex/logs_2.sqlite*
+~/.codex/memories/
+~/.codex/sessions/
+~/.codex/shell_snapshots/
+~/.codex/skills/
+~/.codex/state_5.sqlite
+~/.codex/tmp
+~/.codex/version.json
+----
+
+
+
+== codex
+
+* https://openai.com/zh-Hans-CN/codex/
+
+* link:https://developers.openai.com/codex[document]
+
+* link:https://github.com/openai/codex[github: codex]
+
+Codex 是 OpenAI 推出的 AI 编程助手，目前经历了从早期 API 服务到独立命令行工具（Codex CLI），再到桌面端 Agent 化产品的演进。当前的 Codex 已经从一个单纯的代码生成工具，演变为一个能将代码作为工具来操作的全能型 AI 助手.
+
+Codex CLI（命令行工具）是开源的。 它通过 npm 发布（@openai/codex），源码可以在 GitHub 上找到。你可以自由查看、修改和贡献代码。
+
+[source,shell]
+----
+pnpm i -g @openai/codex
+#brew install --cask codex
+
+codex --version
+----
+
+离线使用内网大模型
+~/.codex/config.toml
+
+[source,toml]
+----
+# 指定默认使用的模型和提供商
+model = "your-model-name"
+model_provider = "internal"
+
+# 定义内网模型提供商
+[model_providers.internal]
+name = "Internal LLM"
+base_url = "http://your-internal-server:port/v1"
+env_key = "INTERNAL_API_KEY"
+wire_api = "chat"
+----

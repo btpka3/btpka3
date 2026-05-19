@@ -16,6 +16,8 @@ junit4 的限制：
 
 === 如何升级？
 
+=== OpenReWrite ❤️
+
 请优先尝试使用 link:https://docs.openrewrite.org/running-recipes/popular-recipe-guides/migrate-from-junit-4-to-junit-5[openrewrite: Migrate to JUnit 5 from JUnit 4]
 [source,shell]
 ----

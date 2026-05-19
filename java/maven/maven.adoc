@@ -84,7 +84,7 @@
 ● 结合 前面的 【特性：bom import 越靠前越优先】，为避免 再引入 maven profile 后对 bom import 顺序的理解上的困扰。
 建议：一旦启用maven profile，请将 bom import 全部放到 mavne profile里管理。
 
-
+● bom 中声明的 maven profile 无法被激活。不建议在 bom 中声明 maven profile
 * profile 内的声明的优先级高于profile外的
 
 
@@ -244,3 +244,6 @@ find . -type f  -name "*.java" \
 * link:https://maven.apache.org/ref/3.9.11/maven-settings/settings.html[maven Settings]
 
 == plugin-registry.xml
+
+
+

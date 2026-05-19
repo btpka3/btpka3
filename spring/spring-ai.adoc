@@ -1,8 +1,140 @@
 
 
-link:https://docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-starter-docs.html[spring-ai : MCP Server Boot Starter]
+* link:https://docs.spring.io/spring-ai/reference/[spring-ai reference]
+* link:https://docs.spring.io/spring-ai/reference/api/mcp/
+* link:https://github.com/spring-projects/spring-ai[github: spring-ai]
+
+* spring
+
+mcp-server-boot-starter-docs.html[spring-ai : MCP Server Boot Starter]
 
 [source,plain]
 ----
 @org.springaicommunity.mcp.annotation.McpTool
 ----
+
+== 2.x
+Spring AI 2.x 变化总结
+一、基础架构升级
+Spring AI 2.0 最核心的变化是底层框架的全面升级。2.0.0-M1 开始基于 Spring Boot 4.0 和 Spring Framework 7.0 构建，构建要求 Java 21+（消费使用仍支持 Java 17）。同时完成了 Jackson 2 到 Jackson 3 的迁移，这是一个重要的依赖升级。
+
+二、OpenAI 集成重大变更
+OpenAI 的集成经历了显著变化。官方 OpenAI Java SDK 被正式集成，SDK 升级为新的 builder 模式。默认聊天模型从旧模型更新为 gpt-5-mini。可配置 OpenAI 的 moderation 和 audio API 路径。
+
+三、Anthropic / Claude 集成重构
+Anthropic 集成用官方 SDK 替换了 RestClient。Claude 3.x 模型被移除，用户需迁移到 Claude 4.x。新增了 Claude Skills 集成与 Files API 支持。同时增加了 ThinkingLevel 配置能力。辅助类经历了重命名。
+
+四、MCP（Model Context Protocol）重大调整
+MCP 相关变化非常大。MCP Annotations 从独立项目移入 Spring AI 核心。MCP transport 实现从 MCP Java SDK 迁移到 Spring AI，相关 artifact 也重新定位。MCP annotations 包名被重命名。新增了自定义 MCP 客户端的抽象，以及 Mcp*ServerCustomizer 接口。
+
+五、模型与供应商支持扩展
+Google Gemini： 支持 Gemini 3.x 模型结合 Google Search 使用自定义工具，Google Generative AI SDK 更新至 1.44.0，新增了 observation provider 修复。
+
+Mistral AI： 支持原生结构化输出，添加了原生结构化输出功能，移除了已废弃的 Mistral 模型枚举。
+
+其他供应商： Vertex AI 增加了 safety ratings 和 seed 参数暴露，支持 prompt_tokens_details（智谱AI）。Vertex AI、OCI GenAI、智谱AI 的集成类已被标记为废弃，将在未来版本移除。Huggingface 集成被移出核心。
+
+六、向量存储与语义缓存
+向量存储方面，新增了 Amazon S3、Infinispan 和 Bedrock Knowledge Base 作为向量存储选项。Azure Vector Store 支持自定义字段名。Qdrant 可配置 content 字段。Couchbase 向量存储类 relocated。Redis 向量存储支持 text search 和 range query，并改进了 filter expression converter。Milvus 文档链接已更新。
+
+语义缓存方面，SemanticCache 接口 relocated，Redis 语义缓存得到增强，新增 Redis 语义缓存 advisor。
+
+七、聊天记忆（Chat Memory）
+新增 Redis 聊天记忆仓库及自动配置。Azure Cosmos DB 聊天 memory starter 也被添加。JdbcChatMemoryRepository 的 schema 初始化得到修复。
+
+八、工具调用与结构化输出
+新增了动态禁用原生结构化输出功能的能力。ToolCallAdvisor 增加了 finalization hook，且在 memory 禁用时能正确保留 system messages。MethodToolCallback 的 JSON 解析错误处理得到增强。conversation history 从 ToolContext 中移除。
+
+九、Embedding 增强
+Ollama embeddings 现在支持维度配置（dimensions 参数）。
+
+十、过滤表达式与分词器
+新增了 ISNULL / ISNOTNULL 过滤表达式。TokenTextSplitter 支持自定义标点处理，相关标点处理 bug 已修复。Redis、Neo4j 的 filter expression converter 得到改进，Neo4j 的 key 处理也得到了修复。
+
+十一、其他重要变化
+默认 temperature 配置被移除（需要显式设置）。ModelRequest#getOptions 返回非 null 值。builders 不再需要显式泛型。添加了 JSpecify annotations。支持 Spring Boot 4 的 MongoDB Atlas 容器。增加了系统消息的便捷方法。JSON schema 定制功能被启用。
+
+== VectorStore
+
+小的测试项目key还用 link:https://www.trychroma.com/[Chroma] 或者 pgvector
+
+
+|===
+|VectorStore |底层技术 |Starter 依赖
+
+|SimpleVectorStore
+|内存（本地测试用）
+|内置于 spring-ai-core
+
+|PgVector
+|PostgreSQL + pgvector
+|spring-ai-pgvector-store-spring-boot-starter
+
+|Milvus
+|Milvus
+|spring-ai-milvus-store-spring-boot-starter
+
+|Pinecone
+|Pinecone
+|spring-ai-pinecone-store-spring-boot-starter
+
+|Qdrant
+|Qdrant
+|spring-ai-qdrant-store-spring-boot-starter
+
+|Chroma
+|Chroma
+|spring-ai-chroma-store-spring-boot-starter
+
+|Weaviate
+|Weaviate
+|spring-ai-weaviate-store-spring-boot-starter
+
+|Redis
+|Redis
+|spring-ai-redis-store-spring-boot-starter
+
+|Elasticsearch
+|Elasticsearch
+|spring-ai-elasticsearch-store-spring-boot-starter
+
+|OpenSearch
+|OpenSearch
+|spring-ai-opensearch-store-spring-boot-starter
+
+|MongoDB Atlas
+|MongoDB Atlas
+|spring-ai-mongodb-atlas-store-spring-boot-starter
+
+|Neo4j
+|Neo4j
+|spring-ai-neo4j-store-spring-boot-starter
+
+|Cassandra
+|Apache Cassandra
+|spring-ai-cassandra-store-spring-boot-starter
+
+|Oracle
+|Oracle Database
+|spring-ai-oracle-store-spring-boot-starter
+
+|MariaDB
+|MariaDB
+|spring-ai-mariadb-store-spring-boot-starter
+
+|Azure AI Search
+|Azure AI Search
+|spring-ai-azure-store-spring-boot-starter
+
+|GemFire
+|VMware GemFire
+|spring-ai-gemfire-store-spring-boot-starter
+
+|SAP HANA
+|SAP HANA Cloud
+|spring-ai-hana-store-spring-boot-starter
+
+|Typesense
+|Typesense
+|spring-ai-typesense-store-spring-boot-starter
+|===

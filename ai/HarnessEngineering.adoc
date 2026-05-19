@@ -1,0 +1,31 @@
+* link:https://openai.com/zh-Hans-CN/index/harness-engineering/[harness engineering]
+* link:https://developer.harness.io/docs/platform/harness-ai/harness-agents/[Harness Agents], link:https://github.com/thisrohangupta/agents[github]
+
+== harness.io
+
+* link:https://www.harness.io/[harness]
+⚠️❌❎ 与 AI 的 harness engineering 无关。
+
+Harness 是一家知名的现代软件交付平台公司（提供 CI/CD、Feature Flags、Cloud Cost Management 等服务）。近年来，Harness 在其产品中深度集成了 AI 技术，尤其是在 AIOps 和 智能自动化 方面。
+
+== harness engineering
+
+* Prompt engineering : 该如何表达？ 关注的文本最终需要在某个运行环境的API端点中被发送。
+* Context engineering : 模型应该看到啥？ 编排的RAG管道、记忆系统和工具需要连接真实的向量数据库、对象存储和外部服务。
+构建动态系统，以正确的格式提供正确的信息和工具，使LLM能够合理地完成任务
+
+* Harness engineering : 整个熊该如何运作？ “系统如何运作”的全栈工程。
+设计的编排逻辑、CI验证和错误恢复需要在容器、虚拟机或云函数中执行。
+
+
+
+* Environment Engineering: agent 应该在怎样的世界中运行？
+Agent需要有一个经过精心工程化的运行环境。
+** 工具
+** 资源
+** 沙箱隔离
+** 认证权限
+** 人类监督
+** 反馈回路
+
+
