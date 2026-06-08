@@ -469,8 +469,100 @@ aliyun kms --help
 - link:https://github.com/aliyun/credentials-java/blob/master/README-CN.md[com.aliyun:credentials-java]
 -- com.aliyun.credentials.Client
 
-=== sls
-[source,java]
-----
 
+
+ == aliyun-cli
+
+* link:https://github.com/aliyun/aliyun-cli[github : aliyun/aliyun-cli]
+* link:https://www.alibabacloud.com/help/zh/cli/what-is-alibaba-cloud-cli[什么是阿里云 CLI]
+
+[source,shell]
+----
+#
+sudo /bin/bash -c "$(curl -fsSL https://aliyuncli.alicdn.com/install.sh)"
+aliyun upgrade
+
+# 安装
+#brew install aliyun-cli
+# 更新
+#brew update && brew upgrade aliyun-cli && brew cleanup aliyun-cli
+
+which aliyun
+aliyun version
+aliyun --help
+
+aliyun configure list
+aliyun configure set \
+    --mode AK \
+    --profile xxx_profile \
+    --language zh \
+    --region cn-beijing \
+    --access-key-id AK_XXX \
+    --access-key-secret SK_XXX
+
+
+
+# 示例配置文件
+ll ~/.aliyun/config.json
+{
+	"current": "xxx_profile",
+	"profiles": [
+		{
+			"name": "default",
+			"mode": "",
+			"output_format": "json",
+			"language": "en"
+		},
+		{
+			"name": "xxx_profile",
+			"mode": "AK",
+			"access_key_id": "AK_XXX",
+			"access_key_secret": "SK_XXX",
+			"region_id": "cn-beijing",
+			"output_format": "json",
+			"language": "zh",
+			"site": "china"
+		}
+	],
+	"meta_path": ""
+}
+
+####################################################### SLS  : GetLogs
+# aliyun cli 的帮助文档默认携带了 颜色，但其颜色对黑色主题的终端不友好，可以通过 NO_COLOR=true 禁止带颜色输出
+NO_COLOR=true aliyun sls GetLogs --help
+aliyun -p aigc_yun_cn_bj_sls sls GetLogs \
+ --project gong9-exception-aigc \
+ --logstore gong9-log-raw-error \
+ --from $(date -d "5 minutes ago" +%s) \
+ --to $(date +%s) \
+ --offset 0 \
+ --line 2 \
+ --reverse false \
+  --query "*" \
+  | jq
+
+####################################################### SLS  : GetLogsV2
+query_param=$(
+cat << EOF
+{
+  "from"   : $(date -d "5 minutes ago" +%s),
+  "to"     : $(date +%s),
+  "line"   : 2,
+  "offset" : 0,
+  "query"  : "*"
+}
+EOF
+)
+echo $query_param
+
+aliyun -p aigc_yun_cn_bj_sls sls GetLogsV2 \
+ --project gong9-exception-aigc \
+ --logstore gong9-log-raw-error \
+ --body "${query_param}" \
+  | jq
+
+# 《使用aliyun mcp-proxy代理OpenAPI MCP Server》 https://www.alibabacloud.com/help/zh/cli/use-aliyun-mcp-proxy-agent-openapi-mcp-server
+# 《OAuth应用概览》https://help.aliyun.com/zh/ram/overview-of-oauth-applications
+# 《容器服务 Kubernetes 版 ACK：CLI集成示例》https://help.aliyun.com/zh/ack/ack-managed-and-ack-dedicated/developer-reference/cli-integration-example
+aliyun mcp-proxy --help
 ----

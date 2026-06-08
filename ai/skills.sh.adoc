@@ -15,6 +15,7 @@ skills --help
 # 会默认先安装到 ~/.agents/skills/*
 # 用 skills 平台注册的名称 安装（用 skills 平台的OpenAPI)
 skills add <skill-name>
+skills add vercel-labs/agent-skills
 # 查找本地目录里的skill并全局安装
 skills add ./my-local-skills -g
 # 用git代码仓库直接安装，只有能找到合法的 SKILL.md ，无论目录层级。
@@ -29,8 +30,10 @@ skills remove
 skills list
 skills find [query]
 skills update               # 更新安装的skill
-# 非交互式安装。 --copy 表示使用复制模式，如果不使用，则默认使用软连接的方式。
-skills add <source> --agent claude-code --skill '*' -y --all --copy
+# 非交互式安装。
+# --copy 表示使用复制模式，如果不使用，则默认使用软连接的方式。
+# --all 等同于 `--skill '*' --agent '*' -y`
+skills add <source> --agent claude-code --global --all
 ----
 
 

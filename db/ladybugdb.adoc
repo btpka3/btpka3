@@ -1,0 +1,103 @@
+* https://ladybugdb.com/
+* user:
+** link:https://github.com/alibaba/UnifiedModel/[alibaba/UnifiedModel]
+
+
+LadybugDB 是一个嵌入式列式图数据库（Embedded Columnar Graph Database），基于 DuckDB 的列式存储引擎，底层源自 Kùzu 项目的 fork（2025 年），使用 C++ 编写，MIT 许可证开源。
+
+
+== 核心特点
+
+* 嵌入式、零依赖：像 SQLite 一样嵌入进程内运行，无需独立部署服务端，适合边缘场景和单机应用。
+* 列式存储 + 图模型：结合了列式存储的高效分析性能和属性图（Property Graph）的关系表达能力，官方宣称查* 询性能比传统图数据库快约 10 倍。
+* Cypher 查询语言：支持 openCypher，与 Neo4j 生态兼容，上手门槛低。
+* 向量搜索：内置向量相似度检索能力，可以在图结构中直接做 embedding 查询，非常适合 AI Agent 的记忆存储和语义检索场景。
+* ACID 事务：支持完整事务语义。
+* WebAssembly 支持：可编译为 Wasm 在浏览器端运行。
+* 安装简单：Python 生态通过 pip install ladybug 即可使用。
+
+
+典型应用场景包括：AI Agent 的长期记忆（metagraph/hypergraph 建模）、知识图谱、语义时空建模（Semantic Spacetime）、以及需要在本地/嵌入式环境中做图分析的场合。
+
+它的定位有点像"图数据库中的 SQLite"——轻量、嵌入、高性能，特别契合当前 AI native 应用中对本地化图+向量混合查询的需求。
+
+
+
+== install
+
+[source,bash]
+----
+brew install ladybug
+which lbug
+lbug --version
+lbug --help
+
+
+cd /tmp
+
+mkdir ./data/
+curl -L -o ./data/city.csv https://raw.githubusercontent.com/LadybugDB/dataset/refs/heads/main/demo-db/csv/city.csv
+curl -L -o ./data/user.csv https://raw.githubusercontent.com/LadybugDB/dataset/refs/heads/main/demo-db/csv/user.csv
+curl -L -o ./data/follows.csv https://raw.githubusercontent.com/LadybugDB/dataset/refs/heads/main/demo-db/csv/follows.csv
+curl -L -o ./data/lives-in.csv https://raw.githubusercontent.com/LadybugDB/dataset/refs/heads/main/demo-db/csv/lives-in.csv
+
+# 启动数据库
+lbug example.lbug
+
+# 建表
+CREATE NODE TABLE User(name STRING PRIMARY KEY, age INT64);
+CREATE NODE TABLE City(name STRING PRIMARY KEY, population INT64);
+CREATE REL TABLE Follows(FROM User TO User, since INT64);
+CREATE REL TABLE LivesIn(FROM User TO City);
+
+# 插入数据
+COPY User FROM "./data/user.csv";
+COPY City FROM "./data/city.csv";
+COPY Follows FROM "./data/follows.csv";
+COPY LivesIn FROM "./data/lives-in.csv";
+
+# 查询
+MATCH (a:User)-[f:Follows]->(b:User)
+RETURN a.name, b.name, f.since;
+
+# 示例输出
+┌─────────┬─────────┬─────────┐
+│ a.name  │ b.name  │ f.since │
+│ STRING  │ STRING  │ INT64   │
+├─────────┼─────────┼─────────┤
+│ Adam    │ Karissa │ 2020    │
+│ Adam    │ Zhang   │ 2020    │
+│ Karissa │ Zhang   │ 2021    │
+│ Zhang   │ Noura   │ 2022    │
+└─────────┴─────────┴─────────┘
+----
+
+
+== 图数据库 比较
+
+[cols="1,2", options="header"]
+|===
+| 需求
+| 推荐
+
+| 嵌入式 + 向量 + 图
+| LadybugDB、FalkorDB
+
+| 嵌入式纯图（最成熟）
+| Kùzu
+
+| 已有 PG 加图能力
+| Apache AGE
+
+| 已有 DuckDB 加图
+| DuckPGQ
+
+| Graph RAG 生态最全
+| Neo4j 5.x
+
+| 国内大规模生产
+| NebulaGraph
+
+| 分布式+向量原生
+| Dgraph
+|===

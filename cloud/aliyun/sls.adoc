@@ -244,3 +244,52 @@ CloudLens for SLS : 左侧【全局概览】 : 图表【外网流量/分钟】�
 
 TIP: 一个是"intranet", 一个是 "internet"
 ----
+
+
+## aliyun-log-cli
+
+https://github.com/aliyun/aliyun-log-cli
+
+[source,shell]
+----
+pipx install  aliyun-log-cli
+which aliyunlog
+
+aliyunlog --version
+aliyunlog --help
+# fromTime, toTime 的示例格式: "2018-01-01 08:08:08"
+
+aliyunlog configure --help
+
+aliyunlog configure <access_id> <access-key> <endpoint> <client_name>
+aliyunlog configure LTAI5tXXX 4GRRCMeXXX cn-beijing-share.log.aliyuncs.com xxx_client
+cat ~/.aliyunlogcli
+# 示例文件内容如下
+[xx_client]
+access-id = LTAI5tXXX
+access-key = 4GRRCMeXXX
+region-endpoint = cn-beijing-share.log.aliyuncs.com
+sts-token =
+
+# 查询sls日志
+aliyunlog log list_project --client-name=xx_client | jq
+
+# 查询sls日志
+queryParam=$(
+cat <<EOF
+{
+  "project": "xxx_sls_project",
+  "logstore": "xxx_sls_logstore",
+  "fromTime": "$(date -d "5 minutes ago" +"%Y-%m-%d %H:%M:%S")",
+  "toTime": "$(date +"%Y-%m-%d %H:%M:%S")",
+  "query": "*",
+  "offset": "0",
+  "line": "2",
+  "reverse": "false"
+}
+EOF
+)
+echo queryParam=$queryParam
+
+aliyunlog log get_logs --request="${queryParam}" --client-name=xx_client | jq
+----

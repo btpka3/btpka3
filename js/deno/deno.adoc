@@ -1,0 +1,15 @@
+link:https://deno.com/[deno]
+
+
+== vs.
+=== Node.js
+
+最成熟的生态，npm 仓库包数量遥遥领先。采用 CommonJS + ESM 双模块系统，异步 IO 基于 libuv 线程池。优势是兼容性极强，几乎所有 JS 工具链都以它为首要目标。缺点是历史包袱重（回调地狱进化到 Promise 再到 async/await），单线程事件循环在 CPU 密集型任务上容易阻塞，启动速度和运行时性能都不算顶尖。
+
+== Deno
+
+Ryan Dahl（Node 创始人）的"重来一次"作品。原生支持 TypeScript（无需 tsc 转译），安全模型默认沙箱化（文件/网络访问需显式授权），内置标准库较丰富（无需 lodash 之类的工具包），模块系统只用 ESM 和 URL 导入。Deno 2.0 开始兼容大量 Node/npm 生态。它的 deno compile 可以把脚本编译成独立二进制，体验比 Node SEA 更成熟。
+
+== Bun
+
+定位为"全能工具包"，不仅替代运行时，还内置了打包器（bun build）、测试运行器（bun test）、包管理器（bun install）。核心卖点是性能：用 Zig 重写了 JavaScript 引擎，启动速度和 HTTP 吞吐量显著高于 Node。bun --compile 产出单二进制文件体验也很好。但相对年轻，边缘场景的兼容性仍在追赶，生产环境的大型项目需要谨慎评估。

@@ -1,0 +1,9 @@
+* link:https://github.com/cytostack/openwolf[github : cytostack/openwolf]
+* link:https://openwolf.com/getting-started.html[openwolf]
+
+[source,shell]
+----
+pnpm install -g openwolf
+openwolf --version
+openwolf --help
+----

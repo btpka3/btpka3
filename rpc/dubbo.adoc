@@ -1353,3 +1353,11 @@ java.lang.RuntimeException: ✅This is not error, please check stack trace to ve
 
 
 
+
+
+== 如何确认 triple 是 http1,还是 http2
+
+[source,shell]
+----
+
+----

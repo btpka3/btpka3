@@ -40,6 +40,15 @@ sudo xcode-select -switch /
 [https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/](Homebrew/Linuxbrew 镜像使用帮助)
 [source,shell]
 ----
+# 检查本地 homebrew 的 git 仓库路径
+brew --repo
+cd /opt/homebrew
+
+# 清华大学镜像站 ： https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/
+
+# 中国科学技术大学镜像站‌ ： https://mirrors.ustc.edu.cn/help/brew.git.html
+
+
 -> % git remote -v
 origin	https://github.com/Homebrew/brew (fetch)
 origin	https://github.com/Homebrew/brew (push)

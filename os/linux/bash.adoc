@@ -576,7 +576,28 @@ chmod u+x *.sh
 #   此时如果 appctl.sh 中 `export MY_ENV` 将其暴露成环境变量，则setenv.sh 可以访问 环境变量 MY_ENV
 ----
 
+== pipe/管道
 
+[source,shell]
+----
+# 方式一： 管道后的命令比较短，无换行时，可以直接在第一个 EOF后使用管道命令 和 后续命令
+cat <<EOF | jq .
+{
+  "name1"   : "$HOME",
+  "name2"   : 222
+}
+EOF
+
+# 方式二： 需要多级管道，管道命令较长，较复杂，有换行时，可以 第一个 EOF 仅仅写一个 管道符号 `|` , 后续的管道命令放在第二个 EOF之后
+cat <<EOF |
+{
+  "name1"   : "$HOME",
+  "name2"   : 222
+}
+EOF
+jq . \
+| grep name
+----
 
 == 父子进程
 [source,shell]
@@ -728,4 +749,15 @@ echo "默认行为 Exit code: $?"       # 实际: 0
 set -o pipefail
 cat /nonexistent 2>/dev/null | sort | uniq
 echo "pipefail 行为 Exit code: $?"  # 实际: 1
+----
+
+
+== date
+
+[source,shell]
+----
+# 输出5分钟中前的时间
+date -d "5 minutes ago" +"%Y-%m-%d %H:%M:%S"
+# 输出5分钟中前的时间： unix 时间戳（秒）
+date -d "5 minutes ago" +%s
 ----

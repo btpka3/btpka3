@@ -1,3 +1,4 @@
-https://a2a-protocol.org/latest/
+link:https://a2a-protocol.org/latest/[Agent2Agent (A2A)]
 
 * link:https://github.com/a2aproject/a2a-java[a2aproject/a2a-java]
+ 

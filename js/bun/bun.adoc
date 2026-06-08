@@ -1,0 +1,2 @@
+link:https://bun.com/[bun]
+

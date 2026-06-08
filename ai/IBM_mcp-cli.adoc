@@ -1,0 +1,11 @@
+https://github.com/IBM/mcp-cli
+
+[source,shell]
+----
+# 临时执行
+uvx mcp-cli --help
+# 持久安装
+uv tool install mcp-cli
+
+mcp-cli --help
+----

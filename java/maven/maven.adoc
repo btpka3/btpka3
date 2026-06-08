@@ -247,3 +247,10 @@ find . -type f  -name "*.java" \
 
 
 
+
+
+== validate
+[source,shell]
+----
+mvn validate -Dmaven.plugin.validation=VERBOSE
+----

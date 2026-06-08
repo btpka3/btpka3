@@ -1,3 +1,6 @@
 https://java.agentscope.io/en/intro.html
 
 https://github.com/agentscope-ai/agentscope-java
+
+
+AgentScope 是一个面向生产环境的多智能体（Multi-Agent）开发框架，由阿里巴巴开源，定位是"构建可观测、可理解、可信赖的 AI 智能体"。

@@ -194,3 +194,19 @@ ognl -c 37999b51 '@org.apache.log4j.helpers.Loader@getResource("log4j.properties
 
 #
 ----
+
+
+
+== 2.0
+
+=== 支持动态设置日志级别
+
+[source,java]
+----
+import org.slf4j.event.Level;
+
+Level level = isError() ? Level.ERROR : Level.INFO;
+log.atLevel(level)
+   .setCause(throwable)
+   .log("处理失败, id={}", id);
+----

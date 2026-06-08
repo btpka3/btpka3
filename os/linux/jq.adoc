@@ -1,5 +1,5 @@
 
-* ⭕️ link:https://stedolan.github.io/jq/manual/[jq Manual]
+* ⭕️ link:https://jqlang.org/manual/[jq Manual]
 * link:https://github.com/sibprogrammer/xq[xq]  : 类似jq，但处理 xml/html
 * ⭕️ link:https://github.com/mikefarah/yq[yq]  : 类似jq，但处理 yaml,json.xml.csv.toml,hcl,properties
 * link:https://github.com/eiiches/jackson-jq[jackson-jq] : java 版本的 jq，需要配合 jackson 使用。但优先建议使用 JsonPath
@@ -13,6 +13,11 @@ docker run --rm -it -v /tmp/jq-linux-amd64:/jq-linux-amd64  docker.io/library/al
 # 输入文件：多行，一行一个JSON，且有String类型的字段 data
 # 作用：将单行当做json解析，提取 data , 并输出
 jq -r -R 'fromjson|.data' 20220414_productvideo.txt > 20220414_productvideo.data.txt
+
+# 管道让less 也支持语法高亮
+# `jq -C`   : 带颜色输出
+# `less -R` : 带颜色输出。 注意：export LESS="-R" 让 less 始终带颜色输出。
+echo '{"k1":"v1","k2":22}' | jq  -C . | less -R
 ----
 
 ## 连接字符串

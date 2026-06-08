@@ -431,3 +431,86 @@ link:https://github.com/alibaba/arthas/blob/master/arthas-agent-attach/src/main/
 
 
 
+
+
+== mcp
+参考: 《link:https://arthas.aliyun.com/doc/mcp-server.html[Arthas MCP Server]》
+请先升级 arthas 到 link:https://github.com/alibaba/arthas/releases/tag/arthas-all-4.1.0[4.1.0] 及以上版本。
+[source,shell]
+----
+# 0. 基础校验确保返回 json 内容，而非 "Not Found"
+# `-i` 输出 http response header
+curl -s -i -X POST \
+  -H "Accept: application/json, text/event-stream" \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"curl-demo","version":"1.0"}}}' \
+  http://localhost:8563/mcp
+
+# 1. 初始化，并从 http response header 中获取 mcp session id .
+SESSION_ID=$(
+    curl -s -o /dev/null --write-out "%header{mcp-session-id}" \
+        -X POST http://localhost:8563/mcp \
+        -H "Accept: application/json, text/event-stream" \
+        -H "Content-Type: application/json" \
+        -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"demo","version":"1.0"}}}'
+)
+
+# 2. 发送 initialized 通知（空响应）
+curl -s -X POST http://localhost:8563/mcp \
+  -H "Accept: application/json, text/event-stream" \
+  -H "Content-Type: application/json" \
+  -H "mcp-session-id: $SESSION_ID" \
+  -d '{"jsonrpc":"2.0","method":"notifications/initialized"}'
+
+# 3. 示例1：获取 tools 列表
+curl -s -N --max-time 5 -X POST http://localhost:8563/mcp \
+  -H "Accept: application/json, text/event-stream" \
+  -H "Content-Type: application/json" \
+  -H "mcp-session-id: $SESSION_ID" \
+  -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' \
+  | grep "^data:" | sed 's/^data: //' \
+  | jq
+
+# 3. 示例2：获取  jvm 属性 java.vm.version 的值
+curl -s -N --max-time 5 -X POST http://localhost:8563/mcp \
+  -H "Accept: application/json, text/event-stream" \
+  -H "Content-Type: application/json" \
+  -H "mcp-session-id: $SESSION_ID" \
+  -d '{"jsonrpc":"2.0","id":10,"method":"tools/call","params":{"name":"sysprop","arguments":{"propertyName":"java.vm.version"}}}' \
+  | grep "^data:" | sed 's/^data: //' \
+  | jq -r '.result.content[0].text | fromjson | .results[] | select(.type == "sysprop") | .props | to_entries[] | "\(.key)=\(.value)"'
+
+# 3. 示例4：获取 所有 jvm 属性
+curl -s -N --max-time 5 -X POST http://localhost:8563/mcp \
+  -H "Accept: application/json, text/event-stream" \
+  -H "Content-Type: application/json" \
+  -H "mcp-session-id: $SESSION_ID" \
+  -d '{"jsonrpc":"2.0","id":10,"method":"tools/call","params":{"name":"sysprop","arguments":{}}}' \
+  | grep "^data:" | sed 's/^data: //' \
+  | jq -r '.result.content[0].text | fromjson | .results[] | select(.type == "sysprop") | .props | to_entries[] | "\(.key)=\(.value)"' \
+  | sort
+----
+
+[source,shell]
+----
+mcp2cli --url http://localhost:8563/mcp doctor
+mcp2cli --url http://localhost:8563/mcp  --json inspect
+
+mcp2cli config list
+mcp2cli config init --name arthas \
+    --endpoint http://localhost:8563/mcp
+
+# 用 daemon 模式启动 arthas cli, 以便能保持会话，以及 请求头的 mcp-session-id
+mcp2cli daemon start arthas
+
+mcp2cli link create --name arthas
+which arthas
+arthas --help
+arthas tool list
+arthas ls
+arthas inspect
+arthas doctor
+arthas ping
+
+arthas tool call sysprop
+----

@@ -30,7 +30,8 @@ sudo logrotate /etc/logrotate.conf
     su admin admin
     # 对于转存后的文件进行压缩
     compress
-    # 启用延迟压缩，当有些程序无法通知到，且在转存时仍然会持续写入时使用，启用该命令后，会在下次转存时才进行压缩。
+    # 启用延迟压缩，当有些程序无法通知到，且在转存时仍然会持续写入时使用，
+    # 启用该命令后，可以让最近一次轮转的文件不压缩（方便查看），下次转存时才进行压缩。
     delaycompress
     # 转存时，截断原有日志文件。当有些程序无法通知到，且在转存时仍然会持续写入时使用。
     copytruncate
@@ -50,7 +51,11 @@ sudo logrotate /etc/logrotate.conf
     dateformat -%Y-%m-%d-%s
     # 转存后文件的权限
     create 640 admin admin
-    maxage
+    # 删除 多少天前的日志
+    maxage 7
+    # 默认 prerotate/postrotate 是针对匹配到的每一个文件 触发一下脚本执行，并将日志文件的绝对路径作为 对应 script 的第一个入参传递。
+    # 当指定 sharedscripts 时，且触发了日志文件轮转时， prerotate/postrotate 只会执行一次，相关脚本入参是 日志文件的 pattern 。
+    sharedscripts
 
     # 转存前执行的脚本
     prerotate
@@ -70,6 +75,39 @@ sudo logrotate /etc/logrotate.conf
     lastaction
         # 要执行的sh脚本
     endscript
-
 }
 ----
+
+
+## nginx 日志文件轮转
+
+
+[source,shell]
+----
+/home/admin/cai/logs/*.log {
+    su admin admin
+    compress
+    copytruncate
+    missingok
+    notifempty
+    rotate 30
+    size 100M
+    dateext
+    dateformat -%Y-%m-%d-%s
+    create 640 admin admin
+    postrotate
+        kill -USR1 $(ps aux | grep nginx | grep master | awk '{print $2}')
+    endscript
+}
+----
+
+针对 nginx , 上述配置文件中 copytruncate 和 postrotate 只用二选一即可。
+
+copytruncate 的时序：
+
+* logrotate 把 access.log 的内容复制一份到 access.log-2026-06-08-xxx
+* logrotate 把原 access.log 截断为空文件（truncate 到 0 字节）
+* 此时 nginx 的 fd 仍然指向同一个 inode（文件被截断了，但 inode 没变），nginx 继续往这个 fd 写，数据从 0 字节开始追加
+* postrotate 发 USR1，nginx reopen，关闭旧 fd，重新打开 access.log——但因为 inode 没变、内容也没变，这次 reopen 实际上什么都没改变.
+
+

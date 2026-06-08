@@ -179,6 +179,7 @@ sudo apt update
 sudo apt -y install code
 
 
+
 #sudo apt-cache search gedit
 #sudo apt-get install gedit
 #sudo apt-get install gedit-plugins
@@ -191,6 +192,10 @@ sudo apt -y install code
 # 移除旧的 文本编辑器 leafpad
 sudo apt-get remove leafpad
 
+# 查询 目标软件的版本，⭕️ ，推荐
+apt-cache policy golang-go
+apt-cache policy git
+apt-cache show golang-go   # 查看详细信息
 # 会显示很多内容
 apt search git
 # 列出名称是 git 开头的

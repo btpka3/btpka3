@@ -127,3 +127,38 @@ curl -v --unix-socket /Users/zll/.local/share/containers/podman/machine/qemu/pod
 ----
 curl https://www.howsmyssl.com/a/check
 ----
+
+## query parameter URL转义/URL编码
+
+[source,shell]
+----
+# curl 从 7.87.0 开始支持 --url-query，这是最干净的方式, curl 会自动做 URL 编码，你不需要手动处理空格、& 等字符。
+curl "http://api.example.com/search" \
+  --url-query "q=hello world" \
+  --url-query "tag=AI & 大模型"
+
+# 如果你用的 curl 版本较老（< 7.87.0），可以用 -G + --data-urlencode 的组合：
+# -G 告诉 curl 把 --data 系列参数附加到 URL 上作为 query string，而不是放到 POST body 里。
+# 要查看你的 curl 版本是否支持 --url-query，可以直接跑 curl --version | head -1。
+curl -G "http://api.example.com/search" \
+  --data-urlencode "q=hello world" \
+  --data-urlencode "tag=AI & 大模型"
+
+# 用 CURL 生成万恒的URL,并保存到 shell 变量中
+# curl 不支持 `--dry-run`， 但可以通过 `-I` 只发送 header 来仅仅进行轻量的请求，以便获取 完整URL
+url=$(
+    curl -I -s -o /dev/null -w "%{url_effective}" \
+        "http://api.example.com/search" \
+        --url-query "q=hello world" \
+        --url-query "tag=AI & 大模型"
+)
+echo "$url"
+
+# 如果不使用curl，则可以使用jq来生成
+base="http://api.example.com/search"
+url=$(jq -n \
+  --arg base "$base" \
+  --arg q "hello world" \
+  --arg tag "AI & 大模型" \
+  '"\($base)?q=\($q|@uri)&tag=\($tag|@uri)"' -r)
+----

@@ -2,7 +2,7 @@
 * link:https://github.com/modelscope/modelscope[modelscope]
 * link:https://www.modelscope.cn/home[modelscope.cn]
 
-
+魔搭社区
 
 [source,shell]
 ----

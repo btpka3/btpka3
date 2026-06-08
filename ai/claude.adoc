@@ -1,7 +1,7 @@
 * link:https://code.claude.com/docs/en/overview[claude]
 * link:https://github.com/siteboon/claudecodeui[Claude Code UI],
 * link:https://cloudcli.ai/docs[claude-code-ui]
-
+* link:github.com/anthropics/claude-code[github : anthropics/claude-code]
 
 * link:https://github.com/Kuberwastaken/claurst[claurst] rust 版本的 claude
 * link:https://github.com/Rito-w/ClaudeCode[ClaudeCode通过sourceMap泄露的源码]
@@ -133,6 +133,9 @@ claude plugin marketplace add anthropics/claude-code
 /theme
 /voice
 /statusline
+/goal
+/workflows ultrawork
+
 ----
 
 == 配置
@@ -470,3 +473,38 @@ ls -l -d "${HOME}/Applications/Claude Code URL Handler.app"
 
 ----
 
+
+
+
+
+== skills
+
+link:https://code.claude.com/docs/zh-CN/skills[使用 skills 扩展 Claude]
+
+
+自定义命令已合并到 skills 中。 .claude/commands/deploy.md 中的文件和 .claude/skills/deploy/SKILL.md 中的 skill 都会创建 /deploy 并以相同的方式工作。你现有的 .claude/commands/ 文件继续工作。
+
+故自定义 command 现在就是 自定义 skill
+
+将 SKILL.md 保持在 500 行以下.
+
+SKILL.md 中的 关键配置选项（YAML frontmatter）
+
+[source, yaml]
+----
+name: ""                            # skill/command 的名称,最多 64 个字符
+description :  ""                   # 描述命令用途，Claude 据此判断是否自动触发 , 和 when_to_use 一起最多 1536 个字符
+when_to_use : ""                    # 何时应该调用该 skill 的额外上下文，例如触发短语或示例请求。, 和 description 一起最多 1536 个字符
+argument-hint : "[filename] [format]" # 自动完成期间显示的提示，指示预期的参数
+disable-model-invocation: true      # 禁止 Claude 自动调用，只允许你手动 /command 触发
+user-invocable: false               # 在 / 菜单中隐藏，仅 Claude 可自动调用
+allowed-tools : []                  # 预授权工具，如 Read Grep Bash(git *)
+context: fork                       # 在隔离子 Agent 中运行
+arguments: []                       # 声明参数，如 arguments: [issue, branch]，内容中用 $issue $branch 引用
+model: ""
+effort: high                        # 当此 skill 处于活动状态时的工作量级别任务难度，low, medium, high
+agent: ""                           # 当设置 context: fork 时要使用的 subagent 类型。
+hooks: {} #限定于此 skill 生命周期的 hooks
+paths: [""] # Glob 模式，限制何时激活此 skill。接受逗号分隔的字符串或 YAML 列表。
+shell: # 用于此 skill 中 !`command` 和 ```! 块的 shell
+----
