@@ -1,5 +1,0 @@
-* java
-** https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/java-in-the-browser-webassembly-tutorial-wasm-teavm-html-javascript[How to run Java in the browser with WebAssembly]
-** https://github.com/i-net-software/JWebAssembly[JWebAssembly]
-** https://www.teavm.org/[TeaVM]
-** https://leaningtech.com/cheerpj/[CheerpJ]

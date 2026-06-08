@@ -1,8 +1,0 @@
-
-* link:http://findbugs.sourceforge.net/[~~findbugs~~], findbug 已经停止维护，不要使用，最后的 3.0.1 版本是 2015年02月发布的。建议使用 PMD, spotbugs。
-* link:https://gleclaire.github.io/findbugs-maven-plugin/[~~findbugs-maven-plugin~~]
-* link:https://www.petrikainulainen.net/programming/maven/findbugs-maven-plugin-tutorial/[FindBugs Maven Plugin Tutorial]
-* Apache Byte Code Engineering Library : link:http://commons.apache.org/proper/commons-bcel/[commons-bcel]
-
-
-

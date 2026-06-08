@@ -1,6 +1,0 @@
-
-
-* link:https://github.com/reactor/BlockHound[BlockHound]
-* link:https://projectreactor.io[project reactor]
-* link:http://vertx.io/[vert.x]
-

@@ -1,4 +1,0 @@
-https://vitepress.dev/
-生成静态网站的工具，官方仅支持 markdown.
-
-FIXME: 可以通过 link:[@antora/asciidoc-loader] 来加载 asciidoc 文件???

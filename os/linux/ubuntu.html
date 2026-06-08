@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<title>u盘安装</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+</div>
+<div id="content">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.hplipopensource.com/hplip-web/install/install/index.html">打印</a></p>
+</li>
+<li>
+<p><a href="https://packages.ubuntu.com/">packages.ubuntu.com/</a></p>
+</li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_u盘安装">u盘安装</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>使用 usb-creator-gtk 来创建可以启动U盘。该程序可以到 Ubuntu software center 中查找 &#8216;Startup disk creator&#8217; 进行安装</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_显卡驱动">显卡驱动</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre>lspci -nnk | grep VGA                         # 查看显卡型号
+sudo add-apt-repository ppa:xorg-edgers/ppa   # 安装 Nvidia 驱动的 ppa
+sudo apt-get update
+sudo apt-get purge nvidia*                    # 移除旧的的显卡驱动
+
+# 安装新的驱动。最好通过 start-&gt; Preferences -&gt; Aditional Drivers 选择安装
+sudo apt-get install nvidia-349</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_版本">版本</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>ubuntu 所有的版本号以及 <a href="https://wiki.ubuntu.com/DevelopmentCodeNames">codeName</a> :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>lsb_release -a                      # 查看当前安装的 ubuntu 的版本</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dpkg">dpkg</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre>dpkg -i package.deb</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_apt">apt</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">apt-get -s install &lt;package&gt;
+apt-cache policy &lt;package&gt;
+apt-cache search &lt;package&gt;  # 模糊查找package
+apt-show-versions &lt;package&gt;
+aptitude versions &lt;package&gt;
+
+# 查询安装包安装了那些内容
+dpkg-query -L &lt;package_name&gt;
+
+# 列出所有已经安装的软件包
+dpkg-query -l
+
+# 查找指定的文件属于哪一个package
+sudo apt-get install apt-file
+sudo apt-file update
+apt-file search filename
+apt-file search /path/to/file
+
+# 如果通过 dpkg 或 apt-get 安装时，依赖未满足，可以使用该命令删除
+sudo apt-get remove xxx
+
+ll /etc/apt/sources.list.d
+sudo add-apt-repository --remove ppa:whatever/ppa
+
+
+apt-mark showhold
+sudo apt-mark unhold &lt;package name&gt;</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_apt_get_socks5_proxy">apt-get socks5 proxy</h3>
+<div class="literalblock">
+<div class="content">
+<pre>http://pkgs.org
+apt-get install tsocks
+vi /etc/tsocks.conf
+ sudo tsocks apt-get update</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bt_下载">bt 下载</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre>sudo add-apt-repository apt://transmission
+sudo apt-get install transmission</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_7788">7788</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre>sudo apt-get install trash-cli           # 今后不要使用rm命令删除文件，而使用 trash 将其移动到回收站，然后不定期的清理回收站，防止误删。
+sudo apt-get install rar                 # rar
+sudo apt-get install libreoffice         # libreoffice
+sudo apt-get purge abiword
+sudo apt-get purge gnumeric
+
+sudo apt-get install gnome-calculator    # 计算器
+sudo apt-get install curl
+
+sudo apt-get install p7zip               # 7z
+7z x xxx.7z -r -o /home/xx               # 7z : 解压
+7z a -t7z -r manager.7z /home/manager/*  # 7z : 压缩</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_修改主机名">修改主机名</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre>sudo hostname your-new-hostname
+
+sudo vim /etc/hostname
+your-new-hostname
+
+sudo vim /etc/hosts
+127.0.1.1     your-new-hostname</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_中文字体">中文字体</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>参考http://wiki.ubuntu.com.cn/%E5%AD%97%E4%BD%93[这里]</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo apt-get install ttf-wqy-microhei   #文泉驿-微米黑
+sudo apt-get install ttf-wqy-zenhei     #文泉驿-正黑
+sudo apt-get install xfonts-wqy         #文泉驿-点阵宋体
+sudo apt-get install fonts-wqy-microhei fonts-wqy-zenhei
+
+# 直接复制字体文件的，参考如下步骤
+sudo cp xxxFonts /usr/share/fonts/
+sudo mkfontscale
+sudo mkfontdir
+sudo fc-cache -fv
+fc-list | sort      # 列出系统字体</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_输入法">输入法</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">#sudo add-apt-repository ppa:fcitx-team/nightly
+sudo add-apt-repository ppa:fcitx-team/stable
+sudo apt-get update
+sudo apt-get install fcitx
+#sudo apt-get install gnome-language-selector
+im-config  # or im-switch
+
+# 如果 候选字面板是黑色的，可能是缺失“QTQuick” module
+sudo apt-get install qtdeclarative5-qtquick2-plugin
+
+
+# 以下三种输入法选择其一就可以了。
+sudo apt-get install fcitx-googlepinyin
+sudo apt-get install fcitx-sunpinyin
+# 搜狗输入法 for linux http://pinyin.sogou.com/linux/
+
+
+# 后续配置
+
+# 防止Fcitx的Ctrl+Shift+F进行繁简转换：语言指示图标上右键-&gt;Configure-&gt;Addon
+# -&gt;选中 "Simple Chinese To Tranditional Chinese" -&gt; 点击底部的Configure按钮
+# -&gt; 取消相应的快捷键即可。
+
+#fcitx -r --enable fcitx-qimpanel
+#fcitx-qimpanel
+
+# Linux Mint 中如果找不到相应的配置入口，可以安装并调用以下命令
+fcitx-config-gtk</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gedit">gedit</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_安装">安装</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo add-apt-repository ppa:webupd8team/atom
+sudo apt-get updateatom
+sudo apt-get instaom
+
+# Visual Studio Code
+sudo add-apt-repository -y "deb https://packages.microsoft.com/repos/vscode stable main"
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB3E94ADBE1229CF
+sudo apt update
+sudo apt -y install code
+
+
+
+#sudo apt-cache search gedit
+#sudo apt-get install gedit
+#sudo apt-get install gedit-plugins
+
+# gmate https://github.com/gmate/gmate
+#sudo apt-add-repository ppa:ubuntu-on-rails/ppa
+#sudo apt-get update
+#sudo apt-get install gedit-gmate
+
+# 移除旧的 文本编辑器 leafpad
+sudo apt-get remove leafpad
+
+# 查询 目标软件的版本，⭕️ ，推荐
+apt-cache policy golang-go
+apt-cache policy git
+apt-cache show golang-go   # 查看详细信息
+# 会显示很多内容
+apt search git
+# 列出名称是 git 开头的
+apt list 'git*'
+# 列出名称是 包含 git 的
+apt list '*git*'
+
+# 用 dpkg 查已安装的相关包
+dpkg -l | grep git</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_配置">配置</h3>
+<div class="literalblock">
+<div class="content">
+<pre>View -&gt; 取消选中 'toolbar'
+Edit -&gt; Preferences :
+    View
+        -&gt; 选中 'Display line numbers'
+        -&gt; 选中 'Highlight current line'
+        -&gt; 选中 'Highlight matching brackets'
+    Editor
+        -&gt; Tab width 设置为 4
+        -&gt; 选中 'Insert spaces instead tabs'
+        -&gt; 选中 'Enable automatic indentation'
+        -&gt; 取消选中 'Create a backup copy of files before saving'
+        -&gt; 取消选中 'Autosave files every 10 minutes'
+    Font &amp; Colors
+        -&gt; 选择一个自己喜爱的 Color Schema</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_其他文本编辑器">其他文本编辑器</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>有些环境下，gedit超级慢的。可以尝试选择以下几款编辑器。</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre># Atom by Github
+sudo add-apt-repository ppa:webupd8team/atom
+sudo apt-get update
+sudo apt-get install atom
+
+# sublime text 3
+sudo add-apt-repository ppa:webupd8team/sublime-text-3
+sudo apt-get update
+sudo apt-get install sublime-text-installer
+# 下面一句则 方便 Win+R 调出 "运行" 时输入 "sublime_text" 运行起来
+sudo ln -s  /opt/sublime_text/sublime_text /usr/local/bin/sublime_text
+
+# sublime text 3 插件 - package control
+# https://packagecontrol.io/installation
+# 重启并用package control 安装  "Codecs33","ConvertToUTF8"
+
+
+# brackets
+sudo add-apt-repository ppa:webupd8team/brackets
+sudo apt-get update
+sudo apt-get install brackets
+
+# komodo-edit （这个开源，免费，但 komodo-ide 就收费了）
+sudo add-apt-repository ppa:mystic-mirage/komodo-edit
+sudo apt-get update
+sudo apt-get install komodo-edit</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ps1">PS1</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-text" data-lang="text">| value |desp|
+|-------|----------------------------------------------------------------------------------|
+|`\a`   |ASCII 响铃字符（也可以键入 \007）                                                     |
+|`\d`   |"Wed Sep 06" 格式的日期                                                             |
+|`\e`   |ASCII 转义字符（也可以键入 \033）                                                    |
+|`\h`   |主机名的第一部分（如 "mybox"）                                                       |
+|`\H`   |主机的全称（如 "mybox.mydomain.com"）                                               |
+|`\j`   |在此shell中通过按 ^Z 挂起的进程数                                                    |
+|`\l`   |此 shell 的终端设备名（如 "ttyp4"）                                                 |
+|`\n`   |换行符                                                                            |
+|`\r`   |回车符                                                                            |
+|`\s`   |shell 的名称（如 "bash"）                                                         |
+|`\t`   |24 小时制时间（如 "23:01:01"）                                                      |
+|`\T`   |12 小时制时间（如 "11:01:01"）                                                      |
+|`\@`   |带有 am/pm 的 12 小时制时间                                                         |
+|`\u`   |用户名                                                                            |
+|`\v`   |bash 的版本（如 2.04）                                                               |
+|`\V`   |Bash 版本（包括补丁级别）                                                             |
+|`\w`   |当前工作目录（如 "/home/drobbins"）                                                  |
+|`\W`   |当前工作目录的“基名 (basename)”（如 "drobbins"）                                      |
+|`\!`   |当前命令在历史缓冲区中的位置                                                           |
+|`\#`   |命令编号（只要您键入内容，它就会在每次提示时累加）                                        |
+|`\$`   |如果您不是超级用户 (root)，则插入一个 "$"；如果您是超级用户，则显示一个 "#"                |
+|`\xxx` |插入一个用三位数 xxx（用零代替未使用的数字，如 "\007"）表示的 ASCII 字符                  |
+|`\\`   |反斜杠                                                                             |
+|`\[`   |这个序列应该出现在不移动光标的字符序列（如颜色转义序列）之前。它使 bash 能够正确计算自动换行。 |
+|`\]`   |这个序列应该出现在非打印字符序列之后。                                                  |
+
+配色方案：
+    bash中有其自己的配色方案，格式如下：
+        " \[\e[F;B;Cm\]"
+
+   其中，\[与\]是保证其内的非打印字符不占用行上的任何空间，这样就能使自动换行后的颜色设置正常工作了；
+
+    \e[与m之间的内容表示设置颜色，F是前景色，B是背景色，C是代码多个颜色用分号隔开,但F、B、C顺序可
+
+变，这是因为他们的数值不冲突。
+
+    特殊的颜色设置格式：
+
+      "\e[0m"、"\e[m"都是通知终端将颜色（前景、背景、加粗）设置重置为默认。
+
+    前景       背景          颜色
+    ---------------------------------------
+    30            40            黑色
+    31            41            紅色
+    32            42            绿色
+    33            43            黄色
+    34            44            蓝色
+    35            45            紫红色
+    36            46            青蓝色
+    37            47            白色
+
+    代码        意义
+    -------------------------
+    0             OFF
+    1             加粗
+    4             underline
+    5             闪烁
+    7             反白显示
+    8             不可见
+
+https://wiki.archlinux.org/index.php/Bash/Prompt_customization#Bash_escape_sequences
+https://en.wikipedia.org/wiki/ANSI_escape_code
+
+infocmp
+man terminfo
+man tput
+export PS1="\[\e]0;\u@\h: \W\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ "
+export PS1="[\u@\h \W]\$ "
+
+export PS1="\[\033[1;38;5;226m\]\u\[\033[0m\]\[\033[1;38;5;93m\]@\[\033[0m\]\[\033[1;38;5;226m\]\h\[\033[0m\] \[\033[1;38;5;196m\]\W\[\033[0m\]\$ "
+
+
+GREEN="\[$(tput setaf 130)\]"
+RESET="\[$(tput sgr0)\]"
+
+export PS1="${GREEN}my prompt${RESET}&gt; "
+
+
+echo -e "\e[38;5;130m█"
+echo -e "\e[46m█"
+
+
+for C in {0..255}; do
+    tput setab $C
+    echo -n "$C "
+done
+tput sgr0
+echo
+
+
+for C in {0..255}; do
+    tput setaf $C
+    echo -n "$C "
+done
+tput sgr0
+echo
+
+ \E[4#1m
+
+echo -e "\E[4#1m█"
+echo -e "\033[4159m█"
+
+
+export PS1=
+
+echo -e "   \033[38;5;165m█ "
+
+echo -en "   \033[38;5;164m█ "
+echo -e "   \033[38;5;164m█ "
+echo -e "   \033[38;5;0x10m█ "
+
+for (( i = 30; i &lt;= 37; i++ ));  do echo -e "\e[0;"$i"m  $i : Hi stackoverflow";  done</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gnome_terminal">gnome-terminal</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">gnome-terminal : Edit : Profiles : New : xxx : 并设置默认为该 profile
+: General
+   : 取消选中 Use the system fixed width font，并选择使用 Monospace 14 / ubuntu mono 14
+   : 选中 Use custom default terminal size ： 120x30
+: Title and Command
+   : 选中 Run command  as login shell
+   // : 选中 Run a cunstom command instead of my shell，并输入 `env TERM=xterm-color /bin/bash`
+
+# gnome-terminal 彩色显示
+vi /etc/profile.d/xxx.sh
+export TERM=xterm-color
+
+# 使命令行提示符只显示父目录，而非整个路径
+vi ~/.bashrc
+查找 PS1 并将其中最后的 \w 替换为 \W
+
+
+export PS1=" \[\e[F;B;Cm\]\h "
+
+
+修改ll别名
+alias ll='ls -lF'</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_常用快捷键">常用快捷键</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">hot key</th>
+<th class="tableblock halign-left valign-top">descrption</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alt&#43;1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">主键盘上的额数字键，可以快速切换至第N个标签页</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ctrl&#43;Shift&#43;T</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">开启新的标签页</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ctrl&#43;Shift&#43;C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">复制</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ctrl&#43;Shift&#43;V</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">粘贴</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ctrl&#43;E</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">清屏</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ctrl&#43;R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">搜索历史命令</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ctrl&#43;W</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">向后删除一个词</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ctrl&#43;C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">取消当前行的输入，新开始一行</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ctrl&#43;U</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">清空当前输入行</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ctrl&#43;D</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果当前行是空白行时，可以退出登录，直到退出当前窗口。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_文件管理器_pcmanfm">文件管理器 PCManFM</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">Edit : Preference :
+  General : Default View : Detailed list view
+  Layout : 选中 Filesystem root</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_桌面图标">桌面图标</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 复制既有应用的图标
+ll /usr/share/applications/*.desktop
+cp /usr/share/applications/firefox.desktop ~/Desktop
+
+# 自定义一个图标
+
+vi ~/Desktop/idea-IU-135.909.desktop
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Icon[en_US]=gnome-panel-launcher
+Name[en_US]=idea-IU-135.909
+Exec=env UBUNTU_MENUPROXY=  /home/zll/work/idea-IU-135.909/bin/idea.sh
+Icon=/home/zll/work/idea-IU-135.909/bin/idea.png</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_chromium_browser">chromium-browser</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">[me@locahost:~]$ sudo apt-get install chromium-browser</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>NOTICE: 该浏览器中文乱码可以参考https://code.google.com/p/chromium/issues/detail?id=316723&amp;q=chinese%20title&amp;colspec=ID%20Pri%20M%20Iteration%20ReleaseBlock%20Cr%20Status%20Owner%20Summary%20OS%20Modified[这里]</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo rm /etc/fonts/conf.d/65-droid-sans-fonts.conf</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_service">service</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 等价于CentOS上的chkconfig
+[me@localhost:~]$ sudo apt-get install sysv-rc-conf
+[me@localhost:~]$ sudo sysv-rc-conf --help</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jdk">JDK</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_安装oracle_jdk">安装Oracle <a href="http://askubuntu.com/questions/56104/how-can-i-install-sun-oracles-proprietary-java-6-7-jre-or-jdk">JDK</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo apt-get install python-software-properties
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java7-installer
+
+# 缓存文件
+# /var/cache/oracle-jdk8-installer/jdk-8u5-linux-x64.tar.gz
+
+# abort
+sudo killall -9 apt-get
+ps aux | grep dpkg # kill them
+dpkg --configure -a
+sudo dpkg -r oracle-java7-installer</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_qq">qq</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>参考http://blog.csdn.net/beyond_ray/article/details/38966251[这里]</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>#sudo add-apt-repository ppa:ubuntu-wine/ppa
+#sudo apt-get update
+#sudo apt-get install wine1.7
+
+
+sudo apt-get install    \
+    libasound2          \
+    libgtk2.0-0         \
+    liblcms2-2          \
+    libpng12-0          \
+    libsm6              \
+    libncurses5         \
+    libcups2            \
+    libpulse0           \
+    libmpg123-0         \
+    libasound2-plugins  \
+    ttf-wqy-microhei
+
+sudo apt-get install libgtk2.0-0:i386
+sudo apt-get install ia32-libs
+sudo apt-get install lib32ncurses5
+
+sudo dpkg -i wine-qqintl_0.1.3-2_i386.deb
+sudo apt-get install -f
+#sudo apt-get remove wine-qqintl
+
+cp /usr/share/applications/qqintl.desktop ~/Desktop</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_python">python</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo apt-get install python-dev
+sudo apt-get install python-pip</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ruby">Ruby</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 1.9.3
+sudo apt-get install ruby1.9.3
+
+# FIXME 2.0+
+wget http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.1.tar.gz
+tar zxvf ruby-2.1.1.tar.gz
+cd ruby-2.1.1/
+./configure
+???
+
+# RVM
+curl -sSL https://get.rvm.io | bash -s stable
+# in new console
+rvm install 2.1.1</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_常见问题">常见问题</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>禁止自动login</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ sudo vi /etc/lightdm/lightdm.conf
+[SeatDefaults]
+#autologin-user=xxx            # comment this line
+#autologin-user-timeout=0      # comment this line</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Lununtu 截屏 <a href="https://help.ubuntu.com/community/Lubuntu/Keyboard">Lununtu Keyboard</a></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ vi ~/.config/openbox/lubuntu-rc.xml
+
+    &lt;keybind key="W-r"&gt;
+      &lt;action name="Execute"&gt;
+        &lt;!-- &lt;command&gt;lxsession-default launcher_manager&lt;/command&gt; --&gt;
+        &lt;command&gt;lxpanelctl run&lt;/command&gt;
+      &lt;/action&gt;
+    &lt;/keybind&gt;
+
+
+    &lt;!-- Take a screenshot of the current window with scrot when Alt+Print are pressed --&gt;
+    &lt;keybind key="A-Print"&gt;
+      &lt;action name="Execute"&gt;
+        &lt;!--&lt;command&gt;lxsession-default screenshot window&lt;/command&gt;--&gt;
+        &lt;command&gt;scrot -u -b&lt;/command&gt;
+      &lt;/action&gt;
+    &lt;/keybind&gt;
+    &lt;!-- Launch scrot when Print is pressed --&gt;
+    &lt;keybind key="Print"&gt;
+      &lt;action name="Execute"&gt;
+        &lt;!--&lt;command&gt;lxsession-default screenshot&lt;/command&gt;--&gt;
+        &lt;command&gt;scrot&lt;/command&gt;
+      &lt;/action&gt;
+    &lt;/keybind&gt;
+
+    &lt;!-- 打开控制台--&gt;
+    &lt;keybind key="W-t"&gt;
+      &lt;action name="Execute"&gt;
+        &lt;command&gt;gnome-terminal&lt;/command&gt;
+      &lt;/action&gt;
+    &lt;/keybind&gt;
+
+    &lt;!-- Lubuntu 锁屏--&gt;
+    &lt;keybind key="W-l"&gt;
+      &lt;action name="Execute"&gt;
+        &lt;!-- &lt;command&gt;xscreensaver-command -lock&lt;/command&gt;--&gt;
+        &lt;command&gt;dm-tool lock&lt;/command&gt;
+      &lt;/action&gt;
+    &lt;/keybind&gt;
+
+    &lt;!-- 注释掉以下代码，防止意外logout--&gt;
+&lt;!--
+    &lt;keybind key="C-A-Delete"&gt;
+      &lt;action name="Execute"&gt;
+        &lt;command&gt;lxsession-default tasks&lt;/command&gt;
+      &lt;/action&gt;
+    &lt;/keybind&gt;
+--&gt;
+    &lt;keybind key="W-t"&gt;
+      &lt;action name="Execute"&gt;
+        &lt;command&gt;gnome-terminal&lt;/command&gt;
+      &lt;/action&gt;
+    &lt;/keybind&gt;
+
+$ openbox --reconfigure</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ssh">SSH</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo apt-get install openssh-client
+sudo apt-get install openssh-server
+sudo service ssh status</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_登录画面的number_lock">登录画面的number lock</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># for login
+
+sudo vi /etc/xdg/lubuntu/lxdm/lxdm.conf
+[base]
+numlock=1
+
+sudo vi /etc/lxdm/default.conf
+[base]
+numlock=1
+
+# for lock screen
+sudo vi /etc/lightdm/lightdm.conf.d/20-lubuntu.conf
+greeter-setup-script=/usr/bin/numlockx on
+
+# ???
+sudo apt-get install numlockx
+echo "/usr/bin/numlockx on" | sudo tee -a /etc/xdg/lxsession/Lubuntu/autostart
+
+sudo vi /etc/X11/xinit/xinitrc
+# 追加一下几行
+/usr/bin/numlockx on
+
+# ???
+sudo vi /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf
+greeter-setup-script=/usr/bin/numlockx on</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adobe_flash_player">Adobe Flash Player</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>火狐安装的版本一般都比较低，而Chromium浏览器自带一般相对高些。具体可以通过该https://www.adobe.com/software/flash/about/[网页]检测查看。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo apt-get install flashplugin-installer
+
+#sudo apt-get install pepperflashplugin-nonfree
+#sudo update-pepperflashplugin-nonfree --install</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_文件关联">文件关联</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">vi ~/.local/share/applications/mimeapps.list
+cat /usr/share/applications/defaults.list</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mount_udfiso_13346_镜像">Mount UDF/ISO-13346 镜像</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo mount -t auto /dev/cdrom0 / media/cdrom0</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_静态ip地址">静态IP地址</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>参考http://www.sudo-juice.com/how-to-set-a-static-ip-in-ubuntu-the-proper-way/[这里]</p>
+</div>
+<div class="sect2">
+<h3 id="_先禁用图形化的网络管理工具">先禁用图形化的网络管理工具</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo vi /etc/NetworkManager/NetworkManager.conf
+[main]
+plugins=ifupdown,keyfile,ofono
+#dns=dnsmasq   # 注释掉这一行
+
+[ifupdown]
+#managed=false
+managed=true   # 将值改为true</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_配置静态ip地址">配置静态IP地址</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo vi /etc/network/interfaces
+
+auto lo
+iface lo inet loopback
+
+
+auto eth0
+iface     eth0 inet static
+address   192.168.115.222
+gateway   192.168.115.1
+netmask   255.255.255.0
+dns-nameservers 8.8.8.8 8.8.4.4
+# ??? DNS貌似也可以配置在 /etc/resolvconf/resolv.conf.d/base</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_重启网络">重启网络</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo service network-manager stop
+sudo service network-manager start</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_配置dns">配置DNS</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 方法1
+sudo vi /etc/network/interfaces
+# 追加一下一行
+dns-nameservers 192.168.101.1
+
+# 方法2
+sudo vi /etc/resolvconf/resolv.conf.d/base
+nameserver 8.8.8.8
+
+# 最后，更新
+sudo resolvconf -u
+cat /etc/resolv.conf
+
+sudo ifdown eth0 &amp;&amp; sudo ifup eth0
+cat /etc/resolv.conf
+
+#  补充
+# 可以检测dns有没有在没有记录的时候提供替代地址，比如 189so 网址导航服务
+dig @8.8.8.8 www.not-exist-domain.com
+
+dig @8.8.8.8 www.google.com +dnssec</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_wine">wine</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="http://www.winehq.org/">wine</a> 可以让部分Windows程序运行在Linux环境下，主要原理是其重新实现了Windows的API。</p>
+</div>
+<div class="paragraph">
+<p><a href="http://wiki.ubuntu.com.cn/Wine">安装参考</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_netbooklaptop_screen_brightness">netbook/laptop screen brightness</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># done.
+xrandr -q | grep " connected"
+xrandr --output LVDS1 --brightness 0.5
+#xrandr --output VGA1 --brightness 0.9
+#xbacklight -inc XX
+
+sudo vi /etc/default/grub
+# GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+# OK...............
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_osi="
+#GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_backlight=vendor"
+sudo update-grub</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_recovery_mode">recovery mode</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>grub 编辑</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>linux ... ro recovery nomodeset
+-&gt;
+linux ... rw single init=/bin/bash</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_远程桌面">远程桌面</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_to_windows">TO Windows</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo apt-get install grdesktop</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_from_windows">FROM Windows</h3>
+<div class="paragraph">
+<p>see <a href="http://askubuntu.com/questions/247501/i-get-failed-to-load-session-ubuntu-2d-when-using-xrdp">this</a></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo apt-get install xrdp
+sudo apt-get install vnc4server  # tightvncserver
+
+sudo cp /etc/xrdp/xrdp.ini /etc/xrdp/xrdp.back &amp;&amp; sudo nano /etc/xrdp/xrdp.ini
+
+[globals]
+max_bpp=128
+use_compression=yes
+
+[xrdp7]
+xserverbpp=128
+
+sudo service xrdp restart
+
+echo lxsession -s Lubuntu -e LXDE &gt; ~/.xsession
+# sudo apt-get install gnome-session-fallback
+# echo gnome-session --session=gnome-fallback &gt; ~/.xsession
+# echo xfce4-session &gt; ~/.xsession</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_php">PHP</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo apt-get install nginx
+sudo apt-get install php5-fpm php5-cli php5-cgi php5-mysql
+sudo service php5-fpm status
+
+sudo vi /etc/php5/fpm/php.ini
+cgi.fix_pathinfo=0
+
+sudo vi /etc/php5/fpm/pool.d/www.conf
+owner = www-data
+group = www-data
+listen.owner = www-data
+listen.group = www-data
+listen.mode = 0660
+
+
+sudo vi /etc/nginx/sites-available/default
+    location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    #   # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+    #
+    #   # With php5-cgi alone:
+    #   fastcgi_pass 127.0.0.1:9000;
+    #   # With php5-fpm:
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index index.php;
+        include fastcgi_params;
+    }
+
+sudo service php5-fpm restart
+sudo service nginx restart
+
+vi /usr/share/nginx/html/my.php
+&lt;?php phpinfo(); ?&gt;
+
+# 访问浏览器 http://localhost/my.php</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_自动挂载windows分区">自动挂载Windows分区</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo blkid   # 查看各个分区的UUID
+id           # 查看自己当前账户的uid和gid
+sudo vi /etc/fstab
+UUID=519CB82E5888AD0F  /media/Data  ntfs  defaults,gid=1000,uid=1000  0 0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-06-08 04:16:23 UTC
+</div>
+</div>
+</body>
+</html>

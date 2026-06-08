@@ -1,4 +1,0 @@
-* link:https://www.usebruno.com/[bruno]
-* link:https://github.com/usebruno/bruno[github: bruno]
-
-

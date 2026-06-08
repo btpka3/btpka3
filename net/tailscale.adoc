@@ -1,6 +1,0 @@
-https://tailscale.com/
-
-Tailscale是一个基于WireGuard协议的零配置VPN服务，它能让您轻松地在不同设备之间建立安全的内网连接。简单来说，它解决了远程访问内部服务的难题。
-
-针对没有 google play 的场景，可以从这里下载 android 的 pkg.
-https://pkgs.tailscale.com/unstable/#android

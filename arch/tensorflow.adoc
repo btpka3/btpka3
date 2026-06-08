@@ -1,4 +1,0 @@
-== 参考
-
-* https://www.tensorflow.org/[tensorflow]
-* link:www.tensorfly.cn[tensorflow-cn]

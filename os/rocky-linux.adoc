@@ -1,4 +1,0 @@
-
-- link:https://rockylinux.org/[rockylinux.org]
-- github link:https://github.com/rocky-linux[rocky-linux]
-- docker 镜像: link:https://hub.docker.com/_/rockylinux[rockylinux]

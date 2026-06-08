@@ -1,8 +1,0 @@
-== editor
-
-* http://fontforge.github.io/[FontForge]
-* https://birdfont.org/[birdfont]
-* https://inkscape.org/[Inkscape]
-* http://alternativeto.net/software/fontforge/[Alternatives to FontForge]
-* https://teropa.info/blog/2016/12/12/graphics-in-angular-2.html[SVG and Canvas Graphics in Angular 2]
-* https://greensock.com/gsdevtools[greensock]

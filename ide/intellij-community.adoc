@@ -1,6 +1,0 @@
-* https://github.com/JetBrains/intellij-community[intellij-community]
-
-[source,text]
-----
-
-----

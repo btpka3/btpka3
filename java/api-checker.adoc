@@ -1,5 +1,0 @@
-* https://lvc.github.io/japi-compliance-checker[Java API Compliance Checker]
-* https://revapi.org/revapi-site/main/index.html[Revapi]
-* github : https://github.com/revapi/revapi[revapi/revapi]
-* https://wiki.openjdk.org/display/CodeTools/SigTest[SigTest]
-* Oracle : https://docs.oracle.com/javacomponents/sigtest-3-1/user-guide/preface.htm#Z4000c4213093[SigTest User’s Guide]

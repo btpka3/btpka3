@@ -1,5 +1,0 @@
-https://mulerun.com/
-
-MuleRun 是一个 AI Agent 交易市场（AI 数字劳动力市场），由创始人 Chen Yusen（陈玉森） 创立。
-
-它的定位是全球首个 AI Agent 交易平台，用户可以发布、发现和调用各种专用 AI Agent（如金融分析 Bot、加密货币分析 Bot 等）。平台近期已面向所有用户开放。

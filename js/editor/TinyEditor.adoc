@@ -1,2 +1,0 @@
-
-link:https://tiny-editor-v3.github.io/[TinyEditor]

@@ -1,2 +1,0 @@
-
-link:https://k3s.io/[k3s]

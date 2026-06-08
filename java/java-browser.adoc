@@ -1,4 +1,0 @@
-* http://www.eclipse.org/swt/snippets/[SWT]
-* http://htmlunit.sourceforge.net/[HtmlUnit]
-* http://docs.oracle.com/javafx/2/webview/jfxpub-webview.htm[JavaFx 2’s WebView]
-* http://www.teamdev.com/jxbrowser[JxBrowser]

@@ -1,3 +1,0 @@
-https://jekyllrb.com/
-
-使用 ruby 编写的 静态网站生成器。

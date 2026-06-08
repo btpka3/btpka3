@@ -1,3 +1,0 @@
-== 参考
-
-* http://opentsdb.net/docs/build/html/index.html[Documentation for OpenTSDB 2.3]

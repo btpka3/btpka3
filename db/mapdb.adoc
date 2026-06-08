@@ -1,7 +1,0 @@
-## 参考
-
-* link:https://mapdb.org/[mabdb.org]
-*  link:https://github.com/jankotek/MapDB[jankotek/MapDB]
-
-
-

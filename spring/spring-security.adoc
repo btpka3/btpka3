@@ -1,3 +1,0 @@
-
-* link:https://docs.spring.io/spring-security/site/docs/[旧版本参考文档]
-** link:https://docs.spring.io/spring-security/site/docs/5.5.x/reference/html5/[5.5.x]

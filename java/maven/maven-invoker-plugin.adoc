@@ -1,3 +1,0 @@
-link:https://maven.apache.org/plugins/maven-invoker-plugin/[maven-invoker-plugin]
-
-

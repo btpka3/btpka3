@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<title>sonartype nexus</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_sonartype_nexus">sonartype nexus</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_wget_下载最新快照">Wget 下载最新快照</h3>
+<div class="paragraph">
+<p>请看该 <a href="https://repository.sonatype.org/nexus-restlet1x-plugin/default/docs/path__artifact_maven_redirect.html">API</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">v="0.1.0-SNAPSHOT"
+
+# 下载 pom 文件
+wget -O "qh-common-domain-${v}.pom" "http://mvn.kingsilk.xyz/service/local/artifact/maven/redirect\
+?r=public\
+&amp;g=net.kingsilk\
+&amp;a=qh-common-domain\
+&amp;v=$v\
+&amp;e=pom"
+
+# 下载 jar 包
+wget -O "qh-common-domain-${v}.jar" "http://mvn.kingsilk.xyz/service/local/artifact/maven/redirect\
+?r=public\
+&amp;g=net.kingsilk\
+&amp;a=qh-common-domain\
+&amp;v=$v"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_全局_exclude">全局 exclude</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>github : <a href="https://github.com/apache/maven-enforcer/tree/enforcer-3.4.1/maven-enforcer-plugin">maven-enforcer-plugin</a></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;plugins&gt;
+  &lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-enforcer-plugin&lt;/artifactId&gt;
+    &lt;version&gt;3.0.0-M1&lt;/version&gt;
+    &lt;executions&gt;
+      &lt;execution&gt;
+        &lt;goals&gt;
+          &lt;goal&gt;enforce&lt;/goal&gt;
+        &lt;/goals&gt;
+        &lt;configuration&gt;
+          &lt;rules&gt;
+            &lt;bannedDependencies&gt;
+              &lt;excludes&gt;
+                &lt;exclude&gt;log4j:log4j&lt;/exclude&gt;
+              &lt;/excludes&gt;
+            &lt;/bannedDependencies&gt;
+          &lt;/rules&gt;
+        &lt;/configuration&gt;
+      &lt;/execution&gt;
+    &lt;/executions&gt;
+  &lt;/plugin&gt;
+&lt;/plugins&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_单个_artifact_的依赖树">单个 artifact 的依赖树</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/ferstl/depgraph-maven-plugin/blob/master/src/main/java/com/github/ferstl/depgraph/ForArtifactDependencyGraphMojo.java">ForArtifactDependencyGraphMojo.java</a></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">mvn com.github.ferstl:depgraph-maven-plugin:4.0.2:for-artifact \
+  -DgroupId=org.springframework -DartifactId=spring-context -Dversion=6.0.12 \
+  -DgraphFormat=text -DshowGroupIds=true -DshowVersions=true</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_下载站">下载站</h3>
+<div class="paragraph">
+<p><a href="http://jenv.mvnsearch.org/" class="bare">http://jenv.mvnsearch.org/</a></p>
+</div>
+<div class="paragraph">
+<p>《http://www.oschina.net/news/75946/maven-oschina-closed[开源中国 Maven 镜像库关闭访问]》</p>
+</div>
+<div class="paragraph">
+<p>国内替代品 <a href="http://maven.aliyun.com/r/#welcome" class="bare">http://maven.aliyun.com/r/#welcome</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_通过_sdkman_安装">通过 sdkman 安装</h3>
+<div class="paragraph">
+<p><a href="https://sdkman.io/">sdkman</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 检查 sdkman 是否已经安装
+sdk version
+# 如果没有安装，则通过以下命令安装
+curl -s "https://get.sdkman.io" | bash
+
+sdk install maven 3.6.1
+sdk list maven
+# 安装多个版本的话，使用指定该版本
+sdk use maven 3.6.1</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_安装2">安装2</h3>
+<div class="literalblock">
+<div class="content">
+<pre>sudo mkdir /usr/local/maven
+sudo tar zxvf apache-maven-3.2.5-bin.tar.gz -C /usr/local/maven
+
+vi /etc/profile.d/xxx.sh
+export M2_HOME=/usr/local/maven/apache-maven-3.2.5
+export PATH=$M2_HOME/bin:$PATH
+
+mvn --version</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_向_central_中心仓库发布">向 Central 中心仓库发布</h3>
+<div class="paragraph">
+<p>参考： * 《http://maven.apache.org/guides/mini/guide-central-repository-upload.html[Guide to uploading artifacts to the Central Repository]》 * 《http://central.sonatype.org/pages/working-with-pgp-signatures.html[Working with PGP Signatures]》 * 《http://central.sonatype.org/pages/ossrh-guide.html[OSSRH Guide]》 * 《http://my.oschina.net/songxinqiang/blog/313226[发布Maven构件到中央仓库]》</p>
+</div>
+<div class="sect3">
+<h4 id="_gpg">gpg</h4>
+<div class="literalblock">
+<div class="content">
+<pre>gpg2 --version
+gpg2 --gen-key              # 生成密钥对儿。比如真实姓名 btpka3, 电子邮箱 btpka3@163.com
+gpg2 --list-keys            # 列出公钥
+gpg2 --list-secret-keys     # 列出密钥
+
+gpg2 -ab xxx.txt            # 对指定的文件进行签名
+gpg2 --verify xxx.txt.asc   # 对指定文件的签名进行校验
+
+                            # 查询发布过哪些公钥
+gpg2 --keyserver hkp://pool.sks-keyservers.net --search-keys btpka3
+
+                            # 发布公钥
+gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys 1B2987CE0E7D4B2205F4323A3E1DC5C16350AE07
+
+                            # 其他人员载入你的公钥
+gpg2 --keyserver hkp://pool.sks-keyservers.net --recv-keys 1B2987CE0E7D4B2205F4323A3E1DC5C16350AE07
+
+
+gpg2 --edit-key A6BAB25C    # 编辑公钥
+    1                       # 选择特定的公钥（如果有多个的话）
+    expire                  # 重新设置过期时间
+    save                    # 保存
+                            # TODO 重新发布公钥</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_wrapper">wrapper</h3>
+<div class="paragraph">
+<p>参考 <a href="https://www.baeldung.com/maven-wrapper">1</a>, <a href="https://github.com/takari/maven-wrapper">2</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">mvn -N io.takari:maven:wrapper -Dmaven=3.6.1</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_version_使用变量">version 使用变量</h3>
+<div class="paragraph">
+<p>《https://maven.apache.org/maven-ci-friendly.html[Maven CI Friendly Versions]》 从 Maven 3.5.0-beta-1 开始，可以使用 <code>${revision}</code>, <code>${sha1}</code>, <code>${changelist}</code> 作为 version 的占位符。 但同时还需要使用 <a href="https://www.mojohaus.org/flatten-maven-plugin/usage.html">flatten-maven-plugin</a>， 否则，deploy 之后的 pom.xml 中 的version 仍然是占位符，别的工程就无法使用该pom了，使用的时候报错.</p>
+</div>
+<div class="paragraph">
+<p>使用 flatten-maven-plugin 之后，就可以发布正确的 pom.xml。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+      &lt;artifactId&gt;flatten-maven-plugin&lt;/artifactId&gt;
+      &lt;version&gt;1.1.0&lt;/version&gt;
+      &lt;configuration&gt;
+        &lt;updatePomFile&gt;true&lt;/updatePomFile&gt;
+        &lt;flattenMode&gt;resolveCiFriendliesOnly&lt;/flattenMode&gt;
+      &lt;/configuration&gt;
+      &lt;executions&gt;
+        &lt;execution&gt;
+          &lt;id&gt;flatten&lt;/id&gt;
+          &lt;phase&gt;process-resources&lt;/phase&gt;
+          &lt;goals&gt;
+            &lt;goal&gt;flatten&lt;/goal&gt;
+          &lt;/goals&gt;
+        &lt;/execution&gt;
+        &lt;execution&gt;
+          &lt;id&gt;flatten.clean&lt;/id&gt;
+          &lt;phase&gt;clean&lt;/phase&gt;
+          &lt;goals&gt;
+            &lt;goal&gt;clean&lt;/goal&gt;
+          &lt;/goals&gt;
+        &lt;/execution&gt;
+      &lt;/executions&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_maven_jdeps_plugin">maven-jdeps-plugin</h3>
+<div class="paragraph">
+<p><a href="https://github.com/apache/maven-jdeps-plugin">maven-jdeps-plugin</a> <a href="https://maven.apache.org/guides/mini/guide-using-toolchains.html">Guide to Using Toolchains</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">mvn org.apache.maven.plugins:maven-jdeps-plugin:3.1.2:jdkinternals</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_maven_pmd_plugin">maven-pmd-plugin</h3>
+<div class="paragraph">
+<p><a href="https://maven.apache.org/plugins/maven-pmd-plugin/">maven-pmd-plugin</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_animal_sniffer_maven_plugin">animal-sniffer-maven-plugin</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>（1）针对API提供方：用来 生成 API 签名（包含类，方法，字段）、 （2）针对API使用方：验证自己的代码是否仅仅使用了给定API签名内的接口，如果使用了给定签名以外的方法，将会报错。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.mojohaus.org/animal-sniffer/index.html">Animal Sniffer</a></p>
+</li>
+<li>
+<p><a href="https://www.mojohaus.org/signatures/">Production Signatures</a></p>
+</li>
+<li>
+<p><a href="https://www.mojohaus.org/animal-sniffer/animal-sniffer-maven-plugin/">animal-sniffer-maven-plugin</a></p>
+</li>
+<li>
+<p><a href="https://www.mojohaus.org/animal-sniffer/animal-sniffer-enforcer-rule/examples/checking-signatures.html">animal-sniffer-enforcer-rule</a></p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/weixin_35745051/article/details/114689835">java版本兼容_Maven：确保跨Java版本兼容性</a></p>
+</li>
+<li>
+<p>groupId : <a href="https://search.maven.org/search?q=g:org.codehaus.mojo.signature">org.codehaus.mojo.signature</a></p>
+</li>
+<li>
+<p><a href="https://github.com/mojohaus/animal-sniffer/blob/master/animal-sniffer/src/main/java/org/codehaus/mojo/animal_sniffer/SignatureBuilder.java">SignatureBuilder.java</a></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">mvn org.codehaus.mojo:animal-sniffer-maven-plugin:1.23:build
+
+# 需要先编译打包
+mvn clean package
+mvn animal-sniffer:check</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Q1: SignatureBuilder 记录了啥？ 参考 <a href="https://github.com/mojohaus/animal-sniffer/blob/4d7f0c1ba16d48beec368d59d15e954c00d122e2/animal-sniffer/src/main/java/org/codehaus/mojo/animal_sniffer/Clazz.java">Clazz</a> 的格式: - 类的全限定名 - 方法和常量的 签名 - 父 class 的类全限定名 - 父 interface 列表 的的类全限定名</p>
+</div>
+<div class="paragraph">
+<p>保存的签名文件是 将 <code>Map&lt;String, Clazz&gt;</code> 通过 java.io.ObjectOutputStream 写入到文件。</p>
+</div>
+<div class="paragraph">
+<p>Q2: SignatureBuilder 如何校验的？</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+            &lt;artifactId&gt;animal-sniffer-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;1.23&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;signature&gt;
+                    &lt;groupId&gt;org.codehaus.mojo.signature&lt;/groupId&gt;
+                    &lt;artifactId&gt;java15&lt;/artifactId&gt;
+                    &lt;version&gt;1.0&lt;/version&gt;
+                &lt;/signature&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_maven_deploy_plugin">maven-deploy-plugin</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell"># -Dmaven.deploy.skip=true
+# 发布 单个jar包到给定的 maven 仓库
+# 注意：`-DrepositoryId` 的是 ${HOME}/.m2/settings.xml 中 `settings/servers/server` 下的id，
+#      用来找到上传文件时的认证授权信息。
+mvn deploy:deploy-file \
+    -Durl=file://C:\m2-repo \
+    -DrepositoryId=some.id \
+    -Dfile=your-artifact-1.0.jar \
+    [-DpomFile=your-pom.xml] \
+    [-DgroupId=org.some.group] \
+    [-DartifactId=your-artifact] \
+    [-Dversion=1.0] \
+    [-Dpackaging=jar] \
+    [-Dclassifier=test] \
+    [-DgeneratePom=true] \
+    [-DgeneratePom.description="My Project Description"] \
+    [-DrepositoryLayout=legacy] \
+    [-DuniqueVersion=false]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_keytool_maven_plugin">keytool-maven-plugin</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://www.mojohaus.org/keytool/keytool-maven-plugin/">keytool-maven-plugin</a> 对jdk命令 keytool 的封装，用于管理秘钥。</p>
+</div>
+<div class="sect2">
+<h3 id="_maven_toolchain_plugin">maven-toolchain-plugin</h3>
+<div class="paragraph">
+<p><a href="https://maven.apache.org/plugins/maven-toolchains-plugin/">maven-toolchain-plugin</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_maven_install_plugin">maven-install-plugin</h3>
+<div class="paragraph">
+<p><a href="https://maven.apache.org/plugins/maven-install-plugin/">maven-install-plugin</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">mvn install:install-file -Dfile=&lt;path-to-file&gt; -DgroupId=&lt;group-id&gt; -DartifactId=&lt;artifact-id&gt; -Dversion=&lt;version&gt; -Dpackaging=&lt;packaging&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_下载单个jar包">下载单个jar包</h3>
+<div class="literalblock">
+<div class="content">
+<pre>#  since 3.1
+mvn dependency:get -Dtransitive=false -Dartifact=org.springframework:spring-instrument:3.2.3.RELEASE
+
+# 下载sources jar包
+mvn dependency:get -Dtransitive=false -Dartifact=org.springframework:spring-beans:4.1.8.RELEASE:jar:sources</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_下载源代码">下载源代码</h3>
+<div class="literalblock">
+<div class="content">
+<pre>mvn dependency:sources
+mvn clean install dependency:sources -Dmaven.test.skip=true
+
+# 部署，skip掉testcase的执行，但还运行 test-jar 等功能
+mvn -Dmaven.test.skip.exec clean deploy</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_本地安装没有使用maven构建的jar包">本地安装没有使用maven构建的jar包</h3>
+<div class="literalblock">
+<div class="content">
+<pre>mvn install:install-file -Dfile=your-artifact-1.0.jar \
+                         -DpomFile=your-pom.xml       \
+                         -Dsources=src.jar            \
+                         -Djavadoc=apidocs.jar        \
+                         -DgroupId=org.some.group     \
+                         -DartifactId=your-artifact   \
+                         -Dversion=1.0                \
+                         -Dpackaging=jar              \
+                         -Dclassifier=sources         \
+                         -DgeneratePom=true           \
+                         -DcreateChecksum=true</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>示例: 安装 neuroph-2.9</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>mvn install:install-file -Dfile=neuroph-adapters-2.9.jar -DgroupId=org.neuroph -DartifactId=neuroph-adapters -Dpackaging=jar -Dversion=2.9
+mvn install:install-file -Dfile=neuroph-contrib-2.9.jar -DgroupId=org.neuroph -DartifactId=neuroph-contrib -Dpackaging=jar -Dversion=2.9
+mvn install:install-file -Dfile=neuroph-core-2.9.jar -DgroupId=org.neuroph -DartifactId=neuroph-core -Dpackaging=jar -Dversion=2.9
+mvn install:install-file -Dfile=neuroph-imgrec-2.9.jar -DgroupId=org.neuroph -DartifactId=neuroph-imgrec -Dpackaging=jar -Dversion=2.9
+mvn install:install-file -Dfile=neuroph-ocr-2.9.jar -DgroupId=org.neuroph -DartifactId=neuroph-ocr -Dpackaging=jar -Dversion=2.9
+mvn install:install-file -Dfile=neuroph-samples-2.9.jar -DgroupId=org.neuroph -DartifactId=neuroph-samples -Dpackaging=jar -Dversion=2.9</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_多模块">多模块</h3>
+<div class="paragraph">
+<p><a href="http://maven.apache.org/guides/mini/guide-multiple-modules.html">参考1</a>、 <a href="http://blog.sonatype.com/people/2009/10/maven-tips-and-tricks-advanced-reactor-options/">参考2</a></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>  -pl, --projects                ：只构建指定的模块列表，使用逗号分隔
+  -rf, --resume-from             ：多模块构建时，跳过指定的模块
+  -am, --also-make               ：在构建指定的模块时，也构建该模块所依赖的其他模块
+  -amd, --also-make-dependents   ：在构建指定的模块时，也构建依赖于该模块的其他模块</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>示例：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre># 安装leafModule1和它所依赖的模块（含父模块）
+mvn -Dmaven.test.skip=true -am --projects subModule1/leafModule1 clean install</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>参考：http://maven.apache.org/guides/mini/guide-multiple-modules.html[Guide multiple modules] 注意：使用以上参数时，当前路径应当是根模块的pom.xml所在的目录 注意：如果子模块B有一些自动生成代码的Maven插件依赖于子模块A，恐怕就不能一起编译了。而必须先install子模块A，才能在子模块B中自动生成代码、之后才可能重新一起编译、打包</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_经验">经验</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>在pom.xml中使用属性的存在性来激活profile。示例:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml"> &lt;profile&gt;
+   &lt;id&gt;release&lt;/id&gt;
+   &lt;activation&gt;
+     &lt;property&gt;
+       &lt;name&gt;p_release&lt;/name&gt;
+     &lt;/property&gt;
+   &lt;/activation&gt;
+   &lt;!-- ... --&gt;
+ &lt;/profile&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>之后就可以使用 <code>mvn -Dp_release &#8230;&#8203;</code> 来激活该profile了。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_常用命令">常用命令</h3>
+<div class="paragraph">
+<p>查看那些profile生效</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">mvn help:active-profiles -N
+
+# 打包所有模块，且忽略指定模块的构建错误
+mvn -Dmaven.test.skip=true --resume-from xxx-maven-plugin package
+
+# 只编译指定的模块及其依赖的模块
+mvn -Dmaven.test.skip=true -am --projects my/module1,my/module2 compile</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_简化开发机配置">简化开发机配置</h3>
+<div class="sect3">
+<h4 id="_settings_xml">settings.xml</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+          http://maven.apache.org/xsd/settings-1.0.0.xsd"
+          xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;localRepository&gt;D:\maven\repository&lt;/localRepository&gt;
+  &lt;servers&gt;
+    &lt;server&gt;
+      &lt;id&gt;SOS-releases&lt;/id&gt;
+      &lt;username&gt;admin&lt;/username&gt;
+      &lt;password&gt;123456&lt;/password&gt;
+    &lt;/server&gt;
+    &lt;server&gt;
+      &lt;id&gt;SOS-snapshots&lt;/id&gt;
+      &lt;username&gt;admin&lt;/username&gt;
+      &lt;password&gt;123456&lt;/password&gt;
+    &lt;/server&gt;
+  &lt;/servers&gt;
+
+      &lt;mirrors&gt;
+    &lt;mirror&gt;
+      &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;
+      &lt;name&gt;mirror-central&lt;/name&gt;
+      &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;
+      &lt;id&gt;mirror-central&lt;/id&gt;
+    &lt;/mirror&gt;
+  &lt;/mirrors&gt;
+
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;downloadSources&lt;/id&gt;
+      &lt;properties&gt;
+        &lt;downloadSources&gt;true&lt;/downloadSources&gt;
+        &lt;downloadJavadocs&gt;false&lt;/downloadJavadocs&gt;
+      &lt;/properties&gt;
+      &lt;repositories&gt;
+        &lt;repository&gt;
+          &lt;id&gt;aliyun&lt;/id&gt;
+          &lt;name&gt;aliyun&lt;/name&gt;
+          &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;
+          &lt;releases&gt;
+            &lt;enabled&gt;true&lt;/enabled&gt;
+          &lt;/releases&gt;
+          &lt;snapshots&gt;
+              &lt;enabled&gt;false&lt;/enabled&gt;
+          &lt;/snapshots&gt;
+        &lt;/repository&gt;
+      &lt;/repositories&gt;
+      &lt;pluginRepositories&gt;
+        &lt;pluginRepository&gt;
+          &lt;id&gt;aliyun&lt;/id&gt;
+          &lt;name&gt;aliyun&lt;/name&gt;
+          &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;
+          &lt;releases&gt;
+            &lt;enabled&gt;true&lt;/enabled&gt;
+          &lt;/releases&gt;
+          &lt;snapshots&gt;
+            &lt;enabled&gt;false&lt;/enabled&gt;
+          &lt;/snapshots&gt;
+        &lt;/pluginRepository&gt;
+      &lt;/pluginRepositories&gt;
+    &lt;/profile&gt;
+  &lt;/profiles&gt;
+
+  &lt;activeProfiles&gt;
+    &lt;activeProfile&gt;downloadSources&lt;/activeProfile&gt;
+  &lt;/activeProfiles&gt;
+&lt;/settings&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>需要：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>如果settings.xml 中的密码需要保密，请参考 <a href="http://maven.apache.org/guides/mini/guide-encryption.html">password encryption</a></p>
+</li>
+<li>
+<p>局域网Maven仓库启启用分组，并且将所有仓库都纳入统一个组 <code>remote-repos</code> 中。</p>
+</li>
+<li>
+<p><code>&lt;server&gt;&lt;/server&gt;</code> 配置是用以结合 pom.xml 中的 <code>&lt;distributionManagement&gt;&lt;/distributionManagement&gt;</code> 发布快照用的。</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;project&gt;
+    &lt;distributionManagement&gt;
+        &lt;repository&gt;
+            &lt;id&gt;SOS-releases&lt;/id&gt;
+            &lt;url&gt;http://mvn.test.me/content/repositories/releases/&lt;/url&gt;
+        &lt;/repository&gt;
+        &lt;snapshotRepository&gt;
+            &lt;id&gt;SOS-snapshots&lt;/id&gt;
+            &lt;url&gt;http://mvn.test.me/content/repositories/snapshots/&lt;/url&gt;
+        &lt;/snapshotRepository&gt;
+    &lt;/distributionManagement&gt;
+&lt;/project&gt;</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_常用插件">常用插件</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>maven-compiler-plugin</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>指定编译级别。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+        &lt;version&gt;2.3.2&lt;/version&gt;
+        &lt;configuration&gt;
+          &lt;source&gt;1.6&lt;/source&gt;
+          &lt;target&gt;1.6&lt;/target&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>build-helper-maven-plugin</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>向Maven仓库部署非其他类型的artifact（比如：*.zip）。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml"> &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+        &lt;artifactId&gt;build-helper-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;1.8&lt;/version&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;attach-artifacts&lt;/id&gt;
+            &lt;phase&gt;package&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;attach-artifact&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;configuration&gt;
+              &lt;artifacts&gt;
+                &lt;artifact&gt;
+                  &lt;file&gt;target/${project.build.finalName}.zip&lt;/file&gt;
+                  &lt;type&gt;zip&lt;/type&gt;
+                &lt;/artifact&gt;
+              &lt;/artifacts&gt;
+            &lt;/configuration&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+ &lt;/build&gt;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>maven-jar-plugin</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>打包jar用，可以排除或加入特定的一些文件。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+        &lt;configuration&gt;
+          &lt;excludes&gt;
+            &lt;exclude&gt;config.properties&lt;/exclude&gt;
+          &lt;/excludes&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>exec-maven-plugin</p>
+<div class="paragraph">
+<p>执行特定的Java程序。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">mvn exec:java  -Dexec.mainClass=me.test.TesseractExample</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>配置示例 <code>xml     &lt;plugin&gt;       &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;       &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;       &lt;executions&gt;         &lt;execution&gt;           &lt;goals&gt;             &lt;goal&gt;java&lt;/goal&gt;           &lt;/goals&gt;         &lt;/execution&gt;       &lt;/executions&gt;       &lt;configuration&gt;         &lt;mainClass&gt;com.alibaba.dubbo.container.Main&lt;/mainClass&gt;       &lt;/configuration&gt;     &lt;/plugin&gt;</code></p>
+</div>
+</li>
+<li>
+<p>maven-assembly-plugin</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>打包（_.tar.gz, _.zip 等格式）。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;dubbo&lt;/id&gt;
+            &lt;phase&gt;package&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;single&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;configuration&gt;
+              &lt;appendAssemblyId&gt;false&lt;/appendAssemblyId&gt;
+              &lt;descriptors&gt;
+                &lt;descriptor&gt;${basedir}/src/main/assembly/daemon.xml&lt;/descriptor&gt;
+              &lt;/descriptors&gt;
+            &lt;/configuration&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>daemon.xml</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd"&gt;
+  &lt;id&gt;daemon&lt;/id&gt;
+  &lt;formats&gt;
+    &lt;format&gt;zip&lt;/format&gt;
+  &lt;/formats&gt;
+  &lt;dependencySets&gt;
+    &lt;dependencySet&gt;
+      &lt;unpack&gt;false&lt;/unpack&gt;
+      &lt;scope&gt;runtime&lt;/scope&gt;
+      &lt;outputDirectory&gt;lib&lt;/outputDirectory&gt;
+    &lt;/dependencySet&gt;
+  &lt;/dependencySets&gt;
+  &lt;fileSets&gt;
+    &lt;fileSet&gt;
+      &lt;directory&gt;target/classes&lt;/directory&gt; &lt;!-- copy Maven filter 之后的 Resource --&gt;
+      &lt;outputDirectory&gt;conf&lt;/outputDirectory&gt;
+      &lt;includes&gt;
+        &lt;include&gt;config.properties&lt;/include&gt;
+      &lt;/includes&gt;
+      &lt;fileMode&gt;0755&lt;/fileMode&gt;
+    &lt;/fileSet&gt;
+    &lt;fileSet&gt;
+      &lt;directory&gt;.&lt;/directory&gt;
+      &lt;outputDirectory&gt;.&lt;/outputDirectory&gt;
+      &lt;includes&gt;
+        &lt;include&gt;README*&lt;/include&gt;
+      &lt;/includes&gt;
+      &lt;fileMode&gt;0755&lt;/fileMode&gt;
+    &lt;/fileSet&gt;
+    &lt;fileSet&gt;
+      &lt;directory&gt;target/bin&lt;/directory&gt;
+      &lt;outputDirectory&gt;bin&lt;/outputDirectory&gt;
+      &lt;fileMode&gt;0755&lt;/fileMode&gt;
+      &lt;directoryMode&gt;0755&lt;/directoryMode&gt;
+    &lt;/fileSet&gt;
+  &lt;/fileSets&gt;
+&lt;/assembly&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_plugins">plugins</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dependency_check">Dependency-Check</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://jeremylong.github.io/DependencyCheck/dependency-check-maven/index.html">Dependency-Check</a> 主要用于检查 OWASP 中的风险依赖</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">mvn org.owasp:dependency-check-maven:5.0.0-M3:check</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_npe_nullpointerexception">NPE: NullPointerException</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">[ERROR] NullPointerException
+java.lang.NullPointerException
+    at java.util.Hashtable$Entry.setValue (Hashtable.java:1286)
+    at org.apache.maven.model.interpolation.StringVisitorModelInterpolator$ModelVisitor.visit (StringVisitorModelInterpolator.java:1427)
+    at org.apache.maven.model.interpolation.StringVisitorModelInterpolator$ModelVisitor.visit (StringVisitorModelInterpolator.java:1025)
+    at org.apache.maven.model.interpolation.StringVisitorModelInterpolator$ModelVisitor.visit (StringVisitorModelInterpolator.java:168)
+    at org.apache.maven.model.interpolation.StringVisitorModelInterpolator.interpolateModel (StringVisitorModelInterpolator.java:105)
+    at org.apache.maven.model.building.DefaultModelBuilder.interpolateModel (DefaultModelBuilder.java:789)
+    at org.apache.maven.model.building.DefaultModelBuilder.build (DefaultModelBuilder.java:393)
+    at org.apache.maven.repository.internal.DefaultArtifactDescriptorReader.loadPom (DefaultArtifactDescriptorReader.java:292)
+    at org.apache.maven.repository.internal.DefaultArtifactDescriptorReader.readArtifactDescriptor (DefaultArtifactDescriptorReader.java:171)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.resolveCachedArtifactDescriptor (DefaultDependencyCollector.java:541)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.getArtifactDescriptorResult (DefaultDependencyCollector.java:524)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:412)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:365)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.process (DefaultDependencyCollector.java:352)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.doRecurse (DefaultDependencyCollector.java:509)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:461)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:365)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.process (DefaultDependencyCollector.java:352)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.doRecurse (DefaultDependencyCollector.java:509)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:461)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:365)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.process (DefaultDependencyCollector.java:352)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.doRecurse (DefaultDependencyCollector.java:509)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:461)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:365)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.process (DefaultDependencyCollector.java:352)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.doRecurse (DefaultDependencyCollector.java:509)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:461)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:365)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.process (DefaultDependencyCollector.java:352)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.doRecurse (DefaultDependencyCollector.java:509)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:461)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:365)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.process (DefaultDependencyCollector.java:352)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.doRecurse (DefaultDependencyCollector.java:509)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:461)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:365)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.process (DefaultDependencyCollector.java:352)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.doRecurse (DefaultDependencyCollector.java:509)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:461)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:365)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.process (DefaultDependencyCollector.java:352)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.doRecurse (DefaultDependencyCollector.java:509)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:461)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.processDependency (DefaultDependencyCollector.java:365)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.process (DefaultDependencyCollector.java:352)
+    at org.eclipse.aether.internal.impl.collect.DefaultDependencyCollector.collectDependencies (DefaultDependencyCollector.java:254)
+    at org.eclipse.aether.internal.impl.DefaultRepositorySystem.collectDependencies (DefaultRepositorySystem.java:284)
+    at org.apache.maven.project.DefaultProjectDependenciesResolver.resolve (DefaultProjectDependenciesResolver.java:169)
+    at org.apache.maven.lifecycle.internal.LifecycleDependencyResolver.getDependencies (LifecycleDependencyResolver.java:243)
+    at org.apache.maven.lifecycle.internal.LifecycleDependencyResolver.resolveProjectDependencies (LifecycleDependencyResolver.java:147)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.ensureDependenciesAreResolved (MojoExecutor.java:248)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:202)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:156)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:148)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:117)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:81)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:128)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:305)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:192)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:956)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:288)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:192)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:498)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:282)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:225)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:406)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:347)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scope">scope</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12%;">
+<col style="width: 10%;">
+<col style="width: 16%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 19%;">
+<col style="width: 23%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">scope</th>
+<th class="tableblock halign-left valign-top">compile</th>
+<th class="tableblock halign-left valign-top">test compile</th>
+<th class="tableblock halign-left valign-top">runtime</th>
+<th class="tableblock halign-left valign-top">package</th>
+<th class="tableblock halign-left valign-top">transitive deps</th>
+<th class="tableblock halign-left valign-top">example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">compile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-core</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">provided</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jdk, servlet-api</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">runtime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jdbc driver</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">system</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_maven_opts">MAVEN_OPTS</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>增加 maven jvm 内存：</p>
+</div>
+<div class="paragraph">
+<p>-Xmx2048m -XX:MaxPermSize=1G export MAVEN_OPTS=&#8220;-Xms2048m -Xmx2048m&#8221;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.11.0&lt;/version&gt;
+        &lt;configuration&gt;
+          &lt;fork&gt;true&lt;/fork&gt;
+          &lt;meminitial&gt;128m&lt;/meminitial&gt;
+          &lt;maxmem&gt;512m&lt;/maxmem&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">MAVEN_OPTS="-Xms512M -Xmx1024M -Xss2M -XX:MaxMetaspaceSize=1024M" mvn -Dmaven.test.skip=true clean package</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_原理">原理</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>org.apache.maven.execution.scope.internal.MojoExecutionScopeModule</p>
+</li>
+<li>
+<p>org.apache.maven.cli.MavenCli # 主入口，通过 eclipse sisu /google guice 装配成兑现</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="_mvn_创建_插件的_realm_plugincom_github_btpka3hello_maven_plugin1_0_0_snapshot_main1_prio5_tid0x1_nidna_runnable_java_lang_thread_state_runnable_at_org_codehaus_plexus_classworlds_classworld_newrealmclassworld_java71_locked_0x24c_a_org_codehaus_plexus_classworlds_classworld_at_org_apache_maven_classrealm_defaultclassrealmmanager_newrealmdefaultclassrealmmanager_java123_at_org_apache_maven_classrealm_defaultclassrealmmanager_createrealmdefaultclassrealmmanager_java197_at_org_apache_maven_classrealm_defaultclassrealmmanager_createpluginrealmdefaultclassrealmmanager_java269_️_at_org_apache_maven_plugin_internal_defaultmavenpluginmanager_createpluginrealmdefaultmavenpluginmanager_java412_at_org_apache_maven_plugin_internal_defaultmavenpluginmanager_setuppluginrealmdefaultmavenpluginmanager_java374_locked_0xddb_a_org_apache_maven_plugin_internal_defaultmavenpluginmanager_at_org_apache_maven_plugin_defaultbuildpluginmanager_getpluginrealmdefaultbuildpluginmanager_java234_at_org_apache_maven_plugin_defaultbuildpluginmanager_executemojodefaultbuildpluginmanager_java105_at_org_apache_maven_lifecycle_internal_mojoexecutor_executemojoexecutor_java210_at_org_apache_maven_lifecycle_internal_mojoexecutor_executemojoexecutor_java156_at_org_apache_maven_lifecycle_internal_mojoexecutor_executemojoexecutor_java148_at_org_apache_maven_lifecycle_internal_lifecyclemodulebuilder_buildprojectlifecyclemodulebuilder_java117_at_org_apache_maven_lifecycle_internal_lifecyclemodulebuilder_buildprojectlifecyclemodulebuilder_java81_at_org_apache_maven_lifecycle_internal_builder_singlethreaded_singlethreadedbuilder_buildsinglethreadedbuilder_java56_at_org_apache_maven_lifecycle_internal_lifecyclestarter_executelifecyclestarter_java128_at_org_apache_maven_defaultmaven_doexecutedefaultmaven_java305_at_org_apache_maven_defaultmaven_doexecutedefaultmaven_java192_at_org_apache_maven_defaultmaven_executedefaultmaven_java105_at_org_apache_maven_cli_mavencli_executemavencli_java956_at_org_apache_maven_cli_mavencli_domainmavencli_java288_at_org_apache_maven_cli_mavencli_mainmavencli_java192_at_jdk_internal_reflect_nativemethodaccessorimpl_invoke0nativemethodaccessorimpl_java_1_at_jdk_internal_reflect_nativemethodaccessorimpl_invokenativemethodaccessorimpl_java62_at_jdk_internal_reflect_delegatingmethodaccessorimpl_invokedelegatingmethodaccessorimpl_java43_at_java_lang_reflect_method_invokemethod_java566_at_org_codehaus_plexus_classworlds_launcher_launcher_launchenhancedlauncher_java282_at_org_codehaus_plexus_classworlds_launcher_launcher_launchlauncher_java225_at_org_codehaus_plexus_classworlds_launcher_launcher_mainwithexitcodelauncher_java406_at_org_codehaus_plexus_classworlds_launcher_launcher_mainlauncher_java347">mvn 创建 插件的 realm plugin&gt;com.github.btpka3:hello-maven-plugin:1.0.0-SNAPSHOT &#8220;main@1&#8221; prio=5 tid=0x1 nid=NA runnable java.lang.Thread.State: RUNNABLE at org.codehaus.plexus.classworlds.ClassWorld.newRealm(ClassWorld.java:71) - locked &lt;0x24c&gt; (a org.codehaus.plexus.classworlds.ClassWorld) at org.apache.maven.classrealm.DefaultClassRealmManager.newRealm(DefaultClassRealmManager.java:123) at org.apache.maven.classrealm.DefaultClassRealmManager.createRealm(DefaultClassRealmManager.java:197) at org.apache.maven.classrealm.DefaultClassRealmManager.createPluginRealm(DefaultClassRealmManager.java:269) # ⭕️ at org.apache.maven.plugin.internal.DefaultMavenPluginManager.createPluginRealm(DefaultMavenPluginManager.java:412) at org.apache.maven.plugin.internal.DefaultMavenPluginManager.setupPluginRealm(DefaultMavenPluginManager.java:374) - locked &lt;0xddb&gt; (a org.apache.maven.plugin.internal.DefaultMavenPluginManager) at org.apache.maven.plugin.DefaultBuildPluginManager.getPluginRealm(DefaultBuildPluginManager.java:234) at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:105) at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210) at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156) at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148) at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117) at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81) at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56) at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128) at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305) at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192) at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105) at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956) at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288) at org.apache.maven.cli.MavenCli.main(MavenCli.java:192) at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-1) at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:566) at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282) at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225) at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406) at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)</h5>
+
+</div>
+<div class="sect4">
+<h5 id="_mvn_创建_找到插件对应的_mojo_的实现类_main1_prio5_tid0x1_nidna_runnable_java_lang_thread_state_runnable_at_org_eclipse_sisu_space_loadedclass_loadedclass_java34_at_org_eclipse_sisu_plexus_componentdescriptorbeanmodule_componentdescriptorbeanmodule_java72_at_org_codehaus_plexus_defaultplexuscontainer_discovercomponentsdefaultplexuscontainer_java449_locked_0x2655_a_java_util_identityhashmap_at_org_apache_maven_plugin_internal_defaultmavenpluginmanager_discoverplugincomponentsdefaultmavenpluginmanager_java436_️_at_org_apache_maven_plugin_internal_defaultmavenpluginmanager_createpluginrealmdefaultmavenpluginmanager_java415_at_org_apache_maven_plugin_internal_defaultmavenpluginmanager_setuppluginrealmdefaultmavenpluginmanager_java374_locked_0x262e_a_org_apache_maven_plugin_internal_defaultmavenpluginmanager_at_org_apache_maven_plugin_defaultbuildpluginmanager_getpluginrealmdefaultbuildpluginmanager_java234_at_org_apache_maven_plugin_defaultbuildpluginmanager_executemojodefaultbuildpluginmanager_java105_at_org_apache_maven_lifecycle_internal_mojoexecutor_executemojoexecutor_java210_at_org_apache_maven_lifecycle_internal_mojoexecutor_executemojoexecutor_java156_at_org_apache_maven_lifecycle_internal_mojoexecutor_executemojoexecutor_java148_at_org_apache_maven_lifecycle_internal_lifecyclemodulebuilder_buildprojectlifecyclemodulebuilder_java117_at_org_apache_maven_lifecycle_internal_lifecyclemodulebuilder_buildprojectlifecyclemodulebuilder_java81_at_org_apache_maven_lifecycle_internal_builder_singlethreaded_singlethreadedbuilder_buildsinglethreadedbuilder_java56_at_org_apache_maven_lifecycle_internal_lifecyclestarter_executelifecyclestarter_java128_at_org_apache_maven_defaultmaven_doexecutedefaultmaven_java305_at_org_apache_maven_defaultmaven_doexecutedefaultmaven_java192_at_org_apache_maven_defaultmaven_executedefaultmaven_java105_at_org_apache_maven_cli_mavencli_executemavencli_java956_at_org_apache_maven_cli_mavencli_domainmavencli_java288_at_org_apache_maven_cli_mavencli_mainmavencli_java192_at_jdk_internal_reflect_nativemethodaccessorimpl_invoke0nativemethodaccessorimpl_java_1_at_jdk_internal_reflect_nativemethodaccessorimpl_invokenativemethodaccessorimpl_java62_at_jdk_internal_reflect_delegatingmethodaccessorimpl_invokedelegatingmethodaccessorimpl_java43_at_java_lang_reflect_method_invokemethod_java566_at_org_codehaus_plexus_classworlds_launcher_launcher_launchenhancedlauncher_java282_at_org_codehaus_plexus_classworlds_launcher_launcher_launchlauncher_java225_at_org_codehaus_plexus_classworlds_launcher_launcher_mainwithexitcodelauncher_java406_at_org_codehaus_plexus_classworlds_launcher_launcher_mainlauncher_java347">mvn 创建 找到插件对应的 Mojo 的实现类 &#8220;main@1&#8221; prio=5 tid=0x1 nid=NA runnable java.lang.Thread.State: RUNNABLE at org.eclipse.sisu.space.LoadedClass.(LoadedClass.java:34) at org.eclipse.sisu.plexus.ComponentDescriptorBeanModule.(ComponentDescriptorBeanModule.java:72) at org.codehaus.plexus.DefaultPlexusContainer.discoverComponents(DefaultPlexusContainer.java:449) - locked &lt;0x2655&gt; (a java.util.IdentityHashMap) at org.apache.maven.plugin.internal.DefaultMavenPluginManager.discoverPluginComponents(DefaultMavenPluginManager.java:436) # ⭕️ at org.apache.maven.plugin.internal.DefaultMavenPluginManager.createPluginRealm(DefaultMavenPluginManager.java:415) at org.apache.maven.plugin.internal.DefaultMavenPluginManager.setupPluginRealm(DefaultMavenPluginManager.java:374) - locked &lt;0x262e&gt; (a org.apache.maven.plugin.internal.DefaultMavenPluginManager) at org.apache.maven.plugin.DefaultBuildPluginManager.getPluginRealm(DefaultBuildPluginManager.java:234) at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:105) at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210) at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156) at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148) at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117) at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81) at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56) at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128) at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305) at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192) at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105) at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956) at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288) at org.apache.maven.cli.MavenCli.main(MavenCli.java:192) at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-1) at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:566) at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282) at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225) at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406) at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)</h5>
+
+</div>
+<div class="sect4">
+<h5 id="_mvn_创建_mojo_对象_main1_prio5_tid0x1_nidna_runnable_java_lang_thread_state_runnable_at_com_github_btpka3_hello_maven_plugin_greetingmojo_greetingmojo_java31_at_jdk_internal_reflect_nativeconstructoraccessorimpl_newinstance0nativeconstructoraccessorimpl_java_1_at_jdk_internal_reflect_nativeconstructoraccessorimpl_newinstancenativeconstructoraccessorimpl_java62_at_jdk_internal_reflect_delegatingconstructoraccessorimpl_newinstancedelegatingconstructoraccessorimpl_java45_at_java_lang_reflect_constructor_newinstanceconstructor_java490_at_com_google_inject_internal_defaultconstructionproxyfactoryreflectiveproxy_newinstancedefaultconstructionproxyfactory_java126_at_com_google_inject_internal_constructorinjector_provisionconstructorinjector_java114_at_com_google_inject_internal_constructorinjector_access000constructorinjector_java32_at_com_google_inject_internal_constructorinjectorlatexmath1_callconstructorinjector_java98">mvn 创建 mojo 对象 &#8220;main@1&#8221; prio=5 tid=0x1 nid=NA runnable java.lang.Thread.State: RUNNABLE at com.github.btpka3.hello.maven.plugin.GreetingMojo.(GreetingMojo.java:31) at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(NativeConstructorAccessorImpl.java:-1) at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) at jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) at java.lang.reflect.Constructor.newInstance(Constructor.java:490) at com.google.inject.internal.DefaultConstructionProxyFactory$ReflectiveProxy.newInstance(DefaultConstructionProxyFactory.java:126) at com.google.inject.internal.ConstructorInjector.provision(ConstructorInjector.java:114) at com.google.inject.internal.ConstructorInjector.access$000(ConstructorInjector.java:32) at com.google.inject.internal.ConstructorInjectorlatexmath:[1.call(ConstructorInjector.java:98)</h5>
+<div class="literalblock">
+<div class="content">
+<pre>at com.google.inject.internal.ProvisionListenerStackCallback]Provision.provision(ProvisionListenerStackCallback.java:112) at com.google.inject.internal.ProvisionListenerStackCallbacklatexmath:[Provision.provision(ProvisionListenerStackCallback.java:127)
+at com.google.inject.internal.ProvisionListenerStackCallback.provision(ProvisionListenerStackCallback.java:66)
+at com.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.java:93)
+at com.google.inject.internal.ConstructorBindingImpl]Factory.get(ConstructorBindingImpl.java:306) at com.google.inject.internal.InjectorImpl$1.get(InjectorImpl.java:1050) at com.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1086) at org.eclipse.sisu.space.AbstractDeferredClass.get(AbstractDeferredClass.java:48) at com.google.inject.internal.ProviderInternalFactory.provision(ProviderInternalFactory.java:85) at com.google.inject.internal.InternalFactoryToInitializableAdapter.provision(InternalFactoryToInitializableAdapter.java:57) at com.google.inject.internal.ProviderInternalFactorylatexmath:[1.call(ProviderInternalFactory.java:66)
+at com.google.inject.internal.ProvisionListenerStackCallback]Provision.provision(ProvisionListenerStackCallback.java:112) at com.google.inject.internal.ProvisionListenerStackCallback$Provision.provision(ProvisionListenerStackCallback.java:127) at com.google.inject.internal.ProvisionListenerStackCallback.provision(ProvisionListenerStackCallback.java:66) at com.google.inject.internal.ProviderInternalFactory.circularGet(ProviderInternalFactory.java:61) at com.google.inject.internal.InternalFactoryToInitializableAdapter.get(InternalFactoryToInitializableAdapter.java:47) at com.google.inject.internal.InjectorImpl$1.get(InjectorImpl.java:1050) at org.eclipse.sisu.inject.Guice4$1.get(Guice4.java:162) - locked ++&lt;++0x26b4++&gt;++ (a org.eclipse.sisu.inject.Guice4$1) at org.eclipse.sisu.inject.LazyBeanEntry.getValue(LazyBeanEntry.java:81) at org.eclipse.sisu.plexus.LazyPlexusBean.getValue(LazyPlexusBean.java:51) at org.codehaus.plexus.DefaultPlexusContainer.lookup(DefaultPlexusContainer.java:263) at org.codehaus.plexus.DefaultPlexusContainer.lookup(DefaultPlexusContainer.java:255) at org.apache.maven.plugin.internal.DefaultMavenPluginManager.getConfiguredMojo(DefaultMavenPluginManager.java:520) at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:124) at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210) at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156) at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148) at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117) at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81) at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56) at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128) at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305) at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192) at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105) at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956) at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288) at org.apache.maven.cli.MavenCli.main(MavenCli.java:192) at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-1) at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.lang.reflect.Method.invoke(Method.java:566) at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282) at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225) at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406) at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_源码">源码</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>给定的 pom.xml 如何解析成 对应的 org.apache.maven.model.Model ?</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>参考 <code>org.apache.maven.model.building.DefaultModelBuilder#readModel</code>, <code>org.apache.maven.model.building.DefaultModelBuilder#buildRawModel</code></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>给定一个 Actifact ，是如何 resolve 的（下载 对应的 pom,jar 到本地 maven 仓库）</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>参考： <code>org.eclipse.aether.resolution.ArtifactRequest</code>, <code>org.eclipse.aether.RepositorySystem#resolveArtifact</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ioc">IOC</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>org.apache.maven.plugin.internal.DefaultMavenPluginManager#getConfiguredMojo</p>
+</li>
+<li>
+<p>org.codehaus.plexus.component.configurator.converters.composite.ObjectWithFieldsConverter#processConfiguration</p>
+</li>
+<li>
+<p>org.codehaus.plexus.component.configurator.ComponentConfigurator</p>
+</li>
+<li>
+<p>org.codehaus.plexus.component.configurator.converters.lookup.DefaultConverterLookup # 参数类型转换</p>
+</li>
+<li>
+<p>org.codehaus.plexus.component.configurator.expression.ExpressionEvaluator # evaluator.evaluate(&#8220;${enforcer.failFast}&#8221;) 获取对应的参数值</p>
+<div class="ulist">
+<ul>
+<li>
+<p>org.apache.maven.plugin.PluginParameterExpressionEvaluator#evaluate # 里面列出可以支持的注入的 特殊属性 # &#8220;localRepository&#8221; : ArtifactRepository # &#8220;session&#8221; : MavenSession # &#8220;reactorProjects&#8221; : List # &#8220;mojoExecution&#8221; : MojoExecution # &#8220;project&#8221; : MavenProject # &#8220;porject.<em>” : # ”pom.</em>&#8221; : # &#8220;repositorySystemSession&#8221; : RepositorySystemSession # &#8220;mojo&#8221; : MojoExecution # &#8220;mojo.<em>” # ”plugin” : PluginDescriptor # ”plugin.</em>&#8221; # &#8220;settings&#8221; : Settings # “settings.*” # &#8220;basedir&#8221; # &#8220;basedir&#8221; # 从 properties 中取值</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>org.codehaus.plexus.component.configurator.converters.ConfigurationConverter</p>
+</li>
+<li>
+<p>org.codehaus.plexus.component.configurator.converters.composite.ObjectWithFieldsConverter#fromExpression # &#8220;${project}&#8221; 类似的POJO注入</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-06-08 04:16:23 UTC
+</div>
+</div>
+</body>
+</html>

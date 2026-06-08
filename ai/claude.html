@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<title>Playwright MCP 工作原理</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+</div>
+<div id="content">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://code.claude.com/docs/en/overview">claude</a></p>
+</li>
+<li>
+<p><a href="https://github.com/siteboon/claudecodeui">Claude Code UI</a>,</p>
+</li>
+<li>
+<p><a href="https://cloudcli.ai/docs">claude-code-ui</a></p>
+</li>
+<li>
+<p><a href="github.com/anthropics/claude-code">github : anthropics/claude-code</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Kuberwastaken/claurst">claurst</a> rust 版本的 claude</p>
+</li>
+<li>
+<p><a href="https://github.com/Rito-w/ClaudeCode">ClaudeCode通过sourceMap泄露的源码</a></p>
+</li>
+<li>
+<p><a href="https://github.com/thedotmack/claude-mem">claude-mem</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Puppeteer MCP</p>
+</div>
+<div class="sect1">
+<h2 id="_playwright_mcp_工作原理">Playwright MCP 工作原理</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-plain" data-lang="plain">  Claude Code  ──(stdio/SSE)──▶  Playwright MCP Server  ──(CDP)──▶  Chromium 浏览器
+     (客户端)                      (Node.js 进程)                    (无头/有头)</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Claude Code 是 MCP 客户端，通过 stdio 或 SSE 协议与 MCP Server 通信</p>
+</li>
+<li>
+<p>Playwright MCP Server 是一个 Node.js 进程，暴露一组工具（navigate、screenshot、click、evaluate 等）</p>
+</li>
+<li>
+<p>我调用这些工具时，MCP Server 通过 Chrome DevTools Protocol (CDP) 操控浏览器执行操作</p>
+</li>
+<li>
+<p>截图会以 base64 图片返回给我，我能直接"看到"页面渲染结果</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>本质上就是给我装了一双能看浏览器的"眼睛"和能操作浏览器的"手"。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_install">install</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">curl -fsSL https://claude.ai/install.sh | bash
+
+pnpm list -g --depth=0
+pnpm remove -g  @anthropic-ai/claude-code
+#pnpm install -g @anthropic-ai/claude-code --ignore-scripts=false
+# ⭕️ 安装方式1：注意：需要后续的 approve-builds
+pnpm install -g @anthropic-ai/claude-code
+
+pnpm approve-builds -g
+
+# 更新：方式一
+claude update
+# 更新：方式二
+pnpm update -g @anthropic-ai/claude-code
+
+# 卸载
+pnpm uninstall -g @anthropic-ai/claude-code
+
+# ❌ 安装方式2：
+npm install -g @anthropic-ai/claude-code
+npm remove -g @anthropic-ai/claude-code
+
+npm uninstall -g @anthropic-ai/claude-code
+
+#brew install anthrophic/claude-code/claude-code
+# ❌，请使用 nodejs 的方式安装。
+brew install --cask claude-code
+
+
+# 其他可尝试安装的：gstack， openspec， agency-agents， SuperPowers, hermes-agent</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_命令">命令</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell"># MCP serer
+# 列表
+claude mcp list
+# 添加， `--scope user` : 全局安装，
+# `--scope local` 默认, 当前目录生效，
+# `--scope project`, 是项目级别， 会保存在 项目目录下 .mcp.json 中，可以提交到 git 仓库里。
+claude mcp add --scope user --transport http code https://mcp.alibaba-inc.com/code/mcp
+MCP_NAME=xxx
+ACCESS_KEY_ID=...
+ACCESS_KEY_SECRET=...
+claude mcp add \
+  --env ACCESS_KEY_ID=${ACCESS_KEY_ID} \
+  --env ACCESS_KEY_SECRET=${ACCESS_KEY_SECRET} \
+  --scope user --transport stdio \
+  ${MCP_NAME} \
+  -- uvx xxx@latest
+
+claude mcp remove --scope user skylarkmcpserver
+
+# 跳过所有权限确认     高，rm -rf / 也不会拦
+claude --dangerously-skip-permissions
+
+# 非交互式:
+# --no-session-persistence : 不保存 session，不积累上下文
+# --setting-sources user   : 只加载用户级设置（~/.claude/settings.json 中的 env 会自动生效）, 不加载项目级 CLAUDE.md / AGENTS.md（减少 system prompt 大小）, 每次都是全新 session，不会触发 autocompact thrashing
+claude --no-session-persistence --setting-sources user  -p "我是谁？" --output-format json
+
+
+claude --permission-mode plan  ...
+
+# 非交互式 处理
+claude -p "your promote" --output-format json
+
+claude plugin marketplace
+claude plugin marketplace list
+claude plugin marketplace add anthropics/claude-code</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_斜杠命令">斜杠命令</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">/model
+/config
+/context	    # 查看上下文空间
+/memory	        # 查看启动时加载了哪些 CLAUDE.md 和自动记忆文件
+/skills         # 查看加载的 skill
+/agents         # 查看加载的 agent
+/hooks
+/mcp	        # 检查 MCP 连接状态
+/permissions    #
+/doctor         #
+/clear	        # 清除当前对话历史，开始全新会话（适合切换到完全不相关的新任务）
+/debug [issue]  # 调试
+/status
+/compact	    # 手动触发压缩，可指定关注点
+/rewind	        # 部分压缩：
+/btw	        # 上下文隔离提问：回答以浮层显示，不进入对话历史，适合临时查询，避免污染上下文
+/usage
+@-mention subagent
+/sandbox
+/remote-control
+/fast
+/theme
+/voice
+/statusline
+/goal
+/workflows ultrawork</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_配置">配置</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>~/.claude.json                  # 记录各个目录的配置。
+
+~/.claude/CLAUDE.md             # 一定会加载
+~/.claude/settings.json         # 配置项
+
+# 全局记忆。 提示词: "请全局记住", "请记住这个偏好，所有项目通用"， 条件加载
+~/.claude/memory/MEMORY.md      # 索引文件（目录）
+~/.claude/memory/*.md           # 记忆文件（实际内容）
+
+# 工程级别的记忆
+~/.claude/projects/-Users-zll-data0-work-git-repo-ali-mtee-bundle-u158230-agui/memory/MEMORY.md     # 索引文件（目录）
+~/.claude/projects/-Users-zll-data0-work-git-repo-ali-mtee-bundle-u158230-agui/memory/*.md          # 记忆文件（实际内容）
+
+# 定时任务
+~/.claude/scheduled_tasks.json
+~/.claude/tasks/${sessionId}/*.json     # 任务列表</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_claudesettings_json">~/.claude/settings.json</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">{
+    "skipDangerousModePermissionPrompt": true, // 这个的作用是：当你用 --dangerously-skip-permissions 启动时，跳过那个"你确定要进入危险模式？"的二次确认弹窗
+    "permissions": {          # 按照白名单方式放行
+      "allow": [
+        "Bash(cat *)"
+      ]
+    }
+  }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_插件plugin">插件/plugin</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Claude Code 默认会在启动时自动更新市场和已安装的插件。
+官方市场的插件默认开启自动更新，
+更新后会提示你运行 /reload-plugins</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell"># 如果要禁用自动更新：
+export DISABLE_AUTOUPDATER=1
+# 只想禁用 CLI 自动更新但保留插件自动更新：
+export DISABLE_AUTOUPDATER=1
+export FORCE_AUTOUPDATE_PLUGINS=1</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_browser浏览器">browser/浏览器</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>如果安装了  Playwright MCP  或者    Puppeteer MCP  ， 能复用我个人在用的 chrome 浏览器 的窗口吗，这样的话就能复用一些网站的登录态，保证cookie 等有效可用。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-plain" data-lang="plain">⏺ 可以，有两种方式：
+
+  方式一：连接已有 Chrome 实例（推荐）
+
+  先用远程调试端口启动你日常的 Chrome：
+
+  # 关闭所有 Chrome，然后用这个命令启动
+  open -na "Google Chrome" --args --remote-debugging-port=9222
+
+  然后配置 MCP 连接到它：
+
+  Playwright MCP：
+  {
+    "mcpServers": {
+      "playwright": {
+        "command": "npx",
+        "args": ["@playwright/mcp", "--cdp-endpoint", "http://127.0.0.1:9222"]
+      }
+    }
+  }
+
+  Puppeteer MCP：
+  {
+    "mcpServers": {
+      "puppeteer": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+        "env": {
+          "PUPPETEER_BROWSER_URL": "http://127.0.0.1:9222"
+        }
+      }
+    }
+  }
+
+  这种方式直接复用你正在用的 Chrome 窗口，所有 cookie、登录态完全一致。
+
+  方式二：复用 Chrome 用户数据目录
+
+  让 MCP 启动新 Chrome 进程，但指向你已有的 Profile 数据：
+
+  # macOS 上你的 Chrome 数据目录通常在：
+  ~/Library/Application Support/Google/Chrome
+
+  但有一个硬限制： 同一个 user-data-dir 不能同时被两个 Chrome 进程使用。所以要么关掉你的 Chrome，要么复制一份 Profile（cookie 是快照，不会实时同步）。
+
+  对比
+
+  ┌───────────────────┬────────────────────────────────┬──────────────────────┐
+  │                   │      方式一：连接已有实例      │ 方式二：复用数据目录 │
+  ├───────────────────┼────────────────────────────────┼──────────────────────┤
+  │ Cookie/登录态     │ ✅ 实时共享                    │ ⚠️  启动时的快照     │
+  ├───────────────────┼────────────────────────────────┼──────────────────────┤
+  │ 能否同时用 Chrome │ ✅ 共用同一进程                │ ❌ 需关闭你的 Chrome │
+  ├───────────────────┼────────────────────────────────┼──────────────────────┤
+  │ 配置复杂度        │ 低                             │ 中                   │
+  ├───────────────────┼────────────────────────────────┼──────────────────────┤
+  │ 风险              │ MCP 操作会影响你正在用的标签页 │ 无互相干扰           │
+  └───────────────────┴────────────────────────────────┴──────────────────────┘
+
+  ---
+  建议方式一。唯一需要改变的习惯是每次启动 Chrome 时带上 --remote-debugging-port=9222。可以做成一个 alias：
+
+  # 加到 ~/.zshrc
+  alias chrome='open -na "Google Chrome" --args --remote-debugging-port=9222'
+
+  这样以后输入 chrome 就自动带调试端口启动，Claude 就能直接连上去操作你的浏览器、复用你的登录态。</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_plugin">plugin</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell"># 列出使用的哪些 marketplace
+# 默认是 https://github.com/anthropics/claude-plugins-official/
+claude plugin marketplace list
+
+claude plugin --help
+claude plugin list
+claude plugin install --help
+# 默认都是 全局安装，安装 在 ~/.claude/plugins/cache/${pluginGroup}/${pluginName}/${pluginVersion}
+claude plugin install --scope user superpowers@claude-plugins-official
+claude plugin install --scope user context7@claude-plugins-official
+# LSP
+claude plugin install --scope user jdtls-lsp@claude-plugins-official
+claude plugin install --scope user pyright-lsp@claude-plugins-official
+claude plugin install --scope user gopls-lsp@claude-plugins-official
+claude plugin install --scope user rust-analyzer-lsp@claude-plugins-official
+claude plugin install --scope user typescript-lsp@claude-plugins-official
+
+
+# 斜杠命令安装
+/plugin install superpowers@claude-plugins-official</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cc_switch">cc-switch</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/farion1231/cc-switch">cc-switch</a>
+切换模型</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_扩展">扩展</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Hooks（生命周期钩子）
+在 settings.json 中配置，可在特定事件触发时执行 shell 命令：</p>
+<div class="ulist">
+<ul>
+<li>
+<p>SessionStart / SessionEnd — 会话开始/结束</p>
+</li>
+<li>
+<p>PreToolUse / PostToolUse / PostToolUseFailure — 工具调用前/后/失败</p>
+</li>
+<li>
+<p>UserPromptSubmit — 用户提交消息时</p>
+</li>
+<li>
+<p>PermissionRequest — 权限请求时</p>
+</li>
+<li>
+<p>SubagentStart / SubagentStop — 子 agent 启停</p>
+</li>
+<li>
+<p>Stop — 停止时</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>MCP Servers（模型上下文协议）
+通过 claude mcp add 或 ~/.claude.json 配置，支持 stdio 和 http 两种传输方式。
+MCP 是最强大的扩展点，可以给 Claude 增加任意工具能力。</p>
+</li>
+<li>
+<p>CLAUDE.md（指令文件）</p>
+<div class="literalblock">
+<div class="content">
+<pre>  多级指令体系，自动加载：
+** ~/.claude/CLAUDE.md — 全局个人指令
+** 项目根目录 CLAUDE.md — 项目级指令
+** .claude/CLAUDE.md — 项目私有指令</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Plugins（插件系统）
+通过 claude plugin install/enable/disable 管理：</p>
+<div class="ulist">
+<ul>
+<li>
+<p>支持 marketplace 安装</p>
+</li>
+<li>
+<p>支持 --plugin-dir 加载本地插件</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Custom Agents（自定义 Agent）</p>
+<div class="ulist">
+<ul>
+<li>
+<p>--agents 参数传入 JSON 定义自定义 agent</p>
+</li>
+<li>
+<p>--agent 指定当前会话使用的 agent</p>
+</li>
+<li>
+<p>claude agents 管理后台 agent</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Skills（技能/斜杠命令）
+内置的 /init、/review、/simplify 等，也支持通过插件注册自定义 skill。</p>
+</li>
+<li>
+<p>Settings（配置体系）</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>三层配置：
+<strong> ~/.claude/settings.json — 用户级
+</strong> .claude/settings.json — 项目级
+** .claude/settings.local.json — 项目本地（不提交）</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>可配置：权限白名单、环境变量、hooks、MCP servers 等。</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Memory（自动记忆）</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>~/.claude/projects/&lt;path&gt;/memory/ 下的文件系统，跨会话持久化记忆。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>CLI 管道模式</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>--print + --output-format stream-json + --input-format stream-json 支持程序化调用，可嵌入 CI/CD 或其他工具链。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_自定义插件">自定义插件</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_安全性">安全性</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell"># 1. Auto Mode（推荐，平衡安全与效率）
+# 查看默认配置
+claude auto-mode defaults
+
+# 启用 auto mode 后启动
+claude --auto
+
+# 2. 项目级权限配置（精确控制）
+vi .claude/settings.json
+{
+  "permissions": {
+    "allow": [
+      "Edit(src/**)",
+      "Edit(test/**)",
+
+      "Bash(npm test)",
+      "Bash(npm run build)",
+      "Bash(ls*)",
+      "Bash(cat*)"
+    ],
+    "deny": [
+      "Bash(rm -rf*)",
+      "Bash(git push*)"
+    ]
+  }
+}
+
+# 3. --dangerously-skip-permissions（仅受信任环境）
+claude --dangerously-skip-permissions       # 完全跳过所有权限确认：
+claude --dangerously-skip-permissions -p "只读操作，不要修改或删除文件" # 强烈建议配合约束性 prompt 使用：</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_子agent开发">子agent开发</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">cd ~/data0/work/git-repo/ali/mtee-bundle/u158230_agui
+
+claude --dangerously-skip-permissions --agents '{
+  "coordinator": {
+    "description": "Coordinates implementation tasks",
+    "model": "claude-opus-4-7",
+    "prompt": "You are a task coordinator. Dispatch work to subagents using the Agent tool. Do not read or hold code in your context - only manage task dispatching and review routing."
+  }
+}' --agent coordinator</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mcptool_太多">mcp/tool 太多</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-plain" data-lang="plain">1. Skills 机制(这是唯一真正的 lazy load)
+- skill 元数据在系统提示里只占一行(描述),内容只在 Skill 工具调用时才加载
+- 一个 skill 内部可以包含很多 sub-tool 调用逻辑、文档、prompt 模板
+- 如果你想做"按需 MCP",最佳实践是把一组 MCP 包装成一个 skill:skill 描述里说"调用此 skill 后会暴露 xx 工具",触发后再展开
+
+2. --mcp-config 切换 profile(启动时,非运行时)
+
+# 翻译类轻量任务
+claude --mcp-config ~/.claude/profiles/minimal.json --strict-mcp-config
+
+# 业务开发任务
+claude --mcp-config ~/.claude/profiles/aone-dev.json
+
+--strict-mcp-config 会忽略全局/项目级 mcpServers,只用指定 config。
+
+3. settings 层级白名单
+
+~/.claude/settings.json:
+{
+  "enableAllProjectMcpServers": false,
+  "enabledMcpjsonServers": ["code", "aone-mix"],
+  "disabledMcpjsonServers": ["aliDingDoc", "sunfire-mcp", "arthas"]
+}
+
+依然是会话启动时生效,不是运行时。
+
+4. Subagent 隔离工具上下文
+
+- 主 agent 配置最小工具集
+- 通过 Agent 工具派发到 subagent
+- subagent 在自己的 agent definition (.claude/agents/*.md) 里声明 tools: 字段限定可用工具
+- 效果:重型工具只活在 subagent 自己的上下文里,主 agent 的 200K 不被污染
+
+5. 运行时关闭(伪)
+
+- /mcp 斜杠命令可以查看 MCP server 状态、断连个别 server
+- 但断连不会从已建立的会话里清除已注入的 tool schema(因为后续请求 tools 数组的构建依赖启动时快照)
+- 真要释放,只能重启 CLI
+
+6. MCP Gateway 模式(社区/自建)
+
+自己写一个"门面" MCP server:
+- 只对外暴露 2 个 meta tool:list_tools(category) 和 invoke_tool(name, args)
+- 实际几百个底层工具的 schema 不进上下文,需要时由 meta tool 返回
+- 代价:模型失去 schema 的强类型约束,容易出错;复杂参数需要 meta tool 自己做校验
+- 这是目前业界(包括 Cursor/Cline 圈)讨论较多的折中方案</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_url">URL</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">claude-cli://open?q=${prompt}&amp;cwd=${workingDirectory}
+ls -l -d "${HOME}/Applications/Claude Code URL Handler.app"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_skills">skills</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://code.claude.com/docs/zh-CN/skills">使用 skills 扩展 Claude</a></p>
+</div>
+<div class="paragraph">
+<p>自定义命令已合并到 skills 中。 .claude/commands/deploy.md 中的文件和 .claude/skills/deploy/SKILL.md 中的 skill 都会创建 /deploy 并以相同的方式工作。你现有的 .claude/commands/ 文件继续工作。</p>
+</div>
+<div class="paragraph">
+<p>故自定义 command 现在就是 自定义 skill</p>
+</div>
+<div class="paragraph">
+<p>将 SKILL.md 保持在 500 行以下.</p>
+</div>
+<div class="paragraph">
+<p>SKILL.md 中的 关键配置选项（YAML frontmatter）</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">name: ""                            # skill/command 的名称,最多 64 个字符
+description :  ""                   # 描述命令用途，Claude 据此判断是否自动触发 , 和 when_to_use 一起最多 1536 个字符
+when_to_use : ""                    # 何时应该调用该 skill 的额外上下文，例如触发短语或示例请求。, 和 description 一起最多 1536 个字符
+argument-hint : "[filename] [format]" # 自动完成期间显示的提示，指示预期的参数
+disable-model-invocation: true      # 禁止 Claude 自动调用，只允许你手动 /command 触发
+user-invocable: false               # 在 / 菜单中隐藏，仅 Claude 可自动调用
+allowed-tools : []                  # 预授权工具，如 Read Grep Bash(git *)
+context: fork                       # 在隔离子 Agent 中运行
+arguments: []                       # 声明参数，如 arguments: [issue, branch]，内容中用 $issue $branch 引用
+model: ""
+effort: high                        # 当此 skill 处于活动状态时的工作量级别任务难度，low, medium, high
+agent: ""                           # 当设置 context: fork 时要使用的 subagent 类型。
+hooks: {} #限定于此 skill 生命周期的 hooks
+paths: [""] # Glob 模式，限制何时激活此 skill。接受逗号分隔的字符串或 YAML 列表。
+shell: # 用于此 skill 中 !`command` 和 ```! 块的 shell</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-06-08 04:16:23 UTC
+</div>
+</div>
+</body>
+</html>

@@ -1,3 +1,0 @@
-* link:https://milvus.io/zh[Milvus]
-* link:https://github.com/zilliztech/VectorDBBench[github:VectorDBBench],  https://zilliz.com/vdbbench-leaderboard?dataset=vectorSearch
-

@@ -1,2 +1,0 @@
-* link:https://jte.gg/[jte]
-* link:https://spring.io/blog/2024/03/22/reflectionless-templates-with-spring[Reflectionless Templates With Spring]

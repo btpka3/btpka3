@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<title>记住密码</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+</div>
+<div id="content">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://git-scm.com/book/zh">Git中文手册</a>、</p>
+</li>
+<li>
+<p><a href="http://git-scm.com/book/zh/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-The-Refspec">git Refspec</a>、</p>
+</li>
+<li>
+<p><a href="http://stackoverflow.com/questions/4044368/what-does-tree-ish-mean-in-git/18605496#18605496">Git Commit-ish/Tree-ish</a></p>
+</li>
+<li>
+<p>git工作量统计： <a href="http://btpka3.github.io/js/node/git-stat/stat/">查看</a>， <a href="https://github.com/btpka3/btpka3.github.com/blob/master/js/node/git-stat/">源码</a></p>
+</li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_记住密码">记住密码</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>使用ssh协议，可以使用ssh key来免密码登录。但是如果使用 http/https 协议来clone，则可以参考 <a href="https://help.github.com/articles/caching-your-github-password-in-git/">这里</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell"># Mac
+git credential-osxkeychain
+brew install git
+brew install git-lfs
+brew install gitk
+
+git config --global credential.helper osxkeychain
+
+git credential-osxkeychain erase
+
+# Windows
+git config --global credential.helper wincred
+
+# Linux
+git config --global credential.helper 'cache --timeout=3600'   # 保存在内存中
+# 保存在磁盘上, 默认查找 ~/.git-credentials  $XDG_CONFIG_HOME/git/credentials
+git config credential.helper 'store --file=&lt;path&gt;'
+
+git clone --depth=1 git@github.com:spring-projects/spring-boot.git</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_git_lfs">git lfs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="brew%20install%20git-lfs">git-lfs</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">brew install git-lfs
+
+git lfs install
+cd xxx.git
+git lfs track "*.psd"
+git add .gitattributes
+git add *.psd
+git commit -m "log msg"
+git push</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_git_archive">git archive</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git archive --format=tar --remote=https://github.com/vozlt/nginx-module-vts.git HEAD | tar xf -</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_配置">配置</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 用户级的配置文件路径
+~/.gitconfig
+# 配置用户身份
+git config --global user.name "zhangll"
+git config --global user.email zhangll@lizi.com
+git config --global core.editor vim
+git config --global merge.tool vimdiff
+git config --global push.default simple           # 在 "git push" 时，会推到当前分支跟踪的远程分支（可能名称不同）
+git config --global core.filemode false           # 忽略文件仅文件权限的变更（比如 old mode 100755  new mode 100644）
+git config --global color.ui auto                 # git命令下会使用红色、绿色等来突出显示。
+#git config --global branch.autosetuprebase always # 在 "git pull" 时，总会自动 rebase
+#git config --global branch.autoSetupMerge always  # 在 "git pull" 时，总会自动 merge
+git config --global credential.helper cache       # 在 clone `https` 类型的URL时，可减少用户名密码输入次数
+git config --global core.quotepath false          # 在提交中文名称的文件时，不转义为 \350\256\256\346\200\273\347\273\223.xlsx
+git config --global core.ignorecase false         # 文件名区分大小写
+git config --global oh-my-zsh.hide-dirty 1        # 避免 macos里 zsh/oh-my-zsh 换目录太慢
+git config --global oh-my-zsh.hide-info 1         # 避免 macos里 zsh/oh-my-zsh 换目录太慢
+git config --list
+
+
+git config --global http.proxy 'socks5://127.0.0.1:9999'
+#git config --global --unset  branch.autosetuprebase</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git add path/file              # 添加新文件
+git reset HEAD path/file       # 取消添加
+git commit  -m "commit msg"    # 提交修改
+git push                       # 推送到远程</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_代理">代理</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://cms-sw.github.io/tutorial-proxy.html">参考</a></p>
+</div>
+<div class="sect2">
+<h3 id="_git_协议">git 协议</h3>
+<div class="paragraph">
+<p>需要配置 ssh 的相关代理配置</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># ~/.ssh/config  @ internal
+Host github.com
+    User                    git
+    ProxyCommand            ssh user@gateway.host /usr/bin/nc %h %p
+    IdentityFile             ~/.ssh/id_rsa.gitlab</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_镜像">镜像</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git clone --mirror git@gitlab.com:kingsilk/qh-env.wiki.git
+cd qh-env.wiki.git
+git remote update</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_http_https_协议">http, https 协议</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># @gateway  开启 socks5 代理
+/usr/bin/ssh proxy@gateway.kingsilk.net \
+    -C -N -g -D gateway.kingsilk.net:9999 \
+    -o ExitOnForwardFailure=yes \
+    -o ServerAliveInterval=60
+
+# @internal 配置 git 使用代理
+git config --global http.proxy socks5://gateway.kingsilk.net:9999
+#git config core.gitproxy  socks5://prod11.kingsilk.net:9999</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_git_协议_2">git 协议</h3>
+<div class="paragraph">
+<p>参考: <a href="https://www.emilsit.net/blog/archives/how-to-use-the-git-protocol-through-a-http-connect-proxy/">1</a>、 <a href="https://gist.github.com/sit/49288">2</a>、 <a href="https://github.com/cms-sw/cms-git-tools/blob/master/git-proxy">git-proxy@cms-sw/cms-git-tools</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># @gateway  开启 socks5 代理
+/usr/bin/ssh proxy@gateway.kingsilk.net \
+    -C -N -g -D gateway.kingsilk.net:9999 \
+    -o ExitOnForwardFailure=yes \
+    -o ServerAliveInterval=60
+
+
+vi /data0/git-proxy
+#!/bin/bash
+nc -x gateway.kingsilk.net:9999 $1 $2
+
+chmod +x /data0/git-proxy
+
+git config --global core.gitproxy "/data0/git-proxy"
+git config --global socks.proxy "localhost:1080"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_创建仓库">创建仓库</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>参考：http://gitref.org/</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 远程服务器创建
+mkdir lizi-tmp
+cd lizi-tmp
+git --bare init
+
+# 本地创建
+mkdir zll
+cd zll
+git init
+echo hello &gt; README
+git add README
+git commit -m "first commit"
+
+# 将本地设置为跟踪远程服务器
+git remote add origin git@newcrm.nalashop.com:~/web/lizi-tmp
+git push --set-upstream origin master    # 注意: 会更改今后push 默认的 upstream
+# 将本地分支push到远程，不影响 今后push 默认的 upstream
+git push -u origin branch_aaa:master
+
+
+
+
+# 删除
+git rm README
+git rm --cached xxFile  # 保留本地磁盘文件
+git mv file_from file_to
+git log
+git --no-pager log # 直接输出到控制台，不分页
+git log -n 1 origin/master..xxxBranch                                                       # 0d5ca7bd1c1c0aeb463d53d7e5dc318c16267b56
+git log -n 1 --walk-reflogs --grep-reflog=origin/master --pretty=tformat:"%H"               # 倒序查看历史中第一个包含 origin/master 分支的 commitId
+git ls-remote --pretty=tformat:"%H" git@xxx.com:xxx-org/xxx-app.git  refs/heads/master      # 在没有本地代码仓的情况下直接插线远程git仓库中给定的 对象的信息（比如最后一个commitId）
+git show --no-patch --pretty=tformat:"%H %D" b482b9e3b3116f0185d6ae6effb21529f33003e1       # 查询给定的 commitid 的信息
+git merge-base origin/master dangqian_k8s                                                   # 查看两个分支 最后一个公共的 parent
+
+
+# 在提交前，将已标记为要提交的文件移除。
+git reset HEAD xxxFile
+
+# 取消修改
+git checkout -- benchmarks.rb
+
+# 修改最后一次提交
+git commit --amend
+
+# 查看当前工作区的状态
+git status
+# .gitignore 中可以忽略特定的文件
+git diff
+
+# 查看远程仓库的URL
+git config --get remote.origin.url</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_远程">远程</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 如果使用ssh key，就不要使用https协议
+git remote add origin git@10.1.18.153:zhangliangliang/test.git
+git remote set-url origin git@new-host:new-url
+git remote show
+git remote rm origin
+git push -u origin master:master  # 第一个master是本地分支，第二个master是远程分支
+
+git fetch --all -v
+git merge xxxRemote/feature/mtee-exception --allow-unrelated-histories
+
+
+
+# 重命名
+git remote rename origin xx
+
+# 从远程仓库上获取最新内容（不合并本地已经修改的内容）
+# 注意：分支号前面的加号可选
+# 如果 :local-branch-name 省略，则默认与remote-branch-name 相同
+git fetch remote-name  +remote-branch-name:local-branchName
+
+# 从远程仓库上获取最新内容（合并本地已经修改的内容）
+git pull --rebase
+
+# 提交到远程服务器
+git push remote-name [branch-name]
+
+## FIXME fetch, pull 是保存到工作空间？还是状态空间？</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tag">Tag</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 显示本地所有tag
+git tag
+# 显示指定前缀的tag
+git tag -l "v1.1*"
+# 显示具体某个tag的详情
+git show tag-name
+# 显示远程所有的分支和标签
+git ls-remote
+
+# 新建轻量级tag（不要使用 -a -s -m 选项）
+git tag v1.4-lw
+# 新建tag(默认是对当前状态进行tag)
+git tag -a new-tag-name -m some-message [commit-hash]
+# 新建签名的tag(不要使用 -a 选项）
+git tag -s tag-name -m some-message
+# 验证签名tag：会使用GPG进行验证，需要预先下载签名者的公钥
+git tag -v tag-name
+
+# 提交指定的tag到远程
+git push remote-name tag-name
+# 提交所有的tag到远程
+git push remote-name --tags
+
+# 删除本地tag
+git tag -d tag-name
+# 删除远程tag
+git push origin :refs/tags/tag-name
+
+# 检出tag
+git checkout tags/tag-name</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_branch">Branch</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 从给定 commitId 创建 branch
+git checkout -b NEW_BRANCH_NAME COMMIT_ID
+# 新建分支
+git branch branch-name
+# 检出远程分支
+git checkout -b local-branch-name origin/remote-branch-name
+# 切换本地分支
+git checkout branch-name
+
+# 新建并切换到该新分支(等价于上述两个命令)
+git checkout -b new-branch-name
+
+# 查看本地所有分支，以及工作空间所用的分支（前缀有*号）
+git branch
+# 查看远程分支
+git branch -r
+# 查看当前分支名称
+git symbolic-ref --short HEAD
+git rev-parse --abbrev-ref HEAD
+
+git branch | grep \* | cut -d ' ' -f2
+
+# 查看所有分支（本地和远程）
+git branch -av
+git show-branch
+# 查看当前分支是track远程的哪个分支
+git remote show origin
+
+# 查看分支最后一个提交对象
+git branch -v
+（分别叫做 stashing 和 commit amending）
+
+# 如果有有合并冲突的文件，需要手动合并后，再使用以下命令就OK了
+git add merged-by-hand-file
+git commit
+
+# 将本地分支推送到远程其他分支
+git push &lt;REMOTENAME&gt; &lt;LOCALBRANCHNAME&gt;:&lt;REMOTEBRANCHNAME&gt;
+git push origin master:1.0.x
+
+# 删除分支(本地)
+git branch -d branch-name
+# 删除分支(远程)
+git push origin --delete &lt;branch_name&gt;
+
+###  合并分支
+#          A---B---C 2.0.x
+#         /
+#    D---E---F---G master
+
+git checkout 2.0.x
+git rebase master
+#git rebase master 2.0.x
+
+#                  A'--B'--C' 2.0.x
+#                 /
+#    D---E---F---G master
+
+git checkout master
+git merge 2.0.x         # 这种情形是可以 fast-forwad 的
+
+# 如果只想将差异的内容检出，但不提交可以使用 --no-commit --no-ff
+git merge v1.0 --no-commit --no-ff</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_远程分支">远程分支</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 新建远程分支
+git push origin test:master         // 提交本地test分支作为远程的master分支
+
+# 合并远程分支
+git checkout remoteBranch1                 # ??? git checkout origin/branch1
+git push origin remoteBranch1:remoteBranch2
+
+
+# 删除远程分支
+git push origin :remoteBranch2</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_取消本地所有修改">取消本地所有修改</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 取消对文件的修改
+git reset --hard HEAD
+git reset --hard origin/master
+
+# 删除本地未索引的文件
+git clean -fdx
+
+git status</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_删除最后几次commit">删除最后几次commit</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 查看提交的log，并找到想要回滚到的commit的
+git log
+git reset --hard &lt;sha1-commit-id&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rebase">rebase</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>假如有新修改提交到本地了。在push前进行pull的时候， git自动合并并创建了一个新的commit，其注释为 &#8220;Merge branch &#8216;xxx&#8217; of git@xxxx/path/to/xxx.git into xxx&#8221;。此时，大家应当立即运行</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">gitk  # 此时有比较复杂的路线图
+git rebase
+gitk  # 此时就变成单线路了
+
+# rebase之后，会将本地的多个提交合并成一个提交，原来的多个提交的历史记录可以通过以下命令找到，包含已删除的
+git reflog --pretty=full
+git cherry-pick 12944d8
+
+# 直接检出给定分支的文件到本地
+git restore --source 71b291db537caaacae3433e86a16f2be7fc8a26f .</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_清理本地空间">清理本地空间</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>删除untraced 文件</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git clean -fd</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_检出特定commit_的文件">检出特定commit 的文件</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git restore &lt;commit-id&gt; *</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_单个文件">单个文件</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_查看日志">查看日志</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git log path/to/file
+
+# 图形化
+git log --graph --full-history --all --pretty=format:"%h%x09%d%x20%s"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_diff">diff</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git diff &lt;sha1-commit-id1&gt; &lt;sha1-commit-id2&gt; path/to/file</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_检出特定版本">检出特定版本</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git checkout &lt;sha1-commit-id&gt; path/to/file</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_无本地copy情况下从远程仓库检出最新的指定文件">无本地copy情况下，从远程仓库检出最新的指定文件</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git ls-remote git@git.test.me:/path/to/git/repo
+git archive --remote=git@git.test.me:/path/to/git/repo refs/heads/test path/to/file  --format zip -o /tmp/a.zip
+cd /tmp/
+unzip /tmp/a.zip
+cp path/to/file /path/to/dest</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_无本地copy情况下从远程仓库检出指定版本的指定文件">无本地copy情况下，从远程仓库检出指定版本的指定文件</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 先通过SSH登录到远程仓库，看一下test分支上指定文件的最近3条日志，找到所需的commit SHA1.
+ssh git@git.test.me "cd /path/to/git/repo &amp;&amp; git log -n 3 test -- path/to/file"
+git archive --remote=git@git.test.me:/path/to/git/repo d787416b0aec88747075ef0f5909bc4f863aa26e path/to/file  --format zip -o /tmp/a.zip
+cd /tmp/
+unzip /tmp/a.zip
+cp path/to/file /path/to/dest</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gitignore">.gitignore</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre>/target-eclipse/classes
+/web-app/WEB-INF/classes
+/target/
+/out/
+/test/
+/overlays/
+/db/
+.classpath
+.settings/
+.project
+.idea/
+.DS_Store
+*.iml
+*.ipr
+*.iws
+*.swp
+*.log</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>注意：如果要忽略特定的目录中的文件，但还想在远程仓库中保持该目录，则：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>emptyDir/*
+!emptyDir/.gitkeep</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_撤销提交">撤销提交</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_编辑最后一次本地提交">编辑最后一次本地提交</h3>
+<div class="paragraph">
+<p>也即，本地已经commit，但是没push到远程</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git reset --soft HEAD~1             # 先reset，会copy HEAD为.git/ORIG_HEAD
+doSomeEdit
+git add .
+git commit -c ORIG_HEAD             # 使用原来的commit消息，并提交</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_本地已经commit也已经push到远程但其他开发人员尚未拉取">本地已经commit，也已经push到远程，但其他开发人员尚未拉取</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git push -f                         # 本地修改之后，强制提交</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_本地已经commit也已经push到远程但其他开发人员已经拉取且进行了多次提交">本地已经commit，也已经push到远程，但其他开发人员已经拉取，且进行了多次提交</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git revert &lt;commit-id&gt;               # 该方法通过在最新commit之后新建一个commit来达到回滚的效果。
+
+git revert --no-commit d914dd573dbffcc861596f386a728d685d6987be..HEAD</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_统计">统计</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre># 一定时期内的代码提交次数
+git log --after=2015-01-01 --before=2016-03-01 --pretty='%ae' | sort | uniq -c | sort -k1 -n -r
+
+
+# 统计代码修改量
+git log --after=2015-01-01 --before=2016-03-01 --pretty='%an' | sort -u
+git log --author="btpka3" --pretty=tformat: --numstat \
+    | gawk '{ add += $1 ; subs += $2 ; loc += $1 - $2 } \
+    END { printf "added lines: %s removed lines : %s total lines: %s\n",add,subs,loc }' -
+
+# gitstats
+gitstats -c project_name=qh-app \
+    -c commit_begin=`git log --date-order --date=iso --before=2015-01-01 -n 1 --pretty='%H'` \
+    -c commit_end=`git log --date-order --date=iso --before=2016-03-01  -n 1 --pretty='%H'`  \
+    qh-app \
+    stat/qh-app</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sync">sync</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_repo">repo</h3>
+<div class="literalblock">
+<div class="content">
+<pre>git clone http://git.oschina.net/btpka3/btpka3.wiki.git
+cd btpka3.wiki
+git remote add gitlab git@git.kingsilk.xyz:btpka3/btpka3.wiki.git
+git config --list</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_crontab">crontab</h3>
+<div class="literalblock">
+<div class="content">
+<pre>0 */1  *   *   *   /home/zll/work/git-repo/oschina/sync-wiki.sh 2&gt;&amp;1 &gt;&gt;  /home/zll/work/git-repo/oschina/sync-wiki.log</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sync_wiki_sh">sync-wiki.sh</h3>
+<div class="literalblock">
+<div class="content">
+<pre>#!/bin/bash
+TIME="date +%Y-%m-%d.%H:%M:%S"
+
+cd /home/zll/work/git-repo/oschina/btpka3.wiki
+echo `$TIME` pull from gitlab
+git pull --rebase gitlab master
+[ $? = 0 ] || exit -1
+
+echo `$TIME` pull from oschina
+git pull --rebase origin master
+[ $? = 0 ] || exit -1
+
+echo `$TIME` push to oschina
+git push origin master:master
+[ $? = 0 ] || exit -1
+
+echo `$TIME` push to oschina
+git push -f gitlab master:master
+[ $? = 0 ] || exit -1
+
+echo `$TIME` Done.</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pull_request_merge_request">pull request, merge request</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 1. 开发人员fork一个要修改的分支(比如 "master")，修改、测试、并推送到远程（比如：远程分支 "zll-123")
+# 2. 要合并的人员进行以下操作：
+
+# 2.0 先获取最新
+git pull --all
+
+# 2.1 先获取最新，并检出经过修改的分支
+git fetch origin
+git checkout -b zll-123 origin/zll-123
+
+# 2.2 再检出要合并到的目标分支，
+git checkout master
+git merge --no-ff zll-123
+
+# 2.3 进行代码审查和测试
+
+# 2.4 推送的远程
+git push origin master</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_change_remote">change remote</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">APP=xhs
+
+cd ${APP}
+git status .
+git branch -av
+git remote -v
+git remote rm origin
+git remote add origin git@gitlab.com:kingsilk/${APP}.git
+git fetch
+git branch --set-upstream-to=origin/master master
+git remote -v
+git pull
+cd ..</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_transfer">transfer</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">cd /tmp
+git clone root@192.168.0.12:/home/git/repositories/kingsilk/env.wiki.git
+cd env.wiki
+git remote show
+git remote rm origin
+git remote add origin git@gitlab.com:kingsilk/qh-env.wiki.git
+git push -u origin --all
+git push -u origin --tags
+cd ..</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_修改_remote_地址">修改 remote 地址</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"># 1. 先查看当前 remote 地址
+git remote -v
+
+# 2. 修改 origin 地址（替换成你的新地址）
+git remote set-url origin git@github.com:your-org/your-repo.git
+
+# 3. 验证是否修改成功
+git remote -v</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_修改历史提交的_useremail">修改历史提交的 user/email</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">#
+git filter-branch --env-filter '
+OLD_EMAIL="btpka3@163.com"
+CORRECT_NAME="当千"
+CORRECT_EMAIL="dangqian.zll@alibaba-inc.com"
+
+if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_COMMITTER_NAME="$CORRECT_NAME"
+    export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
+fi
+if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_AUTHOR_NAME="$CORRECT_NAME"
+    export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
+fi
+' --tag-name-filter cat -- --branches --tags</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>另外，请参考使用 <a href="https://github.com/newren/git-filter-repo/">git-filter-repo</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-06-08 04:16:23 UTC
+</div>
+</div>
+</body>
+</html>

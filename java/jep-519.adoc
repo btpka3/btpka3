@@ -1,2 +1,0 @@
-
-link:https://openjdk.org/jeps/519[Compact Object Headers]

@@ -1,8 +1,0 @@
-http://www.pendrivelinux.com/yumi-multiboot-usb-creator/[YUMI]
-
-* http://www.laomaotao.org/[老毛桃]
-* http://cn.ubuntu.com/[Ubuntu]
-* http://lubuntu.net/[Lubuntu]
-* https://www.centos.org/[CentOs]
-* http://www.apple.com/osx/[OS X]
-* http://www.hackintosh.com/[Hackintosh] w

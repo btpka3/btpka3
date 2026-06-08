@@ -1,7 +1,0 @@
-== 加密类库
-
-* http://jasypt.org/[jasypt]，https://github.com/ulisesbocchio/jasypt-spring-boot[jasypt-spring-boot]
-
-== root密码
-
-可以使用在线的https://strongpasswordgenerator.com/[JS工具] 生成。

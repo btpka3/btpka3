@@ -1,3 +1,0 @@
-https://github.com/eirslett/frontend-maven-plugin
-
-下载 nodejs ,bower, gulp, webpack 等前端开发工具。

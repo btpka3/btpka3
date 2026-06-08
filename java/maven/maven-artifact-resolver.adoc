@@ -1,2 +1,0 @@
-* link:https://maven.apache.org/resolver/[Apache Maven Artifact Resolver]
-

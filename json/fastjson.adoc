@@ -1,5 +1,0 @@
-
-
-## xx
-* link:https://github.com/alibaba/fastjson2[fastjson2]
-* link:https://github.com/alibaba/fastjson[fastjson 1.x]

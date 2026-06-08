@@ -1,3 +1,0 @@
-Hadoop 是有 java 编写，核心是 HSFS 和 MapReduce
-
-* https://hadoop.apache.org/[apache hadoop]

@@ -1,2 +1,0 @@
-link:https://fory.apache.org/[Apache Fory]
-

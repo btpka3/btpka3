@@ -1,7 +1,0 @@
-https://docs.openclaw.ai/zh-CN/tools/clawhub
-
-[source,shell]
-----
-pnpm add -g clawhub
-clawhub search "maven"
-----

@@ -1,2 +1,0 @@
-* link:https://docs.langchain4j.dev/intro[langchain4j]
-* link:https://github.com/langchain4j/langchain4j[github:langchain4j]
